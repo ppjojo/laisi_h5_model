@@ -154,9 +154,7 @@
                 this.overlayShow = true;
                 pictureReview(file, res => {
                     this.overlayShow = false;
-                    if (res.code != 0) {
-                        this.$toast("图片审核未通过，请重新上传！");
-                    } else {
+                    if (res.code == 0) {
                         this.groupItem.image = res.url;
                         this.fileList[0].url=res.url
                     }
@@ -171,9 +169,7 @@
                 this.overlayShow=true;
                 textReview(this.groupItem.name + this.groupItem.introduce, res => {
                     this.overlayShow = false;
-                    if (res.code != 0) {
-                        this.$toast("小组名称或口号包含不合法词汇!");
-                    } else {
+                    if (res.code == 0) {
                          this.flag=3
                     }
                 })
