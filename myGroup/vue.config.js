@@ -28,7 +28,7 @@ module.exports = {
    * In most cases please use '/' !!!
    * Detail: https://cli.vuejs.org/config/#publicpath
    */
-  publicPath: process.env.NODE_ENV === "production" ? "/h5/h5V2/hello" : "/h5/h5V2/hello",
+  publicPath: process.env.NODE_ENV === "production" ? "/h5/h5V2/myGroup" : "/h5/h5V2/myGroup",
   outputDir: "hello",
   assetsDir: "static",
   lintOnSave: process.env.NODE_ENV === "development",

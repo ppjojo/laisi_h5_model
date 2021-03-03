@@ -1,7 +1,7 @@
 <template>
     <div id="app" v-cloak>
         <div class="header">
-            <van-nav-bar title="我的小组" @click-left="onclickLeft" @click-right="onClickRight" left-arrow safe-area-inset-top>
+            <van-nav-bar title="我的小组" @click-left="onclickLeft" @click-right="onClickRight" left-arrow safe-area-inset-top fixed>
                 <template #right>
                     <van-icon name="plus" style="font-size: 0.4rem;" />
                 </template>
@@ -53,7 +53,7 @@
             },
             onclickLeft() {
                 this.$interaction.closePage();
-                //
+                // this.$router.go(-1)
             },
             onClickRight() { //跳转创建小组
                 localStorage.removeItem("groupItem")

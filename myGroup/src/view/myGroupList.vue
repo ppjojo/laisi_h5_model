@@ -106,8 +106,7 @@
                 this.$interaction.closePage();
             },
             onClickRight() { //跳转创建小组
-                localStorage.removeItem("groupItem")
-                window.location.href = "createGroup1.html"
+                this.$router.push({path: '/createGroup'});
             },
             goGroupIndex(item) {
                this.$router.push({path: '/groupIndex', query: {id: item}});

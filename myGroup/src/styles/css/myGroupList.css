@@ -5,6 +5,10 @@
   font-style: normal;
 }
 
+.header {
+  height: 1rem;
+}
+
 .van-hairline--bottom::after {
   border: none;
 }
@@ -38,7 +42,6 @@
   padding: 0 0.3rem;
   height: 100vh;
   overflow: scroll;
-  margin-top: 1rem;
 }
 
 .myGroupList .labelTitle {

@@ -22,6 +22,13 @@ const routes = [
       title: '小组'
     }
   },
+  {
+    name: 'createGroup',
+    component: () => import('./view/createGroup'),
+    meta: {
+      title: '创建小组'
+    }
+  },
  
 ];
 
