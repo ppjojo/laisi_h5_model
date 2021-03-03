@@ -64,18 +64,15 @@ service.interceptors.response.use(
       res.code == 500 ||
       res.code == 1000 ||
       res.code == 1500 ||
-      res.code >= 2000
+      res.code == 2000
     ) {
       Toast({
         message: res.msg || "Error",
       });
       return Promise.reject(res);
+    }else {
+      return res;
     }
-    // else if (res.code == 2000) {
-    //   Toast({
-    //     message: '登录已过期！请重新登录',
-    //   })
-    // }
   },
   (error) => {
     Toast({
