@@ -9,9 +9,17 @@
     font-weight: normal;
     font-style: normal;
 }
-.header{
+.header {
     height: 1rem;
-}
+  }
+@supports ((height: constant(safe-area-inset-top)) or (height: env(safe-area-inset-top))) and (-webkit-overflow-scrolling: touch) {
+    .header{
+        height: 1rem;
+        height: calc(1rem + constant(safe-area-inset-top));
+        height: calc(1rem + env(safe-area-inset-top));
+    }
+  }
+
 .van-hairline--bottom::after{
     border: none;
 }

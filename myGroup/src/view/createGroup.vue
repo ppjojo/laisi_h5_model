@@ -85,7 +85,7 @@
 
         data() {
             return {
-                flag:3,
+                flag:1,
                 bgc: "linear-gradient(to right, #FF6A88, #FF5136 )",
                 bgcgrey: '#999',
                 previewImg: "",
