@@ -7,6 +7,7 @@ import { interaction } from '@u/interaction';
 Vue.prototype.$interaction = interaction
 
 import "vant/lib/index.less"
+import "./styles/flex_ub.css"
 
   try {
     if (isIOS) {
