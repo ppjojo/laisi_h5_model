@@ -134,9 +134,9 @@
         listItem
     } from '@a/test'
     import {
-        NavBar ,Icon ,Loading,Tag,Switch,Uploader
+        NavBar ,Icon ,Loading,Tag,Switch,Uploader,Dialog
     } from 'vant';
-
+	import { pictureReview } from '@u/tool';
     export default {
         components: {
             [NavBar.name]: NavBar,
@@ -145,7 +145,7 @@
             [Tag.name]: Tag,
             [Switch.name]: Switch,
             [Uploader.name]: Uploader,
-            // [GoodsAction.name]: GoodsAction,
+            [Dialog.name]: Dialog,
             // [GoodsActionIcon.name]: GoodsActionIcon,
             // [GoodsActionButton.name]: GoodsActionButton
         },
@@ -176,30 +176,25 @@
             },
 			afterRead(file) {
 				this.overlayShow = true;
-				uploadImg1(file, 'headpic', null, res => {
+				pictureReview(file,(res)=>{
 					this.overlayShow = false;
-					if (res.code != 0) {
-						this.$toast("图片审核未通过，请重新上传！");
-					} else {
+					if (res.code == 0) {
 						this.groupItem.image = res.url;
 					}
 				})
 			},
 			goMember(flag){
 				//1组长转让 2 组长转让并退出  3移除成员  4 成员列表
-				let url = './groupMember.html?flag='+flag;
-				window.location.href = url;
+				this.$router.push({path: '/groupMember', query: {flag: flag}});
 			},
 			goChangeNickname(){//修改昵称
 				this.$router.push({path: '/changeNickname', query: {name: 'sss'}});
 			},
 			goChangeMult(flag){//1小组口号--2小组公告---3小组标签--4小组名称
-				let url = 'multChangePage.html?flag='+flag+'&text=222';
-				// window.location.href = url;
 				this.$router.push({path: '/multChangePage', query: {flag: flag}});
 			},
 			cancelGroup(){//解散小组
-				this.$dialog.confirm({
+				Dialog.confirm({
 					confirmButtonText: '确定',
 					confirmButtonColor:'#e62000',
 					cancelButtonColor:'#999',
@@ -211,8 +206,8 @@
 				});
 			},
             onclickLeft() {
-                this.$interaction.closePage();
-                // this.$router.go(-1)
+                // this.$interaction.closePage();
+                this.$router.go(-1)
             },
             onClickRight() { //跳转创建小组
                 localStorage.removeItem("groupItem")
