@@ -166,7 +166,7 @@
   color: #AAAAAA;
 }
 
-.createGroup .uploaderBox .showImg {
+.createGroup .uploaderBox .van-uploader__preview-image {
   width: 2.4rem;
   height: 2.4rem;
   border-radius: 5px;
