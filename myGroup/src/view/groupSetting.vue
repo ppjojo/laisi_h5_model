@@ -223,6 +223,6 @@
 <style >
     @import '../styles/groupSetting/groupSetting.css';
 	.border-bottom .detail{
-		max-width: 4.8rem;
+		max-width: 4.8rem;   
 	}
 </style>
