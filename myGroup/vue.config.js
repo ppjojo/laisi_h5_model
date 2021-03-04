@@ -29,7 +29,7 @@ module.exports = {
    * Detail: https://cli.vuejs.org/config/#publicpath
    */
   publicPath: process.env.NODE_ENV === "production" ? "/h5/h5V2/myGroup" : "/h5/h5V2/myGroup",
-  outputDir: "myGroup",
+  outputDir: "dist",
   assetsDir: "static",
   lintOnSave: process.env.NODE_ENV === "development",
   productionSourceMap: false,
