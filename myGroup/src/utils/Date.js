@@ -1,23 +1,5 @@
-//android终端
-var isAndroid =
-  navigator.userAgent.indexOf("Android") > -1 ||
-  navigator.userAgent.indexOf("Adr") > -1;
-//iOS终端
-var isIOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
-export function getAppInfoAndUserInfo(ajaxData) { //获取app设备的信息 以及token信息
-	var timestamp = (new Date()).getTime();
-	localStorage.setItem('appInfoTimestamp', timestamp);
-	try {
-		if (isIOS) {
-			window.webkit.messageHandlers.lstNative.postMessage('getAppInfo');
-			this.getAppInfoAfter(ajaxData);
-		} else if (isAndroid) {
-			this.getAppInfo(window.android.getAppInfo(), ajaxData);
-		}
-	} catch (e) {
-		console.log(e)
-	}
-}
+import { isAndroid,isIOS } from '@u/tool';
+
 //传入时间戳获取日期显示在pk详情
 export function sjc2time(id, sjc) {
 	if (isIOS) {
