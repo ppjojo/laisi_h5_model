@@ -1,6 +1,6 @@
 <template>
     <div id="app" class="groupIndex" v-cloak>
-        <div class="header">
+        <!-- <div class="header">
             <van-nav-bar :title="documentTitle" @click-left="onclickLeft" left-arrow safe-area-inset-top fixed >
                 <template #right>
                     <div style="margin-right: 0.2rem;" @click="shareGroup()">
@@ -11,6 +11,24 @@
                     </div>
                 </template>
             </van-nav-bar>
+        </div> -->
+        <div data-v-675ad1f4="" class="header">
+            <div data-v-675ad1f4=""
+                class="van-nav-bar van-nav-bar_change van-nav-bar--fixed van-nav-bar--safe-area-inset-top van-hairline--bottom">
+                <div class="van-nav-bar__content">
+                    <div class="van-nav-bar__left " @click="onclickLeft()"><i class="van-icon van-icon-arrow-left van-nav-bar__arrow van-nav-bar__arrow_change">
+                            <!----></i></div>
+                    <div class="van-nav-bar__title van-nav-bar__title_change van-ellipsis">小组主页</div>
+                    <div class="van-nav-bar__right">
+                        <div data-v-675ad1f4="" style="margin-right: 0.2rem;" @click="shareGroup()"><i data-v-675ad1f4=""
+                                class="van-icon van-icon-share-o van-icon-share-o_change" style="font-size: 0.4rem;">
+                                <!----></i></div>
+                        <div data-v-675ad1f4="" @click="goSetting()"><i data-v-675ad1f4="" class="van-icon van-icon-setting-o van-icon-setting-o_change"
+                                style="font-size: 0.4rem;">
+                                <!----></i></div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div style="height: 5.6rem;">
             <div class="groupInfoBox">
@@ -142,11 +160,11 @@
         var colorValue = `rgba(255,255,255,${rate})`
         var val = parseInt(255 - rate * 255)
         var colorValue2 = `rgba(${val},${val},${val})`
-        document.getElementsByClassName("van-nav-bar")[0].style.background = colorValue
-        document.getElementsByClassName("van-nav-bar__title")[0].style.color = colorValue2
-        document.getElementsByClassName("van-nav-bar__arrow")[0].style.color = colorValue2
-        document.getElementsByClassName("van-icon-share-o")[0].style.color = colorValue2
-        document.getElementsByClassName("van-icon-setting-o")[0].style.color = colorValue2
+        document.getElementsByClassName("van-nav-bar_change")[0].style.background = colorValue
+        document.getElementsByClassName("van-nav-bar__title_change")[0].style.color = colorValue2
+        document.getElementsByClassName("van-nav-bar__arrow_change")[0].style.color = colorValue2
+        document.getElementsByClassName("van-icon-share-o_change")[0].style.color = colorValue2
+        document.getElementsByClassName("van-icon-setting-o_change")[0].style.color = colorValue2
     })
     import {
         listItem
@@ -229,7 +247,7 @@
 
             goNotice() {},
             goMemberlist() {},
-            
+
         }
     };
 </script>

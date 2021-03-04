@@ -1,22 +1,21 @@
-import axios from 'axios'
-import md5 from 'js-md5';
-import { Toast } from 'vant';
-import defaultSettings from '@/settings'
-
+import axios from "axios";
+import md5 from "js-md5";
+import { Toast } from "vant";
+import defaultSettings from "@/settings";
 
 // create an axios instance
 const service = axios.create({
   baseURL: defaultSettings.host, // url = base url + request url
   withCredentials: true, // send cookies when cross-domain requests
-  timeout: 100000 // request timeout
-})
-
+  timeout: 100000, // request timeout
+});
 
 // request interceptor
 service.interceptors.request.use(
-  config => {
-    let appInfo=JSON.parse(localStorage.getItem("appInfo"));
-    let token =appInfo.token;
+  (config) => {
+    // console.log(config)
+    let appInfo = JSON.parse(localStorage.getItem("appInfo"));
+    let token = appInfo.token;
     let random = Math.floor(Math.random() * 999999);
     let timestamp = new Date().getTime();
     config.headers.userId = appInfo.userId;
@@ -25,58 +24,62 @@ service.interceptors.request.use(
     let requestId = md5(timestamp + token + random);
     config.headers.requestId = requestId;
     config.headers.token = token;
+    if (!config.params) config.params = {};
     config.params.appId = appInfo.appId;
     config.params.appVersion = appInfo.appVersion;
     config.params.platform = appInfo.platform;
     config.params.userId = appInfo.userId;
     config.params.timeZone = appInfo.timeZone;
-    return config
+
+    return config;
   },
-  error => {
+  (error) => {
     // do something with request error
-    console.log(error) // for debug
-    return Promise.reject(error)
+    console.log(error); // for debug
+    return Promise.reject(error);
   }
-)
+);
 
 // response interceptor
 service.interceptors.response.use(
   /**
    * If you want to get http information such as headers or status
    * Please return  response => response
-  */
+   */
 
   /**
    * Determine the request status by custom code
    * Here is just an example
    * You can also judge the status by HTTP Status Code
    */
-  response => {
-    const res = response.data
-    console.log(response)
-
+  (response) => {
+    const res = response.data;
+    // console.log(response)
 
     // if the custom code is not 0, it is judged as an error.
-    if(res.data==0){
-      return res
-    }else if (res.code == 400 || res.code == 500 || res.code == 1000 || res.code == 1500||  res.code >2000) {
-      Toast({
-        message: res.msg || 'Error',
-      })
-      return Promise.reject(res)
-    } 
-    // else if (res.code == 2000) {
-    //   Toast({
-    //     message: '登录已过期！请重新登录',
-    //   })
-    // } 
+    if (res.code == 0) {
+      return res;
+    } else if (
+      res.code == 400 ||
+      res.code == 500 ||
+      res.code == 1000 ||
+      res.code == 1500 ||
+      res.code == 2000
+    ) {
+      // Toast({
+      //   message: res.msg || "Error",
+      // });
+      return Promise.reject(res);
+    }else {
+      return res;
+    }
   },
-  error => {
+  (error) => {
     Toast({
-      message: error.message,
-    })
-    return Promise.reject(error)
+      message: error.msg,
+    });
+    return Promise.reject(error);
   }
-)
+);
 
-export default service
+export default service;

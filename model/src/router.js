@@ -22,7 +22,34 @@ const routes = [
       title: '小组'
     }
   },
- 
+  {
+    name: 'createGroup',
+    component: () => import('./view/createGroup'),
+    meta: {
+      title: '创建小组'
+    }
+  },
+  {
+    name: 'changeNickname',
+    component: () => import('./view/changeNickname'),
+    meta: {
+      title: '修改昵称'
+    }
+  },
+  {
+    name: 'groupSetting',
+    component: () => import('./view/groupSetting'),
+    meta: {
+      title: '小组设置'
+    }
+  },
+  {
+    name: 'multChangePage',
+    component: () => import('./view/multChangePage'),
+    meta: {
+      title: '修改页面'
+    }
+  },
 ];
 
 // add route path

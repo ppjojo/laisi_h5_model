@@ -28,8 +28,8 @@ module.exports = {
    * In most cases please use '/' !!!
    * Detail: https://cli.vuejs.org/config/#publicpath
    */
-  publicPath: process.env.NODE_ENV === "production" ? "/h5/h5V2/hello" : "/h5/h5V2/hello",
-  outputDir: "hello",
+  publicPath: process.env.NODE_ENV === "production" ? "/h5/h5V2/myGroup" : "/h5/h5V2/myGroup",
+  outputDir: "myGroup",
   assetsDir: "static",
   lintOnSave: process.env.NODE_ENV === "development",
   productionSourceMap: false,
@@ -49,19 +49,19 @@ module.exports = {
            hack: `true; @import "${vantConfig}";`,
         },
         // 若 less-loader 版本小于 6.0，请移除 lessOptions 这一级，直接配置选项。
-        lessOptions: {
-          modifyVars: {
-            // 直接覆盖变量
-            red: '#1989fa',
-            blue: '#ee0a24',
-            orange: '#f08d49',
-            white:"#000",
-            'text-color': '#111',
-            'active-color': '#B4E7A0',
-            // 或者可以通过 less 文件覆盖（文件路径为绝对路径）
-             hack: `true; @import "${vantConfig}";`,
-          },
-        },
+        // lessOptions: {
+        //   modifyVars: {
+        //     // 直接覆盖变量
+        //     red: '#1989fa',
+        //     blue: '#ee0a24',
+        //     orange: '#f08d49',
+        //     white:"#000",
+        //     'text-color': '#111',
+        //     'active-color': '#B4E7A0',
+        //     // 或者可以通过 less 文件覆盖（文件路径为绝对路径）
+        //      hack: `true; @import "${vantConfig}";`,
+        //   },
+        // },
       },
     },
   },
@@ -102,23 +102,6 @@ module.exports = {
   chainWebpack(config) {
     config.plugins.delete("preload"); // TODO: need test
     config.plugins.delete("prefetch"); // TODO: need test
-
-    // set svg-sprite-loader
-    config.module
-      .rule("svg")
-      .exclude.add(resolve("src/icons"))
-      .end();
-    config.module
-      .rule("icons")
-      .test(/\.svg$/)
-      .include.add(resolve("src/icons"))
-      .end()
-      .use("svg-sprite-loader")
-      .loader("svg-sprite-loader")
-      .options({
-        symbolId: "icon-[name]",
-      })
-      .end();
 
     // set preserveWhitespace
     config.module
