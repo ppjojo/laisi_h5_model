@@ -42,7 +42,7 @@
             return {
                 bgc: "linear-gradient(to right, #FF6A88, #FF5136 )",
                 bgcgrey: '#999',
-				nickname:'',
+				nickname:this.$route.query.name||'',
 				clubid:''
             };
         },

@@ -45,8 +45,8 @@
 
         data() {
             return {
-                flag: 1,
-                text: '',
+                flag: parseInt(this.$route.query.flag),
+                text: this.$route.query.name||'',
                 title: '',
                 righttxt: '',
                 loading: false,

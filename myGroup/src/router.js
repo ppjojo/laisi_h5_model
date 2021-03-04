@@ -50,6 +50,13 @@ const routes = [
       title: '修改页面'
     }
   },
+  {
+    name: 'groupMember',
+    component: () => import('./view/groupMember'),
+    meta: {
+      title: '成员列表'
+    }
+  },
 ];
 
 // add route path
