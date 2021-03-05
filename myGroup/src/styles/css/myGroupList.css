@@ -76,7 +76,7 @@
   background-position: center center;
   border-radius: 10px;
   float: left;
-  background-size:cover;
+  background-size: cover;
 }
 
 .myGroupList .groupBox ul li .groupInfo {
@@ -291,6 +291,7 @@
   background-position: center center;
   border-radius: 10px;
   float: left;
+  background-size: cover;
 }
 
 .groupIndex .groupInfoBox .groupBox .groupInfo {

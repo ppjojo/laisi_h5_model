@@ -1,6 +1,6 @@
 <template>
     <div id="app" class="groupIndex" v-cloak>
-        <!-- <div class="header">
+        <div class="header">
             <van-nav-bar :title="documentTitle" @click-left="onclickLeft" left-arrow safe-area-inset-top fixed >
                 <template #right>
                     <div style="margin-right: 0.2rem;" @click="shareGroup()">
@@ -11,24 +11,6 @@
                     </div>
                 </template>
             </van-nav-bar>
-        </div> -->
-        <div data-v-675ad1f4="" class="header">
-            <div data-v-675ad1f4=""
-                class="van-nav-bar van-nav-bar_change van-nav-bar--fixed van-nav-bar--safe-area-inset-top van-hairline--bottom">
-                <div class="van-nav-bar__content">
-                    <div class="van-nav-bar__left " @click="onclickLeft()"><i class="van-icon van-icon-arrow-left van-nav-bar__arrow van-nav-bar__arrow_change">
-                            <!----></i></div>
-                    <div class="van-nav-bar__title van-nav-bar__title_change van-ellipsis">小组主页</div>
-                    <div class="van-nav-bar__right">
-                        <div data-v-675ad1f4="" style="margin-right: 0.2rem;" @click="shareGroup()"><i data-v-675ad1f4=""
-                                class="van-icon van-icon-share-o van-icon-share-o_change" style="font-size: 0.4rem;">
-                                <!----></i></div>
-                        <div data-v-675ad1f4="" @click="goSetting()"><i data-v-675ad1f4="" class="van-icon van-icon-setting-o van-icon-setting-o_change"
-                                style="font-size: 0.4rem;">
-                                <!----></i></div>
-                    </div>
-                </div>
-            </div>
         </div>
         <div style="height: 4.6rem;">
             <div class="groupInfoBox">
@@ -40,7 +22,8 @@
                         </div>
                         <div class="desc">{{groupItem.content}}</div>
                         <div class="labelBox">
-                            <div v-for="labelItem in labelFun(groupItem.labelId)" class="labelItem":class="labelItem[0]">{{labelItem[1]}}</div>
+                            <div v-for="labelItem in labelFun(groupItem.labelId)" class="labelItem"
+                                :class="labelItem[0]">{{labelItem[1]}}</div>
                         </div>
                     </div>
                 </div>
@@ -59,11 +42,10 @@
                 <div class="title">成员</div>
                 <div class="memberListDiv">
                     <div class="memberPersonPic">
-						<template v-for="(item ,index) in memberIcon">
-							<img :src="item.headPictureUrl" v-if="index<=5"
-							    :style="{left:''+index*0.5+'rem'}">
-						</template>
-                        
+                        <template v-for="(item ,index) in memberIcon">
+                            <img :src="item.headPictureUrl" v-if="index<=5" :style="{left:''+index*0.5+'rem'}">
+                        </template>
+
                     </div>
                     <div class="memberPersonNum" @click="goMemberlist()">
                         <div class="numP">{{groupItem.count}}人</div>
@@ -152,23 +134,12 @@
 </template>
 
 <script>
-    window.addEventListener("scroll", function () {
-        var t = document.documentElement.scrollTop || document.body.scrollTop;
-        var rate = t / 200
-        if (rate > 1) rate = 1
-        var colorValue = `rgba(255,255,255,${rate})`
-        var val = parseInt(255 - rate * 255)
-        var colorValue2 = `rgba(${val},${val},${val})`
-        document.getElementsByClassName("van-nav-bar_change")[0].style.background = colorValue
-        document.getElementsByClassName("van-nav-bar__title_change")[0].style.color = colorValue2
-        document.getElementsByClassName("van-nav-bar__arrow_change")[0].style.color = colorValue2
-        document.getElementsByClassName("van-icon-share-o_change")[0].style.color = colorValue2
-        document.getElementsByClassName("van-icon-setting-o_change")[0].style.color = colorValue2
-    })
+    
+
     import {
         getGroupInfo
     } from '@a/groupIndex';
-	const defaultSettings = require('../settings.js');
+    const defaultSettings = require('../settings.js');
     import {
         NavBar,
         Icon,
@@ -204,43 +175,69 @@
                 maxDate: new Date(),
                 currentDate: new Date(),
                 currentDatestr: "今日运动",
-				isCurrentUser:0,
-				memberIcon:[],
-				groupItem:{
-					name:'',
-					portrait:'',
-					slogon:'',
-					labelId:'',
-				}
+                isCurrentUser: 0,
+                memberIcon: [],
+                groupItem: {
+                    name: '',
+                    portrait: '',
+                    slogon: '',
+                    labelId: '',
+                }
             }
         },
         filters: {},
         mounted() {
-
+            window.addEventListener('scroll', this.scrollFn);
         },
         created() {
-			this.initData();
-		},
+            this.initData();
+        },
         methods: {
-			initData(){
-				getGroupInfo({groupId:this.groupId,searchTime:new Date().getTime()}).then(res=>{
-					this.groupItem = res.data.groupInfo;
-					this.memberIcon = res.data.memberIcon;
-					this.isCurrentUser = res.data.isCurrentUser;
-				})
-			},
-			labelFun(id){
-			   return defaultSettings.RETURN_LABEL(id)
-			},
+            initData() {
+                getGroupInfo({
+                    groupId: this.groupId,
+                    searchTime: new Date().getTime()
+                }).then(res => {
+                    this.groupItem = res.data.groupInfo;
+                    this.memberIcon = res.data.memberIcon;
+                    this.isCurrentUser = res.data.isCurrentUser;
+                })
+            },
+            labelFun(id) {
+                return defaultSettings.RETURN_LABEL(id)
+            },
+            scrollFn() {
+                var t = document.documentElement.scrollTop || document.body.scrollTop;
+                var rate = t / 200
+                if (rate > 1) rate = 1
+                var colorValue = `rgba(255,255,255,${rate})`
+                var val = parseInt(255 - rate * 255)
+                var colorValue2 = `rgba(${val},${val},${val})`
+                document.getElementsByClassName("van-nav-bar")[0].style.background = colorValue
+                document.getElementsByClassName("van-nav-bar__title")[0].style.color = colorValue2
+                document.getElementsByClassName("van-nav-bar__arrow")[0].style.color = colorValue2
+                document.getElementsByClassName("van-icon-share-o")[0].style.color = colorValue2
+                document.getElementsByClassName("van-icon-setting-o")[0].style.color = colorValue2
+            },
+            destroyed() {
+                window.removeEventListener('scroll', this.scrollFn); // 销毁监听
+            },
             onclickLeft() {
+               this.destroyed();
                 this.$router.go(-1)
+
             },
             shareGroup() {
                 console.log("分享")
             },
             goSetting() { //去设置页面
-				this.$router.push({path: '/groupSetting', query: {id: this.groupId}});
-                // window.location.href = `groupSetting.html?id=${4}`
+            this.destroyed();
+                this.$router.push({
+                    path: '/groupSetting',
+                    query: {
+                        id: this.groupId
+                    }
+                });
             },
             formatter(type, val) {
                 if (type === 'year') {
@@ -279,7 +276,4 @@
         background-color: transparent;
         z-index: 999;
     }
-	.groupIndex .groupInfoBox .groupBox .groupImg{
-		background-size: cover;
-	}
 </style>

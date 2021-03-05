@@ -23,9 +23,7 @@
 
 <script>
     
-    import {
-        listItem
-    } from '@a/test'
+   
     import {
         NavBar ,Icon ,Field
     } from 'vant';
