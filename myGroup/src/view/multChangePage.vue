@@ -129,4 +129,5 @@
 		background-color: #f5f5f5;
 		border-radius: .08rem;
 	}
+
 </style>
