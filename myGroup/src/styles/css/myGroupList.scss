@@ -81,6 +81,7 @@
                     background-position: center center;
                     border-radius: 10px;
                     float: left;
+					background-size:cover;
                 }
 
                 .groupInfo {
@@ -97,7 +98,7 @@
 
                         .name {
                             overflow: hidden;
-                            width: 4rem;
+                            max-width: 4rem;
                             white-space: nowrap;
                             text-overflow: ellipsis;
                         }
@@ -269,7 +270,7 @@
     .groupInfoBox {
         position: absolute;
         top: 0;
-
+		width: 100%;
         .bannerBg {
             height: 5.16rem;
             width: 100%;

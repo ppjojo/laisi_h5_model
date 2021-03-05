@@ -3,6 +3,7 @@ import defaultSettings from '@/settings'
 var interaction = {
     appNative: function (method, param) {
       //h5调用app原生
+	  if(!param)param={}
       try {
         if (isIOS) {
           param.method = method;

@@ -76,6 +76,7 @@
   background-position: center center;
   border-radius: 10px;
   float: left;
+  background-size:cover;
 }
 
 .myGroupList .groupBox ul li .groupInfo {
@@ -98,7 +99,7 @@
 
 .myGroupList .groupBox ul li .groupInfo .nameBox .name {
   overflow: hidden;
-  width: 4rem;
+  max-width: 4rem;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
@@ -263,6 +264,7 @@
 .groupIndex .groupInfoBox {
   position: absolute;
   top: 0;
+  width: 100%;
 }
 
 .groupIndex .groupInfoBox .bannerBg {

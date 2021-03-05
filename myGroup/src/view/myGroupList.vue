@@ -8,53 +8,45 @@
             </van-nav-bar>
         </div>
         <div class="myGroupList">
-            <div v-if="1">
+            <div v-if="createList.length>0">
                 <div class="labelTitle">我创建的</div>
                 <div class="groupBox">
                     <ul>
-                        <li v-for="item in 6" @click="goGroupIndex(item)">
+                        <li v-for="item in createList" @click="goGroupIndex(item)">
                             <!-- <div class="groupImg" style="background-image: url(../img/1.png);"></div> -->
-                            <div class="groupImg" :style="{'background-image':'url('+require('../img/1.png')+')'}"></div>
+                            <div class="groupImg" :style="{'background-image':'url('+item.portrait+')'}"></div>
                             <div class="groupInfo">
-                                <div class="nameBox"><span class="name">上海市松江区九亭镇俱乐上海市松江区九亭镇俱乐</span><span>(10)</span>
+                                <div class="nameBox"><span class="name">{{item.name}}</span><span>({{item.count}})</span>
                                 </div>
-                                <div class="desc">俱乐部简介至显示一行，俱乐部简介至显示一行俱乐部简介至显示一行俱乐部简介至显示一行</div>
+                                <div class="desc">{{item.content}}</div>
                                 <div class="labelBox">
-                                    <div class="labelItem js">健身</div>
-                                    <div class="labelItem jf">减肥</div>
-                                    <div class="labelItem jz">减脂</div>
-                                    <div class="labelItem ts">跳绳</div>
-                                    <div class="labelItem wlq">腕力球</div>
+									<div v-for="labelItem in labelFun(item.labelId)" class="labelItem" :class="labelItem[0]">{{labelItem[1]}}</div>
                                 </div>
                             </div>
                         </li>
                     </ul>
                 </div>
             </div>
-            <div v-if="1">
+            <div v-if="joinList.length>0">
                 <div class="labelTitle">我加入的</div>
                 <div class="groupBox">
                     <ul>
-                        <li v-for="item in 6">
-                            <div class="groupImg" :style="{'background-image':'url('+require('../img/1.png')+')'}"></div>
+                        <li v-for="item in joinList" @click="goGroupIndex(item)">
+                            <div class="groupImg" :style="{'background-image':'url('+item.portrait+')'}"></div>
                             <div class="groupInfo">
-                                <div class="nameBox"><span class="name">上海市松江区九亭镇俱乐上海市松江区九亭镇俱乐</span><span>(10)</span>
+                                <div class="nameBox"><span class="name">{{item.name}}</span><span>({{item.count}})</span>
                                 </div>
-                                <div class="desc">俱乐部简介至显示一行，俱乐部简介至显示一行俱乐部简介至显示一行俱乐部简介至显示一行</div>
+                                <div class="desc">{{item.content}}</div>
                                 <div class="labelBox">
-                                    <div class="labelItem js">健身</div>
-                                    <div class="labelItem jf">减肥</div>
-                                    <div class="labelItem jz">减脂</div>
-                                    <div class="labelItem ts">跳绳</div>
-                                    <div class="labelItem wlq">腕力球</div>
+                                    <div v-for="labelItem in labelFun(item.labelId)" class="labelItem" :class="labelItem[0]">{{labelItem[1]}}</div>
                                 </div>
                             </div>
                         </li>
                     </ul>
                 </div>
             </div>
-            <div v-if="0" class="nullDataBox">
-                <img src="../../common/img/noData.png" alt="">
+            <div v-if="joinList.length==0&&createList.length==0&&isFinish" class="nullDataBox">
+                <img :src="require('../img/noData.png')" alt="">
                 <p>暂无小组</p>
             </div>
         </div>
@@ -66,7 +58,8 @@
     
     import {
         listItem
-    } from '@a/test'
+    } from '@a/myGroupList';
+	const defaultSettings = require('../settings.js');
     import {
         NavBar ,Icon 
     } from 'vant';
@@ -86,22 +79,30 @@
 
         data() {
             return {
-                
+                joinList:[],
+				createList:[],
+				isFinish:false,
             };
         },
         filters: {},
         mounted() {
-            this.getList()
+            this.getList();
         },
         created() {},
         methods: {
             getList(){
-                listItem().then(()=>{
-                    console.log("success")
+                listItem({}).then((res)=>{
+					this.joinList = res.data[0];
+					this.createList = res.data[1];
+					this.isFinish = true;
                 }).catch(()=>{
+					this.isFinish = true;
                     console.log("error")
                 })
             },
+			labelFun(id){
+			   return defaultSettings.RETURN_LABEL(id)
+			},
             onclickLeft() {
                 this.$interaction.closePage();
             },
@@ -109,7 +110,7 @@
                 this.$router.push({path: '/createGroup'});
             },
             goGroupIndex(item) {
-               this.$router.push({path: '/groupIndex', query: {id: item}});
+               this.$router.push({path: '/groupIndex', query: {id: item.id}});
             }
         }
     };

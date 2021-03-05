@@ -30,21 +30,17 @@
                 </div>
             </div>
         </div>
-        <div style="height: 5.6rem;">
+        <div style="height: 4.6rem;">
             <div class="groupInfoBox">
-                <img class="bannerBg" :src="require('../img/1.png')" alt="">
+                <img class="bannerBg" :src="groupItem.portrait" alt="">
                 <div class="groupBox">
-                    <div class="groupImg" :style="{'background-image':'url('+require('../img/1.png')+')'}"></div>
+                    <div class="groupImg" :style="{'background-image':'url('+groupItem.portrait+')'}"></div>
                     <div class="groupInfo">
-                        <div class="nameBox"><span class="name">上海市松江区九亭镇俱乐上海市松江区九亭镇俱乐</span>
+                        <div class="nameBox"><span class="name">{{groupItem.name}}</span>
                         </div>
-                        <div class="desc">俱乐部简介至显示一行，俱乐部简介至显示一行俱乐部简介至显示一行俱乐部简介至显示一行</div>
+                        <div class="desc">{{groupItem.content}}</div>
                         <div class="labelBox">
-                            <div class="labelItem js">健身</div>
-                            <div class="labelItem jf">减肥</div>
-                            <div class="labelItem jz">减脂</div>
-                            <div class="labelItem ts">跳绳</div>
-                            <div class="labelItem wlq">腕力球</div>
+                            <div v-for="labelItem in labelFun(groupItem.labelId)" class="labelItem":class="labelItem[0]">{{labelItem[1]}}</div>
                         </div>
                     </div>
                 </div>
@@ -55,7 +51,7 @@
             <div class="noticeBox" @click="goNotice()">
                 <div class="noticeBoxLeft">
                     <img class="iconNotice" :src="require('../img/iconNotice.png')" alt="">
-                    <van-notice-bar class="noticeContent" background="#fff" text="在代码阅读过程中人们说脏话的频率是衡量代码质量的唯一标准。" />
+                    <van-notice-bar class="noticeContent" background="#fff" :text="groupItem.slogon||''" />
                 </div>
                 <img class="iconRight" :src="require('../img/iconRight.png')" alt="">
             </div>
@@ -63,11 +59,14 @@
                 <div class="title">成员</div>
                 <div class="memberListDiv">
                     <div class="memberPersonPic">
-                        <img :src="require('../img/1.png')" v-for="(item ,index) in 6"
-                            :style="{left:''+index*0.5+'rem'}">
+						<template v-for="(item ,index) in memberIcon">
+							<img :src="item.headPictureUrl" v-if="index<=5"
+							    :style="{left:''+index*0.5+'rem'}">
+						</template>
+                        
                     </div>
                     <div class="memberPersonNum" @click="goMemberlist()">
-                        <div class="numP">10人</div>
+                        <div class="numP">{{groupItem.count}}人</div>
                         <img class="iconRight" :src="require('../img/iconRight.png')" alt="">
                     </div>
                 </div>
@@ -103,7 +102,7 @@
                                         <span class="num"> 55</span>
                                         <span>%</span>
                                     </div>
-                                    <img class="iconRight" :src="require('../img/1.png')" alt="">
+                                    <img class="iconRight" :src="require('../img/iconRight.png')" alt="">
                                 </div>
                                 <div class="deviceItem">
                                     <img class="deviceImg" :src="require('../img/1.png')" alt="">
@@ -167,8 +166,9 @@
         document.getElementsByClassName("van-icon-setting-o_change")[0].style.color = colorValue2
     })
     import {
-        listItem
-    } from '@a/test'
+        getGroupInfo
+    } from '@a/groupIndex';
+	const defaultSettings = require('../settings.js');
     import {
         NavBar,
         Icon,
@@ -184,7 +184,6 @@
             [NoticeBar.name]: NoticeBar,
             [Popup.name]: Popup,
             [DatetimePicker.name]: DatetimePicker,
-
             // [Cell.name]: Cell,
             // [CellGroup.name]: CellGroup,
             // [Swipe.name]: Swipe,
@@ -205,14 +204,34 @@
                 maxDate: new Date(),
                 currentDate: new Date(),
                 currentDatestr: "今日运动",
+				isCurrentUser:0,
+				memberIcon:[],
+				groupItem:{
+					name:'',
+					portrait:'',
+					slogon:'',
+					labelId:'',
+				}
             }
         },
         filters: {},
         mounted() {
 
         },
-        created() {},
+        created() {
+			this.initData();
+		},
         methods: {
+			initData(){
+				getGroupInfo({groupId:this.groupId,searchTime:new Date().getTime()}).then(res=>{
+					this.groupItem = res.data.groupInfo;
+					this.memberIcon = res.data.memberIcon;
+					this.isCurrentUser = res.data.isCurrentUser;
+				})
+			},
+			labelFun(id){
+			   return defaultSettings.RETURN_LABEL(id)
+			},
             onclickLeft() {
                 this.$router.go(-1)
             },
@@ -220,7 +239,8 @@
                 console.log("分享")
             },
             goSetting() { //去设置页面
-                window.location.href = `groupSetting.html?id=${4}`
+				this.$router.push({path: '/groupSetting', query: {id: this.groupId}});
+                // window.location.href = `groupSetting.html?id=${4}`
             },
             formatter(type, val) {
                 if (type === 'year') {
@@ -259,4 +279,7 @@
         background-color: transparent;
         z-index: 999;
     }
+	.groupIndex .groupInfoBox .groupBox .groupImg{
+		background-size: cover;
+	}
 </style>

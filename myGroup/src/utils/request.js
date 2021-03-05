@@ -66,9 +66,9 @@ service.interceptors.response.use(
       res.code == 1500 ||
       res.code == 2000
     ) {
-      // Toast({
-      //   message: res.msg || "Error",
-      // });
+      Toast({
+        message: res.msg || "Error",
+      });
       return Promise.reject(res);
     }else {
       return res;
