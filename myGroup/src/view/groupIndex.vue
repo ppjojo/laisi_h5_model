@@ -63,16 +63,16 @@
                 </div>
                 <div class="personBox">
                     <ul>
-                        <li v-for="item in 4">
+                        <li v-for="item in userIdData">
                             <div class="personInfo">
-                                <img :src="require('../img/1.png')" class="personImg"></img>
+                                <img :src="item.headPictureUrl" class="personImg"></img>
                                 <div>
-                                    <div class="name">哈师大是卡卡是的</div>
-                                    <div class="idInfo">ID:124465</div>
+                                    <div class="name van-ellipsis">{{item.nickName}}</div>
+                                    <div class="idInfo">ID:{{item.userId}}</div>
                                 </div>
                             </div>
                             <div class="deviceList">
-                                <div class="deviceItem">
+                                <div class="deviceItem" v-if="returnUserData('balance',item.dataList)">
                                     <img class="deviceImg" :src="require('../img/group_tzc.png')" alt="">
                                     <div class="deviceData">
                                         <span>体重:</span>
@@ -97,7 +97,7 @@
                                         <span>用时:</span>
                                         <span class="num">00:30:00</span>
                                     </div>
-                                    <img class="iconRight" src="img/iconRight.png" alt="">
+                                    <img class="iconRight" :src="require('../img/iconRight.png')" alt="">
                                 </div>
                                 <div class="deviceItem">
                                     <img class="deviceImg" :src="require('../img/group_ts.png')" alt="">
@@ -110,7 +110,7 @@
                                         <span>用时:</span>
                                         <span class="num">00:30:00</span>
                                     </div>
-                                    <img class="iconRight" src="img/iconRight.png" alt="">
+                                    <img class="iconRight" :src="require('../img/iconRight.png')" alt="">
                                 </div>
                             </div>
 
@@ -177,6 +177,7 @@
                 currentDatestr: "今日运动",
                 isCurrentUser: 0,
                 memberIcon: [],
+				userIdData:[],
                 groupItem: {
                     name: '',
                     portrait: '',
@@ -197,10 +198,11 @@
             initData() {
                 getGroupInfo({
                     groupId: this.groupId,
-                    searchTime: new Date().getTime()
+                    searchTime:1565166618000|| new Date().getTime()
                 }).then(res => {
                     this.groupItem = res.data.groupInfo;
                     this.memberIcon = res.data.memberIcon;
+					this.userIdData = res.data.userIdData;
                     this.isCurrentUser = res.data.isCurrentUser;
                 })
             },
@@ -261,8 +263,15 @@
                 // this.getSchoolrank();
                 this.dateshow = false;
             },
-
-
+			returnUserData(id,list){
+				let obj = null;
+				list.forEach(d=>{
+					if(id==d.deviceType){
+						obj = d;
+					}
+				});
+				return obj
+			},
             goNotice() {},
             goMemberlist() {},
 
