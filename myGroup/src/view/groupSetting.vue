@@ -16,12 +16,14 @@
 			</div>
 		</div>
 		<div class="cellbox ub ub-ac border-bottom2" style="height: auto;">
-			<div class="groupMember ub-ac" v-for="item in 3">
-				<div class="imgbox ub ub-ac ub-pc">
-					<img class="headImg" :src="require('../img/plus.png')" alt="">
+			<template v-for="(item,index) in memberIcon">
+				<div class="groupMember ub-ac" v-if="index<=2">
+					<div class="imgbox ub ub-ac ub-pc">
+						<img class="headImg" :src="item.headPictureUrl" alt="">
+					</div>
+					<div class="van-ellipsis detail">{{item.nickname}}</div>
 				</div>
-				<div class="van-ellipsis detail">ssss</div>
-			</div>
+			</template>
 			<div class="groupMember ub-ac">
 				<div class="imgbox ub ub-ac ub-pc" style="background-color: #f5f5f5;">
 					<img :src="require('../img/plus.png')" alt="">
@@ -39,11 +41,13 @@
 		<div class="cellbox ub ub-ac ub-pj border-bottom">
 			<div class="title">小组形象</div>
 			<div class="ub ub-ac">
-				<van-uploader :after-read="afterRead">
-					<img class="headpic" :src="groupItem.portrait" />
-				</van-uploader>
-				<!-- <img class="headpic" :src="groupItem.portrait" /> -->
-				<van-icon color="#999" name="arrow" />
+				<template v-if="isCurrentUser">
+					<van-uploader :after-read="afterRead">
+						<img class="headpic" :src="groupItem.portrait" />
+					</van-uploader>
+					<van-icon color="#999" name="arrow" />
+				</template>
+				<img v-else class="headpic" :src="groupItem.portrait" />
 			</div>
 		</div>
 		<!-- 小组名称 -->
@@ -51,7 +55,7 @@
 			<div class="title">小组名称</div>
 			<div class="ub ub-ac">
 				<div class="van-ellipsis detail">{{groupItem.name}}</div>
-				<van-icon color="#999" name="arrow" />
+				<van-icon v-if="isCurrentUser" color="#999" name="arrow" />
 			</div>
 		</div>
 		<!-- 小组口号 -->
@@ -59,7 +63,7 @@
 			<div class="title">小组口号</div>
 			<div class="ub ub-ac">
 				<div class="van-ellipsis detail">{{groupItem.slogon}}</div>
-				<van-icon color="#999" name="arrow" />
+				<van-icon v-if="isCurrentUser" color="#999" name="arrow" />
 			</div>
 		</div>
 		<!-- 小组公告 -->
@@ -79,7 +83,7 @@
 						<div v-for="labelItem in labelFun(groupItem.labelId)" class="labelItem" :class="labelItem[0]">{{labelItem[1]}}</div>
 					</div>
 				</div>
-				<van-icon color="#999" name="arrow" />
+				<van-icon v-if="isCurrentUser" color="#999" name="arrow" />
 			</div>
 		</div>
 		<!-- 小组qr -->
@@ -90,17 +94,17 @@
 		<!-- 设为置顶 -->
 		<div class="cellbox ub ub-ac ub-pj border-bottom">
 			<div class="title">设为置顶</div>
-			<van-switch active-color="#07c160" active-value="1" inactive-value="0" v-model="groupItem.isTop" size="20"></van-switch>
+			<van-switch active-color="#07c160" @change="switchChange" :active-value="1" :inactive-value="0" v-model="groupItem.isTop" size="20"></van-switch>
 		</div>
 		<!-- 消息免打扰 -->
 		<div class="cellbox ub ub-ac ub-pj border-bottom">
 			<div class="title">消息免打扰</div>
-			<van-switch active-color="#07c160" active-value="1" inactive-value="0" v-model="groupItem.isSilent" size="20"></van-switch>
+			<van-switch active-color="#07c160" @change="switchChange" :active-value="1" :inactive-value="0" v-model="groupItem.isSilent" size="20"></van-switch>
 		</div>
 		<!-- 小组邀请确认 -->
-		<div class="cellbox ub ub-ac ub-pj border-bottom2">
+		<div class="cellbox ub ub-ac ub-pj border-bottom2" v-if="isCurrentUser">
 			<div class="title">小组邀请确认</div>
-			<van-switch active-color="#07c160" active-value="1" inactive-value="0" v-model="groupItem.isInviteConfirm" size="20"></van-switch>
+			<van-switch active-color="#07c160" @change="switchChange" :active-value="1" :inactive-value="0" v-model="groupItem.isInviteConfirm" size="20"></van-switch>
 		</div>
 		<!-- 我在小组中昵称 -->
 		<div class="cellbox ub ub-ac ub-pj border-bottom" @click="goChangeNickname">
@@ -111,7 +115,7 @@
 			</div>
 		</div>
 		<!-- 转让组长 -->
-		<div class="cellbox ub ub-ac ub-pj border-bottom2" @click="goMember(1)">
+		<div class="cellbox ub ub-ac ub-pj border-bottom2" v-if="isCurrentUser" @click="goMember(1)">
 			<div class="title">转让组长</div>
 			<van-icon color="#999" name="arrow" />
 		</div>
@@ -121,20 +125,20 @@
 			<van-icon color="#999" name="arrow" />
 		</div>
 		<!-- 退出 -->
-		<div class="cellbox quit" @click="goMember(2)">
+		<div class="cellbox quit" v-if="isCurrentUser" @click="goMember(2)">
 			转让并退出小组
 		</div>
 		<div class="border-bottom2"></div>
 		<!-- 退出 -->
 		<div class="cellbox quit" @click="cancelGroup">
-			解散小组
+			{{isCurrentUser?'解散小组':'退出小组'}}
 		</div>
 	</div>
 </template>
 
 <script>
 	import {
-		getGroupInfo
+		groupSettingInfo,getAllMember
 	} from '@a/groupIndex';
 	import {
 		upDateGroup
@@ -171,8 +175,8 @@
 				loading: false,
 				finished: false,
 				groupId: this.$route.query.id,
-				isCurrentUser:0,
-				memberIcon:[],
+				isCurrentUser: 0,
+				memberIcon: [],
 				groupItem: {
 					name: '',
 					portrait: '',
@@ -191,13 +195,14 @@
 		created() {},
 		methods: {
 			initData() {
-				getGroupInfo({
+				groupSettingInfo({
 					groupId: this.groupId,
-					searchTime: new Date().getTime()
 				}).then(res => {
-					this.groupItem = Object.assign(this.groupItem, res.data.groupInfo);
-					this.memberIcon = res.data.memberIcon;
+					this.groupItem = Object.assign(this.groupItem, res.data);
 					this.isCurrentUser = res.data.isCurrentUser;
+				});
+				getAllMember({groupId: this.groupId,}).then(res=>{
+					this.memberIcon = res.data;
 				})
 			},
 			afterRead(file) {
@@ -228,10 +233,12 @@
 				});
 			},
 			goChangeMult(flag) { //1小组口号--2小组公告---3小组标签--4小组名称
+				if (!this.isCurrentUser || flag != 2) return;
 				this.$router.push({
 					path: '/multChangePage',
 					query: {
-						flag: flag
+						flag: flag,
+						isCurrentUser: this.isCurrentUser
 					}
 				});
 			},
@@ -249,6 +256,12 @@
 				}).catch(() => {
 
 				});
+			},
+			switchChange(){
+				console.log(this.groupItem)
+				upDateGroup(this.groupItem).then(res => {
+				
+				})
 			},
 			onclickLeft() {
 				// this.$interaction.closePage();
@@ -292,7 +305,8 @@
 		height: 0.32rem;
 		border-radius: 0.1rem;
 	}
-	.labelBox .labelItem:last-child{
+
+	.labelBox .labelItem:last-child {
 		margin-right: 0;
 	}
 </style>

@@ -42,6 +42,7 @@
 }
 .cellbox .groupMember .imgbox img.headImg{
 	width: 100%;
+	border-radius: 100%;
 }
 .border-bottom {
 	border-bottom: .02rem solid #f5f5f5;

@@ -18,9 +18,7 @@
 
 <script>
     
-    import {
-        listItem
-    } from '@a/test'
+  
     import {
         NavBar ,CellGroup,Field,Button
     } from 'vant';
