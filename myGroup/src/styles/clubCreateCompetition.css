@@ -304,7 +304,7 @@ textarea::placeholder {
 }
 
 .van-switch {
-	width: 1.2rem;
+	width: 1rem;
 	height: .46rem;
 }
 
@@ -315,5 +315,5 @@ textarea::placeholder {
 }
 
 .van-switch--on .van-switch__node {
-	transform: translateX(.6rem);
+	transform: translateX(.56rem);
 }

@@ -94,17 +94,20 @@
 		<!-- 设为置顶 -->
 		<div class="cellbox ub ub-ac ub-pj border-bottom">
 			<div class="title">设为置顶</div>
-			<van-switch active-color="#07c160" @change="switchChange" :active-value="1" :inactive-value="0" v-model="groupItem.isTop" size="20"></van-switch>
+			<van-switch active-color="#07c160" @change="switchChange" :active-value="1" :inactive-value="0" v-model="groupItem.isTop"
+			 size="20"></van-switch>
 		</div>
 		<!-- 消息免打扰 -->
 		<div class="cellbox ub ub-ac ub-pj border-bottom">
 			<div class="title">消息免打扰</div>
-			<van-switch active-color="#07c160" @change="switchChange" :active-value="1" :inactive-value="0" v-model="groupItem.isSilent" size="20"></van-switch>
+			<van-switch active-color="#07c160" @change="switchChange" :active-value="1" :inactive-value="0" v-model="groupItem.isSilent"
+			 size="20"></van-switch>
 		</div>
 		<!-- 小组邀请确认 -->
 		<div class="cellbox ub ub-ac ub-pj border-bottom2" v-if="isCurrentUser">
 			<div class="title">小组邀请确认</div>
-			<van-switch active-color="#07c160" @change="switchChange" :active-value="1" :inactive-value="0" v-model="groupItem.isInviteConfirm" size="20"></van-switch>
+			<van-switch active-color="#07c160" @change="switchChange" :active-value="1" :inactive-value="0" v-model="groupItem.isInviteConfirm"
+			 size="20"></van-switch>
 		</div>
 		<!-- 我在小组中昵称 -->
 		<div class="cellbox ub ub-ac ub-pj border-bottom" @click="goChangeNickname">
@@ -138,7 +141,9 @@
 
 <script>
 	import {
-		groupSettingInfo,getAllMember
+		groupSettingInfo,
+		getAllMember,
+		memberExit
 	} from '@a/groupIndex';
 	import {
 		upDateGroup
@@ -184,7 +189,8 @@
 					labelId: '',
 					isTop: 0,
 					isSilent: 0,
-					isInviteConfirm: 0
+					isInviteConfirm: 0,
+					nickname: '',
 				}
 			};
 		},
@@ -198,10 +204,13 @@
 				groupSettingInfo({
 					groupId: this.groupId,
 				}).then(res => {
-					this.groupItem = Object.assign(this.groupItem, res.data);
-					this.isCurrentUser = res.data.isCurrentUser;
+					this.isCurrentUser = res.data.myteamGroupMember.isGroupLeader;
+					this.groupItem = Object.assign(this.groupItem, res.data.myteamGroupInfo);
+					this.groupItem = Object.assign(this.groupItem, res.data.myteamGroupMember);
 				});
-				getAllMember({groupId: this.groupId,}).then(res=>{
+				getAllMember({
+					groupId: this.groupId,
+				}).then(res => {
 					this.memberIcon = res.data;
 				})
 			},
@@ -220,7 +229,8 @@
 				this.$router.push({
 					path: '/groupMember',
 					query: {
-						flag: flag
+						flag: flag,
+						id: this.groupId
 					}
 				});
 			},
@@ -228,17 +238,31 @@
 				this.$router.push({
 					path: '/changeNickname',
 					query: {
-						name: 'sss'
+						name: this.groupItem.nickname,
+						id: this.groupId
 					}
 				});
 			},
 			goChangeMult(flag) { //1小组口号--2小组公告---3小组标签--4小组名称
-				if (!this.isCurrentUser || flag != 2) return;
+				if (!this.isCurrentUser && (!this.isCurrentUser && flag != 2)) return;
+				if (flag == 3) { //前往标签
+					this.$router.push({
+						path: '/createGroup',
+						query: {
+							id: this.groupId,
+							labelId: this.groupItem.labelId,
+							edit:1
+						}
+					});
+					return;
+				}
 				this.$router.push({
 					path: '/multChangePage',
 					query: {
 						flag: flag,
-						isCurrentUser: this.isCurrentUser
+						id: this.groupId,
+						isCurrentUser: this.isCurrentUser,
+						text: flag == 1 ? this.groupItem.slogon : flag == 2 ? this.groupItem.content : this.groupItem.name
 					}
 				});
 			},
@@ -246,21 +270,30 @@
 				return defaultSettings.RETURN_LABEL(id)
 			},
 			cancelGroup() { //解散小组
+				let str = "确定退出小组？";
+				if (this.isCurrentUser) str = '确定解散小组？';
 				Dialog.confirm({
 					confirmButtonText: '确定',
 					confirmButtonColor: '#e62000',
 					cancelButtonColor: '#999',
-					message: '确定解散小组？'
+					message: str
 				}).then(() => {
+					if (this.isCurrentUser) {
+						return;
+					}
+					//成员退出
+					memberExit({
+						groupId: this.groupId
+					}).then(res => {
 
+					})
 				}).catch(() => {
 
 				});
 			},
-			switchChange(){
-				console.log(this.groupItem)
+			switchChange() {
 				upDateGroup(this.groupItem).then(res => {
-				
+
 				})
 			},
 			onclickLeft() {

@@ -20,3 +20,18 @@ export function getAllMember(data) {
         params:data
     })
 }
+export function memberExit(data) {
+    return request({
+        url: 'myteam/member/exit/member',
+        method: 'post',
+		data,
+    })
+}
+export function changeNickname(data) {
+    return request({
+        url: 'myteam/member/update/nickName',
+        method: 'post',
+		data,
+		params:data
+    })
+}

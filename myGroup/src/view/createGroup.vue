@@ -1,7 +1,12 @@
 <template>
 	<div id="app" v-cloak>
 		<div class="header">
-			<van-nav-bar :title="'创建小组('+flag+'/3)'" @click-left="onclickLeft" left-arrow safe-area-inset-top fixed></van-nav-bar>
+			<van-nav-bar :title="titleText" @click-left="onclickLeft" @click-right="onClickRight" left-arrow safe-area-inset-top
+			 fixed>
+				<template #right>
+					<div v-if="edit" :style="{color:'#e60012',fontSize:'.32rem'}">完成</div>
+				</template>
+			</van-nav-bar>
 		</div>
 		<div class="createGroup" v-if="flag==1">
 			<div class="labelTitle">小组形象</div>
@@ -21,13 +26,13 @@
 			</div>
 			<div class="labelTitle" style="margin-top: 0.5rem;">小组口号</div>
 			<div>
-				<van-field v-model="groupItem.content" :input="contentChange()" rows="5" autosize style="background-color: #f5f5f5;"
+				<van-field v-model="groupItem.slogon" :input="contentChange()" rows="5" autosize style="background-color: #f5f5f5;"
 				 type="textarea" maxlength="100" placeholder="简单介绍一下您的小组～" show-word-limit />
 			</div>
 
 
 
-			<van-button round class="nextStep" block @click="goNext2()" :color="groupItem.name&&groupItem.content?bgc:bgcgrey">下一步
+			<van-button round class="nextStep" block @click="goNext2()" :color="groupItem.name&&groupItem.slogon?bgc:bgcgrey">下一步
 			</van-button>
 
 			<van-loading type="spinner" vertical v-show="overlayShow"></van-loading>
@@ -46,7 +51,7 @@
 
 				</ul>
 			</div>
-			<van-button round class="nextStep" block @click="create(labelArray.length>0)" :color="labelArray.length>0?bgc:bgcgrey">创建
+			<van-button round class="nextStep" v-if="!edit" block @click="create(labelArray.length>0)" :color="labelArray.length>0?bgc:bgcgrey">创建
 			</van-button>
 
 			<van-loading type="spinner" vertical v-show="overlayShow"></van-loading>
@@ -57,8 +62,12 @@
 
 <script>
 	import {
-		createGroup
+		createGroup,
+		upDateGroup
 	} from '@a/createGroup'
+	import {
+		groupSettingInfo
+	} from '@a/groupIndex';
 	import {
 		pictureReview,
 		textReview
@@ -89,6 +98,9 @@
 		data() {
 			return {
 				flag: 1,
+				groupId: this.$route.query.id || null,
+				labelId: this.$route.query.labelId || '',
+				edit: this.$route.query.edit || null,
 				bgc: "linear-gradient(to right, #FF6A88, #FF5136 )",
 				bgcgrey: '#999',
 				previewImg: "",
@@ -98,30 +110,58 @@
 					portrait: "",
 					name: "",
 					content: "",
-					labelId: ""
+					labelId: "",
+					slogon:''
 				},
-				labelArray: [],
-				labelConfig: defaultSettings.label
+				labelArray: this.$route.query.labelId ? this.$route.query.labelId.split(",") : [],
+				labelConfig: defaultSettings.label,
+				titleText: '',
 			};
 		},
 		watch: {
 			labelArray(val, oldVal) { //普通的watch监听
 				this.groupItem.labelId = val.toString();
 			},
+			flag(val, oldVal) {
+				if (!this.edit) {
+					this.titleText = '创建小组(' + val + '/3)';
+				}
+			}
 		},
 		filters: {},
 		mounted() {},
-		created() {},
+		created() {
+			if (this.edit) { //来修改标签的
+				// this.labelArray = this.labelId.split(",");
+				this.flag = 3;
+				this.titleText = "小组标签";
+				groupSettingInfo({
+					groupId: this.groupId,
+				}).then(res => {
+					this.groupItem = Object.assign(this.groupItem, res.data.myteamGroupInfo);
+					this.groupItem = Object.assign(this.groupItem, res.data.myteamGroupMember);
+				});
+			} else {
+				this.titleText = '创建小组(' + this.flag + '/3)';
+			}
+		},
 		methods: {
-
+			onClickRight() { //
+				if (this.labelArray.length == 0) return;
+				upDateGroup(this.groupItem).then(res => {
+					Toast('编辑小组标签成功！');
+					setTimeout(()=>{
+						this.onclickLeft();	
+					},1500)
+				})
+			},
 			onclickLeft() {
-				if (this.flag > 1) {
+				if (this.flag > 1 && !this.edit) {
 					this.flag--
 				} else {
 					this.$router.go(-1)
 				}
 			},
-
 			afterRead(file) {
 				this.overlayShow = true;
 				pictureReview(file, res => {
@@ -148,11 +188,11 @@
 			},
 			inArray: function(id) { //判断该标签是否选中
 				if (!id) return ''
-				var index = this.labelArray.findIndex(item => item === id)
+				var index = this.labelArray.findIndex(item => parseInt(item) === id)
 				return index == -1 ? false : true
 			},
 			labelChange(id) {
-				var index = this.labelArray.findIndex(item => item === id)
+				var index = this.labelArray.findIndex(item => parseInt(item) === id)
 				if (index == -1) this.labelArray.push(id);
 				else this.labelArray.splice(index, 1);
 			},
@@ -166,12 +206,17 @@
 			},
 
 			create(flag) {
-				if(!flag)return;
-				createGroup(this.groupItem).then(res=>{
+				if (!flag) return;
+				createGroup(this.groupItem).then(res => {
 					Toast('创建小组成功！');
-					setTimeout(()=>{
-						this.$router.replace({path: '/groupIndex', query: {id: res.data.id}});
-					},1500)
+					setTimeout(() => {
+						this.$router.replace({
+							path: '/groupIndex',
+							query: {
+								id: res.data.id
+							}
+						});
+					}, 1500)
 				})
 			}
 		}

@@ -226,7 +226,7 @@
 				getGroupInfo({groupId:this.groupId,searchTime:new Date().getTime()}).then(res=>{
 					this.groupItem = res.data.groupInfo;
 					this.memberIcon = res.data.memberIcon;
-					this.isCurrentUser = res.data.isCurrentUser;
+					this.isCurrentUser = res.data.isGrouptMember;
 				})
 			},
 			labelFun(id){
