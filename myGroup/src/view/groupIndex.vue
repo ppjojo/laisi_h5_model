@@ -121,7 +121,7 @@
             </div>
 
             <div class="btn_box">
-                <div class="btn">小组群聊</div>
+                <div class="btn" @click="goToGroupChat">小组群聊</div>
             </div>
 
             <van-popup v-model="dateshow" position="bottom" style="z-index: 9999;">
@@ -274,6 +274,12 @@
 			},
             goNotice() {},
             goMemberlist() {},
+            goToGroupChat(){
+                this.$interaction.appNative("LSTH5APP_goToGroupChat",{
+                    chatGroupId:1
+                });
+                
+            }
 
         }
     };

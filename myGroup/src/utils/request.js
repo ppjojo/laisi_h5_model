@@ -57,7 +57,7 @@ service.interceptors.response.use(
     // console.log(response)
 
     // if the custom code is not 0, it is judged as an error.
-    console.log(response)
+    //console.log(response)
     if (res.code == 0) {
       return res;
     } else if (
