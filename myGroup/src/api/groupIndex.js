@@ -35,3 +35,11 @@ export function changeNickname(data) {
 		params:data
     })
 }
+export function relieveGroup(data) {
+    return request({
+        url: 'myteam/group/relieve/groupAndMember',
+        method: 'post',
+		data,
+		params:data
+    })
+}

@@ -20,7 +20,7 @@
                     <div class="groupInfo">
                         <div class="nameBox"><span class="name">{{groupItem.name}}</span>
                         </div>
-                        <div class="desc">{{groupItem.content}}</div>
+                        <div class="desc">{{groupItem.slogon}}</div>
                         <div class="labelBox">
                             <div v-for="labelItem in labelFun(groupItem.labelId)" class="labelItem"
                                 :class="labelItem[0]">{{labelItem[1]}}</div>
@@ -34,7 +34,7 @@
             <div class="noticeBox" @click="goNotice()">
                 <div class="noticeBoxLeft">
                     <img class="iconNotice" :src="require('../img/iconNotice.png')" alt="">
-                    <van-notice-bar class="noticeContent" background="#fff" :text="groupItem.slogon||''" />
+                    <van-notice-bar class="noticeContent" background="#fff" :text="groupItem.content||''" />
                 </div>
                 <img class="iconRight" :src="require('../img/iconRight.png')" alt="">
             </div>
@@ -76,39 +76,41 @@
                                     <img class="deviceImg" :src="require('../img/group_tzc.png')" alt="">
                                     <div class="deviceData">
                                         <span>体重:</span>
-                                        <span class="num"> 55</span>
+                                        <span class="num"> {{returnUserData('balance',item.dataList).weight}}</span>
                                         <span>kg</span>
                                     </div>
                                     <div class="deviceData">
                                         <span>体脂:</span>
-                                        <span class="num"> 55</span>
+                                        <span class="num"> {{returnUserData('balance',item.dataList).bfr}}</span>
                                         <span>%</span>
                                     </div>
                                     <img class="iconRight" :src="require('../img/iconRight.png')" alt="">
                                 </div>
-                                <div class="deviceItem">
+                                <div class="deviceItem" v-if="returnUserData('wristball',item.dataList)">
                                     <img class="deviceImg" :src="require('../img/group_wlq.png')" alt="">
                                     <div class="deviceData">
                                         <span>圈数:</span>
-                                        <span class="num"> 5252</span>
+                                        <span class="num">
+										{{ returnUserData('wristball',item.dataList).totalNumber?(returnUserData('wristball',item.dataList).totalNumber/10000).toFixed(3):0 }}
+										</span>
                                         <span>万</span>
                                     </div>
                                     <div class="deviceData">
                                         <span>用时:</span>
-                                        <span class="num">00:30:00</span>
+                                        <span class="num">{{returnTime(returnUserData('wristball',item.dataList).totalTime)}}</span>
                                     </div>
                                     <img class="iconRight" :src="require('../img/iconRight.png')" alt="">
                                 </div>
-                                <div class="deviceItem">
+                                <div class="deviceItem" v-if="returnUserData('skipping',item.dataList)">
                                     <img class="deviceImg" :src="require('../img/group_ts.png')" alt="">
                                     <div class="deviceData">
                                         <span>个数:</span>
-                                        <span class="num">55555</span>
+                                        <span class="num">{{returnUserData('skipping',item.dataList).totalNumber}}</span>
                                         <span>个</span>
                                     </div>
                                     <div class="deviceData">
                                         <span>用时:</span>
-                                        <span class="num">00:30:00</span>
+                                        <span class="num">{{returnTime(returnUserData('skipping',item.dataList).totalTime)}}</span>
                                     </div>
                                     <img class="iconRight" :src="require('../img/iconRight.png')" alt="">
                                 </div>
@@ -279,7 +281,17 @@
                     chatGroupId:1
                 });
                 
-            }
+            },
+			returnTime(unit){
+				if(!unit)return '00:00:00';
+				unit = Math.round(unit/1000);
+				let hour = Math.floor(unit / 3600) >= 10 ? Math.floor(unit / 3600) : '0' + Math.floor(unit / 3600);
+				unit -= 3600 * hour;
+				let min = Math.floor(unit / 60) >= 10 ? Math.floor(unit / 60) : '0' + Math.floor(unit / 60);
+				unit -= 60 * min;
+				let sec = unit >= 10 ? unit : '0' + unit;
+				return hour + ':' + min + ':' + sec;
+			}
 
         }
     };
@@ -288,7 +300,7 @@
     @import '../styles/css/myGroupList.css';
 	@import "../font/iconfont.css";
 </style>
-<style >
+<style  scoped>
 	@font-face {
 	  font-family: 'icon-tongyong-fenxiang';
 	  src: url('../font/iconfont.ttf') format('truetype');

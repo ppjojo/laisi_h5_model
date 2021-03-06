@@ -142,8 +142,8 @@
 <script>
 	import {
 		groupSettingInfo,
-		getAllMember,
-		memberExit
+		memberExit,
+		relieveGroup
 	} from '@a/groupIndex';
 	import {
 		upDateGroup
@@ -207,12 +207,8 @@
 					this.isCurrentUser = res.data.myteamGroupMember.isGroupLeader;
 					this.groupItem = Object.assign(this.groupItem, res.data.myteamGroupInfo);
 					this.groupItem = Object.assign(this.groupItem, res.data.myteamGroupMember);
+					this.memberIcon = res.data.myteamGroupMemberList;
 				});
-				getAllMember({
-					groupId: this.groupId,
-				}).then(res => {
-					this.memberIcon = res.data;
-				})
 			},
 			afterRead(file) {
 				this.overlayShow = true;
@@ -251,7 +247,7 @@
 						query: {
 							id: this.groupId,
 							labelId: this.groupItem.labelId,
-							edit:1
+							edit: 1
 						}
 					});
 					return;
@@ -279,13 +275,22 @@
 					message: str
 				}).then(() => {
 					if (this.isCurrentUser) {
+						relieveGroup({
+							groupId: this.groupId
+						}).then(res => {
+							this.$router.replace({
+								path: '/myGroupList',
+							});
+						})
 						return;
 					}
 					//成员退出
 					memberExit({
 						groupId: this.groupId
 					}).then(res => {
-
+						this.$router.replace({
+							path: '/myGroupList',
+						});
 					})
 				}).catch(() => {
 
@@ -327,6 +332,10 @@
 
 	.border-bottom .detail {
 		max-width: 4.8rem;
+	}
+
+	.groupMember .van-ellipsis {
+		max-width: .92rem;
 	}
 
 	.labelBox .labelItem {
