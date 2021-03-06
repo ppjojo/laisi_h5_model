@@ -65,15 +65,20 @@ service.interceptors.response.use(
       res.code == 500 ||
       res.code == 1000 ||
       res.code == 1500 ||
-      res.code == 2000
+      res.code == 2000 ||
+      res.code == 2961
     ) {
-      if(res){
+      if (res) {
         Toast({
           message: res.msg || "Error",
         });
+      }else{
+        Toast({
+          message: "系统异常",
+        });
       }
       return Promise.reject(res);
-    }else {
+    } else {
       return res;
     }
   },

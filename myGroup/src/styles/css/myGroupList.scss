@@ -135,25 +135,26 @@
         }
     }
 
-    .nullDataBox {
-        margin-top: 3.5rem;
-        background-color: #fff;
-        text-align: center;
+    
 
-        img {
-            width: 4rem;
-        }
 
-        p {
-            font-size: 0.25rem;
-            color: #999;
-            line-height: 1rem;
-            margin: 0;
-            padding: 0;
-        }
+}
+.nullDataBox {
+    margin-top: 3.5rem;
+    background-color: #fff;
+    text-align: center;
+
+    img {
+        width: 4rem;
     }
 
-
+    p {
+        font-size: 0.25rem;
+        color: #999;
+        line-height: 1rem;
+        margin: 0;
+        padding: 0;
+    }
 }
 
 .createGroup {

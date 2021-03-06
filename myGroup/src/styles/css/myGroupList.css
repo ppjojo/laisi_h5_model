@@ -137,11 +137,11 @@
   text-align: center;
 }
 
- .nullDataBox img {
+.nullDataBox img {
   width: 4rem;
 }
 
- .nullDataBox p {
+.nullDataBox p {
   font-size: 0.25rem;
   color: #999;
   line-height: 1rem;
