@@ -280,7 +280,15 @@
 				return obj
 			},
             goNotice() {},
-            goMemberlist() {},
+            goMemberlist() {
+				this.$router.push({
+					path: '/groupMember',
+					query: {
+						flag: 4,
+						id: this.groupId
+					}
+				});
+			},
             goToGroupChat(){
                 this.$interaction.appNative("LSTH5APP_goToGroupChat",{
                     chatGroupId:this.huanxinGroupId
