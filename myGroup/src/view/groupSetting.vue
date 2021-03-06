@@ -204,7 +204,7 @@
 				groupSettingInfo({
 					groupId: this.groupId,
 				}).then(res => {
-					this.isCurrentUser = res.data.myteamGroupMember.isGroupLeader;
+					this.isCurrentUser = res.data.myteamGroupMember?res.data.myteamGroupMember.isGroupLeader:0;
 					this.groupItem = Object.assign(this.groupItem, res.data.myteamGroupInfo);
 					this.groupItem = Object.assign(this.groupItem, res.data.myteamGroupMember);
 					this.memberIcon = res.data.myteamGroupMemberList;

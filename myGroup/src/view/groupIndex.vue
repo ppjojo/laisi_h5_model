@@ -180,6 +180,7 @@
                 isCurrentUser: 0,
                 memberIcon: [],
 				userIdData:[],
+				huanxinGroupId:null,
                 groupItem: {
                     name: '',
                     portrait: '',
@@ -206,6 +207,7 @@
                     this.memberIcon = res.data.memberIcon;
 					this.userIdData = res.data.userIdData;
                     this.isCurrentUser = res.data.isCurrentUser;
+					this.huanxinGroupId = res.data.huanxinGroupId;
                 })
             },
             labelFun(id) {
@@ -278,7 +280,7 @@
             goMemberlist() {},
             goToGroupChat(){
                 this.$interaction.appNative("LSTH5APP_goToGroupChat",{
-                    chatGroupId:1
+                    chatGroupId:this.huanxinGroupId
                 });
                 
             },
