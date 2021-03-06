@@ -57,6 +57,7 @@ service.interceptors.response.use(
     // console.log(response)
 
     // if the custom code is not 0, it is judged as an error.
+    console.log(response)
     if (res.code == 0) {
       return res;
     } else if (
@@ -66,9 +67,11 @@ service.interceptors.response.use(
       res.code == 1500 ||
       res.code == 2000
     ) {
-      Toast({
-        message: res.msg || "Error",
-      });
+      if(res){
+        Toast({
+          message: res.msg || "Error",
+        });
+      }
       return Promise.reject(res);
     }else {
       return res;
@@ -76,7 +79,7 @@ service.interceptors.response.use(
   },
   (error) => {
     Toast({
-      message: error.msg,
+      message: "系统异常",
     });
     return Promise.reject(error);
   }
