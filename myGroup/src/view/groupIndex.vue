@@ -118,7 +118,10 @@
 
                         </li>
                     </ul>
-
+					<div v-if="userIdData.length==0" class="nullDataBox" style="margin-top: 0;">
+						<img :src="require('../img/noData.png')" alt="">
+						<p>今日无运动</p>
+					</div>
                 </div>
             </div>
 

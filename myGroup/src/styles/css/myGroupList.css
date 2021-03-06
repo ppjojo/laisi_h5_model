@@ -131,17 +131,17 @@
   height: 0.32rem;
 }
 
-.myGroupList .nullDataBox {
+.nullDataBox {
   margin-top: 3.5rem;
   background-color: #fff;
   text-align: center;
 }
 
-.myGroupList .nullDataBox img {
+ .nullDataBox img {
   width: 4rem;
 }
 
-.myGroupList .nullDataBox p {
+ .nullDataBox p {
   font-size: 0.25rem;
   color: #999;
   line-height: 1rem;

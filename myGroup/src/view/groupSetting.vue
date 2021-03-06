@@ -87,7 +87,7 @@
 			</div>
 		</div>
 		<!-- 小组qr -->
-		<div class="cellbox border-bottom2 ub ub-ac ub-pj">
+		<div class="cellbox border-bottom2 ub ub-ac ub-pj" @click="groupQR">
 			<div class="title">小组二维码</div>
 			<van-icon color="#999" name="arrow" />
 		</div>
@@ -204,7 +204,7 @@
 				groupSettingInfo({
 					groupId: this.groupId,
 				}).then(res => {
-					this.isCurrentUser = res.data.myteamGroupMember?res.data.myteamGroupMember.isGroupLeader:0;
+					this.isCurrentUser = res.data.myteamGroupMember ? res.data.myteamGroupMember.isGroupLeader : 0;
 					this.groupItem = Object.assign(this.groupItem, res.data.myteamGroupInfo);
 					this.groupItem = Object.assign(this.groupItem, res.data.myteamGroupMember);
 					this.memberIcon = res.data.myteamGroupMemberList;
@@ -313,6 +313,13 @@
 						id: item
 					}
 				});
+			},
+			groupQR() { //二维码
+				this.$interaction.appNative('LSTH5APP_goToGroupQR', {
+					name: this.groupItem.name,
+					imageUrl: this.groupItem.portrait,
+					qrShareUrl: defaultSettings.host + "h5/h5V2/myGroup/#/myGroupList"
+				})
 			},
 			goGroupIndex(item) {
 				this.$router.push({
