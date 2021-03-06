@@ -177,9 +177,9 @@
 				this.flag = 2
 			},
 			goNext2() { //去下一步
-				if (!this.groupItem.name || !this.groupItem.content) return;
+				if (!this.groupItem.name || !this.groupItem.slogon) return;
 				this.overlayShow = true;
-				textReview(this.groupItem.name + this.groupItem.content, res => {
+				textReview(this.groupItem.name + this.groupItem.slogon, res => {
 					this.overlayShow = false;
 					if (res.code == 0) {
 						this.flag = 3
