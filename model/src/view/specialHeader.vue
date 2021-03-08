@@ -55,19 +55,6 @@
                 finished: false,
                 groupId: this.$route.query.id,
                 documentTitle: "小组主页",
-                dateshow: false,
-                minDate: new Date("2021", "00", "01"),
-                maxDate: new Date(),
-                currentDate: new Date(),
-                currentDatestr: "今日运动",
-                isCurrentUser: 0,
-                memberIcon: [],
-                groupItem: {
-                    name: '',
-                    portrait: '',
-                    slogon: '',
-                    labelId: '',
-                }
             }
         },
         filters: {},
@@ -113,38 +100,6 @@
             shareGroup() {
                 console.log("分享")
             },
-            goSetting() { //去设置页面
-            this.destroyed();
-                this.$router.push({
-                    path: '/groupSetting',
-                    query: {
-                        id: this.groupId
-                    }
-                });
-            },
-            formatter(type, val) {
-                if (type === 'year') {
-                    return `${val}年`;
-                } else if (type === 'month') {
-                    return `${val}月`;
-                } else if (type === 'day') {
-                    return `${val}日`;
-                }
-                return val;
-            },
-            // 确定时间回调
-            dateConfirm(val) {
-                var year = new Date(val).getFullYear(),
-                    month = new Date(val).getMonth() + 1,
-                    dates = new Date(val).getDate();
-                month = month > 9 ? month : "0" + month;
-                dates = dates > 9 ? dates : "0" + dates;
-                this.currentDatestr = year + '年' + month + '月' + dates + '日';
-                // this.getSchoolrank();
-                this.dateshow = false;
-            },
-
-
             goNotice() {},
             goMemberlist() {},
 

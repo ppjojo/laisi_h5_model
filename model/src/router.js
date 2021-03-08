@@ -6,50 +6,24 @@ Vue.use(Router);
 const routes = [
   {
     path: '*',
-    redirect: '/myGroupList'
+    redirect: '/model'
   },
   {
-    name: 'myGroupList',
-    component: () => import('./view/myGroupList'),
+    name: 'model',
+    component: () => import('./view/model'),
     meta: {
-      title: '我的小组'
+      title: '我的'
     }
   },
   {
-    name: 'groupIndex',
-    component: () => import('./view/groupIndex'),
+    name: 'specialHeader',
+    component: () => import('./view/specialHeader'),
     meta: {
-      title: '小组'
+      title: '特别的头部'
     }
   },
-  {
-    name: 'createGroup',
-    component: () => import('./view/createGroup'),
-    meta: {
-      title: '创建小组'
-    }
-  },
-  {
-    name: 'changeNickname',
-    component: () => import('./view/changeNickname'),
-    meta: {
-      title: '修改昵称'
-    }
-  },
-  {
-    name: 'groupSetting',
-    component: () => import('./view/groupSetting'),
-    meta: {
-      title: '小组设置'
-    }
-  },
-  {
-    name: 'multChangePage',
-    component: () => import('./view/multChangePage'),
-    meta: {
-      title: '修改页面'
-    }
-  },
+ 
+  
 ];
 
 // add route path

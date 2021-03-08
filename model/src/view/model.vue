@@ -7,7 +7,11 @@
                 </template>
             </van-nav-bar>
         </div>
-        
+        <div>
+            <div  :style="{'background-image':'url('+require('@/assets/img/1.png')+')'}"></div>
+
+            <svg-icon iconClass="test"/>
+        </div>
     </div>
 </template>
 
@@ -56,7 +60,6 @@
                 // this.$router.go(-1)
             },
             onClickRight() { //跳转创建小组
-                localStorage.removeItem("groupItem")
                  this.$router.push({path: '/groupIndex', query: {id: item}});
             },
             goGroupIndex(item) {

@@ -47,6 +47,7 @@ var pictureReview = (fileObject, cb) => {
       Toast("系统异常");
     });
 };
+//文字审核
 var textReview=(str,cb)=>{
   request({
     url: "contentSecurity/aliyun/textScan",
@@ -56,7 +57,7 @@ var textReview=(str,cb)=>{
     },
   }).then(res=>{
     if(res.code!=0){
-      Toast("小组名称或口号包含不合法词汇!");
+      Toast("文本包含不合法词汇!");
     }
     cb(res);
   })

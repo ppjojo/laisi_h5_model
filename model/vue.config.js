@@ -1,16 +1,14 @@
 "use strict";
 const path = require("path");
-const autoprefixer = require('autoprefixer');
-const pxtorem = require('postcss-pxtorem');
+const autoprefixer = require("autoprefixer");
+const pxtorem = require("postcss-pxtorem");
 const vantConfig = path.join(__dirname, "./src/styles/vantConfig.less");
-const defaultSettings = require('./src/settings.js')
+const defaultSettings = require("./src/settings.js");
 function resolve(dir) {
   return path.join(__dirname, dir);
 }
 
-const name = defaultSettings.title || 'LAISITECH' // page title
-
-
+const name = defaultSettings.title || "LAISITECH"; // page title
 
 // If your port is set to 80,
 // use administrator privileges to execute the command line.
@@ -28,7 +26,10 @@ module.exports = {
    * In most cases please use '/' !!!
    * Detail: https://cli.vuejs.org/config/#publicpath
    */
-  publicPath: process.env.NODE_ENV === "production" ? "/h5/h5V2/myGroup" : "/h5/h5V2/myGroup",
+  publicPath:
+    process.env.NODE_ENV === "production"
+      ? "/h5/h5V2/myGroup"
+      : "/h5/h5V2/myGroup",
   outputDir: "myGroup",
   assetsDir: "static",
   lintOnSave: process.env.NODE_ENV === "development",
@@ -46,7 +47,7 @@ module.exports = {
       },
       less: {
         modifyVars: {
-           hack: `true; @import "${vantConfig}";`,
+          hack: `true; @import "${vantConfig}";`,
         },
         // 若 less-loader 版本小于 6.0，请移除 lessOptions 这一级，直接配置选项。
         // lessOptions: {
@@ -95,7 +96,6 @@ module.exports = {
         "@u": resolve("src/utils"),
         "@a": resolve("src/api"),
         "@s": resolve("src/style"),
-        "@i": resolve("src/img"),
       },
     },
   },
@@ -103,6 +103,21 @@ module.exports = {
     config.plugins.delete("preload"); // TODO: need test
     config.plugins.delete("prefetch"); // TODO: need test
 
+    config.module
+      .rule("svg")
+      .exclude.add(resolve("src/icons"))
+      .end();
+    config.module
+      .rule("icons")
+      .test(/\.svg$/)
+      .include.add(resolve("src/icons"))
+      .end()
+      .use("svg-sprite-loader")
+      .loader("svg-sprite-loader")
+      .options({
+        symbolId: "icon-[name]",
+      })
+      .end();
     // set preserveWhitespace
     config.module
       .rule("vue")
