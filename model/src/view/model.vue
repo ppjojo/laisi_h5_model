@@ -12,6 +12,25 @@
 
             <svg-icon iconClass="test"/>
         </div>
+        <div class="myGroupList">
+            <div >
+                <div class="labelTitle">我创建的</div>
+                <div class="groupBox">
+                    <ul>
+                        <li v-for="item in 5">
+                            <!-- <div class="groupImg" style="background-image: url(../img/1.png);"></div> -->
+                           
+                            <div class="groupInfo">
+                                <div class="nameBox"><span class="name">555</span><span>45452</span>
+                                </div>
+                                <div class="desc">asdasasdas</div>
+                                
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -69,6 +88,6 @@
         }
     };
 </script>
-<style >
-    @import '../styles/css/myGroupList.css'
-</style>
+<style lang="scss" >
+    @import '@/styles/test.scss'
+ </style>

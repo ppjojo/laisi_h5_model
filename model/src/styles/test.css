@@ -1,0 +1,126 @@
+@font-face {
+  font-family: "DINCondensed-Bold";
+  src: url("../assets/font/DINCondensed-Bold/DINCondensed-Bold.woff2") format("woff2"), url("../assets/font/DINCondensed-Bold/DINCondensed-Bold.woff") format("woff"), url("../assets/font/DINCondensed-Bold/DINCondensed-Bold.ttf") format("truetype"), url("../assets/font/DINCondensed-Bold/DINCondensed-Bold.eot") format("embedded-opentype"), url("../assets/font/DINCondensed-Bold/DINCondensed-Bold.svg") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.header {
+  height: 1rem;
+}
+
+@supports ((height: constant(safe-area-inset-top)) or (height: env(safe-area-inset-top))) and (-webkit-overflow-scrolling: touch) {
+  .header {
+    height: 1rem;
+    height: calc(1rem + constant(safe-area-inset-top));
+    height: calc(1rem + env(safe-area-inset-top));
+  }
+}
+
+.van-hairline--bottom::after {
+  border: none;
+}
+
+.myGroupList {
+  padding: 0 0.3rem;
+  height: 100vh;
+  overflow: scroll;
+}
+
+.myGroupList .labelTitle {
+  color: #1F1F1F;
+  font-size: 0.36rem;
+  padding: 0.3rem 0;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  left: 0.3rem;
+  background-color: white;
+}
+
+.myGroupList .groupBox ul li {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 0.3rem 0 0;
+}
+
+.myGroupList .groupBox ul li .groupImg {
+  width: 1.8rem;
+  height: 1.8rem;
+  background-repeat: no-repeat;
+  background-position: center center;
+  border-radius: 10px;
+  float: left;
+}
+
+.myGroupList .groupBox ul li .groupInfo {
+  margin-left: 2rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid #F5F5F5;
+}
+
+.myGroupList .groupBox ul li .groupInfo .nameBox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: #1F1F1F;
+  font-size: 0.32rem;
+  line-height: 0.8rem;
+}
+
+.myGroupList .groupBox ul li .groupInfo .nameBox .name {
+  overflow: hidden;
+  font-family: DINCondensed-Bold;
+  width: 4rem;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.myGroupList .groupBox ul li .groupInfo .desc {
+  color: #999999;
+  font-size: 0.28rem;
+  line-height: 0.4rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.myGroupList .groupBox ul li .groupInfo .labelBox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 0.6rem;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+}
+
+.myGroupList .groupBox ul li .groupInfo .labelBox .labelItem {
+  font-size: 0.2rem;
+  line-height: 0.32rem;
+  padding: 0 4px;
+  margin-right: 0.2rem;
+  height: 0.32rem;
+}
+
+.myGroupList .nullDataBox {
+  margin-top: 3.5rem;
+  background-color: #fff;
+  text-align: center;
+}
+
+.myGroupList .nullDataBox img {
+  width: 4rem;
+}
+
+.myGroupList .nullDataBox p {
+  font-size: 0.25rem;
+  color: #999;
+  line-height: 1rem;
+  margin: 0;
+  padding: 0;
+}
+/*# sourceMappingURL=test.css.map */

@@ -106,9 +106,6 @@
         }
     };
 </script>
-<style>
-    @import '../styles/css/myGroupList.css'
-</style>
 <style scoped>
     .van-nav-bar {
         background-color: transparent;
