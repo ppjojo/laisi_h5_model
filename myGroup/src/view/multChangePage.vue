@@ -1,8 +1,12 @@
 <template>
 	<div id="app" v-cloak>
 		<div class="header">
-			<van-nav-bar :title="title" left-text="取消" @click-left="OnclickLeft" @click-right="OnclickRight">
-				<template #right>
+			<van-nav-bar :title="title"  @click-left="OnclickLeft" @click-right="OnclickRight">
+				<template  #left>
+					<div v-if="isCurrentUser">取消</div>
+					<i v-else class="van-icon van-icon-arrow-left van-nav-bar__arrow"><!----></i>
+				</template>
+				<template v-if="isCurrentUser" #right>
 					<div :style="{color:text.length>0?'#e60012':'#999'}">{{righttxt}}</div>
 				</template>
 			</van-nav-bar>
@@ -14,8 +18,11 @@
 		</div>
 		<div class="outside" v-else>
 			<!-- :style="{minHeight:flag==4?'1.7rem':'2.2rem'}" -->
-			<van-field v-model="text" :input="titleChange()" class="club-input" rows="10" autosize type="textarea" maxlength="500"
+			<van-field v-model="text" v-if="isCurrentUser" :input="titleChange()" class="club-input" rows="10" autosize type="textarea" maxlength="500"
 			 placeholder="请填写公告1-500字" show-word-limit />
+			 <div style="font-size: .32rem;line-height: .44rem;" v-else>
+				 {{text}}
+			 </div>
 		</div>
 
 	</div>
@@ -98,7 +105,7 @@
 				});
 			},
 			OnclickLeft() {
-				if (this.flag == 2) {
+				if (this.flag == 2&&this.isCurrentUser) {
 					Dialog.confirm({
 						confirmButtonText: '确定',
 						confirmButtonColor: '#007aff',

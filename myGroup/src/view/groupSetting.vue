@@ -17,7 +17,7 @@
 		</div>
 		<div class="cellbox ub ub-ac border-bottom2" style="height: auto;">
 			<template v-for="(item,index) in memberIcon">
-				<div class="groupMember ub-ac" v-if="index<=2">
+				<div class="groupMember ub-ac" v-if="index<=(isCurrentUser?2:3)">
 					<div class="imgbox ub ub-ac ub-pc">
 						<img class="headImg" :src="item.headPictureUrl" alt="">
 					</div>
@@ -123,7 +123,7 @@
 			<van-icon color="#999" name="arrow" />
 		</div>
 		<!-- 删除聊天记录 -->
-		<div class="cellbox ub ub-ac ub-pj border-bottom2">
+		<div class="cellbox ub ub-ac ub-pj border-bottom2" @click="delChatRecord">
 			<div class="title">删除聊天记录</div>
 			<van-icon color="#999" name="arrow" />
 		</div>
@@ -256,7 +256,7 @@
 						query: {
 							id: this.groupId,
 							labelId: this.groupItem.labelId,
-							edit: 1
+							edit: 1,
 						}
 					});
 					return;
@@ -273,6 +273,20 @@
 			},
 			labelFun(id) {
 				return defaultSettings.RETURN_LABEL(id)
+			},
+			delChatRecord(){
+				Dialog.confirm({
+					confirmButtonText: '确定',
+					confirmButtonColor: '#e62000',
+					cancelButtonColor: '#999',
+					message: '确定要删除聊天记录吗？'
+				}).then(() => {
+					setTimeout(()=>{
+						Toast('删除成功');
+					},500);
+				}).catch(() => {
+				
+				});
 			},
 			cancelGroup() { //解散小组
 				let str = "确定退出小组？";
