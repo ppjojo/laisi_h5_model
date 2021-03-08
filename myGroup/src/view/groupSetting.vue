@@ -24,7 +24,7 @@
 					<div class="van-ellipsis detail">{{item.nickname}}</div>
 				</div>
 			</template>
-			<div class="groupMember ub-ac">
+			<div class="groupMember ub-ac" @click="goInvite()">
 				<div class="imgbox ub ub-ac ub-pc" style="background-color: #f5f5f5;">
 					<img :src="require('../img/plus.png')" alt="">
 				</div>
@@ -226,7 +226,8 @@
 					path: '/groupMember',
 					query: {
 						flag: flag,
-						id: this.groupId
+						id: this.groupId,
+						huanxinGroupId:this.huanxinGroupId
 					}
 				});
 			},
@@ -235,6 +236,14 @@
 					path: '/changeNickname',
 					query: {
 						name: this.groupItem.nickname,
+						id: this.groupId
+					}
+				});
+			},
+			goInvite(){//邀请好友
+				this.$router.push({
+					path: '/inviteList',
+					query: {
 						id: this.groupId
 					}
 				});

@@ -41,3 +41,19 @@ export function removeMember(data) {
         // params:data
     })
 }
+export function getMyFriend(data) {
+    return request({
+        url: 'club/getFriends',
+        method: 'get',
+        // data,
+        params:data
+    })
+}
+export function inviteFriend(data) {
+    return request({
+        url: 'myteam/invited/list/insert',
+        method: 'post',
+        data,
+        // params:data
+    })
+}

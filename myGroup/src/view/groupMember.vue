@@ -110,6 +110,7 @@
 				//1组长转让 2 组长转让并退出  3移除成员  4 成员列表
 				flag: parseInt(this.$route.query.flag),
 				groupId: parseInt(this.$route.query.id),
+				huanxinGroupId:this.$route.query.huanxinGroupId,
 				showcheckbox: false,
 				userId: JSON.parse(localStorage.getItem("appInfo")).userId,
 				title: "成员列表",

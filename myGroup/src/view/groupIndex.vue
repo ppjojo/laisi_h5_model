@@ -245,7 +245,7 @@
                 this.$router.push({
                     path: '/groupSetting',
                     query: {
-                        id: this.groupId
+                        id: this.groupId,
                     }
                 });
             },

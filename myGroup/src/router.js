@@ -57,6 +57,13 @@ const routes = [
       title: '成员列表'
     }
   },
+  {
+    name: 'inviteList',
+    component: () => import('./view/inviteList'),
+    meta: {
+      title: '邀请好友'
+    }
+  },
 ];
 
 // add route path
