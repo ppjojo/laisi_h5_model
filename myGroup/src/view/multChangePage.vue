@@ -26,7 +26,7 @@
 		NavBar,
 		Icon,
 		Field,
-		Toast
+		Toast,Dialog
 	} from 'vant';
 	import {
 		groupSettingInfo
@@ -43,7 +43,7 @@
 			[Icon.name]: Icon,
 			[Field.name]: Field,
 			[Toast.name]: Toast,
-			// [Swipe.name]: Swipe,
+			[Dialog.name]: Dialog,
 			// [SwipeItem.name]: SwipeItem,
 			// [GoodsAction.name]: GoodsAction,
 			// [GoodsActionIcon.name]: GoodsActionIcon,
@@ -98,16 +98,45 @@
 				});
 			},
 			OnclickLeft() {
-				this.$router.go(-1)
+				if (this.flag == 2) {
+					Dialog.confirm({
+						confirmButtonText: '确定',
+						confirmButtonColor: '#007aff',
+						cancelButtonColor: '#999',
+						message: '退出本次编辑？'
+					}).then(() => {
+						this.$router.go(-1);
+					}).catch(() => {
+
+					});
+				} else {
+					this.$router.go(-1);
+				}
 			},
-			OnclickRight() { 
+			OnclickRight() {
 				if (!this.text) return;
+				if (this.flag == 2) {
+					Dialog.confirm({
+						confirmButtonText: '发布',
+						confirmButtonColor: '#007aff',
+						cancelButtonColor: '#999',
+						message: '该公告会通知全部小组成员，是否发布？'
+					}).then(() => {
+						this.checkAndSubmit();
+					}).catch(() => {
+					
+					});
+				} else {
+					this.checkAndSubmit()
+				}
+			},
+			checkAndSubmit(){
 				textReview(this.text, res => {
 					if (res.code == 0) {
 						upDateGroup(this.groupItem).then(res => {
 							Toast('修改成功！');
 							setTimeout(() => {
-								this.OnclickLeft();
+								this.$router.go(-1);
 							}, 1500)
 						})
 					}
@@ -129,5 +158,4 @@
 		background-color: #f5f5f5;
 		border-radius: .08rem;
 	}
-
 </style>
