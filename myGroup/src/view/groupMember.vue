@@ -81,7 +81,7 @@
 		}
 	}
 	import {
-		listItem,TakeFocus,tansferGroupLeader,tansferGroupLeaderAndOut
+		listItem,TakeFocus,tansferGroupLeader,tansferGroupLeaderAndOut,removeMember
 	} from '@a/groupMember'
 	import {sjc2time,timeStamp2String} from '@u/Date.js'
 	import {
