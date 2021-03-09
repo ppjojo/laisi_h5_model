@@ -11,6 +11,7 @@
 .cellbox .detail {
 	font-size: .28rem;
 	color: #999;
+	white-space:nowrap;
 }
 
 .cellbox .van-icon {

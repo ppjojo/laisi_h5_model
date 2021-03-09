@@ -94,19 +94,19 @@
 		<!-- 设为置顶 -->
 		<div class="cellbox ub ub-ac ub-pj border-bottom">
 			<div class="title">设为置顶</div>
-			<van-switch active-color="#07c160" @change="switchChange" :active-value="1" :inactive-value="0" v-model="groupItem.isTop"
+			<van-switch active-color="#07c160" @change="switchChange(1)" :active-value="1" :inactive-value="0" v-model="groupItem.isTop"
 			 size="20"></van-switch>
 		</div>
 		<!-- 消息免打扰 -->
 		<div class="cellbox ub ub-ac ub-pj border-bottom">
 			<div class="title">消息免打扰</div>
-			<van-switch active-color="#07c160" @change="switchChange" :active-value="1" :inactive-value="0" v-model="groupItem.isSilent"
+			<van-switch active-color="#07c160" @change="switchChange(2)" :active-value="1" :inactive-value="0" v-model="groupItem.isSilent"
 			 size="20"></van-switch>
 		</div>
 		<!-- 小组邀请确认 -->
 		<div class="cellbox ub ub-ac ub-pj border-bottom2" v-if="isCurrentUser">
 			<div class="title">小组邀请确认</div>
-			<van-switch active-color="#07c160" @change="switchChange" :active-value="1" :inactive-value="0" v-model="groupItem.isInviteConfirm"
+			<van-switch active-color="#07c160" @change="switchChange(false)" :active-value="1" :inactive-value="0" v-model="groupItem.isInviteConfirm"
 			 size="20"></van-switch>
 		</div>
 		<!-- 我在小组中昵称 -->
@@ -180,7 +180,7 @@
 				loading: false,
 				finished: false,
 				groupId: this.$route.query.id,
-				huanxinGroupId:this.$route.query.huanxinGroupId,
+				huanxinGroupId: this.$route.query.huanxinGroupId,
 				isCurrentUser: 0,
 				memberIcon: [],
 				groupItem: {
@@ -228,7 +228,7 @@
 					query: {
 						flag: flag,
 						id: this.groupId,
-						huanxinGroupId:this.huanxinGroupId
+						huanxinGroupId: this.huanxinGroupId
 					}
 				});
 			},
@@ -241,7 +241,7 @@
 					}
 				});
 			},
-			goInvite(){//邀请好友
+			goInvite() { //邀请好友
 				this.$router.push({
 					path: '/inviteList',
 					query: {
@@ -275,19 +275,21 @@
 			labelFun(id) {
 				return defaultSettings.RETURN_LABEL(id)
 			},
-			delChatRecord(){
+			delChatRecord() {
 				Dialog.confirm({
 					confirmButtonText: '确定',
 					confirmButtonColor: '#e62000',
 					cancelButtonColor: '#999',
 					message: '确定要删除聊天记录吗？'
 				}).then(() => {
-					this.$interaction.appNative('LSTH5APP_DeletChatContent',{huanxinGroupId:this.huanxinGroupId});
-					setTimeout(()=>{
+					this.$interaction.appNative('LSTH5APP_DeletChatContent', {
+						huanxinGroupId: this.huanxinGroupId
+					});
+					setTimeout(() => {
 						Toast('删除成功!');
-					},500);
+					}, 500);
 				}).catch(() => {
-				
+
 				});
 			},
 			cancelGroup() { //解散小组
@@ -321,9 +323,15 @@
 
 				});
 			},
-			switchChange() {
+			switchChange(flag) {
 				upDateGroup(this.groupItem).then(res => {
-
+					if (!flag) return;
+					let methodstr = 'LSTH5APP_MessageDoNotDisturb'; //免打扰huanxinGroupId= "环信的群聊ID",isOpen: int类型 1免打扰开启，0免打扰关闭
+					if (flag == 1) methodstr = 'LSTH5APP_ConversationSetIsTop'; //置顶huanxinGroupId= "环信的群聊ID",isOpen: int类型 1开启置顶，0关闭置顶
+					this.$interaction.appNative(methodstr, {
+						huanxinGroupId: this.huanxinGroupId,
+						isOpen: flag == 1 ? this.groupItem.isTop : this.groupItem.isSilent
+					})
 				})
 			},
 			onclickLeft() {
@@ -378,6 +386,7 @@
 		margin-right: 0.2rem;
 		height: 0.32rem;
 		border-radius: 0.1rem;
+		white-space: nowrap;
 	}
 
 	.labelBox .labelItem:last-child {

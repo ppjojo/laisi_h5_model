@@ -129,6 +129,7 @@
   padding: 0 4px;
   margin-right: 0.2rem;
   height: 0.32rem;
+  white-space:nowrap;
 }
 
 .nullDataBox {
@@ -348,6 +349,7 @@
   margin-right: 0.2rem;
   height: 0.32rem;
   border-radius: 5px;
+  white-space:nowrap;
 }
 
 .groupIndex .groupInfoBox .groupBox .groupInfo .labelBox .js {
