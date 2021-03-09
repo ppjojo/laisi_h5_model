@@ -110,7 +110,7 @@
                 this.$router.push({path: '/createGroup'});
             },
             goGroupIndex(item) {
-               this.$router.push({path: '/groupIndex', query: {id: item.id}});
+               this.$router.push({path: '/groupIndex', query: {id: item.id,isFromList:1}});
             }
         }
     };

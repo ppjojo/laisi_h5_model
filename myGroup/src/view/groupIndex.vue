@@ -173,7 +173,8 @@
             return {
                 loading: false,
                 finished: false,
-                groupId: this.$route.query.id,
+                groupId: parseInt(this.$route.query.id),
+				isFromList:this.$route.query.isFromList||null,
                 documentTitle: "小组主页",
                 dateshow: false,
                 minDate: new Date("2021", "00", "01"),
@@ -234,8 +235,11 @@
             },
             onclickLeft() {
                this.destroyed();
-                this.$router.go(-1)
-
+			   if(parseInt(this.isFromList)==1){
+				   this.$router.go(-1);
+			   }else{
+				   this.$interaction.closePage();
+			   }
             },
             shareGroup() {
                 console.log("分享")
