@@ -246,6 +246,7 @@
                     path: '/groupSetting',
                     query: {
                         id: this.groupId,
+						huanxinGroupId:this.huanxinGroupId
                     }
                 });
             },

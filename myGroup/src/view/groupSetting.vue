@@ -180,6 +180,7 @@
 				loading: false,
 				finished: false,
 				groupId: this.$route.query.id,
+				huanxinGroupId:this.$route.query.huanxinGroupId,
 				isCurrentUser: 0,
 				memberIcon: [],
 				groupItem: {
@@ -281,8 +282,9 @@
 					cancelButtonColor: '#999',
 					message: '确定要删除聊天记录吗？'
 				}).then(() => {
+					this.$interaction.appNative('LSTH5APP_DeletChatContent',{huanxinGroupId:this.huanxinGroupId});
 					setTimeout(()=>{
-						Toast('删除成功');
+						Toast('删除成功!');
 					},500);
 				}).catch(() => {
 				

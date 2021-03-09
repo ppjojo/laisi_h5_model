@@ -7,7 +7,7 @@
 				</template>
 			</van-nav-bar>
 		</div>
-		<van-search v-model="searchval.searchKey" @input="search" placeholder="请输入成员昵称或ID"></van-search>
+		<van-search v-model="searchval.key" @input="search" placeholder="请输入成员昵称或ID"></van-search>
 		<div class="ub ub-ac ub-ad invitebox">
 			<div class="tx-c" @click="shareClub('wechat')">
 				<img :src="require('../img/weixin-4.png')" alt="">
@@ -27,22 +27,22 @@
 			</div>
 		</div>
 		<van-checkbox-group v-model="memberResult" ref="checkboxGroup">
-			<van-cell-group v-show="searchval.searchKey&&searchList.length>0">
+			<van-cell-group v-show="searchval.key&&searchList.length>0">
 				<template v-if="searchList.length>0">
-					<van-cell v-for="(memItem,index) in searchList" clickable :key="memItem.uid" @click="toggle(index,memItem)">
+					<van-cell v-for="(memItem,index) in searchList" clickable :key="memItem.userId" @click="toggle(index,memItem)">
 						<template #icon>
-							<van-checkbox :name="memItem.uid" ref="checkboxes"></van-checkbox>
+							<van-checkbox :name="memItem.userId" ref="checkboxes"></van-checkbox>
 						</template>
 						<template #title>
 							<ul class="ul_class">
 								<li class="ub ub-ac ub-pj">
 									<div class="ub ub-ac">
-										<img class="headpic" :src="memItem.head_picture_url" alt="">
+										<img class="headpic" :src="memItem.headPictureUrl" alt="">
 										<div>
 											<div class="ub ub-ac">
-												<div class="nickname van-ellipsis">{{memItem.nickname}}</div>
+												<div class="nickname van-ellipsis">{{memItem.nickName}}</div>
 											</div>
-											<div class="time">加入时间：{{DateTime.sjc2time('ymd',memItem.create_time)}}
+											<div class="time">加入时间：{{timeStamp2String('ymd',memItem.create_time)}}
 											</div>
 										</div>
 									</div>
@@ -52,14 +52,14 @@
 					</van-cell>
 				</template>
 			</van-cell-group>
-			<div v-show="!searchval.searchKey||searchval.searchKey==''">
+			<div v-show="!searchval.key||searchval.key==''">
 				<van-cell-group v-model="memberResult">
 					<van-index-bar>
 						<template v-if="Object.keys(dataList).length>0" v-for="(bigitem,key,index) in dataList">
 							<van-index-anchor :index="key.toUpperCase()"></van-index-anchor>
-							<van-cell v-for="(memItem,index2) in bigitem" clickable :key="memItem.uid" @click="toggle(index2,memItem)">
+							<van-cell v-for="(memItem,index2) in bigitem" clickable :key="memItem.userId" @click="toggle(index2,memItem)">
 								<template #icon>
-									<van-checkbox :name="memItem.uid" ref="checkboxes"></van-checkbox>
+									<van-checkbox :name="memItem.userId" ref="checkboxes"></van-checkbox>
 								</template>
 								<template #title>
 									<ul class="ul_class">
@@ -68,10 +68,10 @@
 												<img class="headpic" :src="memItem.headPictureUrl" alt="">
 												<div>
 													<div class="ub ub-ac">
-														<div class="nickname van-ellipsis">{{memItem.nickname}}</div>
+														<div class="nickname van-ellipsis">{{memItem.nickName}}</div>
 													</div>
 													<div class="time">
-														加入时间：{{sjc2time('ymd',memItem.createTime)}}</div>
+														加入时间：{{timeStamp2String('ymd',memItem.createTime)}}</div>
 												</div>
 											</div>
 										</li>
@@ -137,7 +137,8 @@
 				userId: JSON.parse(localStorage.getItem("appInfo")).userId,
 				memberResult: [],
 				searchval: {
-					searchKey: '',
+					groupId:this.$route.query.id,
+					key: '',
 					userId: JSON.parse(localStorage.getItem("appInfo")).userId
 				},
 				searchList: [],
@@ -153,23 +154,25 @@
 			sjc2time: sjc2time,
 			timeStamp2String: timeStamp2String,
 			getList() {
-				getMyFriend({
-					clubId: 1000219
-				}).then(res => {
+				getMyFriend(this.searchval).then(res => {
 					this.dataList = res.data
 				}).catch(() => {})
 			},
 			search: debounce(function(e) {
-				if (!this.searchval.nickNameOrId) return;
-				// listItem(this.searchval).then((res) => {
-				// 	this.searchList = res.data;
-				// }).catch(() => {
-				// 	console.log("error")
-				// })
+				if (!this.searchval.key) return;
+				getMyFriend(this.searchval).then(res => {
+					let arr = [],resData = res.data;
+					for(let key in resData){
+						resData[key].forEach(d=>{
+							arr.push(d);
+						})
+					}
+					this.searchList = arr;
+				}).catch(() => {})
 			}),
 			toggle(index, mid) {
 				this.$refs.checkboxes.forEach((d, f) => {
-					if (d.name == mid.uid) {
+					if (d.name == mid.userId) {
 						this.$refs.checkboxes[f].toggle();
 					}
 				})

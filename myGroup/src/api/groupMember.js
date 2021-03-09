@@ -43,7 +43,7 @@ export function removeMember(data) {
 }
 export function getMyFriend(data) {
     return request({
-        url: 'club/getFriends',
+        url: 'myteam/invited/search/friendsList',
         method: 'get',
         // data,
         params:data
