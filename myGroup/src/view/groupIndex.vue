@@ -242,7 +242,11 @@
 			   }
             },
             shareGroup() {
-                console.log("分享")
+               this.$interaction.sharePage({
+				   title: this.groupItem.name,
+				   description: this.groupItem.slogon,
+				   url: defaultSettings.host+'h5/h5V2/onlinePK/inviteToLookOn.html',
+			   })
             },
             goSetting() { //去设置页面
             this.destroyed();
