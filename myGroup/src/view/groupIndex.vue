@@ -140,7 +140,7 @@
 
 <script>
 	import {
-		getGroupInfo
+		getGroupInfo,joinGroup
 	} from '@a/groupIndex';
 	const defaultSettings = require('../settings.js');
 	import {
@@ -224,7 +224,7 @@
 			},
 			scrollFn() {
 				var t = document.documentElement.scrollTop || document.body.scrollTop;
-				var rate = t / 200
+				var rate = t / 100
 				if (rate > 1) rate = 1
 				var colorValue = `rgba(255,255,255,${rate})`
 				var val = parseInt(255 - rate * 255)
@@ -335,6 +335,9 @@
 
 					} else {
 						//分享进来不需要审核，直接加入小组
+						joinGroup({groupId:this.groupId,userId:this.userId,nickName:JSON.parse(localStorage.getItem("appInfo")).nickname}).then(res=>{
+							this.initData();
+						})
 					}
 				}
 			},

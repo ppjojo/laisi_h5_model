@@ -43,3 +43,11 @@ export function relieveGroup(data) {
 		params:data
     })
 }
+export function joinGroup(data) {
+    return request({
+        url: 'myteam/member/create/member',
+        method: 'post',
+		data,
+		params:data
+    })
+}
