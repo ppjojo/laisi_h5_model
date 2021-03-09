@@ -18,7 +18,7 @@
                             <div class="groupInfo">
                                 <div class="nameBox"><span class="name">{{item.name}}</span><span>({{item.count}})</span>
                                 </div>
-                                <div class="desc">{{item.content}}</div>
+                                <div class="desc">{{item.slogon}}</div>
                                 <div class="labelBox">
 									<div v-for="labelItem in labelFun(item.labelId)" class="labelItem" :class="labelItem[0]">{{labelItem[1]}}</div>
                                 </div>
