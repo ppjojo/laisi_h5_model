@@ -213,7 +213,8 @@
 						this.$router.replace({
 							path: '/groupIndex',
 							query: {
-								id: res.data.id
+								id: res.data.id,
+								isFromList:1
 							}
 						});
 					}, 1500)

@@ -8,7 +8,7 @@
 			</van-nav-bar>
 		</div>
 		<van-search v-model="searchval.key" @input="search" placeholder="请输入成员昵称或ID"></van-search>
-		<div class="ub ub-ac ub-ad invitebox">
+		<div class="ub ub-ac ub-ad invitebox" v-if="false">
 			<div class="tx-c" @click="shareClub('wechat')">
 				<img :src="require('../img/weixin-4.png')" alt="">
 				<div class="">微信好友</div>
@@ -42,7 +42,7 @@
 											<div class="ub ub-ac">
 												<div class="nickname van-ellipsis">{{memItem.nickName}}</div>
 											</div>
-											<div class="time">加入时间：{{timeStamp2String('ymd',memItem.create_time)}}
+											<div class="time">加入时间：{{sjc2time('ymd',memItem.create_time)}}
 											</div>
 										</div>
 									</div>
@@ -71,7 +71,7 @@
 														<div class="nickname van-ellipsis">{{memItem.nickName}}</div>
 													</div>
 													<div class="time">
-														加入时间：{{timeStamp2String('ymd',memItem.createTime)}}</div>
+														加入时间：{{sjc2time('ymd',memItem.createTime)}}</div>
 												</div>
 											</div>
 										</li>
@@ -143,6 +143,16 @@
 				},
 				searchList: [],
 				dataList: [],
+				allList:[],
+				inviteObj:{
+					huanxinGroupId: this.$route.query.huanxinGroupId,
+					groupId: this.$route.query.id,
+					groupOwnerId:this.$route.query.groupOwnerId,
+					groupName:this.$route.query.groupName,
+					groupInviteIds :null,
+					invitedUserIds :null,
+					invitedUserNames :null
+				}
 			};
 		},
 		filters: {},
@@ -155,7 +165,12 @@
 			timeStamp2String: timeStamp2String,
 			getList() {
 				getMyFriend(this.searchval).then(res => {
-					this.dataList = res.data
+					this.dataList = res.data;
+					for(let key in res.data){
+						res.data[key].forEach(d=>{
+							this.allList.push(d);
+						})
+					}
 				}).catch(() => {})
 			},
 			search: debounce(function(e) {
@@ -192,12 +207,32 @@
 					inviteFriend({
 						beingInvitedUserIds: this.memberResult,
 						groupId: this.groupId,
-						groupUserId: this.userId
+						groupUserId: this.inviteObj.groupOwnerId
 					}).then(res => {
-						Toast('邀请成功！');
-						setTimeout(() => {
-							this.onclickLeft();
-						}, 1500);
+						let result = res.data;
+						let ids=[],chatids=[],names=[];
+						result.forEach(d=>{
+							for (let i=0;i<this.allList.length;i++) {
+								if(d.beingInvitedMember==this.allList[i].userId){
+									ids.push(d.beingInvitedMember);
+									chatids.push(d.id);
+									names.push(this.allList[i].nickName);
+								}
+							}
+							// this.dataList.forEach(e=>{
+								
+							// })
+						});
+						this.inviteObj.groupInviteIds = chatids.toString();
+						this.inviteObj.invitedUserIds = ids.toString();
+						this.inviteObj.invitedUserNames = names.toString();
+						// console.log(this.inviteObj);
+						this.$interaction.appNative('LSTH5APP_GroupInvite',this.inviteObj).then(()=>{
+							Toast('邀请成功！');
+							setTimeout(()=>{
+								this.$router.go(-1)
+							},2000)
+						})
 					})
 
 				}).catch(() => {

@@ -140,7 +140,8 @@
 
 <script>
 	import {
-		getGroupInfo,joinGroup
+		getGroupInfo,
+		joinGroup
 	} from '@a/groupIndex';
 	const defaultSettings = require('../settings.js');
 	import {
@@ -199,8 +200,14 @@
 		filters: {},
 		mounted() {
 			window.addEventListener('scroll', this.scrollFn);
+			console.log(this.$route)
 		},
-
+		beforeRouteLeave(to, from, next) {
+			this.destroyed();
+			next()//一定不要忘记写
+			// 导航离开该组件的对应路由时调用
+			// 可以访问组件实例 `this`
+		},
 		created() {
 			this.initData();
 		},
@@ -213,7 +220,7 @@
 					this.groupItem = res.data.groupInfo;
 					this.memberIcon = res.data.memberIcon;
 					this.userIdData = res.data.userIdData;
-					this.isCurrentUser = res.data.isCurrentUser;
+					if (parseInt(this.userId) == res.data.ownerUserId) this.isCurrentUser = 1;
 					this.isGrouptMember = res.data.isGrouptMember;
 					this.ownerUserId = res.data.ownerUserId;
 					this.huanxinGroupId = res.data.huanxinGroupId;
@@ -236,10 +243,10 @@
 				document.getElementsByClassName("van-icon-setting-o")[0].style.color = colorValue2
 			},
 			destroyed() {
+				console.log('destory')
 				window.removeEventListener('scroll', this.scrollFn); // 销毁监听
 			},
 			onclickLeft() {
-				this.destroyed();
 				if (parseInt(this.isFromList) == 1) {
 					this.$router.go(-1);
 				} else {
@@ -250,18 +257,18 @@
 				this.$interaction.sharePage({
 					title: this.groupItem.name,
 					description: this.groupItem.slogon,
-					url: defaultSettings.host + 'h5/h5V2/myGroup/#/groupIndex?id='+this.groupId+'&isShare=1'
+					url: defaultSettings.host + 'h5/h5V2/myGroup/#/groupIndex?id=' + this.groupId + '&isShare=1'
 				})
 			},
 			goInto() {
 				let linkUrl = '';
 				if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) { //判断iPhone|iPad|iPod|iOS
-					linkUrl = "https://lstemp.laisitech.com?actionType=groupDetail&id="+this.groupId
+					linkUrl = "https://lstemp.laisitech.com?actionType=groupDetail&id=" + this.groupId
 				} else if (/(Android)/i.test(navigator.userAgent)) { //判断Android
 					if (navigator.userAgent.toLowerCase().indexOf('micromessenger') !== -1) { //微信
 						linkUrl = "https://a.app.qq.com/o/simple.jsp?pkgname=com.lstech.rehealth"
 					} else {
-						linkUrl = "rehealth://groupDetail?id="+this.groupId
+						linkUrl = "rehealth://groupDetail?id=" + this.groupId
 					}
 				}
 				var a = document.createElement('a');
@@ -280,7 +287,8 @@
 					path: '/groupSetting',
 					query: {
 						id: this.groupId,
-						huanxinGroupId: this.huanxinGroupId
+						huanxinGroupId: this.huanxinGroupId,
+						groupOwnerId: this.ownerUserId,
 					}
 				});
 			},
@@ -314,7 +322,17 @@
 				});
 				return obj
 			},
-			goNotice() {},
+			goNotice() {
+				this.$router.push({
+					path: '/multChangePage',
+					query: {
+						flag: 2,
+						id: this.groupId,
+						isCurrentUser: this.isCurrentUser,
+						text: this.groupItem.content
+					}
+				});
+			},
 			goMemberlist() {
 				this.$router.push({
 					path: '/groupMember',
@@ -335,7 +353,11 @@
 
 					} else {
 						//分享进来不需要审核，直接加入小组
-						joinGroup({groupId:this.groupId,userId:this.userId,nickName:JSON.parse(localStorage.getItem("appInfo")).nickname}).then(res=>{
+						joinGroup({
+							groupId: this.groupId,
+							userId: this.userId,
+							nickName: JSON.parse(localStorage.getItem("appInfo")).nickname
+						}).then(res => {
 							this.initData();
 						})
 					}

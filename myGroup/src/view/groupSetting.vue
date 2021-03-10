@@ -156,7 +156,7 @@
 		Tag,
 		Switch,
 		Uploader,
-		Dialog
+		Dialog,Toast
 	} from 'vant';
 	import {
 		pictureReview
@@ -170,7 +170,7 @@
 			[Switch.name]: Switch,
 			[Uploader.name]: Uploader,
 			[Dialog.name]: Dialog,
-			// [GoodsActionIcon.name]: GoodsActionIcon,
+			[Toast.name]: Toast,
 			// [GoodsActionButton.name]: GoodsActionButton
 		},
 
@@ -181,6 +181,7 @@
 				finished: false,
 				groupId: this.$route.query.id,
 				huanxinGroupId: this.$route.query.huanxinGroupId,
+				groupOwnerId:this.$route.query.groupOwnerId,
 				isCurrentUser: 0,
 				memberIcon: [],
 				groupItem: {
@@ -228,7 +229,7 @@
 					query: {
 						flag: flag,
 						id: this.groupId,
-						huanxinGroupId: this.huanxinGroupId
+						huanxinGroupId: this.huanxinGroupId,
 					}
 				});
 			},
@@ -245,7 +246,10 @@
 				this.$router.push({
 					path: '/inviteList',
 					query: {
-						id: this.groupId
+						id: this.groupId,
+						huanxinGroupId: this.huanxinGroupId,
+						groupOwnerId:this.groupOwnerId,
+						groupName :this.groupItem.name
 					}
 				});
 			},
