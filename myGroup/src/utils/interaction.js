@@ -100,11 +100,6 @@ var interaction = {
 	VIDEO_flag: false,
 	//app端h5页面出现后会主动调用这个方法 可用于刷新页面
 	appWebviewOpen: function(param) {
-		if (typeof initPageData != "undefined") {
-			if (this.VIDEO_flag && isAndroid) return;
-			if (isAndroid) this.VIDEO_flag = true;
-			initPageData(param);
-		}
 		console.log("appWebviewOpen");
 	},
 	//app端h5页面消失后会主动调用这个方法 暂无用处
@@ -119,6 +114,8 @@ var interaction = {
 		});
 	},
 }
+window.appWebviewOpen=()=>{}
+window.appWebviewClose=()=>{}
 
 export {
 	interaction
