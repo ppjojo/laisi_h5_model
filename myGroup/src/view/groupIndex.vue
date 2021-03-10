@@ -1,6 +1,6 @@
 <template>
 	<div id="app" class="groupIndex" v-cloak>
-		<div class="header">
+		<div class="header" v-if="isShare!=1">
 			<van-nav-bar :title="documentTitle" @click-left="onclickLeft" left-arrow safe-area-inset-top fixed>
 				<template #right>
 					<div style="margin-right: 0.2rem;" @click="shareGroup()">
@@ -12,7 +12,9 @@
 				</template>
 			</van-nav-bar>
 		</div>
-		<div style="height: 4.6rem;">
+        <div style="height:1rem" v-else></div>
+
+		<div style="height: 4.6rem;" >
 			<div class="groupInfoBox">
 				<img class="bannerBg" :src="groupItem.portrait" alt="">
 				<div class="groupBox">
@@ -58,7 +60,7 @@
 					<div class="dateTitle">
 						{{currentDatestr}}
 					</div>
-					<img class="chooseDate" @click="dateshow = true" :src="require('../img/canlindar.png')" alt="">
+					<img class="chooseDate" @click="dateshow = isShare?false:true" :src="require('../img/canlindar.png')" alt="">
 				</div>
 				<div class="personBox">
 					<ul>
@@ -176,7 +178,7 @@
 				groupId: parseInt(this.$route.query.id),
 				isFromList: this.$route.query.isFromList || null,
 				isShare: this.$route.query.isShare || 0,
-				userId: JSON.parse(localStorage.getItem("appInfo")).userId,
+				userId: this.$route.query.isShare==1?(this.$route.query.userId?this.$route.query.userId:10):JSON.parse(localStorage.getItem("appInfo")).userId,
 				documentTitle: "小组主页",
 				dateshow: false,
 				minDate: new Date("2021", "00", "01"),
@@ -200,7 +202,10 @@
 		},
 		filters: {},
 		mounted() {
-			window.addEventListener('scroll', this.scrollFn);
+            if(this.isShare!=1){
+                window.addEventListener('scroll', this.scrollFn);
+            }
+			
 		},
 		beforeRouteLeave(to, from, next) {
 			this.destroyed();
@@ -324,7 +329,7 @@
 				return obj
 			},
 			goNotice() {
-				if (!this.isGrouptMember) return;
+				if (!this.isGrouptMember||this.isShare) return;
 				this.$router.push({
 					path: '/multChangePage',
 					query: {
@@ -336,6 +341,7 @@
 				});
 			},
 			goMemberlist() {
+                if (this.isShare) return;
 				this.$router.push({
 					path: '/groupMember',
 					query: {
