@@ -191,6 +191,7 @@
 				userIdData: [],
 				huanxinGroupId: null,
 				ownerUserId: null,
+				searchTime:new Date().getTime(),
 				groupItem: {
 					name: '',
 					portrait: '',
@@ -220,7 +221,7 @@
 			initData() {
 				getGroupInfo({
 					groupId: this.groupId,
-					searchTime: 1565166618000 || new Date().getTime()
+					searchTime: this.searchTime
 				}).then(res => {
 					this.groupItem = res.data.groupInfo;
 					this.memberIcon = res.data.memberIcon;
@@ -318,6 +319,8 @@
 				this.currentDatestr = year + '年' + month + '月' + dates + '日';
 				// this.getSchoolrank();
 				this.dateshow = false;
+				this.searchTime = new Date(val).getTime();
+				this.initData();
 			},
 			returnUserData(id, list) {
 				let obj = null;
