@@ -149,7 +149,8 @@
 		Icon,
 		NoticeBar,
 		Popup,
-		DatetimePicker,Toast
+		DatetimePicker,
+		Toast
 	} from 'vant';
 
 	export default {
@@ -200,11 +201,10 @@
 		filters: {},
 		mounted() {
 			window.addEventListener('scroll', this.scrollFn);
-			console.log(this.$route)
 		},
 		beforeRouteLeave(to, from, next) {
 			this.destroyed();
-			next()//一定不要忘记写
+			next() //一定不要忘记写
 			// 导航离开该组件的对应路由时调用
 			// 可以访问组件实例 `this`
 		},
@@ -254,6 +254,7 @@
 				}
 			},
 			shareGroup() {
+				if(!this.isGrouptMember)return;
 				this.$interaction.sharePage({
 					title: this.groupItem.name,
 					description: this.groupItem.slogon,
@@ -282,6 +283,7 @@
 				a.click();
 			},
 			goSetting() { //去设置页面
+				if (!this.isGrouptMember) return;
 				this.$router.push({
 					path: '/groupSetting',
 					query: {
@@ -322,6 +324,7 @@
 				return obj
 			},
 			goNotice() {
+				if (!this.isGrouptMember) return;
 				this.$router.push({
 					path: '/multChangePage',
 					query: {
@@ -350,12 +353,12 @@
 					//分享进来需要审核，给组长弹消息
 					if (this.groupItem.isInviteConfirm) {
 						this.$interaction.appNative("LSTH5APP_ApplyJoinGroup", {
-							groupId:this.groupId,
-							groupOwnerId :this.ownerUserId,
-							groupName :this.groupItem.name,
-							invitedUserId : this.userId,
-							invitedUserName : JSON.parse(localStorage.getItem("appInfo")).nickname
-						}).then(()=>{
+							groupId: this.groupId,
+							groupOwnerId: this.ownerUserId,
+							groupName: this.groupItem.name,
+							invitedUserId: this.userId,
+							invitedUserName: JSON.parse(localStorage.getItem("appInfo")).nickname
+						}).then(() => {
 							Toast('已提交审核，等待组长确认');
 						})
 					} else {

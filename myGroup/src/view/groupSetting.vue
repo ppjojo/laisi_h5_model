@@ -131,7 +131,7 @@
 		<div class="cellbox quit" v-if="isCurrentUser" @click="goMember(2)">
 			转让并退出小组
 		</div>
-		<div class="border-bottom2"></div>
+		<div class="border-bottom2" v-if="isCurrentUser"></div>
 		<!-- 退出 -->
 		<div class="cellbox quit" @click="cancelGroup">
 			{{isCurrentUser?'解散小组':'退出小组'}}
