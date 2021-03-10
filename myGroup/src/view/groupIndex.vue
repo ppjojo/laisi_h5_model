@@ -149,7 +149,7 @@
 		Icon,
 		NoticeBar,
 		Popup,
-		DatetimePicker
+		DatetimePicker,Toast
 	} from 'vant';
 
 	export default {
@@ -159,7 +159,7 @@
 			[NoticeBar.name]: NoticeBar,
 			[Popup.name]: Popup,
 			[DatetimePicker.name]: DatetimePicker,
-			// [Cell.name]: Cell,
+			[Toast.name]: Toast,
 			// [CellGroup.name]: CellGroup,
 			// [Swipe.name]: Swipe,
 			// [SwipeItem.name]: SwipeItem,
@@ -282,7 +282,6 @@
 				a.click();
 			},
 			goSetting() { //去设置页面
-				this.destroyed();
 				this.$router.push({
 					path: '/groupSetting',
 					query: {
@@ -350,7 +349,15 @@
 				} else {
 					//分享进来需要审核，给组长弹消息
 					if (this.groupItem.isInviteConfirm) {
-
+						this.$interaction.appNative("LSTH5APP_ApplyJoinGroup", {
+							groupId:this.groupId,
+							groupOwnerId :this.ownerUserId,
+							groupName :this.groupItem.name,
+							invitedUserId : this.userId,
+							invitedUserName : JSON.parse(localStorage.getItem("appInfo")).nickname
+						}).then(()=>{
+							Toast('已提交审核，等待组长确认');
+						})
 					} else {
 						//分享进来不需要审核，直接加入小组
 						joinGroup({

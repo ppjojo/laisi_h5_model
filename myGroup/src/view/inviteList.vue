@@ -151,7 +151,8 @@
 					groupName:this.$route.query.groupName,
 					groupInviteIds :null,
 					invitedUserIds :null,
-					invitedUserNames :null
+					invitedUserNames :null,
+					inviteByUserName :JSON.parse(localStorage.getItem("appInfo")).nickname
 				}
 			};
 		},
