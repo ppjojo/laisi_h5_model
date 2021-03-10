@@ -63,5 +63,12 @@ var textReview=(str,cb)=>{
     cb(res);
   })
 }
+//获取url后面的参数 仅在request里面使用
+var getQueryString=(name)=> {
+  var reg = new RegExp("(^|\\?|&)" + name + "=([^&]*)(&|$)");
+  var r = window.location.href.substr(1).match(reg);
+  if (r != null) return decodeURI(r[2]);
+  return null;
+}
 
-export { isAndroid, isIOS, isWechat, pictureReview,textReview };
+export { isAndroid, isIOS, isWechat, pictureReview,textReview ,getQueryString};

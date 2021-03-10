@@ -2,6 +2,7 @@ import axios from "axios";
 import md5 from "js-md5";
 import { Toast } from "vant";
 import defaultSettings from "@/settings";
+import { getQueryString } from '@u/tool';
 
 // create an axios instance
 const service = axios.create({
@@ -13,8 +14,14 @@ const service = axios.create({
 // request interceptor
 service.interceptors.request.use(
   (config) => {
-    // console.log(config)
+    let isShare=getQueryString("isShare");
     let appInfo = JSON.parse(localStorage.getItem("appInfo"));
+    if(isShare){
+      appInfo={
+        token:"SHARE",
+        userId:getQueryString("userId")||"10",
+      }
+    }
     let token = appInfo.token;
     let random = Math.floor(Math.random() * 999999);
     let timestamp = new Date().getTime();
@@ -24,6 +31,7 @@ service.interceptors.request.use(
     let requestId = md5(timestamp + token + random);
     config.headers.requestId = requestId;
     config.headers.token = token;
+
     if (!config.params) config.params = {};
     config.params.appId = appInfo.appId;
     config.params.appVersion = appInfo.appVersion;
@@ -57,6 +65,7 @@ service.interceptors.response.use(
     // console.log(response)
 
     // if the custom code is not 0, it is judged as an error.
+    //console.log(response)
     if (res.code == 0) {
       return res;
     } else if (
@@ -64,19 +73,26 @@ service.interceptors.response.use(
       res.code == 500 ||
       res.code == 1000 ||
       res.code == 1500 ||
-      res.code == 2000
+      res.code == 2000 ||
+      res.code == 2961
     ) {
-      // Toast({
-      //   message: res.msg || "Error",
-      // });
+      if (res) {
+        Toast({
+          message: res.msg || "Error",
+        });
+      }else{
+        Toast({
+          message: "系统异常",
+        });
+      }
       return Promise.reject(res);
-    }else {
+    } else {
       return res;
     }
   },
   (error) => {
     Toast({
-      message: error.msg,
+      message: "系统异常",
     });
     return Promise.reject(error);
   }

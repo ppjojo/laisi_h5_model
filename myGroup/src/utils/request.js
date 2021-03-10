@@ -2,6 +2,7 @@ import axios from "axios";
 import md5 from "js-md5";
 import { Toast } from "vant";
 import defaultSettings from "@/settings";
+import { getQueryString } from '@u/tool';
 
 // create an axios instance
 const service = axios.create({
@@ -13,8 +14,14 @@ const service = axios.create({
 // request interceptor
 service.interceptors.request.use(
   (config) => {
-    // console.log(config)
+    let isShare=getQueryString("isShare");
     let appInfo = JSON.parse(localStorage.getItem("appInfo"));
+    if(isShare){
+      appInfo={
+        token:"SHARE",
+        userId:getQueryString("userId")||"10",
+      }
+    }
     let token = appInfo.token;
     let random = Math.floor(Math.random() * 999999);
     let timestamp = new Date().getTime();
@@ -24,6 +31,7 @@ service.interceptors.request.use(
     let requestId = md5(timestamp + token + random);
     config.headers.requestId = requestId;
     config.headers.token = token;
+
     if (!config.params) config.params = {};
     config.params.appId = appInfo.appId;
     config.params.appVersion = appInfo.appVersion;

@@ -33,6 +33,7 @@ var pictureReview = (fileObject, cb) => {
         .then((res2) => {
           if(res2.code!=0){
             Toast("图片审核未通过，请重新上传！");
+			return;
           }
           res2.url = res.data.url;
           cb(res2);
@@ -47,7 +48,6 @@ var pictureReview = (fileObject, cb) => {
       Toast("系统异常");
     });
 };
-//文字审核
 var textReview=(str,cb)=>{
   request({
     url: "contentSecurity/aliyun/textScan",
@@ -57,10 +57,18 @@ var textReview=(str,cb)=>{
     },
   }).then(res=>{
     if(res.code!=0){
-      Toast("文本包含不合法词汇!");
+      Toast("小组名称或口号包含不合法词汇!");
+      return;
     }
     cb(res);
   })
 }
+//获取url后面的参数 仅在request里面使用
+var getQueryString=(name)=> {
+  var reg = new RegExp("(^|\\?|&)" + name + "=([^&]*)(&|$)");
+  var r = window.location.href.substr(1).match(reg);
+  if (r != null) return decodeURI(r[2]);
+  return null;
+}
 
-export { isAndroid, isIOS, isWechat, pictureReview,textReview };
+export { isAndroid, isIOS, isWechat, pictureReview,textReview ,getQueryString};
