@@ -100,7 +100,7 @@
 		}
 	};
 </script>
-<style scoped="scoped">
+<style >
 	@import '../styles/clubCreateCompetition.css';
 
 	.infomation {

@@ -10,7 +10,7 @@
 		<!-- 人数box -->
 		<div class="cellbox ub ub-ac ub-pj" @click="goMember(4)">
 			<div class="title">小组成员</div>
-			<div class="ub ub-ac">
+			<div class="ub ub-ac pgc">
 				<div class="detail">{{groupItem.count}}人</div>
 				<van-icon color="#999" name="arrow" />
 			</div>
@@ -53,7 +53,7 @@
 		<!-- 小组名称 -->
 		<div class="cellbox ub ub-ac ub-pj border-bottom" @click="goChangeMult(4)">
 			<div class="title">小组名称</div>
-			<div class="ub ub-ac">
+			<div class="ub ub-ac pgc">
 				<div class="van-ellipsis detail">{{groupItem.name}}</div>
 				<van-icon v-if="isCurrentUser" color="#999" name="arrow" />
 			</div>
@@ -61,7 +61,7 @@
 		<!-- 小组口号 -->
 		<div class="cellbox ub ub-ac ub-pj border-bottom" @click="goChangeMult(1)">
 			<div class="title">小组口号</div>
-			<div class="ub ub-ac">
+			<div class="ub ub-ac pgc">
 				<div class="van-ellipsis detail">{{groupItem.slogon}}</div>
 				<van-icon v-if="isCurrentUser" color="#999" name="arrow" />
 			</div>
@@ -112,7 +112,7 @@
 		<!-- 我在小组中昵称 -->
 		<div class="cellbox ub ub-ac ub-pj border-bottom" @click="goChangeNickname">
 			<div class="title">我在小组中昵称</div>
-			<div class="ub ub-ac">
+			<div class="ub ub-ac pgc">
 				<div class="van-ellipsis detail">{{groupItem.nickname}}</div>
 				<van-icon color="#999" name="arrow" />
 			</div>
@@ -374,14 +374,20 @@
 	@import '../styles/groupSetting/groupSetting.css';
 	@import '../styles/css/myGroupList.css';
 
-	.border-bottom .detail {
-		max-width: 4.8rem;
+	.pgc{
+		width: 3.8rem;
+		text-align: right;
+		justify-content: flex-end;
 	}
-
+	.pgc .detail{
+		width: 100%;
+	}
 	.groupMember .van-ellipsis {
 		max-width: .92rem;
 	}
-
+	.van-icon{
+		display: block;
+	}
 	.labelBox .labelItem {
 		color: #999999;
 		font-size: 0.2rem;
