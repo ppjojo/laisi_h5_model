@@ -24,7 +24,9 @@ service.interceptors.request.use(
       };
     } else if (!appInfo&&process.env.NODE_ENV != "dev") {
       interaction.getAppInfoAndUserInfo();
-      return service(config);
+      // setTimeout(()=>{
+      //   return service(config);
+      // },100)
     }
 
     let token = appInfo.token;
