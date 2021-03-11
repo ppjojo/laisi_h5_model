@@ -2,7 +2,8 @@ import axios from "axios";
 import md5 from "js-md5";
 import { Toast } from "vant";
 import defaultSettings from "@/settings";
-import { getQueryString } from '@u/tool';
+import { getQueryString } from "@u/tool";
+import { interaction } from "@u/interaction"; //app交互文件
 
 // create an axios instance
 const service = axios.create({
@@ -14,13 +15,13 @@ const service = axios.create({
 // request interceptor
 service.interceptors.request.use(
   (config) => {
-    let isShare=getQueryString("isShare");
+    let isShare = getQueryString("isShare");
     let appInfo = JSON.parse(localStorage.getItem("appInfo"));
-    if(isShare){
-      appInfo={
-        token:"SHARE",
-        userId:getQueryString("userId")||"10",
-      }
+    if (isShare || !appInfo) {
+      appInfo = {
+        token: "SHARE",
+        userId: getQueryString("userId") || "10",
+      };
     }
     let token = appInfo.token;
     let random = Math.floor(Math.random() * 999999);
@@ -50,37 +51,25 @@ service.interceptors.request.use(
 
 // response interceptor
 service.interceptors.response.use(
-  /**
-   * If you want to get http information such as headers or status
-   * Please return  response => response
-   */
-
-  /**
-   * Determine the request status by custom code
-   * Here is just an example
-   * You can also judge the status by HTTP Status Code
-   */
   (response) => {
     const res = response.data;
-    // console.log(response)
-
-    // if the custom code is not 0, it is judged as an error.
-    //console.log(response)
+    interaction.getAppInfoAndUserInfo();
     if (res.code == 0) {
       return res;
+    } else if (res.code == 2000) {//toke过期了
+      return service(response.config);
     } else if (
       res.code == 400 ||
       res.code == 500 ||
       res.code == 1000 ||
       res.code == 1500 ||
-      res.code == 2000 ||
       res.code == 2961
     ) {
       if (res) {
         Toast({
           message: res.msg || "Error",
         });
-      }else{
+      } else {
         Toast({
           message: "系统异常",
         });
@@ -91,6 +80,7 @@ service.interceptors.response.use(
     }
   },
   (error) => {
+    console.log(error);
     Toast({
       message: "系统异常",
     });

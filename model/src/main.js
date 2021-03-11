@@ -9,23 +9,7 @@ Vue.prototype.$interaction = interaction
 
 import "vant/lib/index.less"
 
-  try {
-    if (isIOS) {
-      window.webkit.messageHandlers.lstNative.postMessage("getAppInfo");
-    } else if (isAndroid) {
-      localStorage.setItem("appInfo", window.android.getAppInfo());
-    }
-  } catch (e) {
-    console.log(e);
-  }
-  window.getAppInfo = (appInfo)=>{
-    localStorage.setItem("appInfo", appInfo);
-  };
- 
-
-
-
-
+interaction.getAppInfoAndUserInfo()
 
 new Vue({
   router,

@@ -2,30 +2,13 @@ import Vue from 'vue';
 import App from './App';
 import { router } from './router';
 import '@u/amfe-flexible';
-import { isAndroid,isIOS } from '@u/tool';
-import { interaction } from '@u/interaction';
+import { isAndroid,isIOS } from '@u/tool';//工具类
+import { interaction } from '@u/interaction';//app交互文件
 Vue.prototype.$interaction = interaction
 
 import "vant/lib/index.less"
-import "./styles/flex_ub.css"
 
-  try {
-    if (isIOS) {
-      window.webkit.messageHandlers.lstNative.postMessage("getAppInfo");
-    } else if (isAndroid) {
-      localStorage.setItem("appInfo", window.android.getAppInfo());
-    }
-  } catch (e) {
-    console.log(e);
-  }
-  window.getAppInfo = (appInfo)=>{
-    localStorage.setItem("appInfo", appInfo);
-  };
- 
-
-
-
-
+interaction.getAppInfoAndUserInfo()
 
 new Vue({
   router,
