@@ -17,12 +17,16 @@ service.interceptors.request.use(
   (config) => {
     let isShare = getQueryString("isShare");
     let appInfo = JSON.parse(localStorage.getItem("appInfo"));
-    if (isShare || !appInfo) {
+    if (isShare) {
       appInfo = {
         token: "SHARE",
         userId: getQueryString("userId") || "10",
       };
+    } else if (!appInfo&&process.env.NODE_ENV != "dev") {
+      interaction.getAppInfoAndUserInfo();
+      return service(config);
     }
+
     let token = appInfo.token;
     let random = Math.floor(Math.random() * 999999);
     let timestamp = new Date().getTime();
@@ -53,10 +57,11 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   (response) => {
     const res = response.data;
-    interaction.getAppInfoAndUserInfo();
     if (res.code == 0) {
       return res;
-    } else if (res.code == 2000) {//toke过期了
+    } else if (res.code == 2000) {
+      //toke过期了
+      interaction.getAppInfoAndUserInfo();
       return service(response.config);
     } else if (
       res.code == 400 ||
