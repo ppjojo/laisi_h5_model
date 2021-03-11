@@ -7,10 +7,6 @@ import '@/icons'//icons
 Vue.prototype.$interaction = interaction
 
 import "vant/lib/index.less"
-if (process.env.NODE_ENV != "dev") {
-  localStorage.removeItem("appInfo");
-}
-interaction.getAppInfoAndUserInfo();
 
 new Vue({
   router,

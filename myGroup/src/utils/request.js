@@ -85,21 +85,17 @@ service.interceptors.response.use(
   }
 );
 
-// window.getAppInfo = function(info) {
-//   localStorage.setItem("appInfo", info);
-// };
-
 let getToken = (config) => {
   return new Promise(function(resolve, reject) {
-    try {
-      if (isIOS) {
-        window.webkit.messageHandlers.lstNative.postMessage("getAppInfo");
-        resolve(config);
-      } else if (isAndroid) {
-        resolve(config);
-      }
-    } catch (e) {
-      console.log(e);
+    if (process.env.NODE_ENV == "dev") {
+      resolve(config);
+    }
+    
+    if (isIOS) {
+      window.webkit.messageHandlers.lstNative.postMessage("getAppInfo");
+      resolve(config);
+    } else if (isAndroid) {
+      resolve(config);
     }
   }).then(
     (res) => {
