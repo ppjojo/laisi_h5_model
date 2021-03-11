@@ -54,24 +54,6 @@
 	width: 100%;
 }
 
-.van-popup {
-	overflow-y: visible;
-	width: 2.6rem;
-	left: calc(100% - 2.8rem) !important;
-}
-
-.van-popover[data-popper-placement=bottom-end] .van-popover__arrow {
-	right: .2rem;
-}
-
-.van-popover__action {
-	border-bottom: .02rem solid #333;
-}
-
-.van-popover--dark .van-popover__content {
-	background-color: #1f1f1f;
-}
-
 .van-icon-search {
 	color: #999;
 }

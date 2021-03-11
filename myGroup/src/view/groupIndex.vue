@@ -404,9 +404,6 @@
 		font-family: 'icon-tongyong-fenxiang';
 		src: url('../font/iconfont.ttf') format('truetype');
 	}
-	.van-popup--bottom,.van-picker{
-		width: 100vw!important;
-	}
 	.van-icon-icon-tongyong-fenxiang {
 		font-family: 'icon-tongyong-fenxiang';
 	}
