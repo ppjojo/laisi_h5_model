@@ -1,7 +1,7 @@
 <template>
 	<div id="app" v-cloak>
 		<div class="header">
-			<van-nav-bar :title="title"  @click-left="OnclickLeft" @click-right="OnclickRight">
+			<van-nav-bar :title="title"  @click-left="OnclickLeft" @click-right="OnclickRight" safe-area-inset-top>
 				<template  #left>
 					<div v-if="isCurrentUser">取消</div>
 					<i v-else class="van-icon van-icon-arrow-left van-nav-bar__arrow"><!----></i>
@@ -13,12 +13,12 @@
 		</div>
 		<div class="outside" v-if="flag==1||flag==4">
 			<!-- :style="{minHeight:flag==4?'1.7rem':'2.2rem'}" -->
-			<van-field v-model="text" :input="titleChange()" class="club-input" :rows="flag==4?2:3" autosize type="textarea"
+			<van-field v-model="text"  class="club-input" :rows="flag==4?2:3" autosize type="textarea"
 			 :maxlength="maxlength" :placeholder="flag==1?'请填写小组口号':'请填写小组名称'" show-word-limit />
 		</div>
 		<div class="outside" v-else>
 			<!-- :style="{minHeight:flag==4?'1.7rem':'2.2rem'}" -->
-			<van-field v-model="text" v-if="isCurrentUser" :input="titleChange()" class="club-input" rows="10" autosize type="textarea" maxlength="500"
+			<van-field v-model="text" v-if="isCurrentUser"  class="club-input" rows="10" autosize type="textarea" maxlength="500"
 			 placeholder="请填写公告1-500字" show-word-limit />
 			 <div style="font-size: .32rem;line-height: .44rem;" v-else>
 				 {{text}}
@@ -92,7 +92,7 @@
 			this.title = this.flag == 1 ? '小组口号' : this.flag == 2 ? '小组公告' : this.flag == 4 ?
 				'小组名称' : '';
 			this.maxlength = this.flag == 1 ? 100 : 16;
-			this.righttxt = this.flag == 1 || this.flag == 4 ? '保存' : '发布';
+			this.righttxt = this.flag == 1 || this.flag == 4 ? '保存' :this.text.length>0?'编辑': '发布';
 			this.getList();
 		},
 		methods: {

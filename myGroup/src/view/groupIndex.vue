@@ -92,13 +92,13 @@
 									<div class="deviceData">
 										<span>圈数:</span>
 										<span class="num">
-											{{ returnUserData('wristball',item.dataList).totalNumber?(returnUserData('wristball',item.dataList).totalNumber/10000).toFixed(3):0 }}
+											{{ returnUserData('wristball',item.dataList).number?(returnUserData('wristball',item.dataList).number/10000).toFixed(3):0 }}
 										</span>
 										<span>万</span>
 									</div>
 									<div class="deviceData">
 										<span>用时:</span>
-										<span class="num">{{returnTime(returnUserData('wristball',item.dataList).totalTime)}}</span>
+										<span class="num">{{returnTime(returnUserData('wristball',item.dataList).takeMs)}}</span>
 									</div>
 									<img class="iconRight" :src="require('../img/iconRight.png')" alt="">
 								</div>
@@ -106,12 +106,12 @@
 									<img class="deviceImg" :src="require('../img/group_ts.png')" alt="">
 									<div class="deviceData">
 										<span>个数:</span>
-										<span class="num">{{returnUserData('skipping',item.dataList).totalNumber}}</span>
+										<span class="num">{{returnUserData('skipping',item.dataList).number}}</span>
 										<span>个</span>
 									</div>
 									<div class="deviceData">
 										<span>用时:</span>
-										<span class="num">{{returnTime(returnUserData('skipping',item.dataList).totalTime)}}</span>
+										<span class="num">{{returnTime(returnUserData('skipping',item.dataList).takeMs)}}</span>
 									</div>
 									<img class="iconRight" :src="require('../img/iconRight.png')" alt="">
 								</div>
