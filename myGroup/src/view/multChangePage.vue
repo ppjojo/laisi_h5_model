@@ -159,7 +159,7 @@
 		}
 	};
 </script>
-<style>
+<style scoped="scoped">
 	.outside {
 		padding: .3rem;
 	}

@@ -115,7 +115,7 @@
         }
     };
 </script>
-<style >
-    @import '../styles/css/myGroupList.css'
+<style scoped="scoped">
+    @import '../styles/css/myGroupList.css';
 </style>
 

@@ -370,7 +370,7 @@
 		}
 	};
 </script>
-<style>
+<style scoped="scoped">
 	@import '../styles/groupSetting/groupSetting.css';
 	@import '../styles/css/myGroupList.css';
 
