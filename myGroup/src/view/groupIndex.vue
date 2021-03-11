@@ -249,7 +249,6 @@
 				document.getElementsByClassName("van-icon-setting-o")[0].style.color = colorValue2
 			},
 			destroyed() {
-				console.log('destory')
 				window.removeEventListener('scroll', this.scrollFn); // 销毁监听
 			},
 			onclickLeft() {
