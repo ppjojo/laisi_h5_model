@@ -355,7 +355,7 @@
 				this.$interaction.appNative('LSTH5APP_goToGroupQR', {
 					name: this.groupItem.name,
 					imageUrl: this.groupItem.portrait,
-					qrShareUrl: defaultSettings.host + "h5/h5V2/myGroup/#/myGroupList"
+					qrShareUrl: defaultSettings.host + "h5/h5V2/myGroup/#/groupIndex?id=" + this.groupId + '&isShare=1'
 				})
 			},
 			goGroupIndex(item) {

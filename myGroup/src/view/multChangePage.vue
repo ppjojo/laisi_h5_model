@@ -18,7 +18,7 @@
 		</div>
 		<div class="outside" v-else>
 			<!-- :style="{minHeight:flag==4?'1.7rem':'2.2rem'}" -->
-			<van-field v-model="text" v-if="isCurrentUser"  class="club-input" rows="10" autosize type="textarea" maxlength="500"
+			<van-field v-model="text" v-if="isCurrentUser" @input="textChange" class="club-input" rows="10" autosize type="textarea" maxlength="500"
 			 placeholder="请填写公告1-500字" show-word-limit />
 			 <div style="font-size: .32rem;line-height: .44rem;" v-else>
 				 {{text}}
@@ -148,6 +148,9 @@
 						})
 					}
 				})
+			},
+			textChange(){
+				this.righttxt = '发布';
 			},
 			titleChange() { //过滤
 				this.text = this.text.replace(

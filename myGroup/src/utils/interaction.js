@@ -59,7 +59,17 @@ var interaction = {
 	},
 	//关闭当前的h5窗口
 	closePage: function() {
-		this.appNative("goBack");
+		try {
+			if (isIOS) {
+				window.webkit.messageHandlers.lstNative.postMessage({
+					'method': 'goBack',
+				});
+			} else if (isAndroid) {
+				window.android.goBack();
+			}
+		} catch (e) {
+			console.log(e)
+		}
 	},
 
 	//H5调用原生的方法传入标题描述地址进行分享
