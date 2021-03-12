@@ -4,8 +4,6 @@ import { Toast } from "vant";
 import defaultSettings from "@/settings";
 import { getQueryString } from "@u/tool";
 import { interaction } from "@u/interaction"; //app交互文件
-import axiosRetry from "axios-retry";
-import { isAndroid, isIOS } from "@u/tool";
 
 // create an axios instance
 const service = axios.create({
@@ -13,12 +11,7 @@ const service = axios.create({
   withCredentials: true, // send cookies when cross-domain requests
   timeout: 100000, // request timeout
 });
-axiosRetry(service, {
-  retries: 3,
-  retryDelay: (retryCount) => {
-    return retryCount * 1000; // 重复请求延迟
-  },
-});
+
 
 // request interceptor
 service.interceptors.request.use((config) => {
