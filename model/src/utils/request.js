@@ -90,13 +90,8 @@ let getToken = (config) => {
     if (process.env.NODE_ENV == "dev") {
       resolve(config);
     }
-    
-    if (isIOS) {
-      window.webkit.messageHandlers.lstNative.postMessage("getAppInfo");
-      resolve(config);
-    } else if (isAndroid) {
-      resolve(config);
-    }
+    interaction.getAppInfoAndUserInfo();
+    resolve(config);
   }).then(
     (res) => {
       return service(res);
