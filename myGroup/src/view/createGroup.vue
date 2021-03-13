@@ -193,8 +193,16 @@
 			},
 			labelChange(id) {
 				var index = this.labelArray.findIndex(item => parseInt(item) === id)
-				if (index == -1) this.labelArray.push(id);
-				else this.labelArray.splice(index, 1);
+				if (index == -1){
+					if(this.labelArray.length==3){
+						Toast('小组标签最多选三个！');
+						return;
+					}else{
+						this.labelArray.push(id);
+					}
+				}else{
+					this.labelArray.splice(index, 1);
+				} 
 			},
 			contentChange() {
 				// if (this.groupItem.content) this.groupItem.content = this.groupItem.content.replace(
