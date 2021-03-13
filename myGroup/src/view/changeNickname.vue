@@ -124,7 +124,7 @@
 	}
 
 	.van-field__control {
-		text-align: center;
+		text-align: center!important;
 	}
 
 	.van-field__control {

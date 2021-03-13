@@ -136,6 +136,7 @@
 
 .van-field__control {
 	color: #333;
+	text-align: center;
 }
 
 .matchName-input .van-field__word-limit {
