@@ -252,7 +252,7 @@
 		}
 	};
 </script>
-<style scoped="scoped">
+<style scoped>
 	@import '../styles/member.css';
 
 	.van-collapse-item__wrapper .van-cell {

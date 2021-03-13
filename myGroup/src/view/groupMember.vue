@@ -268,7 +268,7 @@
 	};
 </script>
 <style scoped>
-	@import '../styles/member.css';
+	@import '../styles/groupMember.css';
 
 	.van-collapse-item__wrapper .van-cell {
 		padding: 0;
@@ -295,15 +295,6 @@
 	.van-checkbox {
 		margin-right: .2rem;
 	}
-
-	.submit {
-		position: fixed;
-		bottom: 0;
-		left: calc(50% - 3.15rem);
-		opacity: 1;
-		margin: .2rem 0;
-	}
-
 	.boldtitle {
 		font-weight: bold;
 	}
