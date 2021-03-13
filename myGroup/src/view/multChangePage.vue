@@ -141,7 +141,7 @@
 				textReview(this.text, res => {
 					if (res.code == 0) {
 						upDateGroup(this.groupItem).then(res => {
-							Toast('修改成功！');
+							Toast(this.flag == 2 ?'发布成功！':'修改成功！');
 							setTimeout(() => {
 								this.$router.go(-1);
 							}, 1500)
