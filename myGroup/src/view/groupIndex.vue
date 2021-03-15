@@ -85,7 +85,10 @@
 										<span class="num"> {{returnUserData('balance',item.dataList).bfr}}</span>
 										<span>%</span>
 									</div>
-									<img class="iconRight" @click="goDeviceDetail" :src="require('../img/iconRight.png')" alt="">
+									<div class="iconRightBox" @click="goDeviceDetail">
+										<img class="iconRight"  :src="require('../img/iconRight.png')" alt="">
+									</div>
+									
 								</div>
 								<div class="deviceItem" v-if="returnUserData('wristball',item.dataList)">
 									<img class="deviceImg" :src="require('../img/group_wlq.png')" alt="">
@@ -100,7 +103,9 @@
 										<span>用时:</span>
 										<span class="num">{{returnTime(returnUserData('wristball',item.dataList).takeMs)}}</span>
 									</div>
-									<img class="iconRight" @click="goDeviceDetail" :src="require('../img/iconRight.png')" alt="">
+									<div class="iconRightBox" @click="goDeviceDetail">
+										<img class="iconRight"  :src="require('../img/iconRight.png')" alt="">
+									</div>
 								</div>
 								<div class="deviceItem" v-if="returnUserData('skipping',item.dataList)">
 									<img class="deviceImg" :src="require('../img/group_ts.png')" alt="">
@@ -113,7 +118,9 @@
 										<span>用时:</span>
 										<span class="num">{{returnTime(returnUserData('skipping',item.dataList).takeMs)}}</span>
 									</div>
-									<img class="iconRight" @click="goDeviceDetail" :src="require('../img/iconRight.png')" alt="">
+									<div class="iconRightBox"  @click="goDeviceDetail">
+										<img class="iconRight" :src="require('../img/iconRight.png')" alt="">
+									</div>
 								</div>
 							</div>
 

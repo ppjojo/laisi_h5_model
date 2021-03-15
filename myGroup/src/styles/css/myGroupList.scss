@@ -2,55 +2,58 @@
 @font-face {
     font-family: "DINCondensed-Bold";
     src: url("../../font/DINCondensed-Bold/DINCondensed-Bold.woff2") format("woff2"),
-     url("../../font/DINCondensed-Bold/DINCondensed-Bold.woff") format("woff"),
-      url("../../font/DINCondensed-Bold/DINCondensed-Bold.ttf") format("truetype"),
-       url("../../font/DINCondensed-Bold/DINCondensed-Bold.eot") format("embedded-opentype"),
+        url("../../font/DINCondensed-Bold/DINCondensed-Bold.woff") format("woff"),
+        url("../../font/DINCondensed-Bold/DINCondensed-Bold.ttf") format("truetype"),
+        url("../../font/DINCondensed-Bold/DINCondensed-Bold.eot") format("embedded-opentype"),
         url("../../font/DINCondensed-Bold/DINCondensed-Bold.svg") format("svg");
     font-weight: normal;
     font-style: normal;
 }
+
 .header {
     height: 1rem;
-  }
+}
+
 @supports ((height: constant(safe-area-inset-top)) or (height: env(safe-area-inset-top))) and (-webkit-overflow-scrolling: touch) {
-    .header{
+    .header {
         height: 1rem;
         height: calc(1rem + constant(safe-area-inset-top));
         height: calc(1rem + env(safe-area-inset-top));
     }
-  }
+}
 
-.van-hairline--bottom::after{
+.van-hairline--bottom::after {
     border: none;
 }
+
 //健身
 .js {
-    background-color: #FBF6F1!important;
-    color: #FF8D3F!important;
+    background-color: #FBF6F1 !important;
+    color: #FF8D3F !important;
 }
 
 //减肥
 .jf {
-    background-color: #F1F1FB!important;
-    color: #7C87F8!important;
+    background-color: #F1F1FB !important;
+    color: #7C87F8 !important;
 }
 
 //跳绳
 .ts {
-    background-color: #F1FBF3!important;
-    color: #26B350!important;
+    background-color: #F1FBF3 !important;
+    color: #26B350 !important;
 }
 
 //减脂
 .jz {
-    background-color: #FFF1F1!important;
-    color: #F86C6C!important;
+    background-color: #FFF1F1 !important;
+    color: #F86C6C !important;
 }
 
 //腕力球
 .wlq {
-    background-color: #F1F9FB!important;
-    color: #66ABFF!important;
+    background-color: #F1F9FB !important;
+    color: #66ABFF !important;
 }
 
 .myGroupList {
@@ -81,7 +84,7 @@
                     background-position: center center;
                     border-radius: 10px;
                     float: left;
-					background-size:cover;
+                    background-size: cover;
                 }
 
                 .groupInfo {
@@ -125,21 +128,22 @@
                             padding: 0 4px;
                             margin-right: 0.2rem;
                             height: 0.32rem;
-							white-space:nowrap;
+                            white-space: nowrap;
                         }
 
-                       
-                       
+
+
                     }
                 }
             }
         }
     }
 
-    
+
 
 
 }
+
 .nullDataBox {
     margin-top: 3.5rem;
     background-color: #fff;
@@ -181,7 +185,8 @@
             font-size: 1.28rem;
             color: #AAAAAA;
         }
-        .van-uploader__preview-image{
+
+        .van-uploader__preview-image {
             width: 2.4rem;
             height: 2.4rem;
             border-radius: 5px;
@@ -238,7 +243,7 @@
                     height: 0.6rem;
                 }
             }
-            
+
             .labelTxt {
                 color: #999;
                 font-size: 0.28rem;
@@ -272,7 +277,8 @@
     .groupInfoBox {
         position: absolute;
         top: 0;
-		width: 100%;
+        width: 100%;
+
         .bannerBg {
             height: 5.16rem;
             width: 100%;
@@ -294,7 +300,7 @@
                 background-position: center center;
                 border-radius: 10px;
                 float: left;
-                background-size:cover;
+                background-size: cover;
             }
 
             .groupInfo {
@@ -341,7 +347,7 @@
                         margin-right: 0.2rem;
                         height: 0.32rem;
                         border-radius: 5px;
-						white-space:nowrap;
+                        white-space: nowrap;
                     }
 
                     //健身
@@ -558,10 +564,15 @@
                                     }
                                 }
 
-                                .iconRight {
-                                    width: 0.25rem;
-                                    height: 0.25rem;
+                                .iconRightBox {
+                                    width: 0.5rem;
+                                    text-align: right;
+                                    .iconRight {
+                                        width: 0.25rem;
+                                        height: 0.25rem;
+                                    }
                                 }
+
                             }
 
                         }

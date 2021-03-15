@@ -600,7 +600,12 @@
   font-family: DINCondensed-Bold;
 }
 
-.groupIndex .containBox .sportBox .personBox ul li .deviceList .deviceItem .iconRight {
+.groupIndex .containBox .sportBox .personBox ul li .deviceList .deviceItem .iconRightBox {
+  width: 0.5rem;
+  text-align: right;
+}
+
+.groupIndex .containBox .sportBox .personBox ul li .deviceList .deviceItem .iconRightBox .iconRight {
   width: 0.25rem;
   height: 0.25rem;
 }

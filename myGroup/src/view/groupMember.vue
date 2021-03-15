@@ -239,7 +239,7 @@
 			onClickRight() { //移除
 				if(this.flag!=3)return;
 				if(this.memberResult.length==0)return;
-				let str = "确定要移除出 ",namestr = [];
+				let str = "确定要移除 ",namestr = [];
 				this.memberResult.forEach(d=>{
 					this.dataList.forEach(e=>{
 						if(d==e.memberId){
@@ -247,7 +247,7 @@
 						}
 					})
 				});
-				str += namestr.length<=3?namestr.toString():(namestr.slice(0,2).toString()+`等${namestr.length}人吗?`);
+				str += namestr.length<=3?(namestr.toString()+'吗?'):(namestr.slice(0,2).toString()+`等${namestr.length}人吗?`);
 				// str += "移出小组吗?";
 				Dialog.confirm({
 					confirmButtonText: '移除',
@@ -257,6 +257,7 @@
 				}).then(() => {
 					removeMember({groupId:this.groupId,memberIds:this.memberResult}).then(res=>{
 						this.getList();
+						this.memberResult=[]
 					})
 				}).catch(() => {
 				

@@ -24,7 +24,7 @@
 					<div class="van-ellipsis detail">{{item.nickname}}</div>
 				</div>
 			</template>
-			<div class="groupMember ub-ac" @click="goInvite()">
+			<div class="groupMember ub-ac" @click="goInvite()"  v-if="groupItem.count<10">
 				<div class="imgbox ub ub-ac ub-pc" style="background-color: #f5f5f5;">
 					<img :src="require('../img/plus.png')" alt="">
 				</div>
