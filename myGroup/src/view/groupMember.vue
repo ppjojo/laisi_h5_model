@@ -160,9 +160,13 @@
 			},
 			changeLeader(item){
 				let str = "将组长职权转让给“"+item.nickname+"”并退出小组吗？";
-				if (this.flag==1) str = "将组长职权转让给“"+item.nickname+"”吗？"
+				 let confirmButtonText="退出" ;
+				if (this.flag==1) {
+					 confirmButtonText="转让" ;
+					str = "将组长职权转让给“"+item.nickname+"”吗？"
+				}
 				Dialog.confirm({
-					confirmButtonText: '确定',
+					confirmButtonText: confirmButtonText,
 					confirmButtonColor: '#e62000',
 					cancelButtonColor: '#999',
 					message: str
@@ -235,7 +239,7 @@
 			onClickRight() { //移除
 				if(this.flag!=3)return;
 				if(this.memberResult.length==0)return;
-				let str = "将",namestr = [];
+				let str = "确定要移除出 ",namestr = [];
 				this.memberResult.forEach(d=>{
 					this.dataList.forEach(e=>{
 						if(d==e.memberId){
@@ -243,8 +247,8 @@
 						}
 					})
 				});
-				str += namestr.length<=3?namestr.toString():(namestr.slice(0,2).toString()+"等");
-				str += "移出小组吗?";
+				str += namestr.length<=3?namestr.toString():(namestr.slice(0,2).toString()+`等${namestr.length}人吗?`);
+				// str += "移出小组吗?";
 				Dialog.confirm({
 					confirmButtonText: '移除',
 					confirmButtonColor: '#e62000',

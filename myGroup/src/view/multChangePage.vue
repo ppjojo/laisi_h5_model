@@ -107,14 +107,15 @@
 			OnclickLeft() {
 				if (this.flag == 2&&this.isCurrentUser) {
 					Dialog.confirm({
-						confirmButtonText: '确定',
+						confirmButtonText: '继续编辑',
+						cancelButtonText:'退出',
 						confirmButtonColor: '#007aff',
 						cancelButtonColor: '#999',
 						message: '退出本次编辑？'
 					}).then(() => {
-						this.$router.go(-1);
+						
 					}).catch(() => {
-
+						this.$router.go(-1);
 					});
 				} else {
 					this.$router.go(-1);
