@@ -66,11 +66,15 @@
 						changeNickname({
 							groupId: this.groupId,
 							nickName: this.nickname
-						}).then(() => {
-							Toast('修改昵称成功！');
-							setTimeout(() => {
-								this.$router.go(-1);
-							}, 1500)
+						}).then((res2) => {
+							if (res2.code == 0) {
+								Toast('修改昵称成功！');
+								setTimeout(() => {
+									this.$router.go(-1);
+								}, 1500)
+							}else{
+								Toast('该昵称已被占用!');
+							}
 						}).catch(() => {
 							console.log("error")
 						})

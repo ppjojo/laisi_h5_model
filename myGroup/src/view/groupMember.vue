@@ -140,6 +140,9 @@
 			getList() {
 				listItem(this.searchval).then((res) => {
 					this.dataList = res.data;
+					if(this.flag==4){
+						this.title=`小组成员(${res.data.length})`
+					}
 				}).catch(() => {
 					console.log("error")
 				})

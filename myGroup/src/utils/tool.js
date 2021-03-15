@@ -49,6 +49,10 @@ var pictureReview = (fileObject, cb) => {
     });
 };
 var textReview=(str,cb)=>{
+  str=str.replace(/\s*/g,"");
+  if(!str){
+    return 
+  }
   request({
     url: "contentSecurity/aliyun/textScan",
     method: "post",

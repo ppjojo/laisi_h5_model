@@ -1,7 +1,7 @@
 <template>
 	<div id="app" v-cloak>
 		<div class="header">
-			<van-nav-bar :title="title"  @click-left="OnclickLeft" @click-right="OnclickRight" safe-area-inset-top>
+			<van-nav-bar :title="title"  @click-left="OnclickLeft" @click-right="OnclickRight" safe-area-inset-top fixed>
 				<template  #left>
 					<div v-if="isCurrentUser">取消</div>
 					<i v-else class="van-icon van-icon-arrow-left van-nav-bar__arrow"><!----></i>
@@ -92,7 +92,7 @@
 			this.title = this.flag == 1 ? '小组口号' : this.flag == 2 ? '小组公告' : this.flag == 4 ?
 				'小组名称' : '';
 			this.maxlength = this.flag == 1 ? 100 : 16;
-			this.righttxt = this.flag == 1 || this.flag == 4 ? '保存' :this.text.length>0?'编辑': '发布';
+			this.righttxt = this.flag == 1 || this.flag == 4 ? '保存' :'发布';
 			this.getList();
 		},
 		methods: {

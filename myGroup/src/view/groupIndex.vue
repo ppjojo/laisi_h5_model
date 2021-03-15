@@ -85,7 +85,7 @@
 										<span class="num"> {{returnUserData('balance',item.dataList).bfr}}</span>
 										<span>%</span>
 									</div>
-									<img class="iconRight" :src="require('../img/iconRight.png')" alt="">
+									<img class="iconRight" @click="goDeviceDetail" :src="require('../img/iconRight.png')" alt="">
 								</div>
 								<div class="deviceItem" v-if="returnUserData('wristball',item.dataList)">
 									<img class="deviceImg" :src="require('../img/group_wlq.png')" alt="">
@@ -100,7 +100,7 @@
 										<span>用时:</span>
 										<span class="num">{{returnTime(returnUserData('wristball',item.dataList).takeMs)}}</span>
 									</div>
-									<img class="iconRight" :src="require('../img/iconRight.png')" alt="">
+									<img class="iconRight" @click="goDeviceDetail" :src="require('../img/iconRight.png')" alt="">
 								</div>
 								<div class="deviceItem" v-if="returnUserData('skipping',item.dataList)">
 									<img class="deviceImg" :src="require('../img/group_ts.png')" alt="">
@@ -113,7 +113,7 @@
 										<span>用时:</span>
 										<span class="num">{{returnTime(returnUserData('skipping',item.dataList).takeMs)}}</span>
 									</div>
-									<img class="iconRight" :src="require('../img/iconRight.png')" alt="">
+									<img class="iconRight" @click="goDeviceDetail" :src="require('../img/iconRight.png')" alt="">
 								</div>
 							</div>
 
@@ -390,6 +390,14 @@
 				unit -= 60 * min;
 				let sec = unit >= 10 ? unit : '0' + unit;
 				return hour + ':' + min + ':' + sec;
+			},
+			goDeviceDetail(){
+				this.$router.push({
+					path: '/deviceDetail',
+					query: {
+						id: this.groupId
+					}
+				});
 			}
 
 		}

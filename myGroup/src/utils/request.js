@@ -45,7 +45,7 @@ service.interceptors.request.use((config) => {
 service.interceptors.response.use(
   (response) => {
     const res = response.data;
-    console.log(response.config);
+   // console.log(response.config);
     if (res.code == 0) {
       return res;
     } else if (
