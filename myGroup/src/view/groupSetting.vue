@@ -281,7 +281,7 @@
 			},
 			delChatRecord() {
 				Dialog.confirm({
-					confirmButtonText: '确定',
+					confirmButtonText: '删除',
 					confirmButtonColor: '#e62000',
 					cancelButtonColor: '#999',
 					message: '确定要删除聊天记录吗？'
@@ -300,7 +300,7 @@
 				let str = "确定退出小组？";
 				if (this.isCurrentUser) str = '确定解散小组？';
 				Dialog.confirm({
-					confirmButtonText: '确定',
+					confirmButtonText: '解散',
 					confirmButtonColor: '#e62000',
 					cancelButtonColor: '#999',
 					message: str

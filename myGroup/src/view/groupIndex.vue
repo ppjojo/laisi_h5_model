@@ -16,6 +16,7 @@
 
 		<div style="height: 4.6rem;" >
 			<div class="groupInfoBox">
+				<div class="blackBGBox"></div>
 				<img class="bannerBg" :src="groupItem.portrait" alt="">
 				<div class="groupBox">
 					<div class="groupImg" :style="{'background-image':'url('+groupItem.portrait+')'}"></div>
