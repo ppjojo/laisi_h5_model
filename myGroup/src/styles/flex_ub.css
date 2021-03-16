@@ -69,4 +69,6 @@
 }
 .header{
 	height: 1rem;
+	position: relative;
+	z-index: 99;
 }

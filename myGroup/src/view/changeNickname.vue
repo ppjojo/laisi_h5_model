@@ -13,7 +13,7 @@
 		<van-cell-group id="changeName">
 			<van-field v-model="nickname" maxlength="8" clearable placeholder="请输入昵称"></van-field>
 		</van-cell-group>
-		<van-button round class="submit" block @click="changeName(nickname)" :color="nickname?bgc:bgcgrey">完成
+		<van-button round class="submit" block @click="changeName(nickname)" :color="nickname!=oldNickName?bgc:bgcgrey">完成
 		</van-button>
 	</div>
 </template>
@@ -53,6 +53,7 @@
 				nickname: this.$route.query.name || '',
 				groupId: parseInt(this.$route.query.id),
 				clubid: '',
+				oldNickName:this.$route.query.name || '',
 			};
 		},
 		filters: {},
@@ -60,7 +61,7 @@
 		created() {},
 		methods: {
 			changeName(nickname) {
-				if (!nickname) return;
+				if (!nickname) return Toast('昵称不为空！');
 				textReview(this.nickname, res => {
 					if (res.code == 0) {
 						changeNickname({

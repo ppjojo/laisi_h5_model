@@ -12,9 +12,9 @@
 				</template>
 			</van-nav-bar>
 		</div>
-        <div style="height:1rem" v-else></div>
+		<div style="height:1rem" v-else></div>
 
-		<div style="height: 4.6rem;" >
+		<div style="height: 4.6rem;">
 			<div class="groupInfoBox">
 				<div class="blackBGBox"></div>
 				<img class="bannerBg" :src="groupItem.portrait" alt="">
@@ -25,7 +25,8 @@
 						</div>
 						<div class="desc">{{groupItem.slogon}}</div>
 						<div class="labelBox">
-							<div v-for="labelItem in labelFun(groupItem.labelId)" class="labelItem" :class="labelItem[0]">{{labelItem[1]}}</div>
+							<div v-for="labelItem in labelFun(groupItem.labelId)" class="labelItem"
+								:class="labelItem[0]">{{labelItem[1]}}</div>
 						</div>
 					</div>
 				</div>
@@ -61,7 +62,8 @@
 					<div class="dateTitle">
 						{{currentDatestr}}
 					</div>
-					<img class="chooseDate" @click="dateshow = isShare?false:true" :src="require('../img/canlindar.png')" alt="">
+					<img class="chooseDate" @click="dateshow = isShare?false:true"
+						:src="require('../img/canlindar.png')" alt="">
 				</div>
 				<div class="personBox">
 					<ul>
@@ -87,9 +89,9 @@
 										<span>%</span>
 									</div>
 									<div class="iconRightBox" @click="goDeviceDetail">
-										<img class="iconRight"  :src="require('../img/iconRight.png')" alt="">
+										<img class="iconRight" :src="require('../img/iconRight.png')" alt="">
 									</div>
-									
+
 								</div>
 								<div class="deviceItem" v-if="returnUserData('wristball',item.dataList)">
 									<img class="deviceImg" :src="require('../img/group_wlq.png')" alt="">
@@ -102,10 +104,11 @@
 									</div>
 									<div class="deviceData">
 										<span>用时:</span>
-										<span class="num">{{returnTime(returnUserData('wristball',item.dataList).takeMs)}}</span>
+										<span
+											class="num">{{returnTime(returnUserData('wristball',item.dataList).takeMs)}}</span>
 									</div>
 									<div class="iconRightBox" @click="goDeviceDetail">
-										<img class="iconRight"  :src="require('../img/iconRight.png')" alt="">
+										<img class="iconRight" :src="require('../img/iconRight.png')" alt="">
 									</div>
 								</div>
 								<div class="deviceItem" v-if="returnUserData('skipping',item.dataList)">
@@ -117,9 +120,10 @@
 									</div>
 									<div class="deviceData">
 										<span>用时:</span>
-										<span class="num">{{returnTime(returnUserData('skipping',item.dataList).takeMs)}}</span>
+										<span
+											class="num">{{returnTime(returnUserData('skipping',item.dataList).takeMs)}}</span>
 									</div>
-									<div class="iconRightBox"  @click="goDeviceDetail">
+									<div class="iconRightBox" @click="goDeviceDetail">
 										<img class="iconRight" :src="require('../img/iconRight.png')" alt="">
 									</div>
 								</div>
@@ -135,13 +139,15 @@
 			</div>
 
 			<div class="btn_box">
-				<div class="btn" v-if="!isShare" @click="goToGroupChat">{{isGrouptMember?'小组群聊':groupItem.isInviteConfirm?'申请加入':'立即加入'}}</div>
-				<div class="btn" v-else @click="goInto">立即加入</div>
+				<div class="btn"  v-if="isShare" @click="goInto">立即加入</div>
+				<div class="btn" v-else-if="ownerUserId" @click="goToGroupChat">
+					{{isGrouptMember?'小组群聊':groupItem.isInviteConfirm?'申请加入':'立即加入'}}</div>
+				
 			</div>
 
 			<van-popup v-model="dateshow" position="bottom" style="z-index: 9999;">
-				<van-datetime-picker v-model="currentDate" type="date" title="" :min-date="minDate" :max-date="maxDate" :formatter="formatter"
-				 swipe-duration=100 @confirm="dateConfirm" @cancel="dateshow = false" />
+				<van-datetime-picker v-model="currentDate" type="date" title="" :min-date="minDate" :max-date="maxDate"
+					:formatter="formatter" swipe-duration=100 @confirm="dateConfirm" @cancel="dateshow = false" />
 			</van-popup>
 		</div>
 
@@ -199,7 +205,7 @@
 				userIdData: [],
 				huanxinGroupId: null,
 				ownerUserId: null,
-				searchTime:new Date().getTime(),
+				searchTime: new Date().getTime(),
 				groupItem: {
 					name: '',
 					portrait: '',
@@ -211,10 +217,10 @@
 		},
 		filters: {},
 		mounted() {
-            if(this.isShare!=1){
-                window.addEventListener('scroll', this.scrollFn);
-            }
-			
+			if (this.isShare != 1) {
+				window.addEventListener('scroll', this.scrollFn);
+			}
+
 		},
 		beforeRouteLeave(to, from, next) {
 			this.destroyed();
@@ -234,7 +240,8 @@
 					this.groupItem = res.data.groupInfo;
 					this.memberIcon = res.data.memberIcon;
 					this.userIdData = res.data.userIdData;
-					let userId= this.$route.query.isShare==1?(this.$route.query.userId?this.$route.query.userId:10):JSON.parse(localStorage.getItem("appInfo")).userId
+					let userId = this.$route.query.isShare == 1 ? (this.$route.query.userId ? this.$route.query
+						.userId : 10) : JSON.parse(localStorage.getItem("appInfo")).userId
 					if (parseInt(userId) == res.data.ownerUserId) this.isCurrentUser = 1;
 					this.isGrouptMember = res.data.isGrouptMember;
 					this.ownerUserId = res.data.ownerUserId;
@@ -268,7 +275,7 @@
 				}
 			},
 			shareGroup() {
-				if(!this.isGrouptMember)return;
+				if (!this.isGrouptMember) return;
 				this.$interaction.sharePage({
 					title: this.groupItem.name,
 					description: this.groupItem.slogon,
@@ -280,6 +287,8 @@
 				if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) { //判断iPhone|iPad|iPod|iOS
 					linkUrl = "https://lstemp.laisitech.com?actionType=groupDetail&id=" + this.groupId
 				} else if (/(Android)/i.test(navigator.userAgent)) { //判断Android
+					// linkUrl = "rehealth://groupDetail?id=" + this.groupId
+					// return
 					if (navigator.userAgent.toLowerCase().indexOf('micromessenger') !== -1) { //微信
 						linkUrl = "https://a.app.qq.com/o/simple.jsp?pkgname=com.lstech.rehealth"
 					} else {
@@ -340,7 +349,7 @@
 				return obj
 			},
 			goNotice() {
-				if (!this.isGrouptMember||this.isShare) return;
+				if (!this.isGrouptMember || this.isShare) return;
 				this.$router.push({
 					path: '/multChangePage',
 					query: {
@@ -352,7 +361,7 @@
 				});
 			},
 			goMemberlist() {
-                if (this.isShare) return;
+				if (this.isShare) return;
 				this.$router.push({
 					path: '/groupMember',
 					query: {
@@ -368,7 +377,7 @@
 					});
 				} else {
 					//分享进来需要审核，给组长弹消息
-					let userId= JSON.parse(localStorage.getItem("appInfo")).userId
+					let userId = JSON.parse(localStorage.getItem("appInfo")).userId
 					if (this.groupItem.isInviteConfirm) {
 						this.$interaction.appNative("LSTH5APP_ApplyJoinGroup", {
 							groupId: this.groupId,
@@ -386,7 +395,11 @@
 							userId: userId,
 							nickName: JSON.parse(localStorage.getItem("appInfo")).nickname
 						}).then(res => {
-							this.initData();
+							if(res.code==0){
+								this.initData();
+							}else if(res.code==2963){
+								Toast('小组成员已满！');
+							}
 						})
 					}
 				}
@@ -401,7 +414,7 @@
 				let sec = unit >= 10 ? unit : '0' + unit;
 				return hour + ':' + min + ':' + sec;
 			},
-			goDeviceDetail(){
+			goDeviceDetail() {
 				this.$router.push({
 					path: '/deviceDetail',
 					query: {
@@ -422,6 +435,7 @@
 		font-family: 'icon-tongyong-fenxiang';
 		src: url('../font/iconfont.ttf') format('truetype');
 	}
+
 	.van-icon-icon-tongyong-fenxiang {
 		font-family: 'icon-tongyong-fenxiang';
 	}
