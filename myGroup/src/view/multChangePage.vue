@@ -122,7 +122,8 @@
 				}
 			},
 			OnclickRight() {
-				if (!this.text) return;
+				this.text=this.text.replace(/\s*/g,"");
+				if (!this.text) return ;
 				if (this.flag == 2) {
 					Dialog.confirm({
 						confirmButtonText: '发布',

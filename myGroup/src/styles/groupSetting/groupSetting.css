@@ -11,7 +11,7 @@
 .cellbox .detail {
 	font-size: .28rem;
 	color: #999;
-	white-space:nowrap;
+	white-space: nowrap;
 }
 
 .cellbox .van-icon {
@@ -20,44 +20,55 @@
 	margin-right: -.08rem;
 	margin-bottom: -0.03rem;
 }
-.cellbox .groupMember{
+
+.cellbox .groupMember {
 	text-align: center;
 	width: 20%;
 	display: flex;
 	flex-flow: column;
 }
-.cellbox .groupMember .imgbox{
+
+.cellbox .groupMember .imgbox {
 	border-radius: 100%;
 	width: .92rem;
 	height: .92rem;
 	margin-bottom: .1rem;
 	/* background-color: #f5f5f5; */
 }
-.cellbox .headpic{
+
+.cellbox .headpic {
 	width: .72rem;
 	height: .72rem;
 	border-radius: .1rem;
-	vertical-align: middle;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: 100% 100%;
 }
-.van-uploader__input-wrapper{
+
+.van-uploader__input-wrapper {
 	display: flex;
 }
-.cellbox .groupMember .imgbox img.headImg{
+
+.cellbox .groupMember .imgbox img.headImg {
 	width: 100%;
 	border-radius: 100%;
 }
+
 .border-bottom {
 	border-bottom: .02rem solid #f5f5f5;
 }
+
 .border-bottom2 {
 	border-bottom: .2rem solid #f5f5f5;
 }
-.quit{
+
+.quit {
 	color: #E60012;
 	font-size: .32rem;
 	text-align: center;
 	line-height: .6rem;
 }
+
 .van-switch {
 	width: 1rem;
 	height: .46rem;

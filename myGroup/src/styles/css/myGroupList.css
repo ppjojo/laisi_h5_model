@@ -163,21 +163,33 @@
   text-align: center;
 }
 
-.createGroup .uploaderBox .van-uploader__upload {
+.createGroup .uploaderBox .uploadLoadIconBox {
   width: 2.4rem;
   height: 2.4rem;
   border-radius: 5px;
+  background-color: #F8F8F8;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
-.createGroup .uploaderBox .van-uploader__upload-icon {
+.createGroup .uploaderBox .uploadLoadIconBox .van-icon-plus {
   font-size: 1.28rem;
   color: #AAAAAA;
 }
 
-.createGroup .uploaderBox .van-uploader__preview-image {
-  width: 2.4rem;
-  height: 2.4rem;
-  border-radius: 5px;
+.createGroup .uploaderBox .uploadLoadIconBox .uploadLoadIconBG {
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100%;
 }
 
 .createGroup .uploaderTxt {
@@ -615,6 +627,16 @@
 .groupIndex .containBox .sportBox .personBox ul li .deviceList .deviceItem .iconRightBox {
   width: 0.5rem;
   text-align: right;
+  height: 1rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .groupIndex .containBox .sportBox .personBox ul li .deviceList .deviceItem .iconRightBox .iconRight {

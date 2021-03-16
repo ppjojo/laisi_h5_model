@@ -1,7 +1,7 @@
 <template>
 	<div id="app" v-cloak>
 		<div class="header">
-			<van-nav-bar :title="oldName" @click-left="onclickLeft" @click-right="onClickRight" left-arrow
+			<van-nav-bar title="我在小组中的昵称" @click-left="onclickLeft" @click-right="onClickRight" left-arrow
 				safe-area-inset-top fixed>
 				<template #right>
 				</template>
@@ -53,7 +53,6 @@
 				nickname: this.$route.query.name || '',
 				groupId: parseInt(this.$route.query.id),
 				clubid: '',
-				oldName:this.$route.query.name || ''
 			};
 		},
 		filters: {},

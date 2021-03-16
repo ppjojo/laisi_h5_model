@@ -4,32 +4,37 @@
 			<van-nav-bar :title="titleText" @click-left="onclickLeft" @click-right="onClickRight" left-arrow
 				safe-area-inset-top fixed>
 				<template #right>
-					<div v-if="edit" :style="{color:'#e60012',fontSize:'.32rem'}">完成</div>
+					<div v-if="edit&&labelArray.length>0" :style="{color:'#e60012',fontSize:'.32rem'}">完成</div>
+					<div v-if="edit&&labelArray.length==0" :style="{fontSize:'.32rem'}">完成</div>
 				</template>
 			</van-nav-bar>
 		</div>
 		<div class="createGroup" v-if="flag==1">
 			<div class="labelTitle">小组形象</div>
 			<div class="uploaderBox">
-				<van-uploader upload-icon="plus" v-model="fileList" :deletable="false" :max-count="1"
-					:after-read="afterRead" />
+				<van-uploader   :deletable="false" :max-count="1" :after-read="afterRead"  >
+					<div class="uploadLoadIconBox" >
+						<div class="uploadLoadIconBG" v-if="groupItem.portrait" :style="{'background-image':'url('+groupItem.portrait+')'}"></div>
+						<van-icon v-else name="plus" />
+					</div>
+					
+				</van-uploader>
 			</div>
 			<div class="uploaderTxt">请选择一张图片作为小组头像</div>
 			<van-button round class="nextStep" block @click="goNext1()" :color="groupItem.portrait?bgc:bgcgrey">下一步
 			</van-button>
-			<van-loading type="spinner" vertical v-show="overlayShow"></van-loading>
+			<!-- <van-loading type="spinner" vertical v-show="overlayShow"></van-loading> -->
 		</div>
 		<div class="createGroup" v-if="flag==2">
 			<div class="labelTitle">小组名称</div>
 			<div>
-				<van-field v-model="groupItem.name" :input="titleChange()" style="background-color: #f5f5f5;" rows="1"
-					autosize type="textarea" maxlength="16" placeholder="请为您的小组取个响亮的名称吧～" show-word-limit />
+				<van-field v-model="groupItem.name" style="background-color: #f5f5f5;" rows="1" autosize type="textarea"
+					maxlength="16" placeholder="请为您的小组取个响亮的名称吧～" show-word-limit />
 			</div>
 			<div class="labelTitle" style="margin-top: 0.5rem;">小组口号</div>
 			<div>
-				<van-field v-model="groupItem.slogon" :input="contentChange()" rows="5" autosize
-					style="background-color: #f5f5f5;" type="textarea" maxlength="100" placeholder="简单介绍一下您的小组～"
-					show-word-limit />
+				<van-field v-model="groupItem.slogon" rows="5" autosize style="background-color: #f5f5f5;"
+					type="textarea" maxlength="100" placeholder="简单介绍一下您的小组～" show-word-limit />
 			</div>
 
 
@@ -38,7 +43,7 @@
 				:color="groupItem.name&&groupItem.slogon?bgc:bgcgrey">下一步
 			</van-button>
 
-			<van-loading type="spinner" vertical v-show="overlayShow"></van-loading>
+			<!-- <van-loading type="spinner" vertical v-show="overlayShow"></van-loading> -->
 		</div>
 		<div class="createGroup" v-if="flag==3">
 			<div class="labelTitle">小组标签</div>
@@ -58,7 +63,7 @@
 				:color="labelArray.length>0?bgc:bgcgrey">创建
 			</van-button>
 
-			<van-loading type="spinner" vertical v-show="overlayShow"></van-loading>
+			<!-- <van-loading type="spinner" vertical v-show="overlayShow"></van-loading> -->
 		</div>
 
 	</div>
@@ -84,7 +89,8 @@
 		Button,
 		Loading,
 		Field,
-		Toast
+		Toast,
+		Icon
 	} from 'vant';
 
 	export default {
@@ -95,7 +101,7 @@
 			[Loading.name]: Loading,
 			[Field.name]: Field,
 			[Toast.name]: Toast,
-			// [GoodsAction.name]: GoodsAction,
+			[Icon.name]: Icon,
 			// [GoodsActionIcon.name]: GoodsActionIcon,
 			// [GoodsActionButton.name]: GoodsActionButton
 		},
@@ -110,7 +116,7 @@
 				bgcgrey: '#999',
 				previewImg: "",
 				overlayShow: false,
-				fileList: [],
+				
 				groupItem: {
 					portrait: "",
 					name: "",
@@ -151,8 +157,11 @@
 			}
 		},
 		methods: {
-			onClickRight() { //
-				if (this.labelArray.length == 0) return;
+			onClickRight() { 
+				if (this.labelArray.length == 0) {
+					Toast('小组标签最少需要一个！');
+					return;
+				}
 				upDateGroup(this.groupItem).then(res => {
 					Toast('编辑小组标签成功！');
 					setTimeout(() => {
@@ -169,12 +178,12 @@
 			},
 			afterRead(file) {
 				this.overlayShow = true;
+				this.groupItem.portrait=""
 				pictureReview(file, res => {
 					this.overlayShow = false;
 					if (res.code == 0) {
 						this.groupItem.portrait = res.url;
-						this.fileList[0].url = res.url
-					}
+					} 
 				})
 			},
 			goNext1() {
@@ -215,17 +224,13 @@
 						this.labelArray.push(id);
 					}
 				} else {
+
 					this.labelArray.splice(index, 1);
+
+
 				}
 			},
-			contentChange() {
-				// if (this.groupItem.content) this.groupItem.content = this.groupItem.content.replace(
-				//     /[^\u4E00-\u9FA5|\d|\a-zA-Z|\r\n\s,.?!，。#￥$%\`~^？！@…—&$=()\-+\/*{}【】\\（）[\]]|\s/g, '')
-			},
-			titleChange() {
-				// if (this.groupItem.name) this.groupItem.name = this.groupItem.name.replace(
-				//     /[^\u4E00-\u9FA5|\d|\a-zA-Z|\r\n\s,.?!，。#￥$%\`~^？！@…—&$=()\-+\/*{}【】\\（）[\]]|\s/g, '')
-			},
+
 
 			create(flag) {
 				if (!flag) return;

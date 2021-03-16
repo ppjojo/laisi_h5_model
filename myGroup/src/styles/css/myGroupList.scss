@@ -175,22 +175,37 @@
     .uploaderBox {
         text-align: center;
 
-        .van-uploader__upload {
+        .uploadLoadIconBox {
             width: 2.4rem;
             height: 2.4rem;
             border-radius: 5px;
+            background-color: #F8F8F8 ;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .van-icon-plus{
+               font-size: 1.28rem;
+                color: #AAAAAA;
+            }
+            .uploadLoadIconBG{
+                background-size: cover;
+                background-position:center center;
+                background-repeat: no-repeat;
+                width: 100%;
+                height: 100%;
+            }
         }
 
-        .van-uploader__upload-icon {
-            font-size: 1.28rem;
-            color: #AAAAAA;
-        }
+        // .van-uploader__upload-icon {
+        //     font-size: 1.28rem;
+        //     color: #AAAAAA;
+        // }
 
-        .van-uploader__preview-image {
-            width: 2.4rem;
-            height: 2.4rem;
-            border-radius: 5px;
-        }
+        // .van-uploader__preview-image {
+        //     width: 2.4rem;
+        //     height: 2.4rem;
+        //     border-radius: 5px;
+        // }
     }
 
     .uploaderTxt {
@@ -577,6 +592,10 @@
                                 .iconRightBox {
                                     width: 0.5rem;
                                     text-align: right;
+                                    height: 1rem;
+                                    display: flex;
+                                    justify-content: flex-end;
+                                    align-items: center;
                                     .iconRight {
                                         width: 0.25rem;
                                         height: 0.25rem;

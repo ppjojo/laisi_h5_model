@@ -43,11 +43,11 @@
 			<div class="ub ub-ac">
 				<template v-if="isCurrentUser">
 					<van-uploader :after-read="afterRead">
-						<img class="headpic" :src="groupItem.portrait" />
+						<div  class="headpic"  :style="{'background-image':'url('+groupItem.portrait+')'}" ></div>
 					</van-uploader>
 					<van-icon color="#999" name="arrow" />
 				</template>
-				<img v-else class="headpic" :src="groupItem.portrait" />
+				<div v-else class="headpic"  :style="{'background-image':'url('+groupItem.portrait+')'}" ></div>
 			</div>
 		</div>
 		<!-- 小组名称 -->
@@ -297,10 +297,14 @@
 				});
 			},
 			cancelGroup() { //解散小组
-				let str = "确定退出小组？";
-				if (this.isCurrentUser) str = '确定解散小组？';
+				let str = "确定退出小组？"; 
+				let confirmButtonText="退出"
+				if (this.isCurrentUser) {
+					str = '确定解散小组？';
+					confirmButtonText='解散'
+				}
 				Dialog.confirm({
-					confirmButtonText: '解散',
+					confirmButtonText: confirmButtonText,
 					confirmButtonColor: '#e62000',
 					cancelButtonColor: '#999',
 					message: str

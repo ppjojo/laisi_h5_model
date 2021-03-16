@@ -31,7 +31,7 @@
 				<template v-if="searchList.length>0">
 					<van-cell v-for="(memItem,index) in searchList" clickable :key="memItem.userId" @click="toggle(index,memItem)">
 						<template #icon>
-							<van-checkbox :name="memItem.userId" ref="checkboxes"></van-checkbox>
+							<van-checkbox :name="memItem.userId" ref="checkboxes" :disabled="memItem.isFriend==1"></van-checkbox>
 						</template>
 						<template #title>
 							<ul class="ul_class">
@@ -58,9 +58,10 @@
 						<template v-if="Object.keys(dataList).length>0" v-for="(bigitem,key,index) in dataList">
 							<van-index-anchor :index="key.toUpperCase()"></van-index-anchor>
 							<van-cell v-for="(memItem,index2) in bigitem" clickable :key="memItem.userId" @click="toggle(index2,memItem)">
-								<template #icon>
-									<van-checkbox :name="memItem.userId" ref="checkboxes"></van-checkbox>
+								<template #icon >
+									<van-checkbox :name="memItem.userId" ref="checkboxes" :disabled="memItem.isFriend==1"></van-checkbox>
 								</template>
+								<!-- v-if="!memItem.isFriend" -->
 								<template #title>
 									<ul class="ul_class">
 										<li class="ub ub-ac ub-pj">
@@ -187,6 +188,7 @@
 				}).catch(() => {})
 			}),
 			toggle(index, mid) {
+				if(mid.isFriend)return
 				this.$refs.checkboxes.forEach((d, f) => {
 					if (d.name == mid.userId) {
 						this.$refs.checkboxes[f].toggle();

@@ -186,7 +186,7 @@
 				groupId: parseInt(this.$route.query.id),
 				isFromList: this.$route.query.isFromList || null,
 				isShare: this.$route.query.isShare || 0,
-				userId: this.$route.query.isShare==1?(this.$route.query.userId?this.$route.query.userId:10):JSON.parse(localStorage.getItem("appInfo")).userId,
+				//userId: this.$route.query.isShare==1?(this.$route.query.userId?this.$route.query.userId:10):JSON.parse(localStorage.getItem("appInfo")).userId,
 				documentTitle: "小组主页",
 				dateshow: false,
 				minDate: new Date("2021", "00", "01"),
@@ -234,7 +234,8 @@
 					this.groupItem = res.data.groupInfo;
 					this.memberIcon = res.data.memberIcon;
 					this.userIdData = res.data.userIdData;
-					if (parseInt(this.userId) == res.data.ownerUserId) this.isCurrentUser = 1;
+					let userId= this.$route.query.isShare==1?(this.$route.query.userId?this.$route.query.userId:10):JSON.parse(localStorage.getItem("appInfo")).userId
+					if (parseInt(userId) == res.data.ownerUserId) this.isCurrentUser = 1;
 					this.isGrouptMember = res.data.isGrouptMember;
 					this.ownerUserId = res.data.ownerUserId;
 					this.huanxinGroupId = res.data.huanxinGroupId;
@@ -367,12 +368,13 @@
 					});
 				} else {
 					//分享进来需要审核，给组长弹消息
+					let userId= JSON.parse(localStorage.getItem("appInfo")).userId
 					if (this.groupItem.isInviteConfirm) {
 						this.$interaction.appNative("LSTH5APP_ApplyJoinGroup", {
 							groupId: this.groupId,
 							groupOwnerId: this.ownerUserId,
 							groupName: this.groupItem.name,
-							invitedUserId: this.userId,
+							invitedUserId: userId,
 							invitedUserName: JSON.parse(localStorage.getItem("appInfo")).nickname
 						}).then(() => {
 							Toast('已提交审核，等待组长确认');
@@ -381,7 +383,7 @@
 						//分享进来不需要审核，直接加入小组
 						joinGroup({
 							groupId: this.groupId,
-							userId: this.userId,
+							userId: userId,
 							nickName: JSON.parse(localStorage.getItem("appInfo")).nickname
 						}).then(res => {
 							this.initData();
