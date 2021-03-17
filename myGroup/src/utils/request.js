@@ -50,8 +50,10 @@ service.interceptors.response.use(
     if (res.code == 0) {
       return res;
     }else if(res.code==2000){
-      interaction.getAppInfoAndUserInfo();
-      return service.request(response.config)
+      if (process.env.NODE_ENV != "dev") {
+        interaction.getAppInfoAndUserInfo();
+        return service.request(response.config)
+      }
     }else if (
       res.code == 400 ||
       res.code == 500 ||

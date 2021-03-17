@@ -61,6 +61,7 @@
 		created() {},
 		methods: {
 			changeName(nickname) {
+				if(nickname==this.oldNickName)return;
 				if (!nickname) return Toast('昵称不为空！');
 				textReview(this.nickname, res => {
 					if (res.code == 0) {
