@@ -366,7 +366,7 @@
 					path: '/groupMember',
 					query: {
 						flag: 4,
-						id: this.groupId
+						id: this.groupId,
 					}
 				});
 			},
