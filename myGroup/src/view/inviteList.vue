@@ -1,7 +1,8 @@
 <template>
 	<div id="app" v-cloak>
 		<div class="header">
-			<van-nav-bar title="邀请好友" @click-left="onclickLeft" @click-right="onClickRight" left-arrow safe-area-inset-top fixed>
+			<van-nav-bar title="邀请好友" @click-left="onclickLeft" @click-right="onClickRight" left-arrow
+				safe-area-inset-top fixed>
 				<template #right>
 					<div>邀请({{memberResult.length}})</div>
 				</template>
@@ -29,9 +30,11 @@
 		<van-checkbox-group v-model="memberResult" ref="checkboxGroup">
 			<van-cell-group v-show="searchval.key&&searchList.length>0">
 				<template v-if="searchList.length>0">
-					<van-cell v-for="(memItem,index) in searchList" clickable :key="memItem.userId" @click="toggle(index,memItem)">
+					<van-cell v-for="(memItem,index) in searchList" clickable :key="memItem.userId"
+						@click="toggle(index,memItem)">
 						<template #icon>
-							<van-checkbox :name="memItem.userId" ref="checkboxes" :disabled="memItem.isFriend==1"></van-checkbox>
+							<van-checkbox :name="memItem.userId" ref="checkboxes" :disabled="memItem.isFriend==1">
+							</van-checkbox>
 						</template>
 						<template #title>
 							<ul class="ul_class">
@@ -57,9 +60,11 @@
 					<van-index-bar>
 						<template v-if="Object.keys(dataList).length>0" v-for="(bigitem,key,index) in dataList">
 							<van-index-anchor :index="key.toUpperCase()"></van-index-anchor>
-							<van-cell v-for="(memItem,index2) in bigitem" clickable :key="memItem.userId" @click="toggle(index2,memItem)">
-								<template #icon >
-									<van-checkbox :name="memItem.userId" ref="checkboxes" :disabled="memItem.isFriend==1"></van-checkbox>
+							<van-cell v-for="(memItem,index2) in bigitem" clickable :key="memItem.userId"
+								@click="toggle(index2,memItem)">
+								<template #icon>
+									<van-checkbox :name="memItem.userId" ref="checkboxes"
+										:disabled="memItem.isFriend==1"></van-checkbox>
 								</template>
 								<!-- v-if="!memItem.isFriend" -->
 								<template #title>
@@ -90,7 +95,7 @@
 <script>
 	function debounce(func, wait = 800) { //可以放入项目中的公共方法中进行调用（鹅只是省事）
 		let timeout;
-		return function(event) {
+		return function (event) {
 			clearTimeout(timeout)
 			timeout = setTimeout(() => {
 				func.call(this, event)
@@ -138,14 +143,14 @@
 				userId: JSON.parse(localStorage.getItem("appInfo")).userId,
 				memberResult: [],
 				searchval: {
-					groupId:this.$route.query.id,
+					groupId: this.$route.query.id,
 					key: '',
 					userId: JSON.parse(localStorage.getItem("appInfo")).userId
 				},
 				searchList: [],
 				dataList: [],
-				allList:[],
-				inviteObj:{
+				allList: [],
+				inviteObj: {
 					huanxinGroupId: this.$route.query.huanxinGroupId,
 					groupId: this.$route.query.id+'',
 					groupOwnerId:this.$route.query.groupOwnerId+'',
@@ -168,19 +173,20 @@
 			getList() {
 				getMyFriend(this.searchval).then(res => {
 					this.dataList = res.data;
-					for(let key in res.data){
-						res.data[key].forEach(d=>{
+					for (let key in res.data) {
+						res.data[key].forEach(d => {
 							this.allList.push(d);
 						})
 					}
 				}).catch(() => {})
 			},
-			search: debounce(function(e) {
+			search: debounce(function (e) {
 				if (!this.searchval.key) return;
 				getMyFriend(this.searchval).then(res => {
-					let arr = [],resData = res.data;
-					for(let key in resData){
-						resData[key].forEach(d=>{
+					let arr = [],
+						resData = res.data;
+					for (let key in resData) {
+						resData[key].forEach(d => {
 							arr.push(d);
 						})
 					}
@@ -188,7 +194,7 @@
 				}).catch(() => {})
 			}),
 			toggle(index, mid) {
-				if(mid.isFriend)return
+				if (mid.isFriend) return
 				this.$refs.checkboxes.forEach((d, f) => {
 					if (d.name == mid.userId) {
 						this.$refs.checkboxes[f].toggle();
@@ -213,29 +219,32 @@
 						groupUserId: this.inviteObj.groupOwnerId
 					}).then(res => {
 						let result = res.data;
-						let ids=[],chatids=[],names=[];
-						result.forEach(d=>{
-							for (let i=0;i<this.allList.length;i++) {
-								if(d.beingInvitedMember==this.allList[i].userId){
-									ids.push(d.beingInvitedMember);
-									chatids.push(d.id);
-									names.push(this.allList[i].nickName);
+						if (res.code == 0) {
+							let ids = [],
+								chatids = [],
+								names = [];
+							result.forEach(d => {
+								for (let i = 0; i < this.allList.length; i++) {
+									if (d.beingInvitedMember == this.allList[i].userId) {
+										ids.push(d.beingInvitedMember);
+										chatids.push(d.id);
+										names.push(this.allList[i].nickName);
+									}
 								}
-							}
-							// this.dataList.forEach(e=>{
-								
-							// })
-						});
-						this.inviteObj.groupInviteIds = chatids.toString();
-						this.inviteObj.invitedUserIds = ids.toString();
-						this.inviteObj.invitedUserNames = names.toString();
-						// console.log(this.inviteObj);
-						this.$interaction.appNative('LSTH5APP_GroupInvite',this.inviteObj).then(()=>{
-							Toast('邀请成功！');
-							setTimeout(()=>{
-								this.$router.go(-1)
-							},2000)
-						})
+							});
+							this.inviteObj.groupInviteIds = chatids.toString();
+							this.inviteObj.invitedUserIds = ids.toString();
+							this.inviteObj.invitedUserNames = names.toString();
+							this.$interaction.appNative('LSTH5APP_GroupInvite', this.inviteObj).then(
+						() => {
+								Toast('邀请成功！');
+								setTimeout(() => {
+									this.$router.go(-1)
+								}, 2000)
+							})
+						}else{
+							Toast('邀请失败！');
+						}
 					})
 
 				}).catch(() => {
