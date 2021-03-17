@@ -244,7 +244,7 @@
 						.userId : 10) : JSON.parse(localStorage.getItem("appInfo")).userId
 					if (parseInt(userId) == res.data.ownerUserId) this.isCurrentUser = 1;
 					this.isGrouptMember = res.data.isGrouptMember;
-					this.ownerUserId = res.data.ownerUserId;
+					this.ownerUserId = res.data.ownerUserId+'';
 					this.huanxinGroupId = res.data.huanxinGroupId;
 				})
 			},
@@ -380,7 +380,7 @@
 					let userId = JSON.parse(localStorage.getItem("appInfo")).userId
 					if (this.groupItem.isInviteConfirm) {
 						this.$interaction.appNative("LSTH5APP_ApplyJoinGroup", {
-							groupId: this.groupId,
+							groupId: this.groupId+'',
 							groupOwnerId: this.ownerUserId,
 							groupName: this.groupItem.name,
 							invitedUserId: userId,
