@@ -157,7 +157,7 @@
 <script>
 	import {
 		getGroupInfo,
-		joinGroup
+		joinGroup,applyOnly
 	} from '@a/groupIndex';
 	const defaultSettings = require('../settings.js');
 	import {
@@ -379,15 +379,23 @@
 					//分享进来需要审核，给组长弹消息
 					let userId = JSON.parse(localStorage.getItem("appInfo")).userId
 					if (this.groupItem.isInviteConfirm) {
-						this.$interaction.appNative("LSTH5APP_ApplyJoinGroup", {
-							groupId: this.groupId+'', 
-							groupOwnerId: this.ownerUserId,
-							groupName: this.groupItem.name,
-							invitedUserId: userId,
-							invitedUserName: JSON.parse(localStorage.getItem("appInfo")).nickname
-						}).then(() => {
-							Toast('已提交审核，等待组长确认');
+						applyOnly({groupId:this.groupId,groupUserId:this.ownerUserId,invitedUserId:userId}).then(res=>{
+							if(res.code==0){
+								this.$interaction.appNative("LSTH5APP_ApplyJoinGroup", {
+									groupInviteId:res.data.id+'',
+									groupId: this.groupId+'', 
+									groupOwnerId: this.ownerUserId,
+									groupName: this.groupItem.name,
+									invitedUserId: userId,
+									invitedUserName: JSON.parse(localStorage.getItem("appInfo")).nickname
+								}).then(() => {
+									Toast('已提交审核，等待组长确认');
+								})
+							}else if(res.code==2963){
+								Toast('小组成员已满！');
+							}
 						})
+						
 					} else {
 						//分享进来不需要审核，直接加入小组
 						joinGroup({

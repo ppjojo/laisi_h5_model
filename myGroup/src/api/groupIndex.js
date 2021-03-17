@@ -52,3 +52,10 @@ export function joinGroup(data) {
 		params:data
     })
 }
+export function applyOnly(data) {
+    return request({
+        url: 'myteam/invited/only/groupUser/confirm',
+        method: 'get',
+        params:data
+    })
+}
