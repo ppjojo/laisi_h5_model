@@ -152,13 +152,13 @@
 				allList: [],
 				inviteObj: {
 					huanxinGroupId: this.$route.query.huanxinGroupId,
-					groupId: this.$route.query.id,
-					groupOwnerId: this.$route.query.groupOwnerId,
-					groupName: this.$route.query.groupName,
-					groupInviteIds: null,
-					invitedUserIds: null,
-					invitedUserNames: null,
-					inviteByUserName: JSON.parse(localStorage.getItem("appInfo")).nickname
+					groupId: this.$route.query.id+'',
+					groupOwnerId:this.$route.query.groupOwnerId+'',
+					groupName:this.$route.query.groupName,
+					groupInviteIds :null,
+					invitedUserIds :null,
+					invitedUserNames :null,
+					inviteByUserName :JSON.parse(localStorage.getItem("appInfo")).nickname
 				}
 			};
 		},
