@@ -380,7 +380,7 @@
 					let userId = JSON.parse(localStorage.getItem("appInfo")).userId
 					if (this.groupItem.isInviteConfirm) {
 						this.$interaction.appNative("LSTH5APP_ApplyJoinGroup", {
-							groupId: this.groupId+'',
+							groupId: this.groupId+'', 
 							groupOwnerId: this.ownerUserId,
 							groupName: this.groupItem.name,
 							invitedUserId: userId,
