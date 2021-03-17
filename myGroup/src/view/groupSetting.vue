@@ -26,13 +26,13 @@
 			</template>
 			<div class="groupMember ub-ac" @click="goInvite()"  v-if="groupItem.count<10">
 				<div class="imgbox ub ub-ac ub-pc" style="background-color: #f5f5f5;">
-					<img :src="require('../img/plus.png')" alt="">
+					<img class="menuicon" :src="require('../img/plus.png')" alt="">
 				</div>
 				<div class="van-ellipsis detail">邀请</div>
 			</div>
 			<div class="groupMember ub-ac" v-if="isCurrentUser" @click="goMember(3)">
 				<div class="imgbox ub ub-ac ub-pc" style="background-color: #f5f5f5;">
-					<img :src="require('../img/minus.png')" alt="">
+					<img class="menuicon" :src="require('../img/minus.png')" alt="">
 				</div>
 				<div class="van-ellipsis detail">移除</div>
 			</div>
@@ -377,7 +377,10 @@
 <style scoped="scoped">
 	@import '../styles/groupSetting/groupSetting.css';
 	@import '../styles/css/myGroupList.css';
-
+	.imgbox img.menuicon{
+		height: .54rem;
+		width: .54rem;
+	}
 	.pgc{
 		width: 3.8rem;
 		text-align: right;
