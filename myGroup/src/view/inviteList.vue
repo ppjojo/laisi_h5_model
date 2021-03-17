@@ -72,7 +72,7 @@
 														<div class="nickname van-ellipsis">{{memItem.nickName}}</div>
 													</div>
 													<div class="time">
-														加入时间：{{sjc2time('ymd',memItem.createTime)}}</div>
+														加入时间：{{sjc2time('ymd',memItem.updateTime)}}</div>
 												</div>
 											</div>
 										</li>
