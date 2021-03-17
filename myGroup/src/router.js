@@ -64,6 +64,13 @@ const routes = [
       title: '邀请好友'
     }
   },
+  {
+    name: 'deviceDetail',
+    component: () => import('./view/deviceDetail'),
+    meta: {
+      title: '数据详情'
+    }
+  },
 ];
 
 // add route path

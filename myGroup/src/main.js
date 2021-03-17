@@ -7,6 +7,10 @@ Vue.prototype.$interaction = interaction;
 import "./styles/flex_ub.css";
 import "vant/lib/index.less";
 
+if(process.env.NODE_ENV != 'dev'){
+  localStorage.removeItem("appInfo")
+}
+
 new Vue({
   router,
   el: "#app",

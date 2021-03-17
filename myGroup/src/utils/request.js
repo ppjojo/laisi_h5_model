@@ -15,13 +15,15 @@ const service = axios.create({
 
 // request interceptor
 service.interceptors.request.use((config) => {
-  let appInfo = Object.assign(
-    {
+  let appInfo={}
+  if(getQueryString('isShare')){
+    appInfo={
       token: "SHARE",
-      userId: getQueryString("userId") || "10001285",
-    },
-    JSON.parse(localStorage.getItem("appInfo"))
-  );
+      userId: getQueryString("userId")||"",
+    }
+  }else{
+    appInfo=JSON.parse(localStorage.getItem("appInfo"))
+  }
   let token = appInfo.token;
   let random = Math.floor(Math.random() * 999999);
   let timestamp = new Date().getTime();
@@ -45,10 +47,12 @@ service.interceptors.request.use((config) => {
 service.interceptors.response.use(
   (response) => {
     const res = response.data;
-    console.log(response.config);
     if (res.code == 0) {
       return res;
-    } else if (
+    }else if(res.code==2000){
+      interaction.getAppInfoAndUserInfo();
+      return service.request(response.config)
+    }else if (
       res.code == 400 ||
       res.code == 500 ||
       res.code == 1000 ||
@@ -79,12 +83,23 @@ service.interceptors.response.use(
 );
 
 let getToken = (config) => {
+
   return new Promise(function(resolve, reject) {
     if (process.env.NODE_ENV == "dev") {
       resolve(config);
     }
+    if(getQueryString('isShare')){
+      resolve(config);
+      return 
+    }
     interaction.getAppInfoAndUserInfo();
-    resolve(config);
+    let tokenInterval=setInterval(()=>{
+      if(localStorage.getItem('appInfo')){
+        resolve(config);
+        clearInterval(tokenInterval)
+      }
+    },100)
+    //resolve(config);
   }).then(
     (res) => {
       return service(res);

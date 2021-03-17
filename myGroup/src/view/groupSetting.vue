@@ -24,7 +24,7 @@
 					<div class="van-ellipsis detail">{{item.nickname}}</div>
 				</div>
 			</template>
-			<div class="groupMember ub-ac" @click="goInvite()">
+			<div class="groupMember ub-ac" @click="goInvite()"  v-if="groupItem.count<10">
 				<div class="imgbox ub ub-ac ub-pc" style="background-color: #f5f5f5;">
 					<img :src="require('../img/plus.png')" alt="">
 				</div>
@@ -43,11 +43,11 @@
 			<div class="ub ub-ac">
 				<template v-if="isCurrentUser">
 					<van-uploader :after-read="afterRead">
-						<img class="headpic" :src="groupItem.portrait" />
+						<div  class="headpic"  :style="{'background-image':'url('+groupItem.portrait+')'}" ></div>
 					</van-uploader>
 					<van-icon color="#999" name="arrow" />
 				</template>
-				<img v-else class="headpic" :src="groupItem.portrait" />
+				<div v-else class="headpic"  :style="{'background-image':'url('+groupItem.portrait+')'}" ></div>
 			</div>
 		</div>
 		<!-- 小组名称 -->
@@ -281,7 +281,7 @@
 			},
 			delChatRecord() {
 				Dialog.confirm({
-					confirmButtonText: '确定',
+					confirmButtonText: '删除',
 					confirmButtonColor: '#e62000',
 					cancelButtonColor: '#999',
 					message: '确定要删除聊天记录吗？'
@@ -297,10 +297,14 @@
 				});
 			},
 			cancelGroup() { //解散小组
-				let str = "确定退出小组？";
-				if (this.isCurrentUser) str = '确定解散小组？';
+				let str = "确定退出小组？"; 
+				let confirmButtonText="退出"
+				if (this.isCurrentUser) {
+					str = '确定解散小组？';
+					confirmButtonText='解散'
+				}
 				Dialog.confirm({
-					confirmButtonText: '确定',
+					confirmButtonText: confirmButtonText,
 					confirmButtonColor: '#e62000',
 					cancelButtonColor: '#999',
 					message: str

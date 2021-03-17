@@ -15,3 +15,13 @@ export function upDateGroup(data) {
         params:{nickname:JSON.parse(localStorage.getItem("appInfo")).nickname}
     })
 }
+
+
+
+export function checkGroupName(params) {
+    return request({
+        url: 'myteam/group/query/groupNameRepeat',
+        method: 'get',
+        params
+    })
+}

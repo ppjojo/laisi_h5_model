@@ -1,7 +1,7 @@
 <template>
 	<div id="app" v-cloak>
 		<div class="header">
-			<van-nav-bar title="我的小组" @click-left="onclickLeft" @click-right="onClickRight" left-arrow
+			<van-nav-bar title="我在小组中的昵称" @click-left="onclickLeft" @click-right="onClickRight" left-arrow
 				safe-area-inset-top fixed>
 				<template #right>
 				</template>
@@ -13,7 +13,7 @@
 		<van-cell-group id="changeName">
 			<van-field v-model="nickname" maxlength="8" clearable placeholder="请输入昵称"></van-field>
 		</van-cell-group>
-		<van-button round class="submit" block @click="changeName(nickname)" :color="nickname?bgc:bgcgrey">完成
+		<van-button round class="submit" block @click="changeName(nickname)" :color="nickname!=oldNickName?bgc:bgcgrey">完成
 		</van-button>
 	</div>
 </template>
@@ -52,7 +52,8 @@
 				bgcgrey: '#999',
 				nickname: this.$route.query.name || '',
 				groupId: parseInt(this.$route.query.id),
-				clubid: ''
+				clubid: '',
+				oldNickName:this.$route.query.name || '',
 			};
 		},
 		filters: {},
@@ -60,17 +61,21 @@
 		created() {},
 		methods: {
 			changeName(nickname) {
-				if (!nickname) return;
+				if (!nickname) return Toast('昵称不为空！');
 				textReview(this.nickname, res => {
 					if (res.code == 0) {
 						changeNickname({
 							groupId: this.groupId,
 							nickName: this.nickname
-						}).then(() => {
-							Toast('修改昵称成功！');
-							setTimeout(() => {
-								this.$router.go(-1);
-							}, 1500)
+						}).then((res2) => {
+							if (res2.code == 0) {
+								Toast('修改昵称成功！');
+								setTimeout(() => {
+									this.$router.go(-1);
+								}, 1500)
+							}else{
+								Toast('该昵称已被占用!');
+							}
 						}).catch(() => {
 							console.log("error")
 						})

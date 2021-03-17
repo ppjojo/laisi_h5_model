@@ -25,6 +25,7 @@ export function memberExit(data) {
         url: 'myteam/member/exit/member',
         method: 'post',
 		data,
+        params:data
     })
 }
 export function changeNickname(data) {

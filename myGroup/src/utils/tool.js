@@ -33,7 +33,7 @@ var pictureReview = (fileObject, cb) => {
         .then((res2) => {
           if(res2.code!=0){
             Toast("图片审核未通过，请重新上传！");
-			return;
+			      return;
           }
           res2.url = res.data.url;
           cb(res2);
@@ -49,6 +49,10 @@ var pictureReview = (fileObject, cb) => {
     });
 };
 var textReview=(str,cb)=>{
+  str=str.replace(/\s*/g,"");
+  if(!str){
+    return 
+  }
   request({
     url: "contentSecurity/aliyun/textScan",
     method: "post",

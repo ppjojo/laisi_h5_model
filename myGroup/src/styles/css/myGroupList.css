@@ -163,21 +163,33 @@
   text-align: center;
 }
 
-.createGroup .uploaderBox .van-uploader__upload {
+.createGroup .uploaderBox .uploadLoadIconBox {
   width: 2.4rem;
   height: 2.4rem;
   border-radius: 5px;
+  background-color: #F8F8F8;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
-.createGroup .uploaderBox .van-uploader__upload-icon {
+.createGroup .uploaderBox .uploadLoadIconBox .van-icon-plus {
   font-size: 1.28rem;
   color: #AAAAAA;
 }
 
-.createGroup .uploaderBox .van-uploader__preview-image {
-  width: 2.4rem;
-  height: 2.4rem;
-  border-radius: 5px;
+.createGroup .uploaderBox .uploadLoadIconBox .uploadLoadIconBG {
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100%;
 }
 
 .createGroup .uploaderTxt {
@@ -266,6 +278,17 @@
   width: 100%;
 }
 
+.groupIndex .groupInfoBox .blackBGBox {
+  background-color: #000;
+  width: 100%;
+  height: 5.16rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 9;
+  opacity: 0.2;
+}
+
 .groupIndex .groupInfoBox .bannerBg {
   height: 5.16rem;
   width: 100%;
@@ -281,6 +304,7 @@
   padding: 0 0.3rem;
   bottom: 1.2rem;
   width: 100%;
+  z-index: 10;
 }
 
 .groupIndex .groupInfoBox .groupBox .groupImg {
@@ -600,7 +624,22 @@
   font-family: DINCondensed-Bold;
 }
 
-.groupIndex .containBox .sportBox .personBox ul li .deviceList .deviceItem .iconRight {
+.groupIndex .containBox .sportBox .personBox ul li .deviceList .deviceItem .iconRightBox {
+  width: 0.5rem;
+  text-align: right;
+  height: 1rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.groupIndex .containBox .sportBox .personBox ul li .deviceList .deviceItem .iconRightBox .iconRight {
   width: 0.25rem;
   height: 0.25rem;
 }
