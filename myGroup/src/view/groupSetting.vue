@@ -70,7 +70,7 @@
 		<div class="cellbox border-bottom ub ub-ac ub-pj" style="height: auto;" @click="goChangeMult(2)">
 			<div class="">
 				<div class="title" style="margin-bottom: .2rem;">小组公告</div>
-				<div class="van-multi-ellipsis--l3 detail" style="max-width: 6.6rem">{{groupItem.content}}</div>
+				<div class="van-multi-ellipsis--l3 detail" style="max-width: 6.6rem;white-space: normal;">{{groupItem.content}}</div>
 			</div>
 			<van-icon color="#999" name="arrow" />
 		</div>
