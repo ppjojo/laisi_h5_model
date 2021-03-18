@@ -59,7 +59,7 @@ service.interceptors.response.use(
       res.code == 500 ||
       res.code == 1000 ||
       res.code == 1500 ||
-      res.code == 2961||res.code==1001
+      res.code == 2961
     ) {
       if (res) {
         Toast({

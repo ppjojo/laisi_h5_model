@@ -1,7 +1,7 @@
 <template>
 	<div id="app" class="groupIndex" v-cloak>
 		<div class="header" v-if="isShare!=1">
-			<van-nav-bar :title="documentTitle" @click-left="onclickLeft" left-arrow safe-area-inset-top fixed>
+			<van-nav-bar  @click-left="onclickLeft" left-arrow safe-area-inset-top fixed>
 				<template #right>
 					<div style="margin-right: 0.2rem;" @click="shareGroup()">
 						<van-icon name="icon-tongyong-fenxiang" style="font-size: 0.4rem;" />
@@ -393,6 +393,8 @@
 								})
 							}else if(res.code==2963){
 								Toast('小组成员已满！');
+							}else if(res.code==1001){
+								Toast('已提交审核，等待组长确认!');
 							}
 						})
 						
