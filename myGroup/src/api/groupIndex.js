@@ -1,7 +1,10 @@
 import request from "@u/request"
+import { getQueryString } from "@u/tool";
 export function getGroupInfo(data) {
+	let url = 'myteam/homepage/group/detail';
+	if(getQueryString('isShare'))url = '';
     return request({
-        url: 'myteam/homepage/group/detail',
+        url: url,
         method: 'get',
         params:data
     })

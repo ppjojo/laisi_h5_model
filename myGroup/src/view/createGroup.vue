@@ -116,7 +116,7 @@
 				bgcgrey: '#999',
 				previewImg: "",
 				overlayShow: false,
-				
+				isClick:false,
 				groupItem: {
 					portrait: "",
 					name: "",
@@ -234,17 +234,26 @@
 
 			create(flag) {
 				if (!flag) return;
+				if(this.isClick)return;
+				this.isClick = true;
 				createGroup(this.groupItem).then(res => {
-					Toast('创建小组成功！');
-					setTimeout(() => {
-						this.$router.replace({
-							path: '/groupIndex',
-							query: {
-								id: res.data.id,
-								isFromList: 1
-							}
-						});
-					}, 1500)
+					if(res.code==0){
+						Toast('创建小组成功！');
+						setTimeout(() => {
+							this.$router.replace({
+								path: '/groupIndex',
+								query: {
+									id: res.data.id,
+									isFromList: 1
+								}
+							});
+						}, 1500)
+					}else{
+						Toast(res.msg||'创建失败');
+						this.isClick = false;
+					}
+				}).catch(res=>{
+					this.isClick = false;
 				})
 			}
 		}
