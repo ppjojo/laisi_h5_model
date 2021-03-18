@@ -82,8 +82,19 @@
                 joinList:[],
 				createList:[],
 				isFinish:false,
+				isCancel:this.$route.query.isCancel||null
             };
         },
+		beforeRouteLeave(to, from, next) {
+			if(this.isCancel){
+				 this.$interaction.closePage();
+				 this.$interaction.closePage();
+				 return;
+			}
+			next() //一定不要忘记写
+			// 导航离开该组件的对应路由时调用
+			// 可以访问组件实例 `this`
+		},
         filters: {},
         mounted() {
             this.getList();
@@ -105,6 +116,7 @@
 			},
             onclickLeft() {
                 this.$interaction.closePage();
+				this.$interaction.closePage();
             },
             onClickRight() { //跳转创建小组
                 this.$router.push({path: '/createGroup'});

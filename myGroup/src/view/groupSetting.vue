@@ -24,7 +24,7 @@
 					<div class="van-ellipsis detail">{{item.nickname}}</div>
 				</div>
 			</template>
-			<div class="groupMember ub-ac" @click="goInvite()"  v-if="groupItem.count<10">
+			<div class="groupMember ub-ac" @click="goInvite()" v-if="groupItem.count<10">
 				<div class="imgbox ub ub-ac ub-pc" style="background-color: #f5f5f5;">
 					<img class="menuicon" :src="require('../img/plus.png')" alt="">
 				</div>
@@ -43,11 +43,11 @@
 			<div class="ub ub-ac">
 				<template v-if="isCurrentUser">
 					<van-uploader :after-read="afterRead">
-						<div  class="headpic"  :style="{'background-image':'url('+groupItem.portrait+')'}" ></div>
+						<div class="headpic" :style="{'background-image':'url('+groupItem.portrait+')'}"></div>
 					</van-uploader>
 					<van-icon color="#999" name="arrow" />
 				</template>
-				<div v-else class="headpic"  :style="{'background-image':'url('+groupItem.portrait+')'}" ></div>
+				<div v-else class="headpic" :style="{'background-image':'url('+groupItem.portrait+')'}"></div>
 			</div>
 		</div>
 		<!-- 小组名称 -->
@@ -80,7 +80,9 @@
 			<div class="ub ub-ac">
 				<div class="ub ub-ac">
 					<div class="labelBox ub ub-ac">
-						<div v-for="labelItem in labelFun(groupItem.labelId)" class="labelItem" :class="labelItem[0]">{{labelItem[1]}}</div>
+						<div v-for="labelItem in labelFun(groupItem.labelId)" class="labelItem" :class="labelItem[0]">
+							{{labelItem[1]}}
+						</div>
 					</div>
 				</div>
 				<van-icon v-if="isCurrentUser" color="#999" name="arrow" />
@@ -94,20 +96,20 @@
 		<!-- 设为置顶 -->
 		<div class="cellbox ub ub-ac ub-pj border-bottom">
 			<div class="title">设为置顶</div>
-			<van-switch active-color="#07c160" @change="switchChange(1)" :active-value="1" :inactive-value="0" v-model="groupItem.isTop"
-			 size="20"></van-switch>
+			<van-switch active-color="#07c160" @change="switchChange(1)" :active-value="1" :inactive-value="0"
+				v-model="groupItem.isTop" size="20"></van-switch>
 		</div>
 		<!-- 消息免打扰 -->
 		<div class="cellbox ub ub-ac ub-pj border-bottom">
 			<div class="title">消息免打扰</div>
-			<van-switch active-color="#07c160" @change="switchChange(2)" :active-value="1" :inactive-value="0" v-model="groupItem.isSilent"
-			 size="20"></van-switch>
+			<van-switch active-color="#07c160" @change="switchChange(2)" :active-value="1" :inactive-value="0"
+				v-model="groupItem.isSilent" size="20"></van-switch>
 		</div>
 		<!-- 小组邀请确认 -->
 		<div class="cellbox ub ub-ac ub-pj border-bottom2" v-if="isCurrentUser">
 			<div class="title">小组邀请确认</div>
-			<van-switch active-color="#07c160" @change="switchChange(false)" :active-value="1" :inactive-value="0" v-model="groupItem.isInviteConfirm"
-			 size="20"></van-switch>
+			<van-switch active-color="#07c160" @change="switchChange(false)" :active-value="1" :inactive-value="0"
+				v-model="groupItem.isInviteConfirm" size="20"></van-switch>
 		</div>
 		<!-- 我在小组中昵称 -->
 		<div class="cellbox ub ub-ac ub-pj border-bottom" @click="goChangeNickname">
@@ -156,7 +158,8 @@
 		Tag,
 		Switch,
 		Uploader,
-		Dialog,Toast
+		Dialog,
+		Toast
 	} from 'vant';
 	import {
 		pictureReview
@@ -181,7 +184,7 @@
 				finished: false,
 				groupId: this.$route.query.id,
 				huanxinGroupId: this.$route.query.huanxinGroupId,
-				groupOwnerId:this.$route.query.groupOwnerId,
+				groupOwnerId: this.$route.query.groupOwnerId,
 				isCurrentUser: 0,
 				memberIcon: [],
 				groupItem: {
@@ -248,8 +251,8 @@
 					query: {
 						id: this.groupId,
 						huanxinGroupId: this.huanxinGroupId,
-						groupOwnerId:this.groupOwnerId,
-						groupName :this.groupItem.name
+						groupOwnerId: this.groupOwnerId,
+						groupName: this.groupItem.name
 					}
 				});
 			},
@@ -272,7 +275,8 @@
 						flag: flag,
 						id: this.groupId,
 						isCurrentUser: this.isCurrentUser,
-						text: flag == 1 ? this.groupItem.slogon : flag == 2 ? this.groupItem.content : this.groupItem.name
+						text: flag == 1 ? this.groupItem.slogon : flag == 2 ? this.groupItem.content : this
+							.groupItem.name
 					}
 				});
 			},
@@ -297,11 +301,11 @@
 				});
 			},
 			cancelGroup() { //解散小组
-				let str = "确定退出小组？"; 
-				let confirmButtonText="退出"
+				let str = "确定退出小组？";
+				let confirmButtonText = "退出"
 				if (this.isCurrentUser) {
 					str = '确定解散小组？';
-					confirmButtonText='解散'
+					confirmButtonText = '解散'
 				}
 				Dialog.confirm({
 					confirmButtonText: confirmButtonText,
@@ -315,8 +319,13 @@
 						}).then(res => {
 							this.$router.replace({
 								path: '/myGroupList',
+								query: {
+									isCancel:1
+								}
 							});
-						})
+						}).catch(() => {
+							this.isCancel = false;
+						});
 						return;
 					}
 					//成员退出
@@ -325,8 +334,13 @@
 					}).then(res => {
 						this.$router.replace({
 							path: '/myGroupList',
+							query: {
+								isCancel:1
+							}
 						});
-					})
+					}).catch(() => {
+						this.isCancel = false;
+					});
 				}).catch(() => {
 
 				});
@@ -334,8 +348,10 @@
 			switchChange(flag) {
 				upDateGroup(this.groupItem).then(res => {
 					if (!flag) return;
-					let methodstr = 'LSTH5APP_MessageDoNotDisturb'; //免打扰huanxinGroupId= "环信的群聊ID",isOpen: int类型 1免打扰开启，0免打扰关闭
-					if (flag == 1) methodstr = 'LSTH5APP_ConversationSetIsTop'; //置顶huanxinGroupId= "环信的群聊ID",isOpen: int类型 1开启置顶，0关闭置顶
+					let methodstr =
+						'LSTH5APP_MessageDoNotDisturb'; //免打扰huanxinGroupId= "环信的群聊ID",isOpen: int类型 1免打扰开启，0免打扰关闭
+					if (flag == 1) methodstr =
+						'LSTH5APP_ConversationSetIsTop'; //置顶huanxinGroupId= "环信的群聊ID",isOpen: int类型 1开启置顶，0关闭置顶
 					this.$interaction.appNative(methodstr, {
 						huanxinGroupId: this.huanxinGroupId,
 						isOpen: flag == 1 ? this.groupItem.isTop : this.groupItem.isSilent
@@ -359,7 +375,8 @@
 				this.$interaction.appNative('LSTH5APP_goToGroupQR', {
 					name: this.groupItem.name,
 					imageUrl: this.groupItem.portrait,
-					qrShareUrl: defaultSettings.host + "h5/h5V2/myGroup/#/groupIndex?id=" + this.groupId + '&isShare=1'
+					qrShareUrl: defaultSettings.host + "h5/h5V2/myGroup/#/groupIndex?id=" + this.groupId +
+						'&isShare=1'
 				})
 			},
 			goGroupIndex(item) {
@@ -377,24 +394,30 @@
 <style scoped="scoped">
 	@import '../styles/groupSetting/groupSetting.css';
 	@import '../styles/css/myGroupList.css';
-	.imgbox img.menuicon{
+
+	.imgbox img.menuicon {
 		height: .54rem;
 		width: .54rem;
 	}
-	.pgc{
+
+	.pgc {
 		width: 3.8rem;
 		text-align: right;
 		justify-content: flex-end;
 	}
-	.pgc .detail{
+
+	.pgc .detail {
 		width: 100%;
 	}
+
 	.groupMember .van-ellipsis {
 		max-width: .92rem;
 	}
-	.van-icon{
+
+	.van-icon {
 		display: block;
 	}
+
 	.labelBox .labelItem {
 		color: #999999;
 		font-size: 0.2rem;
