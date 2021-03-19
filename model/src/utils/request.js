@@ -50,7 +50,7 @@ service.interceptors.response.use(
     if (res.code == 0) {
       return res;
     }else if(res.code==2000){
-      if (process.env.NODE_ENV != "dev") {
+      if (process.env.NODE_ENV != "dev"&&!getQueryString('isShare')) {
         interaction.getAppInfoAndUserInfo();
         return service.request(response.config)
       }
