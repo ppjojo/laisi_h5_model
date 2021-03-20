@@ -158,6 +158,7 @@
 		},
 		methods: {
 			onClickRight() { 
+				if(!this.edit)return;
 				if (this.labelArray.length == 0) {
 					Toast('小组标签最少需要一个！');
 					return;

@@ -393,7 +393,7 @@
 								})
 							}else if(res.code==2963){
 								Toast('小组成员已满！');
-							}else if(res.code==1001){
+							}else if(res.code=='1001'){
 								Toast('已提交审核，等待组长确认!');
 							}
 						})
