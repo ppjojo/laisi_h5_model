@@ -292,7 +292,7 @@
 					if (navigator.userAgent.toLowerCase().indexOf('micromessenger') !== -1) { //微信
 						linkUrl = "https://a.app.qq.com/o/simple.jsp?pkgname=com.lstech.rehealth"
 					} else {
-						linkUrl = "rehealth://groupDetail?id=" + this.groupId
+						linkUrl = "rehealth://groupdetail?id=" + this.groupId
 					}
 				}
 				var a = document.createElement('a');
