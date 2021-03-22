@@ -231,6 +231,9 @@
 		created() {
 			this.initData();
 		},
+		activated(){
+			
+		},
 		methods: {
 			initData() {
 				getGroupInfo({

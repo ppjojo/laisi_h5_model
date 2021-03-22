@@ -12,14 +12,16 @@ const routes = [
     name: 'model',
     component: () => import('./view/model'),
     meta: {
-      title: '我的'
+      title: '我的',
+      index:0
     }
   },
   {
     name: 'specialHeader',
     component: () => import('./view/specialHeader'),
     meta: {
-      title: '特别的头部'
+      title: '特别的头部',
+      index:1
     }
   },
  
