@@ -52,7 +52,7 @@
 								<ul class="ul_class">
 									<li class="ub ub-ac ub-pj">
 										<div class="ub ub-ac">
-											<img class="headpic" :src="memItem.headPictureUrl" alt="">
+											<img class="headpic" @click.stop="gotoUserIndex(memItem.memberId)" :src="memItem.headPictureUrl" alt="">
 											<div>
 												<div class="ub ub-ac">
 													<div class="nickname van-ellipsis">{{memItem.nickname}}</div>
@@ -178,6 +178,10 @@
 						this.$refs.checkboxes[f].toggle();
 					}
 				})
+			},
+			gotoUserIndex(memberId){//点击头像
+				if(this.flag!=4)return;
+				this.$interaction.visitPersonalHomepage(memberId);
 			},
 			changeLeader(item) {
 				let str = "将组长职权转让给“" + item.nickname + "”并退出小组吗？";
