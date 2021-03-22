@@ -50,9 +50,9 @@
 							</template>
 							<template #title>
 								<ul class="ul_class">
-									<li class="ub ub-ac ub-pj">
+									<li class="ub ub-ac ub-pj" @click.stop="gotoUserIndex(memItem.memberId)">
 										<div class="ub ub-ac">
-											<img class="headpic" @click.stop="gotoUserIndex(memItem.memberId)" :src="memItem.headPictureUrl" alt="">
+											<img class="headpic"  :src="memItem.headPictureUrl" alt="">
 											<div>
 												<div class="ub ub-ac">
 													<div class="nickname van-ellipsis">{{memItem.nickname}}</div>
