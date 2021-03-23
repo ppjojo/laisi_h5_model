@@ -80,12 +80,12 @@
 									<img class="deviceImg" :src="require('../img/group_tzc.png')" alt="">
 									<div class="deviceData">
 										<span>体重:</span>
-										<span class="num"> {{returnUserData('balance',item.dataList).weight}}</span>
+										<span class="num">{{returnUserData('balance',item.dataList).weight}}</span>
 										<span>kg</span>
 									</div>
 									<div class="deviceData">
 										<span>体脂:</span>
-										<span class="num"> {{returnUserData('balance',item.dataList).bfr}}</span>
+										<span class="num">{{returnUserData('balance',item.dataList).bfr}}</span>
 										<span>%</span>
 									</div>
 									<div class="iconRightBox" @click="goDeviceDetail">
