@@ -116,7 +116,7 @@
             };
         },
         beforeRouteLeave(to, from, next) {
-            if (this.isCancel && (to.name != "createGroup" && to.name != "groupIndex")) {
+            if (this.isCancel ) {
                 this.$interaction.closePage();
                 this.$interaction.closePage();
                 return;
@@ -152,11 +152,13 @@
                 this.$interaction.closePage();
             },
             onClickRight() { //跳转创建小组
+                this.isCancel=false
                 this.$router.push({
                     path: '/createGroup'
                 });
             },
             goGroupIndex(item) {
+                this.isCancel=false
                 this.$router.push({
                     path: '/groupIndex',
                     query: {
