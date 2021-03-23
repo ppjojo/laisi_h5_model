@@ -1,7 +1,7 @@
 <template>
 	<div id="app" class="groupIndex" v-cloak>
 		<div class="header" v-if="isShare!=1">
-			<van-nav-bar  @click-left="onclickLeft" left-arrow safe-area-inset-top fixed>
+			<van-nav-bar @click-left="onclickLeft" left-arrow safe-area-inset-top fixed>
 				<template #right>
 					<div style="margin-right: 0.2rem;" @click="shareGroup()">
 						<van-icon name="icon-tongyong-fenxiang" style="font-size: 0.4rem;" />
@@ -131,7 +131,7 @@
 
 						</li>
 					</ul>
-					<div v-if="userIdData.length==0" class="nullDataBox" style="margin-top: 0;">
+					<div v-if="userIdData.length==0" class="nullDataBox" >
 						<img :src="require('../img/noData.png')" alt="">
 						<p>今日无运动</p>
 					</div>
@@ -139,10 +139,11 @@
 			</div>
 
 			<div class="btn_box">
-				<div class="btn"  v-if="isShare" @click="goInto">立即加入</div>
+				<div class="btn" v-if="isShare" @click="goInto">立即加入</div>
 				<div class="btn" v-else-if="ownerUserId" @click="goToGroupChat">
-					{{isGrouptMember?'小组群聊':groupItem.isInviteConfirm?'申请加入':'立即加入'}}</div>
-				
+					{{isGrouptMember?'小组群聊':groupItem.isInviteConfirm?'申请加入':'立即加入'}}
+				</div>
+
 			</div>
 
 			<van-popup v-model="dateshow" position="bottom" style="z-index: 9999;">
@@ -157,7 +158,8 @@
 <script>
 	import {
 		getGroupInfo,
-		joinGroup,applyOnly
+		joinGroup,
+		applyOnly
 	} from '@a/groupIndex';
 	const defaultSettings = require('../settings.js');
 	import {
@@ -231,8 +233,8 @@
 		created() {
 			this.initData();
 		},
-		activated(){
-			
+		activated() {
+
 		},
 		methods: {
 			initData() {
@@ -247,7 +249,7 @@
 						.userId : 10) : JSON.parse(localStorage.getItem("appInfo")).userId
 					if (parseInt(userId) == res.data.ownerUserId) this.isCurrentUser = 1;
 					this.isGrouptMember = res.data.isGrouptMember;
-					this.ownerUserId = res.data.ownerUserId+'';
+					this.ownerUserId = res.data.ownerUserId + '';
 					this.huanxinGroupId = res.data.huanxinGroupId;
 				})
 			},
@@ -382,11 +384,15 @@
 					//分享进来需要审核，给组长弹消息
 					let userId = JSON.parse(localStorage.getItem("appInfo")).userId
 					if (this.groupItem.isInviteConfirm) {
-						applyOnly({groupId:this.groupId,groupUserId:this.ownerUserId,invitedUserId:userId}).then(res=>{
-							if(res.code==0){
+						applyOnly({
+							groupId: this.groupId,
+							groupUserId: this.ownerUserId,
+							invitedUserId: userId
+						}).then(res => {
+							if (res.code == 0) {
 								this.$interaction.appNative("LSTH5APP_ApplyJoinGroup", {
-									groupInviteId:res.data.id+'',
-									groupId: this.groupId+'', 
+									groupInviteId: res.data.id + '',
+									groupId: this.groupId + '',
 									groupOwnerId: this.ownerUserId,
 									groupName: this.groupItem.name,
 									invitedUserId: userId,
@@ -394,13 +400,13 @@
 								}).then(() => {
 									Toast('已提交审核，等待组长确认');
 								})
-							}else if(res.code==2963){
+							} else if (res.code == 2963) {
 								Toast('小组成员已满！');
-							}else if(res.code=='1001'){
+							} else if (res.code == '1001') {
 								Toast('已提交审核，等待组长确认!');
 							}
 						})
-						
+
 					} else {
 						//分享进来不需要审核，直接加入小组
 						joinGroup({
@@ -408,9 +414,9 @@
 							userId: userId,
 							nickName: JSON.parse(localStorage.getItem("appInfo")).nickname
 						}).then(res => {
-							if(res.code==0){
+							if (res.code == 0) {
 								this.initData();
-							}else if(res.code==2963){
+							} else if (res.code == 2963) {
 								Toast('小组成员已满！');
 							}
 						})
@@ -447,6 +453,10 @@
 	@font-face {
 		font-family: 'icon-tongyong-fenxiang';
 		src: url('../font/iconfont.ttf') format('truetype');
+	}
+
+	.nullDataBox {
+		padding-top: 0;
 	}
 
 	.van-icon-icon-tongyong-fenxiang {
