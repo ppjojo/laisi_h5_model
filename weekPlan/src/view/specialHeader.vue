@@ -12,7 +12,9 @@
                 </template>
             </van-nav-bar>
         </div>
-        <div style="height:20rem"></div>
+        <div style="height:20rem">
+             <img :src="require('@/assets/img/homepage.png')" alt="">
+        </div>
        
 
         

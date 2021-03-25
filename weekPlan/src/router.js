@@ -6,22 +6,30 @@ Vue.use(Router);
 const routes = [
   {
     path: '*',
-    redirect: '/model'
+    redirect: '/index'
   },
   {
-    name: 'model',
-    component: () => import('./view/model'),
+    name: 'index',
+    component: () => import('./view/index'),
     meta: {
-      title: '我的',
+      title: '制定专属计划',
       index:0
     }
   },
   {
-    name: 'specialHeader',
-    component: () => import('./view/specialHeader'),
+    name: 'personalTest',
+    component: () => import('./view/personalTest'),
     meta: {
-      title: '特别的头部',
+      title: '测评',
       index:1
+    }
+  },
+  {
+    name: 'weekPlanRule',
+    component: () => import('./view/weekPlanRule'),
+    meta: {
+      title: '测评规则',
+      index:2
     }
   },
  
