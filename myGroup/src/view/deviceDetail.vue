@@ -8,7 +8,7 @@
                 </template> -->
             </van-nav-bar>
         </div>
-        <div class="nullDataBox" style="margin-top: 2rem;">
+        <div class="nullDataBox" >
             <img :src="require('../img/noData.png')" alt="">
             <p>更多数据敬请期待</p>
         </div>
