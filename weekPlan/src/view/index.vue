@@ -1,13 +1,12 @@
 <template>
     <div id="app" v-cloak>
-        <div class="header">
-            <van-nav-bar title="制定专属计划" @click-left="onclickLeft" @click-right="shareWeekPlan" left-arrow
-                safe-area-inset-top fixed>
-                <template #right>
-                    <i class="iconfont icon-tongyong-fenxiang" style="font-size: 0.4rem;"></i>
-                </template>
-            </van-nav-bar>
-        </div>
+        <van-nav-bar title="制定专属计划" @click-left="onclickLeft" @click-right="shareWeekPlan" left-arrow
+            safe-area-inset-top fixed>
+            <template #right>
+                <i class="iconfont icon-tongyong-fenxiang" style="font-size: 0.4rem;"></i>
+            </template>
+        </van-nav-bar>
+
         <div class="homePageBox">
             <div class="buttonOK startTest" @click="startTest">开始测评</div>
             <div class="buttonOK getPlan">获取专属计划</div>
@@ -68,6 +67,7 @@
         },
         methods: {
             initData() {
+                
                 // getGroupInfo({
                 //     groupId: this.groupId,
                 //     searchTime: new Date().getTime()

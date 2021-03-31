@@ -13,7 +13,8 @@ const routes = [
     component: () => import('./view/index'),
     meta: {
       title: '制定专属计划',
-      index:0
+      index:0,
+      keepAlive:true
     }
   },
   {
@@ -21,7 +22,7 @@ const routes = [
     component: () => import('./view/personalTest'),
     meta: {
       title: '测评',
-      index:1
+      index:2,
     }
   },
   {
@@ -29,7 +30,7 @@ const routes = [
     component: () => import('./view/weekPlanRule'),
     meta: {
       title: '测评规则',
-      index:2
+      index:4
     }
   },
  
