@@ -37,9 +37,6 @@
 
 <script>
     import {
-        listItem
-    } from '@a/test'
-    import {
         NavBar,
         Icon
     } from 'vant';

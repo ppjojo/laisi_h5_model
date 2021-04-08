@@ -33,8 +33,20 @@ const routes = [
       index:4
     }
   },
- 
-  
+  {
+    name: 'share',
+    component: () => import('./view/share'),
+    meta: {
+      title: '测评分享',
+    }
+  },
+  {
+    name: 'shareBar',
+    component: () => import('./view/shareBar'),
+    meta: {
+      title: '测评分享',
+    }
+  },
 ];
 
 // add route path

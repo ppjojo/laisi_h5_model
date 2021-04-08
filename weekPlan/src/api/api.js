@@ -9,3 +9,10 @@ export function listItem(data) {
         }
     })
 }
+export function getIndexData(data) {
+    return request({
+        url: 'community/sevenClassUser/seven/status',
+        method: 'get',
+        params:data
+    })
+}

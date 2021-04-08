@@ -8,9 +8,9 @@
         </van-nav-bar>
 
         <div class="homePageBox">
-            <div class="buttonOK startTest" @click="startTest">开始测评</div>
-            <div class="buttonOK getPlan">获取专属计划</div>
-            <div class="buttonOK againTest buttonWait">再次测评</div>
+            <div class="buttonOK startTest" :class="{buttonWait:params.bf1}" @click="startTest">{{params.bt1}}</div>
+            <div class="buttonOK getPlan" :class="{buttonWait:params.bf2}" >{{params.bt2}}</div>
+            <div class="buttonOK againTest" :class="{buttonWait:params.bf3}" >{{params.bt3}}</div>
         </div>
 
 
@@ -28,7 +28,9 @@
         // Popup,
         // DatetimePicker
     } from 'vant';
-
+	import {
+		getIndexData
+	} from '@a/api'
     export default {
         components: {
             [NavBar.name]: NavBar,
@@ -49,7 +51,14 @@
             return {
                 loading: false,
                 finished: false,
-                groupId: this.$route.query.id,
+				params:{
+					bt1:'开始测评',
+					bf1:false,
+					bt2:'获取专属计划',
+					bf2:false,
+					bt3:'再次测评',
+					bf3:false
+				}
             }
         },
         filters: {},
@@ -67,15 +76,37 @@
         },
         methods: {
             initData() {
-                
-                // getGroupInfo({
-                //     groupId: this.groupId,
-                //     searchTime: new Date().getTime()
-                // }).then(res => {
-                //     this.groupItem = res.data.groupInfo;
-                //     this.memberIcon = res.data.memberIcon;
-                //     this.isCurrentUser = res.data.isCurrentUser;
-                // })
+               getIndexData({memberId:JSON.parse(localStorage.getItem("appInfo")).memberId}).then(res=>{
+				   if(res.data=='0001'){
+					   /**
+						 * 七日计划状态一：开始测试：
+						 * 开始测试按钮高亮
+						 * 另外两个灰显
+						 */
+						this.params.bf2 = this.params.bf3 = true;
+				   }else if(res.data=='0002'||res.data=='0003'){
+					   /**
+					        * 七日计划状态二：测试完毕；但未获取专属课程计划
+					        * 可查看测试报告，获取专属计划
+					        * 但是再次测试灰显
+					        */
+						   /**
+						        * 七日计划状态三：测试完且已经获取专属课程，但未看完
+						        * 可查看测试报告，查看专属课程
+						        * 再次测试灰显示
+						        */
+						this.params.bt1 = '查看测试报告';
+						this.params.bt2 = res.data=='0003'?'获取专属课程':'获取专属计划';
+						this.params.bf3 = true;
+				   }else if(res.data=='0004'){
+					   /**
+					        * 七日计划状态四：完成了课程
+					        * 再次测试高亮
+					        */
+						this.params.bt1 = '查看测试报告';
+						this.params.bt2 = '获取专属课程';
+				   }
+			   })
             },
 
             scrollFn() {
