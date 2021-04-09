@@ -81,7 +81,6 @@
                     memberId: JSON.parse(localStorage.getItem("appInfo")).memberId
                 }).then(res => {
                     this.finished = true;
-                    res.data="0002"
                     this.statusCode = res.data;
                     if (res.data == '0001') {
                         /**
