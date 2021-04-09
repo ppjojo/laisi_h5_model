@@ -53,7 +53,8 @@
 					testTypeLevel: null,
 					type: null,
 					updateTime: null
-				}
+				},
+				type:parseInt(this.$route.query.type)||0
 			};
 		},
 		filters: {},
@@ -68,7 +69,7 @@
 			getList() {
 				seeTestResult({
 					memberId: 10008 || JSON.parse(localStorage.getItem("appInfo")).memberId,
-					type: 1
+					type: this.type
 				}).then((res) => {
 					if (res.code == 0) {
 						if (res.data) this.chartData = Object.assign({}, res.data)
