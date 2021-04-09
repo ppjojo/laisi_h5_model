@@ -99,7 +99,7 @@
                          * 再次测试灰显示
                          */
                         this.params.bt1 = '查看测试报告';
-                        this.params.bt2 = res.data == '0003' ? '获取专属课程' : '获取专属计划';
+                        this.params.bt2 = res.data == '0003' ? '查看专属课程' : '获取专属计划';
                         this.params.bf3 = true;
                     } else if (res.data == '0004') {
                         /**
@@ -107,13 +107,13 @@
                          * 再次测试高亮
                          */
                         this.params.bt1 = '查看测试报告';
-                        this.params.bt2 = '获取专属课程';
+                        this.params.bt2 = '查看专属课程';
                     } else if (res.data == '0005') {
                         /**
                          * 再次测试完成
                          */
                         this.params.bt1 = '查看测试报告';
-                        this.params.bt2 = '获取专属课程';
+                        this.params.bt2 = '查看专属课程';
                         this.params.bf3 = true;
                     }
                 })
@@ -148,23 +148,25 @@
             },
             startTest() {
                 if (!this.finished) return;
-                if (this.params.btn1 == '开始测评') {
+                //前去测评
+                if (this.statusCode == '0001') {
                     if (isIOS) {
                         window.webkit.messageHandlers.lstNative.postMessage({
-                            method: LSTH5APP_goToEvalutaion,
+                            method: "LSTH5APP_goToEvalutaion",
                         });
                     } else if (isAndroid) {
                         window.android.LSTH5APP_goToEvalutaion();
                     }
-                } else if (this.params.btn1 == '查看测试报告') {
+                } else  {
+                    //查看测评结果
                     if (isIOS) {
                         window.webkit.messageHandlers.lstNative.postMessage({
-                            method: LSTH5APP_evaluationReport,
-                            type: this.statusCode == "0005" ? 0 : 1
+                            method: "LSTH5APP_evaluationReport",
+                            type: this.statusCode == "0005" ? 1 : 0
                         });
                     } else if (isAndroid) {
                         window.android.LSTH5APP_evaluationReport(JSON.stringify({
-                            type: this.statusCode == "0005" ? 0 : 1
+                            type: this.statusCode == "0005" ? 1 : 0
                         }));
                     }
                 }
@@ -172,31 +174,30 @@
 
             },
             getPlan() {
-                if (this.params.bf2 && !this.finished) {
+                //前去训练计划
+                if (this.statusCode=="0001" && this.finished) {
                     return
                 }
                 if (isIOS) {
                     window.webkit.messageHandlers.lstNative.postMessage({
-                        method: LSTH5APP_goToEvalutaion,
+                         method: "LSTH5APP_goToTrainingCourses",
                     });
                 } else if (isAndroid) {
-                    window.android.LSTH5APP_goToEvalutaion();
+                    window.android.LSTH5APP_goToTrainingCourses();
                 }
             },
+
             againTest() {
-                if (this.params.bf3 && !this.finished) {
+                 //0004 的时候允许二次测评
+                if (this.statusCode!="0004" && this.finished) {
                     return
                 }
-                //0004 的时候允许二次测评
                 if (isIOS) {
                     window.webkit.messageHandlers.lstNative.postMessage({
-                        method: LSTH5APP_goToEvalutaion,
-                        type: this.statusCode == "0004" ? 0 : 1
+                        method: "LSTH5APP_goToReEvalutaion",
                     });
                 } else if (isAndroid) {
-                    window.android.LSTH5APP_goToEvalutaion(JSON.stringify({
-                        type: this.statusCode == "0004" ? 0 : 1
-                    }));
+                    window.android.LSTH5APP_goToReEvalutaion();
                 }
 
             }
