@@ -77,9 +77,7 @@
         },
         methods: {
             initData() {
-                getIndexData({
-                    memberId: JSON.parse(localStorage.getItem("appInfo")).memberId
-                }).then(res => {
+                getIndexData().then(res => {
                     this.finished = true;
                     this.statusCode = res.data;
                     if (res.data == '0001') {

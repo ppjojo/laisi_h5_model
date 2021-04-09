@@ -40,6 +40,7 @@ service.interceptors.request.use((config) => {
   config.params.platform = appInfo.platform;
   config.params.userId = appInfo.userId;
   config.params.timeZone = appInfo.timeZone;
+  config.params.memberId = appInfo.memberId;
   return config;
 });
 
