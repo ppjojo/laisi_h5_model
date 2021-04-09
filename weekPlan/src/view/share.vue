@@ -8,16 +8,14 @@
 			</van-nav-bar>
 		</div>
 		<div class="content" style="padding-top:0;">
-			<div class="fts16">您的好友用户的昵称用户的昵称2021年03月06日测评结果：</div>
+			<div class="fts16">您的好友{{ chartData.nickName }} {{timeStamp2String('ymd2',chartData.createTime)}}测评结果：</div>
 			<div class="title">初级</div>
 		</div>
 		<div id="pentagon">
 
 		</div>
 		<div class="content">
-			<div class="fts14">综上结果说明，你的跳绳水平较差/一般/很棒，你的协调性/心肺/技巧/肌肉耐力/BMI指数（选最差的两个因素分析建议）较差，
-				建议多做无绳和有绳交叉练习/建议适当增加跳绳时间和频次/建议注重正确动作细节进行练习/
-				建议提高下肢肌肉耐力训练/建议适当增加跳绳时间和频次。</div>
+			<div class="fts14">{{chartData.resultDes}}</div>
 			<div class="fts12">声明：所有的数据仅供参考，不建议以此数据作为医疗或者健康状况的判断依据。</div>
 		</div>
 	</div>
@@ -25,45 +23,91 @@
 
 <script>
 	import {
-		listItem
+		seeTestResult
 	} from '@a/api'
 	import {
 		NavBar,
 		Icon
 	} from 'vant';
 	import * as echarts from 'echarts';
+	import {timeStamp2String} from '../utils/Date.js';
 	export default {
 		components: {
 			[NavBar.name]: NavBar,
 			[Icon.name]: Icon,
-			// [Cell.name]: Cell,
-			// [CellGroup.name]: CellGroup,
-			// [Swipe.name]: Swipe,
-			// [SwipeItem.name]: SwipeItem,
-			// [GoodsAction.name]: GoodsAction,
-			// [GoodsActionIcon.name]: GoodsActionIcon,
-			// [GoodsActionButton.name]: GoodsActionButton
 		},
 
 		data() {
 			return {
-
+				chartData: {
+					bmi: 0,
+					createTime: null,
+					harmony: 0, //协调
+					heart: 0, //心肺
+					memberId: null,
+					resultDes: '',
+					skill: 0, //技巧
+					stamina: 0, //耐力
+					testEndTime: null,
+					testType: null,
+					testTypeLevel: null,
+					type: null,
+					updateTime: null
+				}
 			};
 		},
 		filters: {},
 		mounted() {
-			this.initEchart()
+			this.getList();
 		},
-		created() {},
+		created() {
+			
+		},
 		methods: {
+			timeStamp2String: timeStamp2String,
 			getList() {
-				listItem().then(() => {
-					console.log("success")
+				seeTestResult({
+					memberId: 10008 || JSON.parse(localStorage.getItem("appInfo")).memberId,
+					type: 1
+				}).then((res) => {
+					if (res.code == 0) {
+						if (res.data) this.chartData = Object.assign({}, res.data)
+						let option = {
+							name: [{
+									name: '协调性',
+									max: 100
+								},
+								{
+									name: 'BMI指数',
+									max: 100
+								},
+								{
+									name: '耐力',
+									max: 100
+								},
+								{
+									name: '技巧',
+									max: 100
+								},
+								{
+									name: '心肺',
+									max: 100
+								},
+							],
+							data:[],
+							apiName:[this.chartData.harmony,this.chartData.bmi,this.chartData.stamina,this.chartData.skill,this.chartData.heart]
+						}
+						option.name.forEach((d,i)=>{
+							option.name[i].name+=option.apiName[i];
+							option.data.push(option.apiName[i]);
+						})
+						this.initEchart(option);
+					}
 				}).catch(() => {
 					console.log("error")
 				})
 			},
-			initEchart() {
+			initEchart(data) {
 				// 基于准备好的dom，初始化echarts实例
 				var myChart = echarts.init(document.getElementById('pentagon'));
 				var option = {
@@ -88,7 +132,7 @@
 							},
 						},
 						name: {
-							 formatter: "{value}",
+							formatter: "{value}",
 							// formatter:(d)=>{
 							// 	console.log(d)
 							// 	return d+'</br>'+80
@@ -100,27 +144,7 @@
 								padding: [0, 0],
 							},
 						},
-						indicator: [{
-								name: '协调性80',
-								max: 100
-							},
-							{
-								name: 'BMI指数2.5',
-								max: 100
-							},
-							{
-								name: '耐力50',
-								max: 100
-							},
-							{
-								name: '技巧66',
-								max: 100
-							},
-							{
-								name: '心肺44',
-								max: 100
-							},
-						]
+						indicator: data.name
 					},
 					series: [{
 						type: 'radar',
@@ -133,7 +157,7 @@
 							},
 						},
 						data: [{
-							value: [55, 44, 77, 88, 12],
+							value: data.data,
 						}, ],
 						itemStyle: {
 							normal: {

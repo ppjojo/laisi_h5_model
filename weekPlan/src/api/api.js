@@ -16,3 +16,11 @@ export function getIndexData(data) {
         params:data
     })
 }
+
+export function seeTestResult(data) {
+    return request({
+        url: 'community/sevenClassUser/seeTestResult',
+        method: 'get',
+        params:data
+    })
+}

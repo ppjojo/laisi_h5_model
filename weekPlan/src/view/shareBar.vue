@@ -8,17 +8,17 @@
 			</van-nav-bar>
 		</div>
 		<div class="content" style="padding-top:0;">
-			<div class="fts14" style="padding: .1rem 0;">您的好友用户的昵称在派健康完成跳绳训练7日计划后测评结果。——2021/03/06</div>
+			<div class="fts14" style="padding: .1rem 0;">您的{{chartData.nickName}}在派健康完成跳绳训练7日计划后测评结果。——{{timeStamp2String('ymd2',chartData.createTime)}}</div>
 			<div class="title">7日计划训练效果看的见</div>
 			<div class="fts14" style="text-align: center;padding: .1rem 0;">各项指标全面提升，训练更高效</div>
 			<ul class="barline">
-				<li>
-					<div class="fts14">协调性<span class="redlarge">(+48)</span></div>
+				<li v-for="(item,key ,index) in nwArr">
+					<div class="fts14">{{item[0]}}  <span v-if="item[1]<item[2]" class="redlarge">(+{{item[2]-item[1]}})</span> <span v-else>(-{{item[1]-item[2]}})</span> </div>
 					<div class="underbox">
-						<div class="colorbox" :style="{width:'88%'}"></div>
-						<div class="whitebox" :style="{left:'5%'}"></div>
-						<div class="oldnum fts12" :style="{left:'5%'}">5</div>
-						<div class="newnum redsmall" :style="{left:'88%'}">88</div>
+						<div class="colorbox" :style="{width:returnColorBar(item[2])+'%'}"></div>
+						<div class="whitebox" :style="{left:returnColorBar(item[1])+'%'}"></div>
+						<div class="oldnum fts12" :style="{left:returntxtBar(item,2)+'%'}">{{item[1]}}</div>
+						<div class="newnum redsmall" :style="{left:returntxtBar(item,1)+'%'}">{{item[2]}}</div>
 					</div>
 				</li>
 			</ul>
@@ -29,42 +29,85 @@
 
 <script>
 	import {
-		listItem
+		seeTestResult
 	} from '@a/api'
 	import {
 		NavBar,
 		Icon
 	} from 'vant';
+	import {
+		timeStamp2String
+	} from '../utils/Date.js';
 	export default {
 		components: {
 			[NavBar.name]: NavBar,
 			[Icon.name]: Icon,
-			// [Cell.name]: Cell,
-			// [CellGroup.name]: CellGroup,
-			// [Swipe.name]: Swipe,
-			// [SwipeItem.name]: SwipeItem,
-			// [GoodsAction.name]: GoodsAction,
-			// [GoodsActionIcon.name]: GoodsActionIcon,
-			// [GoodsActionButton.name]: GoodsActionButton
 		},
 
 		data() {
 			return {
-
+				chartData: {
+					bmi: 0,
+					createTime: null,
+					harmony: 0, //协调
+					heart: 0, //心肺
+					memberId: null,
+					resultDes: '',
+					skill: 0, //技巧
+					stamina: 0, //耐力
+					testEndTime: null,
+					testType: null,
+					testTypeLevel: null,
+					type: null,
+					updateTime: null
+				},
+				nwArr:{
+					harmony:['协调性'],
+					heart:['心肺'],
+					skill:['技巧'],
+					stamina:['耐力'],
+					bmi:['BMI指数']
+				},
+				left:1.8
 			};
 		},
 		filters: {},
-		mounted() {
+		mounted() {},
+		created() {
+			this.getList()
 		},
-		created() {},
 		methods: {
+			timeStamp2String: timeStamp2String,
 			getList() {
-				listItem().then(() => {
-					console.log("success")
-				}).catch(() => {
-					console.log("error")
-				})
+				seeTestResult({
+					memberId: 10008 || JSON.parse(localStorage.getItem("appInfo")).memberId,
+					type: 0
+				}).then((res) => {
+					//获取老数据
+					for (let key in this.nwArr) {
+						this.nwArr[key].push(res.data[key]);
+					}
+					seeTestResult({
+						memberId: 10008 || JSON.parse(localStorage.getItem("appInfo")).memberId,
+						type: 1
+					}).then((res2) => {
+						//获取新数据
+						for (let key in this.nwArr) {
+							this.nwArr[key].push(res2.data[key]);
+						}
+						console.log(this.nwArr)
+					}).catch(() => {})
+				}).catch(() => {})
 			},
+			returnColorBar(num){
+				return num>100?100:num;
+			},
+			returntxtBar(item,flag){//flag1new  2old
+				if(item[1]==item[2]){
+					return flag==1?(item[1]-this.left):item[1];
+				}
+				return flag==1?(item[2]-this.left):(item[1]-this.left);
+			}
 		}
 	};
 </script>
@@ -93,48 +136,58 @@
 			text-align: center;
 			margin-top: .4rem;
 		}
-		.barline{
+
+		.barline {
 			margin-top: .4rem;
-			li{
+
+			li {
 				margin-bottom: .5rem;
-				.redlarge{
+
+				.redlarge {
 					color: #E60012;
 					font-size: .4rem;
 				}
-				.redsmall{
+
+				.redsmall {
 					color: #E60012;
 					font-size: .28rem;
 				}
-				.underbox{
+
+				.underbox {
 					width: 100%;
 					height: .16rem;
 					border-radius: .08rem;
 					background-color: rgba(245, 245, 245, 1);
 					position: relative;
 					margin: .2rem 0;
-					.colorbox{
-						background: linear-gradient(to right, #FF6A88, #FF5136 );
+
+					.colorbox {
+						background: linear-gradient(to right, #FF6A88, #FF5136);
 						height: 100%;
 						border-radius: .08rem;
 						position: absolute;
 						left: 0;
 						top: 0;
 					}
-					.whitebox{
+
+					.whitebox {
 						width: 1%;
 						height: 100%;
 						background-color: #fff;
 						position: absolute;
 						z-index: 99;
 					}
-					.newnum,.oldnum{
+
+					.newnum,
+					.oldnum {
 						position: absolute;
 						top: .25rem;
 					}
-					
+					.newnum{
+						top: .22rem;
+					}
 				}
 			}
 		}
 	}
-
 </style>
