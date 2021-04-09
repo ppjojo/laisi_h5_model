@@ -31,6 +31,7 @@
 	} from 'vant';
 	import * as echarts from 'echarts';
 	import {timeStamp2String} from '../utils/Date.js';
+	import { getQueryString } from "@u/tool";
 	export default {
 		components: {
 			[NavBar.name]: NavBar,
@@ -68,7 +69,7 @@
 			timeStamp2String: timeStamp2String,
 			getList() {
 				seeTestResult({
-					memberId: 10008 || JSON.parse(localStorage.getItem("appInfo")).memberId,
+					memberId: getQueryString(memberId),
 					type: this.type
 				}).then((res) => {
 					if (res.code == 0) {
