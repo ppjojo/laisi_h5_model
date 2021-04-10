@@ -24,3 +24,10 @@ export function seeTestResult(data) {
         params:data
     })
 }
+export function getClassPlan(data) {
+    return request({
+        url: 'community/sevenClassUser/get/my/classPlan',
+        method: 'post',
+        data
+    })
+}

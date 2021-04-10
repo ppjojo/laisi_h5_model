@@ -22,19 +22,20 @@
 <script>
     const defaultSettings = require('../settings.js');
     import {
-        NavBar,
+        NavBar,Toast
     } from 'vant';
     import {
         isAndroid,
         isIOS
     } from "@u/tool";
     import {
-        getIndexData
+        getIndexData,
+        getClassPlan
     } from '@a/api'
     export default {
         components: {
             [NavBar.name]: NavBar,
-            // [Icon.name]: Icon,
+            [Toast.name]: Toast,
             // [NoticeBar.name]: NoticeBar,
             // [Popup.name]: Popup,
             // [DatetimePicker.name]: DatetimePicker,
@@ -157,7 +158,7 @@
                     } else if (isAndroid) {
                         window.android.LSTH5APP_goToEvalutaion();
                     }
-                } else  {
+                } else {
                     //查看测评结果
                     if (isIOS) {
                         window.webkit.messageHandlers.lstNative.postMessage({
@@ -175,21 +176,40 @@
             },
             getPlan() {
                 //前去训练计划
-                if (this.statusCode=="0001" && this.finished) {
+                if (this.statusCode == "0001" && this.finished) {
                     return
                 }
-                if (isIOS) {
-                    window.webkit.messageHandlers.lstNative.postMessage({
-                         method: "LSTH5APP_goToTrainingCourses",
-                    });
-                } else if (isAndroid) {
-                    window.android.LSTH5APP_goToTrainingCourses();
+                if (this.statusCode == "0002" && this.finished) {
+                    getClassPlan({
+                        memberId:JSON.parse(localStorage.getItem("appInfo")).memberId,
+                        userId:JSON.parse(localStorage.getItem("appInfo")).userId,
+                    }).then(res => {
+                        if (res.code == 0) {
+                            Toast({
+                                message: "你已成功获取了你的专属计划",
+                            });
+                            this.initData();
+                        } else {
+                            Toast(res.msg);
+                        }
+                    })
+                    return
                 }
+                if (this.statusCode == "0003" && this.finished) {
+                    if (isIOS) {
+                        window.webkit.messageHandlers.lstNative.postMessage({
+                            method: "LSTH5APP_goToTrainingCourses",
+                        });
+                    } else if (isAndroid) {
+                        window.android.LSTH5APP_goToTrainingCourses();
+                    }
+                }
+
             },
 
             againTest() {
-                 //0004 的时候允许二次测评
-                if (this.statusCode!="0004" && this.finished) {
+                //0004 的时候允许二次测评
+                if (this.statusCode != "0004" && this.finished) {
                     return
                 }
                 if (isIOS) {
@@ -203,6 +223,8 @@
             }
 
         }
+        
+        
     };
 </script>
 <style scoped>
