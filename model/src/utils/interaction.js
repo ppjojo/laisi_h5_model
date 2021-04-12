@@ -1,7 +1,10 @@
-import { isAndroid, isIOS } from "@u/tool";
+import {
+  isAndroid,
+  isIOS
+} from "@u/tool";
 import defaultSettings from "@/settings";
 var interaction = {
-  appNative: function(method, param) {
+  appNative: function (method, param) {
     //h5调用app原生
     if (!param) param = {};
     try {
@@ -19,7 +22,7 @@ var interaction = {
     });
   },
   //获取app设备的信息 以及token信息
-  getAppInfoAndUserInfo: function() {
+  getAppInfoAndUserInfo: function () {
     try {
       if (isIOS) {
         window.webkit.messageHandlers.lstNative.postMessage("getAppInfo");
@@ -31,12 +34,12 @@ var interaction = {
     }
   },
   //获取app设备的信息 以及token信息的回调
-  getAppInfo: function(info) {
+  getAppInfo: function (info) {
     localStorage.setItem("appInfo", info);
   },
 
   //新开一个原生得window窗口
-  pushToNextVC: function(htmlUrl) {
+  pushToNextVC: function (htmlUrl) {
     // ios reservedStatusBarHeight=1 页面从手机状态栏开始显示<br>
     // hideTitle=1 页面从手机状态栏下面开始显示并隐藏标题栏<br>
     // isFullScreen=1 页面隐藏手机状态栏以及标题栏<br>
@@ -53,7 +56,7 @@ var interaction = {
     });
   },
   //关闭当前的h5窗口
-  closePage: function() {
+  closePage: function () {
     try {
       if (isIOS) {
         window.webkit.messageHandlers.lstNative.postMessage({
@@ -68,25 +71,45 @@ var interaction = {
   },
 
   //H5调用原生的方法传入标题描述地址进行分享
-  sharePage: function(info) {
+  sharePage: function (info) {
     if (!info) return;
-    this.appNative("sharePage", {
-      title: info.title,
-      description: info.description,
-      url: info.url,
-    });
+    try {
+      if (isIOS) {
+        window.webkit.messageHandlers.lstNative.postMessage({
+          method: "sharePage",
+          title: info.title,
+          description: info.description,
+          url: info.url,
+        });
+      } else if (isAndroid) {
+        window.android.sharePage(JSON.stringify({
+          title: info.title,
+          description: info.description,
+          url: info.url,
+        }));
+      }
+    } catch (e) {
+      console.log(e);
+    }
   },
 
   //点击用户头像或者昵称，跳转到原生个人主页
-  visitPersonalHomepage: function(userId) {
+  visitPersonalHomepage: function (userId) {
     if (!userId) return;
-    this.appNative("visitPersonalHomepage", {
-      visitUserId: userId,
-    });
+    if (isIOS) {
+      window.webkit.messageHandlers.lstNative.postMessage({
+        method: "visitPersonalHomepage",
+        visitUserId: userId,
+      });
+    } else if (isAndroid) {
+      window.android.visitPersonalHomepage(JSON.stringify({
+        visitUserId: userId,
+      }));
+    }
   },
 
   //获取连接中的所有蓝牙mac 然后app端会回调getConnectedMac方法
-  gotoGetConnectedMac: function() {
+  gotoGetConnectedMac: function () {
     try {
       if (isIOS) {
         window.webkit.messageHandlers.lstNative.postMessage("getConnectedMac");
@@ -104,23 +127,33 @@ var interaction = {
   // },
   VIDEO_flag: false,
   //app端h5页面出现后会主动调用这个方法 可用于刷新页面
-  appWebviewOpen: function(param) {
+  appWebviewOpen: function (param) {
     console.log("appWebviewOpen");
   },
   //app端h5页面消失后会主动调用这个方法 暂无用处
-  appWebviewClose: function() {
+  appWebviewClose: function () {
     console.log("appWebviewClose");
   },
   //友盟的埋点功能
-  umengStatistics: function(event, bannerId) {
-    this.appNative("umengStatistics", {
-      event: event,
-      bannerId: bannerId,
-    });
+  umengStatistics: function (event, bannerId) {
+    if (isIOS) {
+      window.webkit.messageHandlers.lstNative.postMessage({
+        method: "umengStatistics",
+        event: event,
+        bannerId: bannerId,
+      });
+    } else if (isAndroid) {
+      window.android.umengStatistics(JSON.stringify({
+        event: event,
+        bannerId: bannerId,
+      }));
+    }
   },
 };
 window.appWebviewOpen = () => {};
 window.appWebviewClose = () => {};
-window.getAppInfo=interaction.getAppInfo
+window.getAppInfo = interaction.getAppInfo
 
-export { interaction };
+export {
+  interaction
+};
