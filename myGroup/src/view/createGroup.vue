@@ -108,7 +108,7 @@
 
 		data() {
 			return {
-				flag: 1,
+				flag:1,
 				groupId: this.$route.query.id || null,
 				labelId: this.$route.query.labelId || '',
 				edit: this.$route.query.edit || null,
@@ -262,4 +262,7 @@
 </script>
 <style scoped="scoped">
 	@import '../styles/css/myGroupList.css';
+	.van-cell{
+		border-radius: .05rem;
+	}
 </style>
