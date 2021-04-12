@@ -20,6 +20,7 @@ service.interceptors.request.use((config) => {
     appInfo={
       token: "SHARE",
       userId: getQueryString("userId")||"",
+      memberId: getQueryString("memberId")||"",
     }
   }else{
     appInfo=JSON.parse(localStorage.getItem("appInfo"))

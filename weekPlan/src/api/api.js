@@ -9,19 +9,19 @@ export function listItem(data) {
         }
     })
 }
-export function getIndexData(data) {
+export function getIndexData(params) {
     return request({
         url: 'community/sevenClassUser/seven/status',
         method: 'get',
-        params:data
+        params
     })
 }
 
-export function seeTestResult(data) {
+export function seeTestResult(params) {
     return request({
         url: 'community/sevenClassUser/seeTestResult',
         method: 'get',
-        params:data
+        params
     })
 }
 export function getClassPlan(data) {

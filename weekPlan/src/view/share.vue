@@ -69,7 +69,7 @@
 			timeStamp2String: timeStamp2String,
 			getList() {
 				seeTestResult({
-					memberId: getQueryString(memberId),
+					memberId: getQueryString("memberId"),
 					type: this.type
 				}).then((res) => {
 					if (res.code == 0) {
