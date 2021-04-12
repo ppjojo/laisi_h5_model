@@ -9,7 +9,7 @@
 		</div>
 		<div class="content" style="padding-top:0;">
 			<div class="fts16">您的好友{{ chartData.nickName }} {{timeStamp2String('ymd2',chartData.createTime)}}测评结果：</div>
-			<div class="title">初级</div>
+			<div class="title">{{chartData.testTypeLevel==1?'初级':'中级'}}</div>
 		</div>
 		<div id="pentagon">
 
