@@ -80,7 +80,7 @@
 			timeStamp2String: timeStamp2String,
 			getList() {
 				seeTestResult({
-					memberId: 10008 || JSON.parse(localStorage.getItem("appInfo")).memberId,
+					memberId:  JSON.parse(localStorage.getItem("appInfo")).memberId,
 					type: 0
 				}).then((res) => {
 					//获取老数据
@@ -88,7 +88,7 @@
 						this.nwArr[key].push(res.data[key]);
 					}
 					seeTestResult({
-						memberId: 10008 || JSON.parse(localStorage.getItem("appInfo")).memberId,
+						memberId: JSON.parse(localStorage.getItem("appInfo")).memberId,
 						type: 1
 					}).then((res2) => {
 						//获取新数据

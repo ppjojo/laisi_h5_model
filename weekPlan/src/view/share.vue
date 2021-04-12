@@ -68,7 +68,7 @@
 			timeStamp2String: timeStamp2String,
 			getList() {
 				seeTestResult({
-					memberId: 10008 || JSON.parse(localStorage.getItem("appInfo")).memberId,
+					memberId: JSON.parse(localStorage.getItem("appInfo")).memberId,
 					type: this.type
 				}).then((res) => {
 					if (res.code == 0) {
@@ -116,7 +116,13 @@
 						text: ''
 					},
 					tooltip: {},
+					grid:{
+						top:'10%'
+					},
 					radar: {
+						grid:{
+							top:'10%'
+						},
 						// shape: 'circle',
 						radius: 95, //大小
 						splitLine: {
@@ -204,7 +210,7 @@
 
 	#pentagon {
 		width: 100%;
-		height: 5rem;
+		height: 5.3rem;
 		border-bottom: .2rem solid #f5f5f5;
 	}
 </style>
