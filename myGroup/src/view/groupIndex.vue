@@ -3,11 +3,11 @@
 		<div class="header" v-if="isShare!=1">
 			<van-nav-bar @click-left="onclickLeft" left-arrow safe-area-inset-top fixed>
 				<template #right>
-					<div style="margin-right: 0.2rem;" @click="shareGroup()">
+					<div style="margin-right: 0.25rem;" @click="shareGroup()">
 						<van-icon name="icon-tongyong-fenxiang" style="font-size: 0.4rem;" />
 					</div>
 					<div @click="goSetting()">
-						<van-icon name="setting-o" style="font-size: 0.4rem;" />
+						<van-icon name="setting-o" style="font-size: 0.42rem;" />
 					</div>
 				</template>
 			</van-nav-bar>

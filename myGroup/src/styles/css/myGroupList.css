@@ -24,6 +24,11 @@
 }
 
 .js {
+  background-color: #F1FBF3 !important;
+  color: #26B350 !important;
+}
+
+.ts {
   background-color: #FBF6F1 !important;
   color: #FF8D3F !important;
 }
@@ -31,11 +36,6 @@
 .jf {
   background-color: #F1F1FB !important;
   color: #7C87F8 !important;
-}
-
-.ts {
-  background-color: #F1FBF3 !important;
-  color: #26B350 !important;
 }
 
 .jz {
@@ -377,8 +377,8 @@
 }
 
 .groupIndex .groupInfoBox .groupBox .groupInfo .labelBox .js {
-  background-color: #FBF6F1;
-  color: #FF8D3F;
+  background-color: #F1FBF3;
+  color: #26B350;
 }
 
 .groupIndex .groupInfoBox .groupBox .groupInfo .labelBox .jf {
@@ -387,8 +387,8 @@
 }
 
 .groupIndex .groupInfoBox .groupBox .groupInfo .labelBox .ts {
-  background-color: #F1FBF3;
-  color: #26B350;
+  background-color: #FBF6F1;
+  color: #FF8D3F;
 }
 
 .groupIndex .groupInfoBox .groupBox .groupInfo .labelBox .jz {
@@ -558,6 +558,7 @@
 
 .groupIndex .containBox .sportBox .personBox ul li {
   padding: 0.3rem;
+  padding-bottom: 0.15rem;
   border-top: 1px solid #f5f5f5;
 }
 

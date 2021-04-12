@@ -6,7 +6,7 @@ module.exports = {
 			name: "跳绳",
 			class: "ts",
 			img:"https://oss.laisitech.com/501c1b2a-7e91-4d4b-8ffe-19c4259a2eda.svg",
-			activeImg:"https://oss.laisitech.com/b699c88a-eded-466c-9808-1015b5cb7fef.svg",
+			activeImg:"https://oss.laisitech.com/0c302aeb-fd83-4a20-a1b3-1a4b38b20283.svg",
 		},
 		{
 			id: 2,
@@ -27,7 +27,7 @@ module.exports = {
 			name: "健身",
 			class: "js",
 			img: 'https://oss.laisitech.com/d4cf0da8-9896-4f4a-9c6b-ef01f0d97b17.svg',
-			activeImg:'https://oss.laisitech.com/dcf920f7-dedb-4f35-98fc-9411dbeae8cd.svg',
+			activeImg:'https://oss.laisitech.com/7a8eb792-1b79-4f5c-bfba-45d99bd7c69c.svg',
 		},
 		{
 			id: 5,

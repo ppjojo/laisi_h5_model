@@ -30,6 +30,12 @@
 
 //健身
 .js {
+    background-color: #F1FBF3 !important;
+    color: #26B350 !important;
+}
+//跳绳
+.ts {
+    
     background-color: #FBF6F1 !important;
     color: #FF8D3F !important;
 }
@@ -40,11 +46,7 @@
     color: #7C87F8 !important;
 }
 
-//跳绳
-.ts {
-    background-color: #F1FBF3 !important;
-    color: #26B350 !important;
-}
+
 
 //减脂
 .jz {
@@ -379,8 +381,9 @@
 
                     //健身
                     .js {
-                        background-color: #FBF6F1;
-                        color: #FF8D3F;
+                        
+                        background-color: #F1FBF3;
+                        color: #26B350;
                     }
 
                     //减肥
@@ -391,8 +394,8 @@
 
                     //跳绳
                     .ts {
-                        background-color: #F1FBF3;
-                        color: #26B350;
+                        background-color: #FBF6F1;
+                        color: #FF8D3F;
                     }
 
                     //减脂
@@ -533,6 +536,7 @@
                 ul {
                     li {
                         padding: 0.3rem;
+                        padding-bottom: 0.15rem;
                         border-top: 1px solid #f5f5f5;
 
                         .personInfo {
