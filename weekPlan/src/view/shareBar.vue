@@ -23,6 +23,9 @@
 				</li>
 			</ul>
 			<div class="fts12">声明：所有的数据仅供参考，不建议以此数据作为医疗或者健康状况的判断依据。</div>
+			<div>
+			<div class="buttonTry" @click="goInto">我也试试</div>
+		</div>
 		</div>
 	</div>
 </template>
@@ -99,6 +102,27 @@
 						console.log(this.nwArr)
 					}).catch(() => {})
 				}).catch(() => {})
+			},
+			goInto() {
+				let linkUrl = '';
+				if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) { //判断iPhone|iPad|iPod|iOS
+					linkUrl = "https://lstemp.laisitech.com?actionType=weekplan"
+				} else if (/(Android)/i.test(navigator.userAgent)) { //判断Android
+					if (navigator.userAgent.toLowerCase().indexOf('micromessenger') !== -1) { //微信
+						linkUrl = "https://a.app.qq.com/o/simple.jsp?pkgname=com.lstech.rehealth"
+					} else {
+						linkUrl = "rehealth://weekplan"
+					}
+				}
+				var a = document.createElement('a');
+				a.setAttribute('href', linkUrl);
+				a.setAttribute('id', 'js_a');
+				//防止反复添加
+				if (document.getElementById('js_a')) {
+					document.body.removeChild(document.getElementById('js_a'));
+				}
+				document.body.appendChild(a);
+				a.click();
 			},
 			returnColorBar(num){
 				return num>100?100:num;
@@ -192,5 +216,16 @@
 				}
 			}
 		}
+	}
+	.buttonTry{
+		width: 6.3rem;
+		height: 0.88rem;
+		color: #fff;
+		font-size: 0.36rem;
+		line-height: 0.88rem;
+		text-align: center;
+		background-image: linear-gradient(to right, #FF6A88 ,#FF5136);
+		margin: 1rem auto;
+		border-radius: 0.44rem;
 	}
 </style>

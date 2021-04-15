@@ -22,7 +22,8 @@
 <script>
     const defaultSettings = require('../settings.js');
     import {
-        NavBar,Toast
+        NavBar,
+        Toast
     } from 'vant';
     import {
         isAndroid,
@@ -32,6 +33,7 @@
         getIndexData,
         getClassPlan
     } from '@a/api'
+    import { getQueryString } from "@u/tool";
     export default {
         components: {
             [NavBar.name]: NavBar,
@@ -68,7 +70,12 @@
             window.addEventListener('scroll', this.scrollFn);
         },
         created() {
-            this.initData();
+            if(getQueryString('isShare')){
+                this.params.bf2 = this.params.bf3 = true;
+            }else{
+               this.initData(); 
+            }
+            
         },
         beforeRouteLeave(to, from, next) {
             this.destroyed();
@@ -113,7 +120,7 @@
                         /**
                          * 再次测试完成
                          */
-                        this.params.bt1 = '查看测试报告';
+                        this.params.bt1 = '查看再次测试报告';
                         this.params.bt2 = '查看专属课程';
                         this.params.bf3 = true;
                     }
@@ -142,12 +149,36 @@
             },
             shareWeekPlan() {
                 this.$interaction.sharePage({
-                    title: "专属计划",
-                    description: "快来一起创建专属计划",
+                    title: "快来一起制定您的专属计划",
+                    description: "跳绳水平测一测，私人定制专属计划",
                     url: defaultSettings.host + 'h5/h5V2/weekPlan/#/index?isShare=1'
                 })
             },
+            goInto() {
+				let linkUrl = '';
+				if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) { //判断iPhone|iPad|iPod|iOS
+					linkUrl = "https://lstemp.laisitech.com?actionType=weekplan"
+				} else if (/(Android)/i.test(navigator.userAgent)) { //判断Android
+					if (navigator.userAgent.toLowerCase().indexOf('micromessenger') !== -1) { //微信
+						linkUrl = "https://a.app.qq.com/o/simple.jsp?pkgname=com.lstech.rehealth"
+					} else {
+						linkUrl = "rehealth://weekplan"
+					}
+				}
+				var a = document.createElement('a');
+				a.setAttribute('href', linkUrl);
+				a.setAttribute('id', 'js_a');
+				//防止反复添加
+				if (document.getElementById('js_a')) {
+					document.body.removeChild(document.getElementById('js_a'));
+				}
+				document.body.appendChild(a);
+				a.click();
+			},
             startTest() {
+                 if(getQueryString('isShare')){
+                     this.goInto()
+                 }
                 if (!this.finished) return;
                 //前去测评
                 if (this.statusCode == '0001') {
@@ -177,12 +208,15 @@
             getPlan() {
                 //前去训练计划
                 if (this.statusCode == "0001" && this.finished) {
+                    Toast({
+                        message: "您还未进行测评",
+                    });
                     return
                 }
                 if (this.statusCode == "0002" && this.finished) {
                     getClassPlan({
-                        memberId:JSON.parse(localStorage.getItem("appInfo")).memberId,
-                        userId:JSON.parse(localStorage.getItem("appInfo")).userId,
+                        memberId: JSON.parse(localStorage.getItem("appInfo")).memberId,
+                        userId: JSON.parse(localStorage.getItem("appInfo")).userId,
                     }).then(res => {
                         if (res.code == 0) {
                             Toast({
@@ -195,7 +229,7 @@
                     })
                     return
                 }
-                if (this.statusCode == "0003" && this.finished) {
+                if ((this.statusCode == "0003" || this.statusCode == "0004") && this.finished) {
                     if (isIOS) {
                         window.webkit.messageHandlers.lstNative.postMessage({
                             method: "LSTH5APP_goToTrainingCourses",
@@ -208,8 +242,17 @@
             },
 
             againTest() {
+                if (this.statusCode == "0001" && this.finished) {
+                    Toast({
+                        message: "您还未进行测评",
+                    });
+                    return
+                }
                 //0004 的时候允许二次测评
                 if (this.statusCode != "0004" && this.finished) {
+                    Toast({
+                        message: "您还未完成七日计划",
+                    });
                     return
                 }
                 if (isIOS) {
@@ -223,8 +266,8 @@
             }
 
         }
-        
-        
+
+
     };
 </script>
 <style scoped>
