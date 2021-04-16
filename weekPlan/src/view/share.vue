@@ -1,6 +1,6 @@
 <template>
 	<div id="app" v-cloak>
-		<div class="header">
+		<div class="header" v-if="!getQueryString('isShare')">
 			<van-nav-bar title="测评结果" safe-area-inset-top fixed>
 				<!-- <template #right>
 					<van-icon name="plus" style="font-size: 0.4rem;" />
@@ -69,6 +69,7 @@
 			
 		},
 		methods: {
+			getQueryString:getQueryString,
 			timeStamp2String: timeStamp2String,
 			getList() {
 				seeTestResult({

@@ -1,9 +1,9 @@
 <template>
     <div id="app" v-cloak>
-        <van-nav-bar title="制定专属计划" @click-left="onclickLeft" @click-right="shareWeekPlan" left-arrow
+        <van-nav-bar title="制定专属计划" @click-left="onclickLeft" @click-right="shareWeekPlan" left-arrow v-if="!getQueryString('isShare')"
             safe-area-inset-top fixed>
             <template #right>
-                <i class="iconfont icon-tongyong-fenxiang" style="font-size: 0.4rem;"></i>
+                <i class="iconfont icon-tongyong-fenxiang" style="font-size: 0.4rem;color:#fff"></i>
             </template>
         </van-nav-bar>
 
@@ -84,6 +84,7 @@
             // 可以访问组件实例 `this`
         },
         methods: {
+            getQueryString:getQueryString,
             initData() {
                 getIndexData().then(res => {
                     this.finished = true;
@@ -194,11 +195,13 @@
                     if (isIOS) {
                         window.webkit.messageHandlers.lstNative.postMessage({
                             method: "LSTH5APP_evaluationReport",
-                            type: this.statusCode == "0005" ? 1 : 0
+                            type: this.statusCode == "0005" ? 1 : 0,
+                            isGetPlan:this.statusCode == "0003" ? 1 : 0,
                         });
                     } else if (isAndroid) {
                         window.android.LSTH5APP_evaluationReport(JSON.stringify({
-                            type: this.statusCode == "0005" ? 1 : 0
+                            type: this.statusCode == "0005" ? 1 : 0,
+                            isGetPlan:this.statusCode == "0003" ? 1 : 0,
                         }));
                     }
                 }
@@ -277,7 +280,14 @@
         background-color: transparent;
         z-index: 999;
     }
+    
 </style>
 <style lang="scss">
     @import '@/styles/weekPlan.scss';
+    .van-nav-bar .van-icon-arrow-left{
+        color: #fff;
+    }
+    .van-nav-bar__title{
+        color: #fff;
+    }
 </style>
