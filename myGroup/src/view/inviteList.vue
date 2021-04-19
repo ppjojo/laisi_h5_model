@@ -45,8 +45,8 @@
 											<div class="ub ub-ac">
 												<div class="nickname van-ellipsis">{{memItem.nickName}}</div>
 											</div>
-											<div class="time">关注时间：{{sjc2time('ymd',memItem.createTime)}}
-											</div>
+											<!-- <div class="time">关注时间：{{sjc2time('ymd',memItem.createTime)}}
+											</div> -->
 										</div>
 									</div>
 								</li>
@@ -76,8 +76,8 @@
 													<div class="ub ub-ac">
 														<div class="nickname van-ellipsis">{{memItem.nickName}}</div>
 													</div>
-													<div class="time">
-														关注时间：{{sjc2time('ymd',memItem.createTime)}}</div>
+													<!-- <div class="time">
+														关注时间：{{sjc2time('ymd',memItem.createTime)}}</div> -->
 												</div>
 											</div>
 										</li>
