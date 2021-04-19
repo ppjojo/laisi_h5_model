@@ -8,7 +8,7 @@
 			</van-nav-bar>
 		</div>
 		<div class="content" style="padding-top:0;">
-			<div class="fts14" style="padding: .1rem 0;">您的{{chartData.nickName}}在派健康完成跳绳训练7日计划后测评结果。——{{timeStamp2String('ymd2',chartData.createTime)}}</div>
+			<div class="fts14" style="padding: .1rem 0;">您的好友{{chartData.nickName}}在派健康完成跳绳训练7日计划后测评结果。——{{timeStamp2String('ymd2',chartData.createTime)}}</div>
 			<div class="title">7日计划训练效果看的见</div>
 			<div class="fts14" style="text-align: center;padding: .1rem 0;">各项指标全面提升，训练更高效</div>
 			<ul class="barline" >
