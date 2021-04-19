@@ -16,7 +16,7 @@
 					<div class="fts14">{{item[0]}}  <span v-if="item[1]<item[2]" class="redlarge">(+{{item[2]-item[1]}})</span><span v-else-if="item[1]==item[2]">(+0)</span> <span v-else>(-{{item[1]-item[2]}})</span> </div>
 					<div class="underbox">
 						<div class="colorbox" :style="{width:returnColorBar(item[2])+'%'}"></div>
-						<div class="whitebox" :style="{left:returnColorBar(item[1])+'%'}"></div>
+						<div class="whitebox" v-if="item[1]>0" :style="{left:returnColorBar(item[1])+'%'}"></div>
 						<div class="oldnum fts12" v-if="item[1]!=item[2]" :style="{left:returntxtBar(item,2)+'%'}">{{item[1]}}</div>
 						<div class="newnum redsmall" :style="{left:returntxtBar(item,1)+'%'}">
 						{{item[2]}}<div style="display: contents;" class="oldnum fts12" v-if="item[1]==item[2]" >  ({{item[1]}})</div>
