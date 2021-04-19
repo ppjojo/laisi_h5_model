@@ -28,7 +28,7 @@
 												<div class="nickname van-ellipsis">{{memItem.nickname}}</div>
 												<div v-if="memItem.isGroupLeader" class="badage">组长</div>
 											</div>
-											<div class="time">加入时间：{{timeStamp2String('ymd',memItem.updateTime)}}</div>
+											<div class="time">加入时间：{{timeStamp2String('ymd',memItem.createTime)}}</div>
 										</div>
 									</div>
 									<div v-if="flag==4&&userId!=memItem.memberId" @click.stop="takeFocus(memItem)"
@@ -58,7 +58,7 @@
 													<div class="nickname van-ellipsis">{{memItem.nickname}}</div>
 													<div v-if="memItem.isGroupLeader" class="badage">组长</div>
 												</div>
-												<div class="time">加入时间：{{timeStamp2String('ymd',memItem.updateTime)}}
+												<div class="time">加入时间：{{timeStamp2String('ymd',memItem.createTime)}}
 												</div>
 											</div>
 										</div>
