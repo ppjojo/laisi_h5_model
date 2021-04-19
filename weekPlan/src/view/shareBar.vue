@@ -11,14 +11,16 @@
 			<div class="fts14" style="padding: .1rem 0;">您的{{chartData.nickName}}在派健康完成跳绳训练7日计划后测评结果。——{{timeStamp2String('ymd2',chartData.createTime)}}</div>
 			<div class="title">7日计划训练效果看的见</div>
 			<div class="fts14" style="text-align: center;padding: .1rem 0;">各项指标全面提升，训练更高效</div>
-			<ul class="barline">
+			<ul class="barline" >
 				<li v-for="(item,key ,index) in nwArr">
-					<div class="fts14">{{item[0]}}  <span v-if="item[1]<item[2]" class="redlarge">(+{{item[2]-item[1]}})</span> <span v-else>(-{{item[1]-item[2]}})</span> </div>
+					<div class="fts14">{{item[0]}}  <span v-if="item[1]<item[2]" class="redlarge">(+{{item[2]-item[1]}})</span><span v-else-if="item[1]==item[2]">(+0)</span> <span v-else>(-{{item[1]-item[2]}})</span> </div>
 					<div class="underbox">
 						<div class="colorbox" :style="{width:returnColorBar(item[2])+'%'}"></div>
 						<div class="whitebox" :style="{left:returnColorBar(item[1])+'%'}"></div>
-						<div class="oldnum fts12" :style="{left:returntxtBar(item,2)+'%'}">{{item[1]}}</div>
-						<div class="newnum redsmall" :style="{left:returntxtBar(item,1)+'%'}">{{item[2]}}</div>
+						<div class="oldnum fts12" v-if="item[1]!=item[2]" :style="{left:returntxtBar(item,2)+'%'}">{{item[1]}}</div>
+						<div class="newnum redsmall" :style="{left:returntxtBar(item,1)+'%'}">
+						{{item[2]}}<div style="display: contents;" class="oldnum fts12" v-if="item[1]==item[2]" >  ({{item[1]}})</div>
+						</div>
 					</div>
 				</li>
 			</ul>
@@ -72,7 +74,7 @@
 					stamina:['耐力'],
 					bmi:['BMI指数']
 				},
-				left:1.8
+				left:1.9
 			};
 		},
 		filters: {},
@@ -130,9 +132,12 @@
 			},
 			returntxtBar(item,flag){//flag1new  2old
 				if(item[1]==item[2]){
+					if(item[1]>=95){
+						return 85;
+					}
 					return flag==1?(item[1]-this.left):item[1];
 				}
-				return flag==1?(item[2]-this.left):(item[1]-this.left);
+				return flag==1?(item[2]-(item[2]>=100?3.2:this.left)):(item[1]-(item[2]>=100?3.2:this.left));
 			}
 		}
 	};
