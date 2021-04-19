@@ -4,6 +4,7 @@ const autoprefixer = require('autoprefixer');
 const pxtorem = require('postcss-pxtorem');
 const vantConfig = path.join(__dirname, "./src/styles/vantConfig.less");
 const defaultSettings = require('./src/settings.js')
+const Compression = require('compression-webpack-plugin')
 function resolve(dir) {
   return path.join(__dirname, dir);
 }
@@ -85,19 +86,32 @@ module.exports = {
     // },
     //before: require('./mock/mock-server.js')
   },
-  configureWebpack: {
-    // provide the app's title in webpack's name field, so that
-    // it can be accessed in index.html to inject the correct title.
-    name: name,
-    resolve: {
-      alias: {
-        "@": resolve("src"),
-        "@u": resolve("src/utils"),
-        "@a": resolve("src/api"),
-        "@s": resolve("src/style"),
-        "@i": resolve("src/img"),
-      },
-    },
+  configureWebpack: config => {
+    let baseConfig={
+      name: name,
+        resolve: {
+          alias: {
+            "@": resolve("src"),
+            "@u": resolve("src/utils"),
+            "@a": resolve("src/api"),
+            "@s": resolve("src/style"),
+          },
+        },
+    }
+
+    if (process.env.NODE_ENV != "dev") {
+      baseConfig.plugins=[
+        new Compression({
+          test: /\.js$|\.html$|\.css$/, // 选择压缩的 文件格式
+          threshold: 10240, //超过10k启动gzip压缩
+          deleteOriginalAssets: false //删除源文件
+        })
+      ]
+      return baseConfig
+    }else{
+      return baseConfig
+    }
+
   },
   chainWebpack(config) {
     config.plugins.delete("preload"); // TODO: need test

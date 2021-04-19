@@ -1,13 +1,14 @@
 <template>
     <div id="app" v-cloak>
-        <van-nav-bar title="制定专属计划" @click-left="onclickLeft" @click-right="shareWeekPlan" left-arrow v-if="!getQueryString('isShare')"
-            safe-area-inset-top fixed>
+        <van-nav-bar title="制定专属计划" @click-left="onclickLeft" @click-right="shareWeekPlan" left-arrow
+            v-if="!getQueryString('isShare')" safe-area-inset-top fixed>
             <template #right>
                 <i class="iconfont icon-tongyong-fenxiang" style="font-size: 0.4rem;color:#fff"></i>
             </template>
         </van-nav-bar>
-
-        <div class="homePageBox">
+    
+        <div class="homePageBox" >
+            <img  class="imgBox" src="https://oss.laisitech.com/65929110-eeed-4b48-a5a1-b7ffeae23427.png" alt="">
             <div class="buttonOK startTest" :class="{buttonWait:params.bf1}" @click="startTest">{{params.bt1}}</div>
             <div class="buttonOK getPlan" :class="{buttonWait:params.bf2}" @click="getPlan">{{params.bt2}}</div>
             <div class="buttonOK againTest" :class="{buttonWait:params.bf3}" @click="againTest">{{params.bt3}}</div>
@@ -33,7 +34,9 @@
         getIndexData,
         getClassPlan
     } from '@a/api'
-    import { getQueryString } from "@u/tool";
+    import {
+        getQueryString
+    } from "@u/tool";
     export default {
         components: {
             [NavBar.name]: NavBar,
@@ -68,14 +71,15 @@
         filters: {},
         mounted() {
             window.addEventListener('scroll', this.scrollFn);
+            window.initData=this.initData
         },
         created() {
-            if(getQueryString('isShare')){
+            if (getQueryString('isShare')) {
                 this.params.bf2 = this.params.bf3 = true;
-            }else{
-               this.initData(); 
+            } else {
+                this.initData();
             }
-            
+
         },
         beforeRouteLeave(to, from, next) {
             this.destroyed();
@@ -84,7 +88,7 @@
             // 可以访问组件实例 `this`
         },
         methods: {
-            getQueryString:getQueryString,
+            getQueryString: getQueryString,
             initData() {
                 getIndexData().then(res => {
                     this.finished = true;
@@ -96,19 +100,26 @@
                          * 另外两个灰显
                          */
                         this.params.bf2 = this.params.bf3 = true;
-                    } else if (res.data == '0002' || res.data == '0003') {
+                    } else if (res.data == '0002' ) {
                         /**
                          * 七日计划状态二：测试完毕；但未获取专属课程计划
                          * 可查看测试报告，获取专属计划
                          * 但是再次测试灰显
                          */
+                        
+                        this.params.bt1 = '查看测试报告';
+                        this.params.bt2 = '获取专属计划';
+                        this.params.bf2= false;
+                        this.params.bf3 = true;
+                    }else if(res.data == '0003'){
                         /**
                          * 七日计划状态三：测试完且已经获取专属课程，但未看完
                          * 可查看测试报告，查看专属课程
                          * 再次测试灰显示
                          */
                         this.params.bt1 = '查看测试报告';
-                        this.params.bt2 = res.data == '0003' ? '查看专属课程' : '获取专属计划';
+                        this.params.bt2 =  '查看专属课程';
+                        this.params.bf2= false;
                         this.params.bf3 = true;
                     } else if (res.data == '0004') {
                         /**
@@ -117,13 +128,15 @@
                          */
                         this.params.bt1 = '查看测试报告';
                         this.params.bt2 = '查看专属课程';
+                        
                     } else if (res.data == '0005') {
                         /**
                          * 再次测试完成
                          */
-                        this.params.bt1 = '查看再次测试报告';
+                        this.params.bt1 = '查看测试报告';
                         this.params.bt2 = '查看专属课程';
-                        this.params.bf3 = true;
+                        this.params.bt3 = '查看再次测试报告';
+                        // this.params.bf3 = true;
                     }
                 })
             },
@@ -156,30 +169,30 @@
                 })
             },
             goInto() {
-				let linkUrl = '';
-				if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) { //判断iPhone|iPad|iPod|iOS
-					linkUrl = "https://lstemp.laisitech.com?actionType=weekplan"
-				} else if (/(Android)/i.test(navigator.userAgent)) { //判断Android
-					if (navigator.userAgent.toLowerCase().indexOf('micromessenger') !== -1) { //微信
-						linkUrl = "https://a.app.qq.com/o/simple.jsp?pkgname=com.lstech.rehealth"
-					} else {
-						linkUrl = "rehealth://weekplan"
-					}
-				}
-				var a = document.createElement('a');
-				a.setAttribute('href', linkUrl);
-				a.setAttribute('id', 'js_a');
-				//防止反复添加
-				if (document.getElementById('js_a')) {
-					document.body.removeChild(document.getElementById('js_a'));
-				}
-				document.body.appendChild(a);
-				a.click();
-			},
+                let linkUrl = '';
+                if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) { //判断iPhone|iPad|iPod|iOS
+                    linkUrl = "https://lstemp.laisitech.com?actionType=weekplan"
+                } else if (/(Android)/i.test(navigator.userAgent)) { //判断Android
+                    if (navigator.userAgent.toLowerCase().indexOf('micromessenger') !== -1) { //微信
+                        linkUrl = "https://a.app.qq.com/o/simple.jsp?pkgname=com.lstech.rehealth"
+                    } else {
+                        linkUrl = "rehealth://weekplan"
+                    }
+                }
+                var a = document.createElement('a');
+                a.setAttribute('href', linkUrl);
+                a.setAttribute('id', 'js_a');
+                //防止反复添加
+                if (document.getElementById('js_a')) {
+                    document.body.removeChild(document.getElementById('js_a'));
+                }
+                document.body.appendChild(a);
+                a.click();
+            },
             startTest() {
-                 if(getQueryString('isShare')){
-                     this.goInto()
-                 }
+                if (getQueryString('isShare')) {
+                    this.goInto()
+                }
                 if (!this.finished) return;
                 //前去测评
                 if (this.statusCode == '0001') {
@@ -192,16 +205,20 @@
                     }
                 } else {
                     //查看测评结果
+                    let isGetPlan=0
+                     if (this.statusCode == '0003'||this.statusCode == '0004'||this.statusCode == '0005') {
+                         isGetPlan=1
+                     }
                     if (isIOS) {
                         window.webkit.messageHandlers.lstNative.postMessage({
                             method: "LSTH5APP_evaluationReport",
-                            type: this.statusCode == "0005" ? 1 : 0,
-                            isGetPlan:this.statusCode == "0003" ? 1 : 0,
+                            type:  0,
+                            isGetPlan: isGetPlan,
                         });
                     } else if (isAndroid) {
                         window.android.LSTH5APP_evaluationReport(JSON.stringify({
-                            type: this.statusCode == "0005" ? 1 : 0,
-                            isGetPlan:this.statusCode == "0003" ? 1 : 0,
+                            type:  0,
+                            isGetPlan: isGetPlan,
                         }));
                     }
                 }
@@ -223,16 +240,25 @@
                     }).then(res => {
                         if (res.code == 0) {
                             Toast({
-                                message: "你已成功获取了你的专属计划",
+                                message: "专属计划获取成功",
                             });
                             this.initData();
+                            setTimeout(function () {
+                                if (isIOS) {
+                                    window.webkit.messageHandlers.lstNative.postMessage({
+                                        method: "LSTH5APP_goToTrainingCourses",
+                                    });
+                                } else if (isAndroid) {
+                                    window.android.LSTH5APP_goToTrainingCourses();
+                                }
+                            }, 800)
                         } else {
                             Toast(res.msg);
                         }
                     })
                     return
                 }
-                if ((this.statusCode == "0003" || this.statusCode == "0004") && this.finished) {
+                if ((this.statusCode == "0003" || this.statusCode == "0004"||this.statusCode == "0005") && this.finished) {
                     if (isIOS) {
                         window.webkit.messageHandlers.lstNative.postMessage({
                             method: "LSTH5APP_goToTrainingCourses",
@@ -252,19 +278,38 @@
                     return
                 }
                 //0004 的时候允许二次测评
-                if (this.statusCode != "0004" && this.finished) {
+                if ((this.statusCode == "0002" || this.statusCode == "0003") && this.finished) {
                     Toast({
                         message: "您还未完成七日计划",
                     });
                     return
                 }
-                if (isIOS) {
-                    window.webkit.messageHandlers.lstNative.postMessage({
-                        method: "LSTH5APP_goToReEvalutaion",
-                    });
-                } else if (isAndroid) {
-                    window.android.LSTH5APP_goToReEvalutaion();
+                if (this.statusCode == "0004" && this.finished) {
+                    if (isIOS) {
+                        window.webkit.messageHandlers.lstNative.postMessage({
+                            method: "LSTH5APP_goToReEvalutaion",
+                        });
+                    } else if (isAndroid) {
+                        window.android.LSTH5APP_goToReEvalutaion();
+                    }
+                    return
                 }
+                if (this.statusCode == "0005" && this.finished) {
+                    if (isIOS) {
+                        window.webkit.messageHandlers.lstNative.postMessage({
+                            method: "LSTH5APP_evaluationReport",
+                            type: 1,
+                            isGetPlan: 1,
+                        });
+                    } else if (isAndroid) {
+                        window.android.LSTH5APP_evaluationReport(JSON.stringify({
+                            type: 1,
+                            isGetPlan: 1,
+                        }));
+                    }
+                    return
+                }
+
 
             }
 
@@ -280,14 +325,15 @@
         background-color: transparent;
         z-index: 999;
     }
-    
 </style>
 <style lang="scss">
     @import '@/styles/weekPlan.scss';
-    .van-nav-bar .van-icon-arrow-left{
+
+    .van-nav-bar .van-icon-arrow-left {
         color: #fff;
     }
-    .van-nav-bar__title{
+
+    .van-nav-bar__title {
         color: #fff;
     }
 </style>

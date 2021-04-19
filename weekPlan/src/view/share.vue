@@ -32,7 +32,10 @@
 		NavBar,
 		Icon
 	} from 'vant';
-	import * as echarts from 'echarts';
+	//import * as echarts from 'echarts';
+	
+	let echarts = require('echarts/lib/echarts')
+	require('echarts/lib/chart/radar')
 	import {timeStamp2String} from '../utils/Date.js';
 	import { getQueryString } from "@u/tool";
 	export default {

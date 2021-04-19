@@ -17,14 +17,7 @@ const routes = [
       keepAlive:true
     }
   },
-  {
-    name: 'personalTest',
-    component: () => import('./view/personalTest'),
-    meta: {
-      title: '测评',
-      index:2,
-    }
-  },
+  
   {
     name: 'weekPlanRule',
     component: () => import('./view/weekPlanRule'),
@@ -37,14 +30,14 @@ const routes = [
     name: 'share',
     component: () => import('./view/share'),
     meta: {
-      title: '测评分享',
+      title: '测评结果',
     }
   },
   {
     name: 'shareBar',
     component: () => import('./view/shareBar'),
     meta: {
-      title: '测评分享',
+      title: '测评结果',
     }
   },
 ];

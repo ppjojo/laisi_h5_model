@@ -73,18 +73,7 @@ module.exports = {
       warnings: false,
       errors: true,
     },
-    // proxy: {
-    //   '/rope-skipping-summer-camp': {
-    //       target: 'https://lstest.laisitech.com',
-    //       //ws: true,    // 启用websockets
-    //       secure: false,
-    //       changeOrigin: true,
-    //     //   pathRewrite:{
-    //     //     '/rope-skipping-summer-camp':'/rope-skipping-summer-camp11111'
-    //     // }
-    //   }
-    // },
-    //before: require('./mock/mock-server.js')
+    
   },
   configureWebpack: config => {
     let baseConfig={
@@ -116,23 +105,6 @@ module.exports = {
   chainWebpack(config) {
     config.plugins.delete("preload"); // TODO: need test
     config.plugins.delete("prefetch"); // TODO: need test
-
-    config.module
-      .rule("svg")
-      .exclude.add(resolve("src/icons"))
-      .end();
-    config.module
-      .rule("icons")
-      .test(/\.svg$/)
-      .include.add(resolve("src/icons"))
-      .end()
-      .use("svg-sprite-loader")
-      .loader("svg-sprite-loader")
-      .options({
-        symbolId: "icon-[name]",
-      })
-      .end();
-    // set preserveWhitespace
     config.module
       .rule("vue")
       .use("vue-loader")
