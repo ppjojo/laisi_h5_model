@@ -19,7 +19,8 @@
 			<template v-for="(item,index) in memberIcon">
 				<div class="groupMember ub-ac" v-if="index<=(isCurrentUser?2:3)">
 					<div class="imgbox ub ub-ac ub-pc">
-						<img class="headImg" :src="item.headPictureUrl" alt="">
+						<div class="headImg" :style="{'background-image':'url('+item.headPictureUrl+')'}"></div>
+						<!-- <img class="headImg" :src="item.headPictureUrl" alt=""> -->
 					</div>
 					<div class="van-ellipsis detail">{{item.nickname}}</div>
 				</div>

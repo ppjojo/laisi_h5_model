@@ -49,8 +49,11 @@
 	display: flex;
 }
 
-.cellbox .groupMember .imgbox img.headImg {
-	width: 100%;
+.cellbox .groupMember .imgbox div.headImg {
+	width: .92rem;
+	height: .92rem;
+	background-size: contain;
+	background-position: center center;
 	border-radius: 100%;
 }
 
