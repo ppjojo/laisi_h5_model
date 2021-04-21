@@ -5,7 +5,7 @@
             </van-nav-bar>
         </div>
         <div class="weekPlanRule">
-            <img style="width:100%;margin:0;padding:0;border:0;display:block" src="https://oss.laisitech.com/495c3602-8011-488a-8140-87a7846fe81a.png"
+            <img style="width:100%;margin:0;padding:0;border:0;display:block" src="https://oss.laisitech.com/785f7a7f-b21f-4aa5-b007-9405d0ff1e27.png"
                 alt="">
         </div>
     </div>

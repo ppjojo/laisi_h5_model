@@ -21,6 +21,8 @@
 		<div>
 			<div class="buttonTry" @click="goInto">我也试试</div>
 		</div>
+		 <img id="leadToBrowser" src="https://oss.laisitech.com/01c21e85-22db-4a2b-8f4f-500fca31b25d.png"
+            style="display: none; position: absolute;top: 0;left: 0;width: 100%;height: 100%;z-index: 99;" alt="">
 	</div>
 </template>
 
@@ -116,27 +118,31 @@
 					console.log("error")
 				})
 			},
-			 goInto() {
-				let linkUrl = '';
-				if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) { //判断iPhone|iPad|iPod|iOS
-					linkUrl = "https://lstemp.laisitech.com?actionType=weekplan"
-				} else if (/(Android)/i.test(navigator.userAgent)) { //判断Android
-					if (navigator.userAgent.toLowerCase().indexOf('micromessenger') !== -1) { //微信
-						linkUrl = "https://a.app.qq.com/o/simple.jsp?pkgname=com.lstech.rehealth"
-					} else {
-						linkUrl = "rehealth://weekplan"
-					}
-				}
-				var a = document.createElement('a');
-				a.setAttribute('href', linkUrl);
-				a.setAttribute('id', 'js_a');
-				//防止反复添加
-				if (document.getElementById('js_a')) {
-					document.body.removeChild(document.getElementById('js_a'));
-				}
-				document.body.appendChild(a);
-				a.click();
-			},
+			goInto() {
+                let linkUrl = ""
+                if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) { //判断iPhone|iPad|iPod|iOS
+                    linkUrl = "https://lstemp.laisitech.com?actionType=weekplan"
+                } else if (/(Android)/i.test(navigator.userAgent)) { //判断Android
+                    if (navigator.userAgent.toLowerCase().indexOf('micromessenger') !== -1) { //微信
+                        document.getElementById("leadToBrowser").style.display = "block";
+                        setTimeout(function(){
+                            document.getElementById("leadToBrowser").style.display = "none";
+                        },2000)
+                        return
+                    } else {
+                        linkUrl = "rehealth://weekplan"
+                    }
+                }
+                var a = document.createElement('a');
+                a.setAttribute('href', linkUrl);
+                a.setAttribute('id', 'js_a');
+                //防止反复添加
+                if (document.getElementById('js_a')) {
+                    document.body.removeChild(document.getElementById('js_a'));
+                }
+                document.body.appendChild(a);
+                a.click();
+            },
 			initEchart(data) {
 				// 基于准备好的dom，初始化echarts实例
 				var myChart = echarts.init(document.getElementById('pentagon'));
