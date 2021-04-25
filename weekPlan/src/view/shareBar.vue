@@ -19,7 +19,8 @@
 						<div class="whitebox" v-if="item[1]>0" :style="{left:returnColorBar(item[1])+'%'}"></div>
 						<div class="oldnum fts12" v-if="item[1]!=item[2]" :style="{left:returntxtBar(item,2)+'%'}">{{item[1]}}</div>
 						<div class="newnum redsmall" :style="{left:returntxtBar(item,1)+'%'}">
-						{{item[2]}}<div style="display: contents;" class="oldnum fts12" v-if="item[1]==item[2]" >  ({{item[1]}})</div>
+						{{item[2]}}
+						<!-- <div style="display: contents;" class="oldnum fts12" v-if="item[1]==item[2]" >  ({{item[1]}})</div> -->
 						</div>
 					</div>
 				</li>
@@ -138,12 +139,12 @@
 				return num>100?100:num;
 			},
 			returntxtBar(item,flag){//flag1new  2old
-				if(item[1]==item[2]){
-					if(item[1]>=95){
-						return 85;
-					}
-					return flag==1?(item[1]-this.left):item[1];
-				}
+				// if(item[1]==item[2]){
+				// 	if(item[1]>=95){
+				// 		return 85;
+				// 	}
+				// 	return flag==1?(item[1]-this.left):item[1];
+				// }
 				return flag==1?(item[2]-(item[2]>=100?3.2:this.left)):(item[1]-(item[2]>=100?3.2:this.left));
 			}
 		}

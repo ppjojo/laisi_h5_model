@@ -1,14 +1,7 @@
 import request from "@u/request"
-export function listItem(data) {
-    return request({
-        url: 'yz/yzGoodsReturn/goods/selectAll',
-        method: 'post',
-        data,
-        params:{
-            "sss":4
-        }
-    })
-}
+import {
+    getQueryString
+} from "@u/tool";
 export function getIndexData(params) {
     return request({
         url: 'community/sevenClassUser/seven/status',
@@ -18,8 +11,12 @@ export function getIndexData(params) {
 }
 
 export function seeTestResult(params) {
+    let url = 'community/sevenClassUser/seeTestResult'
+    if (getQueryString("isShare")) {
+        url = 'classShare/sevenClassUser/seeTestResult'
+    }
     return request({
-        url: 'community/sevenClassUser/seeTestResult',
+        url: url,
         method: 'get',
         params
     })
