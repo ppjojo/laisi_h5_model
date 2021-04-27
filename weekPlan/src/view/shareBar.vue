@@ -93,7 +93,7 @@
 					memberId: getQueryString("memberId"),
 					type: 0
 				}).then((res) => {
-					if (res.data) this.chartData = Object.assign({}, res.data)
+					
 					//获取老数据
 					for (let key in this.nwArr) {
 						this.nwArr[key].push(res.data[key]);
@@ -102,6 +102,7 @@
 						memberId: getQueryString("memberId"),
 						type: 1
 					}).then((res2) => {
+						if (res2.data) this.chartData = Object.assign({}, res2.data)
 						//获取新数据
 						for (let key in this.nwArr) {
 							this.nwArr[key].push(res2.data[key]);
