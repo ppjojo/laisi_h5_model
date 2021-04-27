@@ -12,10 +12,12 @@
             <div class="buttonOK startTest" :class="{buttonWait:params.bf1}" @click="startTest">{{params.bt1}}</div>
             <div class="buttonOK getPlan" :class="{buttonWait:params.bf2}" @click="getPlan">{{params.bt2}}</div>
             <div class="buttonOK againTest" :class="{buttonWait:params.bf3}" @click="againTest">{{params.bt3}}</div>
+           
         </div>
 
-
-
+ <img id="leadToBrowser" src="https://oss.laisitech.com/01c21e85-22db-4a2b-8f4f-500fca31b25d.png"
+            style="display: none; position: fixed;top: 0;left: 0;width: 100%;height: 100%;z-index: 99;" alt="">
+ 
 
     </div>
 </template>
@@ -141,7 +143,6 @@
                         this.params.bt3 = '查看再次测试报告';
                         this.params.bf2 =  false;
                         this.params.bf3 =  false;
-                        // this.params.bf3 = true;
                     }
                 })
             },
@@ -179,7 +180,11 @@
                     linkUrl = "https://lstemp.laisitech.com?actionType=weekplan"
                 } else if (/(Android)/i.test(navigator.userAgent)) { //判断Android
                     if (navigator.userAgent.toLowerCase().indexOf('micromessenger') !== -1) { //微信
-                        linkUrl = "https://a.app.qq.com/o/simple.jsp?pkgname=com.lstech.rehealth"
+                        document.getElementById("leadToBrowser").style.display = "block";
+                        setTimeout(function(){
+                            document.getElementById("leadToBrowser").style.display = "none";
+                        },2000)
+                        return
                     } else {
                         linkUrl = "rehealth://weekplan"
                     }

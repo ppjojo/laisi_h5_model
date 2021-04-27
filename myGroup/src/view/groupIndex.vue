@@ -150,8 +150,11 @@
 				<van-datetime-picker v-model="currentDate" type="date" title="" :min-date="minDate" :max-date="maxDate"
 					:formatter="formatter" swipe-duration=100 @confirm="dateConfirm" @cancel="dateshow = false" />
 			</van-popup>
-		</div>
 
+			
+		</div>
+ <img id="leadToBrowser" src="https://oss.laisitech.com/01c21e85-22db-4a2b-8f4f-500fca31b25d.png"
+            style="display: none; position: absolute;top: 0;left: 0;width: 100%;height: 100%;z-index: 99;" alt="">
 	</div>
 </template>
 
@@ -288,28 +291,30 @@
 				})
 			},
 			goInto() {
-				let linkUrl = '';
-				if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) { //判断iPhone|iPad|iPod|iOS
-					linkUrl = "https://lstemp.laisitech.com?actionType=groupDetail&id=" + this.groupId
-				} else if (/(Android)/i.test(navigator.userAgent)) { //判断Android
-					// linkUrl = "rehealth://groupDetail?id=" + this.groupId
-					// return
-					if (navigator.userAgent.toLowerCase().indexOf('micromessenger') !== -1) { //微信
-						linkUrl = "https://a.app.qq.com/o/simple.jsp?pkgname=com.lstech.rehealth"
-					} else {
-						linkUrl = "rehealth://groupdetail?id=" + this.groupId
-					}
-				}
-				var a = document.createElement('a');
-				a.setAttribute('href', linkUrl);
-				a.setAttribute('id', 'js_a');
-				//防止反复添加
-				if (document.getElementById('js_a')) {
-					document.body.removeChild(document.getElementById('js_a'));
-				}
-				document.body.appendChild(a);
-				a.click();
-			},
+                let linkUrl = ""
+                if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) { //判断iPhone|iPad|iPod|iOS
+                    linkUrl = "https://lstemp.laisitech.com?actionType=groupDetail&id=" + this.groupId
+                } else if (/(Android)/i.test(navigator.userAgent)) { //判断Android
+                    if (navigator.userAgent.toLowerCase().indexOf('micromessenger') !== -1) { //微信
+                        document.getElementById("leadToBrowser").style.display = "block";
+                        setTimeout(function(){
+                            document.getElementById("leadToBrowser").style.display = "none";
+                        },2000)
+                        return
+                    } else {
+                        linkUrl = "rehealth://groupdetail?id=" + this.groupId
+                    }
+                }
+                var a = document.createElement('a');
+                a.setAttribute('href', linkUrl);
+                a.setAttribute('id', 'js_a');
+                //防止反复添加
+                if (document.getElementById('js_a')) {
+                    document.body.removeChild(document.getElementById('js_a'));
+                }
+                document.body.appendChild(a);
+                a.click();
+            },
 			goSetting() { //去设置页面
 				if (!this.isGrouptMember) return;
 				this.$router.push({

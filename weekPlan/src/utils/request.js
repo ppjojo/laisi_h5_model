@@ -56,6 +56,10 @@ service.interceptors.response.use(
         interaction.getAppInfoAndUserInfo();
         return service.request(response.config)
       }
+    }else if(res.code==2964){
+      Toast({
+        message: "该小组已被解散",
+      });
     }else if (
       res.code == 400 ||
       res.code == 500 ||
