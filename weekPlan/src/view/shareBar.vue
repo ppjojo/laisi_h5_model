@@ -29,7 +29,7 @@
 			<div>
 			<div class="buttonTry" @click="goInto">我也试试</div>
 			 <img id="leadToBrowser" src="https://oss.laisitech.com/01c21e85-22db-4a2b-8f4f-500fca31b25d.png"
-            style="display: none; position: absolute;top: 0;left: 0;width: 100%;height: 100%;z-index: 99;" alt="">
+            style="display: none; position: fixed;top: 0;left: 0;width: 100%;height: 100%;z-index: 99;" alt="">
 		</div>
 		</div>
 	</div>
