@@ -99,7 +99,8 @@
                          * 开始测试按钮高亮
                          * 另外两个灰显
                          */
-                        this.params.bf2 = this.params.bf3 = true;
+                        this.params.bf2 =  true;
+                        this.params.bf3 = true;
                     } else if (res.data == '0002' ) {
                         /**
                          * 七日计划状态二：测试完毕；但未获取专属课程计划
@@ -128,6 +129,8 @@
                          */
                         this.params.bt1 = '查看测试报告';
                         this.params.bt2 = '查看专属课程';
+                        this.params.bf2 =  false;
+                        this.params.bf3 =  false;
                         
                     } else if (res.data == '0005') {
                         /**
@@ -136,6 +139,8 @@
                         this.params.bt1 = '查看测试报告';
                         this.params.bt2 = '查看专属课程';
                         this.params.bt3 = '查看再次测试报告';
+                        this.params.bf2 =  false;
+                        this.params.bf3 =  false;
                         // this.params.bf3 = true;
                     }
                 })
