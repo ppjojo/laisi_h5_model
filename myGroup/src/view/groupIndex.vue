@@ -85,21 +85,19 @@
 									</div>
 									<div class="deviceData">
 										<span>体脂:</span>
-										<span class="num">{{returnUserData('balance',item.dataList).bfr}}</span>
+										<span class="num">{{returnUserData('balance',item.dataList).bfr.toFixed(1)}}</span>
 										<span>%</span>
 									</div>
-									<div class="iconRightBox" @click="goDeviceDetail">
+									<!-- <div class="iconRightBox" @click="goDeviceDetail">
 										<img class="iconRight" :src="require('../img/iconRight.png')" alt="">
-									</div>
+									</div> -->
 
 								</div>
 								<div class="deviceItem" v-if="returnUserData('wristball',item.dataList)">
 									<img class="deviceImg" :src="require('../img/group_wlq.png')" alt="">
 									<div class="deviceData">
 										<span>圈数:</span>
-										<span class="num">
-											{{ returnUserData('wristball',item.dataList).number?(returnUserData('wristball',item.dataList).number/10000).toFixed(3):0 }}
-										</span>
+										<span class="num">{{ returnUserData('wristball',item.dataList).number?(returnUserData('wristball',item.dataList).number/10000).toFixed(3):0 }}</span>
 										<span>万</span>
 									</div>
 									<div class="deviceData">
@@ -107,9 +105,9 @@
 										<span
 											class="num">{{returnTime(returnUserData('wristball',item.dataList).takeMs)}}</span>
 									</div>
-									<div class="iconRightBox" @click="goDeviceDetail">
+									<!-- <div class="iconRightBox" @click="goDeviceDetail">
 										<img class="iconRight" :src="require('../img/iconRight.png')" alt="">
-									</div>
+									</div> -->
 								</div>
 								<div class="deviceItem" v-if="returnUserData('skipping',item.dataList)">
 									<img class="deviceImg" :src="require('../img/group_ts.png')" alt="">
@@ -123,9 +121,9 @@
 										<span
 											class="num">{{returnTime(returnUserData('skipping',item.dataList).takeMs)}}</span>
 									</div>
-									<div class="iconRightBox" @click="goDeviceDetail">
+									<!-- <div class="iconRightBox" @click="goDeviceDetail">
 										<img class="iconRight" :src="require('../img/iconRight.png')" alt="">
-									</div>
+									</div> -->
 								</div>
 							</div>
 
@@ -301,6 +299,7 @@
                             document.getElementById("leadToBrowser").style.display = "none";
                         },2000)
                         return
+						//linkUrl = "https://a.app.qq.com/o/simple.jsp?pkgname=com.lstech.rehealth"
                     } else {
                         linkUrl = "rehealth://groupdetail?id=" + this.groupId
                     }
