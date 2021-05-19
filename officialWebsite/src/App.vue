@@ -1,17 +1,17 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+	  <TopMenu></TopMenu>
+	  <BottomMenu class="web-bottom"></BottomMenu>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import TopMenu from './components/TopMenu.vue'
+import BottomMenu from './components/BottomMenu.vue'
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    TopMenu,BottomMenu
   }
 }
 </script>
@@ -23,6 +23,12 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  min-height: 100vh;
+  /* margin-top: 60px; */
+}
+.web-bottom{
+	position: absolute;
+	bottom: 0;
+	width: 100%;
 }
 </style>
