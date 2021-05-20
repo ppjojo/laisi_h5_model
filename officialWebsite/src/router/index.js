@@ -35,21 +35,35 @@ export const constantRoutes = [
 	// 	hidden: true
 	// },
 
-	// {
-	// 	path: '/',
-	// 	component: () => import('@/views/404'),
-	// 	redirect: '/dashboard',
-	// 	children: [{
-	// 		path: 'dashboard',
-	// 		name: 'Dashboard',
-	// 		component: () => import('@/views/dashboard/index'),
-	// 		meta: {
-	// 			title: 'Dashboard',
-	// 			icon: 'dashboard',
-	// 			auth: "dashboard"
-	// 		}
-	// 	}],
-	// },
+	{
+		path: '/',
+		component: () => import('@/views/index'),
+		redirect: '/index',
+		// children: [{
+		// 	path: 'index',
+		// 	name: 'Index',
+		// 	component: () => import('@/views/dashboard/index'),
+		// 	meta: {
+		// 		title: 'Dashboard',
+		// 		icon: 'dashboard',
+		// 		auth: "dashboard"
+		// 	}
+		// }],
+	},
+	{
+		path: '/index',
+		component: () => import('@/views/index'),
+		// children: [{
+		// 	path: 'index',
+		// 	name: 'Index',
+		// 	component: () => import('@/views/dashboard/index'),
+		// 	meta: {
+		// 		title: 'Dashboard',
+		// 		icon: 'dashboard',
+		// 		auth: "dashboard"
+		// 	}
+		// }],
+	},
 
 	// 404 page must be placed at the end !!!
 	// {
