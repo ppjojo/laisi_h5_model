@@ -3,7 +3,7 @@ import App from './App';
 import { router } from './router';
 import '@u/amfe-flexible';
 import { interaction } from '@u/interaction';//app交互文件
-import '@/icons'//icons
+// import '@/icons'//icons
 Vue.prototype.$interaction = interaction
 
 import "vant/lib/index.less"
