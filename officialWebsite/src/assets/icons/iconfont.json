@@ -1,0 +1,16 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "593487",
+      "name": "菜单",
+      "font_class": "weibiaoti15",
+      "unicode": "e621",
+      "unicode_decimal": 58913
+    }
+  ]
+}

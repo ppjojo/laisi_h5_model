@@ -1,7 +1,6 @@
 (function flexible (window, document) {
     var docEl = document.documentElement
     var dpr = window.devicePixelRatio || 1
-  
     // adjust body font size
     function setBodyFontSize () {
       if (document.body) {
@@ -15,7 +14,11 @@
   
     // set 1rem = viewWidth / 10
     function setRemUnit () {
-      var rem = docEl.clientWidth / 7.5
+      var rem = docEl.clientWidth / 19.2
+      console.log(docEl.clientWidth)
+      if(docEl.clientWidth<992){
+        rem=100
+      }
       docEl.style.fontSize = rem + 'px'
     }
   
