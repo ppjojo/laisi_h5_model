@@ -5,6 +5,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 import router from "./router";
 // import "@u/amfe-flexible";
 import "./styles/flex_ub.css";
+Vue.use(ElementUI)
 Vue.config.productionTip = false
 
 new Vue({
