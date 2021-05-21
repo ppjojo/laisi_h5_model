@@ -19,6 +19,7 @@ const i18n=new VueI18n({
 Vue.use(ElementUI);
 
 
+
 new Vue({
 	router,
 	i18n,   //把 i18n 挂载到 vue 根实例上
