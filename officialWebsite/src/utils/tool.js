@@ -1,5 +1,5 @@
 import request from "@u/request";
-import { Toast } from "vant";
+
 //android终端
 var isAndroid =
   navigator.userAgent.indexOf("Android") > -1 ||
@@ -32,7 +32,7 @@ var pictureReview = (fileObject, cb) => {
       })
         .then((res2) => {
           if(res2.code!=0){
-            Toast("图片审核未通过，请重新上传！");
+            this.$message.error("图片审核未通过，请重新上传！");
 			      return;
           }
           res2.url = res.data.url;
@@ -40,12 +40,12 @@ var pictureReview = (fileObject, cb) => {
         })
         .catch((err) => {
           console.log(err);
-          Toast(err.msg);
+          this.$message.error(err.msg);
         });
     })
     .catch((err) => {
       console.log(err);
-      Toast("系统异常");
+      this.$message.error("系统异常");
     });
 };
 var textReview=(str,cb)=>{
@@ -61,7 +61,7 @@ var textReview=(str,cb)=>{
     },
   }).then(res=>{
     if(res.code!=0){
-      Toast("小组名称或口号包含不合法词汇!");
+      this.$message.error("小组名称或口号包含不合法词汇!");
       return;
     }
     cb(res);

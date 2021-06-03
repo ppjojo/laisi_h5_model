@@ -1,9 +1,7 @@
 import axios from "axios";
 import md5 from "js-md5";
-import { Toast } from "vant";
-import defaultSettings from "@/settings";
+import defaultSettings from "../../settings";
 import { getQueryString } from "@u/tool";
-import { interaction } from "@u/interaction"; //app交互文件
 
 // create an axios instance
 const service = axios.create({
@@ -62,11 +60,11 @@ service.interceptors.response.use(
       res.code == 2961
     ) {
       if (res) {
-        Toast({
+        this.$message.error({
           message: res.msg || "Error",
         });
       } else {
-        Toast({
+        this.$message.error({
           message: "系统异常",
         });
       }
@@ -76,7 +74,7 @@ service.interceptors.response.use(
     }
   },
   (error) => {
-    Toast({
+    this.$message.error({
       message: "系统异常",
     });
     console.log(error);

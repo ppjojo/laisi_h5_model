@@ -1,6 +1,6 @@
 module.exports = {
     language: {
-        name: 'English'
+        name: 'En'
     },
     user: {
         login:'login',

@@ -1,5 +1,5 @@
 <template>
-  <div id="app" :style="{'background-image':'url('+bgc+')'}">
+  <div id="app" >
 	  <TopMenu class="web-top"></TopMenu>
 	  <router-view class="web-mid"></router-view>
 	  <BottomMenu class="web-bottom"></BottomMenu>
@@ -16,7 +16,7 @@ export default {
   },
   data(){
 	  return{
-		  bgc:require('./assets/img/banner.png')
+		  
 	  }
   },
 }
@@ -30,17 +30,15 @@ export default {
   text-align: center;
   color: #2c3e50;
   min-height: 100vh;
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: top;
-  position: relative;
-  /* margin-top: 60px; */
 }
 .web-mid{
 	min-height: 500px;
 }
 .web-top{
-	margin-bottom: 800px;
+	position: fixed;
+  top: 0;
+  width:100%;
+  z-index: 9;
 }
 .web-bottom{
 	/* position: absolute;

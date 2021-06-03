@@ -1,6 +1,6 @@
 module.exports = {
     language: {
-        name: '简体中文'
+        name: 'CN'
     },
     user: {
         login:'登录',
