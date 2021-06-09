@@ -1,6 +1,6 @@
 <template>
 	<div class="contain">
-		<div class="bannerBox pc_box">
+		<div class="bannerBox ">
 			<el-carousel :interval="5000" height="10rem">
 				<el-carousel-item v-for="item in 3" :key="item">
 					<!-- <div class="bannerImg_contain" :style="{'background-image':'url(../assets/img/banner.png)'}"></div> -->
@@ -8,14 +8,6 @@
 				</el-carousel-item>
 			</el-carousel>
 		</div>
-		<div class="bannerBox phone_box">
-			<el-carousel :interval="5000" height="8rem" trigger="click">
-				<el-carousel-item v-for="item in 3" :key="item">
-					<div class="bannerImg_contain"></div>
-				</el-carousel-item>
-			</el-carousel>
-		</div>
-
 		<div class="hotProductBox">
 			<div class="imgBox">
 				<img src="../assets/img/ad.png" alt="">
@@ -62,16 +54,16 @@
 							<div class="content">
 								白明传候它统东代现年问阶在规取生识生用需史议化美事手全识写人节思米按总成观节他见快较经用想老维地交见出习书立给还需算给养一条十。
 							</div>
-							<div class="button_more">阅读全文</div>
+							<div class="button_more" @click="gotoNewsList">阅读全文</div>
 						</div>
 
 					</swiper-slide>
 				</swiper>
 			</div>
 			<div class="phone_box" style="margin-bottom:0.3rem;border:1px solid #eee;margin:15px">
-				<el-carousel :interval="5000" indicator-position="none" height="8rem">
-					<el-carousel-item v-for="item in 4" :key="item" >
-						<img class="newsImg" src="../assets/img/ad.png" alt="">
+				<swiper :options="swiperOptions2">
+					<swiper-slide v-for="item in 5">
+						<img  class="newsImg" src="../assets/img/ad.png" alt="">
 						<div class="textBox">
 							<p class="title">
 								热烈祝贺铼锶成为二类重点扶持企业
@@ -84,10 +76,11 @@
 							<div class="content">
 								白明传候它统东代现年问阶在规取生识生用需史议化美事手全识写人节思米按总成观节他见快较经用想老维地交见出习书立给还需算给养一条十。
 							</div>
-							<div class="button_more">阅读全文</div>
+							<div class="button_more" @click="gotoNewsList">阅读全文</div>
 						</div>
-					</el-carousel-item>
-				</el-carousel>
+
+					</swiper-slide>
+				</swiper>
 			</div>
 		</div>
 
@@ -106,9 +99,19 @@
 		data() {
 			return {
 				bgc: require('../assets/img/banner.png'),
-				cardType: (isAndroid || isIOS) ? "" : "card",
 				swiperOptions: {
 					slidesPerView: 3,
+					spaceBetween: 0,
+					centeredSlides: true,
+					loop: true,
+					autoplay: {
+						delay: 1000,
+						stopOnLastSlide: false,
+						disableOnInteraction: true,
+					},
+				},
+				swiperOptions2: {
+					slidesPerView: 1,
 					spaceBetween: 0,
 					centeredSlides: true,
 					loop: true,
@@ -130,7 +133,14 @@
 
 		},
 		methods: {
-
+			gotoNewsList(){
+				this.$router.push({
+					path:"newsList",
+					query:{
+						id:5
+					}
+				})
+			}
 		}
 	}
 </script>
@@ -165,17 +175,6 @@
 		}
 
 		.contain {
-			.bannerBox {
-				.bannerImg_contain {
-					background-image: url('../assets/img/banner.png');
-					width: 100%;
-					height: 10rem;
-					background-size: cover;
-					background-position: 50% 50%;
-					background-repeat: no-repeat;
-				}
-			}
-
 			.hotProductBox {
 				color: #fff;
 				display: flex;
@@ -335,18 +334,6 @@
 			.pc_box {
 				display: none;
 			}
-
-			.bannerBox {
-				.bannerImg_contain {
-					background-image: url('../assets/img/banner.png');
-					width: 100%;
-					height: 100%;
-					background-size: cover;
-					background-position: 50% 50%;
-					background-repeat: no-repeat;
-				}
-			}
-
 			.hotProductBox {
 				color: #fff;
 				display: flex;
@@ -404,6 +391,9 @@
 			}
 
 			.newsBox {
+				.swiper-slide{
+					padding-bottom: 0.5rem;
+				}
 				.newsImg {
 					width: 100%;
 					height: 50%;
@@ -467,7 +457,16 @@
 
 	.contain {
 		background-color: #fff;
-
+		.bannerBox {
+				.bannerImg_contain {
+					background-image: url('../assets/img/banner.png');
+					width: 100%;
+					height: 100%;
+					background-size: cover;
+					background-position: 50% 50%;
+					background-repeat: no-repeat;
+				}
+			}
 
 
 	}

@@ -8,96 +8,79 @@
                     <div class="bannerImg_contain"></div>
                 </el-carousel-item>
             </el-carousel>
-
-            <div class="productBox pc_box">
-                <swiper :options="swiperOptions" ref="mySwiper">
-                    <swiper-slide v-for="item in 5">
-                        <img class="productImg" src="../assets/img/ad.png" alt="">
-                        <p class="productTitle">t30</p>
-                    </swiper-slide>
-                </swiper>
-                <div class="navgationBox">
-                    <div class=" iconfont icon-shangyiye" @click="slidePrev">
-                    </div>
-                    <div class=" iconfont icon-xiayiye" @click="slideNext">
-                    </div>
-                </div>
-
-            </div>
-            <div class="productBox phone_box">
-                <swiper :options="swiperOptions_phone">
-                    <swiper-slide v-for="item in 5">
-                        <img class="productImg" src="../assets/img/ad.png" alt="">
-                        <p class="productTitle">t30</p>
-                    </swiper-slide>
-                </swiper>
-            </div>
-
         </div>
-        <!-- 精选推荐 -->
+        
+      
 
-        <div style="padding:2rem 0">
-            <div class="moduleTitleBox">
-                <img class="moduleTitleImg" src="../assets/img/outdoorSport/jxtj.png" alt="">
-            </div>
+        <div style="padding-bottom:1rem" class="mainContent">
             <div class="buyBoxList">
-                <el-row >
-                    <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12" style="padding:0 10px ;box-sizing: border-box;">
-                        <div class="buyBox">
-                            <div class="label">新品</div>
-                            <div class="title">智能健腹轮</div>
-                            <div class="content">和卡莎撒谎看见爱上看见了很大了</div>
-                            <div class="colorBox">
-                                <span class="active" style="background-color:#333"></span>
-                                <span style="background-color:red"></span>
+                <el-row  >
+                    <el-col style="padding:0 10px ;box-sizing: border-box;">
+                        <div class="buyBox buyBox2">
+                            <div style="width:60%">
+                                <div class="label">新品</div>
+                                <div class="title">智能健腹轮</div>
+                                <div class="content">和卡莎撒谎看见爱上看见了很大了</div>
+                                <div class="colorBox">
+                                    <span class="active" style="background-color:#333"></span>
+                                    <span style="background-color:red"></span>
+                                </div>
+                                <div class="price">169</div>
+                                <div class="buttonBox">
+                                    <div class="buyNow">立即购买</div>
+                                    <div class="moreInfo">了解更多</div>
+                                </div>
                             </div>
-                            <div class="price">169</div>
-                            <div class="buttonBox">
-                                <div class="buyNow">立即购买</div>
-                                <div class="moreInfo">了解更多</div>
-                            </div>
-                            <div class="picBox">
+                            <div class="picBox" style="width:40%">
                                 <img src="../assets/img/ad.png" alt="">
                             </div>
                         </div>
                     </el-col>
-                    <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12" style="padding:0 10px;box-sizing: border-box;">
-                        <div class="buyBox buyBox2">
-                            <div style="width:60%">
-                                <div class="title">智能健腹轮</div>
-                                <div class="content">和卡莎撒谎看见爱上看见了很大了</div>
-                                <div class="colorBox">
-                                    <span class="active" style="background-color:#333"></span>
-                                    <span style="background-color:red"></span>
+                    <el-col>
+                        <el-row class="" >
+                            <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12" style="padding:0 10px ;box-sizing: border-box;">
+                                <div class="buyBox">
+                                    <div>
+                                        <div class="title">智能健腹轮</div>
+                                        <div class="content">和卡莎撒谎看见爱上看见了很大了</div>
+                                        <div class="colorBox">
+                                            <span class="active" style="background-color:#333"></span>
+                                            <span style="background-color:red"></span>
+                                        </div>
+                                        <div class="price">169</div>
+                                        <div class="buttonBox">
+                                            <div class="buyNow">立即购买</div>
+                                            <div class="moreInfo">了解更多</div>
+                                        </div>
+                                    </div>
+                                    <div class="picBox">
+                                        <img src="../assets/img/ad.png" alt="">
+                                    </div>
                                 </div>
-                                <div class="price">169</div>
-                                <div class="buttonBox">
-                                    <div class="buyNow">立即购买</div>
-                                    <div class="moreInfo">了解更多</div>
+                            </el-col>
+                            <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12" style="padding:0 10px ;box-sizing: border-box;">
+                                <div class="buyBox">
+                                    <div>
+                                        <div class="title">智能健腹轮</div>
+                                        <div class="content">和卡莎撒谎看见爱上看见了很大了</div>
+                                        <div class="colorBox">
+                                            <span class="active" style="background-color:#333"></span>
+                                            <span style="background-color:red"></span>
+                                        </div>
+                                        <div class="price">169</div>
+                                        <div class="buttonBox">
+                                            <div class="buyNow">立即购买</div>
+                                            <div class="moreInfo">了解更多</div>
+                                        </div>
+                                    </div>
+                                    <div class="picBox">
+                                        <img src="../assets/img/ad.png" alt="">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="picBox" style="width:40%">
-                                <img src="../assets/img/ad.png" alt="">
-                            </div>
-                        </div>
-                        <div class="buyBox buyBox2">
-                            <div style="width:60%">
-                                <div class="title">智能健腹轮</div>
-                                <div class="content">和卡莎撒谎看见爱上看见了很大了</div>
-                                <div class="colorBox">
-                                    <span class="active" style="background-color:#333"></span>
-                                    <span style="background-color:red"></span>
-                                </div>
-                                <div class="price">169</div>
-                                <div class="buttonBox">
-                                    <div class="buyNow">立即购买</div>
-                                    <div class="moreInfo">了解更多</div>
-                                </div>
-                            </div>
-                            <div class="picBox" style="width:40%">
-                                <img src="../assets/img/ad.png" alt="">
-                            </div>
-                        </div>
+                            </el-col>
+                        </el-row>
+
+
                     </el-col>
                 </el-row>
             </div>
@@ -119,18 +102,7 @@
         props: {},
         data() {
             return {
-                swiperOptions: {
-                    slidesPerView: 5,
-                    spaceBetween: 0,
-                    centeredSlides: true,
-                    loop: true,
-                },
-                swiperOptions_phone: {
-                    slidesPerView: 2,
-                    spaceBetween: 15,
-                    centeredSlides: true,
-                    loop: true,
-                }
+
             }
         },
         computed: {
@@ -141,12 +113,7 @@
 
         },
         methods: {
-            slidePrev() {
-                this.$refs.mySwiper.swiperInstance.slidePrev()
-            },
-            slideNext() {
-                this.$refs.mySwiper.swiperInstance.slideNext()
-            },
+
         }
     }
 </script>
@@ -154,55 +121,12 @@
 <style lang="scss" scoped>
     //大于992
     @media (min-width: 992px) {
-        .phone_box {
-            display: none;
-        }
-
-        .pc_box {
-            display: block;
-        }
-
         .contain {
-            .productBox {
-                width: 14rem;
-                padding: 0.5rem;
-                margin: 0 auto;
-                box-sizing: border-box;
-                background-color: #fff;
-                box-shadow: 3px 4px 20px 6px rgba(173, 173, 173, 0.06);
-                position: absolute;
-                bottom: -1.5rem;
-                left: calc( 50% - 7rem);
-                z-index: 8;
-
-
-                .productImg {
-                    width: 2rem;
-                    height: 2rem;
-                }
-
-                .productTitle {
-                    color: #333;
-                    font-size: 0.22rem;
-                    line-height: 0.5rem;
-                }
-
-                .navgationBox {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    padding-top: 0.1rem;
-
-                    .iconfont {
-                        font-size: 0.43rem;
-                        line-height: 0.5rem;
-                        margin-right: 0.4rem;
-                    }
-                }
+            .mainContent {
+                margin-top: -3rem;
+                z-index: 2;
+                position: relative;
             }
-
-
-
         }
     }
 
@@ -210,39 +134,11 @@
     @media (max-width: 992px) {
         .contain {
             margin-top: 0.66rem;
-
-            .phone_box {
-                display: block;
-            }
-
-            .pc_box {
-                display: none;
-            }
-
-            .productBox {
-                // margin: 0 15px;
-                padding: 15px;
-
-                .productImg {
-                    width: 100%;
-                    height: auto;
-                }
-
-                .productTitle {
-                    color: #333;
-                    font-size: 18px;
-                    line-height: 22px;
-                }
-            }
-
         }
     }
 
     .contain {
-        background-color: rgb(246, 248, 251);
-
         .bannerBox {
-            position: relative;
             .bannerImg_contain {
                 background-image: url('../assets/img/banner.png');
                 width: 100%;
@@ -253,7 +149,7 @@
             }
         }
 
-       
+        background-color: rgb(246, 248, 251);
 
         .buyBoxList {
             max-width: 14rem;

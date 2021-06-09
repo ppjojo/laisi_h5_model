@@ -2,24 +2,56 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 Vue.use(Router)
- 
-export const constantRoutes = [
+
+export const routes = [
 
 	{
 		path: '/',
 		component: () => import('@/views/index'),
 		redirect: '/index',
-		
+
 	},
 	{
 		path: '/index',
 		component: () => import('@/views/index'),
-		
+
 	},
 	{
 		path: '/outdoorSport',
 		component: () => import('@/views/outdoorSport'),
 	},
+	{
+		path: '/smartWear',
+		component: () => import('@/views/smartWear'),
+	},
+	{
+		path: '/paiactive',
+		component: () => import('@/views/paiactive'),
+	},
+	{
+		path: '/joinUs',
+		component: () => import('@/views/joinUs'),
+	},
+	{
+		path: '/aboutus',
+		component: () => import('@/views/aboutus'),
+	},
+	{
+		path: '/newsList',
+		component: () => import('@/views/newsList'),
+	},
+	{
+		path: '/productDetail',
+		component: () => import('@/views/productDetail'),
+	},
+	{
+		path: '/solution',
+		component: () => import('@/views/solution'),
+	},
+
+
+
+
 
 	// 404 page must be placed at the end !!!
 	// {
@@ -29,15 +61,16 @@ export const constantRoutes = [
 	// }
 ]
 
-const createRouter = () => new Router({
-	// mode: 'history', // require service support
-	scrollBehavior: () => ({
-		y: 0
-	}),
-	routes: constantRoutes
+const router = new Router({
+	routes: routes
 })
 
-const router = createRouter()
+
+const VueRouterPush = Router.prototype.push
+Router.prototype.push = function push(to) {
+	return VueRouterPush.call(this, to).catch(err => err)
+}
+
 
 
 
