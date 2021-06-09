@@ -13,7 +13,7 @@
 						<li @click="menuChange('smartWear',2)" :class="navActive==2?'active':''">智能穿戴系列</li>
 						<li @click="menuChange('paiactive',3)" :class="navActive==3?'active':''">派健康</li>
 						<li @click="menuChange('solution ',4)" :class="navActive==4?'active':''">行业解决方案</li>
-						<li @click="menuChange('paiactive',5)" :class="navActive==5?'active':''">商务合作</li>
+						<li @click="menuChange('business',5)" :class="navActive==5?'active':''">商务合作</li>
 						<li @click="menuChange('aboutus',6)" style="border: none;" :class="navActive==6?'active':''">
 							关于铼锶</li>
 					</ul>
@@ -107,7 +107,7 @@
 						</div>
 					</li>
 					<li>
-						<a @click="menuChange('outdoorSport',5)" :class="navActive==5?'active':''">商务合作</a>
+						<a @click="menuChange('business',5)" :class="navActive==5?'active':''">商务合作</a>
 					</li>
 					<li>
 						<a @click="menuChange('aboutus',6)" :class="navActive==6?'active':''">关于铼锶</a>

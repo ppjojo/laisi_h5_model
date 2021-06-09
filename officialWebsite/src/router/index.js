@@ -47,6 +47,10 @@ export const routes = [
 	{
 		path: '/solution',
 		component: () => import('@/views/solution'),
+	}, 
+	{
+		path: '/business',
+		component: () => import('@/views/business'),
 	},
 
 
