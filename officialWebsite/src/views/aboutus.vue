@@ -2,8 +2,7 @@
     <div class="contain">
         <!-- banner图 -->
         <div class="bannerBox ">
-            <!-- <div class="bannerImg_contain" :style="{'background-image':'url(../assets/img/banner.png)'}"></div> -->
-            <div class="bannerImg_contain">
+            <div class="bannerImg_contain" :style="{'background-image':'url('+banner.pictureVideo+')'}">
                 <div class="child_nav">
                     <ul>
                         <li :class="active==1?'active':''" @click="active=1;goAnchor('aboutus_link')"><a>企业简介</a></li>
@@ -25,11 +24,9 @@
                 <div class="aboutusDiv">
                     <div class="title">上海铼锶信息技术有限公司</div>
                     <div class="content">
-                        上海铼锶信息技术有限公司，高新技术企业，国内领先的智能硬件提供商及信息服务商，专注于AIoT、智能健康、智能运动、智能生活体验等领域的产品研发、生产与销售，也致力于配套软件产品的开发及运营。截止至2021年
-                        上半年，已围绕产业开发申请专利及软件著作权100余项。
+                        {{companyInfo.companyProfileTop}}
                         <br><br>
-                        铼锶信息旨在搭建从生理健康向全面健康、从人机共融延伸到情感感知的运动健康平台，构建优质运动健康硬件互联网生态。秉承自主创新、持续创新的发展理念，旗下品牌75派、NK，坚持打造深度价值观念，凭借智慧科技与
-                        数字平台助力消费者构建专属的大健康生态闭环，服务于整个智能运动健康领域。
+                        {{companyInfo.companyProfileBottom}}
                     </div>
                 </div>
 
@@ -42,30 +39,16 @@
                 </div>
                 <div class="brandBox">
                     <el-row>
-                        <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
+                        <el-col v-for="item in brandList" :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
                             <div class="brandDiv">
-                                <img src="../assets/img/ad.png" alt="">
-                                <div class="title">中高端智能产品</div>
-                                <div class="content">极力推崇科技改变运动形态，智能带来健康生活的理念，主要产品涵盖智能运动、智能健康、智能穿戴领域的硬件设备及其相关配件。</div>
-                                <div class="title">科技及品质</div>
-                                <div class="content">
-                                    75派自诞生起就倾情研发、精准雕琢每一款着手的产品，秉承着以用户体验为导向，以质量求生存的匠人品质，致力于打造真正的智能运动品牌新生态。
-                                </div>
+                                <img :src="item.logo" alt="">
+                                <div class="title">{{item.titleTop}}</div>
+                                <div class="content">{{item.contentTop}}</div>
+                                <div class="title">{{item.titleBottom}}</div>
+                                <div class="content">{{item.contentBottom}}</div>
                             </div>
                         </el-col>
-                        <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
-                            <div class="brandDiv">
-                                <img src="../assets/img/ad.png" alt="">
-                                <div class="title">全民运动器械</div>
-                                <div class="content">
-                                    旨在为更多敢于直面挑战自己并热衷于户外运动、居家运动的用户，创造出更加科学、舒适、自在的运动产品NK致力于大众运动领域，始终秉承着安全健康，智能时尚，高性价比的经营理念，通过专业高品质的户外运动产品、家庭运动器械及配件，为用户搭建时尚健康的运动生活方式。
-                                </div>
-                                <div class="title">高端品质 价格亲民</div>
-                                <div class="content">
-                                    NK着手多维空间纵向发展，以极力打造契合用户需求的产品、提供优质的品牌服务，博得更多用户的支持与喜爱，将理想生活与大众运动合二为一。
-                                </div>
-                            </div>
-                        </el-col>
+                       
                     </el-row>
                 </div>
 
@@ -90,9 +73,9 @@
                     <div class="scrollBox">
                         <div class="shadowBox"></div>
                         <el-timeline>
-                            <el-timeline-item v-for="(activity, index) in thingList" :key="index" color='red'
-                                :timestamp="activity.timestamp">
-                                {{activity.content}}
+                            <el-timeline-item v-for="(activity, index) in eventList" :key="index" color='red'
+                                :timestamp="activity.eventTime">
+                                {{activity.eventContent}}
                             </el-timeline-item>
                         </el-timeline>
                     </div>
@@ -150,49 +133,23 @@
             behavior: "smooth"
         });
     };
+
+    import {
+        getAllPicture
+    } from "@a/picture";
+     import {
+    getCompanyProfile,getWebsiteBrandIntroduction,getWebsiteBigEvent
+  } from '@/api/aboutus'
     export default {
         name: 'index',
         props: {},
         data() {
             return {
+                banner: [],
+                companyInfo:{},
+                brandList:[],
                 active: 1,
-                thingList: [{
-                    content: '活动按期开始',
-                    timestamp: '2018-04-15'
-                }, {
-                    content: '通过审核',
-                    timestamp: '2018-04-13'
-                }, {
-                    content: '活动按期开始',
-                    timestamp: '2018-04-15'
-                }, {
-                    content: '通过审核',
-                    timestamp: '2018-04-13'
-                }, {
-                    content: '活动按期开始',
-                    timestamp: '2018-04-15'
-                }, {
-                    content: '通过审核',
-                    timestamp: '2018-04-13'
-                }, {
-                    content: '活动按期开始',
-                    timestamp: '2018-04-15'
-                }, {
-                    content: '通过审核',
-                    timestamp: '2018-04-13'
-                }, {
-                    content: '活动按期开始',
-                    timestamp: '2018-04-15'
-                }, {
-                    content: '通过审核',
-                    timestamp: '2018-04-13'
-                }, {
-                    content: '活动按期开始',
-                    timestamp: '2018-04-15'
-                }, {
-                    content: '通过审核',
-                    timestamp: '2018-04-13'
-                }],
+                eventList: [],
                 linkId: this.$route.query.id
             }
         },
@@ -205,12 +162,42 @@
             }
         },
         mounted() {
-            this.$nextTick(() => {
-                this.goAnchor(this.$route.query.id)
-            })
+            // this.$nextTick(() => {
+            //     this.goAnchor(this.$route.query.id)
+            // })
+        },
+        created() {
+            this.getBanner()
+            this.companyProfile()
+            this.brand()
+            this.event()
         },
         methods: {
-            goAnchor: goAnchor
+            goAnchor: goAnchor,
+            getBanner() {
+                getAllPicture({
+                    pictureBelong: 4,
+                    pictureType: 0
+                }).then(res => {
+                    this.banner = res.data[0];
+                })
+            },
+            companyProfile(){
+                getCompanyProfile().then(res => {
+                    this.companyInfo = res.data;
+                })
+            },
+            brand(){
+                getWebsiteBrandIntroduction().then(res => {
+                    this.brandList = res.data;
+                })
+            },
+            event(){
+                getWebsiteBigEvent().then(res => {
+                    this.eventList = res.data;
+                })
+            }
+
 
         }
     }
@@ -231,7 +218,6 @@
 
         .bannerBox {
             .bannerImg_contain {
-                background-image: url('../assets/img/banner.png');
                 width: 100%;
                 height: 8.5rem;
                 background-size: cover;

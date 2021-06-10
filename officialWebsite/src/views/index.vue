@@ -2,36 +2,23 @@
 	<div class="contain">
 		<div class="bannerBox ">
 			<el-carousel :interval="5000" height="10rem">
-				<el-carousel-item v-for="item in 3" :key="item">
-					<!-- <div class="bannerImg_contain" :style="{'background-image':'url(../assets/img/banner.png)'}"></div> -->
-					<div class="bannerImg_contain"></div>
+				<el-carousel-item v-for="item in banner" :key="item">
+					<div class="bannerImg_contain" :style="{'background-image':'url('+item.pictureVideo+')'}"></div>
 				</el-carousel-item>
 			</el-carousel>
 		</div>
 		<div class="hotProductBox">
-			<div class="imgBox">
+			<div class="imgBox" v-for="item in hotproduct">
 				<img src="../assets/img/ad.png" alt="">
 				<div class="buttonBox">
 					<div class="detail">
-						<p class="title">智能跳绳</p>
+						<p class="title">{{item.pictureName}}</p>
 						<p class="descript">Smart Rope</p>
 					</div>
 					<div class=" iconfont icon-jinrufasong">
 					</div>
 				</div>
 			</div>
-			<div class="imgBox">
-				<img src="../assets/img/ad.png" alt="">
-				<div class="buttonBox">
-					<div class="detail detail2">
-						<p class="title">智能腕力球</p>
-						<p class="descript">Smart Wrist Force Ball</p>
-					</div>
-					<div class=" iconfont icon-jinrufasong">
-					</div>
-				</div>
-			</div>
-
 		</div>
 
 		<div class="newsBox">
@@ -40,19 +27,18 @@
 			</div>
 			<div class="pc_box">
 				<swiper :options="swiperOptions">
-					<swiper-slide v-for="item in 5">
-						<img  class="newsImg" src="../assets/img/ad.png" alt="">
+					<swiper-slide v-for="item in newsList">
+						<img class="newsImg" :src="item.newsPicture" alt="">
 						<div class="textBox">
 							<p class="title">
-								热烈祝贺铼锶成为二类重点扶持企业
+								{{item.newsTitle}}
 							</p>
 							<div class="label">
-								<span>研发部</span>
-								<span>67人已看</span>
-								<span>2021-06-01</span>
+								<span>{{item.newsDepartment}}</span>
+								<span>{{item.updateTime | formatDate}}</span>
 							</div>
-							<div class="content">
-								白明传候它统东代现年问阶在规取生识生用需史议化美事手全识写人节思米按总成观节他见快较经用想老维地交见出习书立给还需算给养一条十。
+							<div class="content" v-html="item.newsBody">
+
 							</div>
 							<div class="button_more" @click="gotoNewsList">阅读全文</div>
 						</div>
@@ -62,19 +48,18 @@
 			</div>
 			<div class="phone_box" style="margin-bottom:0.3rem;border:1px solid #eee;margin:15px">
 				<swiper :options="swiperOptions2">
-					<swiper-slide v-for="item in 5">
-						<img  class="newsImg" src="../assets/img/ad.png" alt="">
+					<swiper-slide v-for="item in newsList">
+						<img class="newsImg" :src="item.newsPicture" alt="">
 						<div class="textBox">
 							<p class="title">
-								热烈祝贺铼锶成为二类重点扶持企业
+								{{item.newsTitle}}
 							</p>
 							<div class="label">
-								<span>研发部</span>
-								<span>67人已看</span>
-								<span>2021-06-01</span>
+								<span>{{item.newsDepartment}}</span>
+								<span>{{item.updateTime | formatDate}}</span>
 							</div>
-							<div class="content">
-								白明传候它统东代现年问阶在规取生识生用需史议化美事手全识写人节思米按总成观节他见快较经用想老维地交见出习书立给还需算给养一条十。
+							<div class="content" v-html="item.newsBody">
+
 							</div>
 							<div class="button_more" @click="gotoNewsList">阅读全文</div>
 						</div>
@@ -90,15 +75,29 @@
 
 <script>
 	import {
-		isAndroid,
-		isIOS
-	} from "@u/tool";
+		formatDate
+	} from '@/utils/tool'
+	import {
+		getAllPicture
+	} from "@a/picture";
+	import {
+		getNews
+	} from "@a/index";
 	export default {
+		filters: {
+			formatDate(time) {
+				time = time
+				let date = new Date(time)
+				return formatDate(date, 'yyyy-MM-dd hh:mm')
+			},
+		},
 		name: 'index',
 		props: {},
 		data() {
 			return {
-				bgc: require('../assets/img/banner.png'),
+				banner: [],
+				hotproduct: [],
+				newsList: [],
 				swiperOptions: {
 					slidesPerView: 3,
 					spaceBetween: 0,
@@ -123,21 +122,42 @@
 				}
 			}
 		},
-		computed: {
-			// swiper() {
-			// 	return this.$refs.mySwiper.$swiper
-			// }
-		},
+		computed: {},
 		mounted() {
-
-
+			this.getBanner()
+			this.getHotproduct()
+			this.news()
 		},
 		methods: {
-			gotoNewsList(){
+			getBanner() {
+				getAllPicture({
+					pictureBelong: 2,
+					pictureType: 0
+				}).then(res => {
+					this.banner = res.data;
+				})
+			},
+			getHotproduct() {
+				getAllPicture({
+					pictureBelong: 1,
+					pictureType: 1
+				}).then(res => {
+					this.hotproduct = res.data;
+				})
+			},
+			news() {
+				getNews({
+					pageSize: 3,
+					pageNum: 0
+				}).then(res => {
+					this.newsList = res.data.websiteNewsList;
+				})
+			},
+			gotoNewsList() {
 				this.$router.push({
-					path:"newsList",
-					query:{
-						id:5
+					path: "newsList",
+					query: {
+						id: 5
 					}
 				})
 			}
@@ -334,6 +354,7 @@
 			.pc_box {
 				display: none;
 			}
+
 			.hotProductBox {
 				color: #fff;
 				display: flex;
@@ -391,9 +412,10 @@
 			}
 
 			.newsBox {
-				.swiper-slide{
+				.swiper-slide {
 					padding-bottom: 0.5rem;
 				}
+
 				.newsImg {
 					width: 100%;
 					height: 50%;
@@ -408,7 +430,7 @@
 				.textBox {
 					text-align: left;
 					padding: 0.2rem;
-					
+
 
 					.title {
 						font-size: 0.4rem;
@@ -457,16 +479,17 @@
 
 	.contain {
 		background-color: #fff;
+
 		.bannerBox {
-				.bannerImg_contain {
-					background-image: url('../assets/img/banner.png');
-					width: 100%;
-					height: 100%;
-					background-size: cover;
-					background-position: 50% 50%;
-					background-repeat: no-repeat;
-				}
+			.bannerImg_contain {
+				background-image: url('../assets/img/banner.png');
+				width: 100%;
+				height: 100%;
+				background-size: cover;
+				background-position: 50% 50%;
+				background-repeat: no-repeat;
 			}
+		}
 
 
 	}

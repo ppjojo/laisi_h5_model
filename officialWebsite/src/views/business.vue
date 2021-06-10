@@ -1,9 +1,12 @@
 <template>
     <div class="contain">
-        <!-- banner图 -->
         <div class="bannerBox ">
             <img class="qr" src="../assets/img/cooprate/qr.png" alt="">
-            <!-- <div class="bannerImg_contain" :style="{'background-image':'url(../assets/img/banner.png)'}"></div> -->
+            <el-carousel :interval="5000" height="10rem">
+                <el-carousel-item v-for="item in banner" :key="item">
+                    <div class="bannerImg_contain" :style="{'background-image':'url('+item.pictureVideo+')'}"></div>
+                </el-carousel-item>
+            </el-carousel>
         </div>
 
         <div class="typeBox">
@@ -150,29 +153,49 @@
                 <img src="../assets/img/cooprate/parter-title.png" class="moduleTitleImg" alt="">
             </div>
             <div class="parterDiv">
-                <img src="../assets/img/ad.png" alt="">
-                <img src="../assets/img/ad.png" alt="">
-                <img src="../assets/img/ad.png" alt="">
-                <img src="../assets/img/ad.png" alt="">
-                <img src="../assets/img/ad.png" alt="">
+                <img v-for="item in parterList" :src="item.pictureVideo" alt="">
+                
             </div>
         </div>
     </div>
 </template>
 
 <script>
+    import {
+        getAllPicture
+    } from "@a/picture";
+   
     export default {
         name: 'HelloWorld',
         props: {},
         data() {
             return {
-
+                banner: [],
+                parterList:[]
             }
         },
         mounted() {},
-        created() {},
+        created() {
+            this.getBanner()
+            this.getParter()
+        },
         methods: {
-
+            getBanner() {
+                getAllPicture({
+                    pictureBelong: 3,
+                    pictureType: 0
+                }).then(res => {
+                    this.banner = res.data;
+                })
+            },
+            getParter() {
+                getAllPicture({
+                    // pictureBelong: 3,
+                    pictureType: 2
+                }).then(res => {
+                    this.parterList = res.data;
+                })
+            },
         }
     }
 </script>
@@ -194,13 +217,16 @@
         background: linear-gradient(to bottom, #FFFFFF, #EEF3FC, #F9FDFF, #E6FBFF, #EEF3FD);
 
         .bannerBox {
-            background-image: url('../assets/img/banner.png');
-            width: 100%;
-            height: 9rem;
-            background-size: cover;
-            background-repeat: no-repeat;
-            position: relative;
-            .qr{
+            .bannerImg_contain {
+                background-image: url('../assets/img/banner.png');
+                width: 100%;
+                height: 100%;
+                background-size: cover;
+                background-position: 50% 50%;
+                background-repeat: no-repeat;
+            }
+
+            .qr {
                 position: fixed;
                 top: 6.7rem;
                 right: 10%;
@@ -208,6 +234,7 @@
                 z-index: 3;
             }
         }
+
 
         .typeBox {
             max-width: 14rem;
@@ -352,7 +379,8 @@
                 flex-wrap: wrap;
                 margin-top: 1rem;
                 padding: 1rem 1rem 0.5rem 1rem;
-                img{
+
+                img {
                     width: 21%;
                     height: 1rem;
                     margin-bottom: 0.5rem;
