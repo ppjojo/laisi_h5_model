@@ -2,13 +2,14 @@
     <div class="contain">
         <!-- banner图 -->
         <div class="bannerBox ">
+            <img class="qr" src="../assets/img/cooprate/qr.png" alt="">
             <!-- <div class="bannerImg_contain" :style="{'background-image':'url(../assets/img/banner.png)'}"></div> -->
         </div>
 
         <div class="typeBox">
-            <img src="../assets/img/banner.png" alt="">
-            <img src="../assets/img/banner.png" alt="">
-            <img src="../assets/img/banner.png" alt="">
+            <img src="../assets/img/cooprate/be-1.png" alt="">
+            <img src="../assets/img/cooprate/be-2.png" alt="">
+            <img src="../assets/img/cooprate/be-3.png" alt="">
         </div>
 
         <div class="beparterBox">
@@ -199,6 +200,13 @@
             background-size: cover;
             background-repeat: no-repeat;
             position: relative;
+            .qr{
+                position: fixed;
+                top: 6.7rem;
+                right: 10%;
+                width: 3.2rem;
+                z-index: 3;
+            }
         }
 
         .typeBox {
