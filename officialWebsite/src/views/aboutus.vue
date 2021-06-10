@@ -19,7 +19,7 @@
             <!-- 企业简介 -->
             <div id="aboutus_link">
                 <div class="moduleTitleBox">
-                    <img src="../assets/img/aboutus/aboutus.png" class="moduleTitleImg" alt="" >
+                    <img src="../assets/img/aboutus/aboutus.png" class="moduleTitleImg" alt="">
                 </div>
 
                 <div class="aboutusDiv">
@@ -38,7 +38,7 @@
             <!-- 品牌介绍 -->
             <div id="brand_link">
                 <div class="moduleTitleBox">
-                    <img src="../assets/img/aboutus/brand.png" class="moduleTitleImg" alt="" >
+                    <img src="../assets/img/aboutus/brand.png" class="moduleTitleImg" alt="">
                 </div>
                 <div class="brandBox">
                     <el-row>
@@ -106,7 +106,7 @@
             <!-- 地图 -->
             <div id="map">
                 <div class="moduleTitleBox">
-                    <img src="../assets/img/aboutus/map.png" class="moduleTitleImg" alt="" >
+                    <img src="../assets/img/aboutus/map.png" class="moduleTitleImg" alt="">
                 </div>
                 <div class="content">
                     <iframe height="500"
@@ -130,7 +130,6 @@
 
 <script>
     const goAnchor = (selector) => {
-
         // 移动距离
         let top = 0;
         // 当前滚动条位置
@@ -138,16 +137,17 @@
         // 若为指定距离
         if (typeof selector === 'number') {
             top = selector - scrollTop;
+            console.log(top)
         } else {
             const anchor = document.getElementById(selector) || {
                 offsetTop: 0
             };
-            top = anchor.offsetTop - scrollTop-100;
+            top = anchor.offsetTop - scrollTop;
             console.log(top)
         }
-        window.scrollBy({
-            top,
-            behavior: 'smooth'
+        window.scrollTo({
+            top: top,
+            behavior: "smooth"
         });
     };
     export default {
@@ -199,10 +199,15 @@
         computed: {
 
         },
+        watch:{
+            linkId(newv,old){
+                console.log(newv)
+            }
+        },
         mounted() {
-            setTimeout(()=>{
+            this.$nextTick(() => {
                 this.goAnchor(this.$route.query.id)
-            },300)
+            })
         },
         methods: {
             goAnchor: goAnchor
@@ -277,7 +282,7 @@
             }
         }
 
-        
+
 
         #aboutus_link {
             margin: 1rem 0;

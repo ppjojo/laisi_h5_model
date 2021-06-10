@@ -1,7 +1,9 @@
 import axios from "axios";
 import md5 from "js-md5";
 import defaultSettings from "../../settings";
-import { getQueryString } from "@u/tool";
+import {
+  getQueryString
+} from "@u/tool";
 
 // create an axios instance
 const service = axios.create({
@@ -13,32 +15,22 @@ const service = axios.create({
 
 // request interceptor
 service.interceptors.request.use((config) => {
-  let appInfo={}
-  if(getQueryString('isShare')){
-    appInfo={
-      token: "SHARE",
-      userId: getQueryString("userId")||"",
-    }
-  }else{
-    appInfo=JSON.parse(localStorage.getItem("appInfo"))
+  let token = "token"
+  if (getUInfo()) {
+    let userId = null;
+    userId = JSON.parse(getUInfo()).id;
+    config.headers.userId = userId;
+    token = JSON.parse(getUInfo()).accessToken;
   }
-  let token = appInfo.token;
   let random = Math.floor(Math.random() * 999999);
-  let timestamp = new Date().getTime();
-  config.headers.userId = appInfo.userId;
   config.headers.random = random;
+  let timestamp = new Date().getTime();
   config.headers.timestamp = timestamp;
   let requestId = md5(timestamp + token + random);
   config.headers.requestId = requestId;
   config.headers.token = token;
+  return config
 
-  if (!config.params) config.params = {};
-  config.params.appId = appInfo.appId;
-  config.params.appVersion = appInfo.appVersion;
-  config.params.platform = appInfo.platform;
-  config.params.userId = appInfo.userId;
-  config.params.timeZone = appInfo.timeZone;
-  return config;
 });
 
 // response interceptor
@@ -47,12 +39,12 @@ service.interceptors.response.use(
     const res = response.data;
     if (res.code == 0) {
       return res;
-    }else if(res.code==2000){
-      if (process.env.NODE_ENV != "dev"&&!getQueryString('isShare')) {
+    } else if (res.code == 2000) {
+      if (process.env.NODE_ENV != "dev" && !getQueryString('isShare')) {
         interaction.getAppInfoAndUserInfo();
         return service.request(response.config)
       }
-    }else if (
+    } else if (
       res.code == 400 ||
       res.code == 500 ||
       res.code == 1000 ||
@@ -84,21 +76,21 @@ service.interceptors.response.use(
 
 let getToken = (config) => {
 
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve, reject) {
     if (process.env.NODE_ENV == "dev") {
       resolve(config);
     }
-    if(getQueryString('isShare')){
+    if (getQueryString('isShare')) {
       resolve(config);
-      return 
+      return
     }
     interaction.getAppInfoAndUserInfo();
-    let tokenInterval=setInterval(()=>{
-      if(localStorage.getItem('appInfo')){
+    let tokenInterval = setInterval(() => {
+      if (localStorage.getItem('appInfo')) {
         resolve(config);
         clearInterval(tokenInterval)
       }
-    },100)
+    }, 100)
     //resolve(config);
   }).then(
     (res) => {
