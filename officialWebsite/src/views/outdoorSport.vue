@@ -25,8 +25,8 @@
             </div>
             <div class="productBox phone_box">
                 <swiper :options="swiperOptions_phone" ref="phoneSwiper">
-                    <swiper-slide v-for="item in 5">
-                        <img class="productImg" src="../assets/img/ad.png" alt="">
+                    <swiper-slide v-for="item in list">
+                        <img class="productImg" :src="item.productAllPictureList[0]?item.productAllPictureList[0].pictureVideo:''">
                         <p class="productTitle">t30</p>
                     </swiper-slide>
                 </swiper>
