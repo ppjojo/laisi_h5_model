@@ -2,15 +2,14 @@
     <div class="contain">
         <!-- banner图 -->
         <div class="bannerBox ">
-            <el-carousel :interval="5000" height="10rem">
-                <el-carousel-item v-for="item in 3" :key="item">
-                    <!-- <div class="bannerImg_contain" :style="{'background-image':'url(../assets/img/banner.png)'}"></div> -->
-                    <div class="bannerImg_contain"></div>
-                </el-carousel-item>
-            </el-carousel>
+            <swiper :options="swiperOptions_bannner">
+                <swiper-slide v-for="item in banner">
+                    <div class="bannerImg_contain" :style="{'background-image':'url('+item.pictureVideo+')'}"></div>
+                </swiper-slide>
+            </swiper>
 
             <div class="productBox pc_box">
-                <swiper :options="swiperOptions" ref="mySwiper">
+                <swiper :options="swiperOptions" ref="pcSwiper">
                     <swiper-slide v-for="item in 5">
                         <img class="productImg" src="../assets/img/ad.png" alt="">
                         <p class="productTitle">t30</p>
@@ -25,7 +24,7 @@
 
             </div>
             <div class="productBox phone_box">
-                <swiper :options="swiperOptions_phone">
+                <swiper :options="swiperOptions_phone" ref="phoneSwiper">
                     <swiper-slide v-for="item in 5">
                         <img class="productImg" src="../assets/img/ad.png" alt="">
                         <p class="productTitle">t30</p>
@@ -41,8 +40,9 @@
                 <img class="moduleTitleImg" src="../assets/img/outdoorSport/jxtj.png" alt="">
             </div>
             <div class="buyBoxList">
-                <el-row >
-                    <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12" style="padding:0 10px ;box-sizing: border-box;">
+                <el-row>
+                    <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12"
+                        style="padding:0 10px ;box-sizing: border-box;">
                         <div class="buyBox">
                             <div class="label">新品</div>
                             <div class="title">智能健腹轮</div>
@@ -114,11 +114,22 @@
 </template>
 
 <script>
+    import {
+        getAllPicture
+    } from "@a/picture";
     export default {
         name: 'index',
         props: {},
         data() {
             return {
+                banner: [],
+                swiperOptions_bannner: {
+                    spaceBetween: 0,
+                    loop: true,
+                    observer: true, //修改swiper自己或子元素时，自动初始化swiper 
+                    observeParents: true //修改swiper的父元素时，自动初始化swiper 
+
+                },
                 swiperOptions: {
                     slidesPerView: 5,
                     spaceBetween: 0,
@@ -140,12 +151,23 @@
 
 
         },
+        created() {
+            this.getBanner()
+        },
         methods: {
             slidePrev() {
-                this.$refs.mySwiper.swiperInstance.slidePrev()
+                this.$refs.pcSwiper.swiperInstance.slidePrev()
             },
             slideNext() {
-                this.$refs.mySwiper.swiperInstance.slideNext()
+                this.$refs.pcSwiper.swiperInstance.slideNext()
+            },
+            getBanner() {
+                getAllPicture({
+                    pictureBelong: 5,
+                    pictureType: 0
+                }).then(res => {
+                    this.banner = res.data;
+                })
             },
         }
     }
@@ -172,7 +194,7 @@
                 box-shadow: 3px 4px 20px 6px rgba(173, 173, 173, 0.06);
                 position: absolute;
                 bottom: -1.5rem;
-                left: calc( 50% - 7rem);
+                left: calc(50% - 7rem);
                 z-index: 8;
 
 
@@ -243,6 +265,7 @@
 
         .bannerBox {
             position: relative;
+
             .bannerImg_contain {
                 background-image: url('../assets/img/banner.png');
                 width: 100%;
@@ -253,7 +276,7 @@
             }
         }
 
-       
+
 
         .buyBoxList {
             max-width: 14rem;

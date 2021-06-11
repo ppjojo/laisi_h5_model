@@ -2,12 +2,11 @@
     <div class="contain">
         <!-- banner图 -->
         <div class="bannerBox ">
-            <el-carousel :interval="5000" height="10rem">
-                <el-carousel-item v-for="item in 3" :key="item">
-                    <!-- <div class="bannerImg_contain" :style="{'background-image':'url(../assets/img/banner.png)'}"></div> -->
-                    <div class="bannerImg_contain"></div>
-                </el-carousel-item>
-            </el-carousel>
+             <swiper :options="swiperOptions_bannner">
+                <swiper-slide v-for="item in banner">
+                    <div class="bannerImg_contain" :style="{'background-image':'url('+item.pictureVideo+')'}"></div>
+                </swiper-slide>
+            </swiper>
         </div>
         
       
@@ -97,12 +96,22 @@
 </template>
 
 <script>
+import {
+        getAllPicture
+    } from "@a/picture";
     export default {
         name: 'index',
         props: {},
         data() {
             return {
+                banner: [],
+                swiperOptions_bannner: {
+                    spaceBetween: 0,
+                    loop: true,
+                    observer: true, //修改swiper自己或子元素时，自动初始化swiper 
+                    observeParents: true //修改swiper的父元素时，自动初始化swiper 
 
+                },
             }
         },
         computed: {
@@ -112,8 +121,18 @@
 
 
         },
+        created(){
+             this.getBanner()
+        },
         methods: {
-
+            getBanner() {
+                getAllPicture({
+                    pictureBelong: 6,
+                    pictureType: 0
+                }).then(res => {
+                    this.banner = res.data;
+                })
+            },
         }
     }
 </script>

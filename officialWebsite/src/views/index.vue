@@ -1,11 +1,11 @@
 <template>
 	<div class="contain">
 		<div class="bannerBox ">
-			<el-carousel :interval="5000" height="10rem">
-				<el-carousel-item v-for="item in banner" :key="item">
-					<div class="bannerImg_contain" :style="{'background-image':'url('+item.pictureVideo+')'}"></div>
-				</el-carousel-item>
-			</el-carousel>
+			<swiper :options="swiperOptions_bannner">
+                <swiper-slide v-for="item in banner">
+                    <div class="bannerImg_contain" :style="{'background-image':'url('+item.pictureVideo+')'}"></div>
+                </swiper-slide>
+            </swiper>
 		</div>
 		<div class="hotProductBox">
 			<div class="imgBox" v-for="item in hotproduct">
@@ -98,6 +98,13 @@
 				banner: [],
 				hotproduct: [],
 				newsList: [],
+				swiperOptions_bannner: {
+                    spaceBetween: 0,
+                    loop: true,
+                    observer: true, //修改swiper自己或子元素时，自动初始化swiper 
+                    observeParents: true //修改swiper的父元素时，自动初始化swiper 
+
+                },
 				swiperOptions: {
 					slidesPerView: 3,
 					spaceBetween: 0,
@@ -147,7 +154,7 @@
 			},
 			news() {
 				getNews({
-					pageSize: 3,
+					pageSize: 4,
 					pageNum: 0
 				}).then(res => {
 					this.newsList = res.data.websiteNewsList;
@@ -164,23 +171,7 @@
 		}
 	}
 </script>
-<style lang="scss">
-	.el-carousel__button {
-		width: 0.1rem;
-		height: 0.1rem;
-		border-radius: 5px;
-		background-color: rgba(182, 207, 248, 0.35);
-	}
 
-	.is-active {
-		.el-carousel__button {
-			width: 0.1rem;
-			height: 0.2rem;
-			border-radius: 5px;
-			background-color: #9ABBFF;
-		}
-	}
-</style>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
@@ -484,7 +475,7 @@
 			.bannerImg_contain {
 				background-image: url('../assets/img/banner.png');
 				width: 100%;
-				height: 100%;
+				height: 10rem;
 				background-size: cover;
 				background-position: 50% 50%;
 				background-repeat: no-repeat;

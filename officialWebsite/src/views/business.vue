@@ -3,7 +3,7 @@
         <div class="bannerBox ">
             <img class="qr" src="../assets/img/cooprate/qr.png" alt="">
             <el-carousel :interval="5000" height="10rem">
-                <el-carousel-item v-for="item in banner" :key="item">
+                <el-carousel-item v-for="item in banner" >
                     <div class="bannerImg_contain" :style="{'background-image':'url('+item.pictureVideo+')'}"></div>
                 </el-carousel-item>
             </el-carousel>

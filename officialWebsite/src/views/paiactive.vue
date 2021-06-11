@@ -1,9 +1,9 @@
 <template>
     <div class="contain">
         <!-- banner图 -->
-        <div class="bannerBox " v-for="item in banner">
-            <div class="bannerImg_contain" :style="{'background-image':'url('+item.pictureVideo+')'}"></div>
-            
+        <div class="bannerBox ">
+            <div class="bannerImg_contain" v-if="banner.length>0"
+                :style="{'background-image':'url('+banner[0].pictureVideo+')'}"></div>
         </div>
 
         <!-- AIOT时代下 -->
@@ -79,7 +79,7 @@
             </div>
         </div>
         <div class="phone_box  InterfaceBox_phone">
-            <swiper :options="swiperOptions">
+            <swiper :options="swiperOptions2">
                 <swiper-slide v-for="item in 3">
                     <img src="../assets/img/ad.png" alt="">
                 </swiper-slide>
@@ -143,8 +143,8 @@
                                 提升其产品附加值，实
                                 现双方互利共赢。</div>
                             <div class="iconBox">
-                                <img  class="img2" src="../assets/img/paiactive/1-2.png" alt="">
-                                <img  class="img1" src="../assets/img/paiactive/1-1.png" alt="">
+                                <img class="img2" src="../assets/img/paiactive/1-2.png" alt="">
+                                <img class="img1" src="../assets/img/paiactive/1-1.png" alt="">
                             </div>
                         </div>
 
@@ -161,7 +161,7 @@
                                 资源的优先配置。</div>
                             <div class="iconBox">
                                 <img class="img2" src="../assets/img/paiactive/2-2.png" alt="">
-                                <img  class="img1" src="../assets/img/paiactive/2-1.png" alt="">
+                                <img class="img1" src="../assets/img/paiactive/2-1.png" alt="">
                             </div>
                         </div>
                     </el-col>
@@ -175,7 +175,7 @@
                             <div class="content">百万健身运动爱好者的首先健康管理平台。</div>
                             <div class="iconBox">
                                 <img class="img2" src="../assets/img/paiactive/3-2.png" alt="">
-                                <img  class="img1" src="../assets/img/paiactive/3-1.png" alt="">
+                                <img class="img1" src="../assets/img/paiactive/3-1.png" alt="">
                             </div>
                         </div>
                     </el-col>
@@ -192,8 +192,8 @@
                                 …
                             </div>
                             <div class="iconBox">
-                                <img  class="img2" src="../assets/img/paiactive/4-2.png" alt="">
-                                <img  class="img1" src="../assets/img/paiactive/4-1.png" alt="">
+                                <img class="img2" src="../assets/img/paiactive/4-2.png" alt="">
+                                <img class="img1" src="../assets/img/paiactive/4-1.png" alt="">
                             </div>
                         </div>
                     </el-col>
@@ -218,7 +218,7 @@
 </template>
 
 <script>
-import {
+    import {
         getAllPicture
     } from "@a/picture";
     export default {
@@ -226,11 +226,25 @@ import {
         props: {},
         data() {
             return {
-                banner:[],
+                banner: [],
                 swiperOptions: {
                     spaceBetween: 0,
                     centeredSlides: true,
                     loop: true,
+                    observer: true, 
+                    observeParents: true, 
+                    autoplay: {
+                        delay: 1000,
+                        stopOnLastSlide: false,
+                        disableOnInteraction: true,
+                    },
+                },
+                swiperOptions2: {
+                    spaceBetween: 0,
+                    centeredSlides: true,
+                    loop: true,
+                    observer: true, 
+                    observeParents: true, 
                     autoplay: {
                         delay: 1000,
                         stopOnLastSlide: false,
@@ -244,11 +258,11 @@ import {
 
         },
         mounted() {
-
+            this.getBanner()
 
         },
-        created(){
-            this.getBanner()
+        created() {
+
         },
         methods: {
             getBanner() {
@@ -294,7 +308,7 @@ import {
 
     //小于992
     @media (max-width: 992px) {
-        
+
 
         .pc_box {
             display: none;
@@ -552,14 +566,17 @@ import {
                         bottom: 0.45rem;
                         width: 0.5rem;
                         z-index: 2;
-                        img{
+
+                        img {
                             width: 100%;
                             height: 100%;
                         }
-                        .img2{
+
+                        .img2 {
                             display: block;
                         }
-                        .img1{
+
+                        .img1 {
                             display: none;
                         }
                     }
@@ -575,10 +592,12 @@ import {
                             transition: all 0.5s;
                             opacity: 1;
                         }
-                         .img1{
+
+                        .img1 {
                             display: block;
                         }
-                        .img2{
+
+                        .img2 {
                             display: none;
                         }
                     }
