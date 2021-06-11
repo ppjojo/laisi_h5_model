@@ -9,11 +9,11 @@
 		</div>
 		<div class="hotProductBox">
 			<div class="imgBox" v-for="item in hotproduct">
-				<img src="../assets/img/ad.png" alt="">
+				<img :src="item.pictureVideo" alt="">
 				<div class="buttonBox">
 					<div class="detail">
 						<p class="title">{{item.pictureName}}</p>
-						<p class="descript">Smart Rope</p>
+						<p class="descript">{{item.englishName}}</p>
 					</div>
 					<div class=" iconfont icon-jinrufasong">
 					</div>
