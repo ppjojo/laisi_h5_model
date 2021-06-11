@@ -2,10 +2,10 @@
 	<div class="contain">
 		<div class="bannerBox ">
 			<swiper :options="swiperOptions_bannner">
-                <swiper-slide v-for="item in banner">
-                    <div class="bannerImg_contain" :style="{'background-image':'url('+item.pictureVideo+')'}"></div>
-                </swiper-slide>
-            </swiper>
+				<swiper-slide v-for="item in banner">
+					<div class="bannerImg_contain" :style="{'background-image':'url('+item.pictureVideo+')'}"></div>
+				</swiper-slide>
+			</swiper>
 		</div>
 		<div class="hotProductBox">
 			<div class="imgBox" v-for="item in hotproduct">
@@ -40,7 +40,7 @@
 							<div class="content" v-html="item.newsBody">
 
 							</div>
-							<div class="button_more" @click="gotoNewsList">阅读全文</div>
+							<div class="button_more" @click="gotoNewsList(item.id)">阅读全文</div>
 						</div>
 
 					</swiper-slide>
@@ -61,7 +61,7 @@
 							<div class="content" v-html="item.newsBody">
 
 							</div>
-							<div class="button_more" @click="gotoNewsList">阅读全文</div>
+							<div class="button_more" @click="gotoNewsList(item.id)">阅读全文</div>
 						</div>
 
 					</swiper-slide>
@@ -99,17 +99,19 @@
 				hotproduct: [],
 				newsList: [],
 				swiperOptions_bannner: {
-                    spaceBetween: 0,
-                    loop: true,
-                    observer: true, //修改swiper自己或子元素时，自动初始化swiper 
-                    observeParents: true //修改swiper的父元素时，自动初始化swiper 
+					spaceBetween: 0,
+					loop: true,
+					observer: true, //修改swiper自己或子元素时，自动初始化swiper 
+					observeParents: true //修改swiper的父元素时，自动初始化swiper 
 
-                },
+				},
 				swiperOptions: {
 					slidesPerView: 3,
 					spaceBetween: 0,
 					centeredSlides: true,
 					loop: true,
+					observer: true,
+					observeParents: true,
 					autoplay: {
 						delay: 1000,
 						stopOnLastSlide: false,
@@ -119,7 +121,8 @@
 				swiperOptions2: {
 					slidesPerView: 1,
 					spaceBetween: 0,
-					// centeredSlides: true,
+					observer: true,
+					observeParents: true,
 					loop: true,
 					autoplay: {
 						delay: 1000,
@@ -160,11 +163,11 @@
 					this.newsList = res.data.websiteNewsList;
 				})
 			},
-			gotoNewsList() {
+			gotoNewsList(id) {
 				this.$router.push({
 					path: "newsList",
 					query: {
-						id: 5
+						id: id
 					}
 				})
 			}
@@ -268,7 +271,7 @@
 
 				.swiper-slide {
 					text-align: left;
-					font-size: 18px;
+					// font-size: 18px;
 					background: #fff;
 					box-shadow: 3px 4px 20px 6px rgba(0, 0, 0, 0.06);
 					transition: 300ms;
@@ -308,6 +311,7 @@
 						font-size: 0.15rem;
 						color: #777;
 						line-height: 0.3rem;
+						height: 0.9rem;
 						overflow: hidden;
 						text-overflow: ellipsis;
 						display: box;

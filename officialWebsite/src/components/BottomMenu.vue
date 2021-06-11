@@ -36,14 +36,14 @@
 				<el-col  :md="4" :lg="4" :xl="4">
 					<ul class="uls">
 						<li class="title">下载app</li>
-						<li class="detail"><img src="../assets/logo.png" alt=""></li>
+						<li class="detail"><img src="../assets/img/pai.png" alt=""></li>
 					</ul>
 				</el-col>
 				<el-col :md="4" :lg="4" :xl="4">
 					<ul class="uls">
 						<li class="title">关注我们</li>
-						<li class="detail"><img src="../assets/logo.png" alt=""></li>
-						<li class="detail"><img src="../assets/logo.png" alt=""></li>
+						<li class="detail"><img src="../assets/img/wechat.png" alt=""></li>
+						<li class="detail"><img src="../assets/img/sina.png" alt=""></li>
 					</ul>
 				</el-col>
 			</el-row>
@@ -78,13 +78,13 @@
 			</el-collapse-item>
 			<el-collapse-item title="下载app">
 				<div class="itemBox">
-					<img src="../assets/logo.png" alt="">
+					<img src="../assets/img/pai.png" alt="">
 				</div>
 			</el-collapse-item>
 			<el-collapse-item title="关注我们">
 				<div class="itemBox">
-					<img src="../assets/logo.png" alt="">
-					<img src="../assets/logo.png" alt="">
+					<img src="../assets/img/wechat.png" alt="">
+					<img src="../assets/img/sina.png" alt="">
 				</div>
 			</el-collapse-item>
 		</el-collapse>

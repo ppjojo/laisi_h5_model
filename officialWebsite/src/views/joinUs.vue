@@ -161,7 +161,7 @@
         background-color: rgb(246, 248, 251);
 
         .bannerBox {
-            background-image: url('../assets/img/banner.png');
+            background-image: url('../assets/img/joinus/bg.png');
             width: 100%;
             height: 8.5rem;
             background-size: cover;
@@ -174,6 +174,8 @@
             margin: 0 auto;
             background-color: rgba(255, 255, 255, 1);
             box-shadow: 3px 4px 20px 6px rgba(173, 173, 173, 0.06);
+            position: relative;
+            top: -1rem;
 
             .buttonDiv {
                 height: 0.87rem;

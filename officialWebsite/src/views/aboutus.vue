@@ -55,7 +55,7 @@
             </div>
             <!-- 企业文化 -->
             <div id="culture_link">
-                <img class="bg" src="../assets/img/ad.png" alt="">
+                <img class="bg" src="../assets/img/aboutus/culture-bg.png" alt="">
                 <div class="cultureDiv">
                     <div class="imgBox">
                         <img src="../assets/img/aboutus/culture1.png" alt="">
@@ -162,9 +162,9 @@
             }
         },
         mounted() {
-            // this.$nextTick(() => {
-            //     this.goAnchor(this.$route.query.id)
-            // })
+            this.$nextTick(() => {
+                this.goAnchor(this.$route.query.id)
+            })
         },
         created() {
             this.getBanner()

@@ -394,7 +394,7 @@ import {
             padding: 1rem 0 3rem 0;
 
             .bg {
-                background-image: url('../assets/img/banner.png');
+                background-image: url('../assets/img/solution/cpdz-bg.png');
                 width: 100%;
                 height: 6.5rem;
                 background-size: cover;

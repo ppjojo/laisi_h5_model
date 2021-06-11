@@ -3,10 +3,11 @@
         <div class="bannerBox ">
             <img class="qr" src="../assets/img/cooprate/qr.png" alt="">
             <el-carousel :interval="5000" height="10rem">
-                <el-carousel-item v-for="item in banner" >
+                <el-carousel-item v-for="item in banner">
                     <div class="bannerImg_contain" :style="{'background-image':'url('+item.pictureVideo+')'}"></div>
                 </el-carousel-item>
             </el-carousel>
+            <div class="joinUsButton" @click="joinUs">加入我们</div>
         </div>
 
         <div class="typeBox">
@@ -154,7 +155,7 @@
             </div>
             <div class="parterDiv">
                 <img v-for="item in parterList" :src="item.pictureVideo" alt="">
-                
+
             </div>
         </div>
     </div>
@@ -164,14 +165,14 @@
     import {
         getAllPicture
     } from "@a/picture";
-   
+
     export default {
         name: 'HelloWorld',
         props: {},
         data() {
             return {
                 banner: [],
-                parterList:[]
+                parterList: []
             }
         },
         mounted() {},
@@ -196,6 +197,11 @@
                     this.parterList = res.data;
                 })
             },
+            joinUs() {
+                this.$router.push({
+                    path: "joinUs"
+                })
+            }
         }
     }
 </script>
@@ -217,6 +223,8 @@
         background: linear-gradient(to bottom, #FFFFFF, #EEF3FC, #F9FDFF, #E6FBFF, #EEF3FD);
 
         .bannerBox {
+            position: relative;
+
             .bannerImg_contain {
                 background-image: url('../assets/img/banner.png');
                 width: 100%;
@@ -232,6 +240,20 @@
                 right: 10%;
                 width: 3.2rem;
                 z-index: 3;
+            }
+
+            .joinUsButton {
+                position: absolute;
+                top: 45%;
+                left: calc(50% - 1rem);
+                border-radius: 0.25rem;
+                width: 2rem;
+                line-height: 0.5rem;
+                color: #fff;
+                background-color: rgba(51, 51, 48, 1);
+                box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.5);
+                z-index: 2;
+                font-size: 0.22rem;
             }
         }
 

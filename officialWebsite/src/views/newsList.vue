@@ -6,53 +6,47 @@
         </div>
 
         <div class="newsContent">
-            <el-row >
+            <el-row>
                 <el-col :xs="24" :sm="24" :md="16" :lg="16" :xl="16">
                     <div class="newsDetail">
-                <div class="title">热烈祝贺铼锶成为二类重点扶持企业</div>
-                <div class="descript">
-                    <span>2021年5月5日</span>
-                </div>
-                <div class="content">
-                    受到法国军事科技大法官撒旦感觉啥都法国凯撒的科技股份十大受到法国军事科技大法官撒旦感觉啥都法国凯撒的科技股份十大受到法国军事科技大法官撒旦感觉啥都法国凯撒的科技股份十大
-                    受到法国军事科技大法官撒旦感觉啥都法国凯撒的科技股份十大受到法国军事科技大法官撒旦感觉啥都法国凯撒的科技股份十大受到法国军事科技大法官撒旦感觉啥都法国凯撒的科技股份十大
-                    受到法国军事科技大法官撒旦感觉啥都法国凯撒的科技股份十大受到法国军事科技大法官撒旦感觉啥都法国凯撒的科技股份十大受到法国军事科技大法官撒旦感觉啥都法国凯撒的科技股份十大
-                    受到法国军事科技大法官撒旦感觉啥都法国凯撒的科技股份十大受到法国军事科技大法官撒旦感觉啥都法国凯撒的科技股份十大受到法国军事科技大法官撒旦感觉啥都法国凯撒的科技股份十大
-                    受到法国军事科技大法官撒旦感觉啥都法国凯撒的科技股份十大受到法国军事科技大法官撒旦感觉啥都法国凯撒的科技股份十大受到法国军事科技大法官撒旦感觉啥都法国凯撒的科技股份十大
-                    受到法国军事科技大法官撒旦感觉啥都法国凯撒的科技股份十大受到法国军事科技大法官撒旦感觉啥都法国凯撒的科技股份十大受到法国军事科技大法官撒旦感觉啥都法国凯撒的科技股份十大
-                    受到法国军事科技大法官撒旦感觉啥都法国凯撒的科技股份十大受到法国军事科技大法官撒旦感觉啥都法国凯撒的科技股份十大受到法国军事科技大法官撒旦感觉啥都法国凯撒的科技股份十大
-                </div>
-                <div class="buttonBox">
-                    <div class="button"> 上一篇</div>
-                    <div class="button"> 下一篇</div>
+                        <div class="title">{{detail.newsTitle}}</div>
+                        <div class="descript">
+                            <span>{{detail.updateTime | formatDate}}</span>
+                        </div>
+                        <div class="content">
+                            {{detail.newsBody}}
+                        </div>
+                        <div class="buttonBox">
+                            <div class="button" @click="changeNews(-1)"> 上一篇</div>
+                            <div class="button" @click="changeNews(1)"> 下一篇</div>
 
-                </div>
-            </div>
+                        </div>
+                    </div>
                 </el-col>
-               <el-col :xs="24" :sm="24" :md="8" :lg="8" :xl="8">
+                <el-col :xs="24" :sm="24" :md="8" :lg="8" :xl="8">
                     <div class="newsNav">
-                <div class="navTitle">
-                    <img src="../assets/img/paiactive/Aiot-1.png" alt="">
-                    更多新闻
-                </div>
-                <div class="listBox">
-                    <ul>
-                        <li v-for="item in 8">
-                            <div class="cover"></div>
-                            <div class="newsBody">
-                                <p class="title">受到法国军事科技大法官撒旦感觉啥都法国凯撒的科技股份十大</p>
-                                <div class="dateBox">
-                                    <span>2021年5月5日</span>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+                        <div class="navTitle">
+                            <img src="../assets/img/news/hot.png" alt="">
+                            更多新闻
+                        </div>
+                        <div class="listBox">
+                            <ul>
+                                <li v-for="item in newsList">
+                                    <div class="cover" :style="{'background-image':'url('+item.newsPicture+')'}"></div>
+                                    <div class="newsBody">
+                                        <p class="title">{{item.newsTitle}}</p>
+                                        <div class="dateBox">
+                                            <span>{{item.updateTime | formatDate}}</span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </el-col>
             </el-row>
-            
-            
+
+
         </div>
 
 
@@ -71,12 +65,32 @@
 </template>
 
 <script>
+    import {
+        formatDate
+    } from '@/utils/tool'
+    import {
+        getNews
+    } from "@a/index";
+    import {
+        getNewsDetail
+    } from "@a/news";
+    
     export default {
+        filters: {
+			formatDate(time) {
+				time = time
+				let date = new Date(time)
+				return formatDate(date, 'yyyy-MM-dd hh:mm')
+			},
+		},
         name: 'index',
         props: {},
         data() {
             return {
                 active: 1,
+                newsList: [],
+                detail:{},
+                activeId:""
 
             }
         },
@@ -84,10 +98,36 @@
 
         },
         mounted() {
-
+            this.news()
+            this.newsDetail(this.$route.query.id)
         },
         methods: {
+            news() {
+                getNews({
+                    pageSize: 99,
+                    pageNum: 0
+                }).then(res => {
+                    this.newsList = res.data.websiteNewsList;
+                })
+            },
+            newsDetail(id) {
+                this.activeId=id
+                getNewsDetail({
+                    id:id
+                }).then(res => {
+                    this.detail = res;
+                })
+            },
+            changeNews(type){
+                var index=this.newsList.findIndex((item)=>{
+                    return item.id==this.activeId
+                })
+                let len=this.newsList.length
+                let to= (index+type+len)%len
+                this.newsDetail(this.newsList[to].id)
 
+              
+            }
 
         }
     }
@@ -98,7 +138,7 @@
         text-align: left;
 
         .bannerBox {
-            background-image: url('../assets/img/banner.png');
+            background-image: url('../assets/img/news/newsBg.png');
             width: 100%;
             height: 8.5rem;
             background-size: cover;
@@ -116,6 +156,7 @@
 
             .newsDetail {
                 margin-bottom: 1rem;
+
                 .title {
                     color: #333;
                     font-size: 0.48rem;
@@ -135,13 +176,14 @@
                     line-height: 0.4rem;
                 }
 
-                .buttonBox{
+                .buttonBox {
                     text-align: center;
-                    margin-top: 1rem ;
-                    .button{
+                    margin-top: 1rem;
+
+                    .button {
                         display: inline-block;
                         font-size: 0.24rem;
-                        color: #1A59B7 ;
+                        color: #1A59B7;
                         line-height: 0.5rem;
                         padding: 0 0.5rem;
                     }
@@ -154,6 +196,8 @@
                     color: #333;
                     font-size: 0.38rem;
                     line-height: 0.6rem;
+                    display: flex;
+                    align-items: center;
 
                     img {
                         width: 0.44rem;
@@ -189,13 +233,13 @@
                             padding-right: 0.2rem;
                             margin-top: 0.35rem;
                             display: flex;
-                            justify-content: space-between;
+                            justify-content: flex-start;
                             align-items: center;
 
                             .cover {
                                 background-image: url('../assets/img/paiactive/Aiot-1.png');
                                 background-size: cover;
-                                width:35% ;
+                                width: 35%;
                                 height: 1rem;
                                 margin-right: 0.1rem;
                             }
@@ -208,6 +252,7 @@
                                     font-size: 0.22rem;
                                     line-height: 0.35rem;
                                     overflow: hidden;
+                                    height: 0.7rem;
                                     text-overflow: ellipsis;
                                     display: box;
                                     display: -webkit-box;
@@ -231,16 +276,14 @@
     }
 
     //大于992
-    @media (min-width: 992px) {
-        
-    }
+    @media (min-width: 992px) {}
 
     //小于992
     @media (max-width: 992px) {
         .contain {
             margin-top: 0.66rem;
 
-           
+
         }
     }
 </style>

@@ -36,7 +36,7 @@
                 <div class="imgBox">
                     <swiper :options="swiperOptions">
                         <swiper-slide v-for="item in 3">
-                            <img src="../assets/img/ad.png" alt="">
+                            <img src="../assets/img/paiactive/appshow-1.png" alt="">
                         </swiper-slide>
                     </swiper>
                 </div>
@@ -364,7 +364,7 @@
         }
 
         .InterfaceBox {
-            background-image: url('../assets/img/banner.png');
+            background-image: url('../assets/img/paiactive/app-bg.png');
             width: 100%;
             height: 8.5rem;
             background-size: cover;
