@@ -119,7 +119,7 @@
 				swiperOptions2: {
 					slidesPerView: 1,
 					spaceBetween: 0,
-					centeredSlides: true,
+					// centeredSlides: true,
 					loop: true,
 					autoplay: {
 						delay: 1000,
