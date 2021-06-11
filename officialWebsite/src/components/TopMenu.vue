@@ -39,25 +39,31 @@
 										智能健腹轮</div>
 								</div>
 								<div class="secondTree">
-									<div class="secondTreeBox" v-for="item in 5" v-if="activeNum==1">
-										<img class="secondTree_img" src="../assets/img/ad.png" alt="">
-										<div class="secondTree_title">T30l升级</div>
-										<div class="secondTree_price">¥ 169</div>
-									</div>
+									<template v-for="item in outdoorlist">
+										<div class="secondTreeBox"  v-if="activeNum==1&&item.productDeviceType=='3'">
+											<img class="secondTree_img" :src="item.productPagePic" alt="">
+											<div class="secondTree_title">{{item.productName}}</div>
+											<div class="secondTree_price">¥ {{item.productPrice}}</div>
+										</div>
+									</template>
 								</div>
 								<div class="secondTree">
-									<div class="secondTreeBox" v-if="activeNum==2">
-										<img class="secondTree_img" src="../assets/img/ad.png" alt="">
-										<div class="secondTree_title">T30l升级</div>
-										<div class="secondTree_price">¥ 169</div>
-									</div>
+									<template v-for="item in outdoorlist">
+										<div class="secondTreeBox"  v-if="activeNum==2&&item.productDeviceType=='5'">
+											<img class="secondTree_img" :src="item.productPagePic" alt="">
+											<div class="secondTree_title">{{item.productName}}</div>
+											<div class="secondTree_price">¥ {{item.productPrice}}</div>
+										</div>
+									</template>
 								</div>
 								<div class="secondTree">
-									<div class="secondTreeBox" v-if="activeNum==3">
-										<img class="secondTree_img" src="../assets/img/ad.png" alt="">
-										<div class="secondTree_title">T30l升级</div>
-										<div class="secondTree_price">¥ 169</div>
-									</div>
+									<template v-for="item in outdoorlist">
+										<div class="secondTreeBox"  v-if="activeNum==3&&item.productDeviceType=='4'">
+											<img class="secondTree_img" :src="item.productPagePic" alt="">
+											<div class="secondTree_title">{{item.productName}}</div>
+											<div class="secondTree_price">¥ {{item.productPrice}}</div>
+										</div>
+									</template>
 								</div>
 							</div>
 						</div>
@@ -72,19 +78,23 @@
 									<div class="firstTree_title" :class="activeNum2==5?'active':''"
 										@click="activeNum2=5">无线耳机</div>
 								</div>
-								<div class="secondTree" v-if="activeNum2==4">
-									<div class="secondTreeBox" v-for="item in 2">
-										<img class="secondTree_img" src="../assets/img/ad.png" alt="">
-										<div class="secondTree_title">T30l升级</div>
-										<div class="secondTree_price">¥ 169</div>
-									</div>
+								<div class="secondTree" >
+									<template v-for="item in smartwearlist">
+										<div class="secondTreeBox"  v-if="activeNum2==4&&item.productDeviceType=='1'">
+											<img class="secondTree_img" :src="item.productPagePic" alt="">
+											<div class="secondTree_title">{{item.productName}}</div>
+											<div class="secondTree_price">¥ {{item.productPrice}}</div>
+										</div>
+									</template>
 								</div>
-								<div class="secondTree" v-if="activeNum2==5">
-									<div class="secondTreeBox">
-										<img class="secondTree_img" src="../assets/img/ad.png" alt="">
-										<div class="secondTree_title">T30l升级</div>
-										<div class="secondTree_price">¥ 169</div>
-									</div>
+								<div class="secondTree" >
+									<template v-for="item in smartwearlist">
+										<div class="secondTreeBox"  v-if="activeNum2==5&&item.productDeviceType=='2'">
+											<img class="secondTree_img" :src="item.productPagePic" alt="">
+											<div class="secondTree_title">{{item.productName}}</div>
+											<div class="secondTree_price">¥ {{item.productPrice}}</div>
+										</div>
+									</template>
 								</div>
 							</div>
 						</div>
@@ -142,6 +152,9 @@
 </template>
 
 <script>
+	import {
+	        getAllProduct
+	    } from "@a/product";
 	export default {
 		name: 'TopMenu',
 		props: {},
@@ -153,14 +166,29 @@
 				activeNum: 1,
 				activeNum2: 4,
 				activeNum3: 1,
-				activeNum4: 1
+				activeNum4: 1,
+				outdoorlist:[],
+				smartwearlist:[]
 			}
 		},
 		mounted() {},
 		created() {
 			window.addEventListener('scroll', this.scrollFn);
+			this.getGoods();
 		},
 		methods: {
+			getGoods(){
+				getAllProduct({//户外运动
+				    productBelong: '2'
+				}).then(res => {
+					this.outdoorlist = res.data;
+				})
+				getAllProduct({//智能穿戴
+				    productBelong: '1'
+				}).then(res => {
+					this.smartwearlist = res.data;
+				})
+			},
 			changeLanguage() {
 				this.isDrawDown = !this.isDrawDown
 				this.$i18n.locale == 'zh' ? this.$i18n.locale = 'en' : this.$i18n.locale = 'zh' //设置中英文模式

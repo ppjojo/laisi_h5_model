@@ -10,9 +10,9 @@
 
             <div class="productBox pc_box">
                 <swiper :options="swiperOptions" ref="pcSwiper">
-                    <swiper-slide v-for="item in 5">
-                        <img class="productImg" src="../assets/img/ad.png" alt="">
-                        <p class="productTitle">t30</p>
+                    <swiper-slide v-for="item in list">
+                        <img class="productImg" :src="item.productAllPictureList[0]?item.productAllPictureList[0].pictureVideo:''" alt="">
+                        <p class="productTitle">{{item.productName}}</p>
                     </swiper-slide>
                 </swiper>
                 <div class="navgationBox">
@@ -44,60 +44,50 @@
                     <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12"
                         style="padding:0 10px ;box-sizing: border-box;">
                         <div class="buyBox">
-                            <div class="label">新品</div>
-                            <div class="title">智能健腹轮</div>
-                            <div class="content">和卡莎撒谎看见爱上看见了很大了</div>
+                            <div class="label" v-if="list[0].ifNewProduct==1" >新品</div>
+                            <div class="title">{{list[0].productName}}</div>
+                            <div class="content">{{list[0].productDes}}</div>
                             <div class="colorBox">
-                                <span class="active" style="background-color:#333"></span>
-                                <span style="background-color:red"></span>
+                                <span v-for="(item,index) in list[0].productAllPictureList"
+								:class="index==colorIndex&&hoverIndex==0?'active':''"
+								@mouseover="mouseOver(0,index)" @mouseleave="mouseLeave"
+								  :style="{backgroundColor:item.pictureColor}"></span>
                             </div>
-                            <div class="price">169</div>
+                            <div class="price">{{list[0].productPrice}}</div>
                             <div class="buttonBox">
                                 <div class="buyNow">立即购买</div>
                                 <div class="moreInfo">了解更多</div>
                             </div>
                             <div class="picBox">
-                                <img src="../assets/img/ad.png" alt="">
+                                <img :src="hoverIndex==0?list[0].productAllPictureList[colorIndex].pictureVideo:list[0].productPagePic" alt="">
                             </div>
                         </div>
                     </el-col>
                     <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12" style="padding:0 10px;box-sizing: border-box;">
-                        <div class="buyBox buyBox2">
-                            <div style="width:60%">
-                                <div class="title">智能健腹轮</div>
-                                <div class="content">和卡莎撒谎看见爱上看见了很大了</div>
-                                <div class="colorBox">
-                                    <span class="active" style="background-color:#333"></span>
-                                    <span style="background-color:red"></span>
-                                </div>
-                                <div class="price">169</div>
-                                <div class="buttonBox">
-                                    <div class="buyNow">立即购买</div>
-                                    <div class="moreInfo">了解更多</div>
-                                </div>
-                            </div>
-                            <div class="picBox" style="width:40%">
-                                <img src="../assets/img/ad.png" alt="">
-                            </div>
-                        </div>
-                        <div class="buyBox buyBox2">
-                            <div style="width:60%">
-                                <div class="title">智能健腹轮</div>
-                                <div class="content">和卡莎撒谎看见爱上看见了很大了</div>
-                                <div class="colorBox">
-                                    <span class="active" style="background-color:#333"></span>
-                                    <span style="background-color:red"></span>
-                                </div>
-                                <div class="price">169</div>
-                                <div class="buttonBox">
-                                    <div class="buyNow">立即购买</div>
-                                    <div class="moreInfo">了解更多</div>
-                                </div>
-                            </div>
-                            <div class="picBox" style="width:40%">
-                                <img src="../assets/img/ad.png" alt="">
-                            </div>
-                        </div>
+						<template v-for="(item,index) in list">
+							<div v-if="index>0" class="buyBox buyBox2">
+							    <div style="width:60%">
+									<div class="label" v-if="item.ifNewProduct==1" >新品</div>
+							        <div class="title">{{item.productName}}</div>
+							        <div class="content">{{item.productDes}}</div>
+							        <div class="colorBox">
+							           <span v-for="(color,cindex) in item.productAllPictureList"
+									   :class="cindex==colorIndex&&hoverIndex==index?'active':''"
+									   @mouseover="mouseOver(index,cindex)" @mouseleave="mouseLeave"
+							             :style="{backgroundColor:color.pictureColor}"></span>
+							        </div>
+							        <div class="price">{{item.productPrice}}</div>
+							        <div class="buttonBox">
+							            <div class="buyNow">立即购买</div>
+							            <div class="moreInfo">了解更多</div>
+							        </div>
+							    </div>
+							    <div class="picBox" style="width:40%">
+							        <img :src="hoverIndex==index?item.productAllPictureList[colorIndex].pictureVideo:item.productPagePic" alt="">
+							    </div>
+							</div>
+						</template>
+                        
                     </el-col>
                 </el-row>
             </div>
@@ -115,14 +105,20 @@
 
 <script>
     import {
-        getAllPicture
-    } from "@a/picture";
+        getAllProduct
+    } from "@a/product";
+	import {
+	    getAllPicture
+	} from "@a/picture";
     export default {
         name: 'index',
         props: {},
         data() {
             return {
+				list:[],
                 banner: [],
+				hoverIndex:null,
+				colorIndex:null,
                 swiperOptions_bannner: {
                     spaceBetween: 0,
                     loop: true,
@@ -152,9 +148,17 @@
 
         },
         created() {
-            this.getBanner()
+            this.getBanner();
+			this.getGoods()
         },
         methods: {
+			mouseOver(index,cindex){//sku小图鼠标移进移出
+				this.colorIndex = cindex;
+				this.hoverIndex = index;
+			},
+			mouseLeave(){
+				this.hoverIndex = this.colorIndex = null;
+			},
             slidePrev() {
                 this.$refs.pcSwiper.swiperInstance.slidePrev()
             },
@@ -169,6 +173,13 @@
                     this.banner = res.data;
                 })
             },
+			getGoods(){
+				getAllProduct({
+				    productBelong: '2'
+				}).then(res => {
+					this.list = res.data;
+				})
+			}
         }
     }
 </script>
@@ -336,7 +347,7 @@
                     display: block;
                     position: relative;
                     margin-right: 0.5rem;
-
+					cursor: pointer;
 
                 }
 

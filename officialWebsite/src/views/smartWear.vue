@@ -17,66 +17,54 @@
                     <el-col style="padding:0 10px ;box-sizing: border-box;">
                         <div class="buyBox buyBox2">
                             <div style="width:60%">
-                                <div class="label">新品</div>
-                                <div class="title">智能健腹轮</div>
-                                <div class="content">和卡莎撒谎看见爱上看见了很大了</div>
+                                <div class="label" v-if="list[0].ifNewProduct==1" >新品</div>
+                                <div class="title">{{list[0].productName}}</div>
+                                <div class="content">{{list[0].productDes}}</div>
                                 <div class="colorBox">
-                                    <span class="active" style="background-color:#333"></span>
-                                    <span style="background-color:red"></span>
+                                    <span v-for="(item,index) in list[0].productAllPictureList"
+                                    :class="index==colorIndex&&hoverIndex==0?'active':''"
+                                    @mouseover="mouseOver(0,index)" @mouseleave="mouseLeave"
+                                      :style="{backgroundColor:item.pictureColor}"></span>
                                 </div>
-                                <div class="price">169</div>
+                                <div class="price">{{list[0].productPrice}}</div>
                                 <div class="buttonBox">
                                     <div class="buyNow">立即购买</div>
                                     <div class="moreInfo">了解更多</div>
                                 </div>
                             </div>
                             <div class="picBox" style="width:40%">
-                                <img src="../assets/img/ad.png" alt="">
+                                <img :src="hoverIndex==0?list[0].productAllPictureList[colorIndex].pictureVideo:list[0].productPagePic" alt="">
                             </div>
                         </div>
                     </el-col>
                     <el-col>
                         <el-row class="" >
-                            <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12" style="padding:0 10px ;box-sizing: border-box;">
-                                <div class="buyBox">
-                                    <div>
-                                        <div class="title">智能健腹轮</div>
-                                        <div class="content">和卡莎撒谎看见爱上看见了很大了</div>
-                                        <div class="colorBox">
-                                            <span class="active" style="background-color:#333"></span>
-                                            <span style="background-color:red"></span>
-                                        </div>
-                                        <div class="price">169</div>
-                                        <div class="buttonBox">
-                                            <div class="buyNow">立即购买</div>
-                                            <div class="moreInfo">了解更多</div>
-                                        </div>
-                                    </div>
-                                    <div class="picBox">
-                                        <img src="../assets/img/ad.png" alt="">
-                                    </div>
-                                </div>
-                            </el-col>
-                            <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12" style="padding:0 10px ;box-sizing: border-box;">
-                                <div class="buyBox">
-                                    <div>
-                                        <div class="title">智能健腹轮</div>
-                                        <div class="content">和卡莎撒谎看见爱上看见了很大了</div>
-                                        <div class="colorBox">
-                                            <span class="active" style="background-color:#333"></span>
-                                            <span style="background-color:red"></span>
-                                        </div>
-                                        <div class="price">169</div>
-                                        <div class="buttonBox">
-                                            <div class="buyNow">立即购买</div>
-                                            <div class="moreInfo">了解更多</div>
-                                        </div>
-                                    </div>
-                                    <div class="picBox">
-                                        <img src="../assets/img/ad.png" alt="">
-                                    </div>
-                                </div>
-                            </el-col>
+							<template v-for="(item,index) in list">
+								<el-col v-if="index>0" :xs="24" :sm="24" :md="12" :lg="12" :xl="12" style="padding:0 10px ;box-sizing: border-box;">
+								    <div class="buyBox">
+								        <div>
+											<div class="label" v-if="list[0].ifNewProduct==1" >新品</div>
+								            <div class="title">{{item.productName}}</div>
+								            <div class="content">{{item.productDes}}</div>
+								            <div class="colorBox">
+								               <span v-for="(color,cindex) in item.productAllPictureList"
+								               :class="cindex==colorIndex&&hoverIndex==index?'active':''"
+								               @mouseover="mouseOver(index,cindex)" @mouseleave="mouseLeave"
+								                 :style="{backgroundColor:color.pictureColor}"></span>
+								            </div>
+								            <div class="price">{{item.productPrice}}</div>
+								            <div class="buttonBox">
+								                <div class="buyNow">立即购买</div>
+								                <div class="moreInfo">了解更多</div>
+								            </div>
+								        </div>
+								        <div class="picBox" style="width:40%">
+								            <img :src="hoverIndex==index?item.productAllPictureList[colorIndex].pictureVideo:item.productPagePic" alt="">
+								        </div>
+								    </div>
+								</el-col>
+							</template>
+							
                         </el-row>
 
 
@@ -97,13 +85,19 @@
 
 <script>
 import {
-        getAllPicture
-    } from "@a/picture";
+        getAllProduct
+    } from "@a/product";
+	import {
+	    getAllPicture
+	} from "@a/picture";
     export default {
         name: 'index',
         props: {},
         data() {
             return {
+				list:[],
+				hoverIndex:null,
+				colorIndex:null,
                 banner: [],
                 swiperOptions_bannner: {
                     spaceBetween: 0,
@@ -123,8 +117,23 @@ import {
         },
         created(){
              this.getBanner()
+			 this.getGoods()
         },
         methods: {
+			mouseOver(index,cindex){//sku小图鼠标移进移出
+				this.colorIndex = cindex;
+				this.hoverIndex = index;
+			},
+			mouseLeave(){
+				this.hoverIndex = this.colorIndex = null;
+			},
+			getGoods(){
+				getAllProduct({
+				    productBelong: '1'
+				}).then(res => {
+					this.list = res.data;
+				})
+			},
             getBanner() {
                 getAllPicture({
                     pictureBelong: 6,
@@ -228,7 +237,7 @@ import {
                     display: block;
                     position: relative;
                     margin-right: 0.5rem;
-
+					cursor: pointer;
 
                 }
 
