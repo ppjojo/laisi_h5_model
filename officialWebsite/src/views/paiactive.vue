@@ -1,9 +1,9 @@
 <template>
     <div class="contain">
         <!-- banner图 -->
-        <div class="bannerBox ">
-            <!-- <div class="bannerImg_contain" :style="{'background-image':'url(../assets/img/banner.png)'}"></div> -->
-            <div class="bannerImg_contain"></div>
+        <div class="bannerBox " v-for="item in banner">
+            <div class="bannerImg_contain" :style="{'background-image':'url('+item.pictureVideo+')'}"></div>
+            
         </div>
 
         <!-- AIOT时代下 -->
@@ -218,11 +218,15 @@
 </template>
 
 <script>
+import {
+        getAllPicture
+    } from "@a/picture";
     export default {
         name: 'index',
         props: {},
         data() {
             return {
+                banner:[],
                 swiperOptions: {
                     spaceBetween: 0,
                     centeredSlides: true,
@@ -243,7 +247,18 @@
 
 
         },
+        created(){
+            this.getBanner()
+        },
         methods: {
+            getBanner() {
+                getAllPicture({
+                    pictureBelong: 9,
+                    pictureType: 0
+                }).then(res => {
+                    this.banner = res.data;
+                })
+            },
             joinUs() {
                 this.$router.push({
                     path: "joinUs"

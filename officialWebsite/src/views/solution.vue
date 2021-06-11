@@ -1,8 +1,7 @@
 <template>
     <div class="contain">
         <!-- banner图 -->
-        <div class="bannerBox ">
-            <!-- <div class="bannerImg_contain" :style="{'background-image':'url(../assets/img/banner.png)'}"></div> -->
+        <div class="bannerBox " :style="{'background-image':'url('+banner.pictureVideo+')'}">
         </div>
         <!-- 核心功能 -->
         <div class="keyBox">
@@ -254,18 +253,30 @@
 </template>
 
 <script>
+import {
+        getAllPicture
+    } from "@a/picture";
     export default {
         name: 'HelloWorld',
         props: {},
         data() {
             return {
-
+                banner:[]
             }
         },
         mounted() {},
-        created() {},
+        created() {
+            this.getBanner()
+        },
         methods: {
-
+             getBanner() {
+                getAllPicture({
+                    pictureBelong: 10,
+                    pictureType: 0
+                }).then(res => {
+                    this.banner = res.data[0]
+                })
+            },
         }
     }
 </script>
