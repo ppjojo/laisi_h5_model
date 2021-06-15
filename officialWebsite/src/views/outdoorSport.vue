@@ -28,6 +28,7 @@
                     <swiper-slide v-for="item in list">
                         <img class="productImg" :src="item.productAllPictureList[0]?item.productAllPictureList[0].pictureVideo:''" alt="">
                         <p class="productTitle">{{item.productName}}</p>
+
                     </swiper-slide>
                 </swiper>
             </div>
