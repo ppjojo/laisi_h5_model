@@ -9,38 +9,38 @@
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm">
                 <el-row>
                     <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
-                        <el-form-item label="合作类型" prop="type">
-                            <el-select v-model="ruleForm.region" placeholder="请选择合作类型">
-                                <el-option label="KOL/MCN机构合作" value="KOL/MCN机构合作"></el-option>
-                                <el-option label="与派健康合作" value="与派健康合作"></el-option>
-                                <el-option label="媒体合作" value="媒体合作"></el-option>
-                                <el-option label="渠道及分销" value="渠道及分销"></el-option>
-                                <el-option label="其他" value="其他"></el-option>
+                        <el-form-item label="合作类型" prop="cooperationType">
+                            <el-select v-model="ruleForm.cooperationType" placeholder="请选择合作类型">
+                                <el-option label="KOL/MCN机构合作" value="1"></el-option>
+                                <el-option label="与派健康合作" value="2"></el-option>
+                                <el-option label="媒体合作" value="3"></el-option>
+                                <el-option label="渠道及分销" value="4"></el-option>
+                                <el-option label="其他" value="5"></el-option>
                             </el-select>
                         </el-form-item>
-                        <el-form-item label="联系人名字" prop="name">
-                            <el-input v-model="ruleForm.name" placeholder="请输入联系人名字"></el-input>
+                        <el-form-item label="联系人名字" prop="contactName">
+                            <el-input v-model="ruleForm.contactName" placeholder="请输入联系人名字"></el-input>
                         </el-form-item>
-                        <el-form-item label="联系人手机号" prop="phone">
-                            <el-input v-model="ruleForm.name" placeholder="请输入联系人手机号"></el-input>
+                        <el-form-item label="联系人手机号" prop="contactMobileNumber">
+                            <el-input v-model="ruleForm.contactMobileNumber" placeholder="请输入联系人手机号"></el-input>
                         </el-form-item>
                     </el-col>
                     <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
                         <el-form-item label="公司名称">
-                            <el-input v-model="ruleForm.name" placeholder="请输入公司名称"></el-input>
+                            <el-input v-model="ruleForm.companyName" placeholder="请输入公司名称"></el-input>
                         </el-form-item>
                         <el-form-item label="联系人职位">
-                            <el-input v-model="ruleForm.name" placeholder="请输入联系人职位"></el-input>
+                            <el-input v-model="ruleForm.contactTitle" placeholder="请输入联系人职位"></el-input>
                         </el-form-item>
                         <el-form-item label="资源所属行业">
-                            <el-input v-model="ruleForm.name" placeholder="请输入资源所属行业"></el-input>
+                            <el-input v-model="ruleForm.industryResources" placeholder="请输入资源所属行业"></el-input>
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row>
                     <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
                         <el-form-item label="主营产品">
-                            <el-input type="textarea" v-model="ruleForm.desc" placeholder="请输入主营产品"></el-input>
+                            <el-input type="textarea" v-model="ruleForm.mainProduct" placeholder="请输入主营产品"></el-input>
                         </el-form-item>
                     </el-col>
                 </el-row>
@@ -78,24 +78,35 @@
 </template>
 
 <script>
+    import {
+        joinPartner
+    } from "@a/aboutus";
     export default {
         name: 'index',
         props: {},
         data() {
             return {
-                ruleForm: {},
+                ruleForm: {
+                    companyName: "",
+                    contactMobileNumber: "",
+                    contactName: "",
+                    contactTitle: "",
+                    cooperationType: "",
+                    industryResources: "",
+                    mainProduct: ""
+                },
                 rules: {
-                    type: [{
+                    cooperationType: [{
                         required: true,
                         message: '请选择合作类型',
                         trigger: 'change'
                     }],
-                    name: [{
+                    contactName: [{
                         required: true,
                         message: '请输入联系人名字',
                         trigger: 'change'
                     }],
-                    phone: [{
+                    contactMobileNumber: [{
                         required: true,
                         message: '请输入联系人手机号',
                         trigger: 'change'
@@ -113,7 +124,10 @@
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        alert('submit!');
+                       joinPartner(this.ruleForm).then(res=>{
+                           this.$message.success('加入申请已提交')
+                           this.ruleForm={};
+                       })
                     } else {
                         console.log('error submit!!');
                         return false;
@@ -133,7 +147,9 @@
         font-size: 0.3rem;
         margin-bottom: 0.1rem;
     }
-
+    .el-select-dropdown__item{
+        font-size: 0.16rem;
+    }
 
     .el-select {
         width: 100%;
@@ -163,7 +179,7 @@
         .bannerBox {
             background-image: url('../assets/img/joinus/bg.png');
             width: 100%;
-            height: 8.5rem;
+            height: 12.34rem;
             background-size: cover;
             background-repeat: no-repeat;
             position: relative;
@@ -175,7 +191,7 @@
             background-color: rgba(255, 255, 255, 1);
             box-shadow: 3px 4px 20px 6px rgba(173, 173, 173, 0.06);
             position: relative;
-            top: -1rem;
+            top: -5rem;
 
             .buttonDiv {
                 height: 0.87rem;

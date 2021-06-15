@@ -25,3 +25,11 @@ export function getWebsiteBigEvent(params) {
         params
     })
 }
+
+export function joinPartner(data) {
+    return request({
+        url: 'officialWebsite/joinPartner',
+        method: 'post',
+        data
+    })
+}

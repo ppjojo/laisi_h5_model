@@ -23,6 +23,11 @@ import VueAwesomeSwiper from 'vue-awesome-swiper'
 import 'swiper/swiper-bundle.css'
  
 Vue.use(VueAwesomeSwiper, /* { default options with global component } */)
+
+import animate from 'animate.css'
+
+Vue.use(animate);
+
 router.beforeEach((to, from, next) => {
     next()
     window.scrollTo(0,0)

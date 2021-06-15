@@ -28,12 +28,15 @@
 			<div class="pc_box">
 				<swiper :options="swiperOptions">
 					<swiper-slide v-for="item in newsList">
+						<div class="newsTag" v-if="newsTag==1">新闻</div>
+						<div class="newsTag" v-else>活动</div>
 						<img class="newsImg" :src="item.newsPicture" alt="">
 						<div class="textBox">
 							<p class="title">
 								{{item.newsTitle}}
 							</p>
 							<div class="label">
+								<img v-if="item.newHot==1" src="../assets/img/index/hot.png" alt="">
 								<span>{{item.newsDepartment}}</span>
 								<span>{{item.updateTime | formatDate}}</span>
 							</div>
@@ -42,19 +45,21 @@
 							</div>
 							<div class="button_more" @click="gotoNewsList(item.id)">阅读全文</div>
 						</div>
-
 					</swiper-slide>
 				</swiper>
 			</div>
 			<div class="phone_box" style="margin-bottom:0.3rem;border:1px solid #eee;margin:15px">
 				<swiper :options="swiperOptions2">
-					<swiper-slide v-for="item in newsList">
+					<swiper-slide v-for="item in newsList" >
+						<div class="newsTag" v-if="newsTag==1">新闻</div>
+						<div class="newsTag" v-else>活动</div>
 						<img class="newsImg" :src="item.newsPicture" alt="">
 						<div class="textBox">
 							<p class="title">
 								{{item.newsTitle}}
 							</p>
 							<div class="label">
+								<img v-if="item.newHot==1" src="../assets/img/index/hot.png" alt="">
 								<span>{{item.newsDepartment}}</span>
 								<span>{{item.updateTime | formatDate}}</span>
 							</div>
@@ -102,7 +107,12 @@
 					spaceBetween: 0,
 					loop: true,
 					observer: true, //修改swiper自己或子元素时，自动初始化swiper 
-					observeParents: true //修改swiper的父元素时，自动初始化swiper 
+					observeParents: true, //修改swiper的父元素时，自动初始化swiper 
+					autoplay: {
+						delay: 1000,
+						stopOnLastSlide: false,
+						disableOnInteraction: true,
+					},
 
 				},
 				swiperOptions: {
@@ -157,7 +167,7 @@
 			},
 			news() {
 				getNews({
-					pageSize: 4,
+					pageSize: 5,
 					pageNum: 0
 				}).then(res => {
 					this.newsList = res.data.websiteNewsList;
@@ -276,7 +286,9 @@
 					box-shadow: 3px 4px 20px 6px rgba(0, 0, 0, 0.06);
 					transition: 300ms;
 					transform: scale(0.8);
-
+					.newsTag{
+						
+					}
 					.newsImg {
 						width: 100%;
 						height: 50%;
@@ -302,6 +314,15 @@
 					}
 
 					.label {
+						img{
+							width: 0.35rem;
+							margin-right: 0.2rem;
+						}
+						span{
+							margin-right: 0.2rem;
+						}
+						display: flex;
+						align-items: center;
 						font-size: 0.14rem;
 						color: #777;
 						line-height: 0.4rem;

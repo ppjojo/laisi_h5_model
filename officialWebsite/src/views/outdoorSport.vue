@@ -25,9 +25,9 @@
             </div>
             <div class="productBox phone_box">
                 <swiper :options="swiperOptions_phone" ref="phoneSwiper">
-                    <swiper-slide v-for="item in 5">
-                        <img class="productImg" src="../assets/img/ad.png" alt="">
-                        <p class="productTitle">t30</p>
+                    <swiper-slide v-for="item in list">
+                        <img class="productImg" :src="item.productAllPictureList[0]?item.productAllPictureList[0].pictureVideo:''" alt="">
+                        <p class="productTitle">{{item.productName}}</p>
                     </swiper-slide>
                 </swiper>
             </div>
@@ -35,13 +35,13 @@
         </div>
         <!-- 精选推荐 -->
 
-        <div style="padding:2rem 0">
+        <div >
             <div class="moduleTitleBox">
                 <img class="moduleTitleImg" src="../assets/img/outdoorSport/jxtj.png" alt="">
             </div>
             <div class="buyBoxList">
                 <el-row>
-                    <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12"
+                    <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12" v-if="list.length>0"
                         style="padding:0 10px ;box-sizing: border-box;">
                         <div class="buyBox">
                             <div class="label" v-if="list[0].ifNewProduct==1" >新品</div>
@@ -177,7 +177,7 @@
 				getAllProduct({
 				    productBelong: '2'
 				}).then(res => {
-					this.list = res.data;
+					this.list = res.data||[];
 				})
 			}
         }
@@ -204,7 +204,7 @@
                 background-color: #fff;
                 box-shadow: 3px 4px 20px 6px rgba(173, 173, 173, 0.06);
                 position: absolute;
-                bottom: -1.5rem;
+                bottom: 2.1rem;
                 left: calc(50% - 7rem);
                 z-index: 8;
 
@@ -255,6 +255,7 @@
             .productBox {
                 // margin: 0 15px;
                 padding: 15px;
+                margin-top: -4rem;
 
                 .productImg {
                     width: 100%;
@@ -280,7 +281,7 @@
             .bannerImg_contain {
                 background-image: url('../assets/img/banner.png');
                 width: 100%;
-                height: 10rem;
+                height: 14.5rem;
                 background-size: cover;
                 background-position: 50% 50%;
                 background-repeat: no-repeat;

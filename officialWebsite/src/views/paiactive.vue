@@ -14,16 +14,17 @@
             <div class="aiot_imgBox">
                 <el-row :gutter="20">
                     <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6">
-                        <img src="../assets/img/paiactive/Aiot-1.png" alt="">
+                        <img src="../assets/img/paiactive/Aiot-1.png"
+                            class="wow  animate__animated animate__bounceInLeft  " data-wow-duration="1s"  alt="">
                     </el-col>
                     <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6">
-                        <img src="../assets/img/paiactive/Aiot-2.png" alt="">
+                        <img src="../assets/img/paiactive/Aiot-2.png" class="wow  animate__animated animate__bounceInLeft " data-wow-duration="1s"  alt="">
                     </el-col>
                     <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6">
-                        <img src="../assets/img/paiactive/Aiot-3.png" alt="">
+                        <img src="../assets/img/paiactive/Aiot-3.png" class="wow  animate__animated animate__bounceInRight " data-wow-duration="1s" alt="">
                     </el-col>
                     <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6">
-                        <img src="../assets/img/paiactive/Aiot-4.png" alt="">
+                        <img src="../assets/img/paiactive/Aiot-4.png" class="wow  animate__animated animate__bounceInRight " data-wow-duration="1s" alt="">
                     </el-col>
                 </el-row>
 
@@ -218,6 +219,7 @@
 </template>
 
 <script>
+ import WOW from '../../node_modules/wowjs/dist/wow';
     import {
         getAllPicture
     } from "@a/picture";
@@ -231,8 +233,8 @@
                     spaceBetween: 0,
                     centeredSlides: true,
                     loop: true,
-                    observer: true, 
-                    observeParents: true, 
+                    observer: true,
+                    observeParents: true,
                     autoplay: {
                         delay: 1000,
                         stopOnLastSlide: false,
@@ -243,8 +245,8 @@
                     spaceBetween: 0,
                     centeredSlides: true,
                     loop: true,
-                    observer: true, 
-                    observeParents: true, 
+                    observer: true,
+                    observeParents: true,
                     autoplay: {
                         delay: 1000,
                         stopOnLastSlide: false,
@@ -259,6 +261,14 @@
         },
         mounted() {
             this.getBanner()
+            let wow = new WOW.WOW({
+                boxClass: 'wow',
+                animateClass: 'animated',
+                offset: 0,
+                mobile: true,
+                live: true
+            });
+            wow.init();
 
         },
         created() {

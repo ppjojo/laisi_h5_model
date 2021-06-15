@@ -170,7 +170,7 @@ import {
             .bannerImg_contain {
                 background-image: url('../assets/img/banner.png');
                 width: 100%;
-                height: 10rem;
+                height: 14.5rem;
                 background-size: cover;
                 background-position: 50% 50%;
                 background-repeat: no-repeat;
@@ -182,7 +182,7 @@ import {
         .buyBoxList {
             max-width: 14rem;
             margin: 0 auto;
-            margin-top: 1rem;
+            margin-top: -6rem;
         }
 
         .buyBox {

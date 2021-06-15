@@ -300,7 +300,7 @@ import {
         .bannerBox {
             background-image: url('../assets/img/banner.png');
             width: 100%;
-            height: 9rem;
+            height: 9.23rem;
             background-size: cover;
             background-repeat: no-repeat;
             position: relative;

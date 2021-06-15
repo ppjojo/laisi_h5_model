@@ -2,11 +2,11 @@
     <div class="contain">
         <div class="bannerBox ">
             <img class="qr" src="../assets/img/cooprate/qr.png" alt="">
-            <el-carousel :interval="5000" height="10rem">
-                <el-carousel-item v-for="item in banner">
-                    <div class="bannerImg_contain" :style="{'background-image':'url('+item.pictureVideo+')'}"></div>
-                </el-carousel-item>
-            </el-carousel>
+            <swiper :options="swiperOptions_bannner">
+				<swiper-slide v-for="item in banner">
+					<div class="bannerImg_contain" :style="{'background-image':'url('+item.pictureVideo+')'}"></div>
+				</swiper-slide>
+			</swiper>
             <div class="joinUsButton" @click="joinUs">加入我们</div>
         </div>
 
@@ -172,7 +172,14 @@
         data() {
             return {
                 banner: [],
-                parterList: []
+                parterList: [],
+                swiperOptions_bannner: {
+					spaceBetween: 0,
+					loop: true,
+					observer: true, //修改swiper自己或子元素时，自动初始化swiper 
+					observeParents: true //修改swiper的父元素时，自动初始化swiper 
+
+				},
             }
         },
         mounted() {},
@@ -228,7 +235,7 @@
             .bannerImg_contain {
                 background-image: url('../assets/img/banner.png');
                 width: 100%;
-                height: 100%;
+                height: 9.23rem;
                 background-size: cover;
                 background-position: 50% 50%;
                 background-repeat: no-repeat;
@@ -236,15 +243,15 @@
 
             .qr {
                 position: fixed;
-                top: 6.7rem;
-                right: 10%;
+                top: 6.9rem;
+                right: 13%;
                 width: 3.2rem;
                 z-index: 3;
             }
 
             .joinUsButton {
                 position: absolute;
-                top: 45%;
+                top: 50%;
                 left: calc(50% - 1rem);
                 border-radius: 0.25rem;
                 width: 2rem;

@@ -380,7 +380,7 @@
 						background-color: #FFF;
 
 						.firstTree {
-							padding: 0.5rem 0;
+							padding: 0.2rem 0;
 							display: flex;
 							align-items: center;
 							justify-content: center;
