@@ -48,7 +48,7 @@
                                 <div class="content">{{item.contentBottom}}</div>
                             </div>
                         </el-col>
-                       
+
                     </el-row>
                 </div>
 
@@ -72,12 +72,13 @@
                     </div>
                     <div class="scrollBox">
                         <div class="shadowBox"></div>
-                        <el-timeline>
+                        <!-- <el-timeline>
                             <el-timeline-item v-for="(activity, index) in eventList" :key="index" color='red'
                                 :timestamp="activity.eventTime">
                                 {{activity.eventContent}}
                             </el-timeline-item>
-                        </el-timeline>
+                        </el-timeline> -->
+                        
                     </div>
                 </div>
             </div>
@@ -92,9 +93,7 @@
                     <img src="../assets/img/aboutus/map.png" class="moduleTitleImg" alt="">
                 </div>
                 <div class="content">
-                    <iframe height="500"
-                        src="https://map.baidu.com/search/%E4%B8%8A%E6%B5%B7%E9%93%BC%E9%94%B6%E4%BF%A1%E6%81%AF%E6%8A%80%E6%9C%AF%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8/@13507113.54,3624559.92,19z?querytype=s&da_src=shareurl&wd=%E4%B8%8A%E6%B5%B7%E9%93%BC%E9%94%B6%E4%BF%A1%E6%81%AF%E6%8A%80%E6%9C%AF%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8&c=289&src=0&pn=0&sug=0&l=15&b=(13499547,3620889;13514907,3628225)&from=webmap&biz_forward=%7B%22scaler%22:1,%22styles%22:%22pl%22%7D&device_ratio=1"
-                        frameborder="0" width="100%"></iframe>
+                   <Map></Map>
                 </div>
             </div>
         </div>
@@ -120,13 +119,11 @@
         // 若为指定距离
         if (typeof selector === 'number') {
             top = selector - scrollTop;
-            console.log(top)
         } else {
             const anchor = document.getElementById(selector) || {
                 offsetTop: 0
             };
             top = anchor.offsetTop - scrollTop;
-            console.log(top)
         }
         window.scrollTo({
             top: top,
@@ -134,43 +131,44 @@
         });
     };
 
+    import Utils from "@u/callUtil";
+    import Map from "./map.vue";
+
     import {
         getAllPicture
     } from "@a/picture";
-     import {
-    getCompanyProfile,getWebsiteBrandIntroduction,getWebsiteBigEvent
-  } from '@/api/aboutus'
+    import {
+        getCompanyProfile,
+        getWebsiteBrandIntroduction,
+        getWebsiteBigEvent
+    } from '@/api/aboutus'
     export default {
+        components:{
+            Map
+        },
         name: 'index',
         props: {},
         data() {
             return {
                 banner: [],
-                companyInfo:{},
-                brandList:[],
+                companyInfo: {},
+                brandList: [],
                 active: 1,
                 eventList: [],
-                linkId: this.$route.query.id
-            }
-        },
-        computed: {
-
-        },
-        watch:{
-            linkId(newv,old){
-                console.log(newv)
             }
         },
         mounted() {
-            this.$nextTick(() => {
-                this.goAnchor(this.$route.query.id)
+           Utils.$on('goAnchor', (flag) => {
+                this.goAnchor(flag);
             })
+
         },
         created() {
             this.getBanner()
             this.companyProfile()
             this.brand()
             this.event()
+             
         },
         methods: {
             goAnchor: goAnchor,
@@ -182,21 +180,23 @@
                     this.banner = res.data[0];
                 })
             },
-            companyProfile(){
+            companyProfile() {
                 getCompanyProfile().then(res => {
                     this.companyInfo = res.data;
                 })
             },
-            brand(){
+            brand() {
                 getWebsiteBrandIntroduction().then(res => {
                     this.brandList = res.data;
                 })
             },
-            event(){
+            event() {
                 getWebsiteBigEvent().then(res => {
                     this.eventList = res.data;
                 })
-            }
+            },
+            
+
 
 
         }
