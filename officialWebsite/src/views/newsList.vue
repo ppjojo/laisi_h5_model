@@ -31,7 +31,7 @@
                         </div>
                         <div class="listBox">
                             <ul>
-                                <li v-for="item in newsList">
+                                <li v-for="item in newsList" @click="newsDetail(item.id)">
                                     <div class="cover" :style="{'background-image':'url('+item.newsPicture+')'}"></div>
                                     <div class="newsBody">
                                         <p class="title">{{item.newsTitle}}</p>

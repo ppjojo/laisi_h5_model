@@ -1,7 +1,7 @@
 <template>
 	<div class="contain">
 		<div class="bannerBox ">
-			<swiper :options="swiperOptions_bannner">
+			<swiper :options="swiperOptions_bannner" v-if="banner.length>0">
 				<swiper-slide v-for="item in banner">
 					<div class="bannerImg_contain" :style="{'background-image':'url('+item.pictureVideo+')'}"></div>
 				</swiper-slide>
@@ -26,9 +26,9 @@
 				新闻与活动
 			</div>
 			<div class="pc_box">
-				<swiper :options="swiperOptions">
+				<swiper :options="swiperOptions" v-if="newsList.length>0">
 					<swiper-slide v-for="item in newsList">
-						<div class="newsTag" v-if="newsTag==1">新闻</div>
+						<div class="newsTag" v-if="item.newsTag==1">新闻</div>
 						<div class="newsTag" v-else>活动</div>
 						<img class="newsImg" :src="item.newsPicture" alt="">
 						<div class="textBox">
@@ -49,9 +49,9 @@
 				</swiper>
 			</div>
 			<div class="phone_box" style="margin-bottom:0.3rem;border:1px solid #eee;margin:15px">
-				<swiper :options="swiperOptions2">
-					<swiper-slide v-for="item in newsList" >
-						<div class="newsTag" v-if="newsTag==1">新闻</div>
+				<swiper :options="swiperOptions2" v-if="newsList.length>0">
+					<swiper-slide v-for="item in newsList">
+						<div class="newsTag" v-if="item.newsTag==1">新闻</div>
 						<div class="newsTag" v-else>活动</div>
 						<img class="newsImg" :src="item.newsPicture" alt="">
 						<div class="textBox">
@@ -124,8 +124,6 @@
 					observeParents: true,
 					autoplay: {
 						delay: 1000,
-						stopOnLastSlide: false,
-						disableOnInteraction: true,
 					},
 				},
 				swiperOptions2: {
@@ -136,8 +134,6 @@
 					loop: true,
 					autoplay: {
 						delay: 1000,
-						stopOnLastSlide: false,
-						disableOnInteraction: true,
 					},
 				}
 			}
@@ -286,9 +282,21 @@
 					box-shadow: 3px 4px 20px 6px rgba(0, 0, 0, 0.06);
 					transition: 300ms;
 					transform: scale(0.8);
-					.newsTag{
-						
+
+					.newsTag {
+						width: 0.73rem;
+						height: 0.73rem;
+						position: absolute;
+						top: 0;
+						left: 0;
+						background-image: url('../assets/img/index/newsTag.png');
+						background-size: cover;
+						color: #fff;
+						font-size: 0.18rem;
+						line-height: 0.73rem;
+						text-align: center;
 					}
+
 					.newsImg {
 						width: 100%;
 						height: 50%;
@@ -314,13 +322,15 @@
 					}
 
 					.label {
-						img{
+						img {
 							width: 0.35rem;
 							margin-right: 0.2rem;
 						}
-						span{
+
+						span {
 							margin-right: 0.2rem;
 						}
+
 						display: flex;
 						align-items: center;
 						font-size: 0.14rem;
@@ -430,6 +440,20 @@
 			.newsBox {
 				.swiper-slide {
 					padding-bottom: 0.5rem;
+				}
+
+				.newsTag {
+					width: 0.73rem;
+					height: 0.73rem;
+					position: absolute;
+					top: 0;
+					left: 0;
+					background-image: url('../assets/img/index/newsTag.png');
+					background-size: cover;
+					color: #fff;
+					font-size: 0.18rem;
+					line-height: 0.73rem;
+					text-align: center;
 				}
 
 				.newsImg {

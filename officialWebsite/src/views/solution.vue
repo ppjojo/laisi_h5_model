@@ -1,7 +1,7 @@
 <template>
     <div class="contain">
         <!-- banner图 -->
-        <div class="bannerBox " :style="{'background-image':'url('+banner.pictureVideo+')'}">
+        <div class="bannerBox " id="bannerBox" :style="{'background-image':'url('+banner.pictureVideo+')'}">
         </div>
         <!-- 核心功能 -->
         <div class="keyBox">
@@ -101,8 +101,12 @@
             </div>
         </div>
         <!-- 产品定制 -->
-        <div class="customizedBox">
+        <div class="customizedBox" id="customizedBox">
             <div class="bg">
+                <div class="customizedTitleBox">
+                    <p class="title">“ 产品定制 ”</p>
+                    <p class="email"> 订购邮箱:marketing@laisitech.com</p>
+                </div>
                 <div class="customizedDiv">
                     <img src="../assets/img/solution/cpdz.png" alt="">
                 </div>
@@ -113,7 +117,7 @@
             <div class="moduleTitleBox">
                 <img src="../assets/img/solution/cooperate-title.png" class="moduleTitleImg" alt="">
             </div>
-            <div>
+            <div style="margin-top:1rem;">
                 <el-row>
                     <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6">
                         <img src="../assets/img/solution/cooperate-1.png" alt="">
@@ -151,7 +155,7 @@
             </div>
             <div>
                 <div class="smallTitle">基于T20</div>
-                <el-row>
+                <el-row style="margin-top:1rem;">
                     <el-col :xs="24" :sm="24" :md="13" :lg="13" :xl="13">
                         <img src="../assets/img/solution/style-1.png" alt="">
                     </el-col>
@@ -253,7 +257,29 @@
 </template>
 
 <script>
-import {
+    const goAnchor = (selector) => {
+        // 移动距离
+        let top = 0;
+        // 当前滚动条位置
+        const scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
+        // 若为指定距离
+        if (typeof selector === 'number') {
+            top = selector - scrollTop;
+            console.log(top)
+        } else {
+            const anchor = document.getElementById(selector) || {
+                offsetTop: 0
+            };
+            top = anchor.offsetTop - scrollTop;
+            console.log(top)
+        }
+        window.scrollTo({
+            top: top,
+            behavior: "smooth"
+        });
+    };
+    import Utils from "@u/callUtil"
+    import {
         getAllPicture
     } from "@a/picture";
     export default {
@@ -261,15 +287,20 @@ import {
         props: {},
         data() {
             return {
-                banner:[]
+                banner: []
             }
         },
-        mounted() {},
+        mounted() {
+            Utils.$on('gocustomized', (flag) => {
+                this.gocustomized(flag);
+            })
+        },
         created() {
             this.getBanner()
         },
         methods: {
-             getBanner() {
+            gocustomized: goAnchor,
+            getBanner() {
                 getAllPicture({
                     pictureBelong: 10,
                     pictureType: 0
@@ -393,6 +424,24 @@ import {
         .customizedBox {
             padding: 1rem 0 3rem 0;
 
+            .customizedTitleBox {
+                text-align: center;
+                position: relative;
+                top: 1rem;
+
+                .title {
+                    color: rgba(255, 255, 255, 100);
+                    font-size: 0.7rem;
+                    line-height: 1rem;
+                }
+
+                .email {
+                    color: rgba(218, 218, 222, 100);
+                    font-size: 0.35rem;
+                    line-height: 0.5rem;
+                }
+            }
+
             .bg {
                 background-image: url('../assets/img/solution/cpdz-bg.png');
                 width: 100%;
@@ -471,7 +520,7 @@ import {
 
                     img {
                         width: 100%;
-                        box-shadow: 0px 0px 10px #999;
+                        // box-shadow: 0px 0px 10px #999;
                     }
                 }
             }

@@ -9,7 +9,7 @@
             </swiper>
 
             <div class="productBox pc_box">
-                <swiper :options="swiperOptions" ref="pcSwiper">
+                <swiper :options="swiperOptions" ref="pcSwiper" v-if="list.length>1" >
                     <swiper-slide v-for="item in list">
                         <img class="productImg" :src="item.productAllPictureList[0]?item.productAllPictureList[0].pictureVideo:''" alt="">
                         <p class="productTitle">{{item.productName}}</p>
@@ -24,7 +24,7 @@
 
             </div>
             <div class="productBox phone_box">
-                <swiper :options="swiperOptions_phone" ref="phoneSwiper">
+                <swiper :options="swiperOptions_phone" ref="phoneSwiper"  v-if="list.length>1" style="background-color:#fff">
                     <swiper-slide v-for="item in list">
                         <img class="productImg" :src="item.productAllPictureList[0]?item.productAllPictureList[0].pictureVideo:''" alt="">
                         <p class="productTitle">{{item.productName}}</p>
@@ -133,6 +133,9 @@
                     spaceBetween: 0,
                     centeredSlides: true,
                     loop: true,
+                    autoplay: {
+						delay: 500,
+					},
                 },
                 swiperOptions_phone: {
                     slidesPerView: 2,
@@ -207,13 +210,14 @@
                 width: 14rem;
                 padding: 0.5rem;
                 margin: 0 auto;
+                height: 4.76rem;
                 box-sizing: border-box;
-                background-color: #fff;
-                box-shadow: 3px 4px 20px 6px rgba(173, 173, 173, 0.06);
                 position: absolute;
                 bottom: 2.1rem;
                 left: calc(50% - 7rem);
                 z-index: 8;
+                background-image: url("../assets/img/outdoorSport/product-bg.png");
+                background-size: cover;
 
 
                 .productImg {
@@ -260,9 +264,16 @@
             }
 
             .productBox {
-                // margin: 0 15px;
+                // background-image: url("../assets/img/outdoorSport/product-bg.png");
+                // background-size: cover;
+                background-color: #fff;
                 padding: 15px;
+                height: 4.76rem;
                 margin-top: -4rem;
+                position: relative;
+                z-index: 2;
+                box-sizing: border-box;
+                
 
                 .productImg {
                     width: 100%;

@@ -251,10 +251,10 @@
 
             .joinUsButton {
                 position: absolute;
-                top: 50%;
-                left: calc(50% - 1rem);
+                top: 52%;
+                left: calc(50% - 0.8rem);
                 border-radius: 0.25rem;
-                width: 2rem;
+                width: 1.6rem;
                 line-height: 0.5rem;
                 color: #fff;
                 background-color: rgba(51, 51, 48, 1);
@@ -293,7 +293,11 @@
                 bottom: -4.5rem;
 
                 img {
+                    transition: all 0.3s;
                     width: 48%;
+                    &:hover{
+                        transform: scale(1.1);
+                    }
                 }
             }
         }

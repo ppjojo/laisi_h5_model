@@ -109,9 +109,9 @@
 							<div>
 								<div class="firstTree">
 									<div class="firstTree_title " :class="activeNum3==1?'active':''"
-										@click="activeNum3=1">百索系统</div>
+										@click="gotoSolution(1)">百索系统</div>
 									<div class="firstTree_title" :class="activeNum3==2?'active':''"
-										@click="activeNum3=2">产品定制</div>
+										@click="gotoSolution(2)">产品定制</div>
 								</div>
 							</div>
 						</div>
@@ -152,6 +152,7 @@
 </template>
 
 <script>
+import Utils from "@u/callUtil"
 	import {
 	        getAllProduct
 	    } from "@a/product";
@@ -242,11 +243,32 @@
 				}
 				this.$router.push({
 					path: "aboutus",
-					query:{
-						id:id
-					}
 				})
 				this.drawer = false
+				setTimeout(()=>{
+					Utils.$emit("goAnchor",id)
+				},300)
+			},
+			gotoSolution(flag) {
+				this.navActive = 5
+				this.activeNum3=flag
+				let id="bannerBox"
+				switch (flag) {
+					case 1:
+						id = "bannerBox"
+						break;
+					case 2:
+						id = "customizedBox"
+						break;
+				}
+				this.$router.push({
+					path: "solution",
+				})
+				this.drawer = false
+				// Utils.$emit("gocustomized",id)
+				setTimeout(()=>{
+					Utils.$emit("gocustomized",id)
+				},300)
 			}
 
 		}
