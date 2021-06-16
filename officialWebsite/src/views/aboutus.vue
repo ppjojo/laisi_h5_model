@@ -72,13 +72,29 @@
                     </div>
                     <div class="scrollBox">
                         <div class="shadowBox"></div>
-                        <!-- <el-timeline>
+                        <el-timeline class="phone_box">
                             <el-timeline-item v-for="(activity, index) in eventList" :key="index" color='red'
                                 :timestamp="activity.eventTime">
                                 {{activity.eventContent}}
                             </el-timeline-item>
-                        </el-timeline> -->
-                        
+                        </el-timeline>
+
+                        <div class="timelineBox">
+                            <ul v-for="item in newEventList">
+                                <div class="year">{{item.year}}</div>
+                                <li v-for="(lItem ,index) in item.event" :class="index%2==0?'left':'right'">
+                                    <img src="../assets/img/aboutus/dot.png" v-if="index%2==1" alt="">
+                                    <div class="time" v-if="index%2==1">{{parseInt(lItem.eventTime.split('-')[1]) }}月
+                                    </div>
+                                    <div class="content">{{lItem.eventContent}}</div>
+                                    <div class="time" v-if="index%2==0">{{parseInt(lItem.eventTime.split('-')[1]) }}月
+                                    </div>
+                                    <img src="../assets/img/aboutus/dot.png" v-if="index%2==0" alt="">
+                                </li>
+
+                            </ul>
+
+                        </div>
                     </div>
                 </div>
             </div>
@@ -93,7 +109,9 @@
                     <img src="../assets/img/aboutus/map.png" class="moduleTitleImg" alt="">
                 </div>
                 <div class="content">
-                   <Map></Map>
+                    <iframe height="600"
+                        src="https://www.amap.com/search?id=B0FFK6RPXC&city=310117&geoobj=120.635518%7C30.759509%7C122.788128%7C31.739702&query_type=IDQ&query=%E4%B8%8A%E6%B5%B7%E9%93%BC%E9%94%B6%E4%BF%A1%E6%81%AF%E6%8A%80%E6%9C%AF%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8&zoom=9.88"
+                        frameborder="0" width="100%"></iframe>
                 </div>
             </div>
         </div>
@@ -132,7 +150,6 @@
     };
 
     import Utils from "@u/callUtil";
-    import Map from "./map.vue";
 
     import {
         getAllPicture
@@ -143,9 +160,6 @@
         getWebsiteBigEvent
     } from '@/api/aboutus'
     export default {
-        components:{
-            Map
-        },
         name: 'index',
         props: {},
         data() {
@@ -155,10 +169,11 @@
                 brandList: [],
                 active: 1,
                 eventList: [],
+                newEventList: []
             }
         },
         mounted() {
-           Utils.$on('goAnchor', (flag) => {
+            Utils.$on('goAnchor', (flag) => {
                 this.goAnchor(flag);
             })
 
@@ -168,7 +183,7 @@
             this.companyProfile()
             this.brand()
             this.event()
-             
+
         },
         methods: {
             goAnchor: goAnchor,
@@ -193,9 +208,29 @@
             event() {
                 getWebsiteBigEvent().then(res => {
                     this.eventList = res.data;
+                    let newArr = [];
+                    res.data.forEach((item, i) => {
+                        let index = -1;
+                        let alreadyExists = newArr.some((newAddress, j) => {
+                            if (item.eventTime.split('-')[0] === newAddress.year) {
+                                index = j;
+                                return true;
+                            }
+                        });
+                        if (!alreadyExists) {
+                            newArr.push({
+                                year: item.eventTime.split('-')[0],
+                                event: [item]
+                            });
+                        } else {
+                            newArr[index].event.push(item);
+                        }
+                    });
+                    this.newEventList = newArr;
+
                 })
             },
-            
+
 
 
 
@@ -205,12 +240,28 @@
 
 <style lang="scss" scoped>
     //大于992
-    @media (min-width: 992px) {}
+    @media (min-width: 992px) {
+        .phone_box {
+            display: none;
+        }
+
+        .timelineBox {
+            display: block;
+        }
+    }
 
     //小于992
     @media (max-width: 992px) {
         .contain {
             margin-top: 0.66rem;
+        }
+
+        .phone_box {
+            display: block;
+        }
+
+        .timelineBox {
+            display: none;
         }
     }
 
@@ -367,7 +418,7 @@
                         }
 
                         width: 30%;
-                        height: 2.8rem;
+                        height: auto;
                     }
                 }
 
@@ -387,7 +438,7 @@
                 box-shadow: 3px 4px 20px 6px rgba(61, 82, 197, 0.1);
                 height: 8.77rem;
                 box-sizing: border-box;
-                padding: 0.75rem;
+                padding: 0.75rem 0;
                 display: flex;
                 justify-content: center;
                 position: relative;
@@ -419,7 +470,7 @@
 
                 .scrollBox {
                     width: 80%;
-                    padding: 0 1rem;
+                    padding: 0 0 0 1rem;
                     overflow: auto;
                     text-align: left;
 
@@ -432,6 +483,94 @@
                         opacity: 0.8;
                         background-color: #fff;
                         z-index: 2;
+                    }
+
+                    .timelineBox {
+                        position: relative;
+                        padding-bottom: 1.5rem;
+
+                        ul {
+                            .year {
+                                margin: 0 auto;
+                                width: 1.1rem;
+                                height: 0.53rem;
+                                background-color: #E60012;
+                                color: #eee;
+                                font-size: 0.28rem;
+                                line-height: 0.53rem;
+                                text-align: center;
+                            }
+
+                            li {
+                                display: flex;
+                                align-items: center;
+                                padding-top: 0.1rem;
+
+                                .time {
+                                    font-size: 0.24rem;
+                                    color: #333;
+                                    line-height: 0.5rem;
+                                    width: 0.8rem;
+                                }
+
+                                img {
+                                    width: 0.22rem;
+                                    height: 0.22rem;
+                                    margin: 0 0.2rem;
+                                }
+
+                                .content {
+                                    font-size: 0.24rem;
+                                    color: #666;
+                                    line-height: 0.5rem;
+                                    margin: 0 0.5rem;
+                                    width: 2.88rem;
+                                    box-sizing: border-box;
+                                }
+                            }
+
+                            .left {
+                                justify-content: flex-start;
+                                position: relative;
+
+                                &:after {
+                                    width: 2px;
+                                    background-color: red;
+                                    content: "";
+                                    position: absolute;
+                                    height: 100%;
+                                    top: 0;
+                                    right: calc(50% - 1px);
+                                }
+
+                                img {
+                                    position: relative;
+                                    left: 0.1rem;
+                                    z-index: 2;
+                                }
+                            }
+
+                            .right {
+                                justify-content: flex-end;
+                                position: relative;
+
+                                &:after {
+                                    width: 2px;
+                                    background-color: red;
+                                    content: "";
+                                    position: absolute;
+                                    height: 100%;
+                                    top: 0;
+                                    left: calc(50% - 1px);
+                                }
+
+                                img {
+                                    position: relative;
+                                    right: 0.1rem;
+                                    z-index: 2;
+                                }
+                            }
+                        }
                     }
                 }
             }
