@@ -29,7 +29,7 @@
                                 <div class="price">{{list[0].productPrice}}</div>
                                 <div class="buttonBox">
                                     <div class="buyNow">立即购买</div>
-                                    <div class="moreInfo">了解更多</div>
+                                    <div class="moreInfo" @click="gotoProductDetail(list[0])">了解更多</div>
                                 </div>
                             </div>
                             <div class="picBox" style="width:40%">
@@ -42,7 +42,7 @@
                         <el-row class="">
                             <template v-for="(item,index) in list">
                                 <el-col v-if="index>0" :xs="24" :sm="24" :md="12" :lg="12" :xl="12"
-                                    style="padding:0 10px ;box-sizing: border-box;">
+                                    style="padding:0 0.1rem ;box-sizing: border-box;">
                                     <div class="buyBox">
                                         <div>
                                             <div class="label" v-if="list[0].ifNewProduct==1">新品</div>
@@ -57,10 +57,10 @@
                                             <div class="price">{{item.productPrice}}</div>
                                             <div class="buttonBox">
                                                 <div class="buyNow">立即购买</div>
-                                                <div class="moreInfo">了解更多</div>
+                                                <div class="moreInfo" @click="gotoProductDetail(item)">了解更多</div>
                                             </div>
                                         </div>
-                                        <div class="picBox" style="width:40%">
+                                        <div class="picBox" style="width:100%">
                                             <img :src="hoverIndex==index?item.productAllPictureList[colorIndex].pictureVideo:item.productPagePic"
                                                 alt="">
                                         </div>
@@ -145,6 +145,14 @@
                     this.banner = res.data;
                 })
             },
+            gotoProductDetail(item) {
+                this.$router.push({
+                    path: "productDetail",
+                    query: {
+                        id: item.id
+                    }
+                })
+            }
         }
     }
 </script>
@@ -193,7 +201,7 @@
                 padding: 0.6rem;
                 background-color: #fff;
                 text-align: left;
-                margin-bottom: 20px;
+                margin-bottom: 0.2rem;
 
                 .label {
                     padding: 0.05rem 0.1rem;
@@ -220,12 +228,15 @@
                     color: rgba(102, 102, 102, 100);
                     font-size: 0.22rem;
                     line-height: 0.5rem;
+                    // overflow: hidden;
+                    // text-overflow: ellipsis;
+                    // display: box;
+                    // display: -webkit-box;
+                    // -webkit-line-clamp: 2;
+                    // -webkit-box-orient: vertical;
                     overflow: hidden;
+                    white-space: nowrap;
                     text-overflow: ellipsis;
-                    display: box;
-                    display: -webkit-box;
-                    -webkit-line-clamp: 2;
-                    -webkit-box-orient: vertical;
                 }
 
                 .colorBox {
@@ -275,7 +286,8 @@
 
                     .buyNow {
                         padding: 0.05rem 0.2rem;
-                        border-radius: 0.2rem;
+                        border-radius: 0.3rem;
+                        box-sizing: border-box;
                         background-color: rgba(37, 37, 37, 1);
                         color: rgba(255, 255, 255, 100);
                         font-size: 0.24rem;
@@ -286,7 +298,8 @@
 
                     .moreInfo {
                         padding: 0.05rem 0.2rem;
-                        border-radius: 0.2rem;
+                         border-radius: 0.3rem;
+                        box-sizing: border-box;
                         background-color: #fff;
                         color: #252525;
                         font-size: 0.24rem;
@@ -309,7 +322,7 @@
             }
 
             .oneDiv {
-                padding: 0 10px;
+                padding: 0 0.1rem;
                 box-sizing: border-box;
 
                 .buyBox {

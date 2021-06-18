@@ -9,10 +9,14 @@
             </swiper>
 
             <div class="productBox pc_box">
-                <swiper :options="swiperOptions" ref="pcSwiper" v-if="list.length>1" >
-                    <swiper-slide v-for="item in list">
-                        <img class="productImg" :src="item.productAllPictureList[0]?item.productAllPictureList[0].pictureVideo:''" alt="">
-                        <p class="productTitle">{{item.productName}}</p>
+                <swiper :options="swiperOptions" ref="pcSwiper" v-if="list.length>1">
+                    <swiper-slide v-for="item in list" @click="gotoProductDetail(item)">
+                        <div @click="gotoProductDetail(item)">
+                            <img class="productImg"
+                                :src="item.productAllPictureList[0]?item.productAllPictureList[0].pictureVideo:''"
+                                alt="">
+                            <p class="productTitle">{{item.productName}}</p>
+                        </div>
                     </swiper-slide>
                 </swiper>
                 <div class="navgationBox">
@@ -24,10 +28,16 @@
 
             </div>
             <div class="productBox phone_box">
-                <swiper :options="swiperOptions_phone" ref="phoneSwiper"  v-if="list.length>1" style="background-color:#fff">
+                <swiper :options="swiperOptions_phone" ref="phoneSwiper" v-if="list.length>1"
+                    style="background-color:#fff">
                     <swiper-slide v-for="item in list">
-                        <img class="productImg" :src="item.productAllPictureList[0]?item.productAllPictureList[0].pictureVideo:''" alt="">
-                        <p class="productTitle">{{item.productName}}</p>
+                        <div @click="gotoProductDetail(item)">
+                            <img class="productImg"
+                                :src="item.productAllPictureList[0]?item.productAllPictureList[0].pictureVideo:''"
+                                alt="">
+                            <p class="productTitle">{{item.productName}}</p>
+                        </div>
+
 
                     </swiper-slide>
                 </swiper>
@@ -36,7 +46,7 @@
         </div>
         <!-- 精选推荐 -->
 
-        <div >
+        <div>
             <div class="moduleTitleBox">
                 <img class="moduleTitleImg" src="../assets/img/outdoorSport/jxtj.png" alt="">
             </div>
@@ -45,50 +55,57 @@
                     <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12" v-if="commandList.length>0"
                         style="padding:0 10px ;box-sizing: border-box;">
                         <div class="buyBox">
-                            <div class="label" v-if="commandList[0].ifNewProduct==1" >新品</div>
-                            <div class="title">{{commandList[0].productName}}</div>
+
+                            <div class="title">
+                                <div class="label" v-if="commandList[0].ifNewProduct==1">新品</div>
+                                {{commandList[0].productName}}
+                            </div>
                             <div class="content">{{commandList[0].productDes}}</div>
                             <div class="colorBox">
                                 <span v-for="(item,index) in commandList[0].productAllPictureList"
-								:class="index==colorIndex&&hoverIndex==0?'active':''"
-								@mouseover="mouseOver(0,index)" @mouseleave="mouseLeave"
-								  :style="{backgroundColor:item.pictureColor}"></span>
+                                    :class="index==colorIndex&&hoverIndex==0?'active':''"
+                                    @mouseover="mouseOver(0,index)" @mouseleave="mouseLeave"
+                                    :style="{backgroundColor:item.pictureColor}"></span>
                             </div>
                             <div class="price">{{commandList[0].productPrice}}</div>
                             <div class="buttonBox">
                                 <div class="buyNow">立即购买</div>
-                                <div class="moreInfo">了解更多</div>
+                                <div class="moreInfo" @click="gotoProductDetail(commandList[0])">了解更多</div>
                             </div>
                             <div class="picBox">
-                                <img :src="hoverIndex==0?commandList[0].productAllPictureList[colorIndex].pictureVideo:commandList[0].productPagePic" alt="">
+                                <img :src="hoverIndex==0?commandList[0].productAllPictureList[colorIndex].pictureVideo:commandList[0].productPagePic"
+                                    alt="">
                             </div>
                         </div>
                     </el-col>
-                    <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12" style="padding:0 10px;box-sizing: border-box;">
-						<template v-for="(item,index) in commandList">
-							<div v-if="index>0" class="buyBox buyBox2">
-							    <div style="width:60%">
-									<div class="label" v-if="item.ifNewProduct==1" >新品</div>
-							        <div class="title">{{item.productName}}</div>
-							        <div class="content">{{item.productDes}}</div>
-							        <div class="colorBox">
-							           <span v-for="(color,cindex) in item.productAllPictureList"
-									   :class="cindex==colorIndex&&hoverIndex==index?'active':''"
-									   @mouseover="mouseOver(index,cindex)" @mouseleave="mouseLeave"
-							             :style="{backgroundColor:color.pictureColor}"></span>
-							        </div>
-							        <div class="price">{{item.productPrice}}</div>
-							        <div class="buttonBox">
-							            <div class="buyNow">立即购买</div>
-							            <div class="moreInfo">了解更多</div>
-							        </div>
-							    </div>
-							    <div class="picBox" style="width:40%">
-							        <img :src="hoverIndex==index?item.productAllPictureList[colorIndex].pictureVideo:item.productPagePic" alt="">
-							    </div>
-							</div>
-						</template>
-                        
+                    <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12" style="padding:0 0.1rem;box-sizing: border-box;">
+                        <template v-for="(item,index) in commandList">
+                            <div v-if="index>0" class="buyBox buyBox2">
+                                <div style="width:60%">
+
+                                    <div class="title">
+                                        <div class="label" v-if="item.ifNewProduct==1">新品</div>{{item.productName}}
+                                    </div>
+                                    <div class="content">{{item.productDes}}</div>
+                                    <div class="colorBox">
+                                        <span v-for="(color,cindex) in item.productAllPictureList"
+                                            :class="cindex==colorIndex&&hoverIndex==index?'active':''"
+                                            @mouseover="mouseOver(index,cindex)" @mouseleave="mouseLeave"
+                                            :style="{backgroundColor:color.pictureColor}"></span>
+                                    </div>
+                                    <div class="price">{{item.productPrice}}</div>
+                                    <div class="buttonBox">
+                                        <div class="buyNow">立即购买</div>
+                                        <div class="moreInfo" @click="gotoProductDetail(item)">了解更多</div>
+                                    </div>
+                                </div>
+                                <div class="picBox" style="width:40%">
+                                    <img :src="hoverIndex==index?item.productAllPictureList[colorIndex].pictureVideo:item.productPagePic"
+                                        alt="">
+                                </div>
+                            </div>
+                        </template>
+
                     </el-col>
                 </el-row>
             </div>
@@ -108,19 +125,19 @@
     import {
         getAllProduct
     } from "@a/product";
-	import {
-	    getAllPicture
-	} from "@a/picture";
+    import {
+        getAllPicture
+    } from "@a/picture";
     export default {
         name: 'index',
         props: {},
         data() {
             return {
-				list:[],
+                list: [],
                 banner: [],
-				commandList:[],
-				hoverIndex:null,
-				colorIndex:null,
+                commandList: [],
+                hoverIndex: null,
+                colorIndex: null,
                 swiperOptions_bannner: {
                     spaceBetween: 0,
                     loop: true,
@@ -133,9 +150,9 @@
                     spaceBetween: 0,
                     centeredSlides: true,
                     loop: true,
-                    autoplay: {
-						delay: 500,
-					},
+                    // autoplay: {
+                    //     delay: 1000,
+                    // },
                 },
                 swiperOptions_phone: {
                     slidesPerView: 2,
@@ -154,16 +171,16 @@
         },
         created() {
             this.getBanner();
-			this.getGoods()
+            this.getGoods()
         },
         methods: {
-			mouseOver(index,cindex){//sku小图鼠标移进移出
-				this.colorIndex = cindex;
-				this.hoverIndex = index;
-			},
-			mouseLeave(){
-				this.hoverIndex = this.colorIndex = null;
-			},
+            mouseOver(index, cindex) { //sku小图鼠标移进移出
+                this.colorIndex = cindex;
+                this.hoverIndex = index;
+            },
+            mouseLeave() {
+                this.hoverIndex = this.colorIndex = null;
+            },
             slidePrev() {
                 this.$refs.pcSwiper.swiperInstance.slidePrev()
             },
@@ -178,18 +195,26 @@
                     this.banner = res.data;
                 })
             },
-			getGoods(){
-				getAllProduct({
-				    productBelong: '2'
-				}).then(res => {
-					this.list = res.data||[];
-					res.data.forEach(d=>{
-						if(d.ifShow==1){
-							this.commandList.push(d);
-						}
-					})
-				})
-			}
+            getGoods() {
+                getAllProduct({
+                    productBelong: '2'
+                }).then(res => {
+                    this.list = res.data || [];
+                    res.data.forEach(d => {
+                        if (d.ifShow == 1) {
+                            this.commandList.push(d);
+                        }
+                    })
+                })
+            },
+            gotoProductDetail(item) {
+                this.$router.push({
+                    path: "productDetail",
+                    query: {
+                        id: item.id
+                    }
+                })
+            }
         }
     }
 </script>
@@ -235,7 +260,7 @@
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                    padding-top: 0.1rem;
+                    padding-top: 0.5rem;
 
                     .iconfont {
                         font-size: 0.43rem;
@@ -273,7 +298,7 @@
                 position: relative;
                 z-index: 2;
                 box-sizing: border-box;
-                
+
 
                 .productImg {
                     width: 100%;
@@ -312,26 +337,34 @@
             max-width: 14rem;
             margin: 0 auto;
             margin-top: 1rem;
+            padding-bottom: 1rem;
         }
 
         .buyBox {
             padding: 0.6rem;
             background-color: #fff;
             text-align: left;
-            margin-bottom: 20px;
+            margin-bottom: 0.2rem;
+            height: 11.2rem;
 
-            .label {
-                padding: 0.05rem 0.1rem;
-                line-height: 0.3rem;
-                width: 0.8rem;
-                border-radius: 0.08rem;
-                background-color: rgba(255, 244, 244, 1);
-                color: rgba(230, 0, 18, 100);
-                font-size: 0.16rem;
-                text-align: center;
-            }
+
 
             .title {
+                display: flex;
+                align-items: center;
+                .label {
+                    padding: 0rem 0.05rem;
+                    line-height: 0.3rem;
+                    height: 0.3rem;
+                    width: 0.8rem;
+                    border-radius: 0.08rem;
+                    background-color: rgba(255, 244, 244, 1);
+                    color: rgba(230, 0, 18, 100);
+                    font-size: 0.16rem;
+                    text-align: center;
+                    margin-right: 0.1rem;
+                }
+
                 color: rgba(51, 51, 51, 100);
                 font-size: 0.36rem;
                 line-height: 0.8rem;
@@ -366,7 +399,7 @@
                     display: block;
                     position: relative;
                     margin-right: 0.5rem;
-					cursor: pointer;
+                    cursor: pointer;
 
                 }
 
@@ -431,6 +464,7 @@
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
+            height: 5.5rem;
         }
 
 

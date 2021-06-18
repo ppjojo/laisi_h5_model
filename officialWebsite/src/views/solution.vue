@@ -258,23 +258,8 @@
 
 <script>
     const goAnchor = (selector) => {
-        // 移动距离
-        let top = 0;
-        // 当前滚动条位置
-        const scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
-        // 若为指定距离
-        if (typeof selector === 'number') {
-            top = selector - scrollTop;
-            console.log(top)
-        } else {
-            const anchor = document.getElementById(selector) || {
-                offsetTop: 0
-            };
-            top = anchor.offsetTop - scrollTop;
-            console.log(top)
-        }
         window.scrollTo({
-            top: top,
+            top: document.getElementById(selector).offsetTop,
             behavior: "smooth"
         });
     };

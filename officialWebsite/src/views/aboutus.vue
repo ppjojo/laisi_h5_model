@@ -109,8 +109,12 @@
                     <img src="../assets/img/aboutus/map.png" class="moduleTitleImg" alt="">
                 </div>
                 <div class="content">
-                    <iframe height="600"
+                    <Map></Map>
+                    <!-- <iframe height="600"
                         src="https://www.amap.com/search?id=B0FFK6RPXC&city=310117&geoobj=120.635518%7C30.759509%7C122.788128%7C31.739702&query_type=IDQ&query=%E4%B8%8A%E6%B5%B7%E9%93%BC%E9%94%B6%E4%BF%A1%E6%81%AF%E6%8A%80%E6%9C%AF%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8&zoom=9.88"
+                        frameborder="0" width="100%"></iframe> -->
+                       <iframe height="600"
+                        src="https://oss.laisitech.com/c1e7470c-1450-4978-894a-b4a2f740d51e.html"
                         frameborder="0" width="100%"></iframe>
                 </div>
             </div>
@@ -129,28 +133,9 @@
 </template>
 
 <script>
-    const goAnchor = (selector) => {
-        // 移动距离
-        let top = 0;
-        // 当前滚动条位置
-        const scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
-        // 若为指定距离
-        if (typeof selector === 'number') {
-            top = selector - scrollTop;
-        } else {
-            const anchor = document.getElementById(selector) || {
-                offsetTop: 0
-            };
-            top = anchor.offsetTop - scrollTop;
-        }
-        window.scrollTo({
-            top: top,
-            behavior: "smooth"
-        });
-    };
-
     import Utils from "@u/callUtil";
-
+     import defaultSetting from "../../settings.js";
+    // import Map from "./map.vue";
     import {
         getAllPicture
     } from "@a/picture";
@@ -160,6 +145,9 @@
         getWebsiteBigEvent
     } from '@/api/aboutus'
     export default {
+        //  components:{
+        //     Map
+        // },
         name: 'index',
         props: {},
         data() {
@@ -186,7 +174,12 @@
 
         },
         methods: {
-            goAnchor: goAnchor,
+            goAnchor(selector) {
+                window.scrollTo({
+                    top: document.getElementById(selector).offsetTop-100,
+                    behavior: "smooth"
+                });
+            },
             getBanner() {
                 getAllPicture({
                     pictureBelong: 4,

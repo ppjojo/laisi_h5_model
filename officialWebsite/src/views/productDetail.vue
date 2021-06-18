@@ -1,20 +1,23 @@
 <template>
     <div class="contain">
         <div style="max-width:14rem;margin:0 auto;position:relative">
-            <div class="button_buy" @click="gotoBuy">立即购买</div>
+            <div class="button_buy" @click="gotoBuy()">立即购买</div>
         </div>
 
-        <img class="productImg" src="../assets/img/banner.png" alt="">
+        <img class="productImg" :src="obj.productLink" alt="">
     </div>
 </template>
 
 <script>
+import {
+		getAllProduct
+	} from "@a/product";
     export default {
         name: 'index',
         props: {},
         data() {
             return {
-
+                obj:{}
 
             }
         },
@@ -22,11 +25,19 @@
 
         },
         mounted() {
-
+            this.getGoods()
         },
         methods: {
+            getGoods() {
+				getAllProduct({ //户外运动
+					id: this.$route.query.id
+				}).then(res => {
+					this.obj = res.data[0];
+				})
+				
+			},
             gotoBuy() {
-
+                window.location.href(this.obj.productTianmaoLink)
             }
 
         }

@@ -8,10 +8,10 @@
 			</swiper>
 		</div>
 		<div class="hotProductBox">
-			<div class="imgBox" v-for="item in hotproduct">
+			<div class="imgBox" v-for="(item, index) in hotproduct">
 				<img :src="item.pictureVideo" alt="">
 				<div class="buttonBox">
-					<div class="detail">
+					<div  class="detail" :class="index==1?'detail2':''">
 						<p class="title">{{item.pictureName}}</p>
 						<p class="descript">{{item.englishName}}</p>
 					</div>
@@ -109,7 +109,7 @@
 					observer: true, //修改swiper自己或子元素时，自动初始化swiper 
 					observeParents: true, //修改swiper的父元素时，自动初始化swiper 
 					autoplay: {
-						delay: 1000,
+						delay: 2000,
 						stopOnLastSlide: false,
 						disableOnInteraction: true,
 					},
@@ -123,7 +123,7 @@
 					observer: true,
 					observeParents: true,
 					autoplay: {
-						delay: 1000,
+						delay: 2000,
 					},
 				},
 				swiperOptions2: {
@@ -133,7 +133,7 @@
 					observeParents: true,
 					loop: true,
 					autoplay: {
-						delay: 1000,
+						delay: 2000,
 					},
 				}
 			}

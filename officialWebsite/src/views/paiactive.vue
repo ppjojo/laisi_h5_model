@@ -12,19 +12,19 @@
                 <img src="../assets/img/paiactive/aiotTitle.png" class="moduleTitleImg" alt="">
             </div>
             <div class="aiot_imgBox">
-                <el-row :gutter="20">
-                    <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6">
+                <el-row >
+                    <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6" style="padding:0 0.1rem">
                         <img src="../assets/img/paiactive/Aiot-1.png"
-                            class="wow  animate__animated animate__bounceInLeft  " data-wow-duration="1s"  alt="">
+                            class="wow  animate__animated animate__bounceInUp  " data-wow-duration="1s"  alt="">
                     </el-col>
-                    <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6">
-                        <img src="../assets/img/paiactive/Aiot-2.png" class="wow  animate__animated animate__bounceInLeft " data-wow-duration="1s"  alt="">
+                    <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6" style="padding:0 0.1rem">
+                        <img src="../assets/img/paiactive/Aiot-2.png" class="wow  animate__animated animate__bounceInUp " data-wow-duration="1s"  alt="">
                     </el-col>
-                    <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6">
-                        <img src="../assets/img/paiactive/Aiot-3.png" class="wow  animate__animated animate__bounceInRight " data-wow-duration="1s" alt="">
+                    <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6" style="padding:0 0.1rem">
+                        <img src="../assets/img/paiactive/Aiot-3.png" class="wow  animate__animated animate__bounceInUp " data-wow-duration="1s" alt="">
                     </el-col>
-                    <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6">
-                        <img src="../assets/img/paiactive/Aiot-4.png" class="wow  animate__animated animate__bounceInRight " data-wow-duration="1s" alt="">
+                    <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6" style="padding:0 0.1rem">
+                        <img src="../assets/img/paiactive/Aiot-4.png" class="wow  animate__animated animate__bounceInUp " data-wow-duration="1s" alt="">
                     </el-col>
                 </el-row>
 
@@ -82,7 +82,7 @@
         <div class="phone_box  InterfaceBox_phone">
             <swiper :options="swiperOptions2">
                 <swiper-slide v-for="item in 3">
-                    <img src="../assets/img/ad.png" alt="">
+                    <img src="../assets/img/paiactive/appshow-1.png" alt="">
                 </swiper-slide>
             </swiper>
         </div>
@@ -132,8 +132,8 @@
                 <img src="../assets/img/paiactive/panterTitle.png" class="moduleTitleImg" alt="">
             </div>
             <div class="parter_contentBox">
-                <el-row :gutter="20">
-                    <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6">
+                <el-row >
+                    <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6 " style="padding:0 0.1rem">
                         <div class="detailBox">
                             <div class="label">01</div>
                             <div class="bg">
@@ -150,7 +150,7 @@
                         </div>
 
                     </el-col>
-                    <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6">
+                    <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6" style="padding:0 0.1rem">
                         <div class="detailBox">
                             <div class="label">02</div>
                             <div class="bg">
@@ -166,7 +166,7 @@
                             </div>
                         </div>
                     </el-col>
-                    <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6">
+                    <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6" style="padding:0 0.1rem">
                         <div class="detailBox">
                             <div class="label">03</div>
                             <div class="bg">
@@ -180,7 +180,7 @@
                             </div>
                         </div>
                     </el-col>
-                    <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6">
+                    <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6" style="padding:0 0.1rem">
                         <div class="detailBox">
                             <div class="label">04</div>
                             <div class="bg">
@@ -367,8 +367,8 @@
 
                 img {
                     width: 100%;
-                    box-shadow: 2px 2px 10px #999;
-                    margin-bottom: 20px;
+                    box-shadow: 2px 2px 10px #eee;
+                    margin-bottom: 0.2rem;
                 }
             }
         }
@@ -423,7 +423,7 @@
 
                 .dataBox {
                     width: 50%;
-                    padding-top: 2rem;
+                    padding-top: 1.5rem;
 
                     .title {
                         color: #fff;
@@ -441,7 +441,7 @@
 
                         .numDiv {
                             width: 50%;
-                            margin-top: 1rem;
+                            margin-top: 0.8rem;
 
                             .num {
                                 color: #fff;
@@ -519,7 +519,7 @@
                     height: 4.63rem;
                     box-shadow: 3px 4px 20px 6px rgba(0, 0, 0, 0.06);
                     padding: 0.4rem;
-                    margin-bottom: 20px;
+                    margin-bottom: 0.2rem;
                     position: relative;
 
                     .bg {
