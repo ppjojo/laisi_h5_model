@@ -19,6 +19,9 @@
       if(docEl.clientWidth<992){
         rem=50
       }
+      if(rem>120){
+        rem=120
+      }
       docEl.style.fontSize = rem + 'px'
     }
   

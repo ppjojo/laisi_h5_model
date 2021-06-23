@@ -11,6 +11,8 @@
                     <div class="newsDetail">
                         <div class="title">{{detail.newsTitle}}</div>
                         <div class="descript">
+                            <span><img v-if="detail.newsTop==1" style="width:0.3rem;" src="../assets/img/index/hot.png" alt=""></span>
+                            <span>{{detail.newsEditor}}</span>
                             <span>{{detail.updateTime | formatDate}}</span>
                         </div>
                         <div class="content">
@@ -140,10 +142,11 @@
         .bannerBox {
             background-image: url('../assets/img/news/newsBg.png');
             width: 100%;
-            height: 8.5rem;
+            height: 7.67rem;
             background-size: cover;
             background-repeat: no-repeat;
             position: relative;
+            background-position: 50% 50%;
 
         }
 
@@ -151,7 +154,7 @@
             margin: 1rem auto;
             padding: 0 0.2rem;
             box-sizing: border-box;
-            max-width: 14.4rem;
+            max-width: 12.4rem;
             position: relative;
 
             .newsDetail {
@@ -159,20 +162,24 @@
 
                 .title {
                     color: #333;
-                    font-size: 0.48rem;
-                    line-height: 0.8rem;
+                    font-size: 0.4rem;
+                    line-height: 0.6rem;
                     font-weight: bold;
                 }
 
                 .descript {
                     color: #777;
-                    font-size: 0.18rem;
+                    font-size: 0.15rem;
                     line-height: 0.5rem;
+                    span{
+                        display: inline-block;
+                        margin-right: 0.2rem;
+                    }
                 }
 
                 .content {
                     color: #333;
-                    font-size: 0.24rem;
+                    font-size: 0.16rem;
                     line-height: 0.4rem;
                 }
 
@@ -182,9 +189,9 @@
 
                     .button {
                         display: inline-block;
-                        font-size: 0.24rem;
+                        font-size: 0.18rem;
                         color: #1A59B7;
-                        line-height: 0.5rem;
+                        line-height: 0.4rem;
                         padding: 0 0.5rem;
                     }
 
@@ -194,14 +201,14 @@
             .newsNav {
                 .navTitle {
                     color: #333;
-                    font-size: 0.38rem;
-                    line-height: 0.6rem;
+                    font-size: 0.25rem;
+                    line-height: 0.45rem;
                     display: flex;
                     align-items: center;
 
                     img {
-                        width: 0.44rem;
-                        height: 0.44rem;
+                        width: 0.4rem;
+                        height: 0.4rem;
                         margin-right: 0.2rem;
                     }
                 }
@@ -240,7 +247,7 @@
                                 background-image: url('../assets/img/paiactive/Aiot-1.png');
                                 background-size: cover;
                                 width: 35%;
-                                height: 1rem;
+                                height: 0.8rem;
                                 margin-right: 0.1rem;
                             }
 
@@ -249,10 +256,10 @@
 
                                 .title {
                                     color: #333;
-                                    font-size: 0.22rem;
-                                    line-height: 0.35rem;
+                                    font-size: 0.18rem;
+                                    line-height: 0.3rem;
                                     overflow: hidden;
-                                    height: 0.7rem;
+                                    height: 0.6rem;
                                     text-overflow: ellipsis;
                                     display: box;
                                     display: -webkit-box;
@@ -261,9 +268,9 @@
                                 }
 
                                 .dateBox {
-                                    font-size: 0.18rem;
+                                    font-size: 0.15rem;
                                     color: #777;
-                                    line-height: 0.4rem;
+                                    line-height: 0.25rem;
                                 }
                             }
 
@@ -276,13 +283,19 @@
     }
 
     //大于992
-    @media (min-width: 992px) {}
+    @media (min-width: 992px) {
+        .newsDetail{
+            padding-right: 0.5rem;
+        }
+    }
 
     //小于992
     @media (max-width: 992px) {
         .contain {
             margin-top: 0.66rem;
-
+            .bannerBox{
+                background-size: cover;
+            }
 
         }
     }

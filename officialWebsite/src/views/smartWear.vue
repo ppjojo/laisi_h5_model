@@ -17,8 +17,8 @@
                     <el-col class="oneDiv" v-if="list.length>0">
                         <div class="buyBox buyBox2">
                             <div style="width:60%">
-                                <div class="label" v-if="list[0].ifNewProduct==1">新品</div>
-                                <div class="title">{{list[0].productName}}</div>
+                                <div class="title">
+                                     <div class="label" v-if="list[0].ifNewProduct==1">新品</div>{{list[0].productName}}</div>
                                 <div class="content">{{list[0].productDes}}</div>
                                 <div class="colorBox">
                                     <span v-for="(item,index) in list[0].productAllPictureList"
@@ -45,8 +45,8 @@
                                     style="padding:0 0.1rem ;box-sizing: border-box;">
                                     <div class="buyBox">
                                         <div>
-                                            <div class="label" v-if="list[0].ifNewProduct==1">新品</div>
-                                            <div class="title">{{item.productName}}</div>
+                                            <div class="title">
+                                                 <div class="label" v-if="item.ifNewProduct==1">新品</div>{{item.productName}}</div>
                                             <div class="content">{{item.productDes}}</div>
                                             <div class="colorBox">
                                                 <span v-for="(color,cindex) in item.productAllPictureList"
@@ -162,9 +162,19 @@
     @media (min-width: 992px) {
         .contain {
             .mainContent {
-                margin-top: -3rem;
                 z-index: 2;
                 position: relative;
+            }
+
+            .bannerBox {
+                .bannerImg_contain {
+                    background-image: url('../assets/img/banner.png');
+                    width: 100%;
+                    height: 9.75rem;
+                    background-size: contain;
+                    background-position: 50% 50%;
+                    background-repeat: no-repeat;
+                }
             }
         }
     }
@@ -173,51 +183,61 @@
     @media (max-width: 992px) {
         .contain {
             margin-top: 0.66rem;
+
+            .bannerBox {
+                .bannerImg_contain {
+                    background-image: url('../assets/img/banner.png');
+                    width: 100%;
+                    height: 9.75rem;
+                    background-size: cover;
+                    background-position: 50% 50%;
+                    background-repeat: no-repeat;
+                }
+            }
         }
     }
 
     .contain {
-        .bannerBox {
-            .bannerImg_contain {
-                background-image: url('../assets/img/banner.png');
-                width: 100%;
-                height: 14.5rem;
-                background-size: cover;
-                background-position: 50% 50%;
-                background-repeat: no-repeat;
-            }
-        }
+
 
         background-color: rgb(246, 248, 251);
 
         .buyBoxList {
-            max-width: 14rem;
+            max-width: 12rem;
             margin: 0 auto;
-            margin-top: -6rem;
+            margin-top: -4rem;
             position: relative;
             z-index: 2;
 
             .buyBox {
-                padding: 0.6rem;
+                padding: 0.5rem;
                 background-color: #fff;
                 text-align: left;
                 margin-bottom: 0.2rem;
+                height: 7.8rem;
 
-                .label {
-                    padding: 0.05rem 0.1rem;
-                    line-height: 0.3rem;
-                    width: 0.8rem;
-                    border-radius: 0.08rem;
-                    background-color: rgba(255, 244, 244, 1);
-                    color: rgba(230, 0, 18, 100);
-                    font-size: 0.16rem;
-                    text-align: center;
-                }
+
 
                 .title {
+                    display: flex;
+                    align-items: center;
+
+                    .label {
+                        padding: 0rem 0.05rem;
+                        line-height: 0.3rem;
+                        height: 0.3rem;
+                        width: 0.4rem;
+                        border-radius: 0.08rem;
+                        background-color: #fff4f4;
+                        color: #e60012;
+                        font-size: 0.13rem;
+                        text-align: center;
+                        margin-right: 0.1rem;
+                    }
+
                     color: rgba(51, 51, 51, 100);
-                    font-size: 0.36rem;
-                    line-height: 0.8rem;
+                    font-size: 0.28rem;
+                    line-height: 0.5rem;
                     font-weight: bold;
                     overflow: hidden;
                     white-space: nowrap;
@@ -226,24 +246,21 @@
 
                 .content {
                     color: rgba(102, 102, 102, 100);
-                    font-size: 0.22rem;
-                    line-height: 0.5rem;
-                    // overflow: hidden;
-                    // text-overflow: ellipsis;
-                    // display: box;
-                    // display: -webkit-box;
-                    // -webkit-line-clamp: 2;
-                    // -webkit-box-orient: vertical;
+                    font-size: 0.16rem;
+                    line-height: 0.4rem;
                     overflow: hidden;
-                    white-space: nowrap;
                     text-overflow: ellipsis;
+                    display: box;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 2;
+                    -webkit-box-orient: vertical;
                 }
 
                 .colorBox {
                     display: flex;
                     justify-content: flex-start;
                     align-items: center;
-                    height: 1rem;
+                    height: 0.6rem;
 
                     span {
                         width: 0.2rem;
@@ -273,7 +290,7 @@
 
                 .price {
                     color: rgba(51, 51, 51, 100);
-                    font-size: 0.3rem;
+                    font-size: 0.24rem;
                     line-height: 0.65rem;
                     font-weight: bold;
                 }
@@ -282,35 +299,40 @@
                     display: flex;
                     justify-content: flex-start;
                     align-items: center;
-                    margin: 0.5rem 0;
+                    margin: 0.25rem 0;
 
                     .buyNow {
-                        padding: 0.05rem 0.2rem;
-                        border-radius: 0.3rem;
-                        box-sizing: border-box;
+                        text-align: center;
+                        width: 0.75rem;
+                        height: 0.32rem;
+                        border-radius: 0.2rem;
                         background-color: rgba(37, 37, 37, 1);
                         color: rgba(255, 255, 255, 100);
-                        font-size: 0.24rem;
-                        line-height: 0.4rem;
+                        font-size: 0.12rem;
+                        line-height: 0.32rem;
                         border: 1px solid #252525;
-                        margin-right: 0.3rem;
+                        margin-right: 0.28rem;
                     }
 
                     .moreInfo {
-                        padding: 0.05rem 0.2rem;
-                         border-radius: 0.3rem;
-                        box-sizing: border-box;
+                        text-align: center;
+                        width: 0.75rem;
+                        height: 0.32rem;
+                        border-radius: 0.2rem;
                         background-color: #fff;
                         color: #252525;
-                        font-size: 0.24rem;
-                        line-height: 0.4rem;
+                        font-size: 0.12rem;
+                        line-height: 0.32rem;
                         border: 1px solid #252525;
                     }
                 }
 
                 .picBox {
+                    text-align: right;
+
                     img {
-                        width: 100%;
+
+                        width: 80%;
                     }
                 }
             }
@@ -318,7 +340,15 @@
             .buyBox2 {
                 display: flex;
                 justify-content: space-between;
-                align-items: flex-end;
+                height: 5rem;
+
+                .picBox {
+                    img {
+                        width: 80%;
+                    }
+                }
+
+                // align-items: flex-end;
             }
 
             .oneDiv {

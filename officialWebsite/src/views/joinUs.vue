@@ -6,6 +6,9 @@
         </div>
 
         <div class="content">
+            <div class="moduleTitleBox">
+                <img src="../assets/img/joinus/title.png" class="moduleTitleImg" alt="">
+            </div>
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm">
                 <el-row>
                     <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
@@ -144,7 +147,7 @@
         float: none;
         text-align: left;
         color: #333;
-        font-size: 0.3rem;
+        font-size: 0.26rem;
         margin-bottom: 0.1rem;
     }
     .el-select-dropdown__item{
@@ -165,6 +168,7 @@
             margin-bottom: 0.3rem;
             padding-right: 0.5rem;
         }
+       
     }
 
 
@@ -179,19 +183,20 @@
         .bannerBox {
             background-image: url('../assets/img/joinus/bg.png');
             width: 100%;
-            height: 12.34rem;
-            background-size: cover;
+            height: 10.79rem;
+            background-size: contain;
+            background-position: 50% 50%;
             background-repeat: no-repeat;
             position: relative;
         }
 
         .content {
-            max-width: 14rem;
+            max-width: 12rem;
             margin: 0 auto;
             background-color: rgba(255, 255, 255, 1);
             box-shadow: 3px 4px 20px 6px rgba(173, 173, 173, 0.06);
             position: relative;
-            top: -5rem;
+            top: -3rem;
 
             .buttonDiv {
                 height: 0.87rem;
@@ -212,8 +217,10 @@
     //大于992
     @media (min-width: 992px) {
         .content {
-            padding: 1rem;
+            padding: 0.85rem;
+            padding-top: 0;
         }
+        
     }
 
 
@@ -226,6 +233,10 @@
 
         .content {
             padding: 0.15rem;
+        }
+
+         .bannerBox{
+            background-size: cover!important;
         }
     }
 </style>

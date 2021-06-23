@@ -11,7 +11,7 @@
 			<div class="imgBox" v-for="(item, index) in hotproduct">
 				<img :src="item.pictureVideo" alt="">
 				<div class="buttonBox">
-					<div  class="detail" :class="index==1?'detail2':''">
+					<div class="detail" :class="index==1?'detail2':''">
 						<p class="title">{{item.pictureName}}</p>
 						<p class="descript">{{item.englishName}}</p>
 					</div>
@@ -30,14 +30,14 @@
 					<swiper-slide v-for="item in newsList">
 						<div class="newsTag" v-if="item.newsTag==1">新闻</div>
 						<div class="newsTag" v-else>活动</div>
-						<img class="newsImg" :src="item.newsPicture" alt="">
+						<div class="newsImg" :style="{'background-image':'url('+item.newsPicture+')'}"></div>
 						<div class="textBox">
 							<p class="title">
 								{{item.newsTitle}}
 							</p>
 							<div class="label">
-								<img v-if="item.newHot==1" src="../assets/img/index/hot.png" alt="">
-								<span>{{item.newsDepartment}}</span>
+								<img v-if="item.newsTop==1" src="../assets/img/index/hot.png" alt="">
+								<span>{{item.newsEditor}}</span>
 								<span>{{item.updateTime | formatDate}}</span>
 							</div>
 							<div class="content" v-html="item.newsBody">
@@ -53,14 +53,14 @@
 					<swiper-slide v-for="item in newsList">
 						<div class="newsTag" v-if="item.newsTag==1">新闻</div>
 						<div class="newsTag" v-else>活动</div>
-						<img class="newsImg" :src="item.newsPicture" alt="">
+						<div class="newsImg" :style="{'background-image':'url('+item.newsPicture+')'}"></div>
 						<div class="textBox">
 							<p class="title">
 								{{item.newsTitle}}
 							</p>
 							<div class="label">
-								<img v-if="item.newHot==1" src="../assets/img/index/hot.png" alt="">
-								<span>{{item.newsDepartment}}</span>
+								<img v-if="item.newsTop==1" src="../assets/img/index/hot.png" alt="">
+								<span>{{item.newsEditor}}</span>
 								<span>{{item.updateTime | formatDate}}</span>
 							</div>
 							<div class="content" v-html="item.newsBody">
@@ -195,11 +195,22 @@
 		}
 
 		.contain {
+			.bannerBox {
+				.bannerImg_contain {
+					background-image: url('../assets/img/banner.png');
+					width: 100%;
+					height: 8.38rem;
+					background-size: contain;
+					background-position: 50% 50%;
+					background-repeat: no-repeat;
+				}
+			}
+
 			.hotProductBox {
 				color: #fff;
 				display: flex;
 				justify-content: space-between;
-				max-width: 14rem;
+				max-width: 12rem;
 				margin: 1.5rem auto;
 				margin-bottom: 1rem;
 
@@ -219,14 +230,14 @@
 					}
 
 					.buttonBox {
-						width: 3.8rem;
+						width: 3rem;
 						display: flex;
 						justify-content: space-between;
 						align-items: center;
 						background-color: rgba($color: #000000, $alpha: 0.55);
 						position: absolute;
 						bottom: 0.6rem;
-						padding: 0.25rem 0.3rem 0.25rem 0.2rem;
+						padding: 0.18rem 0.2rem 0.18rem 0.2rem;
 						text-align: left;
 
 						.detail {
@@ -234,13 +245,13 @@
 							padding-left: 0.2rem;
 
 							.title {
-								font-size: 0.38rem;
-								line-height: 0.45rem;
+								font-size: 0.22rem;
+								line-height: 0.4rem;
 							}
 
 							.descript {
-								font-size: 0.2rem;
-								line-height: 0.3rem;
+								font-size: 0.12rem;
+								line-height: 0.35rem;
 							}
 
 						}
@@ -250,7 +261,7 @@
 						}
 
 						.iconfont {
-							font-size: 0.43rem;
+							font-size: 0.28rem;
 						}
 
 
@@ -260,9 +271,9 @@
 			}
 
 			.newsBox {
-				max-width: 15rem;
+				max-width: 13rem;
 				margin: 0 auto;
-				margin-bottom: 2rem;
+				margin-bottom: 1.5rem;
 
 				.moduleTitle {
 					color: #333333;
@@ -272,7 +283,7 @@
 
 				.swiper-container {
 					width: 100%;
-					height: 5.85rem;
+					height: 5rem;
 				}
 
 				.swiper-slide {
@@ -300,6 +311,8 @@
 					.newsImg {
 						width: 100%;
 						height: 50%;
+						background-size: cover;
+						background-position: 100% 100%;
 					}
 				}
 
@@ -312,10 +325,10 @@
 					padding: 0.3rem;
 
 					.title {
-						font-size: 0.28rem;
+						font-size: 0.18rem;
 						color: #333333;
 						font-weight: bold;
-						line-height: 0.4rem;
+						line-height: 0.3rem;
 						overflow: hidden;
 						white-space: nowrap;
 						text-overflow: ellipsis;
@@ -339,7 +352,7 @@
 					}
 
 					.content {
-						font-size: 0.15rem;
+						font-size: 0.12rem;
 						color: #777;
 						line-height: 0.3rem;
 						height: 0.9rem;
@@ -357,11 +370,11 @@
 						color: rgba(232, 44, 59, 100);
 						font-size: 0.14rem;
 						line-height: 0.3rem;
-						padding: 3px 5px;
+						padding: 0.04rem 0.06rem;
 						float: right;
 						text-align: center;
 						font-family: PingFangSC-Medium;
-						margin-top: 0.1rem;
+						margin-top: 0.05rem;
 					}
 				}
 			}
@@ -371,6 +384,17 @@
 	//小于992
 	@media (max-width: 992px) {
 		.contain {
+			.bannerBox {
+				.bannerImg_contain {
+					background-image: url('../assets/img/banner.png');
+					width: 100%;
+					height: 8.38rem;
+					background-size: cover;
+					background-position: 50% 50%;
+					background-repeat: no-repeat;
+				}
+			}
+
 			margin-top: 0.66rem;
 
 			.phone_box {
@@ -459,6 +483,9 @@
 				.newsImg {
 					width: 100%;
 					height: 50%;
+					min-height: 3rem;
+					background-size: cover;
+					background-position: 100% 100%;
 				}
 
 				.moduleTitle {
@@ -486,6 +513,10 @@
 						font-size: 0.24rem;
 						color: #777;
 						line-height: 0.5rem;
+						img {
+							width: 0.5rem;
+							margin-right: 0.2rem;
+						}
 					}
 
 					.content {
@@ -520,16 +551,7 @@
 	.contain {
 		background-color: #fff;
 
-		.bannerBox {
-			.bannerImg_contain {
-				background-image: url('../assets/img/banner.png');
-				width: 100%;
-				height: 10rem;
-				background-size: cover;
-				background-position: 50% 50%;
-				background-repeat: no-repeat;
-			}
-		}
+
 
 
 	}

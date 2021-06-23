@@ -7,27 +7,33 @@
         </div>
 
         <!-- AIOT时代下 -->
-        <div class="aiotBox">
-            <div class="moduleTitleBox">
-                <img src="../assets/img/paiactive/aiotTitle.png" class="moduleTitleImg" alt="">
-            </div>
-            <div class="aiot_imgBox">
-                <el-row >
-                    <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6" style="padding:0 0.1rem">
-                        <img src="../assets/img/paiactive/Aiot-1.png"
-                            class="wow  animate__animated animate__bounceInUp  " data-wow-duration="1s"  alt="">
-                    </el-col>
-                    <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6" style="padding:0 0.1rem">
-                        <img src="../assets/img/paiactive/Aiot-2.png" class="wow  animate__animated animate__bounceInUp " data-wow-duration="1s"  alt="">
-                    </el-col>
-                    <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6" style="padding:0 0.1rem">
-                        <img src="../assets/img/paiactive/Aiot-3.png" class="wow  animate__animated animate__bounceInUp " data-wow-duration="1s" alt="">
-                    </el-col>
-                    <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6" style="padding:0 0.1rem">
-                        <img src="../assets/img/paiactive/Aiot-4.png" class="wow  animate__animated animate__bounceInUp " data-wow-duration="1s" alt="">
-                    </el-col>
-                </el-row>
+        <div class="aiotbg">
+            <div class="bg"></div>
+            <div class="aiotBox">
+                <div class="moduleTitleBox">
+                    <img src="../assets/img/paiactive/aiotTitle.png" class="moduleTitleImg" alt="">
+                </div>
+                <div class="aiot_imgBox">
+                    <el-row>
+                        <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6" style="padding:0 0.1rem">
+                            <img src="../assets/img/paiactive/Aiot-1.png"
+                                class="wow  animate__animated animate__bounceInUp  " data-wow-duration="1s" alt="">
+                        </el-col>
+                        <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6" style="padding:0 0.1rem">
+                            <img src="../assets/img/paiactive/Aiot-2.png"
+                                class="wow  animate__animated animate__bounceInUp " data-wow-duration="1s" alt="">
+                        </el-col>
+                        <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6" style="padding:0 0.1rem">
+                            <img src="../assets/img/paiactive/Aiot-3.png"
+                                class="wow  animate__animated animate__bounceInUp " data-wow-duration="1s" alt="">
+                        </el-col>
+                        <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6" style="padding:0 0.1rem">
+                            <img src="../assets/img/paiactive/Aiot-4.png"
+                                class="wow  animate__animated animate__bounceInUp " data-wow-duration="1s" alt="">
+                        </el-col>
+                    </el-row>
 
+                </div>
             </div>
         </div>
 
@@ -41,13 +47,13 @@
                         </swiper-slide>
                     </swiper>
                 </div>
-                <div class="typeBox">
+                <!-- <div class="typeBox">
                     <div class="type_botton">跳绳</div>
                     <div class="type_botton">手表</div>
                     <div class="type_botton">腕力球</div>
                     <div class="type_botton">健腹轮</div>
 
-                </div>
+                </div> -->
                 <div class="dataBox">
                     <div class="title">搭配手机，掌握身体精准数据</div>
                     <div class="numBox">
@@ -132,7 +138,7 @@
                 <img src="../assets/img/paiactive/panterTitle.png" class="moduleTitleImg" alt="">
             </div>
             <div class="parter_contentBox">
-                <el-row >
+                <el-row>
                     <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6 " style="padding:0 0.1rem">
                         <div class="detailBox">
                             <div class="label">01</div>
@@ -219,7 +225,7 @@
 </template>
 
 <script>
- import WOW from '../../node_modules/wowjs/dist/wow';
+    import WOW from '../../node_modules/wowjs/dist/wow';
     import {
         getAllPicture
     } from "@a/picture";
@@ -314,6 +320,17 @@
         .phone_box {
             display: none;
         }
+
+        .bannerBox {
+            .bannerImg_contain {
+                background-image: url('../assets/img/banner.png');
+                width: 100%;
+                height: 9.34rem;
+                background-size: contain;
+                background-position: 50% 50%;
+                background-repeat: no-repeat;
+            }
+        }
     }
 
     //小于992
@@ -326,6 +343,17 @@
 
         .phone_box {
             display: block;
+        }
+
+        .bannerBox {
+            .bannerImg_contain {
+                background-image: url('../assets/img/banner.png');
+                width: 100%;
+                height: 9.34rem;
+                background-size: cover;
+                background-position: 50% 50%;
+                background-repeat: no-repeat;
+            }
         }
 
         .InterfaceBox_phone {
@@ -344,24 +372,34 @@
     }
 
     .contain {
-        .bannerBox {
-            .bannerImg_contain {
-                background-image: url('../assets/img/banner.png');
-                width: 100%;
-                height: 10rem;
-                background-size: cover;
-                background-position: 50% 50%;
-                background-repeat: no-repeat;
-            }
+
+        .aiotbg {
+            position: relative;
+            z-index: 2;
+
+            // .bg {
+            //     position: absolute;
+            //     top: 0;
+            //     right: 0;
+            //     width: 100%;
+            //     height: 20.8rem;
+            //     background-image: url("../assets/img/paiactive/aiot-bg.png");
+            //     z-index: 1;
+            //     background-size: cover;
+            //     background-repeat: no-repeat;
+            // }
         }
 
         .aiotBox {
-            max-width: 14.4rem;
+            max-width: 12.4rem;
             margin: 0 auto;
-            margin-top: 1rem;
+            margin-top: 0.5rem;
+            position: relative;
+            z-index: 2;
+
 
             .aiot_imgBox {
-                margin: 1rem 0.2rem;
+                margin: 0rem 0.2rem;
                 // display: flex;
                 // justify-content: space-between;
 
@@ -376,25 +414,25 @@
         .InterfaceBox {
             background-image: url('../assets/img/paiactive/app-bg.png');
             width: 100%;
-            height: 8.5rem;
+            height: 6.38rem;
             background-size: cover;
             margin-top: 4rem;
             background-repeat: no-repeat;
 
             .Interface_Contain {
-                max-width: 14rem;
+                max-width: 12rem;
                 margin: 0 auto;
                 display: flex;
                 justify-content: space-between;
 
                 .imgBox {
-                    width: 4.6rem;
+                    width: 3.75rem;
                     position: relative;
 
                     .swiper-container {
                         width: 100%;
                         position: absolute;
-                        height: 10rem;
+                        height: 8.22rem;
                         top: -2.5rem;
                         left: 0;
 
@@ -423,14 +461,14 @@
 
                 .dataBox {
                     width: 50%;
-                    padding-top: 1.5rem;
+                    padding-top: 1rem;
 
                     .title {
                         color: #fff;
-                        font-size: 0.4rem;
+                        font-size: 0.32rem;
                         font-weight: bold;
                         text-align: left;
-                        line-height: 0.8rem;
+                        line-height: 0.5rem;
                     }
 
                     .numBox {
@@ -441,21 +479,21 @@
 
                         .numDiv {
                             width: 50%;
-                            margin-top: 0.8rem;
+                            margin-top: 0.5rem;
 
                             .num {
                                 color: #fff;
-                                font-size: 0.7rem;
+                                font-size: 0.57rem;
                                 font-weight: bold;
-                                line-height: 0.9rem;
+                                line-height: 0.8rem;
                             }
 
                             .explain {
                                 display: flex;
                                 justify-content: flex-start;
                                 color: #fff;
-                                font-size: 0.2rem;
-                                line-height: 0.4rem;
+                                font-size: 0.16rem;
+                                line-height: 0.3rem;
                             }
                         }
 
@@ -467,13 +505,13 @@
 
 
         .activityBox {
-            max-width: 14.4rem;
+            max-width: 12.4rem;
             margin: 0 auto;
-            margin-top: 1rem;
+            margin-top: 0.5rem;
 
             .activity_imgBox {
 
-                margin: 1rem 0.2rem;
+                margin: 0rem 0.2rem;
                 margin-bottom: 0.5rem;
 
                 .el-col {
@@ -507,18 +545,18 @@
         }
 
         .parterBox {
-            max-width: 14.4rem;
+            max-width: 12.4rem;
             margin: 0 auto;
-            margin-top: 1rem;
+            margin-top: 0.5rem;
 
             .parter_contentBox {
-                margin: 1rem 0.2rem;
+                margin: 0rem 0.2rem;
 
                 .detailBox {
                     text-align: left;
                     height: 4.63rem;
                     box-shadow: 3px 4px 20px 6px rgba(0, 0, 0, 0.06);
-                    padding: 0.4rem;
+                    padding:0.6rem 0.35rem;
                     margin-bottom: 0.2rem;
                     position: relative;
 
@@ -550,7 +588,7 @@
 
 
                     .title {
-                        font-size: 0.34rem;
+                        font-size: 0.25rem;
                         color: #000;
                         font-weight: bold;
                         line-height: 1rem;
@@ -563,7 +601,7 @@
                     }
 
                     .content {
-                        font-size: 0.23rem;
+                        font-size: 0.19rem;
                         color: #666;
                         line-height: 0.4rem;
                         position: relative;
@@ -622,9 +660,10 @@
                 border-radius: 0.3rem;
                 background-color: rgba(37, 37, 37, 1);
                 color: #fff;
-                font-size: 0.3rem;
+                font-size: 0.24rem;
                 line-height: 0.6rem;
-                margin: 1rem auto;
+                margin: 0.2rem auto;
+                margin-bottom: 1.5rem;
             }
         }
     }

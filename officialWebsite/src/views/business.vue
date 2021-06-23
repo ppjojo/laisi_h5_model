@@ -118,31 +118,33 @@
             <div class="contentBox">
                 <el-row :gutter="20">
                     <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6">
-                        <div class="detailBox">
+                        <!-- <div class="detailBox">
                             <div class="label">01</div>
                             <div class="title">运动健康行业<br>发展空间大 <span>。</span></div>
-
-                        </div>
+                        </div> -->
+                        <img style="width:2.88rem;" src="../assets/img/cooprate/ys-1.png" alt="">
 
                     </el-col>
                     <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6">
-                        <div class="detailBox">
+                        <!-- <div class="detailBox">
                             <div class="label">02</div>
                             <div class="title">智能运动健康<br>市场排名靠前<span>。</span></div>
-
-                        </div>
+                        </div> -->
+                        <img style="width:2.88rem;" src="../assets/img/cooprate/ys-2.png" alt="">
                     </el-col>
                     <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6">
-                        <div class="detailBox">
+                        <!-- <div class="detailBox">
                             <div class="label">03</div>
                             <div class="title">较强的产品研发和资源优势<span>。</span></div>
-                        </div>
+                        </div> -->
+                        <img style="width:2.88rem;" src="../assets/img/cooprate/ys-3.png" alt="">
                     </el-col>
                     <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6">
-                        <div class="detailBox">
+                        <!-- <div class="detailBox">
                             <div class="label">04</div>
                             <div class="title">拥有百万健身达人喜爱的平台<span>。</span></div>
-                        </div>
+                        </div> -->
+                        <img style="width:2.88rem;" src="../assets/img/cooprate/ys-4.png" alt="">
                     </el-col>
                 </el-row>
 
@@ -235,38 +237,38 @@
             .bannerImg_contain {
                 background-image: url('../assets/img/banner.png');
                 width: 100%;
-                height: 9.23rem;
-                background-size: cover;
+                height: 7.69rem;
+                background-size: contain;
                 background-position: 50% 50%;
                 background-repeat: no-repeat;
             }
 
             .qr {
                 position: fixed;
-                top: 6.9rem;
-                right: 13%;
-                width: 3.2rem;
+                top: 5.8rem;
+                right: 18%;
+                width: 2.57rem;
                 z-index: 3;
             }
 
             .joinUsButton {
                 position: absolute;
                 top: 52%;
-                left: calc(50% - 0.8rem);
+                left: calc(50% - 0.65rem);
                 border-radius: 0.25rem;
-                width: 1.6rem;
-                line-height: 0.5rem;
+                width: 1.3rem;
+                line-height: 0.36rem;
                 color: #fff;
                 background-color: rgba(51, 51, 48, 1);
                 box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.5);
                 z-index: 2;
-                font-size: 0.22rem;
+                font-size: 0.17rem;
             }
         }
 
 
         .typeBox {
-            max-width: 14rem;
+            max-width: 12rem;
             margin: 0 auto;
 
             img {
@@ -279,18 +281,18 @@
             margin-top: 1rem;
             background-image: url('../assets/img/cooprate/bePater-bg.png');
             width: 100%;
-            height: 6rem;
-            background-size: cover;
+            height: 4.3rem;
+            background-size: contain;
             background-repeat: no-repeat;
             position: relative;
 
             .beparterDiv {
-                max-width: 14rem;
+                max-width: 12rem;
                 margin: 0 auto;
                 display: flex;
                 justify-content: space-between;
                 position: relative;
-                bottom: -4.5rem;
+                bottom: -3rem;
 
                 img {
                     transition: all 0.3s;
@@ -303,15 +305,15 @@
         }
 
         .giveBox {
-            max-width: 14rem;
+            max-width: 12rem;
             margin: 0 auto;
-            margin-top: 3rem;
+            margin-top: 2rem;
 
             .giveDiv {
-                margin-top: 1rem;
                 background-color: #FFFFFF;
                 box-shadow: 3px 4px 20px 6px rgba(173, 173, 173, 0.06);
-                padding: 0.8rem;
+                padding: 0.6rem;
+                padding-bottom: 0.1rem;
                 width: 100%;
 
                 // .el-row {
@@ -327,25 +329,25 @@
                     justify-content: flex-start;
                     align-items: center;
                     text-align: left;
-                    margin-bottom: 0.6rem;
+                    margin-bottom: 0.5rem;
 
                     img {
-                        width: 1rem;
-                        height: 1rem;
-                        margin-right: 0.5rem
+                        width: 0.8rem;
+                        height: 0.8rem;
+                        margin-right: 0.3rem
                     }
 
                     ;
 
                     .china {
                         color: #333333;
-                        font-size: 0.34rem;
-                        line-height: 0.5rem;
+                        font-size: 0.28rem;
+                        line-height: 0.4rem;
                     }
 
                     .en {
                         color: #999;
-                        font-size: 0.2rem;
+                        font-size: 0.16rem;
                         line-height: 0.3rem;
                     }
                 }
@@ -353,16 +355,15 @@
         }
 
         .advantageBox {
-            max-width: 14.2rem;
+            max-width: 12.2rem;
             margin: 0 auto;
-            margin-top: 1rem;
 
             .contentBox {
-                padding: 1rem 0.1rem;
+                padding: 0.5rem 0.1rem;
 
                 .detailBox {
                     text-align: left;
-                    height: 3.36rem;
+                    height: 2.88rem;
                     box-shadow: 3px 4px 20px 6px rgba(173, 173, 173, 0.06);
                     background-color: rgba(255, 255, 255, 1);
                     padding: 0.4rem;
@@ -384,9 +385,9 @@
 
 
                     .title {
-                        font-size: 0.34rem;
+                        font-size: 0.28rem;
                         color: #000;
-                        line-height: 0.5rem;
+                        line-height: 0.4rem;
                         position: relative;
                         z-index: 2;
 
@@ -400,7 +401,7 @@
         }
 
         .parterBox {
-            max-width: 14.2rem;
+            max-width: 12.2rem;
             margin: 0 auto;
             padding-bottom: 1rem;
 
@@ -410,11 +411,10 @@
                 display: flex;
                 justify-content: space-between;
                 flex-wrap: wrap;
-                margin-top: 1rem;
-                padding: 1rem 1rem 0.5rem 1rem;
+                padding: 0.5rem ;
 
                 img {
-                    width: 21%;
+                    // min-width: 21%;
                     height: 1rem;
                     margin-bottom: 0.5rem;
                 }
@@ -422,9 +422,20 @@
             }
         }
 
+    }
 
-
-
+    //小于992
+    @media (max-width: 992px) {
+        .bannerBox {
+            .bannerImg_contain {
+                background-image: url('../assets/img/banner.png');
+                width: 100%;
+                height: 7.69rem;
+                background-size: cover;
+                background-position: 50% 50%;
+                background-repeat: no-repeat;
+            }
+        }
 
     }
 </style>

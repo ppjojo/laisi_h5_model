@@ -20,9 +20,11 @@
                     </swiper-slide>
                 </swiper>
                 <div class="navgationBox">
-                    <div class=" iconfont icon-shangyiye" @click="slidePrev">
+                    <div class=" iconfont " @click="slidePrev">
+                        <img style="width:0.36rem;" src="../assets/img/outdoorSport/iconLeft.png" alt="">
                     </div>
-                    <div class=" iconfont icon-xiayiye" @click="slideNext">
+                    <div class=" iconfont " @click="slideNext">
+                        <img style="width:0.36rem;" src="../assets/img/outdoorSport/iconRight.png" alt="">
                     </div>
                 </div>
 
@@ -47,10 +49,11 @@
         <!-- 精选推荐 -->
 
         <div>
-            <div class="moduleTitleBox">
-                <img class="moduleTitleImg" src="../assets/img/outdoorSport/jxtj.png" alt="">
-            </div>
+
             <div class="buyBoxList">
+                <div class="moduleTitleBox">
+                    <img class="moduleTitleImg" src="../assets/img/outdoorSport/jxtj.png" alt="">
+                </div>
                 <el-row>
                     <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12" v-if="commandList.length>0"
                         style="padding:0 10px ;box-sizing: border-box;">
@@ -73,12 +76,14 @@
                                 <div class="moreInfo" @click="gotoProductDetail(commandList[0])">了解更多</div>
                             </div>
                             <div class="picBox">
-                                <img :src="hoverIndex==0?commandList[0].productAllPictureList[colorIndex].pictureVideo:commandList[0].productPagePic"
+                                <img style="max-height:3.9rem;"
+                                    :src="hoverIndex==0?commandList[0].productAllPictureList[colorIndex].pictureVideo:commandList[0].productPagePic"
                                     alt="">
                             </div>
                         </div>
                     </el-col>
-                    <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12" style="padding:0 0.1rem;box-sizing: border-box;">
+                    <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12"
+                        style="padding:0 0.1rem;box-sizing: border-box;">
                         <template v-for="(item,index) in commandList">
                             <div v-if="index>0" class="buyBox buyBox2">
                                 <div style="width:60%">
@@ -231,14 +236,23 @@
         }
 
         .contain {
+            .bannerImg_contain {
+                background-image: url('../assets/img/banner.png');
+                width: 100%;
+                height: 9.54rem;
+                background-size: contain;
+                background-position: 50% 50%;
+                background-repeat: no-repeat;
+            }
+
             .productBox {
                 width: 14rem;
-                padding: 0.5rem;
+                padding: 0.6rem;
                 margin: 0 auto;
-                height: 4.76rem;
+                height: 4.08rem;
                 box-sizing: border-box;
                 position: absolute;
-                bottom: 2.1rem;
+                bottom: -0rem;
                 left: calc(50% - 7rem);
                 z-index: 8;
                 background-image: url("../assets/img/outdoorSport/product-bg.png");
@@ -246,14 +260,14 @@
 
 
                 .productImg {
-                    width: 2rem;
-                    height: 2rem;
+                    width: 1.7rem;
+                    height: 1.7rem;
                 }
 
                 .productTitle {
                     color: #333;
-                    font-size: 0.22rem;
-                    line-height: 0.5rem;
+                    font-size: 0.18rem;
+                    line-height: 0.3rem;
                 }
 
                 .navgationBox {
@@ -263,9 +277,8 @@
                     padding-top: 0.5rem;
 
                     .iconfont {
-                        font-size: 0.43rem;
-                        line-height: 0.5rem;
-                        margin-right: 0.4rem;
+
+                        margin-right: 0.7rem;
                     }
                 }
             }
@@ -279,6 +292,15 @@
     @media (max-width: 992px) {
         .contain {
             margin-top: 0.66rem;
+
+            .bannerImg_contain {
+                background-image: url('../assets/img/banner.png');
+                width: 100%;
+                height: 9.54rem;
+                background-size: cover;
+                background-position: 50% 50%;
+                background-repeat: no-repeat;
+            }
 
             .phone_box {
                 display: block;
@@ -294,7 +316,7 @@
                 background-color: #fff;
                 padding: 15px;
                 height: 4.76rem;
-                margin-top: -4rem;
+                margin-top: -1rem;
                 position: relative;
                 z-index: 2;
                 box-sizing: border-box;
@@ -321,53 +343,47 @@
         .bannerBox {
             position: relative;
 
-            .bannerImg_contain {
-                background-image: url('../assets/img/banner.png');
-                width: 100%;
-                height: 14.5rem;
-                background-size: cover;
-                background-position: 50% 50%;
-                background-repeat: no-repeat;
-            }
+
         }
 
 
 
         .buyBoxList {
-            max-width: 14rem;
+            max-width: 12rem;
             margin: 0 auto;
-            margin-top: 1rem;
+            margin-top: 0.5rem;
             padding-bottom: 1rem;
         }
 
         .buyBox {
-            padding: 0.6rem;
+            padding: 0.5rem;
             background-color: #fff;
             text-align: left;
             margin-bottom: 0.2rem;
-            height: 11.2rem;
+            height: 7.8rem;
 
 
 
             .title {
                 display: flex;
                 align-items: center;
+
                 .label {
                     padding: 0rem 0.05rem;
                     line-height: 0.3rem;
                     height: 0.3rem;
-                    width: 0.8rem;
+                    width: 0.4rem;
                     border-radius: 0.08rem;
                     background-color: rgba(255, 244, 244, 1);
                     color: rgba(230, 0, 18, 100);
-                    font-size: 0.16rem;
+                    font-size: 0.13rem;
                     text-align: center;
                     margin-right: 0.1rem;
                 }
 
                 color: rgba(51, 51, 51, 100);
-                font-size: 0.36rem;
-                line-height: 0.8rem;
+                font-size: 0.28rem;
+                line-height: 0.5rem;
                 font-weight: bold;
                 overflow: hidden;
                 white-space: nowrap;
@@ -376,8 +392,8 @@
 
             .content {
                 color: rgba(102, 102, 102, 100);
-                font-size: 0.22rem;
-                line-height: 0.5rem;
+                font-size: 0.16rem;
+                line-height: 0.4rem;
                 overflow: hidden;
                 text-overflow: ellipsis;
                 display: box;
@@ -390,7 +406,7 @@
                 display: flex;
                 justify-content: flex-start;
                 align-items: center;
-                height: 1rem;
+                height: 0.6rem;
 
                 span {
                     width: 0.2rem;
@@ -420,7 +436,7 @@
 
             .price {
                 color: rgba(51, 51, 51, 100);
-                font-size: 0.3rem;
+                font-size: 0.24rem;
                 line-height: 0.65rem;
                 font-weight: bold;
             }
@@ -429,26 +445,30 @@
                 display: flex;
                 justify-content: flex-start;
                 align-items: center;
-                margin: 0.5rem 0;
+                margin: 0.25rem 0;
 
                 .buyNow {
-                    padding: 0.05rem 0.2rem;
+                    text-align: center;
+                    width: 0.75rem;
+                    height: 0.32rem;
                     border-radius: 0.2rem;
                     background-color: rgba(37, 37, 37, 1);
                     color: rgba(255, 255, 255, 100);
-                    font-size: 0.24rem;
-                    line-height: 0.4rem;
+                    font-size: 0.12rem;
+                    line-height: 0.32rem;
                     border: 1px solid #252525;
-                    margin-right: 0.3rem;
+                    margin-right: 0.28rem;
                 }
 
                 .moreInfo {
-                    padding: 0.05rem 0.2rem;
+                    text-align: center;
+                    width: 0.75rem;
+                    height: 0.32rem;
                     border-radius: 0.2rem;
                     background-color: #fff;
                     color: #252525;
-                    font-size: 0.24rem;
-                    line-height: 0.4rem;
+                    font-size: 0.12rem;
+                    line-height: 0.32rem;
                     border: 1px solid #252525;
                 }
             }
@@ -463,8 +483,8 @@
         .buyBox2 {
             display: flex;
             justify-content: space-between;
-            align-items: flex-end;
-            height: 5.5rem;
+            // align-items: flex-end;
+            height: 3.8rem;
         }
 
 

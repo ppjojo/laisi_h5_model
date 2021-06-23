@@ -117,7 +117,7 @@
             <div class="moduleTitleBox">
                 <img src="../assets/img/solution/cooperate-title.png" class="moduleTitleImg" alt="">
             </div>
-            <div style="margin-top:1rem;">
+            <div >
                 <el-row>
                     <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6">
                         <img src="../assets/img/solution/cooperate-1.png" alt="">
@@ -155,13 +155,13 @@
             </div>
             <div>
                 <div class="smallTitle">基于T20</div>
-                <el-row style="margin-top:1rem;">
+                <el-row >
                     <el-col :xs="24" :sm="24" :md="13" :lg="13" :xl="13">
                         <img src="../assets/img/solution/style-1.png" alt="">
                     </el-col>
                     <el-col :xs="24" :sm="24" :md="11" :lg="11" :xl="11">
                         <div class="info">
-                            <div class="infoTitle">联合品牌</div>
+                            <div class="infoTitle"><img src="../assets/img/aboutus/dot.png" style="width:0.2rem;margin-right:0.1rem;" alt=""> 联合品牌</div>
                             <div class="infoContent">直接使用我司型号核准正号（CMIIT)
                                 及CMA检测报告；机身需保留75派logo
                                 亚克力盖板颜色按客户需求配色。</div>
@@ -171,7 +171,7 @@
                 <el-row>
                     <el-col :xs="24" :sm="24" :md="11" :lg="11" :xl="11">
                         <div class="info">
-                            <div class="infoTitle">单品牌</div>
+                            <div class="infoTitle"><img src="../assets/img/aboutus/dot.png" style="width:0.2rem;margin-right:0.1rem;" alt="">单品牌</div>
                             <div class="infoContent">机身logo按客户需求定制、亚克力盖板
                                 颜色按客户需求配色<br>注：需重新认证（无委认证型号核准、
                                 CMA认证，预计时间约40-45天）</div>
@@ -183,14 +183,14 @@
                 </el-row>
             </div>
             <div>
-                <div class="smallTitle">基于T20</div>
+                <div class="smallTitle">基于T20/T20PRO</div>
                 <el-row>
                     <el-col :xs="24" :sm="24" :md="13" :lg="13" :xl="13">
                         <img src="../assets/img/solution/style-3.png" alt="">
                     </el-col>
                     <el-col :xs="24" :sm="24" :md="11" :lg="11" :xl="11">
                         <div class="info">
-                            <div class="infoTitle">联合品牌</div>
+                            <div class="infoTitle"><img src="../assets/img/aboutus/dot.png" style="width:0.2rem;margin-right:0.1rem;" alt="">联合品牌</div>
                             <div class="infoContent">直接使用我司型号核准正号（CMIIT)
                                 及CMA检测报告；机身需保留75派logo
                                 （尾塞部分），机身颜色可选铁灰、红
@@ -201,7 +201,7 @@
                 <el-row>
                     <el-col :xs="24" :sm="24" :md="11" :lg="11" :xl="11">
                         <div class="info">
-                            <div class="infoTitle">单品牌</div>
+                            <div class="infoTitle"><img src="../assets/img/aboutus/dot.png" style="width:0.2rem;margin-right:0.1rem;" alt="">单品牌</div>
                             <div class="infoContent">机身logo按客户需求定制、机身颜色
                                 可选铁灰、红色、蓝色、黑色，尾塞
                                 logo按客人需求定制（需新开磨具，
@@ -223,7 +223,7 @@
                     </el-col>
                     <el-col :xs="24" :sm="24" :md="11" :lg="11" :xl="11">
                         <div class="info">
-                            <div class="infoTitle">联合品牌</div>
+                            <div class="infoTitle"><img src="../assets/img/aboutus/dot.png" style="width:0.2rem;margin-right:0.1rem;" alt="">联合品牌</div>
                             <div class="infoContent">直接使用我司型号核准正号（CMIIT)
                                 及CMA检测报告；机身需保留75派logo
                                 （电池尾盖），可选黑色、白色、粉色
@@ -234,7 +234,7 @@
                 <el-row>
                     <el-col :xs="24" :sm="24" :md="11" :lg="11" :xl="11">
                         <div class="info">
-                            <div class="infoTitle">单品牌</div>
+                            <div class="infoTitle"><img src="../assets/img/aboutus/dot.png" style="width:0.2rem;margin-right:0.1rem;" alt="">单品牌</div>
                             <div class="infoContent">机身logo按客户需求定制（移印）、
                                 可选黑色、白色、粉色、蓝色、黄色
                                 尾塞logo按客人需求定制（需新开磨
@@ -311,21 +311,21 @@
     }
 
     .contain {
-        background: linear-gradient(to bottom, #FFFFFF, #EEF3FC, #F9FDFF, #E6FBFF, #EEF3FD);
+        background: linear-gradient(to top, #EEF3FD, #E6FBFF , #F9FDFF, #EEF3FC , #FFFFFF);
 
         .bannerBox {
             background-image: url('../assets/img/banner.png');
             width: 100%;
-            height: 9.23rem;
-            background-size: cover;
+            height: 7.67rem;
+            background-size: contain;
             background-repeat: no-repeat;
             position: relative;
+            background-position: 50% 50%;
         }
 
         .keyBox {
-            max-width: 14.2rem;
+            max-width: 12.2rem;
             margin: 0 auto;
-            margin-top: 1rem;
 
             .el-col {
                 padding: 0 0.1rem 0.2rem 0.1rem;
@@ -337,9 +337,8 @@
         }
 
         .systemBox {
-            max-width: 14.4rem;
+            max-width: 12.4rem;
             margin: 0 auto;
-            margin-top: 1rem;
 
             .systemDiv img {
                 width: 100%;
@@ -348,10 +347,8 @@
         }
 
         .advantageBox {
-            max-width: 14.2rem;
+            max-width: 12.2rem;
             margin: 0 auto;
-            margin-top: 1rem;
-
             .el-row {
                 .el-col {
                     padding: 0 0.1rem 0.2rem 0.1rem;
@@ -360,14 +357,15 @@
 
             .advantageDiv {
                 overflow: hidden;
-                padding: 0.75rem 0;
+                padding: 0.6rem 0;
                 background-color: #fff;
                 position: relative;
+                height: 2.15rem;
 
                 p {
                     text-align: left;
-                    font-size: 0.3rem;
-                    padding: 0 0.75rem;
+                    font-size: 0.24rem;
+                    padding: 0 0.5rem;
                     color: #333;
                     line-height: 0.5rem;
                     border-left: 0.1rem solid transparent;
@@ -407,7 +405,7 @@
         }
 
         .customizedBox {
-            padding: 1rem 0 3rem 0;
+            padding: 1rem 0 1.8rem 0;
 
             .customizedTitleBox {
                 text-align: center;
@@ -416,13 +414,13 @@
 
                 .title {
                     color: rgba(255, 255, 255, 100);
-                    font-size: 0.7rem;
-                    line-height: 1rem;
+                    font-size: 0.36rem;
+                    line-height: 0.5rem;
                 }
 
                 .email {
                     color: rgba(218, 218, 222, 100);
-                    font-size: 0.35rem;
+                    font-size: 0.28rem;
                     line-height: 0.5rem;
                 }
             }
@@ -430,7 +428,7 @@
             .bg {
                 background-image: url('../assets/img/solution/cpdz-bg.png');
                 width: 100%;
-                height: 6.5rem;
+                height: 4.3rem;
                 background-size: cover;
                 background-repeat: no-repeat;
                 background-position: center center;
@@ -440,21 +438,20 @@
                     width: 100%;
                     margin: 0 auto;
                     position: absolute;
-                    bottom: -1.5rem;
+                    bottom: -1.8rem;
                     text-align: center;
 
                     img {
                         max-width: 90%;
-                        width: 14rem;
+                        width: 12rem;
                     }
                 }
             }
         }
 
         .cooperationBox {
-            max-width: 14.2rem;
+            max-width: 12.2rem;
             margin: 0 auto;
-            // margin-top: 1rem;
 
             .el-row {
                 .el-col {
@@ -468,15 +465,13 @@
         }
 
         .styleBox {
-            max-width: 14.2rem;
+            max-width: 12.2rem;
             margin: 0 auto;
-            margin-top: 1rem;
 
             .smallTitle {
                 color: #333;
-                font-size: 0.58rem;
+                font-size: 0.28rem;
                 line-height: 1rem;
-                margin-bottom: 1rem;
             }
 
             .info {
@@ -484,21 +479,21 @@
                 text-align: left;
 
                 .infoTitle {
-                    font-size: 0.3rem;
-                    line-height: 1rem;
+                    font-size: 0.25rem;
+                    line-height: 0.8rem;
                     color: #333;
                     font-weight: bold;
                 }
 
                 .infoContent {
-                    font-size: 0.28rem;
+                    font-size: 0.23rem;
                     line-height: 0.4rem;
                     color: #333;
                 }
             }
 
             .el-row {
-                padding-bottom: 1rem;
+                // padding-bottom: 0.75rem;
 
                 .el-col {
                     padding: 0 0.1rem 0.2rem 0.1rem;
@@ -512,5 +507,22 @@
         }
 
 
+    }
+
+     //小于992
+    @media (max-width: 992px) {
+        .contain {
+            margin-top: 0.66rem;
+             .bannerBox {
+                width: 100%;
+                height: 7.68rem;
+                background-size: cover !important;
+                background-position: 50% 50%;
+                background-repeat: no-repeat;
+                position: relative;
+            }
+        }
+
+       
     }
 </style>

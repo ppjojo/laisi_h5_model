@@ -20,30 +20,28 @@
 						<li class="detail">矽睿</li>
 					</ul>
 				</el-col>
-				<el-col  :md="6" :lg="6" :xl="6">
+				<el-col  :md="4" :lg="4" :xl="4">
 					<ul class="uls">
 						<li class="title">商务合作</li>
 						<li class="detail">marketing@laisitech.com</li>
 					</ul>
 				</el-col>
-				<!-- <el-col :xs="12" :sm="6" :md="4" :lg="4" :xl="4">
-					<ul class="uls">
-						<li class="title">联系我们</li>
-						<li class="detail">400-665-2788</li>
-						<li class="detail">上海市松江区中心路1158号<br>21幢1001室</li>
-					</ul>
-				</el-col> -->
-				<el-col  :md="4" :lg="4" :xl="4">
-					<ul class="uls">
-						<li class="title">下载app</li>
-						<li class="detail"><img src="../assets/img/pai.png" alt=""></li>
+				
+				<el-col  :md="5" :lg="5" :xl="5" >
+					<ul class="uls" style="text-align: right;" >
+						<li class="title">下载APP</li>
+						<li class="detail"><img src="../assets/img/pai.png" alt="">
+						<p class="content">派健康</p></li>
 					</ul>
 				</el-col>
-				<el-col :md="4" :lg="4" :xl="4">
-					<ul class="uls">
+				<el-col :md="5" :lg="5" :xl="5" >
+					<ul class="uls"  style="text-align: right;">
 						<li class="title">关注我们</li>
-						<li class="detail"><img src="../assets/img/wechat.png" alt=""></li>
-						<li class="detail"><img src="../assets/img/sina.png" alt=""></li>
+						<li class="detail"><img src="../assets/img/wechat.png" alt="">
+						<p class="content">微信公众号</p>
+						</li>
+						<li class="detail"><img src="../assets/img/sina.png" alt="">
+						<p class="content">新浪微博</p></li>
 					</ul>
 				</el-col>
 			</el-row>
@@ -93,8 +91,8 @@
 				地址：上海市松江区中心路1158号21幢A座9-10楼 联系电话：021-80158697
 			</div>
 			<div class="addressAndPrivacy">
-				<div class="address">Copyright ©2019.上海铼锶信息技术有限公司版权所有 沪ICP备19002806号</div>
-				<div class="privacy"><a href="">隐私政策</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="">用户使用许可协议</a></div>
+				<div class="address">Copyright ©2019.上海铼锶信息技术有限公司版权所有 <a href="https://beian.miit.gov.cn/">沪ICP备19002806号</a>		</div>
+				<div class="privacy"><a href="https://www.laisitech.com/privacy.html">隐私政策</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="https://www.laisitech.com/permission.html">用户使用许可协议</a></div>
 			</div>
 		</div>
 	</div>
@@ -177,11 +175,11 @@
 				font-size: 0.24rem;
 				line-height: 0.5rem;
 				padding-top: 0.34rem;
-				max-width: 14rem;
+				max-width: 12rem;
 				margin: 0 auto;
 				color: #999;
 				text-align: center;
-				.privacy {
+				.privacy,.address {
 					a {
 						color: #4D82BA;
 						text-decoration: none;
@@ -198,44 +196,50 @@
 		.bottombox {
 			background-color: #252525;
 			color: #fff;
-			padding: 0.9rem 0;
+			padding: 0.45rem 0;
 
 			.ullist {
-				max-width: 14rem;
+				max-width: 12rem;
 				margin: 0 auto;
 				border-bottom: 1px solid #E5E5E5;
 
 				.uls {
-					height: 3.5rem;
+					height: 2.5rem;
+					text-align: left;
 
 					li {
 						cursor: pointer;
-						text-align: center;
+						
 					}
 
 					li.title {
-						font-size: 0.22rem;
-						margin-bottom: 0.4rem;
+						font-size: 0.14rem;
+						margin-bottom: 0.2rem;
 						font-weight: bold;
 					}
 
 					li.detail {
-						font-size: 0.16rem;
-						margin-bottom: 0.2rem;
+						font-size: 0.12rem;
+						margin-bottom: 0.1rem;
 					}
 
 					img {
-						width: 0.85rem;
-						height: 0.85rem;
+						width: 0.5rem;
+						height: 0.5rem;
+					}
+					.content{
+						color: #fff;
+						font-size: 0.12rem;
+						line-height: 0.25rem;
 					}
 				}
 			}
 
 			.back {
 				font-size: 0.12rem;
-				line-height: 0.5rem;
-				padding-top: 0.34rem;
-				max-width: 14rem;
+				line-height: 0.3rem;
+				padding-top: 0.16rem;
+				max-width: 12rem;
 				margin: 0 auto;
 				color: #999;
 				text-align: left;
@@ -244,7 +248,7 @@
 					justify-content: space-between;
 				}
 
-				.privacy {
+				.privacy,.address {
 					a {
 						color: #4D82BA;
 						text-decoration: none;

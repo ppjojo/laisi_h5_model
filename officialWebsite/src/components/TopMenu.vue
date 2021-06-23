@@ -40,7 +40,9 @@
 										智能健腹轮</div>
 								</div>
 								<div class="secondTree" >
-									<div class=" iconfont icon-shangyiye" v-if="activeNum==1" @click="slidePrev"></div>
+									<div class=" iconfont " v-if="activeNum==1" @click="slidePrev">
+										<img  style="width:0.36rem;" src="../assets/img/outdoorSport/iconLeft.png" alt="">
+									</div>
 									<swiper :options="swiperOptions_nav" v-if="swiperStart&&outdoorlist.length>0" ref="pcSwiper">
 										<swiper-slide v-for="item in outdoorlist" style="width:auto;"
 											v-if="activeNum==1&&item.productDeviceType=='3'">
@@ -51,7 +53,9 @@
 											</div>
 										</swiper-slide>
 									</swiper>
-									<div class=" iconfont icon-xiayiye" v-if="activeNum==1" @click="slideNext"></div>
+									<div class=" iconfont " v-if="activeNum==1" @click="slideNext">
+										<img  style="width:0.36rem;" src="../assets/img/outdoorSport/iconRight.png" alt="">
+									</div>
 								</div>
 								<div class="secondTree">
 									<template v-for="item in outdoorlist">
@@ -226,9 +230,9 @@
 				})
 			},
 			changeLanguage() {
-				this.isDrawDown = !this.isDrawDown
-				this.$i18n.locale == 'zh' ? this.$i18n.locale = 'en' : this.$i18n.locale = 'zh' //设置中英文模式
-				localStorage.setItem('languageSet', this.$i18n.locale) //将用户设置存储到localStorage以便用户下次打开时使用此设置
+				 this.isDrawDown = !this.isDrawDown
+				// this.$i18n.locale == 'zh' ? this.$i18n.locale = 'en' : this.$i18n.locale = 'zh' //设置中英文模式
+				// localStorage.setItem('languageSet', this.$i18n.locale) //将用户设置存储到localStorage以便用户下次打开时使用此设置
 			},
 			scrollFn() {
 				var t = document.documentElement.scrollTop || document.body.scrollTop;
@@ -395,30 +399,31 @@
 		color: #FFF;
 
 		.navBox {
-			max-width: 14rem;
+			padding-top: 0.2rem;
+			max-width: 12rem;
 			justify-content: space-between;
 			margin: 0 auto;
 
 			.title {
-				font-size: .3rem;
+				font-size: .2rem;
 				font-weight: bold;
 
 				span {
-					font-size: 0.25rem;
+					font-size: 0.18rem;
 				}
 			}
 
 			.menulist {
-				height: 1.25rem;
+				height: 0.6rem;
 				display: flex;
 				justify-content: space-between;
 				align-items: center;
 
 				li {
 					cursor: pointer;
-					padding: 0 0.4rem;
-					font-size: 0.22rem;
-					line-height: 0.45rem;
+					padding: 0 0.3rem;
+					font-size: 0.16rem;
+					line-height: 0.6rem;
 					height: 100%;
 					display: flex;
 					align-items: center;
@@ -443,9 +448,9 @@
 							&::after {
 								content: "";
 								position: absolute;
-								border-bottom: 3px solid #e60012;
+								border-bottom: 2px solid #e60012;
 								width: 0.34rem;
-								bottom: -0rem;
+								bottom: 0;
 								left: calc(50% - 0.17rem);
 							}
 						}
@@ -454,7 +459,7 @@
 					.menuTreeDiv {
 						display: none;
 						position: fixed;
-						top: 1.25rem;
+						top: 0.8rem;
 						left: 0;
 						z-index: 10;
 						width: 100%;
@@ -464,26 +469,26 @@
 						box-sizing: border-box;
 
 						.firstTree {
-							padding: 0.2rem 0;
+							padding: 0.3rem 0 0.2rem 0;
 							display: flex;
 							align-items: center;
 							justify-content: center;
 
 							.firstTree_title {
-								font-size: 0.22rem;
+								font-size: 0.16rem;
 								color: #666;
-								padding: 0.2rem 0.4rem;
+								padding: 0rem 0.4rem;
 							}
 
 							.active {
 								position: relative;
 								color: #333;
-								font-size: 0.28rem;
+								font-size: 0.16rem;
 
 								&::after {
 									content: "";
 									position: absolute;
-									border-bottom: 3px solid #e60012;
+									border-bottom: 2px solid #e60012;
 									width: 0.17rem;
 									bottom: 0;
 									left: calc(50% - 0.085rem);
@@ -509,7 +514,7 @@
 						}
 
 						.secondTree {
-							max-width: 14rem;
+							max-width: 12rem;
 							width: 100%;
 							overflow-x: auto;
 							margin: 0 auto;
@@ -525,25 +530,25 @@
 							}
 
 							.secondTreeBox {
-								margin: 0.5rem 0.2rem 0.5rem 0.2rem;
+								margin: 0.1rem 0.2rem 0.3rem 0.2rem;
 
 								.secondTree_img {
 									width: 100%;
-									max-width: 2rem;
+									max-width: 1.8rem;
 									// height: 2rem;
 								}
 
 								.secondTree_title {
-									font-size: 0.22rem;
+									font-size: 0.14rem;
 									color: #333;
-									line-height: 0.5rem;
+									line-height: 0.3rem;
 									font-weight: bold;
 								}
 
 								.secondTree_price {
 									color: #E60012;
-									font-size: 0.18rem;
-									line-height: 0.4rem;
+									font-size: 0.14rem;
+									line-height: 0.25rem;
 								}
 							}
 
@@ -571,11 +576,11 @@
 			}
 
 			.lang {
-				font-size: 0.22rem;
+				font-size: 0.16rem;
 
 				img {
-					height: 0.24rem;
-					width: 0.24rem;
+					height: 0.2rem;
+					width: 0.2rem;
 					border-radius: 100%;
 					margin-right: 0.1rem;
 				}
