@@ -4,7 +4,8 @@
         <div class="bannerBox ">
             <swiper :options="swiperOptions_bannner">
                 <swiper-slide v-for="item in banner">
-                    <div class="bannerImg_contain" :style="{'background-image':'url('+item.pictureVideo+')'}"></div>
+                    <video v-if="item.pictureVideo.indexOf('.mp4')!='-1'" :src="item.pictureVideo" muted="" autoplay="" loop="" width="100%"></video>
+					<div class="bannerImg_contain" v-else :style="{'background-image':'url('+item.pictureVideo+')'}"></div>
                 </swiper-slide>
             </swiper>
         </div>
@@ -16,7 +17,7 @@
                 <el-row>
                     <el-col class="oneDiv" v-if="list.length>0">
                         <div class="buyBox buyBox2">
-                            <div style="width:60%">
+                            <div style="width:50%;" class="textBox">
                                 <div class="title">
                                      <div class="label" v-if="list[0].ifNewProduct==1">新品</div>{{list[0].productName}}</div>
                                 <div class="content">{{list[0].productDes}}</div>
@@ -32,7 +33,7 @@
                                     <div class="moreInfo" @click="gotoProductDetail(list[0])">了解更多</div>
                                 </div>
                             </div>
-                            <div class="picBox" style="width:40%">
+                            <div class="picBox" style="width:50%">
                                 <img :src="hoverIndex==0?list[0].productAllPictureList[colorIndex].pictureVideo:list[0].productPagePic"
                                     alt="">
                             </div>
@@ -44,7 +45,7 @@
                                 <el-col v-if="index>0" :xs="24" :sm="24" :md="12" :lg="12" :xl="12"
                                     style="padding:0 0.1rem ;box-sizing: border-box;">
                                     <div class="buyBox">
-                                        <div>
+                                        <div class="textBox">
                                             <div class="title">
                                                  <div class="label" v-if="item.ifNewProduct==1">新品</div>{{item.productName}}</div>
                                             <div class="content">{{item.productDes}}</div>
@@ -210,12 +211,15 @@
             z-index: 2;
 
             .buyBox {
-                padding: 0.5rem;
+                
                 background-color: #fff;
                 text-align: left;
                 margin-bottom: 0.2rem;
-                height: 7.8rem;
-
+                min-height: 7.8rem;
+                padding-right: 0.5rem;
+                .textBox{
+                    padding: 0.5rem;
+                }
 
 
                 .title {
@@ -226,7 +230,7 @@
                         padding: 0rem 0.05rem;
                         line-height: 0.3rem;
                         height: 0.3rem;
-                        width: 0.4rem;
+                         min-width: 0.4rem;
                         border-radius: 0.08rem;
                         background-color: #fff4f4;
                         color: #e60012;
@@ -263,12 +267,12 @@
                     height: 0.6rem;
 
                     span {
-                        width: 0.2rem;
-                        height: 0.2rem;
-                        border-radius: 0.1rem;
+                        width: 18px;
+                        height: 18px;
+                        border-radius: 9px;
                         display: block;
                         position: relative;
-                        margin-right: 0.5rem;
+                        margin-right: 0.2rem;
                         cursor: pointer;
 
                     }
@@ -277,12 +281,12 @@
                         &:after {
                             border: 1px solid #232323;
                             content: "";
-                            width: 0.26rem;
-                            height: 0.26rem;
-                            border-radius: 0.26rem;
+                            width: 24px;
+                            height: 24px;
+                            border-radius: 24px;;
                             position: absolute;
-                            top: -0.03rem;
-                            left: -0.03rem;
+                            top: -4px;
+                            left: -4px;
                         }
                     }
 
@@ -303,7 +307,7 @@
 
                     .buyNow {
                         text-align: center;
-                        width: 0.75rem;
+                        min-width: 0.8rem;
                         height: 0.32rem;
                         border-radius: 0.2rem;
                         background-color: rgba(37, 37, 37, 1);
@@ -316,7 +320,7 @@
 
                     .moreInfo {
                         text-align: center;
-                        width: 0.75rem;
+                         min-width: 0.8rem;
                         height: 0.32rem;
                         border-radius: 0.2rem;
                         background-color: #fff;
@@ -332,7 +336,7 @@
 
                     img {
 
-                        width: 80%;
+                        width: 4.2rem;
                     }
                 }
             }
@@ -341,10 +345,12 @@
                 display: flex;
                 justify-content: space-between;
                 height: 5rem;
+                min-height: 5rem;
 
                 .picBox {
                     img {
-                        width: 80%;
+                        max-width: 100%;
+                        width: 5rem;
                     }
                 }
 

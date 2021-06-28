@@ -11,7 +11,7 @@
                     <div class="newsDetail">
                         <div class="title">{{detail.newsTitle}}</div>
                         <div class="descript">
-                            <span><img v-if="detail.newsTop==1" style="width:0.3rem;" src="../assets/img/index/hot.png" alt=""></span>
+                            <img v-if="detail.newsTop==1"  style="width:0.3rem;margin-right:0.2rem" src="../assets/img/index/hot.png" alt="">
                             <span>{{detail.newsEditor}}</span>
                             <span>{{detail.updateTime | formatDate}}</span>
                         </div>
@@ -135,7 +135,9 @@
     }
 </script>
 
+
 <style lang="scss" scoped>
+	
     .contain {
         text-align: left;
 
@@ -171,8 +173,9 @@
                     color: #777;
                     font-size: 0.15rem;
                     line-height: 0.5rem;
+                    display: flex;
+                    align-items: center;
                     span{
-                        display: inline-block;
                         margin-right: 0.2rem;
                     }
                 }

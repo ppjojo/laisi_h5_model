@@ -135,7 +135,7 @@
 
 <script>
     import Utils from "@u/callUtil";
-    import defaultSetting from "../../settings.js";
+    // import defaultSetting from "../../settings.js";
     // import Map from "./map.vue";
     import {
         getAllPicture

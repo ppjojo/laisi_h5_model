@@ -1,12 +1,24 @@
 <template>
     <div class="contain">
+        <div class="kefu">
+            
+            <transition name="el-zoom-in-center">
+                <img class="kefu" @click="qrshow=true" v-show="!qrshow" src="../assets/img/cooprate/kefu.png" alt="">
+            </transition>
+            <transition name="el-zoom-in-top">
+                <img class="qr" @click="qrshow=false" v-show="qrshow" src="../assets/img/cooprate/qr.png" alt="">
+            </transition>
+        </div>
         <div class="bannerBox ">
             <img class="qr" src="../assets/img/cooprate/qr.png" alt="">
             <swiper :options="swiperOptions_bannner">
-				<swiper-slide v-for="item in banner">
-					<div class="bannerImg_contain" :style="{'background-image':'url('+item.pictureVideo+')'}"></div>
-				</swiper-slide>
-			</swiper>
+                <swiper-slide v-for="item in banner">
+                    <video v-if="item.pictureVideo.indexOf('.mp4')!='-1'" :src="item.pictureVideo" muted="" autoplay=""
+                        loop="" width="100%"></video>
+                    <div class="bannerImg_contain" v-else :style="{'background-image':'url('+item.pictureVideo+')'}">
+                    </div>
+                </swiper-slide>
+            </swiper>
             <div class="joinUsButton" @click="joinUs">加入我们</div>
         </div>
 
@@ -151,7 +163,7 @@
             </div>
         </div>
 
-        <div class="parterBox">
+        <div class="parterBox" id="parter_link">
             <div class="moduleTitleBox">
                 <img src="../assets/img/cooprate/parter-title.png" class="moduleTitleImg" alt="">
             </div>
@@ -164,6 +176,7 @@
 </template>
 
 <script>
+    import Utils from "@u/callUtil";
     import {
         getAllPicture
     } from "@a/picture";
@@ -173,23 +186,34 @@
         props: {},
         data() {
             return {
+                qrshow: false,
                 banner: [],
                 parterList: [],
                 swiperOptions_bannner: {
-					spaceBetween: 0,
-					loop: true,
-					observer: true, //修改swiper自己或子元素时，自动初始化swiper 
-					observeParents: true //修改swiper的父元素时，自动初始化swiper 
+                    spaceBetween: 0,
+                    loop: true,
+                    observer: true, //修改swiper自己或子元素时，自动初始化swiper 
+                    observeParents: true //修改swiper的父元素时，自动初始化swiper 
 
-				},
+                },
             }
         },
-        mounted() {},
+        mounted() {
+            Utils.$on('goAnchor', (flag) => {
+                this.goAnchor(flag);
+            })
+        },
         created() {
             this.getBanner()
             this.getParter()
         },
         methods: {
+            goAnchor(selector) {
+                window.scrollTo({
+                    top: document.getElementById(selector).offsetTop - 100,
+                    behavior: "smooth"
+                });
+            },
             getBanner() {
                 getAllPicture({
                     pictureBelong: 3,
@@ -229,6 +253,22 @@
     }
 
     .contain {
+        .kefu {
+            position: fixed;
+            bottom: 1rem;
+            right: 0;
+            z-index: 2;
+
+            .kefu {
+                width: 0.8rem;
+                height: 0.8rem;
+            }
+
+            .qr {
+                width: 2.57rem;
+            }
+        }
+
         background: linear-gradient(to bottom, #FFFFFF, #EEF3FC, #F9FDFF, #E6FBFF, #EEF3FD);
 
         .bannerBox {
@@ -244,7 +284,7 @@
             }
 
             .qr {
-                position: fixed;
+                position: absolute;
                 top: 5.8rem;
                 right: 18%;
                 width: 2.57rem;
@@ -297,7 +337,8 @@
                 img {
                     transition: all 0.3s;
                     width: 48%;
-                    &:hover{
+
+                    &:hover {
                         transform: scale(1.1);
                     }
                 }
@@ -411,7 +452,7 @@
                 display: flex;
                 justify-content: space-between;
                 flex-wrap: wrap;
-                padding: 0.5rem ;
+                padding: 0.5rem;
 
                 img {
                     // min-width: 21%;
@@ -428,12 +469,9 @@
     @media (max-width: 992px) {
         .bannerBox {
             .bannerImg_contain {
-                background-image: url('../assets/img/banner.png');
-                width: 100%;
-                height: 7.69rem;
-                background-size: cover;
-                background-position: 50% 50%;
-                background-repeat: no-repeat;
+
+                background-size: cover !important;
+
             }
         }
 

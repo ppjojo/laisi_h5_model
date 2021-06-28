@@ -9,40 +9,67 @@ export const routes = [
 		path: '/',
 		component: () => import('@/views/index'),
 		redirect: '/index',
+		meta:{
+			color:"#fff"
+		}
 
 	},
 	{
 		path: '/index',
 		component: () => import('@/views/index'),
+		meta:{
+			color:"#fff"
+		}
 
 	},
 	{
 		path: '/outdoorSport',
 		component: () => import('@/views/outdoorSport'),
+		meta:{
+			color:"#fff"
+		}
 	},
 	{
 		path: '/smartWear',
 		component: () => import('@/views/smartWear'),
+		meta:{
+			color:"#fff"
+		}
 	},
 	{
 		path: '/paiactive',
 		component: () => import('@/views/paiactive'),
+		meta:{
+			color:"#fff"
+		}
 	},
 	{
 		path: '/joinUs',
 		component: () => import('@/views/joinUs'),
+		meta:{
+			color:"#fff"
+		}
 	},
 	{
 		path: '/aboutus',
 		component: () => import('@/views/aboutus'),
+		meta:{
+			color:"#000"
+		}
 	},
 	{
 		path: '/newsList',
 		component: () => import('@/views/newsList'),
+		meta:{
+			color:"#000"
+		}
 	},
 	{
 		path: '/productDetail',
 		component: () => import('@/views/productDetail'),
+		meta:{
+			color:"#fff"
+		}
 	},
 	{
 		path: '/solution',
@@ -51,6 +78,23 @@ export const routes = [
 	{
 		path: '/business',
 		component: () => import('@/views/business'),
+		meta:{
+			color:"#fff"
+		}
+	},
+	{
+		path: '/privacy',
+		component: () => import('@/views/privacy'),
+		meta:{
+			color:"#000"
+		}
+	},
+	{
+		path: '/permission',
+		component: () => import('@/views/permission'),
+		meta:{
+			color:"#000"
+		}
 	},
 
 

@@ -3,10 +3,15 @@
 		<div class="bannerBox ">
 			<swiper :options="swiperOptions_bannner" v-if="banner.length>0">
 				<swiper-slide v-for="item in banner">
-					<div class="bannerImg_contain" :style="{'background-image':'url('+item.pictureVideo+')'}"></div>
+					<video v-if="item.pictureVideo.indexOf('.mp4')!='-1'" :src="item.pictureVideo" muted="" autoplay=""
+						loop="" width="100%"></video>
+					<div class="bannerImg_contain" v-else :style="{'background-image':'url('+item.pictureVideo+')'}">
+					</div>
 				</swiper-slide>
+				<div class="swiper-pagination" slot="pagination"></div>
 			</swiper>
 		</div>
+
 		<div class="hotProductBox">
 			<div class="imgBox" v-for="(item, index) in hotproduct">
 				<img :src="item.pictureVideo" alt="">
@@ -109,9 +114,12 @@
 					observer: true, //修改swiper自己或子元素时，自动初始化swiper 
 					observeParents: true, //修改swiper的父元素时，自动初始化swiper 
 					autoplay: {
-						delay: 2000,
+						delay: 3000,
 						stopOnLastSlide: false,
 						disableOnInteraction: true,
+					},
+					pagination: {
+						el: '.swiper-pagination'
 					},
 
 				},
@@ -123,7 +131,7 @@
 					observer: true,
 					observeParents: true,
 					autoplay: {
-						delay: 2000,
+						delay: 3000,
 					},
 				},
 				swiperOptions2: {
@@ -133,7 +141,7 @@
 					observeParents: true,
 					loop: true,
 					autoplay: {
-						delay: 2000,
+						delay: 3000,
 					},
 				}
 			}
@@ -241,23 +249,24 @@
 						text-align: left;
 
 						.detail {
-							border-left: 0.16rem solid #00A7E6;
+							border-left: 0.1rem solid #00A7E6;
 							padding-left: 0.2rem;
 
 							.title {
 								font-size: 0.22rem;
-								line-height: 0.4rem;
+								line-height: 0.3rem;
+								font-weight: bold;
 							}
 
 							.descript {
 								font-size: 0.12rem;
-								line-height: 0.35rem;
+								line-height: 0.25rem;
 							}
 
 						}
 
 						.detail2 {
-							border-left: 0.16rem solid #E60012;
+							border-left: 0.1rem solid #E60012;
 						}
 
 						.iconfont {
@@ -370,7 +379,7 @@
 						color: rgba(232, 44, 59, 100);
 						font-size: 0.14rem;
 						line-height: 0.3rem;
-						padding: 0.04rem 0.06rem;
+						padding: 0.04rem 0.1rem;
 						float: right;
 						text-align: center;
 						font-family: PingFangSC-Medium;
@@ -438,6 +447,7 @@
 							.title {
 								font-size: 15px;
 								line-height: 25px;
+								font-weight: bold;
 							}
 
 							.descript {
@@ -513,6 +523,7 @@
 						font-size: 0.24rem;
 						color: #777;
 						line-height: 0.5rem;
+
 						img {
 							width: 0.5rem;
 							margin-right: 0.2rem;

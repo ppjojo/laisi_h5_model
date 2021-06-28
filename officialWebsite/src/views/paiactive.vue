@@ -60,25 +60,25 @@
                         <div class="numDiv">
                             <div class="num">42.2</div>
                             <div class="explain">
-                                <div class=" iconfont icon-jinrufasong"></div>消耗（千卡）
+                                消耗（千卡）
                             </div>
                         </div>
                         <div class="numDiv">
-                            <div class="num">42.2</div>
+                            <div class="num">9999</div>
                             <div class="explain">
-                                <div class=" iconfont icon-jinrufasong"></div>消耗（千卡）
+                               跳绳个数
                             </div>
                         </div>
                         <div class="numDiv">
-                            <div class="num">42.2</div>
+                            <div class="num">168</div>
                             <div class="explain">
-                                <div class=" iconfont icon-jinrufasong"></div>消耗（千卡）
+                                速率（BPM）
                             </div>
                         </div>
                         <div class="numDiv">
-                            <div class="num">42.2</div>
+                            <div class="num">1:28:56</div>
                             <div class="explain">
-                                <div class=" iconfont icon-jinrufasong"></div>消耗（千卡）
+                               跳绳时长
                             </div>
                         </div>
                     </div>
@@ -462,6 +462,7 @@
                 .dataBox {
                     width: 50%;
                     padding-top: 1rem;
+                    
 
                     .title {
                         color: #fff;
@@ -478,8 +479,10 @@
                         flex-wrap: wrap;
 
                         .numDiv {
-                            width: 50%;
+                            width: 25%;
+                            margin-right: 25%;
                             margin-top: 0.5rem;
+                            text-align: center;
 
                             .num {
                                 color: #fff;
@@ -489,8 +492,8 @@
                             }
 
                             .explain {
-                                display: flex;
-                                justify-content: flex-start;
+                                // display: flex;
+                                // justify-content: flex-start;
                                 color: #fff;
                                 font-size: 0.16rem;
                                 line-height: 0.3rem;
@@ -554,7 +557,7 @@
 
                 .detailBox {
                     text-align: left;
-                    height: 4.63rem;
+                    height: 3.96rem;
                     box-shadow: 3px 4px 20px 6px rgba(0, 0, 0, 0.06);
                     padding:0.6rem 0.35rem;
                     margin-bottom: 0.2rem;
@@ -634,6 +637,9 @@
                         .title,
                         .content {
                             color: #fff;
+                        }
+                        .label{
+                            color: rgba(244, 244, 244, 0.3);
                         }
 
                         .bg {

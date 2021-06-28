@@ -105,7 +105,7 @@
             <div class="bg">
                 <div class="customizedTitleBox">
                     <p class="title">“ 产品定制 ”</p>
-                    <p class="email"> 订购邮箱:marketing@laisitech.com</p>
+                    <p class="email"> 订购邮箱: 75pai@laisitech.com</p>
                 </div>
                 <div class="customizedDiv">
                     <img src="../assets/img/solution/cpdz.png" alt="">

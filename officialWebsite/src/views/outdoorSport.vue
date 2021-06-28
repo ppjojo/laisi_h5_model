@@ -4,7 +4,8 @@
         <div class="bannerBox ">
             <swiper :options="swiperOptions_bannner">
                 <swiper-slide v-for="item in banner">
-                    <div class="bannerImg_contain" :style="{'background-image':'url('+item.pictureVideo+')'}"></div>
+                    <video v-if="item.pictureVideo.indexOf('.mp4')!='-1'" :src="item.pictureVideo" muted="" autoplay="" loop="" width="100%"></video>
+					<div class="bannerImg_contain" v-else :style="{'background-image':'url('+item.pictureVideo+')'}"></div>
                 </swiper-slide>
             </swiper>
 
@@ -58,7 +59,7 @@
                     <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12" v-if="commandList.length>0"
                         style="padding:0 10px ;box-sizing: border-box;">
                         <div class="buyBox">
-
+                            
                             <div class="title">
                                 <div class="label" v-if="commandList[0].ifNewProduct==1">新品</div>
                                 {{commandList[0].productName}}
@@ -278,7 +279,7 @@
 
                     .iconfont {
 
-                        margin-right: 0.7rem;
+                        padding:0 0.35rem;
                     }
                 }
             }
@@ -359,10 +360,10 @@
             padding: 0.5rem;
             background-color: #fff;
             text-align: left;
+            box-sizing: border-box;
             margin-bottom: 0.2rem;
             height: 7.8rem;
-
-
+            padding-bottom: 0;
 
             .title {
                 display: flex;
@@ -372,7 +373,7 @@
                     padding: 0rem 0.05rem;
                     line-height: 0.3rem;
                     height: 0.3rem;
-                    width: 0.4rem;
+                    min-width: 0.4rem;
                     border-radius: 0.08rem;
                     background-color: rgba(255, 244, 244, 1);
                     color: rgba(230, 0, 18, 100);
@@ -408,29 +409,29 @@
                 align-items: center;
                 height: 0.6rem;
 
-                span {
-                    width: 0.2rem;
-                    height: 0.2rem;
-                    border-radius: 0.1rem;
-                    display: block;
-                    position: relative;
-                    margin-right: 0.5rem;
-                    cursor: pointer;
+                 span {
+                        width: 18px;
+                        height: 18px;
+                        border-radius: 9px;
+                        display: block;
+                        position: relative;
+                        margin-right: 0.2rem;
+                        cursor: pointer;
 
-                }
-
-                .active {
-                    &:after {
-                        border: 1px solid #232323;
-                        content: "";
-                        width: 0.26rem;
-                        height: 0.26rem;
-                        border-radius: 0.26rem;
-                        position: absolute;
-                        top: -0.03rem;
-                        left: -0.03rem;
                     }
-                }
+
+                    .active {
+                        &:after {
+                            border: 1px solid #232323;
+                            content: "";
+                            width: 24px;
+                            height: 24px;
+                            border-radius: 24px;;
+                            position: absolute;
+                            top: -4px;
+                            left: -4px;
+                        }
+                    }
 
             }
 
@@ -449,7 +450,7 @@
 
                 .buyNow {
                     text-align: center;
-                    width: 0.75rem;
+                    min-width: 0.8rem;
                     height: 0.32rem;
                     border-radius: 0.2rem;
                     background-color: rgba(37, 37, 37, 1);
@@ -462,7 +463,7 @@
 
                 .moreInfo {
                     text-align: center;
-                    width: 0.75rem;
+                    min-width: 0.8rem;
                     height: 0.32rem;
                     border-radius: 0.2rem;
                     background-color: #fff;
@@ -475,7 +476,7 @@
 
             .picBox {
                 img {
-                    width: 100%;
+                    width: 4.4rem;
                 }
             }
         }
@@ -483,8 +484,14 @@
         .buyBox2 {
             display: flex;
             justify-content: space-between;
-            // align-items: flex-end;
+            align-items: flex-end;
             height: 3.8rem;
+            padding-bottom: 0.5rem;
+            .picBox {
+                img {
+                    width: 2.15rem;
+                }
+            }
         }
 
 
