@@ -14,7 +14,7 @@
                     <swiper-slide v-for="item in list" @click="gotoProductDetail(item)">
                         <div @click="gotoProductDetail(item)">
                             <img class="productImg"
-                                :src="item.productAllPictureList[0]?item.productAllPictureList[0].pictureVideo:''"
+                                :src="item.navPic"
                                 alt="">
                             <p class="productTitle">{{item.productName}}</p>
                         </div>
@@ -36,7 +36,7 @@
                     <swiper-slide v-for="item in list">
                         <div @click="gotoProductDetail(item)">
                             <img class="productImg"
-                                :src="item.productAllPictureList[0]?item.productAllPictureList[0].pictureVideo:''"
+                                :src="item.navPic"
                                 alt="">
                             <p class="productTitle">{{item.productName}}</p>
                         </div>

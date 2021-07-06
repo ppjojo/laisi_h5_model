@@ -113,7 +113,7 @@
 								<template v-for="item in smartwearlist">
 									<div class="secondTreeBox" v-if="activeNum2==4&&item.productDeviceType=='1'"
 										@click="gotoProductDetail(item)">
-										<img class="secondTree_img" :src="item.productPagePic" alt="">
+										<img class="secondTree_img" :src="item.navPic" alt="">
 										<div class="secondTree_title">{{item.productName}}</div>
 										<div class="secondTree_price">¥ {{item.productPrice}}</div>
 									</div>
@@ -123,7 +123,7 @@
 								<template v-for="item in smartwearlist">
 									<div class="secondTreeBox" v-if="activeNum2==5&&item.productDeviceType=='2'"
 										@click="gotoProductDetail(item)">
-										<img class="secondTree_img" :src="item.productPagePic" alt="">
+										<img class="secondTree_img" :src="item.navPic" alt="">
 										<div class="secondTree_title">{{item.productName}}</div>
 										<div class="secondTree_price">¥ {{item.productPrice}}</div>
 									</div>
