@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" style="background:#12121f;color:#fff;">
     <transition :name="transitionName">
       <router-view />
     </transition>
