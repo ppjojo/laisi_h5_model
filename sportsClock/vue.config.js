@@ -96,6 +96,7 @@ module.exports = {
             "@a": resolve("src/api"),
             "@s": resolve("src/style"),
 			"@c": resolve("src/components"),
+			"@i": resolve("src/assets/img"),
           },
         },
     }
