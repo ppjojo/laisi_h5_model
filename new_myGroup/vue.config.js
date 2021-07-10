@@ -94,7 +94,7 @@ module.exports = {
             "@": resolve("src"),
             "@u": resolve("src/utils"),
             "@a": resolve("src/api"),
-            "@s": resolve("src/style"),
+            "@s": resolve("src/styles"),
           },
         },
     }

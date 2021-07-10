@@ -1,13 +1,16 @@
 <template>
 	<div id="app" class="groupIndex" v-cloak>
 		<div class="header" v-if="isShare!=1">
-			<van-nav-bar @click-left="onclickLeft" left-arrow safe-area-inset-top fixed>
+			<van-nav-bar @click-left="onclickLeft" :title="groupItem.name" left-arrow safe-area-inset-top fixed>
+				<template #left>
+					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.48rem;" />
+				</template>
 				<template #right>
 					<div style="margin-right: 0.25rem;" @click="shareGroup()">
-						<van-icon name="icon-tongyong-fenxiang" style="font-size: 0.4rem;" />
+						<span class="icon iconfont icon-fenxianganniu" style="font-size: 0.48rem;" />
 					</div>
 					<div @click="goSetting()">
-						<van-icon name="setting-o" style="font-size: 0.42rem;" />
+						<span class="icon iconfont icon-shezhi" style="font-size: 0.48rem;" />
 					</div>
 				</template>
 			</van-nav-bar>
@@ -37,9 +40,9 @@
 			<div class="noticeBox" @click="goNotice()">
 				<div class="noticeBoxLeft">
 					<img class="iconNotice" :src="require('../img/iconNotice.png')" alt="">
-					<van-notice-bar class="noticeContent" background="#fff" :text="groupItem.content||''" />
+					<van-notice-bar class="noticeContent" :text="groupItem.content||''" />
 				</div>
-				<img class="iconRight" :src="require('../img/iconRight.png')" alt="">
+				<span class="icon iconfont icon-tongyong-gengduo" style="font-size: 0.25rem;" />
 			</div>
 			<div class="memberBox">
 				<div class="title">成员</div>
@@ -52,7 +55,7 @@
 					</div>
 					<div class="memberPersonNum" @click="goMemberlist()">
 						<div class="numP">{{groupItem.count}}人</div>
-						<img class="iconRight" :src="require('../img/iconRight.png')" alt="">
+						<span class="icon iconfont icon-tongyong-gengduo" style="font-size: 0.25rem;" />
 					</div>
 				</div>
 			</div>
@@ -62,18 +65,21 @@
 					<div class="dateTitle">
 						{{currentDatestr}}
 					</div>
-					<img class="chooseDate" @click="dateshow = isShare?false:true"
-						:src="require('../img/canlindar.png')" alt="">
+					<span class="chooseDate icon iconfont icon-tongyong-rili "
+						@click="dateshow = isShare?false:true"></span>
 				</div>
 				<div class="personBox">
 					<ul>
 						<li v-for="item in userIdData">
-							<div class="personInfo">
-								<img :src="item.headPictureUrl" class="personImg"></img>
-								<div>
-									<div class="name van-ellipsis">{{item.nickName}}</div>
-									<div class="idInfo">ID:{{item.userId}}</div>
+							<div class="personInfoBox">
+								<div class="personInfo">
+									<img :src="item.headPictureUrl" class="personImg"></img>
+									<div>
+										<div class="name van-ellipsis">{{item.nickName}}</div>
+										<div class="idInfo">ID:{{item.userId}}</div>
+									</div>
 								</div>
+								<span class="icon iconfont icon-tongyong-gengduo" @click="goMemberDataDetail(item)" />
 							</div>
 							<div class="deviceList">
 								<div class="deviceItem" v-if="returnUserData('balance',item.dataList)">
@@ -85,19 +91,18 @@
 									</div>
 									<div class="deviceData">
 										<span>体脂:</span>
-										<span class="num">{{returnUserData('balance',item.dataList).bfr.toFixed(1)}}</span>
+										<span
+											class="num">{{returnUserData('balance',item.dataList).bfr.toFixed(1)}}</span>
 										<span>%</span>
 									</div>
-									<!-- <div class="iconRightBox" @click="goDeviceDetail">
-										<img class="iconRight" :src="require('../img/iconRight.png')" alt="">
-									</div> -->
 
 								</div>
 								<div class="deviceItem" v-if="returnUserData('wristball',item.dataList)">
 									<img class="deviceImg" :src="require('../img/group_wlq.png')" alt="">
 									<div class="deviceData">
 										<span>圈数:</span>
-										<span class="num">{{ returnUserData('wristball',item.dataList).number?(returnUserData('wristball',item.dataList).number/10000).toFixed(3):0 }}</span>
+										<span
+											class="num">{{ returnUserData('wristball',item.dataList).number?(returnUserData('wristball',item.dataList).number/10000).toFixed(3):0 }}</span>
 										<span>万</span>
 									</div>
 									<div class="deviceData">
@@ -105,9 +110,6 @@
 										<span
 											class="num">{{returnTime(returnUserData('wristball',item.dataList).takeMs)}}</span>
 									</div>
-									<!-- <div class="iconRightBox" @click="goDeviceDetail">
-										<img class="iconRight" :src="require('../img/iconRight.png')" alt="">
-									</div> -->
 								</div>
 								<div class="deviceItem" v-if="returnUserData('skipping',item.dataList)">
 									<img class="deviceImg" :src="require('../img/group_ts.png')" alt="">
@@ -121,15 +123,13 @@
 										<span
 											class="num">{{returnTime(returnUserData('skipping',item.dataList).takeMs)}}</span>
 									</div>
-									<!-- <div class="iconRightBox" @click="goDeviceDetail">
-										<img class="iconRight" :src="require('../img/iconRight.png')" alt="">
-									</div> -->
+									
 								</div>
 							</div>
 
 						</li>
 					</ul>
-					<div v-if="userIdData.length==0" class="nullDataBox" >
+					<div v-if="userIdData.length==0" class="nullDataBox">
 						<img :src="require('../img/noData.png')" alt="">
 						<p>今日无运动</p>
 					</div>
@@ -149,10 +149,10 @@
 					:formatter="formatter" swipe-duration=100 @confirm="dateConfirm" @cancel="dateshow = false" />
 			</van-popup>
 
-			
+
 		</div>
- <img id="leadToBrowser" src="https://oss.laisitech.com/01c21e85-22db-4a2b-8f4f-500fca31b25d.png"
-            style="display: none; position: absolute;top: 0;left: 0;width: 100%;height: 100%;z-index: 99;" alt="">
+		<img id="leadToBrowser" src="https://oss.laisitech.com/01c21e85-22db-4a2b-8f4f-500fca31b25d.png"
+			style="display: none; position: absolute;top: 0;left: 0;width: 100%;height: 100%;z-index: 99;" alt="">
 	</div>
 </template>
 
@@ -180,12 +180,6 @@
 			[Popup.name]: Popup,
 			[DatetimePicker.name]: DatetimePicker,
 			[Toast.name]: Toast,
-			// [CellGroup.name]: CellGroup,
-			// [Swipe.name]: Swipe,
-			// [SwipeItem.name]: SwipeItem,
-			// [GoodsAction.name]: GoodsAction,
-			// [GoodsActionIcon.name]: GoodsActionIcon,
-			// [GoodsActionButton.name]: GoodsActionButton
 		},
 
 		data() {
@@ -227,8 +221,6 @@
 		beforeRouteLeave(to, from, next) {
 			this.destroyed();
 			next() //一定不要忘记写
-			// 导航离开该组件的对应路由时调用
-			// 可以访问组件实例 `this`
 		},
 		created() {
 			//this.groupItem=this.$store.state.group.groupInfo
@@ -236,8 +228,11 @@
 			//this.initData();
 		},
 		activated() {
-			this.groupItem=this.$store.state.group.groupInfo
-			this.groupId=parseInt(this.$route.query.id);
+			if (this.isShare != 1) {
+				window.addEventListener('scroll', this.scrollFn);
+			}
+			this.groupItem = this.$store.state.group.groupInfo
+			this.groupId = this.$route.query.id;
 			this.initData();
 		},
 		methods: {
@@ -263,15 +258,12 @@
 			scrollFn() {
 				var t = document.documentElement.scrollTop || document.body.scrollTop;
 				var rate = t / 100
-				if (rate > 1) rate = 1
-				var colorValue = `rgba(255,255,255,${rate})`
-				var val = parseInt(255 - rate * 255)
-				var colorValue2 = `rgba(${val},${val},${val})`
+				if (rate > 1) {rate = 1}
+				var colorValue = `rgba(18,18,31,${rate})`
 				document.getElementsByClassName("van-nav-bar")[0].style.background = colorValue
-				document.getElementsByClassName("van-nav-bar__title")[0].style.color = colorValue2
-				document.getElementsByClassName("van-nav-bar__arrow")[0].style.color = colorValue2
-				document.getElementsByClassName("van-icon-icon-tongyong-fenxiang")[0].style.color = colorValue2
-				document.getElementsByClassName("van-icon-setting-o")[0].style.color = colorValue2
+				document.getElementsByClassName("van-nav-bar__title")[0].style.opacity = rate;
+				document.getElementsByClassName("van-nav-bar")[0].style.color=`rgb(${255-48*rate},${255-48*rate},${255-45*rate})`
+
 			},
 			destroyed() {
 				window.removeEventListener('scroll', this.scrollFn); // 销毁监听
@@ -292,31 +284,31 @@
 				})
 			},
 			goInto() {
-                let linkUrl = ""
-                if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) { //判断iPhone|iPad|iPod|iOS
-                    linkUrl = "https://lstemp.laisitech.com?actionType=groupDetail&id=" + this.groupId
-                } else if (/(Android)/i.test(navigator.userAgent)) { //判断Android
-                    if (navigator.userAgent.toLowerCase().indexOf('micromessenger') !== -1) { //微信
-                        document.getElementById("leadToBrowser").style.display = "block";
-                        setTimeout(function(){
-                            document.getElementById("leadToBrowser").style.display = "none";
-                        },2000)
-                        return
+				let linkUrl = ""
+				if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) { //判断iPhone|iPad|iPod|iOS
+					linkUrl = "https://lstemp.laisitech.com?actionType=groupDetail&id=" + this.groupId
+				} else if (/(Android)/i.test(navigator.userAgent)) { //判断Android
+					if (navigator.userAgent.toLowerCase().indexOf('micromessenger') !== -1) { //微信
+						document.getElementById("leadToBrowser").style.display = "block";
+						setTimeout(function () {
+							document.getElementById("leadToBrowser").style.display = "none";
+						}, 2000)
+						return
 						//linkUrl = "https://a.app.qq.com/o/simple.jsp?pkgname=com.lstech.rehealth"
-                    } else {
-                        linkUrl = "rehealth://groupdetail?id=" + this.groupId
-                    }
-                }
-                var a = document.createElement('a');
-                a.setAttribute('href', linkUrl);
-                a.setAttribute('id', 'js_a');
-                //防止反复添加
-                if (document.getElementById('js_a')) {
-                    document.body.removeChild(document.getElementById('js_a'));
-                }
-                document.body.appendChild(a);
-                a.click();
-            },
+					} else {
+						linkUrl = "rehealth://groupdetail?id=" + this.groupId
+					}
+				}
+				var a = document.createElement('a');
+				a.setAttribute('href', linkUrl);
+				a.setAttribute('id', 'js_a');
+				//防止反复添加
+				if (document.getElementById('js_a')) {
+					document.body.removeChild(document.getElementById('js_a'));
+				}
+				document.body.appendChild(a);
+				a.click();
+			},
 			goSetting() { //去设置页面
 				if (!this.isGrouptMember) return;
 				this.$router.push({
@@ -346,7 +338,6 @@
 				month = month > 9 ? month : "0" + month;
 				dates = dates > 9 ? dates : "0" + dates;
 				this.currentDatestr = year + '年' + month + '月' + dates + '日';
-				// this.getSchoolrank();
 				this.dateshow = false;
 				this.searchTime = new Date(val).getTime();
 				this.initData();
@@ -440,11 +431,12 @@
 				let sec = unit >= 10 ? unit : '0' + unit;
 				return hour + ':' + min + ':' + sec;
 			},
-			goDeviceDetail() {
+			goMemberDataDetail(item) {
 				this.$router.push({
-					path: '/deviceDetail',
+					path: '/memberDataDetail',
 					query: {
-						id: this.groupId
+						searchTime: this.searchTime,
+						searchUserId:item.userId
 					}
 				});
 			}
@@ -452,26 +444,20 @@
 		}
 	};
 </script>
-<style>
-	@import '../styles/css/myGroupList.css';
-	@import "../font/iconfont.css";
+<style lang="scss" scoped>
+	@import '@s/group.scss';
 </style>
 <style scoped>
-	@font-face {
-		font-family: 'icon-tongyong-fenxiang';
-		src: url('../font/iconfont.ttf') format('truetype');
-	}
-
 	.nullDataBox {
 		padding-top: 0;
-	}
-
-	.van-icon-icon-tongyong-fenxiang {
-		font-family: 'icon-tongyong-fenxiang';
 	}
 
 	.van-nav-bar {
 		background-color: transparent;
 		z-index: 999;
+	}
+
+	/deep/ .van-picker__mask {
+		display: none;
 	}
 </style>

@@ -3,40 +3,42 @@
         <div class="header">
             <van-nav-bar title="我的小组" @click-left="onclickLeft" @click-right="onClickRight" left-arrow
                 safe-area-inset-top fixed>
+                <template #left>
+					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.48rem;" />
+				</template>
                 <template #right>
-                    <van-icon name="plus" style="font-size: 0.4rem;" />
+                    <van-icon name="plus" style="font-size: 0.48rem;" />
                 </template>
             </van-nav-bar>
         </div>
-        <van-pull-refresh v-model="isLoading" @refresh="getList"  class="monkey-pull-refresh" :head-height="90">
+        <van-pull-refresh v-model="isLoading" @refresh="getList" class="monkey-pull-refresh" :head-height="90">
             <template #pulling="props">
-				<div class="monkeyBox">
-					<img class="monkey" :src="require('../img/monkey.gif')" />
-					<p>下拉刷新</p>
-				</div>
-			</template>
-			<!-- 释放提示 -->
-			<template #loosing>
-				<div class="monkeyBox">
-					<img class="monkey" :src="require('../img/monkey.gif')" />
-					<p>释放刷新</p>
-				</div>
-			</template>
+                <div class="monkeyBox">
+                    <img class="monkey" :src="require('../img/monkey.gif')" />
+                    <p>下拉刷新</p>
+                </div>
+            </template>
+            <!-- 释放提示 -->
+            <template #loosing>
+                <div class="monkeyBox">
+                    <img class="monkey" :src="require('../img/monkey.gif')" />
+                    <p>释放刷新</p>
+                </div>
+            </template>
 
-			<!-- 加载提示 -->
-			<template #loading>
-				<div class="monkeyBox">
-					<img class="monkey" :src="require('../img/monkey.gif')" />
-					<p>正在刷新</p>
-				</div>
-			</template>
+            <!-- 加载提示 -->
+            <template #loading>
+                <div class="monkeyBox">
+                    <img class="monkey" :src="require('../img/monkey.gif')" />
+                    <p>正在刷新</p>
+                </div>
+            </template>
             <div class="myGroupList">
                 <div v-if="createList.length>0">
                     <div class="labelTitle">我创建的</div>
                     <div class="groupBox">
                         <ul>
                             <li v-for="item in createList" @click="goGroupIndex(item)">
-                                <!-- <div class="groupImg" style="background-image: url(../img/1.png);"></div> -->
                                 <div class="groupImg" :style="{'background-image':'url('+item.portrait+')'}"></div>
                                 <div class="groupInfo">
                                     <div class="nameBox"><span
@@ -98,12 +100,6 @@
             [NavBar.name]: NavBar,
             [Icon.name]: Icon,
             [PullRefresh.name]: PullRefresh,
-            // [CellGroup.name]: CellGroup,
-            // [Swipe.name]: Swipe,
-            // [SwipeItem.name]: SwipeItem,
-            // [GoodsAction.name]: GoodsAction,
-            // [GoodsActionIcon.name]: GoodsActionIcon,
-            // [GoodsActionButton.name]: GoodsActionButton
         },
 
         data() {
@@ -116,7 +112,7 @@
             };
         },
         beforeRouteLeave(to, from, next) {
-            if (this.isCancel ) {
+            if (this.isCancel) {
                 this.$interaction.closePage();
                 this.$interaction.closePage();
                 return;
@@ -127,15 +123,16 @@
         },
         filters: {},
         mounted() {
-            this.getList();
+            // this.getList();
         },
-        activated(){
-           if(this.$store.state.myGroupListRefresh){
-               this.$store.commit("setData",{
-                   key:"myGroupListRefresh",
-                   value:false
-               })
-           }
+        activated() {
+            if (this.$store.state.myGroupListRefresh) {
+                this.getList()
+                this.$store.commit("setData", {
+                    key: "myGroupListRefresh",
+                    value: false
+                })
+            }
         },
         created() {},
         methods: {
@@ -144,12 +141,11 @@
                     this.joinList = res.data[0];
                     this.createList = res.data[1];
                     this.isFinish = true;
-                    setTimeout(()=>{
+                    setTimeout(() => {
                         this.isLoading = false;
-                    },300)
+                    }, 300)
                 }).catch(() => {
                     this.isFinish = true;
-                    console.log("error")
                 })
             },
             labelFun(id) {
@@ -160,17 +156,17 @@
                 this.$interaction.closePage();
             },
             onClickRight() { //跳转创建小组
-                this.isCancel=false
+                this.isCancel = false
                 this.$router.push({
                     path: '/createGroup'
                 });
             },
             goGroupIndex(item) {
-                this.isCancel=false
-                this.$store.commit("setData",{
-                   key:"group.groupInfo",
-                   val:item
-               })
+                this.isCancel = false
+                this.$store.commit("setData", {
+                    key: "group.groupInfo",
+                    val: item
+                })
                 this.$router.push({
                     path: '/groupIndex',
                     query: {
@@ -182,8 +178,11 @@
         }
     };
 </script>
-<style scoped="scoped">
-    @import '../styles/css/myGroupList.css';
+<style lang="scss">
+
+</style>
+<style scoped="scoped" lang="scss">
+    @import '@s/group.scss';
 
     .myGroupList {
         min-height: calc(100vh - 1rem);
@@ -194,9 +193,6 @@
         height: 90px;
     }
 
-     /deep/ .monkey-pull-refresh .van-pull-refresh__track {
-         
-     }
 
     .monkey-pull-refresh .monkeyBox .monkey {
         width: 60px;

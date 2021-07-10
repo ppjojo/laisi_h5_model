@@ -1,18 +1,19 @@
 <template>
-	<div id="app" v-cloak>
+	<div id="app" class="changeNickname" v-cloak>
 		<div class="header">
 			<van-nav-bar title="我在小组中的昵称" @click-left="onclickLeft" @click-right="onClickRight" left-arrow
 				safe-area-inset-top fixed>
-				<template #right>
+				<template #left>
+					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.48rem;" />
 				</template>
 			</van-nav-bar>
 		</div>
-		<div class="infomation">
+		<div class="infomation" >
 			修改我在小组中的昵称，昵称修改后，只会在此小组内有效，小组内成员都可看见。
 		</div>
-		<van-cell-group id="changeName">
+		<div id="changeName">
 			<van-field v-model="nickname" maxlength="8" clearable placeholder="请输入昵称"></van-field>
-		</van-cell-group>
+		</div>
 		<van-button round class="submit" block @click="changeName(nickname)" :color="nickname!=oldNickName?bgc:bgcgrey">完成
 		</van-button>
 	</div>
@@ -40,15 +41,11 @@
 			[Field.name]: Field,
 			[Button.name]: Button,
 			[Toast.name]: Toast,
-			// [SwipeItem.name]: SwipeItem,
-			// [GoodsAction.name]: GoodsAction,
-			// [GoodsActionIcon.name]: GoodsActionIcon,
-			// [GoodsActionButton.name]: GoodsActionButton
 		},
 
 		data() {
 			return {
-				bgc: "linear-gradient(to right, #FF6A88, #FF5136 )",
+				bgc: "linear-gradient(to left, #FF6A88, #FF4E3E )",
 				bgcgrey: '#999',
 				nickname: this.$route.query.name || '',
 				groupId: parseInt(this.$route.query.id),
@@ -108,38 +105,6 @@
 		}
 	};
 </script>
-<style scoped>
-	/deep/ #changeName .van-field__control {
-		color: #333;
-		text-align: center !important;
-		padding: .2rem 0;
-	}
-
-	.infomation {
-		margin: 1.2rem auto;
-		line-height: .4rem;
-		width: 6.3rem;
-		font-size: .28rem;
-		color: #999;
-		text-align: center;
-	}
-
-	.submit {
-		width: 4rem;
-		height: 0.8rem;
-		margin: 1.2rem auto;
-		opacity: .8;
-		font-size: .4rem;
-	}
-
-	.van-hairline--top-bottom::after,
-	.van-hairline-unset--top-bottom::after {
-		border-width: 0 0 0.02rem 0;
-	}
-
-	.van-cell-group {
-		width: 85%;
-		margin: 0 auto;
-		padding: 0 .5rem;
-	}
+<style scoped lang="scss">
+	@import '@s/group.scss';
 </style>

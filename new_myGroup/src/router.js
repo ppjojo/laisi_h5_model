@@ -83,6 +83,14 @@ const routes = [
       index:2
     }
   },
+  {
+    name: 'memberDataDetail',
+    component: () => import('./view/memberDataDetail'),
+    meta: {
+      title: '  小组成员数据',
+      index:2
+    }
+  },
 ];
 
 // add route path

@@ -3,21 +3,25 @@
 		<div class="header">
 			<van-nav-bar :title="titleText" @click-left="onclickLeft" @click-right="onClickRight" left-arrow
 				safe-area-inset-top fixed>
+				<template #left>
+					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.48rem;" />
+				</template>
 				<template #right>
-					<div v-if="edit&&labelArray.length>0" :style="{color:'#e60012',fontSize:'.32rem'}">完成</div>
-					<div v-if="edit&&labelArray.length==0" :style="{fontSize:'.32rem'}">完成</div>
+					<div v-if="edit&&labelArray.length>0" :style="{color:'#595962',fontSize:'.32rem'}">完成</div>
+					<div v-if="edit&&labelArray.length==0" :style="{color:'#cfcfd2',fontSize:'.32rem'}">完成</div>
 				</template>
 			</van-nav-bar>
 		</div>
 		<div class="createGroup" v-if="flag==1">
 			<div class="labelTitle">小组形象</div>
 			<div class="uploaderBox">
-				<van-uploader   :deletable="false" :max-count="1" :after-read="afterRead"  >
-					<div class="uploadLoadIconBox" >
-						<div class="uploadLoadIconBG" v-if="groupItem.portrait" :style="{'background-image':'url('+groupItem.portrait+')'}"></div>
+				<van-uploader :deletable="false" :max-count="1" :after-read="afterRead">
+					<div class="uploadLoadIconBox">
+						<div class="uploadLoadIconBG" v-if="groupItem.portrait"
+							:style="{'background-image':'url('+groupItem.portrait+')'}"></div>
 						<van-icon v-else name="plus" />
 					</div>
-					
+
 				</van-uploader>
 			</div>
 			<div class="uploaderTxt">请选择一张图片作为小组头像</div>
@@ -28,12 +32,12 @@
 		<div class="createGroup" v-if="flag==2">
 			<div class="labelTitle">小组名称</div>
 			<div>
-				<van-field v-model="groupItem.name" style="background-color: #f5f5f5;" rows="1" autosize type="textarea"
+				<van-field v-model="groupItem.name" style="background-color: #1E1E2A;" rows="1" autosize type="textarea"
 					maxlength="16" placeholder="请为您的小组取个响亮的名称吧～" show-word-limit />
 			</div>
 			<div class="labelTitle" style="margin-top: 0.5rem;">小组口号</div>
 			<div>
-				<van-field v-model="groupItem.slogon" rows="5" autosize style="background-color: #f5f5f5;"
+				<van-field v-model="groupItem.slogon" rows="5" autosize style="background-color: #1E1E2A;"
 					type="textarea" maxlength="100" placeholder="简单介绍一下您的小组～" show-word-limit />
 			</div>
 
@@ -52,7 +56,7 @@
 
 					<li v-for="item in labelConfig" @click="labelChange(item.id)">
 						<div class="embedImgBox " :class="inArray(item.id)?item.class:''">
-							<img class="embedImg " :src="inArray(item.id)?item.activeImg:item.img" />
+							<span class="icon iconfont embedIcon" :class="item.icon"></span>
 						</div>
 						<div class="labelTxt">{{item.name}}</div>
 					</li>
@@ -108,15 +112,15 @@
 
 		data() {
 			return {
-				flag:1,
+				flag: 1,
 				groupId: this.$route.query.id || null,
 				labelId: this.$route.query.labelId || '',
 				edit: this.$route.query.edit || null,
-				bgc: "linear-gradient(to right, #FF6A88, #FF5136 )",
-				bgcgrey: '#999',
+				bgc: "linear-gradient(to left, #FF6A88, #FF4E3E )",
+				bgcgrey: '#74747E',
 				previewImg: "",
 				overlayShow: false,
-				isClick:false,
+				isClick: false,
 				groupItem: {
 					portrait: "",
 					name: "",
@@ -143,7 +147,6 @@
 		mounted() {},
 		created() {
 			if (this.edit) { //来修改标签的
-				// this.labelArray = this.labelId.split(",");
 				this.flag = 3;
 				this.titleText = "小组标签";
 				groupSettingInfo({
@@ -157,8 +160,8 @@
 			}
 		},
 		methods: {
-			onClickRight() { 
-				if(!this.edit)return;
+			onClickRight() {
+				if (!this.edit) return;
 				if (this.labelArray.length == 0) {
 					Toast('小组标签最少需要一个！');
 					return;
@@ -179,12 +182,12 @@
 			},
 			afterRead(file) {
 				this.overlayShow = true;
-				this.groupItem.portrait=""
+				this.groupItem.portrait = ""
 				pictureReview(file, res => {
 					this.overlayShow = false;
 					if (res.code == 0) {
 						this.groupItem.portrait = res.url;
-					} 
+					}
 				})
 			},
 			goNext1() {
@@ -235,10 +238,10 @@
 
 			create(flag) {
 				if (!flag) return;
-				if(this.isClick)return;
+				if (this.isClick) return;
 				this.isClick = true;
 				createGroup(this.groupItem).then(res => {
-					if(res.code==0){
+					if (res.code == 0) {
 						Toast('创建小组成功！');
 						setTimeout(() => {
 							this.$router.replace({
@@ -249,20 +252,26 @@
 								}
 							});
 						}, 1500)
-					}else{
-						Toast(res.msg||'创建失败');
+					} else {
+						Toast(res.msg || '创建失败');
 						this.isClick = false;
 					}
-				}).catch(res=>{
+				}).catch(res => {
 					this.isClick = false;
 				})
 			}
 		}
 	};
 </script>
+<style lang="scss" scoped >
+	@import '@s/group.scss';
+</style>
 <style scoped="scoped">
-	@import '../styles/css/myGroupList.css';
-	.van-cell{
+	.van-cell {
 		border-radius: .05rem;
+	}
+
+	/deep/ textarea::-webkit-input-placeholder {
+		font-size: 0.24rem;
 	}
 </style>
