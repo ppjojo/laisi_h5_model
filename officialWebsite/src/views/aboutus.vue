@@ -533,6 +533,7 @@
                             .left {
                                 justify-content: flex-start;
                                 position: relative;
+                                text-align: right;
 
                                 &:after {
                                     width: 2px;

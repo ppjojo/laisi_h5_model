@@ -15,8 +15,7 @@
                             <span>{{detail.newsEditor}}</span>
                             <span>{{detail.updateTime | formatDate}}</span>
                         </div>
-                        <div class="content">
-                            {{detail.newsBody}}
+                        <div class="content" v-html="detail.newsBody">
                         </div>
                         <div class="buttonBox">
                             <div class="button" @click="changeNews(-1)"> 上一篇</div>

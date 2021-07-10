@@ -33,7 +33,7 @@ export const routes = [
 		path: '/smartWear',
 		component: () => import('@/views/smartWear'),
 		meta:{
-			color:"#fff"
+			color:"#000"
 		}
 	},
 	{

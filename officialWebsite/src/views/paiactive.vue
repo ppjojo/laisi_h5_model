@@ -519,14 +519,15 @@
 
                 .el-col {
                     overflow: hidden;
-                    border-radius: 5px;
+                    border-radius: 10px;
                     padding: 0 0.1rem;
                     margin-bottom: 0.1rem;
                 }
 
                 img {
+
                     width: 100%;
-                    box-shadow: 2px 2px 10px #999;
+                    border-radius: 10px;
                     transition: all 1s;
 
                     &:hover {

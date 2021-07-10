@@ -20,7 +20,7 @@
 						<p class="title">{{item.pictureName}}</p>
 						<p class="descript">{{item.englishName}}</p>
 					</div>
-					<div class=" iconfont icon-jinrufasong">
+					<div class=" iconfont icon-jinrufasong" @click="gotoProductDetail(item)">
 					</div>
 				</div>
 			</div>
@@ -184,7 +184,15 @@
 						id: id
 					}
 				})
-			}
+			},
+			gotoProductDetail(item) {
+                this.$router.push({
+                    path: "productDetail",
+                    query: {
+                        id: item.id
+                    }
+                })
+            }
 		}
 	}
 </script>
