@@ -15,12 +15,12 @@
 			<div class="title">小组成员</div>
 			<div class="ub ub-ac pgc">
 				<div class="detail">{{groupItem.count}}人</div>
-				<span class="icon iconfont icon-tongyong-gengduo"  />
+				<span class="icon iconfont icon-tongyong-gengduo" />
 			</div>
 		</div>
 		<div class="cellbox ub ub-ac border-bottom2" style="height: auto;">
 			<template v-for="(item,index) in memberIcon">
-				<div class="groupMember ub-ac" v-if="index<=(isCurrentUser?2:3)">
+				<div class="groupMember ub-ac" v-if="index<=(isCurrentUser?(groupItem.count==10?3:2):3)">
 					<div class="imgbox ub ub-ac ub-pc">
 						<div class="headImg" :style="{'background-image':'url('+item.headPictureUrl+')'}"></div>
 					</div>
@@ -28,13 +28,13 @@
 				</div>
 			</template>
 			<div class="groupMember ub-ac" @click="goInvite()" v-if="groupItem.count<10">
-				<div class="imgbox ub ub-ac ub-pc" >
+				<div class="imgbox ub ub-ac ub-pc">
 					<img class="menuicon" :src="require('../img/plus.png')" alt="">
 				</div>
 				<div class="van-ellipsis detail">邀请</div>
 			</div>
 			<div class="groupMember ub-ac" v-if="isCurrentUser" @click="goMember(3)">
-				<div class="imgbox ub ub-ac ub-pc" >
+				<div class="imgbox ub ub-ac ub-pc">
 					<img class="menuicon" :src="require('../img/minus.png')" alt="">
 				</div>
 				<div class="van-ellipsis detail">移除</div>
@@ -48,7 +48,7 @@
 					<van-uploader :after-read="afterRead">
 						<div class="headpic" :style="{'background-image':'url('+groupItem.portrait+')'}"></div>
 					</van-uploader>
-					<span class="icon iconfont icon-tongyong-gengduo"  />
+					<span class="icon iconfont icon-tongyong-gengduo" />
 				</template>
 				<div v-else class="headpic" :style="{'background-image':'url('+groupItem.portrait+')'}"></div>
 			</div>
@@ -58,7 +58,7 @@
 			<div class="title">小组名称</div>
 			<div class="ub ub-ac pgc">
 				<div class="van-ellipsis detail">{{groupItem.name}}</div>
-				<span v-if="isCurrentUser" class="icon iconfont icon-tongyong-gengduo"  />
+				<span v-if="isCurrentUser" class="icon iconfont icon-tongyong-gengduo" />
 			</div>
 		</div>
 		<!-- 小组口号 -->
@@ -66,7 +66,7 @@
 			<div class="title">小组口号</div>
 			<div class="ub ub-ac pgc">
 				<div class="van-ellipsis detail">{{groupItem.slogon}}</div>
-				<span v-if="isCurrentUser" class="icon iconfont icon-tongyong-gengduo"  />
+				<span v-if="isCurrentUser" class="icon iconfont icon-tongyong-gengduo" />
 			</div>
 		</div>
 		<!-- 小组公告 -->
@@ -76,7 +76,7 @@
 				<div class="van-multi-ellipsis--l3 detail" style="max-width: 6.6rem;white-space: normal;">
 					{{groupItem.content}}</div>
 			</div>
-			<span class="icon iconfont icon-tongyong-gengduo"  />
+			<span class="icon iconfont icon-tongyong-gengduo" />
 		</div>
 		<!-- 小组标签 -->
 		<div class="cellbox ub ub-ac ub-pj border-bottom" @click="goChangeMult(3)">
@@ -89,13 +89,13 @@
 						</div>
 					</div>
 				</div>
-				<span v-if="isCurrentUser" class="icon iconfont icon-tongyong-gengduo"  />
+				<span v-if="isCurrentUser" class="icon iconfont icon-tongyong-gengduo" />
 			</div>
 		</div>
 		<!-- 小组qr -->
 		<div class="cellbox border-bottom2 ub ub-ac ub-pj" @click="groupQR">
 			<div class="title">小组二维码</div>
-			<span  class="icon iconfont icon-tongyong-gengduo"  />
+			<span class="icon iconfont icon-tongyong-gengduo" />
 		</div>
 		<!-- 设为置顶 -->
 		<div class="cellbox ub ub-ac ub-pj border-bottom">
@@ -120,18 +120,18 @@
 			<div class="title">我在小组中昵称</div>
 			<div class="ub ub-ac pgc">
 				<div class="van-ellipsis detail">{{groupItem.nickname}}</div>
-				<span class="icon iconfont icon-tongyong-gengduo"  />
+				<span class="icon iconfont icon-tongyong-gengduo" />
 			</div>
 		</div>
 		<!-- 转让组长 -->
 		<div class="cellbox ub ub-ac ub-pj border-bottom2" v-if="isCurrentUser" @click="goMember(1)">
 			<div class="title">转让组长</div>
-			<span  class="icon iconfont icon-tongyong-gengduo"  />
+			<span class="icon iconfont icon-tongyong-gengduo" />
 		</div>
 		<!-- 删除聊天记录 -->
 		<div class="cellbox ub ub-ac ub-pj border-bottom2" @click="delChatRecord">
 			<div class="title">删除聊天记录</div>
-			<span class="icon iconfont icon-tongyong-gengduo"  />
+			<span class="icon iconfont icon-tongyong-gengduo" />
 		</div>
 		<!-- 退出 -->
 		<div class="cellbox quit" v-if="isCurrentUser" @click="goMember(2)">
@@ -199,7 +199,7 @@
 					isSilent: 0,
 					isInviteConfirm: 0,
 					nickname: '',
-				}
+				},
 			};
 		},
 		filters: {},
@@ -208,7 +208,7 @@
 		},
 		created() {
 			this.groupItem = this.$store.state.group.groupInfo;
-			this.memberIcon = this.$store.state.group.groupInfo.userIdData;
+			this.memberIcon = this.$store.state.group.groupInfo.memberIcon;
 			this.initData()
 		},
 		methods: {
@@ -220,7 +220,20 @@
 					this.groupItem = Object.assign(this.groupItem, res.data.myteamGroupMember);
 					this.groupItem = Object.assign(this.groupItem, res.data.myteamGroupInfo);
 					this.memberIcon = res.data.myteamGroupMemberList;
-					console.log(this.$store.state.group.groupInfo)
+
+					this.$store.commit("setData", {
+						key: "group.groupInfo",
+						val: res.data.myteamGroupInfo
+					})
+					this.$store.commit("setData", {
+						key: "personalGroupInfo",
+						val: res.data.myteamGroupMember
+					})
+					this.$store.commit("setData", {
+						key: "groupMemberList",
+						val: res.data.myteamGroupMemberList
+					})
+
 				});
 			},
 			afterRead(file) {
@@ -228,8 +241,12 @@
 				pictureReview(file, res => {
 					this.overlayShow = false;
 					this.groupItem.portrait = res.url;
-					upDateGroup(this.groupItem).then(res => {
 
+					upDateGroup(this.groupItem).then(res => {
+						this.$store.commit("setData", {
+							key: "group.groupInfo.portrait",
+							val: res.url
+						})
 					})
 				})
 			},
@@ -321,6 +338,10 @@
 						relieveGroup({
 							groupId: this.groupId
 						}).then(res => {
+							this.$store.commit("setData", {
+								key: "myGroupListRefresh",
+								val: true
+							})
 							this.$router.replace({
 								path: '/myGroupList',
 								query: {
@@ -336,6 +357,10 @@
 					memberExit({
 						groupId: this.groupId
 					}).then(res => {
+						this.$store.commit("setData", {
+							key: "myGroupListRefresh",
+							val: true
+						})
 						this.$router.replace({
 							path: '/myGroupList',
 							query: {
@@ -363,17 +388,11 @@
 				})
 			},
 			onclickLeft() {
-				// this.$interaction.closePage();
-				this.$router.go(-1)
-			},
-			onClickRight() { //跳转创建小组
-				localStorage.removeItem("groupItem")
-				this.$router.push({
-					path: '/groupIndex',
-					query: {
-						id: item
-					}
-				});
+				this.$router.go(-1);
+				this.$store.commit("setData", {
+					key: "groupIndexRefresh",
+					val: true
+				})
 			},
 			groupQR() { //二维码
 				this.$interaction.appNative('LSTH5APP_goToGroupQR', {
@@ -382,16 +401,8 @@
 					qrShareUrl: defaultSettings.host + "h5/h5V2/myGroup/#/groupIndex?id=" + this.groupId +
 						'&isShare=1'
 				})
-			},
-			goGroupIndex(item) {
-				this.$router.push({
-					path: '/groupIndex',
-					query: {
-						id: item
-					}
-				});
-
 			}
+
 		}
 	};
 </script>

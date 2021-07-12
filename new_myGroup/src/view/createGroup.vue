@@ -244,6 +244,10 @@
 					if (res.code == 0) {
 						Toast('创建小组成功！');
 						setTimeout(() => {
+							this.$store.commit("setData", {
+								key: "myGroupListRefresh",
+								val: true
+							})
 							this.$router.replace({
 								path: '/groupIndex',
 								query: {

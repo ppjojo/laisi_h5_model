@@ -167,6 +167,10 @@
                     key: "group.groupInfo",
                     val: item
                 })
+                this.$store.commit("setData", {
+                    key: "groupIndexRefresh",
+                    val: "true"
+                })
                 this.$router.push({
                     path: '/groupIndex',
                     query: {

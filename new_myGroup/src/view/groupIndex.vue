@@ -30,6 +30,7 @@
 						<div class="labelBox">
 							<div v-for="labelItem in labelFun(groupItem.labelId)" class="labelItem"
 								:class="labelItem[0]">{{labelItem[1]}}</div>
+
 						</div>
 					</div>
 				</div>
@@ -123,7 +124,32 @@
 										<span
 											class="num">{{returnTime(returnUserData('skipping',item.dataList).takeMs)}}</span>
 									</div>
-									
+								</div>
+								<div class="deviceItem" v-if="returnUserData('skipping',item.dataList)">
+									<img class="deviceImg" :src="require('../img/group_jfl.png')" alt="">
+									<div class="deviceData">
+										<span>次数:</span>
+										<span class="num">{{returnUserData('skipping',item.dataList).number}}</span>
+										<span>个</span>
+									</div>
+									<div class="deviceData">
+										<span>用时:</span>
+										<span
+											class="num">{{returnTime(returnUserData('skipping',item.dataList).takeMs)}}</span>
+									</div>
+								</div>
+								<div class="deviceItem" v-if="returnUserData('skipping',item.dataList)">
+									<img class="deviceImg" :src="require('../img/group_step.png')" alt="">
+									<div class="deviceData">
+										<span>步数:</span>
+										<span class="num">{{returnUserData('skipping',item.dataList).number}}</span>
+										<span>个</span>
+									</div>
+									<div class="deviceData">
+										<span>距离:</span>
+										<span
+											class="num">{{returnTime(returnUserData('skipping',item.dataList).takeMs)}}</span>
+									</div>
 								</div>
 							</div>
 
@@ -187,7 +213,6 @@
 				loading: false,
 				finished: false,
 				groupId: parseInt(this.$route.query.id),
-				isFromList: this.$route.query.isFromList || null,
 				isShare: this.$route.query.isShare || 0,
 				documentTitle: "小组主页",
 				dateshow: false,
@@ -223,17 +248,26 @@
 			next() //一定不要忘记写
 		},
 		created() {
-			//this.groupItem=this.$store.state.group.groupInfo
-			//console.log(this.groupItem)
 			//this.initData();
 		},
 		activated() {
+			this.groupItem = this.$store.state.group.groupInfo
+			if (this.$store.state.groupIndexRefresh) {
+				this.groupId = parseInt(this.$route.query.id),
+					this.initData()
+				this.$store.commit("setData", {
+					key: "groupIndexRefresh",
+					val: false
+				})
+
+			}
 			if (this.isShare != 1) {
 				window.addEventListener('scroll', this.scrollFn);
 			}
-			this.groupItem = this.$store.state.group.groupInfo
-			this.groupId = this.$route.query.id;
-			this.initData();
+
+
+
+
 		},
 		methods: {
 			initData() {
@@ -243,6 +277,7 @@
 				}).then(res => {
 					this.groupItem = res.data.groupInfo;
 					this.memberIcon = res.data.memberIcon;
+
 					this.userIdData = res.data.userIdData;
 					let userId = this.$route.query.isShare == 1 ? (this.$route.query.userId ? this.$route.query
 						.userId : 10) : JSON.parse(localStorage.getItem("appInfo")).userId
@@ -250,6 +285,10 @@
 					this.isGrouptMember = res.data.isGrouptMember;
 					this.ownerUserId = res.data.ownerUserId + '';
 					this.huanxinGroupId = res.data.huanxinGroupId;
+					this.$store.commit("setData", {
+						key: "group",
+						val: res.data
+					})
 				})
 			},
 			labelFun(id) {
@@ -258,18 +297,21 @@
 			scrollFn() {
 				var t = document.documentElement.scrollTop || document.body.scrollTop;
 				var rate = t / 100
-				if (rate > 1) {rate = 1}
+				if (rate > 1) {
+					rate = 1
+				}
 				var colorValue = `rgba(18,18,31,${rate})`
 				document.getElementsByClassName("van-nav-bar")[0].style.background = colorValue
 				document.getElementsByClassName("van-nav-bar__title")[0].style.opacity = rate;
-				document.getElementsByClassName("van-nav-bar")[0].style.color=`rgb(${255-48*rate},${255-48*rate},${255-45*rate})`
+				document.getElementsByClassName("van-nav-bar")[0].style.color =
+					`rgb(${255-48*rate},${255-48*rate},${255-45*rate})`
 
 			},
 			destroyed() {
 				window.removeEventListener('scroll', this.scrollFn); // 销毁监听
 			},
 			onclickLeft() {
-				if (parseInt(this.isFromList) == 1) {
+				if (this.$route.query.isFromList == 1) {
 					this.$router.go(-1);
 				} else {
 					this.$interaction.closePage();
@@ -436,7 +478,7 @@
 					path: '/memberDataDetail',
 					query: {
 						searchTime: this.searchTime,
-						searchUserId:item.userId
+						searchUserId: item.userId
 					}
 				});
 			}

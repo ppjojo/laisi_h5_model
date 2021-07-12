@@ -5,10 +5,11 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
     state: {
         myGroupListRefresh: true,
+        groupIndexRefresh: true,
         group: {
             groupInfo: {
                 content: "",
-                count:"",
+                count: "",
                 id: "",
                 isGroupLeader: 0,
                 isInviteConfirm: 0,
@@ -25,16 +26,26 @@ const store = new Vuex.Store({
             memberIcon: "",
             ownerUserId: "",
             userIdData: {}
-        }
+        },
+        personalGroupInfo: {
+            isDel: 0,
+            isGroupLeader: 0,
+            isSilent: 0,
+            isTop: 0
+        },
+        groupMemberList: [],
+        
     },
     mutations: {
         setData(state, param) { //param:{key:*,val:*}
+            
             var val = param.val;
             if (typeof param.val == "object") {
                 val = JSON.stringify(val);
             }
             eval(`state.${param.key}=${val}`);
-        }
+            console.log(state)
+        },
     }
 })
 

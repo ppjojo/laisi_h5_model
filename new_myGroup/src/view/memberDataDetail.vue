@@ -137,7 +137,8 @@
                     <span>体脂秤</span>
                 </div>
                 <div class="balanceDetail">
-                    <div id="main" style="width:100%; height:200px"></div>
+                    <div id="weight" style="width:100%; height:200px"></div>
+                    <div id="fat" style="width:100%; height:200px"></div>
                 </div>
             </div>
         </div>
@@ -165,8 +166,9 @@
     } from 'echarts/charts';
     import {
         TitleComponent,
-        TooltipComponent,
-        GridComponent
+        GridComponent,
+        MarkPointComponent,
+        TooltipComponent
     } from 'echarts/components';
     // 引入 Canvas 渲染器，注意引入 CanvasRenderer 或者 SVGRenderer 是必须的一步
     import {
@@ -174,7 +176,7 @@
     } from 'echarts/renderers';
     // 注册必须的组件
     echarts.use(
-        [TitleComponent, TooltipComponent, GridComponent, LineChart, CanvasRenderer]
+        [TitleComponent, TooltipComponent, MarkPointComponent, GridComponent, LineChart, CanvasRenderer]
     );
 
 
@@ -231,7 +233,12 @@
                 month = month.toString().padStart(2, "0");
                 dates = dates.toString().padStart(2, "0");
                 this.currentDatestr = year + '/' + month + '/' + dates;
-                var myChart = echarts.init(document.getElementById('main'));
+
+                this.weight()
+                this.fat()
+            },
+            weight() {
+                var myChart = echarts.init(document.getElementById('weight'));
                 var option = {
                     title: {
                         text: '体重（kg）',
@@ -248,40 +255,192 @@
                         width: "90%",
                         height: "60%"
                     },
+                    tooltip: {
+                        alwaysShowContent: true,
+                        trigger: 'axis', //item
+                        confine: true,
+                        formatter: '{c0}kg',
+                        backgroundColor: '#2E80F3',
+                        borderWidth: 0,
+                        textStyle: {
+                            color: "#ffffff",
+                            lineHeight: 15,
+                            height: 15,
+                            width: 40,
+                            fontSize: 10,
+
+                        },
+                        padding: [2, 3, 2, 3],
+                        extraCssText: '',
+                        axisPointer: {
+                            lineStyle: {
+                                color: '#F36176'
+                            }
+                        }
+
+
+                    },
 
                     xAxis: [{
                         type: 'category',
                         axisLine: {
                             show: false,
                         },
-                        data: ['1', '2', '3', '4', '5', '6', '7']
+                        splitNumber: 4,
+                        axisPointer: {
+                            value: "2016-10-7",
+                            snap: true,
+                            label: {
+                                show: true,
+                            },
+
+                            handle: {
+                                show: true
+                            },
+                            lineStyle: {
+                                color: "#F36176"
+                            }
+                        },
+                        data: ['7/1', '7/2', '7/3', '7/4', '7/5', '7/6', '7/7', '7/1', '7/2', '7/3', '7/4',
+                            '7/5', '7/6', '7/7',
+                        ]
                     }],
-                    yAxis: {
-                        type: 'value',
-                    },
+                    yAxis: [{
+                        type: "value",
+                        axisTick: {
+                            show: false
+                        },
+                        splitNumber: 2,
+                        // min:30,
+                        splitLine: {
+                            show: true,
+                            lineStyle: {
+                                color: "#595962",
+                                type: "dashed"
+                            }
+                        }
+                    }],
                     series: [{
                             type: 'line',
                             smooth: true,
-                            showSymbol: false,
+                            showSymbol: true,
                             lineStyle: {
                                 color: '#2E80F3'
                             },
-                            data: [51, 55, 65, 45, 65, 92, 75],
-                            markPoint: {
-                                symbol: "pin",
-                                data: [{
-                                    type: "min"
-                                }],
-                                itemStyle: {
-                                    color: "rgba(232, 15, 15, 1)"
+                            itemStyle: {
+                                normal: {
+                                    color: '#2E80F3'
                                 }
-                            }
+                            },
+
+                            data: [51, 55, 65, 45, 65, 92, 75, 51, 55, 65, 45, 65, 92, 75],
                         },
 
                     ]
                 };
                 myChart.setOption(option);
+            },
+            fat() {
+                var myChart = echarts.init(document.getElementById('fat'));
+                var option = {
+                    title: {
+                        text: '体重（kg）',
+                        textStyle: {
+                            color: '#CFCFD2',
+                            fontSize: "14",
+                            fontWeight: "normal",
+                            height: "30",
+                            lineHeight: "30"
+                        }
+                    },
+                    grid: {
+                        left: '10%',
+                        width: "90%",
+                        height: "60%"
+                    },
+                    tooltip: {
+                        alwaysShowContent: true,
+                        trigger: 'axis', //item
+                        confine: true,
+                        formatter: '{c0}%',
+                        backgroundColor: '#2ECD70',
+                        borderWidth: 0,
+                        textStyle: {
+                            color: "#ffffff",
+                            lineHeight: 15,
+                            height: 15,
+                            width: 40,
+                            fontSize: 10,
 
+                        },
+                        padding: [2, 3, 2, 3],
+                        extraCssText: '',
+                        axisPointer: {
+                            lineStyle: {
+                                color: '#F36176'
+                            }
+                        }
+
+
+                    },
+
+                    xAxis: [{
+                        type: 'category',
+                        axisLine: {
+                            show: false,
+                        },
+                        splitNumber: 4,
+                        axisPointer: {
+                            value: "2016-10-7",
+                            snap: true,
+                            label: {
+                                show: true,
+                            },
+
+                            handle: {
+                                show: true
+                            },
+                            lineStyle: {
+                                color: "#F36176"
+                            }
+                        },
+                        data: ['7/1', '7/2', '7/3', '7/4', '7/5', '7/6', '7/7', '7/1', '7/2', '7/3', '7/4',
+                            '7/5', '7/6', '7/7',
+                        ]
+                    }],
+                    yAxis: [{
+                        type: "value",
+                        axisTick: {
+                            show: false
+                        },
+                        splitNumber: 2,
+                        // min:30,
+                        splitLine: {
+                            show: true,
+                            lineStyle: {
+                                color: "#595962",
+                                type: "dashed"
+                            }
+                        }
+                    }],
+                    series: [{
+                            type: 'line',
+                            smooth: true,
+                            showSymbol: true,
+                            lineStyle: {
+                                color: '#2ECD70'
+                            },
+                            itemStyle: {
+                                normal: {
+                                    color: '#2ECD70'
+                                }
+                            },
+                            data: [51, 55, 65, 45, 65, 92, 75, 51, 55, 65, 45, 65, 92, 75],
+                        },
+
+                    ]
+                };
+                myChart.setOption(option);
             },
             formatter(type, val) {
                 if (type === 'year') {
