@@ -1,0 +1,29 @@
+@font-face {
+  font-family: "iconfont"; /* Project id  */
+  src: url('iconfont.ttf?t=1622700615516') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 22px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-weibiaoti15:before {
+  content: "\e621";
+}
+
+.icon-xiayiye:before {
+  content: "\e636";
+}
+
+.icon-jinrufasong:before {
+  content: "\e625";
+}
+
+.icon-shangyiye:before {
+  content: "\e63f";
+}
+

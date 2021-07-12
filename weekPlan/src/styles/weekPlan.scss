@@ -1,0 +1,106 @@
+// 我的小组，创建小组，小组主页
+@font-face {
+    font-family: "DINCondensed-Bold";
+    src: url("../assets/font/DINCondensed-Bold/DINCondensed-Bold.woff2") format("woff2"),
+        url("../assets/font/DINCondensed-Bold/DINCondensed-Bold.woff") format("woff"),
+        url("../assets/font/DINCondensed-Bold/DINCondensed-Bold.ttf") format("truetype"),
+        url("../assets/font/DINCondensed-Bold/DINCondensed-Bold.eot") format("embedded-opentype"),
+        url("../assets/font/DINCondensed-Bold/DINCondensed-Bold.svg") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+.header {
+    height: 1rem;
+    position: relative;
+    z-index: 100;
+}
+
+@supports ((height: constant(safe-area-inset-top)) or (height: env(safe-area-inset-top))) and (-webkit-overflow-scrolling: touch) {
+    .header {
+        height: 1rem;
+        height: calc(1rem + constant(safe-area-inset-top));
+        height: calc(1rem + env(safe-area-inset-top));
+    }
+}
+.van-hairline--bottom::after {
+    border: none;
+}
+
+.nullDataBox {
+    margin-top: 3.5rem;
+    background-color: #fff;
+    text-align: center;
+
+    img {
+        width: 4rem;
+    }
+
+    p {
+        font-size: 0.25rem;
+        color: #999;
+        line-height: 1rem;
+        margin: 0;
+        padding: 0;
+    }
+}
+
+
+//主页
+.homePageBox {
+    .imgBox{
+        height: 51.6rem;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    height: 51.6rem;
+    width: 100%;
+    // background-image: url('../assets/img/homepage.png');
+    // background-image: url('https://oss.laisitech.com/65929110-eeed-4b48-a5a1-b7ffeae23427.png');
+    //background-size: cover;
+    //background-position: center center;
+    position: relative;
+    .buttonOK {
+        width: 4.6rem;
+        height: 0.8rem;
+        border-radius: 0.4rem;
+        background-image: linear-gradient(to bottom,#F9FFE4 , #FFFFFF);
+        -webkit-border-radius: 0.4rem;
+        -moz-border-radius: 0.4rem;
+        -ms-border-radius: 0.4rem;
+        -o-border-radius: 0.4rem;
+        color: #3499DF;
+        font-size: 0.36rem;
+        text-align: center;
+        line-height: 0.8rem;
+        margin: 0 auto;
+    }
+
+    .buttonWait {
+        width: 4.6rem;
+        height: 0.8rem;
+        border-radius: 0.4rem;
+        color: #3499DF;
+        font-size: 0.36rem;
+        opacity: 0.5;
+        text-align: center;
+        line-height: 0.8rem;
+        margin: 0 auto;
+    }
+    .startTest{
+        position: absolute;
+        top: 15.5rem;
+        left: calc(50% - 2.3rem) ;
+    }
+    .getPlan{
+        position: absolute;
+        top: 37.5rem;
+        left: calc(50% - 2.3rem) ;
+    }
+    .againTest{
+        position: absolute;
+        top: 49.3rem;
+        left: calc(50% - 2.3rem) ;
+    }
+}

@@ -1,0 +1,37 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "593487",
+      "name": "菜单",
+      "font_class": "weibiaoti15",
+      "unicode": "e621",
+      "unicode_decimal": 58913
+    },
+    {
+      "icon_id": "887973",
+      "name": "下一页",
+      "font_class": "xiayiye",
+      "unicode": "e636",
+      "unicode_decimal": 58934
+    },
+    {
+      "icon_id": "18042476",
+      "name": "进入发送",
+      "font_class": "jinrufasong",
+      "unicode": "e625",
+      "unicode_decimal": 58917
+    },
+    {
+      "icon_id": "21598353",
+      "name": "上一页",
+      "font_class": "shangyiye",
+      "unicode": "e63f",
+      "unicode_decimal": 58943
+    }
+  ]
+}
