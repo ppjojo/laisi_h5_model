@@ -1,8 +1,11 @@
 <template>
-	<div id="app" v-cloak>
+	<div id="app" class="groupMember" v-cloak>
 		<div class="header">
 			<van-nav-bar title="邀请好友" @click-left="onclickLeft" @click-right="onClickRight" left-arrow
 				safe-area-inset-top fixed>
+				<template #left>
+					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.48rem;" />
+				</template>
 				<template #right>
 					<div>邀请({{memberResult.length}})</div>
 				</template>
@@ -209,8 +212,6 @@
 				if (this.memberResult.length == 0) return;
 				Dialog.confirm({
 					confirmButtonText: '邀请',
-					confirmButtonColor: '#007aff',
-					cancelButtonColor: '#999',
 					message: '确定发出邀请？对方同意邀请才会加入小组～'
 				}).then(() => {
 					inviteFriend({
@@ -263,8 +264,8 @@
 		}
 	};
 </script>
-<style scoped>
-	@import '../styles/member.css';
+<style scoped lang="scss">
+	@import '@s/group.scss';
 
 	.van-collapse-item__wrapper .van-cell {
 		padding: 0;

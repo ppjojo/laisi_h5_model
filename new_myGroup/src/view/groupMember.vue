@@ -1,8 +1,11 @@
 <template>
-	<div id="app" v-cloak>
+	<div id="app" class="groupMember" v-cloak>
 		<div class="header">
 			<van-nav-bar :title="title" @click-left="onclickLeft" @click-right="onClickRight" left-arrow
 				safe-area-inset-top fixed>
+				<template #left>
+					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.48rem;" />
+				</template>
 				<template #right>
 					<div v-if="flag==3">移除({{memberResult.length}})</div>
 				</template>
@@ -192,8 +195,6 @@
 				}
 				Dialog.confirm({
 					confirmButtonText: confirmButtonText,
-					confirmButtonColor: '#e62000',
-					cancelButtonColor: '#999',
 					message: str
 				}).then(() => {
 					if (this.flag == 1) {
@@ -289,8 +290,6 @@
 				// str += "移出小组吗?";
 				Dialog.confirm({
 					confirmButtonText: '移除',
-					confirmButtonColor: '#e62000',
-					cancelButtonColor: '#999',
 					message: str
 				}).then(() => {
 					removeMember({
@@ -316,8 +315,8 @@
 		}
 	};
 </script>
-<style scoped>
-	@import '../styles/groupMember.css';
+<style scoped lang="scss">
+	@import '@s/group.scss';
 
 	.van-collapse-item__wrapper .van-cell {
 		padding: 0;
@@ -354,7 +353,4 @@
 		color: #1F1F1F;
 	}
 
-	.ul_class li .badage {
-		background-color: #327FFF;
-	}
 </style>

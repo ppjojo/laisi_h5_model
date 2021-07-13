@@ -68,7 +68,7 @@
 									<swiper-slide v-for="item in outdoorlist" style="width:auto;"
 										v-if="activeNum==1&&item.productDeviceType=='3'">
 										<div class="secondTreeBox " @click="gotoProductDetail(item)">
-											<img class="secondTree_img" :src="item.productPagePic" alt="">
+											<img class="secondTree_img" :src="item.navPic" alt="">
 											<div class="secondTree_title">{{item.productName}}</div>
 											<div class="secondTree_price">¥ {{item.productPrice}}</div>
 										</div>
@@ -82,7 +82,7 @@
 								<template v-for="item in outdoorlist">
 									<div class="secondTreeBox" v-if="activeNum==2&&item.productDeviceType=='5'"
 										@click="gotoProductDetail(item)">
-										<img class="secondTree_img" :src="item.productPagePic" alt="">
+										<img class="secondTree_img" :src="item.navPic" alt="">
 										<div class="secondTree_title">{{item.productName}}</div>
 										<div class="secondTree_price">¥ {{item.productPrice}}</div>
 									</div>
@@ -92,7 +92,7 @@
 								<template v-for="item in outdoorlist">
 									<div class="secondTreeBox" v-if="activeNum==3&&item.productDeviceType=='4'"
 										@click="gotoProductDetail(item)">
-										<img class="secondTree_img" :src="item.productPagePic" alt="">
+										<img class="secondTree_img" :src="item.navPic" alt="">
 										<div class="secondTree_title">{{item.productName}}</div>
 										<div class="secondTree_price">¥ {{item.productPrice}}</div>
 									</div>

@@ -1,23 +1,21 @@
 <template>
-	<div id="app" v-cloak>
+	<div id="app" class="multChangePage" v-cloak>
 		<div class="header">
 			<van-nav-bar :title="title"  @click-left="OnclickLeft" @click-right="OnclickRight" safe-area-inset-top fixed>
 				<template  #left>
-					<div v-if="isCurrentUser">取消</div>
-					<i v-else class="van-icon van-icon-arrow-left van-nav-bar__arrow"><!----></i>
+					<!-- <div v-if="isCurrentUser">取消</div> -->
+					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.48rem;" />
 				</template>
 				<template v-if="isCurrentUser" #right>
-					<div :style="{color:text.length>0?'#e60012':'#999'}">{{righttxt}}</div>
+					<div :style="{color:text.length>0?'#CFCFD2':'#595962'}">{{righttxt}}</div>
 				</template>
 			</van-nav-bar>
 		</div>
 		<div class="outside" v-if="flag==1||flag==4">
-			<!-- :style="{minHeight:flag==4?'1.7rem':'2.2rem'}" -->
 			<van-field v-model="text"  class="club-input" :rows="flag==4?2:3" autosize type="textarea"
 			 :maxlength="maxlength" :placeholder="flag==1?'请填写小组口号':'请填写小组名称'" show-word-limit />
 		</div>
 		<div class="outside" v-else>
-			<!-- :style="{minHeight:flag==4?'1.7rem':'2.2rem'}" -->
 			<van-field v-model="text" v-if="isCurrentUser" @input="textChange" class="club-input" rows="10" autosize type="textarea" maxlength="500"
 			 placeholder="请填写公告1-500字" show-word-limit />
 			 <div style="font-size: .32rem;line-height: .44rem;" v-else>
@@ -51,10 +49,6 @@
 			[Field.name]: Field,
 			[Toast.name]: Toast,
 			[Dialog.name]: Dialog,
-			// [SwipeItem.name]: SwipeItem,
-			// [GoodsAction.name]: GoodsAction,
-			// [GoodsActionIcon.name]: GoodsActionIcon,
-			// [GoodsActionButton.name]: GoodsActionButton
 		},
 
 		data() {
@@ -109,8 +103,6 @@
 					Dialog.confirm({
 						confirmButtonText: '继续编辑',
 						cancelButtonText:'退出',
-						confirmButtonColor: '#007aff',
-						cancelButtonColor: '#999',
 						message: '退出本次编辑？'
 					}).then(() => {
 						
@@ -127,8 +119,6 @@
 				if (this.flag == 2) {
 					Dialog.confirm({
 						confirmButtonText: '发布',
-						confirmButtonColor: '#007aff',
-						cancelButtonColor: '#999',
 						message: '该公告会通知全部小组成员，是否发布？'
 					}).then(() => {
 						this.checkAndSubmit();
@@ -154,20 +144,10 @@
 			textChange(){
 				this.righttxt = '发布';
 			},
-			titleChange() { //过滤
-				this.text = this.text.replace(
-					/[^\u4E00-\u9FA5|\d|\a-zA-Z|\r\n\s,.?!，。#￥$%\`~^？！@…—&$=()\-+\/*{}【】\\（）[\]]|\s/g, '')
-			},
+			
 		}
 	};
 </script>
-<style scoped="scoped">
-	.outside {
-		padding: .3rem;
-	}
-
-	.club-input {
-		background-color: #f5f5f5;
-		border-radius: .08rem;
-	}
+<style scoped lang="scss">
+	@import '@s/group.scss';
 </style>

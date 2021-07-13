@@ -247,14 +247,14 @@
             }
 
             .productBox {
-                width: 14rem;
+                max-width: 12rem;
                 padding: 0.6rem;
                 margin: 0 auto;
                 height: 4.08rem;
                 box-sizing: border-box;
                 position: absolute;
                 bottom: -0rem;
-                left: calc(50% - 7rem);
+                left: calc(50% - 6rem);
                 z-index: 8;
                 background-image: url("../assets/img/outdoorSport/product-bg.png");
                 background-size: cover;

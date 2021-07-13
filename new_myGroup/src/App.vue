@@ -1,5 +1,5 @@
-<template>
-  <div id="app">
+<template> 
+  <div id="app" >
     <transition :name="transitionName">
        <keep-alive ><router-view v-if="$route.meta.keepAlive" /></keep-alive>
     </transition>
@@ -23,18 +23,18 @@
             $route(to, from) {
                 //如果to的索引值为0，不添加任何动画；如果to索引大于from索引,判断为前进状态,反之则为后退状态
                  if(to.meta.index > 0){
-                   //if(from.meta.index){
+                   if(from.meta.index){
                      if( to.meta.index < from.meta.index){
-                        alert("小")
+                        console.log("小")
                         this.transitionName = 'slide-right';
                     }else{
-                      alert("大")
+                      console.log("大")
                         this.transitionName = 'slide-left';
                     }
-                   //}
+                   }
                     
                 }else if(to.meta.index == 0 && from.meta.index > 0){
-                  alert(9)
+                  console.log("归零")
                     this.transitionName = 'slide-right';
                 }
 
