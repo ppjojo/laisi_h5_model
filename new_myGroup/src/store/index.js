@@ -44,7 +44,7 @@ const store = new Vuex.Store({
                 val = JSON.stringify(val);
             }
             eval(`state.${param.key}=${val}`);
-            console.log(state)
+            //console.log(state)
         },
     }
 })

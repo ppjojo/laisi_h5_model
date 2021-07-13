@@ -251,7 +251,7 @@
 			//this.initData();
 		},
 		activated() {
-			this.groupItem = this.$store.state.group.groupInfo
+			this.groupItem =Object.assign(this.groupItem, this.$store.state.group.groupInfo);
 			if (this.$store.state.groupIndexRefresh) {
 				this.groupId = parseInt(this.$route.query.id),
 					this.initData()

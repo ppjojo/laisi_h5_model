@@ -93,15 +93,6 @@
 					}
 				});
 			},
-			goGroupIndex(item) {
-				this.$router.push({
-					path: '/groupIndex',
-					query: {
-						id: item
-					}
-				});
-
-			}
 		}
 	};
 </script>

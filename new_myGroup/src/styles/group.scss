@@ -18,13 +18,13 @@
     z-index: 100;
 }
 
-// @supports ((height: constant(safe-area-inset-top)) or (height: env(safe-area-inset-top))) and (-webkit-overflow-scrolling: touch) {
-//     .header {
-//         height: 1rem;
-//         height: calc(1rem + constant(safe-area-inset-top));
-//         height: calc(1rem + env(safe-area-inset-top));
-//     }
-// }
+@supports ((height: constant(safe-area-inset-top)) or (height: env(safe-area-inset-top))) and (-webkit-overflow-scrolling: touch) {
+    .header {
+        height: 1rem;
+        height: calc(1rem + constant(safe-area-inset-top));
+        height: calc(1rem + env(safe-area-inset-top));
+    }
+}
 
 //黑字
 $text_color:#595962;
@@ -75,16 +75,11 @@ $border_color:#1e1e2a;
 
 .myGroupList {
     padding: 0 0.3rem;
-    // height: 100vh;
-    // overflow: scroll;
 
     .labelTitle {
         color: #CFCFD2;
         font-size: 0.36rem;
         padding: 0.3rem 0;
-        position: sticky;
-        top: 0;
-        left: 0.3rem;
     }
 
     .groupBox {
@@ -335,13 +330,15 @@ $border_color:#1e1e2a;
             top: 0;
             left: 0;
             z-index: 9;
-            opacity: 0.2;
+            opacity: 0.5;
         }
 
         .bannerBg {
             height: 5.16rem;
             width: 100%;
             position: relative;
+            filter: blur(5px);
+            -webkit-filter: blur(5px);
         }
 
         .groupBox {
@@ -417,6 +414,7 @@ $border_color:#1e1e2a;
         color: $text_color_white;
         position: relative;
         z-index: 99;
+        background-color: $bg_color;
 
         .noticeBox {
             border-bottom: 1px $border_color solid;
@@ -924,15 +922,18 @@ $border_color:#1e1e2a;
 
     .dataBox {
         margin-top: 0.4rem;
+
         .dataItem {
             background-color: $border_color;
             padding: 0.4rem;
             border-radius: 8px;
             margin-bottom: 0.24rem;
-            .typeBox{
+
+            .typeBox {
                 display: flex;
                 align-items: center;
                 justify-content: flex-start;
+
                 img {
                     width: 0.48rem;
                     height: 0.48rem;
@@ -950,17 +951,21 @@ $border_color:#1e1e2a;
                 flex-wrap: wrap;
 
                 .detailItem {
-                    &:nth-child(3n+1){
+                    &:nth-child(3n+1) {
                         text-align: left;
                     }
-                    &:nth-child(3n+2){
+
+                    &:nth-child(3n+2) {
                         text-align: center;
                     }
-                    &:nth-child(3n){
+
+                    &:nth-child(3n) {
                         text-align: right;
                     }
+
                     width: 33.3333%;
                     margin-bottom: 0.3rem;
+
                     .numBox {
                         font-size: 0.56rem;
                         line-height: 0.6rem;
@@ -976,9 +981,7 @@ $border_color:#1e1e2a;
 
             }
 
-            .balanceDetail{
-                
-            }
+            .balanceDetail {}
         }
     }
 

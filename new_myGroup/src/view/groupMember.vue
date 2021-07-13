@@ -11,8 +11,11 @@
 				</template>
 			</van-nav-bar>
 		</div>
-		<van-search v-model="searchval.nickNameOrId" @input="search" v-if="flag==3||flag==4" placeholder="请输入成员昵称或ID">
-		</van-search>
+		<div>
+			<van-search v-model="searchval.nickNameOrId" @input="search" v-if="flag==3||flag==4"
+				placeholder="请输入成员昵称或ID">
+			</van-search>
+		</div>
 		<van-checkbox-group v-model="memberResult" ref="checkboxGroup">
 			<van-cell-group v-show="searchval.nickNameOrId&&searchList.length>0">
 				<template v-if="searchList.length>0">
@@ -55,7 +58,7 @@
 								<ul class="ul_class">
 									<li class="ub ub-ac ub-pj" @click.stop="gotoUserIndex(memItem.memberId)">
 										<div class="ub ub-ac">
-											<img class="headpic"  :src="memItem.headPictureUrl" alt="">
+											<img class="headpic" :src="memItem.headPictureUrl" alt="">
 											<div>
 												<div class="ub ub-ac">
 													<div class="nickname van-ellipsis">{{memItem.nickname}}</div>
@@ -182,8 +185,8 @@
 					}
 				})
 			},
-			gotoUserIndex(memberId){//点击头像
-				if(this.flag!=4)return;
+			gotoUserIndex(memberId) { //点击头像
+				if (this.flag != 4) return;
 				this.$interaction.visitPersonalHomepage(memberId);
 			},
 			changeLeader(item) {
@@ -206,13 +209,16 @@
 							setTimeout(() => {
 								this.$router.go(-1);
 							}, 300)
-							//this.getList();
 						})
 					} else {
 						tansferGroupLeaderAndOut({
 							groupId: this.groupId,
 							leaderId: item.memberId
 						}).then(res => {
+							this.$store.commit("setData", {
+								key: "myGroupListRefresh",
+								val: true
+							})
 							this.$router.replace({
 								path: '/myGroupList',
 							});
@@ -261,7 +267,6 @@
 				}
 			},
 			search: debounce(function (e) {
-				console.log(this.searchval.nickNameOrId)
 				if (!this.searchval.nickNameOrId) return;
 				listItem(this.searchval).then((res) => {
 					this.searchList = res.data;
@@ -270,7 +275,6 @@
 				})
 			}),
 			onclickLeft() {
-				// this.$interaction.closePage();
 				this.$router.go(-1)
 			},
 			onClickRight() { //移除
@@ -303,28 +307,20 @@
 
 				});
 			},
-			goGroupIndex(item) {
-				this.$router.push({
-					path: '/groupIndex',
-					query: {
-						id: item
-					}
-				});
 
-			}
 		}
 	};
 </script>
 <style scoped lang="scss">
 	@import '@s/group.scss';
 
-	.van-collapse-item__wrapper .van-cell {
-		padding: 0;
-	}
+	// .van-collapse-item__wrapper .van-cell {
+	// 	padding: 0;
+	// }
 
-	.van-popover--dark .van-popover__arrow {
-		color: #1f1f1f;
-	}
+	// .van-popover--dark .van-popover__arrow {
+	// 	color: #1f1f1f;
+	// }
 
 	.van-cell::after {
 		border-bottom: none;
@@ -335,22 +331,19 @@
 		border: none;
 	}
 
-	.van-icon-arrow-down,
-	.van-icon-arrow-up {
-		color: #999;
-	}
+	// .van-icon-arrow-down,
+	// .van-icon-arrow-up {
+	// 	color: #999;
+	// }
 
 	.van-checkbox {
 		margin-right: .2rem;
 	}
 
-	.boldtitle {
-		font-weight: bold;
-	}
 
-	.van-collapse-item__title--disabled,
-	.van-collapse-item__title--disabled .van-cell__right-icon {
-		color: #1F1F1F;
-	}
 
+	// .van-collapse-item__title--disabled,
+	// .van-collapse-item__title--disabled .van-cell__right-icon {
+	// 	color: #1F1F1F;
+	// }
 </style>

@@ -207,8 +207,8 @@
 
 		},
 		created() {
-			this.groupItem = this.$store.state.group.groupInfo;
-			this.memberIcon = this.$store.state.group.groupInfo.memberIcon;
+			this.groupItem =Object.assign(this.groupItem, this.$store.state.group.groupInfo);
+			this.memberIcon =Object.assign(this.memberIcon, this.$store.state.group.groupInfo.memberIcon); 
 			this.initData()
 		},
 		methods: {
@@ -225,14 +225,14 @@
 						key: "group.groupInfo",
 						val: res.data.myteamGroupInfo
 					})
-					this.$store.commit("setData", {
-						key: "personalGroupInfo",
-						val: res.data.myteamGroupMember
-					})
-					this.$store.commit("setData", {
-						key: "groupMemberList",
-						val: res.data.myteamGroupMemberList
-					})
+					// this.$store.commit("setData", {
+					// 	key: "personalGroupInfo",
+					// 	val: res.data.myteamGroupMember
+					// })
+					// this.$store.commit("setData", {
+					// 	key: "groupMemberList",
+					// 	val: res.data.myteamGroupMemberList
+					// })
 
 				});
 			},

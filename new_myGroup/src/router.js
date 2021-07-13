@@ -31,7 +31,7 @@ const routes = [
     component: () => import('./view/createGroup'),
     meta: {
       title: '创建小组',
-      index:1
+      index:3
     }
   },
  
@@ -75,14 +75,14 @@ const routes = [
       index:3
     }
   },
-  {
-    name: 'deviceDetail',
-    component: () => import('./view/deviceDetail'),
-    meta: {
-      title: '数据详情',
-      index:2
-    }
-  },
+  // {
+  //   name: 'deviceDetail',
+  //   component: () => import('./view/deviceDetail'),
+  //   meta: {
+  //     title: '数据详情',
+  //     index:2
+  //   }
+  // },
   {
     name: 'memberDataDetail',
     component: () => import('./view/memberDataDetail'),
