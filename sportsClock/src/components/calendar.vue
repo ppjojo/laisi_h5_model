@@ -35,10 +35,6 @@
 				type: Boolean,
 				default: () => false
 			},
-			Ystatistics: { //是否是年度统计（为true方格格模式）
-				type: Boolean,
-				default: () => false
-			},
 			textTop: {
 				type: Array,
 				default: () => ["一", "二", "三", "四", "五", "六", "日"]

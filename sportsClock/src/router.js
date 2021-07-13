@@ -17,10 +17,10 @@ const routes = [
     }
   },
   {
-    name: 'specialHeader',
-    component: () => import('./view/specialHeader'),
+    name: 'clockoverview',
+    component: () => import('./view/clockoverview'),
     meta: {
-      title: '特别的头部',
+      title: '打卡总览',
       index:1
     }
   },
