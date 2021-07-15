@@ -1,0 +1,251 @@
+[v-cloak] {
+    display: none !important;
+}
+
+@font-face {
+    font-family: "BebasNeue";
+    src: url("../../common/font/BebasNeue/BebasNeue.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+.header {
+    height: 1rem;
+    position: relative;
+    z-index: 100;
+}
+
+@supports ((height: constant(safe-area-inset-top)) or (height: env(safe-area-inset-top))) and (-webkit-overflow-scrolling: touch) {
+    .header {
+        height: 1rem;
+        height: calc(1rem + constant(safe-area-inset-top));
+        height: calc(1rem + env(safe-area-inset-top));
+    }
+}
+
+//黑字
+$text_color:#595962;
+//白字
+$text_color_white:#CFCFD2;
+//黑色背景
+$bg_color:#12121f;
+//边框色
+$border_color:#1e1e2a;
+
+/*猴子的下拉加载*/
+/* .van-pull-refresh__track{
+	transform: translate3d(0,100px,0);
+} */
+.monkey-pull-refresh .van-pull-refresh__head {
+    line-height: 0;
+    height: 90px !important;
+}
+
+
+.monkey-pull-refresh .monkeyBox .monkey {
+    width: 60px;
+    height: 60px;
+    line-height: 0;
+    padding: 0;
+    margin: 0;
+}
+
+.monkey-pull-refresh .monkeyBox p {
+    height: 10px;
+    font-size: 12px;
+    text-align: center;
+    line-height: 20px;
+    padding: 0;
+    margin: 0;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: $bg_color;
+    color: $text_color_white;
+    padding: 0.24rem;
+    min-height: 100vh;
+}
+
+.threeDiv{
+    width: 100%;
+    height: 3.3rem;
+    background-image: url(../img/nobg.png);
+    background-size: cover;
+    background-position: 100% 100%;
+}
+
+.main-container{
+    position: relative;
+}
+.content-container {
+    border-radius: 0.24rem;
+    position: relative;
+    width: 100%;
+    background-color: $border_color;
+    .van-pull-refresh{
+        padding-top: 1.08rem;
+    }
+    .allHeader {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 2;
+        margin-bottom: 1.08rem;
+    
+        .van-dropdown-menu__bar {
+            box-shadow: none;
+            background-color: $border_color;
+            color: $text_color_white;
+            height: 1.08rem;
+            
+        }
+        .van-dropdown-menu__title{
+            color: $text_color_white;
+            font-size: 0.32rem;
+        }
+        
+    
+        .van-dropdown-menu__title::after {
+            width: 12px;
+            height: 12px;
+            border: none;
+            top: 40%;
+            right: -0.1rem;
+            transform: rotate(-0deg);
+            opacity: 1;
+            background: url(../img/arrow_down.svg) no-repeat;
+            background-size: 100%;
+    
+        }
+    
+        .van-dropdown-menu__title--down::after {
+            background: url(../img/arrow_up.svg) no-repeat;
+            background-size: 100%;
+            top: 25%;
+        }
+    
+        .van-icon-success::before {
+            width: 16px;
+            height: 16px;
+            background: url(../img/choose.svg) no-repeat;
+            background-size: 100%;
+            content: "";
+        }
+        .van-popup{
+            background-color: $border_color;
+            margin: 0 0.24rem;
+            width: calc(100% - 0.48rem);
+            
+    
+            .van-cell{
+                background-color: $border_color;
+                color: $text_color_white;
+            }
+        }
+    
+        .van-cell::after {
+            border-bottom:1px solid $bg_color
+        }
+    }
+    
+
+    .listDiv {
+        .listItem {
+            box-sizing: border-box;
+            margin: 0 .24rem;
+            height: 1.28rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid $bg_color;
+
+            .rank {
+                text-align: center;
+                font-size: 0.36rem;
+                font-family: 'BebasNeue';
+                min-width: 0.5rem;
+            }
+
+            .user {
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                width: 55%;
+
+                .headpic {
+                    width: .6rem;
+                    height: .6rem;
+                    border-radius: 50%;
+                    margin: 0 0.16rem;
+                }
+
+                .name {
+                    font-size: .28rem;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
+            }
+
+            .num {
+                text-align: right;
+                width: 40%;
+                white-space: nowrap;
+                font-size: 0.24rem;
+            }
+
+            .bigNumberSpan {
+                font-size: 0.48rem;
+                font-family: 'BebasNeue';
+            }
+        }
+
+        .isself {
+            border-bottom: 0.2rem solid $bg_color;
+            margin: 0;
+            padding: 0 0.24rem;
+            border-top: 1px solid $bg_color;
+
+        }
+
+
+    }
+
+
+}
+
+.noData-box {
+    text-align: center;
+    padding-top: 2rem;
+
+    .noData-img {
+        width: 4rem;
+    }
+
+    .noData-p {
+        color: $text_color_white;
+        font-size: 0.28rem;
+        padding: 0.2rem 0;
+    }
+}
+
+.bottomTip {
+    width: 100%;
+    text-align: center;
+    color: $text_color_white;
+    font-size: .2rem;
+    line-height: 1rem;
+    text-align: center;
+    position: absolute;
+    bottom: -1rem;
+}
