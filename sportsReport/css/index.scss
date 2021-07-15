@@ -60,7 +60,7 @@ body {
 }
 
 .topPic {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     z-index: 1;
@@ -114,6 +114,7 @@ body {
         background-color: $border_color;
         margin: 0 0.24rem;
         padding: 0.4rem;
+        margin-bottom: 0.24rem;
         border-radius: 0.24rem;
         -webkit-border-radius: 0.24rem;
         -moz-border-radius: 0.24rem;
@@ -128,42 +129,154 @@ body {
             background-image: linear-gradient(to right, rgba(255, 78, 62, 0.2), rgba(255, 170, 136, 0));
             width: 1.3rem;
             margin-bottom: 0.4rem;
+            position: relative;
+
+            .skiplevel {
+                position: absolute;
+                color: #FF4F3F;
+                font-size: 0.28rem;
+                top: 0.02rem;
+                right: -1.6rem;
+                
+
+                .status {
+                    margin-left: 0.05rem;
+                    width: 0.25rem;
+                }
+            }
         }
-        .modulePic_left{
+        .boxTitle2{
+            width: 1.6rem;
+        }
+
+        .modulePic_left {
             position: absolute;
             left: 0.4rem;
             top: 0.4rem;
         }
-        .modulePic_right{
+
+        .modulePic_right {
             position: absolute;
             right: 0.4rem;
             top: 0.4rem;
         }
-        .text_data{
+
+        .text_data {
             font-size: 0.56rem;
             color: $text_color_white;
             font-family: "BebasNeue";
-            line-height: 0.7rem;
-            .status{
-                width: 0.3rem;
-                margin-bottom: 0.1rem;
+            line-height: 0.6rem;
+
+            .status {
+                width: 0.25rem;
+                margin-bottom: 0.15rem;
             }
         }
-        .text_data_small{
+
+        .text_data_small {
             font-size: 0.24rem;
             color: $text_color_white;
-            line-height: 0.25rem;
+            line-height: 0.35rem;
         }
-        .text_descript{
+
+        .text_descript {
             font-size: 0.24rem;
             color: #71717F;
-            line-height: 0.5rem;
+            line-height: 0.3rem;
+            margin-bottom: 0.15rem;
         }
-        .align_right{
+
+        .align_right {
             text-align: right;
         }
-        .align_left{
+
+        .align_left {
             text-align: left;
         }
+
+        .totalCalBox {
+            display: flex;
+            margin-top: 0.4rem;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .consumeBox {
+            .smallTitle {
+                color: $text_color_white;
+                font-size: 0.28rem;
+                line-height: 0.5rem;
+                margin-top: 0.4rem;
+            }
+
+            .consumeDetail {
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                padding: 0.4rem 0;
+
+                .consumeDetailItem {
+                    width: 10%;
+                    height: 4px;
+                    margin-right: 2px;
+                    box-sizing: border-box;
+                    background-color: #3AD266;
+
+                    &:first-child {
+                        border-top-left-radius: 2px;
+                        border-bottom-left-radius: 2px;
+
+                    }
+
+                    &:last-child {
+                        border-top-right-radius: 2px;
+                        border-bottom-right-radius: 2px;
+
+                    }
+                }
+
+
+            }
+
+            .itemInfoBox {
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                flex-wrap: wrap;
+
+                .itemInfo {
+                    width: 25%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-start;
+
+                    .colorBox {
+                        width: 0.08rem;
+                        height: 0.08rem;
+                        border-radius: 50%;
+                        -webkit-border-radius: 50%;
+                        -moz-border-radius: 50%;
+                        -ms-border-radius: 50%;
+                        -o-border-radius: 50%;
+                        margin-right: 0.15rem;
+                    }
+
+                    .color_text {
+                        color: $text_color_white;
+                        font-size: 0.2rem;
+                        line-height: 0.5rem;
+                    }
+
+                }
+            }
+        }
+
+    }
+    .bottom{
+        font-size: 0.24rem;
+        color: #71717F;
+        margin: 0.8rem 0.24rem;
+        text-align: center;
     }
 }
+

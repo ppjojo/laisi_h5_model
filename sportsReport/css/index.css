@@ -53,7 +53,7 @@ body {
 }
 
 .topPic {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   z-index: 1;
@@ -114,6 +114,7 @@ body {
   background-color: #1e1e2a;
   margin: 0 0.24rem;
   padding: 0.4rem;
+  margin-bottom: 0.24rem;
   border-radius: 0.24rem;
   -webkit-border-radius: 0.24rem;
   -moz-border-radius: 0.24rem;
@@ -130,6 +131,24 @@ body {
   background-image: linear-gradient(to right, rgba(255, 78, 62, 0.2), rgba(255, 170, 136, 0));
   width: 1.3rem;
   margin-bottom: 0.4rem;
+  position: relative;
+}
+
+.contain .dataBox .boxTitle .skiplevel {
+  position: absolute;
+  color: #FF4F3F;
+  font-size: 0.28rem;
+  top: 0.02rem;
+  right: -1.6rem;
+}
+
+.contain .dataBox .boxTitle .skiplevel .status {
+  margin-left: 0.05rem;
+  width: 0.25rem;
+}
+
+.contain .dataBox .boxTitle2 {
+  width: 1.6rem;
 }
 
 .contain .dataBox .modulePic_left {
@@ -148,24 +167,25 @@ body {
   font-size: 0.56rem;
   color: #CFCFD2;
   font-family: "BebasNeue";
-  line-height: 0.7rem;
+  line-height: 0.6rem;
 }
 
 .contain .dataBox .text_data .status {
-  width: 0.3rem;
-  margin-bottom: 0.1rem;
+  width: 0.25rem;
+  margin-bottom: 0.15rem;
 }
 
 .contain .dataBox .text_data_small {
   font-size: 0.24rem;
   color: #CFCFD2;
-  line-height: 0.25rem;
+  line-height: 0.35rem;
 }
 
 .contain .dataBox .text_descript {
   font-size: 0.24rem;
   color: #71717F;
-  line-height: 0.5rem;
+  line-height: 0.3rem;
+  margin-bottom: 0.15rem;
 }
 
 .contain .dataBox .align_right {
@@ -174,5 +194,107 @@ body {
 
 .contain .dataBox .align_left {
   text-align: left;
+}
+
+.contain .dataBox .totalCalBox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 0.4rem;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.contain .dataBox .consumeBox .smallTitle {
+  color: #CFCFD2;
+  font-size: 0.28rem;
+  line-height: 0.5rem;
+  margin-top: 0.4rem;
+}
+
+.contain .dataBox .consumeBox .consumeDetail {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  padding: 0.4rem 0;
+}
+
+.contain .dataBox .consumeBox .consumeDetail .consumeDetailItem {
+  width: 10%;
+  height: 4px;
+  margin-right: 2px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  background-color: #3AD266;
+}
+
+.contain .dataBox .consumeBox .consumeDetail .consumeDetailItem:first-child {
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px;
+}
+
+.contain .dataBox .consumeBox .consumeDetail .consumeDetailItem:last-child {
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+}
+
+.contain .dataBox .consumeBox .itemInfoBox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.contain .dataBox .consumeBox .itemInfoBox .itemInfo {
+  width: 25%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+.contain .dataBox .consumeBox .itemInfoBox .itemInfo .colorBox {
+  width: 0.08rem;
+  height: 0.08rem;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  margin-right: 0.15rem;
+}
+
+.contain .dataBox .consumeBox .itemInfoBox .itemInfo .color_text {
+  color: #CFCFD2;
+  font-size: 0.2rem;
+  line-height: 0.5rem;
+}
+
+.contain .bottom {
+  font-size: 0.24rem;
+  color: #71717F;
+  margin: 0.8rem 0.24rem;
+  text-align: center;
 }
 /*# sourceMappingURL=index.css.map */
