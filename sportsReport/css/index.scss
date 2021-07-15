@@ -1,0 +1,169 @@
+[v-cloak] {
+    display: none !important;
+}
+
+@font-face {
+    font-family: "BebasNeue";
+    src: url("../../common/font/BebasNeue/BebasNeue.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+.header {
+    height: 1rem;
+    position: relative;
+    z-index: 100;
+}
+
+@supports ((height: constant(safe-area-inset-top)) or (height: env(safe-area-inset-top))) and (-webkit-overflow-scrolling: touch) {
+    .header {
+        height: 1rem;
+        height: calc(1rem + constant(safe-area-inset-top));
+        height: calc(1rem + env(safe-area-inset-top));
+    }
+}
+
+//黑字
+$text_color:#595962;
+//白字
+$text_color_white:#CFCFD2;
+//黑色背景
+$bg_color:#12121f;
+//边框色
+$border_color:#1e1e2a;
+
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: $bg_color;
+    color: $text_color_white;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    padding: 0 0.24rem;
+    color: $text_color;
+
+    .icon {
+        position: fixed;
+        top: 0.25rem;
+        left: 0;
+        z-index: 3;
+        padding: 0 0.24rem;
+    }
+}
+
+.topPic {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+
+    .bg {
+        width: 100%;
+    }
+}
+
+.infoBox {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0 0.24rem;
+    margin-top: 0.2rem;
+
+    .headerpic {
+        width: 0.64rem;
+        height: 0.64rem;
+        margin-right: 0.24rem;
+        border-radius: 50%;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        -ms-border-radius: 50%;
+        -o-border-radius: 50%;
+    }
+
+    .name {
+        color: #4F81E6;
+        font-size: 0.24rem;
+        line-height: 0.3rem;
+    }
+
+    .date {
+        color: #4F81E6;
+        font-size: 0.2rem;
+        line-height: 0.3rem;
+    }
+}
+
+.contain {
+    position: absolute;
+    top: 8.5rem;
+    width: 100%;
+    left: 0;
+    z-index: 2;
+
+    .dataBox {
+        background-color: $border_color;
+        margin: 0 0.24rem;
+        padding: 0.4rem;
+        border-radius: 0.24rem;
+        -webkit-border-radius: 0.24rem;
+        -moz-border-radius: 0.24rem;
+        -ms-border-radius: 0.24rem;
+        -o-border-radius: 0.24rem;
+        position: relative;
+
+        .boxTitle {
+            font-size: 0.32rem;
+            line-height: 0.48rem;
+            height: 0.48rem;
+            background-image: linear-gradient(to right, rgba(255, 78, 62, 0.2), rgba(255, 170, 136, 0));
+            width: 1.3rem;
+            margin-bottom: 0.4rem;
+        }
+        .modulePic_left{
+            position: absolute;
+            left: 0.4rem;
+            top: 0.4rem;
+        }
+        .modulePic_right{
+            position: absolute;
+            right: 0.4rem;
+            top: 0.4rem;
+        }
+        .text_data{
+            font-size: 0.56rem;
+            color: $text_color_white;
+            font-family: "BebasNeue";
+            line-height: 0.8rem;
+            .status{
+                width: 0.3rem;
+                margin-bottom: 0.2rem;
+            }
+        }
+        .text_data_small{
+            font-size: 0.24rem;
+            color: $text_color_white;
+            line-height: 0.3rem;
+        }
+        .text_descript{
+            font-size: 0.24rem;
+            color: #71717F;
+            line-height: 0.3rem;
+        }
+        .align_right{
+            text-align: right;
+        }
+        .align_left{
+            text-align: left;
+        }
+    }
+}

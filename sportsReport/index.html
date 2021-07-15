@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+	<title>运动报告</title>
+	<link rel="stylesheet" href="font/iconfont.css">
+	<link rel="stylesheet" href="css/index.css">
+
+
+</head>
+
+<body>
+	<div id="app" v-cloak>
+		<div class="header">
+			<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.48rem;" />
+		</div>
+		<!-- 周报 -->
+		<div class="weekBox">
+			<div class="topPic">
+				<img class="bg" src="./img/week_topPic.png" alt="">
+			</div>
+			<div class="infoBox">
+				<img class="headerpic" src="./img/wheel.png" alt="">
+				<div>
+					<p class="name">uuuuu</p>
+					<p class="date">2020/06/21-06/27</p>
+				</div>
+			</div>
+			<div class="contain">
+				<div class="dataBox">
+					<div class="boxTitle">本周运动</div>
+					<div class="">
+						<div>
+							<img  class="modulePic_left" width="60%" src="./img/total.png" alt="">
+						</div>
+						<div style="width:50%;margin-left:50%">
+							<div class="text_data align_right">
+								<img class="status" src="./img/up.png" alt="" srcset="">
+								01:00:00
+							</div>
+							<p class="text_data_small align_right">运动总时长</p>
+							<p class="text_descript align_right">(较上周增加了10分钟)</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script src="https://oss.laisitech.com/0bb12bf1-cb87-4d2c-a724-8a7c25b7ae04.js"></script>
+<script src="../common/js/network.js"></script>
+<script>
+	new Vue({
+		el: '#app',
+		data() {
+			return {
+
+			};
+		},
+		filters: {
+
+		},
+		created() {},
+		methods: {
+
+
+		}
+	})
+</script>
+
+</html>

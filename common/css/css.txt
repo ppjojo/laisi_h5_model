@@ -1,0 +1,1 @@
+vant-rem 2.12 :https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css

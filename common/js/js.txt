@@ -1,0 +1,2 @@
+vue ：https://cdn.jsdelivr.net/npm/vue@2
+vant： https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js
