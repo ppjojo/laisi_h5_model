@@ -2,10 +2,10 @@
     <div class="contain">
         <!-- banner图 -->
         <div class="bannerBox ">
-            <swiper :options="swiperOptions_bannner">
+            <swiper :options="swiperOptions_bannner" @click-slide="bannerLink">
                 <swiper-slide v-for="item in banner">
                     <video v-if="item.pictureVideo.indexOf('.mp4')!='-1'" :src="item.pictureVideo" muted="" autoplay="" loop="" width="100%"></video>
-					<div class="bannerImg_contain" v-else :style="{'background-image':'url('+item.pictureVideo+')'}"></div>
+					<div class="bannerImg_contain" v-else  :style="{'background-image':'url('+item.pictureVideo+')'}"></div>
                 </swiper-slide>
             </swiper>
         </div>
@@ -29,7 +29,7 @@
                                 </div>
                                 <div class="price">{{list[0].productPrice}}</div>
                                 <div class="buttonBox">
-                                    <div class="buyNow">立即购买</div>
+                                    <div class="buyNow" @click="buyNow(list[0])">立即购买</div>
                                     <div class="moreInfo" @click="gotoProductDetail(list[0])">了解更多</div>
                                 </div>
                             </div>
@@ -57,7 +57,7 @@
                                             </div>
                                             <div class="price">{{item.productPrice}}</div>
                                             <div class="buttonBox">
-                                                <div class="buyNow">立即购买</div>
+                                                <div class="buyNow" @click="buyNow(item)">立即购买</div>
                                                 <div class="moreInfo" @click="gotoProductDetail(item)">了解更多</div>
                                             </div>
                                         </div>
@@ -153,7 +153,17 @@
                         id: item.id
                     }
                 })
-            }
+            },
+             buyNow(item){
+                 if(item.productTianmaoLink)
+                 window.location.href=item.productTianmaoLink
+             },
+              bannerLink(index,realIndex){
+                let item=this.banner[realIndex]
+				if(item.pictureProductLink) {
+                    window.location.href=item.pictureProductLink 
+                }
+			}
         }
     }
 </script>

@@ -37,7 +37,7 @@ import {
 				
 			},
             gotoBuy() {
-                window.location.href(this.obj.productTianmaoLink)
+                window.location.href=this.obj.productTianmaoLink
             }
 
         }

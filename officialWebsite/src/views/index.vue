@@ -2,10 +2,10 @@
 	<div class="contain">
 		<div class="bannerBox ">
 			<swiper :options="swiperOptions_bannner" v-if="banner.length>0">
-				<swiper-slide v-for="item in banner">
+				<swiper-slide v-for="item in banner" @click-slide="bannerLink">
 					<video v-if="item.pictureVideo.indexOf('.mp4')!='-1'" :src="item.pictureVideo" muted="" autoplay=""
 						loop="" width="100%"></video>
-					<div class="bannerImg_contain" v-else :style="{'background-image':'url('+item.pictureVideo+')'}">
+					<div class="bannerImg_contain"  v-else :style="{'background-image':'url('+item.pictureVideo+')'}">
 					</div>
 				</swiper-slide>
 				<div class="swiper-pagination" slot="pagination"></div>
@@ -20,7 +20,7 @@
 						<p class="title">{{item.pictureName}}</p>
 						<p class="descript">{{item.englishName}}</p>
 					</div>
-					<div class=" iconfont icon-jinrufasong" @click="gotoProductDetail(item)">
+					<div class=" iconfont icon-jinrufasong" @click="pictureProductLink(item)">
 					</div>
 				</div>
 			</div>
@@ -192,7 +192,17 @@
                         id: item.id
                     }
                 })
-            }
+            },
+			bannerLink(index,realIndex){
+                let item=this.banner[realIndex]
+				if(item.pictureProductLink) {
+                    window.location.href=item.pictureProductLink 
+                }
+			},
+			pictureProductLink(item){
+				if(item.pictureProductLink) window.location.href=item.pictureProductLink
+			}
+
 		}
 	}
 </script>

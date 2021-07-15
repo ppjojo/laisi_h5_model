@@ -2,17 +2,17 @@
     <div class="contain">
         <!-- banner图 -->
         <div class="bannerBox ">
-            <swiper :options="swiperOptions_bannner">
-                <swiper-slide v-for="item in banner">
+            <swiper :options="swiperOptions_bannner" @click-slide="bannerLink">
+                <swiper-slide v-for="item in banner"   >
                     <video v-if="item.pictureVideo.indexOf('.mp4')!='-1'" :src="item.pictureVideo" muted="" autoplay="" loop="" width="100%"></video>
-					<div class="bannerImg_contain" v-else :style="{'background-image':'url('+item.pictureVideo+')'}"></div>
+					<div class="bannerImg_contain"  v-else :style="{'background-image':'url('+item.pictureVideo+')'}"></div>
                 </swiper-slide>
             </swiper>
 
             <div class="productBox pc_box">
-                <swiper :options="swiperOptions" ref="pcSwiper" v-if="list.length>1">
-                    <swiper-slide v-for="item in list" @click="gotoProductDetail(item)">
-                        <div @click="gotoProductDetail(item)">
+                <swiper :options="swiperOptions" ref="pcSwiper" v-if="list.length>1"  @click-slide="swipergotoProductDetail">
+                    <swiper-slide v-for="item in list" >
+                        <div >
                             <img class="productImg"
                                 :src="item.navPic"
                                 alt="">
@@ -33,8 +33,8 @@
             <div class="productBox phone_box">
                 <swiper :options="swiperOptions_phone" ref="phoneSwiper" v-if="list.length>1"
                     style="background-color:#fff">
-                    <swiper-slide v-for="item in list">
-                        <div @click="gotoProductDetail(item)">
+                    <swiper-slide v-for="item in list" @click-slide="swipergotoProductDetail">
+                        <div>
                             <img class="productImg"
                                 :src="item.navPic"
                                 alt="">
@@ -73,7 +73,7 @@
                             </div>
                             <div class="price">{{commandList[0].productPrice}}</div>
                             <div class="buttonBox">
-                                <div class="buyNow">立即购买</div>
+                                <div class="buyNow" @click="buyNow(commandList[0])">立即购买</div>
                                 <div class="moreInfo" @click="gotoProductDetail(commandList[0])">了解更多</div>
                             </div>
                             <div class="picBox">
@@ -101,7 +101,7 @@
                                     </div>
                                     <div class="price">{{item.productPrice}}</div>
                                     <div class="buttonBox">
-                                        <div class="buyNow">立即购买</div>
+                                        <div class="buyNow"  @click="buyNow(item)">立即购买</div>
                                         <div class="moreInfo" @click="gotoProductDetail(item)">了解更多</div>
                                     </div>
                                 </div>
@@ -220,7 +220,26 @@
                         id: item.id
                     }
                 })
-            }
+            },
+            swipergotoProductDetail(index,realIndex) {
+                 let item=this.list[realIndex]
+                this.$router.push({
+                    path: "productDetail",
+                    query: {
+                        id: item.id
+                    }
+                })
+            },
+             buyNow(item){
+                 if(item.productTianmaoLink)
+                 window.location.href=item.productTianmaoLink
+             },
+             bannerLink(index,realIndex){
+                let item=this.banner[realIndex]
+				if(item.pictureProductLink) {
+                    window.location.href=item.pictureProductLink 
+                }
+			}
         }
     }
 </script>

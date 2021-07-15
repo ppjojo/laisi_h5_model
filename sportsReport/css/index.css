@@ -148,24 +148,24 @@ body {
   font-size: 0.56rem;
   color: #CFCFD2;
   font-family: "BebasNeue";
-  line-height: 0.8rem;
+  line-height: 0.7rem;
 }
 
 .contain .dataBox .text_data .status {
   width: 0.3rem;
-  margin-bottom: 0.2rem;
+  margin-bottom: 0.1rem;
 }
 
 .contain .dataBox .text_data_small {
   font-size: 0.24rem;
   color: #CFCFD2;
-  line-height: 0.3rem;
+  line-height: 0.25rem;
 }
 
 .contain .dataBox .text_descript {
   font-size: 0.24rem;
   color: #71717F;
-  line-height: 0.3rem;
+  line-height: 0.5rem;
 }
 
 .contain .dataBox .align_right {

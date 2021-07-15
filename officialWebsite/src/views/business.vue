@@ -10,7 +10,7 @@
             </transition>
         </div>
         <div class="bannerBox ">
-            <img class="qr" src="../assets/img/cooprate/qr.png" alt="">
+            <!-- <img class="qr" src="../assets/img/cooprate/qr.png" alt=""> -->
             <swiper :options="swiperOptions_bannner">
                 <swiper-slide v-for="item in banner">
                     <video v-if="item.pictureVideo.indexOf('.mp4')!='-1'" :src="item.pictureVideo" muted="" autoplay=""

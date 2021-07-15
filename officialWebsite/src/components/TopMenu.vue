@@ -64,10 +64,10 @@
 									<img style="width:0.36rem;" src="../assets/img/outdoorSport/iconLeft.png" alt="">
 								</div>
 								<swiper :options="swiperOptions_nav" v-if="swiperStart&&outdoorlist.length>0"
-									ref="pcSwiper">
+									ref="pcSwiper" @click-slide="swipergotoProductDetail">
 									<swiper-slide v-for="item in outdoorlist" style="width:auto;"
 										v-if="activeNum==1&&item.productDeviceType=='3'">
-										<div class="secondTreeBox " @click="gotoProductDetail(item)">
+										<div class="secondTreeBox " >
 											<img class="secondTree_img" :src="item.navPic" alt="">
 											<div class="secondTree_title">{{item.productName}}</div>
 											<div class="secondTree_price">¥ {{item.productPrice}}</div>
@@ -340,6 +340,15 @@
 				})
 				this.menuTreeHide()
 			},
+			swipergotoProductDetail(index,realIndex) {
+                 let item=this.outdoorlist[realIndex]
+                this.$router.push({
+                    path: "productDetail",
+                    query: {
+                        id: item.id
+                    }
+                })
+            },
 			menuTreeShow(flag) {
 				let len = document.getElementsByClassName("menuTreeDiv").length
 				for (let i = 0; i < len; i++) {

@@ -2,7 +2,7 @@
     <div class="contain">
         <!-- banner图 -->
         <div class="bannerBox ">
-            <div class="bannerImg_contain" v-if="banner.length>0"
+            <div class="bannerImg_contain" v-if="banner.length>0" @click="bannerLink(banner[0])"
                 :style="{'background-image':'url('+banner[0].pictureVideo+')'}"></div>
         </div>
 
@@ -293,7 +293,14 @@
                 this.$router.push({
                     path: "joinUs"
                 })
-            }
+            },
+            bannerLink(item){
+				if(item.pictureProductLink) {
+                    window.location.href=item.pictureProductLink 
+                    return
+                }
+                if(item.pictureTianmaoLink) window.location.href=item.pictureTianmaoLink
+			}
 
         }
     }
