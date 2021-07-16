@@ -14,8 +14,15 @@
 
 <body>
 	<div id="app" v-cloak>
-		<div class="header">
-			<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.48rem;" />
+		<div class="header" style="color: #595962">
+            <div class="headerLeftBox" @click="goback()">
+                <span class="icon iconfont icon-fanhuianniu" style="font-size: 0.48rem;"></span>
+            </div>
+            <!-- <div class="headerTitle">周报月报</div> -->
+            <div class="headerRightBox">
+				<span class="icon iconfont icon-fenxianganniu" @click="sharePage" style="font-size: 0.48rem;"></span>
+				<span class="icon iconfont icon-tongyong-rili" @click="gohistory" style="font-size: 0.44rem;"></span>
+			</div>
 		</div>
 		<!-- 周报 -->
 		<div class="weekBox">
@@ -309,15 +316,26 @@
 					</div>
 				</div>
 
+				<!-- 分享才会显示 -->
+				<div class="shareBox" v-if="isShare==1">
+					<img src="./img/qrcode.png" alt="">
+				</div>
+
 				<div class="bottom">
 					—学着改变自己，因为你还有未被发现的自己存在—
 				</div>
 
+				<!-- 分享才会显示 -->
+				<div class="shareBox" v-if="isShare==1">
+					<div class="button" @click="goAPP">加入派健康一起运动吧！</div>
+				</div>
+
+				<img id="leadToBrowser" src="https://oss.laisitech.com/01c21e85-22db-4a2b-8f4f-500fca31b25d.png"
+					style="display: none; position: absolute;top: 0;left: 0;width: 100%;height: 100%;z-index: 99;"
+					alt="">
+
 			</div>
 
-			<div class="bottom">
-				—学着改变自己，因为你还有未被发现的自己存在—
-			</div>
 		</div>
 	</div>
 </body>
@@ -329,6 +347,7 @@
 		el: '#app',
 		data() {
 			return {
+				isShare: getQueryString("isShare") || 0,
 				colorList: {
 					自由训练: "#C4B3DB",
 					腕力球: "#4AA0FF",
@@ -370,6 +389,45 @@
 			this.getStepEchart()
 		},
 		methods: {
+			goback(){
+				window.history.back()
+			},
+			gohistory() {
+				window.location.href = "history.html"
+			},
+			sharePage() {
+				Interaction.sharePage({
+					title: "11",
+					description: "22",
+					url: "33",
+				})
+			},
+			goAPP() {
+				let linkUrl = ""
+				if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) { //判断iPhone|iPad|iPod|iOS
+					linkUrl = "https://lstemp.laisitech.com?actionType=groupDetail&id=" + this.groupId
+				} else if (/(Android)/i.test(navigator.userAgent)) { //判断Android
+					if (navigator.userAgent.toLowerCase().indexOf('micromessenger') !== -1) { //微信
+						document.getElementById("leadToBrowser").style.display = "block";
+						setTimeout(function () {
+							document.getElementById("leadToBrowser").style.display = "none";
+						}, 2000)
+						return
+						//linkUrl = "https://a.app.qq.com/o/simple.jsp?pkgname=com.lstech.rehealth"
+					} else {
+						linkUrl = "rehealth://groupdetail?id=" + this.groupId
+					}
+				}
+				var a = document.createElement('a');
+				a.setAttribute('href', linkUrl);
+				a.setAttribute('id', 'js_a');
+				//防止反复添加
+				if (document.getElementById('js_a')) {
+					document.body.removeChild(document.getElementById('js_a'));
+				}
+				document.body.appendChild(a);
+				a.click();
+			},
 			//运动时长
 			getTotalTimeEchart() {
 				var myChart = echarts.init(document.getElementById("totalTimeEchart"));

@@ -14,8 +14,15 @@
 
 <body>
 	<div id="app" v-cloak>
-		<div class="header">
-			<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.48rem;" />
+		<div class="header" style="color: #595962">
+			<div class="headerLeftBox" @click="goback()">
+				<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.48rem;"></span>
+			</div>
+			<!-- <div class="headerTitle">周报月报</div> -->
+			<div class="headerRightBox">
+				<span class="icon iconfont icon-fenxianganniu" @click="sharePage" style="font-size: 0.48rem;"></span>
+				<span class="icon iconfont icon-tongyong-rili" @click="gohistory" style="font-size: 0.44rem;"></span>
+			</div>
 		</div>
 		<!-- y月报 -->
 		<div class="weekBox">
@@ -158,15 +165,17 @@
 								<p class="text_descript align_right">消耗(kcal)</p>
 							</div>
 						</div>
-						
+
 					</div>
 				</div>
 
 				<!-- 本月跳绳 -->
 				<div class="dataBox">
-					<div class="boxTitle">本月跳绳 <div class="skiplevel">黄金段位<img class="status" src="./img/up.png" alt="" srcset=""></div></div>
+					<div class="boxTitle">本月跳绳 <div class="skiplevel">黄金段位<img class="status" src="./img/up.png" alt=""
+								srcset=""></div>
+					</div>
 					<div class="">
-						
+
 						<div style="width:50%">
 							<div>
 								<div class="text_data align_left">
@@ -193,7 +202,7 @@
 						<div>
 							<img class="modulePic_right" width="60%" style="top: 0.8rem;" src="./img/skip.png" alt="">
 						</div>
-						
+
 					</div>
 				</div>
 
@@ -206,7 +215,7 @@
 						</div>
 						<div style="width:80%;margin-left: 20%;">
 							<div style="display: flex;justify-content: flex-end;">
-								<div >
+								<div>
 									<div class="text_data align_right">
 										<img class="status" src="./img/up.png" alt="" srcset="">
 										90%
@@ -236,7 +245,7 @@
 								<p class="text_descript align_right">日均次数(次)</p>
 							</div>
 						</div>
-						
+
 					</div>
 				</div>
 
@@ -244,7 +253,7 @@
 				<div class="dataBox" style="padding-right: 0;">
 					<div class="boxTitle boxTitle2">本月腕力球</div>
 					<div class="">
-						
+
 						<div style="width:50%">
 							<div>
 								<div class="text_data align_left">
@@ -269,9 +278,10 @@
 							</div>
 						</div>
 						<div>
-							<img class="modulePic_right" width="60%" style="top: 0.8rem;right: 0;" src="./img/wristball.png" alt="">
+							<img class="modulePic_right" width="60%" style="top: 0.8rem;right: 0;"
+								src="./img/wristball.png" alt="">
 						</div>
-						
+
 					</div>
 				</div>
 
@@ -280,7 +290,7 @@
 					<div class="boxTitle boxTitle2">本月红包赛</div>
 					<div class="">
 						<div>
-							<img class="modulePic_left" width="60%"  src="./img/redCompetition.png" alt="">
+							<img class="modulePic_left" width="60%" src="./img/redCompetition.png" alt="">
 						</div>
 						<div style="width:50%;margin-left: 50%;">
 							<div>
@@ -305,19 +315,30 @@
 								<p class="text_descript align_right">累计收益(元)</p>
 							</div>
 						</div>
-						
+
 					</div>
+				</div>
+
+				<!-- 分享才会显示 -->
+				<div class="shareBox" v-if="isShare==1">
+					<img src="./img/qrcode.png" alt="">
 				</div>
 
 				<div class="bottom">
 					—学着改变自己，因为你还有未被发现的自己存在—
 				</div>
 
+				<!-- 分享才会显示 -->
+				<div class="shareBox" v-if="isShare==1">
+					<div class="button" @click="goAPP">加入派健康一起运动吧！</div>
+				</div>
+
+				<img id="leadToBrowser" src="https://oss.laisitech.com/01c21e85-22db-4a2b-8f4f-500fca31b25d.png"
+					style="display: none; position: absolute;top: 0;left: 0;width: 100%;height: 100%;z-index: 99;"
+					alt="">
+
 			</div>
 
-			<div class="bottom">
-				—学着改变自己，因为你还有未被发现的自己存在—
-			</div>
 		</div>
 	</div>
 </body>
@@ -329,6 +350,7 @@
 		el: '#app',
 		data() {
 			return {
+				isShare: getQueryString("isShare") || 0,
 				colorList: {
 					自由训练: "#C4B3DB",
 					腕力球: "#4AA0FF",
@@ -370,6 +392,45 @@
 			this.getStepEchart()
 		},
 		methods: {
+			goback() {
+				window.history.back()
+			},
+			gohistory() {
+				window.location.href = "history.html"
+			},
+			sharePage() {
+				Interaction.sharePage({
+					title: "11",
+					description: "22",
+					url: "33",
+				})
+			},
+			goAPP() {
+				let linkUrl = ""
+				if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) { //判断iPhone|iPad|iPod|iOS
+					linkUrl = "https://lstemp.laisitech.com?actionType=groupDetail&id=" + this.groupId
+				} else if (/(Android)/i.test(navigator.userAgent)) { //判断Android
+					if (navigator.userAgent.toLowerCase().indexOf('micromessenger') !== -1) { //微信
+						document.getElementById("leadToBrowser").style.display = "block";
+						setTimeout(function () {
+							document.getElementById("leadToBrowser").style.display = "none";
+						}, 2000)
+						return
+						//linkUrl = "https://a.app.qq.com/o/simple.jsp?pkgname=com.lstech.rehealth"
+					} else {
+						linkUrl = "rehealth://groupdetail?id=" + this.groupId
+					}
+				}
+				var a = document.createElement('a');
+				a.setAttribute('href', linkUrl);
+				a.setAttribute('id', 'js_a');
+				//防止反复添加
+				if (document.getElementById('js_a')) {
+					document.body.removeChild(document.getElementById('js_a'));
+				}
+				document.body.appendChild(a);
+				a.click();
+			},
 			//运动时长
 			getTotalTimeEchart() {
 				var myChart = echarts.init(document.getElementById("totalTimeEchart"));
@@ -556,9 +617,11 @@
 										color: '#188DFF'
 									}]
 								}
-								if(params.value<50){color="#71717F"}
-								
-								return color 
+								if (params.value < 50) {
+									color = "#71717F"
+								}
+
+								return color
 
 							}
 

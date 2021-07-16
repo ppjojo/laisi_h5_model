@@ -16,13 +16,7 @@
     z-index: 100;
 }
 
-@supports ((height: constant(safe-area-inset-top)) or (height: env(safe-area-inset-top))) and (-webkit-overflow-scrolling: touch) {
-    .header {
-        height: 1rem;
-        height: calc(1rem + constant(safe-area-inset-top));
-        height: calc(1rem + env(safe-area-inset-top));
-    }
-}
+
 
 //黑字
 $text_color:#595962;
@@ -47,16 +41,71 @@ body {
 .header {
     display: flex;
     align-items: center;
-    padding: 0 0.24rem;
     color: $text_color;
+    position: fixed;
+    justify-content: space-between;
+    width: 100%;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+    color: #fff;
 
     .icon {
-        position: fixed;
-        top: 0.25rem;
-        left: 0;
         z-index: 3;
         padding: 0 0.24rem;
     }
+
+    .headerTitle {
+        font-size: 0.36rem;
+    }
+
+    .headerLeftBox {
+        width: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start
+    }
+
+    .headerRightBox {
+        @extend .headerLeftBox;
+        justify-content: flex-end;
+    }
+}
+
+// 主页列表
+.listBox {
+    padding: 0.24rem;
+    margin-top: 1rem;
+
+    .weekItem {
+        width: 100%;
+        background-image: url(../img/weekList.png);
+        height: 2.6rem;
+        background-size: cover;
+        border-radius: 5px;
+        padding: 0.7rem 0.4rem;
+        box-sizing: border-box;
+
+        .title {
+            color: $bg_color;
+            font-size: 0.4rem;
+            margin-bottom: 0.28rem;
+
+        }
+
+        .date {
+            color: $bg_color;
+            font-size: 0.32rem;
+        }
+
+        margin-bottom: 0.24rem;
+    }
+
+    .monthItem {
+        @extend .weekItem;
+        background-image: url(../img/monthList.png);
+    }
+
 }
 
 .topPic {
@@ -77,7 +126,7 @@ body {
     align-items: center;
     justify-content: flex-start;
     padding: 0 0.24rem;
-    margin-top: 0.2rem;
+    margin-top: 1.2rem;
 
     .headerpic {
         width: 0.64rem;
@@ -137,7 +186,7 @@ body {
                 font-size: 0.28rem;
                 top: 0.02rem;
                 right: -1.6rem;
-                
+
 
                 .status {
                     margin-left: 0.05rem;
@@ -145,7 +194,8 @@ body {
                 }
             }
         }
-        .boxTitle2{
+
+        .boxTitle2 {
             width: 1.6rem;
         }
 
@@ -272,11 +322,88 @@ body {
         }
 
     }
-    .bottom{
+
+    .bottom {
         font-size: 0.24rem;
         color: #71717F;
         margin: 0.8rem 0.24rem;
         text-align: center;
     }
+
+    .shareBox {
+        padding: 0.5rem 0.24rem;
+
+        img {
+            width: 100%;
+        }
+
+        .button {
+            color: #fff;
+            width: 6.7rem;
+            height: 0.88rem;
+            font-size: 0.4rem;
+            line-height: 0.88rem;
+            background-image: linear-gradient(to left, #FFAA88, #FF4E3E);
+            border-radius: 0.44rem;
+            text-align: center;
+            margin: 0 auto;
+        }
+    }
+
+
 }
 
+//历史数据
+.historyListBox {
+    margin-top: 1rem;
+    padding: 0.24rem;
+
+    .historyListDiv {
+        .title {
+            color: #71717F;
+            font-size: 0.32rem;
+            line-height: 1rem;
+        }
+
+        .itemList {
+            background-color: #292934;
+            border-radius: 4px;
+
+            .itemTitle {
+                margin: 0 0.24rem;
+                height: 0.88rem;
+                color: $text_color_white;
+                font-size: 0.32rem;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border-bottom: 1px solid $bg_color;
+
+                &:last-child {
+                    border: none;
+                }
+            }
+        }
+    }
+}
+
+
+@supports ((height: constant(safe-area-inset-top)) or (height: env(safe-area-inset-top))) and (-webkit-overflow-scrolling: touch) {
+    .header {
+        height: 1rem;
+        height: calc(1rem + constant(safe-area-inset-top));
+        height: calc(1rem + env(safe-area-inset-top));
+        padding-top: constant(safe-area-inset-top);
+        padding-top: env(safe-area-inset-top);
+    }
+
+    .infoBox {
+        margin-top: calc(1.2rem + constant(safe-area-inset-top));
+        margin-top: calc(1.2rem + env(safe-area-inset-top));
+    }
+
+    .main-contain {
+        margin-top: calc(1rem + constant(safe-area-inset-top));
+        margin-top: calc(1rem + env(safe-area-inset-top));
+    }
+}

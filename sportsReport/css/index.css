@@ -15,14 +15,6 @@
   z-index: 100;
 }
 
-@supports ((height: constant(safe-area-inset-top)) or (height: env(safe-area-inset-top))) and (-webkit-overflow-scrolling: touch) {
-  .header {
-    height: 1rem;
-    height: calc(1rem + constant(safe-area-inset-top));
-    height: calc(1rem + env(safe-area-inset-top));
-  }
-}
-
 * {
   margin: 0;
   padding: 0;
@@ -40,16 +32,77 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  padding: 0 0.24rem;
   color: #595962;
+  position: fixed;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 100%;
+  top: 0;
+  left: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  color: #fff;
 }
 
 .header .icon {
-  position: fixed;
-  top: 0.25rem;
-  left: 0;
   z-index: 3;
   padding: 0 0.24rem;
+}
+
+.header .headerTitle {
+  font-size: 0.36rem;
+}
+
+.header .headerLeftBox, .header .headerRightBox {
+  width: 2rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+.header .headerRightBox {
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.listBox {
+  padding: 0.24rem;
+  margin-top: 1rem;
+}
+
+.listBox .weekItem, .listBox .monthItem {
+  width: 100%;
+  background-image: url(../img/weekList.png);
+  height: 2.6rem;
+  background-size: cover;
+  border-radius: 5px;
+  padding: 0.7rem 0.4rem;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin-bottom: 0.24rem;
+}
+
+.listBox .weekItem .title, .listBox .monthItem .title {
+  color: #12121f;
+  font-size: 0.4rem;
+  margin-bottom: 0.28rem;
+}
+
+.listBox .weekItem .date, .listBox .monthItem .date {
+  color: #12121f;
+  font-size: 0.32rem;
+}
+
+.listBox .monthItem {
+  background-image: url(../img/monthList.png);
 }
 
 .topPic {
@@ -76,7 +129,7 @@ body {
       -ms-flex-pack: start;
           justify-content: flex-start;
   padding: 0 0.24rem;
-  margin-top: 0.2rem;
+  margin-top: 1.2rem;
 }
 
 .infoBox .headerpic {
@@ -296,5 +349,81 @@ body {
   color: #71717F;
   margin: 0.8rem 0.24rem;
   text-align: center;
+}
+
+.contain .shareBox {
+  padding: 0.5rem 0.24rem;
+}
+
+.contain .shareBox img {
+  width: 100%;
+}
+
+.contain .shareBox .button {
+  color: #fff;
+  width: 6.7rem;
+  height: 0.88rem;
+  font-size: 0.4rem;
+  line-height: 0.88rem;
+  background-image: -webkit-gradient(linear, right top, left top, from(#FFAA88), to(#FF4E3E));
+  background-image: linear-gradient(to left, #FFAA88, #FF4E3E);
+  border-radius: 0.44rem;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.historyListBox {
+  margin-top: 1rem;
+  padding: 0.24rem;
+}
+
+.historyListBox .historyListDiv .title {
+  color: #71717F;
+  font-size: 0.32rem;
+  line-height: 1rem;
+}
+
+.historyListBox .historyListDiv .itemList {
+  background-color: #292934;
+  border-radius: 4px;
+}
+
+.historyListBox .historyListDiv .itemList .itemTitle {
+  margin: 0 0.24rem;
+  height: 0.88rem;
+  color: #CFCFD2;
+  font-size: 0.32rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-bottom: 1px solid #12121f;
+}
+
+.historyListBox .historyListDiv .itemList .itemTitle:last-child {
+  border: none;
+}
+
+@supports ((height: constant(safe-area-inset-top)) or (height: env(safe-area-inset-top))) and (-webkit-overflow-scrolling: touch) {
+  .header {
+    height: 1rem;
+    height: calc(1rem + constant(safe-area-inset-top));
+    height: calc(1rem + env(safe-area-inset-top));
+    padding-top: constant(safe-area-inset-top);
+    padding-top: env(safe-area-inset-top);
+  }
+  .infoBox {
+    margin-top: calc(1.2rem + constant(safe-area-inset-top));
+    margin-top: calc(1.2rem + env(safe-area-inset-top));
+  }
+  .main-contain {
+    margin-top: calc(1rem + constant(safe-area-inset-top));
+    margin-top: calc(1rem + env(safe-area-inset-top));
+  }
 }
 /*# sourceMappingURL=index.css.map */
