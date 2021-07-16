@@ -113,13 +113,14 @@
 					loop: true,
 					observer: true, //修改swiper自己或子元素时，自动初始化swiper 
 					observeParents: true, //修改swiper的父元素时，自动初始化swiper 
-					autoplay: {
-						delay: 3000,
-						stopOnLastSlide: false,
-						disableOnInteraction: true,
-					},
+					// autoplay: {
+					// 	delay: 3000,
+					// 	stopOnLastSlide: false,
+					// 	disableOnInteraction: true,
+					// },
 					pagination: {
-						el: '.swiper-pagination'
+						el: '.swiper-pagination',
+						clickable:true
 					},
 
 				},
@@ -130,9 +131,9 @@
 					loop: true,
 					observer: true,
 					observeParents: true,
-					autoplay: {
-						delay: 3000,
-					},
+					// autoplay: {
+					// 	delay: 3000,
+					// },
 				},
 				swiperOptions2: {
 					slidesPerView: 1,
