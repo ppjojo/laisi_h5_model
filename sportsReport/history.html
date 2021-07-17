@@ -2,110 +2,224 @@
 <html>
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport"
-		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
-	<title>历史周报</title>
-	<link rel="stylesheet" href="font/iconfont.css">
-	<link rel="stylesheet" href="css/index.css">
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+    <!-- <title>历史周报</title> -->
+    <link rel="stylesheet" href="font/iconfont.css">
+    <link rel="stylesheet" href="css/index.css">
 
 
 </head>
 
 <body>
-	<div id="app" v-cloak>
-		<div class="header">
+    <div id="app" v-cloak>
+        <div class="header" style="background-color: #12121f;">
             <div class="headerLeftBox" @click="goback">
                 <span class="icon iconfont icon-fanhuianniu" style="font-size: 0.48rem;"></span>
             </div>
-            <div class="headerTitle">历史周报</div>
+            <div class="headerTitle">{{type==1?'历史周报':'历史月报'}}</div>
             <div class="headerRightBox"></div>
-		</div>
-        <div class="main-contain historyListBox">
-            <div class="historyListDiv">
-                <div class="title">2021年7月</div>
-                <div class="itemList">
-                    <div class="itemTitle">
-                        7月5日-7月11日
-                        <span class="icon iconfont icon-tongyong-gengduo" style="font-size: 0.35rem;"></span>
+        </div>
+        <div class="main-contain historyListBox" v-if="type==1">
+            <div class="historyListDiv" v-for="item in weekList">
+                <div v-for="item2 in item.data">
+                    <div class="title">{{item.name+'年'+item2.name+'月'}}</div>
+                    <div class="itemList">
+                        <div class="itemTitle" v-for="item3 in item2.data">
+                            {{item3.startDateTime+'-'+item3.endDateTime}}
+                            <span class="icon iconfont icon-tongyong-gengduo" style="font-size: 0.35rem;"></span>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="historyListDiv">
-                <div class="title">2021年7月</div>
-                <div class="itemList">
-                    <div class="itemTitle">
-                        7月5日-7月11日
-                        <span class="icon iconfont icon-tongyong-gengduo" style="font-size: 0.35rem;"></span>
-                    </div>
-                    <div class="itemTitle">
-                        7月5日-7月11日
-                        <span class="icon iconfont icon-tongyong-gengduo" style="font-size: 0.35rem;"></span>
-                    </div>
-                    <div class="itemTitle">
-                        7月5日-7月11日
-                        <span class="icon iconfont icon-tongyong-gengduo" style="font-size: 0.35rem;"></span>
-                    </div>
-                </div>
-            </div>
-            
+
         </div>
 
-        <div class="main-contain historyListBox">
-            <div class="historyListDiv">
-                <div class="title">2021年</div>
-                <div class="itemList">
-                    <div class="itemTitle">
-                        7月
-                        <span class="icon iconfont icon-tongyong-gengduo" style="font-size: 0.35rem;"></span>
+        <div class="main-contain historyListBox" v-else>
+            <div class="historyListDiv" v-for="item in monthList">
+               
+                    <div class="title">{{item.name+'年'}}</div>
+                    <div class="itemList">
+                        <div class="itemTitle" v-for="item2 in item.data">
+                            {{item2.startDateTime}}
+                            <span class="icon iconfont icon-tongyong-gengduo" style="font-size: 0.35rem;"></span>
+                        </div>
                     </div>
-                    <div class="itemTitle">
-                        6月
-                        <span class="icon iconfont icon-tongyong-gengduo" style="font-size: 0.35rem;"></span>
-                    </div>
-                    <div class="itemTitle">
-                        5月
-                        <span class="icon iconfont icon-tongyong-gengduo" style="font-size: 0.35rem;"></span>
-                    </div>
-                </div>
             </div>
-            
+
         </div>
-		
-	</div>
+
+    </div>
 </body>
 <script src="https://oss.laisitech.com/0bb12bf1-cb87-4d2c-a724-8a7c25b7ae04.js"></script>
 <script src="../common/js/network.js"></script>
 <script>
-	new Vue({
-		el: '#app',
-		data() {
-			return {
-				
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                minDate: "2021-05-01",
+                weekList: [],
+                monthList: [],
+                type:getQueryString("type"),//1 week 2 month
 
-			};
-		},
-		filters: {
+            };
+        },
+        filters: {
 
-		},
-		created() {
+        },
+        created() {
 
-		},
-		mounted() {
-			
-		},
-		methods: {
-            goback(){
-				window.history.back()
-			},
-			weekReport(){
-                window.location.href="weekReport.html"
+        },
+        mounted() {
+            if(this.type==1){
+                this.getWeekList()
+            }else {
+                this.getMonthList()
+            }
+            
+            
+        },
+        methods: {
+            goback() {
+                window.history.back()
             },
-            monthReport(){
-                window.location.href="monthReport.html"
+            weekReport() {
+                window.location.href = "weekReport.html"
             },
-		}
-	})
+            monthReport() {
+                window.location.href = "monthReport.html"
+            },
+            getWeekList() {
+                let minDateTime = new Date(this.minDate).getTime();
+                let nowDateTime = new Date().getTime();
+                let weekList = []
+
+                lastWeek(nowDateTime)
+
+                function lastWeek(value) {
+                    let weekItem = {};
+                    if (value == '' || value == undefined) {
+                        return value
+                    }
+                    if (value.length == 10) {
+                        value = value * 1000
+                    }
+                    let myDate = new Date(value - 7 * 24 * 3600 * 1000)
+                    let day = myDate.getDay() // 回退7天后是星期几？
+
+                    let time = myDate.getDate() - day + (day === 0 ? -6 : 1)
+                    let startTime = new Date(myDate.setDate(time))
+                    let startDateTime =
+                        // startTime.getFullYear() +
+                        // '-' +
+                        (startTime.getMonth() + 1) +
+                        '月' +
+                        startTime.getDate() +
+                        '日'
+                    let endTime = new Date(myDate.setDate(time + 6))
+                    let endDateTime =
+                        // endTime.getFullYear() +
+                        // '-' +
+                        (endTime.getMonth() + 1) +
+                        '月' +
+                        endTime.getDate() +
+                        '日'
+
+                    weekItem.startDateTime = startDateTime;
+                    weekItem.endDateTime = endDateTime;
+                    weekItem.year = endTime.getFullYear();
+                    weekItem.month = endTime.getMonth() + 1;
+
+                    weekList.push(weekItem);
+
+                    if (startTime.getTime() > minDateTime) {
+                        lastWeek(startTime.getTime())
+                    }
+
+                }
+
+                //按照年分好
+                this.weekList = this.groupByType(weekList, "year")
+                //按照月分类
+                this.weekList.forEach(item => {
+                    item.data = this.groupByType(item.data, "month")
+                });
+                console.log(this.weekList)
+
+            },
+            groupByType(arr, param) {
+                var map = {},
+                    dest = [];
+                for (var i = 0; i < arr.length; i++) {
+                    var ai = arr[i];
+                    if (ai[param] && !map[ai[param]]) {
+                        dest.push({
+                            name: ai[param],
+                            data: [ai]
+                        });
+                        map[ai[param]] = ai;
+                    } else {
+                        for (var j = 0; j < dest.length; j++) {
+                            var dj = dest[j];
+                            if (dj.name == ai[param]) {
+                                dj.data.push(ai);
+                                break;
+                            }
+                        }
+                    }
+                }
+                return dest;
+            },
+
+
+            getMonthList(value) {
+                let minDateTime = new Date(this.minDate).getTime();
+                let nowDateTime = new Date().getTime();
+                let monthList = []
+
+                lastMonth(nowDateTime)
+
+                function lastMonth(value) {
+                    let monthItem = {};
+                    if (value == '' || value == undefined) {
+                        return value
+                    }
+                    if (value.length == 10) {
+                        value = value * 1000
+                    }
+                    // 获取上个月时间
+                    let nowdays = new Date(value)
+                    let year = nowdays.getFullYear()
+                    let month = nowdays.getMonth()
+                    if (month === 0) {
+                        month = 12
+                        year = year - 1
+                    }
+                    if (month < 10) {
+                        month = '0' + month
+                    }
+
+                    let yDate = new Date(year, month, 0)
+
+                    startDateTime = year + '年' + month + '月' //上个月第一天
+                    endDateTime = year + '-' + month + '-' + yDate.getDate() //上个月最后一天
+
+                    monthItem.startDateTime = startDateTime;
+                    monthItem.endDateTime = endDateTime;
+                    monthItem.year = year;
+                    monthList.push(monthItem);
+
+                    if (new Date(endDateTime).getTime() > minDateTime) {
+                        lastMonth(new Date(endDateTime).getTime())
+                    }
+                }
+                this.monthList = this.groupByType(monthList, "year")
+                console.log(this.monthList)
+            }
+        }
+    })
 </script>
 
 </html>
