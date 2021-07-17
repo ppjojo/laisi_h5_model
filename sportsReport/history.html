@@ -26,7 +26,7 @@
                 <div v-for="item2 in item.data">
                     <div class="title">{{item.name+'年'+item2.name+'月'}}</div>
                     <div class="itemList">
-                        <div class="itemTitle" v-for="item3 in item2.data">
+                        <div class="itemTitle" v-for="item3 in item2.data" @click="weekReport">
                             {{item3.startDateTime+'-'+item3.endDateTime}}
                             <span class="icon iconfont icon-tongyong-gengduo" style="font-size: 0.35rem;"></span>
                         </div>
@@ -41,7 +41,7 @@
                
                     <div class="title">{{item.name+'年'}}</div>
                     <div class="itemList">
-                        <div class="itemTitle" v-for="item2 in item.data">
+                        <div class="itemTitle" v-for="item2 in item.data"  @click="monthReport">
                             {{item2.startDateTime}}
                             <span class="icon iconfont icon-tongyong-gengduo" style="font-size: 0.35rem;"></span>
                         </div>
@@ -217,7 +217,14 @@
                 }
                 this.monthList = this.groupByType(monthList, "year")
                 console.log(this.monthList)
-            }
+            },
+
+            weekReport() {
+				window.history.back(-1)
+			},
+			monthReport() {
+				window.location.href = "monthReport.html"
+			},
         }
     })
 </script>

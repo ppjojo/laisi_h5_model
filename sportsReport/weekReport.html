@@ -343,6 +343,13 @@
 <script src="../common/js/network.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/echarts@5.0.0/dist/echarts.min.js"></script>
 <script>
+	window.onpageshow = function (event) {
+		if (event.persisted || window.performance &&
+			window.performance.navigation.type == 2) {
+			window.location.reload();
+			console.log(5)
+		}
+	}
 	new Vue({
 		el: '#app',
 		data() {
