@@ -1,0 +1,222 @@
+@charset "UTF-8";
+* {
+  margin: 0;
+  padding: 0;
+  font-size: 0.24rem;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  font-family: "PingFangSC-Regular", sans-serif;
+}
+
+body {
+  background-color: #12121f;
+  color: #CFCFD2;
+}
+
+.contain {
+  padding: 0 0.24rem;
+  /* 视频课程的轮播图 */
+  /* 分类导航 */
+}
+
+.contain .course-swipe {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  height: 2.4rem;
+}
+
+.contain .course-swipe .van-swipe-item img {
+  width: 100%;
+  height: 100%;
+}
+
+.contain .nav_grid .van-image {
+  width: 0.96rem;
+  height: 0.96rem;
+  border-radius: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: #12121f;
+}
+
+.contain .nav_grid .van-image img {
+  width: 100%;
+  height: 100%;
+}
+
+.contain .nav_grid .van-grid-item {
+  -ms-flex-preferred-size: 20% !important;
+  flex-basis: 20% !important;
+}
+
+.contain .nav_grid .van-grid-item__text {
+  color: #CFCFD2;
+  line-height: 0.6rem;
+  font-size: 0.32rem;
+}
+
+.contain .nav_grid .van-grid-item__content {
+  background-color: transparent;
+  padding: 0.48rem 0.15rem 0;
+}
+
+.contain .recentBox .btn_viewMore {
+  width: 1.84rem;
+  height: 0.6rem;
+  font-size: 0.24rem;
+  color: #71717f;
+  line-height: 0.6rem;
+  margin: 0 auto;
+  border: 1px solid #71717f;
+  text-align: center;
+  border-radius: 0.3rem;
+  -webkit-border-radius: 0.3rem;
+  -moz-border-radius: 0.3rem;
+  -ms-border-radius: 0.3rem;
+  -o-border-radius: 0.3rem;
+}
+
+.courseBox .title {
+  font-size: 0.4rem;
+  line-height: 1.04rem;
+}
+
+.courseBox ul li {
+  width: 100%;
+  margin-bottom: 0.32rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+.courseBox ul li .cover {
+  border-radius: 8px;
+  width: 2.72rem;
+  height: 2.04rem;
+  background-position: 75% 0;
+  background-size: auto 100%;
+  margin-right: 0.24rem;
+}
+
+.courseBox ul li .content .stitle {
+  font-size: 0.32rem;
+  line-height: 0.5rem;
+  color: #CFCFD2;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.courseBox ul li .content .detail {
+  color: #71717f;
+  font-size: 0.24rem;
+  line-height: 0.5rem;
+}
+
+.courseBox ul li .content .progress {
+  font-size: 0.24rem;
+  line-height: 0.48rem;
+  color: #71717f;
+  margin-top: 0.24rem;
+}
+
+.allCourse .van-swipe-cell__right {
+  padding: 0 0.05rem;
+  vertical-align: middle;
+}
+
+.allCourse .van-swipe-cell__right img {
+  width: 1.44rem;
+  height: 1.44rem;
+  border-radius: 0.2rem;
+  -webkit-border-radius: 0.2rem;
+  -moz-border-radius: 0.2rem;
+  -ms-border-radius: 0.2rem;
+  -o-border-radius: 0.2rem;
+  position: relative;
+  top: 0.48rem;
+}
+
+.allCourse .noData-box {
+  text-align: center;
+  padding-top: 3rem;
+}
+
+.allCourse .noData-box .noData-img {
+  width: 4rem;
+}
+
+.allCourse .noData-box .noData-p {
+  color: #b3b8bb;
+  font-size: 0.28rem;
+}
+
+.myCourse {
+  padding: 0rem 0.3rem;
+}
+
+.myCourse ul li {
+  width: calc(100% + 2px);
+}
+
+.myCourse .van-swipe-cell__right {
+  right: -1px;
+}
+
+.myCourse .van-swipe-cell__right .delBox {
+  width: 1.36rem;
+  height: 100%;
+  position: relative;
+  text-align: center;
+  vertical-align: middle;
+  background-color: #E60012;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.myCourse .van-swipe-cell__right .delBox img {
+  width: 0.56rem;
+  height: 0.56rem;
+}
+
+.myCourse .noData-box {
+  text-align: center;
+  padding-top: 3rem;
+}
+
+.myCourse .noData-box .noData-img {
+  width: 4rem;
+}
+
+.myCourse .noData-box .noData-p {
+  color: #999;
+  font-size: 0.28rem;
+  line-height: 0.4rem;
+  margin-top: 0.2rem;
+}
+/*# sourceMappingURL=index.css.map */
