@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+	<title>课程</title>
+	<!-- 引入样式文件 -->
+	<link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
+	<link rel="stylesheet" href="font/iconfont.css">
+	<link rel="stylesheet" href="../common/css/basic.css">
+	<link rel="stylesheet" href="css/index.css">
+
+</head>
+
+<body>
+	<div id="app" v-cloak>
+		<van-pull-refresh v-model="isLoading" :head-height="90" @refresh="initIndexData" class="monkey-pull-refresh">
+			<template #pulling="props">
+				<div class="monkeyBox">
+					<img class="monkey" src="../common/img/monkey.gif" />
+					<p>下拉刷新</p>
+				</div>
+			</template>
+			<!-- 释放提示 -->
+			<template #loosing>
+				<div class="monkeyBox">
+					<img class="monkey" src="../common/img/monkey.gif" />
+					<p>释放刷新</p>
+				</div>
+			</template>
+
+			<!-- 加载提示 -->
+			<template #loading>
+				<div class="monkeyBox">
+					<img class="monkey" src="../common/img/monkey.gif" />
+					<p>正在刷新</p>
+				</div>
+			</template>
+			<div class="contain">
+				<van-swipe class="course-swipe" :show-indicators="false" :autoplay="3000" @change="onChange"
+					v-if="bannerList.length>0">
+					<van-swipe-item v-for="item in bannerList"><img :src="item.adUrl" @click="bannerClick(item)">
+					</van-swipe-item>
+				</van-swipe>
+				<van-grid class="nav_grid" :column-num="classification.length" :border=false>
+					<van-grid-item @click="allCourse(index,item)" v-for="(item,index) in classification"
+						:text="item.name">
+						<template #icon>
+							<van-image :src="item.image" />
+						</template>
+					</van-grid-item>
+				</van-grid>
+
+				<div class="recentBox">
+					<div class="courseBox">
+						<div class="title">最近在练</div>
+						<ul>
+							<li v-for="item in 3">
+								<div class="cover"
+									style="background-image: url('https://oss.laisitech.com/a77f52ef-2632-4e9a-b3a5-abb8ed60b122.jpg');">
+								</div>
+								<div class="content">
+									<div>
+										<p class="stitle">初级-心肺耐力训练</p>
+										<p class="detail">
+											低强度&nbsp;&nbsp;222分钟&nbsp;&nbsp;448千卡
+										</p>
+									</div>
+									<div class="progress">
+										已锻炼25%
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<div class="btn_viewMore">
+						查看全部<span class="icon iconfont icon-tongyong-gengduo" style="font-size: 0.25rem;" />
+					</div>
+				</div>
+
+				<div class="hot">
+					<div class="courseBox">
+						<div class="title">热门课程</div>
+						<ul>
+							<li v-for="item in 3">
+								<div class="cover"
+									style="background-image: url('https://oss.laisitech.com/a77f52ef-2632-4e9a-b3a5-abb8ed60b122.jpg');">
+								</div>
+								<div class="content">
+									<div>
+										<p class="stitle">初级-心肺耐力训练</p>
+										<p class="detail">
+											低强度&nbsp;&nbsp;222分钟&nbsp;&nbsp;448千卡
+										</p>
+									</div>
+									<div class="progress">
+										已锻炼25%
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<div class="a">
+						
+					</div>
+				</div>
+
+
+
+
+
+				<!-- <div class="courseBox" v-for="(item,key,index) in transList">
+					<div class="title">{{key}}专项训练</div>
+					<ul>
+						<li v-for="(bitem ,bindex) in transList[key]" @click="courseList(bitem.id)">
+							<div class="cover" :style="{'backgroundImage':'url('+bitem.classCover+')'}"></div>
+							<div class="content">
+								<div>
+									<p class="stitle">{{bitem.className}}</p>
+									<p class="detail">
+										{{bitem.classGrade | filtersLevel}}&nbsp&nbsp{{secondsFormat(bitem.duration)}}&nbsp&nbsp{{Math.round(bitem.calory/1000)}}千卡
+									</p>
+								</div>
+								<div class="progress">
+									{{bitem.sum||0}}人已参加
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div> -->
+			</div>
+		</van-pull-refresh>
+	</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
+<script src="../common/js/network.js"></script>
+<script src="js/videoCourse.js"></script>
+<script>
+	new Vue({
+		el: '#app',
+		data() {
+			return {
+				bannerList: [],
+				allClassification: [],
+				classification: [],
+				hotClass: [],
+				//ProfessionalTrainingList: [],
+				joinCount: 0, //我加入得课程数量
+				isLoading: false,
+				transList: [],
+				userId: ""
+			}
+		},
+		filters: {
+			filtersDevice: function (value) {
+				return value == 1 ? '手表' : '跳绳'
+			},
+
+			filtersLevel: function (value) {
+				let name = value
+				if (value == 1) {
+					name = '低强度'
+				} else if (value == 2) {
+					name = '中低强度'
+				} else if (value == 3) {
+					name = '中强度'
+				} else if (value == 4) {
+					name = '中高强度'
+				} else if (value == 5) {
+					name = '高强度'
+				}
+				return name
+			},
+
+		},
+		mounted() {
+			window.initIndexData = this.initIndexData;
+			window.refreshList = this.initIndexData;
+		},
+		created() {
+			this.getBanner() //获取banner
+			this.getClassify() //获取分类
+			this.getHotClass() //获取热门课程
+			this.getNewProfessionalTraining()
+			ajax({
+				type: "post",
+				url: "integral/add/integral",
+				data: {
+					actionType: "0300"
+				},
+				success: function (res) {
+
+				},
+				error: function () {
+
+				}
+			})
+		},
+		methods: {
+			//原生调用h5的方法局部刷新课程主页
+			initIndexData() {
+				this.getHotClass() //获取热门课程
+				this.getNewProfessionalTraining()
+				this.getMyJoinCount()
+			},
+			//轮播图的滚动
+			onChange(index) {
+				if (isAndroid)
+					Interaction.umengStatistics("course_banner_show", this.bannerList[index].id)
+
+			},
+			//获取bannner图
+			getBanner() {
+				var that = this;
+				ajax({
+					type: "post",
+					url: "advBanner/ad/banner",
+					data: {
+						type: 1, //1代表banner
+						location: 3
+					},
+					success: function (res) {
+						that.userId = JSON.parse(localStorage.getItem("appInfo")).userId
+						that.getMyJoinCount()
+						if (res.code == 0) {
+							that.bannerList = res.data;
+							if (res.data.length > 0)
+								Interaction.umengStatistics("course_banner_show", that.bannerList[0]
+									.id)
+
+						} else {
+							that.$toast(res.msg)
+						}
+
+					},
+					error: function (err) {
+						console.log("error")
+					}
+				})
+			},
+			//banner点击事件
+			bannerClick(bannerItem) {
+				if (bannerItem.landingUrl.indexOf("videoCourse") != -1) {
+					var reg = new RegExp("(^|\\?|&)" + 'id' + "=([^&]*)(&|$)");
+					var r = bannerItem.landingUrl.substr(1).match(reg);
+					if (r != null) r = decodeURI(r[2]);
+					if (r) {
+						this.courseList(r)
+					} else {
+						return
+					}
+				} else if (bannerItem.landingUrl.indexOf("weekPlan") != -1 && isAndroid) {
+					window.android.goEvaluation(
+						JSON.stringify({
+							url: host + "h5/h5V2/weekPlan/#/index?hideTitle=1",
+							title: "制定专属计划"
+						})
+					)
+				} else {
+					Interaction.pushToNextVC(bannerItem.landingUrl)
+				}
+
+				Interaction.umengStatistics("cource_banner_click")
+			},
+			//获取分t类
+			getClassify() {
+				var that = this;
+				that.refresh = true;
+				ajax({
+					type: "post",
+					url: "community/cCatalog/queryAll",
+					data: {},
+					success: function (res) {
+						if (res.code == 0) {
+							that.classification = [];
+							that.allClassification = res.data;
+							res.data.forEach(item => {
+								if (item.isShow == 1) {
+									that.classification.push(item);
+								}
+							})
+
+							//that.getProfessionalTraining();
+						} else {
+							that.$toast(res.msg)
+						}
+
+					},
+					error: function () {
+						console.log("apiServer error")
+					}
+				})
+			},
+			//获取热门课程
+			getHotClass() {
+				var that = this;
+				ajax({
+					type: "post",
+					url: "community/cHotClass/queryAll",
+					data: {
+						status: 1
+					},
+					success: function (res) {
+						if (res.code == 0) {
+							that.hotClass = res.data;
+						} else {
+							that.$toast(res.msg)
+						}
+					},
+					error: function () {
+						console.log("apiServer error")
+					}
+				})
+			},
+			//获取我加入的课程
+			getMyJoinCount() {
+				var that = this;
+				ajax({
+					type: "post",
+					url: "community/cUserClassJoin/queryMyClass",
+					data: {
+						uid: that.userId
+					},
+					success: function (res) {
+						if (res.code == 0) {
+							that.joinCount = res.data.length;
+							that.isLoading = false;
+						} else {
+							//that.$toast(res.msg)
+						}
+					},
+					error: function () {
+						console.log("apiServer error")
+					}
+				})
+			},
+			//新的专项训练
+			getNewProfessionalTraining() {
+				var that = this;
+				ajax({
+					type: "get",
+					url: "community/cUserClassJoin/bigClassByCatalog",
+					data: {},
+					success: function (res) {
+						if (res.code == 0) {
+							that.transList = res.data
+						} else {
+							that.$toast(res.msg)
+						}
+					},
+					error: function () {
+						console.log("error")
+					}
+				})
+			},
+			//跳转课程详情
+			courseList(id) {
+				try {
+					if (isIOS) {
+						window.webkit.messageHandlers.lstNative.postMessage({
+							"method": "pushToNextVC",
+							"htmlUrl": "/h5/h5V2/videoCourse/courseList.html?id=" + id
+						});
+
+					} else if (isAndroid) {
+						var str = "h5/h5V2/videoCourse/courseList.html?id=" + id
+						window.android.goToCourseList(str)
+					}
+				} catch (e) {
+					console.log(e)
+				}
+			},
+			//跳转我加入的课程列表
+			myCourse() {
+				try {
+					if (isIOS) {
+						window.webkit.messageHandlers.lstNative.postMessage({
+							"method": "pushToNextVC",
+							"htmlUrl": "/h5/h5V2/videoCourse/myCourse.html"
+						});
+					} else if (isAndroid) {
+						window.location.href = "myCourse.html"
+					}
+				} catch (e) {
+					console.log(e)
+				}
+			},
+			//跳转所有的课程分类
+			allCourse(index, item) {
+				try {
+					if (isIOS) {
+						window.webkit.messageHandlers.lstNative.postMessage({
+							"method": "pushToNextVC",
+							"htmlUrl": "/h5/h5V2/videoCourse/allCourse.html?index=" + index,
+						});
+					} else if (isAndroid) {
+						window.location.href = "allCourse.html?index=" + index
+					}
+				} catch (e) {
+					console.log(e)
+				}
+				switch (item.name) {
+					case "跳绳":
+						Interaction.umengStatistics("course_rope_skip")
+						break;
+					case "健身":
+						Interaction.umengStatistics("course_fitness")
+						break;
+					case "跑步":
+						Interaction.umengStatistics("course_run")
+						break;
+					case "燃脂":
+						Interaction.umengStatistics("course_fat_burning")
+						break;
+					case "全部":
+						Interaction.umengStatistics("course_all")
+						break;
+					default:
+						console.loh(err)
+				}
+
+
+			},
+			//参加课程
+			joinClass(id) {
+				var that = this;
+				ajax({
+					type: "post",
+					url: "community/cUserClassJoin/save",
+					data: {
+						bigClassId: id,
+						uid: that.userId,
+					},
+					success: function (res) {
+						if (res.code == 0) {
+							that.$toast("课程加入成功！")
+							that.getMyJoinCount()
+							that.getHotClass()
+						} else {
+							that.$toast(res.msg)
+						}
+					},
+					error: function () {
+						console.log("error")
+					}
+				})
+			}
+
+
+
+
+		}
+	})
+</script>
+
+</html>
