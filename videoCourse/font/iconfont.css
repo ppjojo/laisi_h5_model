@@ -1,6 +1,6 @@
 @font-face {
   font-family: "iconfont"; /* Project id  */
-  src: url('iconfont.ttf?t=1625815282001') format('truetype');
+  src: url('iconfont.ttf?t=1626779133950') format('truetype');
 }
 
 .iconfont {
@@ -19,8 +19,8 @@
   content: "\e740";
 }
 
-.icon-tongyong-rili:before {
-  content: "\e7a7";
+.icon-shurukuang-chahao:before {
+  content: "\e69d";
 }
 
 .icon-wodexiaozu-jianzhi:before {

@@ -21,8 +21,10 @@ $border_color:#1e1e2a;
 body {
     background-color: $bg_color;
     color: $text_color_white;
+    height: 100vh;
 }
 
+//课程主页
 .contain {
     padding: 0 0.24rem;
 
@@ -87,13 +89,33 @@ body {
 
 
     .recentBox {
+
+        .btn_train {
+            width: 1.28rem;
+            height: 0.48rem;
+            background-image: linear-gradient(to right, #FF4E3E, #FFAA88);
+            font-size: 0.24rem;
+            color: #fff;
+            line-height: 0.48rem;
+            text-align: center;
+            border-radius: 0.24rem;
+            -webkit-border-radius: 0.24rem;
+            -moz-border-radius: 0.24rem;
+            -ms-border-radius: 0.24rem;
+            -o-border-radius: 0.24rem;
+            position: absolute;
+            right: 0;
+            bottom: 0;
+
+        }
+
         .btn_viewMore {
             width: 1.84rem;
             height: 0.6rem;
             font-size: 0.24rem;
             color: #71717f;
             line-height: 0.6rem;
-            margin: 0 auto;
+            margin: 0 auto 0.32rem auto;
             border: 1px solid #71717f;
             text-align: center;
             border-radius: 0.3rem;
@@ -110,54 +132,162 @@ body {
     .title {
         font-size: 0.4rem;
         line-height: 1.04rem;
+
+        .titleInfo {
+            color: #71717f;
+            font-size: 0.2rem;
+        }
     }
 
-    ul {
-        li {
-            width: 100%;
-            margin-bottom: 0.32rem;
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
+    .courseDiv {
+        position: relative;
 
-            .cover {
-                border-radius: 8px;
-                width: 2.72rem;
-                height: 2.04rem;
-                background-position: 75% 0;
-                background-size: auto 100%;
-                margin-right: 0.24rem;
+        .iconlabel {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 0.72rem;
+            height: 0.32rem;
+        }
+
+        width: 100%;
+        margin-bottom: 0.32rem;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+
+        .cover {
+            border-radius: 8px;
+            width: 2.72rem;
+            height: 2.04rem;
+            background-position: 75% 0;
+            background-size: auto 100%;
+            margin-right: 0.24rem;
+        }
+
+        .content {
+            .stitle {
+                font-size: 0.32rem;
+                line-height: 0.5rem;
+                color: $text_color_white;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
             }
 
-            .content {
-                .stitle {
-                    font-size: 0.32rem;
-                    line-height: 0.5rem;
-                    color: $text_color_white;
-                    overflow: hidden;
-                    white-space: nowrap;
-                    text-overflow: ellipsis;
-                }
+            .detail {
+                color: #71717f;
+                font-size: 0.24rem;
+                line-height: 0.5rem;
+            }
 
-                .detail {
-                    color: #71717f;
-                    font-size: 0.24rem;
-                    line-height: 0.5rem;
-                }
+            .progress {
+                font-size: 0.24rem;
+                line-height: 0.48rem;
+                color: #71717f;
+                margin-top: 0.24rem;
+            }
+        }
 
-                .progress {
-                    font-size: 0.24rem;
-                    line-height: 0.48rem;
-                    color: #71717f;
-                    margin-top: 0.24rem;
-                }
+
+    }
+}
+
+//背景图形式的课程
+.courseBox-bg {
+    @extend .courseBox;
+
+    .van-swipe-item {
+        padding-right: 0.24rem;
+
+        &:last-child {
+            padding-right: 0;
+        }
+    }
+
+    .courseDiv {
+        height: 3.3rem;
+        background-position: 75% 0;
+        background-size: auto 100%;
+        justify-content: flex-start;
+        align-items: flex-end;
+        border-radius: 8px;
+
+        .content {
+            padding: 0.24rem;
+            width: 100%;
+            background-image: linear-gradient(to top, rgba(30, 30, 42, 1), rgba(30, 30, 42, 0));
+
+            .stitle {
+                color: $text_color_white;
+            }
+
+            .detail {
+                color: $text_color_white;
             }
 
         }
+
     }
 }
-//背景图形式的课程
 
+
+//全部课程的分类选择
+.classificationBox {
+    padding: 0 0.24rem;
+    margin-bottom: 0.4rem;
+
+    .title {
+        font-size: 0.4rem;
+        line-height: 1.04rem;
+        .titleInfo {
+            color: #FFAA88;
+            font-size: 0.2rem;
+        }
+    }
+
+    .classificationDiv {
+        .classificationList {
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+
+            .name {
+                font-size: 0.32rem;
+                margin-right: 0.24rem;
+                width: 1.2rem;
+            }
+
+            .typeList {
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                flex-wrap: wrap;
+
+                .typeItem {
+                    background-color: $border_color;
+                    font-size: 0.24rem;
+                    color: #71717f;
+                    line-height: 0.48rem;
+                    padding: 0 0.2rem;
+                    border-radius: 0.24rem;
+                    -webkit-border-radius: 0.24rem;
+                    -moz-border-radius: 0.24rem;
+                    -ms-border-radius: 0.24rem;
+                    -o-border-radius: 0.24rem;
+                    margin-right: 0.24rem;
+                    margin-bottom: 0.24rem;
+                }
+                .selected{
+                    background-color: rgba(255, 170, 136, 0.1);
+                    color:#FFAA88;
+                }
+
+            }
+        }
+
+    }
+}
 
 
 

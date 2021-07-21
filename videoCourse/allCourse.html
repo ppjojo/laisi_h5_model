@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+    <title>全部课程</title>
+    <link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
+    <link rel="stylesheet" href="font/iconfont.css">
+    <link rel="stylesheet" href="../common/css/basic.css">
+    <link rel="stylesheet" href="css/index.css">
+
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <div class="classificationBox">
+            <div class="title">课程筛选
+                <span class="titleInfo">已选5项</span>
+                <span class="icon iconfont icon-shurukuang-chahao" style="font-size: 0.2rem;color: #595962;" />
+            </div>
+            <div class="classificationDiv">
+                <div class="classificationList">
+                    <div class="name">
+                        目标
+                    </div>
+                    <div class="typeList">
+                        <div class="typeItem" v-for="item in 10">减值</div>
+                    </div>
+                </div>
+                <div class="classificationList">
+                    <div class="name">
+                        目标
+                    </div>
+                    <div class="typeList">N
+                        <div class="typeItem" v-for="item in 10">减值</div>
+                    </div>
+                </div>
+                <div class="classificationList">
+                    <div class="name">
+                        目标
+                    </div>
+                    <div class="typeList">
+                        <div class="typeItem selected"  v-for="item in 10">减值</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <van-pull-refresh v-model="isLoading" :head-height="90" @refresh="initIndexData" class="monkey-pull-refresh">
+            <template #pulling="props">
+                <div class="monkeyBox">
+                    <img class="monkey" src="../common/img/monkey.gif" />
+                    <p>下拉刷新</p>
+                </div>
+            </template>
+            <!-- 释放提示 -->
+            <template #loosing>
+                <div class="monkeyBox">
+                    <img class="monkey" src="../common/img/monkey.gif" />
+                    <p>释放刷新</p>
+                </div>
+            </template>
+
+            <!-- 加载提示 -->
+            <template #loading>
+                <div class="monkeyBox">
+                    <img class="monkey" src="../common/img/monkey.gif" />
+                    <p>正在刷新</p>
+                </div>
+            </template>
+            <div class="contain">
+                <div class="courseBox">
+                    <ul>
+                        <li class="courseDiv" v-for="item in 3">
+                            <img src="./img/new.png" class="iconlabel" alt="">
+                            <div class="cover"
+                                style="background-image: url('https://oss.laisitech.com/a77f52ef-2632-4e9a-b3a5-abb8ed60b122.jpg');">
+                            </div>
+                            <div class="content">
+                                <div>
+                                    <p class="stitle">初级-心肺耐力训练</p>
+                                    <p class="detail">
+                                        低强度&nbsp;&nbsp;222分钟&nbsp;&nbsp;448千卡
+                                    </p>
+                                </div>
+                                <div class="progress">
+                                    已锻炼25%
+                                </div>
+                            </div>
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </van-pull-refresh>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
+<script src="../common/js/network.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                isLoading: false,
+                userId: ""
+            }
+        },
+        filters: {
+
+            filtersLevel: function (value) {
+                let name = value
+                if (value == 1) {
+                    name = '低强度'
+                } else if (value == 2) {
+                    name = '中低强度'
+                } else if (value == 3) {
+                    name = '中强度'
+                } else if (value == 4) {
+                    name = '中高强度'
+                } else if (value == 5) {
+                    name = '高强度'
+                }
+                return name
+            },
+
+        },
+        mounted() {
+            
+        },
+        created() {
+
+        },
+        methods: {
+            initIndexData(){
+                this.isLoading = false;
+            }
+
+
+
+        }
+    })
+</script>
+
+</html>

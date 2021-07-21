@@ -11,6 +11,7 @@
 body {
   background-color: #12121f;
   color: #CFCFD2;
+  height: 100vh;
 }
 
 .contain {
@@ -72,13 +73,32 @@ body {
   padding: 0.48rem 0.15rem 0;
 }
 
+.contain .recentBox .btn_train {
+  width: 1.28rem;
+  height: 0.48rem;
+  background-image: -webkit-gradient(linear, left top, right top, from(#FF4E3E), to(#FFAA88));
+  background-image: linear-gradient(to right, #FF4E3E, #FFAA88);
+  font-size: 0.24rem;
+  color: #fff;
+  line-height: 0.48rem;
+  text-align: center;
+  border-radius: 0.24rem;
+  -webkit-border-radius: 0.24rem;
+  -moz-border-radius: 0.24rem;
+  -ms-border-radius: 0.24rem;
+  -o-border-radius: 0.24rem;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
 .contain .recentBox .btn_viewMore {
   width: 1.84rem;
   height: 0.6rem;
   font-size: 0.24rem;
   color: #71717f;
   line-height: 0.6rem;
-  margin: 0 auto;
+  margin: 0 auto 0.32rem auto;
   border: 1px solid #71717f;
   text-align: center;
   border-radius: 0.3rem;
@@ -88,12 +108,18 @@ body {
   -o-border-radius: 0.3rem;
 }
 
-.courseBox .title {
+.courseBox .title, .courseBox-bg .title {
   font-size: 0.4rem;
   line-height: 1.04rem;
 }
 
-.courseBox ul li {
+.courseBox .title .titleInfo, .courseBox-bg .title .titleInfo {
+  color: #71717f;
+  font-size: 0.2rem;
+}
+
+.courseBox .courseDiv, .courseBox-bg .courseDiv {
+  position: relative;
   width: 100%;
   margin-bottom: 0.32rem;
   display: -webkit-box;
@@ -107,7 +133,15 @@ body {
           justify-content: flex-start;
 }
 
-.courseBox ul li .cover {
+.courseBox .courseDiv .iconlabel, .courseBox-bg .courseDiv .iconlabel {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0.72rem;
+  height: 0.32rem;
+}
+
+.courseBox .courseDiv .cover, .courseBox-bg .courseDiv .cover {
   border-radius: 8px;
   width: 2.72rem;
   height: 2.04rem;
@@ -116,7 +150,7 @@ body {
   margin-right: 0.24rem;
 }
 
-.courseBox ul li .content .stitle {
+.courseBox .courseDiv .content .stitle, .courseBox-bg .courseDiv .content .stitle {
   font-size: 0.32rem;
   line-height: 0.5rem;
   color: #CFCFD2;
@@ -125,17 +159,120 @@ body {
   text-overflow: ellipsis;
 }
 
-.courseBox ul li .content .detail {
+.courseBox .courseDiv .content .detail, .courseBox-bg .courseDiv .content .detail {
   color: #71717f;
   font-size: 0.24rem;
   line-height: 0.5rem;
 }
 
-.courseBox ul li .content .progress {
+.courseBox .courseDiv .content .progress, .courseBox-bg .courseDiv .content .progress {
   font-size: 0.24rem;
   line-height: 0.48rem;
   color: #71717f;
   margin-top: 0.24rem;
+}
+
+.courseBox-bg .van-swipe-item {
+  padding-right: 0.24rem;
+}
+
+.courseBox-bg .van-swipe-item:last-child {
+  padding-right: 0;
+}
+
+.courseBox-bg .courseDiv {
+  height: 3.3rem;
+  background-position: 75% 0;
+  background-size: auto 100%;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  border-radius: 8px;
+}
+
+.courseBox-bg .courseDiv .content {
+  padding: 0.24rem;
+  width: 100%;
+  background-image: -webkit-gradient(linear, left bottom, left top, from(#1e1e2a), to(rgba(30, 30, 42, 0)));
+  background-image: linear-gradient(to top, #1e1e2a, rgba(30, 30, 42, 0));
+}
+
+.courseBox-bg .courseDiv .content .stitle {
+  color: #CFCFD2;
+}
+
+.courseBox-bg .courseDiv .content .detail {
+  color: #CFCFD2;
+}
+
+.classificationBox {
+  padding: 0 0.24rem;
+  margin-bottom: 0.4rem;
+}
+
+.classificationBox .title {
+  font-size: 0.4rem;
+  line-height: 1.04rem;
+}
+
+.classificationBox .title .titleInfo {
+  color: #FFAA88;
+  font-size: 0.2rem;
+}
+
+.classificationBox .classificationDiv .classificationList {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+
+.classificationBox .classificationDiv .classificationList .name {
+  font-size: 0.32rem;
+  margin-right: 0.24rem;
+  width: 1.2rem;
+}
+
+.classificationBox .classificationDiv .classificationList .typeList {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.classificationBox .classificationDiv .classificationList .typeList .typeItem {
+  background-color: #1e1e2a;
+  font-size: 0.24rem;
+  color: #71717f;
+  line-height: 0.48rem;
+  padding: 0 0.2rem;
+  border-radius: 0.24rem;
+  -webkit-border-radius: 0.24rem;
+  -moz-border-radius: 0.24rem;
+  -ms-border-radius: 0.24rem;
+  -o-border-radius: 0.24rem;
+  margin-right: 0.24rem;
+  margin-bottom: 0.24rem;
+}
+
+.classificationBox .classificationDiv .classificationList .typeList .selected {
+  background-color: rgba(255, 170, 136, 0.1);
+  color: #FFAA88;
 }
 
 .allCourse .van-swipe-cell__right {

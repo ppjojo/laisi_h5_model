@@ -39,11 +39,13 @@
 				</div>
 			</template>
 			<div class="contain">
+
 				<van-swipe class="course-swipe" :show-indicators="false" :autoplay="3000" @change="onChange"
 					v-if="bannerList.length>0">
 					<van-swipe-item v-for="item in bannerList"><img :src="item.adUrl" @click="bannerClick(item)">
 					</van-swipe-item>
 				</van-swipe>
+
 				<van-grid class="nav_grid" :column-num="classification.length" :border=false>
 					<van-grid-item @click="allCourse(index,item)" v-for="(item,index) in classification"
 						:text="item.name">
@@ -52,12 +54,14 @@
 						</template>
 					</van-grid-item>
 				</van-grid>
-
+				<!-- 最近再练 -->
 				<div class="recentBox">
 					<div class="courseBox">
+						
 						<div class="title">最近在练</div>
 						<ul>
-							<li v-for="item in 3">
+							<li class="courseDiv" v-for="item in 3">
+								<img src="./img/new.png" class="iconlabel" alt="">
 								<div class="cover"
 									style="background-image: url('https://oss.laisitech.com/a77f52ef-2632-4e9a-b3a5-abb8ed60b122.jpg');">
 								</div>
@@ -72,6 +76,7 @@
 										已锻炼25%
 									</div>
 								</div>
+								<div class="btn_train">继续锻炼</div>
 							</li>
 						</ul>
 					</div>
@@ -79,12 +84,38 @@
 						查看全部<span class="icon iconfont icon-tongyong-gengduo" style="font-size: 0.25rem;" />
 					</div>
 				</div>
+				<!-- 推荐 -->
+				<div class="recommendBox">
+					<div class="courseBox-bg">
+						<div class="title">为你推荐
+							<span class="titleInfo">(根据训练目标等数据智能生成)</span>
+						</div>
+						<van-swipe :show-indicators="false" :loop="false" :width="220">
+							<van-swipe-item v-for="item in 3">
+								<div class="courseDiv" style="background-image: url('https://oss.laisitech.com/a77f52ef-2632-4e9a-b3a5-abb8ed60b122.jpg');">
+									<img src="./img/recommend.png" class="iconlabel" alt="">
+									<div class="content">
+										<div>
+											<p class="stitle">初级-心肺耐力训练</p>
+											<p class="detail">
+												低强度&nbsp;&nbsp;222分钟&nbsp;&nbsp;448千卡
+											</p>
+										</div>
+									</div>
+								</div>
+							</van-swipe-item>
+						</van-swipe>
+					</div>
+				</div>
 
+
+				<!-- 热门 -->
 				<div class="hot">
 					<div class="courseBox">
 						<div class="title">热门课程</div>
 						<ul>
-							<li v-for="item in 3">
+							<li class="courseDiv" v-for="item in 3">
+								<img :src="'./img/hot'+item+'.png'" class="iconlabel" alt="">
 								<div class="cover"
 									style="background-image: url('https://oss.laisitech.com/a77f52ef-2632-4e9a-b3a5-abb8ed60b122.jpg');">
 								</div>
@@ -103,7 +134,7 @@
 						</ul>
 					</div>
 					<div class="a">
-						
+
 					</div>
 				</div>
 
