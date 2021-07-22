@@ -21,6 +21,11 @@ import {
 
             }
         },
+		created() {
+			// 暂时商品详情页先固定白色
+			document.getElementsByClassName("web-top")[0].style.color = "#000";
+			document.getElementsByClassName("header_pc")[0].style.background = "#fff"
+		},
         computed: {
 
         },
