@@ -21,9 +21,13 @@
 			}
 		},
 		watch: { //使用watch 监听$router的变化
-			$route(to) {
+			$route(to, from) {
 				if (to.meta.color) {
 					this.color = to.meta.color
+				}
+				if(from.path == "/productDetail"){
+					document.getElementsByClassName("header_pc")[0].style.background = `rgba(255,255,255,0)`;
+					document.getElementsByClassName("web-top")[0].style.color = "#fff"
 				}
 			}
 		},
