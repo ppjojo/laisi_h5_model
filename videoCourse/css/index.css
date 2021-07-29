@@ -8,6 +8,13 @@
   font-family: "PingFangSC-Regular", sans-serif;
 }
 
+@font-face {
+  font-family: "BebasNeue";
+  src: url("../../common/font/BebasNeue/BebasNeue.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
   background-color: #12121f;
   color: #CFCFD2;
@@ -273,6 +280,564 @@ body {
 .classificationBox .classificationDiv .classificationList .typeList .selected {
   background-color: rgba(255, 170, 136, 0.1);
   color: #FFAA88;
+}
+
+.courseList .header .van-nav-bar {
+  background-color: rgba(255, 255, 255, 0);
+}
+
+.courseList .header .van-nav-bar .van-nav-bar__content {
+  color: #fff;
+}
+
+.courseList .header .van-hairline--bottom::after {
+  border: none;
+}
+
+.courseList .topBox .bg {
+  height: 6.7rem;
+  width: 100%;
+  background-size: auto 102%;
+  background-position: 90%;
+  background-repeat: no-repeat;
+}
+
+.courseList .topBox .bg .opacity {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 0 0.3rem;
+  padding-top: 1.6rem;
+  height: 6.7rem;
+}
+
+.courseList .topBox .bg .opacity .title {
+  font-size: 0.48rem;
+  line-height: 0.8rem;
+  color: #ffffff;
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.courseList .topBox .bg .opacity .discript {
+  font-size: 0.24rem;
+  line-height: 0.4rem;
+  color: #CFCFD2;
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  min-height: 0.8rem;
+}
+
+.courseList .topBox .bg .opacity .classifyBox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0.2rem 0;
+}
+
+.courseList .topBox .bg .opacity .classifyBox .classifyDiv {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+.courseList .topBox .bg .opacity .classifyBox .classifyDiv .classifyItem {
+  margin-right: 0.2rem;
+  height: 0.48rem;
+  line-height: 0.48rem;
+  padding: 0 0.16rem;
+  font-size: 0.24rem;
+  background-color: rgba(18, 18, 31, 0.3);
+  border-radius: 0.24rem;
+  -webkit-border-radius: 0.24rem;
+  -moz-border-radius: 0.24rem;
+  -ms-border-radius: 0.24rem;
+  -o-border-radius: 0.24rem;
+}
+
+.courseList .topBox .bg .opacity .classifyBox .transPeopleCount {
+  font-size: 0.24rem;
+}
+
+.courseList .topBox .bg .opacity .information {
+  padding: 0.15rem 0.52rem;
+  text-align: center;
+}
+
+.courseList .topBox .bg .opacity .information .need1 {
+  font-size: 0.56rem;
+  line-height: 0.6rem;
+  color: #ffffff;
+  display: table-row;
+  font-family: "BebasNeue";
+}
+
+.courseList .topBox .bg .opacity .information .needTitle1 {
+  font-size: 0.24rem;
+  line-height: 0.4rem;
+  color: #CFCFD2;
+  display: table-row;
+}
+
+.courseList .topBox .bg .opacity .information .need2 {
+  font-size: 0.56rem;
+  line-height: 0.6rem;
+  color: #ffffff;
+  font-family: "BebasNeue";
+}
+
+.courseList .topBox .bg .opacity .information .needTitle2 {
+  font-size: 0.24rem;
+  line-height: 0.4rem;
+  color: #CFCFD2;
+}
+
+.courseList .topBox .bg .opacity .information .needBox3 {
+  float: right;
+}
+
+.courseList .topBox .bg .opacity .information .need3 {
+  font-size: 0.48rem;
+  line-height: 0.6rem;
+  color: #ffffff;
+  display: table-row;
+}
+
+.courseList .topBox .bg .opacity .information .needTitle3 {
+  font-size: 0.24rem;
+  line-height: 0.4rem;
+  color: #CFCFD2;
+  display: table-row;
+}
+
+.courseList .tabBox {
+  background-color: #12121f;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+  position: relative;
+  top: -0.88rem;
+}
+
+.courseList .tabBox .tabTitle {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0 0.8rem;
+  height: 0.88rem;
+  border-bottom: 1px solid #1e1e2a;
+}
+
+.courseList .tabBox .tabTitle .tabName {
+  font-size: 0.36rem;
+  line-height: 0.88rem;
+  color: #71717f;
+}
+
+.courseList .tabBox .tabTitle .tabName span {
+  font-size: 0.24rem;
+}
+
+.courseList .tabBox .tabTitle .selected {
+  font-size: .36rem;
+  color: #CFCFD2;
+  position: relative;
+}
+
+.courseList .tabBox .tabTitle .selected::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 0.4rem;
+  height: 0.14rem;
+  background-position: 100% 100%;
+  background: url(../img/tabselect.png) no-repeat;
+  background-size: 100%;
+}
+
+.courseList .listBox {
+  padding: 0.1rem;
+  padding-bottom: 1rem;
+}
+
+.courseList .listBox .courseList ul {
+  border-radius: 0.25rem;
+  -webkit-border-radius: 0.25rem;
+  -moz-border-radius: 0.25rem;
+  -ms-border-radius: 0.25rem;
+  -o-border-radius: 0.25rem;
+}
+
+.courseList .listBox .courseList ul li {
+  height: 1.5rem;
+  padding: 0.15rem 0.3rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+.courseList .listBox .courseList ul li .chooseBox {
+  width: 0.5rem;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.courseList .listBox .courseList ul li .chooseBox img {
+  width: 0.36rem;
+  height: 0.36rem;
+}
+
+.courseList .listBox .courseList ul li .itemImg {
+  margin-right: 0.2rem;
+}
+
+.courseList .listBox .courseList ul li .itemImg img {
+  width: 1.8rem;
+  height: 1.2rem;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+
+.courseList .listBox .courseList ul li .rightBox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 6.5rem;
+}
+
+.courseList .listBox .courseList ul li .rightBox .itemDiscript .smallTile {
+  font-size: 0.28rem;
+  color: #CFCFD2;
+  line-height: 0.6rem;
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.courseList .listBox .courseList ul li .rightBox .itemDiscript .need {
+  font-size: 0.24rem;
+  color: #71717f;
+  line-height: 0.6rem;
+}
+
+.courseList .listBox .courseList .info {
+  color: #71717f;
+  font-size: 0.2rem;
+  text-align: center;
+  padding: 0.2rem 0;
+}
+
+.courseList .listBox .courseList .btn_box {
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 10;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.courseList .listBox .courseList .btn_box .btn {
+  color: #fff;
+  width: 6.3rem;
+  height: 0.88rem;
+  font-size: 0.4rem;
+  line-height: 0.88rem;
+  background-image: -webkit-gradient(linear, right top, left top, from(#FFAA88), to(#FF4E3E));
+  background-image: linear-gradient(to left, #FFAA88, #FF4E3E);
+  border-radius: 0.44rem;
+  margin-bottom: 0.68rem;
+}
+
+.courseList .chooseDiv {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 0.15rem 0.3rem;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+  background-color: #1e1e2a;
+  height: 1.2rem;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.courseList .chooseDiv .box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.courseList .chooseDiv img {
+  width: 0.36rem;
+  height: 0.36rem;
+  margin-right: 0.15rem;
+}
+
+.courseList .commentBox {
+  position: relative;
+  padding: 0 0.3rem;
+}
+
+.courseList .commentBox ul li {
+  margin-top: 0.4rem;
+}
+
+.courseList .commentBox ul li .basicBox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.courseList .commentBox ul li .basicBox .infoBox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+.courseList .commentBox ul li .basicBox .infoBox .userImg {
+  margin-right: 0.16rem;
+}
+
+.courseList .commentBox ul li .basicBox .infoBox .userImg img {
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 50%;
+}
+
+.courseList .commentBox ul li .basicBox .infoBox .detail .nickname {
+  font-size: 0.32rem;
+  line-height: 0.5rem;
+  min-height: 0.5rem;
+}
+
+.courseList .commentBox ul li .basicBox .infoBox .detail .time {
+  font-size: 0.2rem;
+  color: #71717f;
+  line-height: 0.3rem;
+  height: 0.3rem;
+}
+
+.courseList .commentBox ul li .basicBox .likeBox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-size: 0.28rem;
+}
+
+.courseList .commentBox ul li .basicBox .liked {
+  color: #FF4E3E;
+}
+
+.courseList .commentBox ul li .commentDiv {
+  margin-left: 0.96rem;
+  border-bottom: 1px solid #1e1e2a;
+}
+
+.courseList .commentBox ul li .commentDiv .comment {
+  padding: 0.2rem 0;
+  font-size: 0.28rem;
+  line-height: 0.5rem;
+  min-height: 0.5rem;
+  word-break: break-all;
+}
+
+.courseList .commentBox ul li .commentDiv .commentBck {
+  font-size: 0.28rem;
+  background-color: #1e1e2a;
+  padding: 0.24rem;
+  margin-bottom: 0.4rem;
+}
+
+.courseList .commentBox ul li .commentDiv .commentBck .commentBckItem {
+  margin-bottom: 0.1rem;
+}
+
+.courseList .commentBox ul li .commentDiv .commentBck .commentBckItem span {
+  line-height: 0.35rem;
+}
+
+.courseList .commentBox ul li .commentDiv .commentBck .commentBckItem .name {
+  color: #71717f;
+}
+
+.courseList .commentBox ul li .commentDiv .commentBck .more {
+  font-size: 0.28rem;
+  line-height: 0.5rem;
+}
+
+.courseList .commentBox .noData-box {
+  text-align: center;
+  padding-top: 0.5rem;
+}
+
+.courseList .commentBox .noData-box .noData-img {
+  width: 4rem;
+}
+
+.courseList .commentBox .noData-box .noData-p {
+  color: #CFCFD2;
+  font-size: 0.28rem;
+  padding: 0.2rem 0;
+  color: #71717f;
+}
+
+.courseList .commentBox .sendBox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  padding: 0.16rem 0.24rem;
+  background-color: #12121f;
+}
+
+.courseList .commentBox .sendBox .van-cell {
+  background-color: #1e1e2a;
+  padding: 0.03rem 0.2rem;
+  border-radius: 0.4rem;
+  -webkit-border-radius: 0.4rem;
+  -moz-border-radius: 0.4rem;
+  -ms-border-radius: 0.4rem;
+  -o-border-radius: 0.4rem;
+}
+
+.courseList .commentBox .sendBox .van-cell:after {
+  border: none;
+}
+
+.courseList .commentBox .sendBox .van-field__control {
+  color: #CFCFD2;
+}
+
+.van-dialog {
+  background-color: #292934;
+}
+
+.van-dialog .van-button--default {
+  background-color: #292934;
+}
+
+.van-dialog .van-hairline--left::after {
+  border-color: #1e1e2a;
+}
+
+.van-dialog .van-hairline--top::after {
+  border-color: #1e1e2a;
+}
+
+.normalHeader .header {
+  height: 1rem;
+  position: relative;
+  z-index: 100;
+}
+
+.normalHeader .header .van-nav-bar {
+  background-color: #12121f;
+}
+
+.normalHeader .header .van-nav-bar .van-nav-bar__content {
+  color: #CFCFD2;
+}
+
+.normalHeader .header .van-nav-bar .van-nav-bar__title {
+  color: #CFCFD2;
+}
+
+.normalHeader .header .van-hairline--bottom::after {
+  border: none;
+}
+
+@supports ((height: constant(safe-area-inset-top)) or (height: env(safe-area-inset-top))) and (-webkit-overflow-scrolling: touch) {
+  .normalHeader .header {
+    height: 1rem;
+    height: calc(1rem + constant(safe-area-inset-top));
+    height: calc(1rem + env(safe-area-inset-top));
+  }
 }
 
 .allCourse .van-swipe-cell__right {

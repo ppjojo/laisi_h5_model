@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+    <title>参与用户</title>
+    <!-- 引入样式文件 -->
+    <link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
+    <link rel="stylesheet" href="css/peopleList.css?t=20200831">
+</head>
+
+<body>
+    <div id="app" class="normalHeader" v-cloak>
+        <div class="header">
+            <van-nav-bar @click-left="onclickLeft" title="参与用户" left-arrow safe-area-inset-top fixed>
+                <template #left>
+                    <span class="icon iconfont icon-fanhuianniu" style="font-size: 0.48rem;" />
+                </template>
+
+            </van-nav-bar>
+        </div>
+        <div style="padding-top: 10px;"><van-pull-refresh v-model="refreshing" @refresh="onRefresh">
+            <van-list v-model="loading" :finished="finished" @load="onLoad">
+                <ul class="peopleList" v-if="list.length>0">
+                    <li v-for="item in list" v-if="item.user">
+                        <img class="headImg" :src="item.user.headPictureUrl" @click="Interaction.visitPersonalHomepage(item.user.uid)"  alt="">
+                        <div class="nickName" @click="Interaction.visitPersonalHomepage(item.user.uid)">{{item.user.nickname}} </div>
+                        <div class="level">{{item.memberLevel}}</div>
+                        <div class="times">已训练{{item.num||0}}次</div>
+                    </li>
+                </ul>
+                <div class="noData-box" v-else-if="!loading">
+                    <img class="noData-img" src="./img/noData.png" />
+                    <p class="noData-p">暂无数据</p>
+                </div>
+            </van-list>
+        </van-pull-refresh></div>
+    </div>
+</body>
+<script src="https://oss.laisitech.com/0bb12bf1-cb87-4d2c-a724-8a7c25b7ae04.js "></script>
+<script src="https://oss.laisitech.com/6172e6c1-f460-40ac-97ba-31c8526f2e16.js"></script>
+<script src="../common/js/network.js"></script>
+<script src="js/videoCourse.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                id:null,//课程id
+                error: false,
+                pageNum: 1,
+                pageSize: 20,
+                total: 0,
+                refreshing: false,
+                finished: false,
+                loading: false,
+                list: []
+            };
+        },
+
+        created() {
+            this.id = getQueryString("id");
+			this.pageNum=1;
+            this.getPeopleList();
+        },
+        methods: {
+            //获取参与用户列表
+            getPeopleList() {
+                var that = this;
+                var nowPageNum=that.pageNum;
+                ajax({
+                    type: "post",
+                    url: "community/cUserClassJoin/queryAllUserByBigClassId",
+                    data: {
+                        bigClassId: that.id,
+                        pageNum: that.pageNum,
+                        pageSize: that.pageSize
+                    },
+                    success: function (res) {
+                        that.loading = false;
+                        if (res.code == 0) {
+                            that.total = res.data.total;
+                            if (nowPageNum>res.data.pages ) {
+                                that.finished = true;
+                            }else if(nowPageNum==1){
+							    that.list = res.data.list
+							}else{
+								 that.list = that.list.concat(res.data.list);
+							}
+                        } else {
+                            that.$toast(res.msg)
+                        }
+                    },
+                    error: function () {
+                        console.log("error")
+                    }
+                })
+            },
+            onRefresh() {
+                // 清空列表数据
+                this.finished = false;
+                // 重新加载数据
+                // 将 loading 设置为 true，表示处于加载状态
+                this.loading = true;
+                this.onLoad();
+            },
+            onLoad() {
+                if (this.refreshing) {
+                    this.list = [];
+                    this.refreshing = false;
+                    this.pageNum=1;
+                }else{
+                    this.pageNum++;
+                }
+                this.getPeopleList()
+				
+                
+            },
+           
+
+
+
+
+
+        }
+    })
+</script>
+
+</html>

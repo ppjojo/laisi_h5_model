@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
+    <title>课程介绍</title>
+    <link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
+    <link rel="stylesheet" href="font/iconfont.css">
+    <link rel="stylesheet" href="css/index.css">
+
+    <style>
+        #title {
+            font-size: 0.36rem;
+            line-height: 0.4rem;
+            padding: 0.3rem 0.1rem;
+        }
+
+        #discript {
+            font-size: 0.28rem;
+            line-height: 0.4rem;
+        }
+        .contain{
+            padding: 0.3rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" class="normalHeader" v-cloak>
+        <div class="header">
+            <van-nav-bar @click-left="onclickLeft" title="课程介绍" left-arrow safe-area-inset-top fixed>
+                <template #left>
+                    <span class="icon iconfont icon-fanhuianniu" style="font-size: 0.48rem;" />
+                </template>
+
+            </van-nav-bar>
+        </div>
+        <div style="height:1rem" v-else></div>
+        <div class="contain">
+            <div id="title">{{title}}</div>
+            <div id="discript">{{discript}}</div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
+    <script src="../common/js/network.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    isLoading: false,
+                    title: "",
+                    discript: ""
+                }
+            },
+
+            mounted() {
+                this.getCourseDetail()
+            },
+            created() {
+
+            },
+            methods: {
+                onclickLeft() {
+                    window.history.back(1)
+                },
+                getCourseDetail() {
+                    var id = getQueryString("id");
+                    var that = this;
+                    ajax({
+                        type: "post",
+                        url: "community/cBigClass/queryAllSmallByBigId",
+                        data: {
+                            id: id
+                        },
+                        success: function (res) {
+                            if (res.code == 0) {
+                                that.title = res.data.bigClass.className
+                                that.discript = res.data.bigClass.classDes
+                            } else {
+                                that.$toast(res.msg)
+                            }
+                        },
+                        error: function () {
+                            console.log("error")
+                        }
+                    })
+                }
+
+
+
+            }
+        })
+    </script>
+</body>
+
+</html>
