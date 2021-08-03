@@ -95,10 +95,12 @@
 			flex-wrap: wrap;
 			padding: 0 3% 0 3%;
 			width: 100%;
-
+			.wh_top_tag{
+				font-size: .28rem;
+			}
 			.wh_content_item,
 			.wh_content_item_tag {
-				font-size: .28rem;
+				font-size: .4rem;
 				width: 13.4%;
 				text-align: center;
 				color: #fff;

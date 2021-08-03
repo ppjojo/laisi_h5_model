@@ -93,7 +93,9 @@
 				</div>
 				<!-- 查看我的运动目标 -->
 				<div class="ub ub-ac ub-ad target">
-					<div>查看我的运动目标<van-icon size="10" name="arrow" /></div>
+					<div>查看我的运动目标
+						<van-icon size="10" name="arrow" />
+					</div>
 				</div>
 			</div>
 		</div>
@@ -106,12 +108,11 @@
 		<!-- 时间选择 -->
 		<van-popup position="bottom" round :style="{height: '45%'}" v-model="YMshow">
 			<van-datetime-picker v-model="currentDate" type="year-month" title="选择年月" :min-date="minDate"
-			@confirm="pickConfirm"
-				:max-date="maxDate" :formatter="formatter">
+				@confirm="pickConfirm" :max-date="maxDate" :formatter="formatter">
 			</van-datetime-picker>
 		</van-popup>
 		<!-- 打卡状态 -->
-		<van-popup  round :style="{height: '6.1rem'}" v-model="clockShow">
+		<van-popup round :style="{height: '6.1rem'}" v-model="clockShow">
 			<clockState :state="clockState"></clockState>
 		</van-popup>
 	</div>
@@ -134,7 +135,8 @@
 		components: {
 			[NavBar.name]: NavBar,
 			[Icon.name]: Icon,
-			nCalendar,clockState,
+			nCalendar,
+			clockState,
 			[Popup.name]: Popup,
 			[DatetimePicker.name]: DatetimePicker,
 			// [Swipe.name]: Swipe,
@@ -150,9 +152,9 @@
 				maxDate: new Date(),
 				currentDate: new Date(),
 				YMshow: false,
-				clockShow:false,
-				clockState:true,
-				flag:3,//1未打卡2打卡失败3打卡成功未达标4打卡成功已达标
+				clockShow: false,
+				clockState: true,
+				flag: 3, //1未打卡2打卡失败3打卡成功未达标4打卡成功已达标
 			};
 		},
 		filters: {},
@@ -189,9 +191,9 @@
 			fatherPickYearMonth() { //子组件调用打开时间选择
 				this.YMshow = true;
 			},
-			pickConfirm(value){//时间选择回调
+			pickConfirm(value) { //时间选择回调
 				this.$refs.calendar.getList(value)
-				this.$refs.calendar.dateTitleStr(value,'ym')
+				this.$refs.calendar.dateTitleStr(value, 'ym')
 				this.YMshow = false;
 			},
 			formatter(type, val) {
@@ -206,92 +208,113 @@
 	};
 </script>
 <style lang="scss">
-	.infobox{
+	.infobox {
 		padding: .48rem;
-		.sportbox{
+
+		.sportbox {
 			width: 3.08rem;
-			div:nth-child(1){
+
+			div:nth-child(1) {
 				font-size: .28rem;
 				margin-bottom: .32rem;
 			}
-			div:nth-child(2){
+
+			div:nth-child(2) {
 				font-size: .48rem;
-				span{
+
+				span {
 					font-size: .24rem;
 				}
 			}
 		}
-		.sportItem{
+
+		.sportItem {
 			background-color: #1e1e2a;
 			font-size: .24rem;
-			color:#cfcfd2;
+			color: #cfcfd2;
 			border-radius: .16rem;
 			padding: .24rem;
 			margin-bottom: .16rem;
 		}
-		.sportdetail{
+
+		.sportdetail {
 			margin-top: .56rem;
-			.target{
-				color:#595962;
+
+			.target {
+				color: #595962;
 				font-size: .24rem;
 				margin-top: .4rem;
 			}
-			.iteminfo{
+
+			.iteminfo {
 				margin-left: .24rem;
-				div:nth-child(1){
+
+				div:nth-child(1) {
 					margin-bottom: .16rem;
 				}
 			}
-			.sporticon{
+
+			.sporticon {
 				width: .64rem;
 				height: .64rem;
 			}
-			.iconselect{
+
+			.iconselect {
 				width: .32rem;
 				height: .32rem;
 			}
-			.title{
+
+			.title {
 				font-size: .32rem;
 				margin-bottom: .4rem;
 			}
 		}
-		.sportfinish{
+
+		.sportfinish {
 			margin-bottom: .54rem;
-			div{
+
+			div {
 				font-size: .28rem;
-				color:#cfcfd2;
+				color: #cfcfd2;
 			}
-			img{
+
+			img {
 				width: .4rem;
 				height: .4rem;
 				margin-right: .2rem;
 			}
 		}
 	}
-	.calendaroutbox{
+
+	.calendaroutbox {
 		border-bottom: 3px solid #1e1e2a;
 		padding-bottom: .3rem;
 	}
-	.normaltxt{
+
+	.normaltxt {
 		font-size: .28rem;
-		span{
+
+		span {
 			font-size: .56rem;
 		}
 	}
-	.fixedpd{
+
+	.fixedpd {
 		padding-bottom: 1.84rem;
 	}
-	.updateclock{
+
+	.updateclock {
 		height: 1.84rem;
 		width: 100%;
-		background: linear-gradient(to bottom, rgba(18, 18, 31, 0) 10%, rgba(18, 18, 31, 1) );
+		background: linear-gradient(to bottom, rgba(18, 18, 31, 0) 10%, rgba(18, 18, 31, 1));
 		position: fixed;
 		bottom: 0;
-		.btn{
+
+		.btn {
 			height: .88rem;
 			width: 6.7rem;
 			margin: 0 auto;
-			background: linear-gradient(to right, #ffaa88, #ff4e3e );
+			background: linear-gradient(to right, #ffaa88, #ff4e3e);
 			font-size: .4rem;
 			color: #fff;
 			line-height: .88rem;
@@ -299,14 +322,15 @@
 			border-radius: .44rem;
 		}
 	}
-	.clockBtn{
+
+	.clockBtn {
 		width: 2rem;
 		height: 2rem;
 		border-radius: 50%;
 		line-height: 2rem;
 		font-size: .4rem;
 		text-align: center;
-		background: linear-gradient(to bottom, #ffaa88, #ff4e3e );
+		background: linear-gradient(to bottom, #ffaa88, #ff4e3e);
 		margin: 0 auto;
 	}
 </style>

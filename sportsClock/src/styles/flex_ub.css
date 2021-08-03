@@ -1,5 +1,12 @@
+@font-face {
+    font-family: "BebasNeue";
+    src: url("./BebasNeue/BebasNeue.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
 *{
 	box-sizing: border-box;
+	font-family: "BebasNeue";
 }
 .ub {
 	display: -webkit-flex !important;
