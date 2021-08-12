@@ -1,6 +1,6 @@
 <template>
 	<div id="app" v-cloak>
-		<div class="header">
+		<div class="header" v-show="!sheetImageStatus">
 			<van-nav-bar title="打卡总览" @click-left="onClickLeft" @click-right="onClickRight" left-arrow
 				safe-area-inset-top fixed>
 				<template #right>
@@ -8,7 +8,7 @@
 				</template>
 			</van-nav-bar>
 		</div>
-		<div class="ub ub-ac tab">
+		<div class="ub ub-ac tab" v-show="!sheetImageStatus">
 			<div class="subtab" @click="changeTab(1)">
 				<div class="title" :class="{active:tabIndex==1}">月度统计</div>
 				<img class="activeImg" v-show="tabIndex==1" :src="require('@i/tabselect.png')" alt="">
@@ -33,7 +33,7 @@
 			<!-- 打卡目标 -->
 			<div class="target">
 				亲爱的爽歪歪～</br>
-				本月已经完成了48%的打卡目标，要继续加油哦！
+				本月已经完成了 <span style="font-size: .3rem;">48</span> %的打卡目标，要继续加油哦！
 			</div>
 			<!-- 完成程度 -->
 			<div class="ub ub-ac ub-pj finishList">
@@ -57,7 +57,7 @@
 			<div style="margin-top:.48rem;">
 				<div class="target">
 					亲爱的爽歪歪～</br>
-					你本年度填满了128个方块，太棒啦！
+					你本年度填满了<span style="font-size: .3rem;">128</span>个方块，太棒啦！
 				</div>
 				<!-- 完成程度 -->
 				<div class="ub ub-ac ub-pj finishList">
@@ -103,10 +103,12 @@
 		components: {
 			[NavBar.name]: NavBar,
 			[Icon.name]: Icon,
-			nCalendar,returnIcon,
+			nCalendar,
+			returnIcon,
 			[Popup.name]: Popup,
 			[DatetimePicker.name]: DatetimePicker,
-			[Picker.name]: Picker,year
+			[Picker.name]: Picker,
+			year
 			// [SwipeItem.name]: SwipeItem,
 			// [GoodsAction.name]: GoodsAction,
 			// [GoodsActionIcon.name]: GoodsActionIcon,
@@ -120,11 +122,14 @@
 				currentDate: new Date(),
 				YMshow: false,
 				tabIndex: 2, //1月度2年度
-				columns: [2021, 2022]
+				columns: [2021, 2022],
+				sheetImageStatus: false,
 			};
 		},
 		filters: {},
 		mounted() {
+			window.sheetImageHideHeader = this.sheetImageHideHeader;
+			window.sheetImageshowHeader = this.sheetImageshowHeader;
 			this.getList()
 		},
 		created() {},
@@ -144,12 +149,7 @@
 				this.$router.go(-1)
 			},
 			onClickRight() { //跳转创建小组
-				this.$router.push({
-					path: '/groupIndex',
-					query: {
-						id: item
-					}
-				});
+				this.sharePage()
 			},
 			goGroupIndex(item) {
 				this.$router.push({
@@ -180,6 +180,19 @@
 				}
 				return val;
 			},
+			sharePage() {
+				Interaction.LSTH5APP_UrlAndSheetImageShareModel({
+					title: "11",
+					description: "22",
+					url: "sportsClock/index.html",
+				})
+			},
+			sheetImageHideHeader() {
+				this.sheetImageStatus = true
+			},
+			sheetImageshowHeader() {
+				this.sheetImageStatus = false
+			},
 		}
 	};
 </script>
@@ -208,13 +221,16 @@
 			}
 		}
 	}
-	.finishList{
+
+	.finishList {
 		flex-wrap: wrap;
-		>.listItem{
+
+		>.listItem {
 			width: 45%;
 			padding: .28rem .48rem;
 		}
 	}
+
 	.target {
 		color: #cfcfd2;
 		font-size: .24rem;
@@ -223,6 +239,7 @@
 		line-height: .36rem;
 		margin-bottom: .4rem;
 	}
+
 	.percent {
 		padding: .92rem .48rem .32rem .48rem;
 		width: 100%;
@@ -233,6 +250,7 @@
 			background-color: rgba(30, 30, 42, 1);
 			height: .16rem;
 			position: relative;
+
 			.percentTip {
 				position: absolute;
 				border-radius: .04rem;
@@ -245,6 +263,7 @@
 				font-size: .2rem;
 				bottom: .3rem;
 			}
+
 			.percentTip:after {
 				content: "";
 				border-top: .15rem solid transparent;
@@ -252,7 +271,7 @@
 				border-right: .15rem solid #8ED2B0;
 				position: absolute;
 				top: .2rem;
-				transform:rotate(45deg);
+				transform: rotate(45deg);
 				left: .2rem; //这里的top:27px，left:-7px是为了遮盖住.c-main:before生成的箭头，使箭头边框呈现颜色 
 			}
 
