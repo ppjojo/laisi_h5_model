@@ -50,7 +50,7 @@
                         目标
                     </div>
                     <div class="typeList">
-                        <div class="typeItem selected"  v-for="item in 10">减值</div>
+                        <div class="typeItem selected" v-for="item in 10">减值</div>
                     </div>
                 </div>
             </div>
@@ -136,16 +136,16 @@
 
         },
         mounted() {
-            
+
         },
         created() {
 
         },
         methods: {
             onclickLeft() {
-                   window.history.back(1)
-                },
-            initIndexData(){
+                Interaction.closePage();
+            },
+            initIndexData() {
                 this.isLoading = false;
             }
 

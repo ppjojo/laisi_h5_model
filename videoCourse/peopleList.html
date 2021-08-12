@@ -21,22 +21,26 @@
 
             </van-nav-bar>
         </div>
-        <div style="padding-top: 10px;"><van-pull-refresh v-model="refreshing" @refresh="onRefresh">
-            <van-list v-model="loading" :finished="finished" @load="onLoad">
-                <ul class="peopleList" v-if="list.length>0">
-                    <li v-for="item in list" v-if="item.user">
-                        <img class="headImg" :src="item.user.headPictureUrl" @click="Interaction.visitPersonalHomepage(item.user.uid)"  alt="">
-                        <div class="nickName" @click="Interaction.visitPersonalHomepage(item.user.uid)">{{item.user.nickname}} </div>
-                        <div class="level">{{item.memberLevel}}</div>
-                        <div class="times">已训练{{item.num||0}}次</div>
-                    </li>
-                </ul>
-                <div class="noData-box" v-else-if="!loading">
-                    <img class="noData-img" src="./img/noData.png" />
-                    <p class="noData-p">暂无数据</p>
-                </div>
-            </van-list>
-        </van-pull-refresh></div>
+        <div style="padding-top: 10px;">
+            <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
+                <van-list v-model="loading" :finished="finished" @load="onLoad">
+                    <ul class="peopleList" v-if="list.length>0">
+                        <li v-for="item in list" v-if="item.user">
+                            <img class="headImg" :src="item.user.headPictureUrl"
+                                @click="Interaction.visitPersonalHomepage(item.user.uid)" alt="">
+                            <div class="nickName" @click="Interaction.visitPersonalHomepage(item.user.uid)">
+                                {{item.user.nickname}} </div>
+                            <div class="level">{{item.memberLevel}}</div>
+                            <div class="times">已训练{{item.num||0}}次</div>
+                        </li>
+                    </ul>
+                    <div class="noData-box" v-else-if="!loading">
+                        <img class="noData-img" src="./img/noData.png" />
+                        <p class="noData-p">暂无数据</p>
+                    </div>
+                </van-list>
+            </van-pull-refresh>
+        </div>
     </div>
 </body>
 <script src="https://oss.laisitech.com/0bb12bf1-cb87-4d2c-a724-8a7c25b7ae04.js "></script>
@@ -48,7 +52,7 @@
         el: '#app',
         data() {
             return {
-                id:null,//课程id
+                id: null, //课程id
                 error: false,
                 pageNum: 1,
                 pageSize: 20,
@@ -62,14 +66,14 @@
 
         created() {
             this.id = getQueryString("id");
-			this.pageNum=1;
+            this.pageNum = 1;
             this.getPeopleList();
         },
         methods: {
             //获取参与用户列表
             getPeopleList() {
                 var that = this;
-                var nowPageNum=that.pageNum;
+                var nowPageNum = that.pageNum;
                 ajax({
                     type: "post",
                     url: "community/cUserClassJoin/queryAllUserByBigClassId",
@@ -82,13 +86,13 @@
                         that.loading = false;
                         if (res.code == 0) {
                             that.total = res.data.total;
-                            if (nowPageNum>res.data.pages ) {
+                            if (nowPageNum > res.data.pages) {
                                 that.finished = true;
-                            }else if(nowPageNum==1){
-							    that.list = res.data.list
-							}else{
-								 that.list = that.list.concat(res.data.list);
-							}
+                            } else if (nowPageNum == 1) {
+                                that.list = res.data.list
+                            } else {
+                                that.list = that.list.concat(res.data.list);
+                            }
                         } else {
                             that.$toast(res.msg)
                         }
@@ -110,15 +114,15 @@
                 if (this.refreshing) {
                     this.list = [];
                     this.refreshing = false;
-                    this.pageNum=1;
-                }else{
+                    this.pageNum = 1;
+                } else {
                     this.pageNum++;
                 }
                 this.getPeopleList()
-				
-                
+
+
             },
-           
+
 
 
 

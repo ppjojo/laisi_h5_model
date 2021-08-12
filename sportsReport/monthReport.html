@@ -14,7 +14,7 @@
 
 <body>
 	<div id="app" v-cloak>
-		<div class="header" style="color: #595962">
+		<div class="header" style="color: #595962" v-if="!sheetImageStatus">
 			<div class="headerLeftBox" @click="goback()">
 				<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.48rem;"></span>
 			</div>
@@ -358,6 +358,7 @@
 		data() {
 			return {
 				isShare: getQueryString("isShare") || 0,
+				sheetImageStatus:false,
 				colorList: {
 					自由训练: "#C4B3DB",
 					腕力球: "#4AA0FF",
@@ -391,14 +392,22 @@
 
 		},
 		created() {
-
+			
 		},
 		mounted() {
 			this.getTotalTimeEchart()
 			this.getTotalCalEchart()
 			this.getStepEchart()
+			window.sheetImageHideHeader=this.sheetImageHideHeader;
+			window.sheetImageshowHeader=this.sheetImageshowHeader;
 		},
 		methods: {
+			sheetImageHideHeader(){
+				this.sheetImageStatus=true
+			},
+			sheetImageshowHeader(){
+				this.sheetImageStatus=false
+			},
 			goback() {
 				window.history.back()
 			},
@@ -406,10 +415,10 @@
 				window.location.href = "history.html?type=2"
 			},
 			sharePage() {
-				Interaction.sharePage({
+				Interaction.LSTH5APP_UrlAndSheetImageShareModel({
 					title: "11",
 					description: "22",
-					url: "33",
+					url: "sportsReport/index.html",
 				})
 			},
 			goAPP() {

@@ -87,6 +87,30 @@
 						<p :class="skipType=='activeTime'?'selected':''" @click="skipTypeChange('activeTime')">总时长</p>
 					</div>
 				</div>
+				<div class="headerBox" v-else-if="userType=='jfl'">
+					<div class="tabDiv" id="tabDiv">
+						<p :class="activeTime=='daily'?'selected':''" @click="activeTimeChange('daily')">日榜</p>
+						<p :class="activeTime=='week'?'selected':''" @click="activeTimeChange('week')">周榜</p>
+						<p :class="activeTime=='month'?'selected':''" @click="activeTimeChange('month')">月榜</p>
+						<p :class="activeTime=='total'?'selected':''" @click="activeTimeChange('total')">总榜</p>
+					</div>
+					<div class="tabDiv2" id="tabDiv2">
+						<p :class="skipType=='number'?'selected':''" @click="skipTypeChange('number')">总次数</p>
+						<p :class="skipType=='activeTime'?'selected':''" @click="skipTypeChange('activeTime')">达标率</p>
+					</div>
+				</div>
+				<div class="headerBox" v-else-if="userType=='step'">
+					<div class="tabDiv" id="tabDiv">
+						<p :class="activeTime=='daily'?'selected':''" @click="activeTimeChange('daily')">日榜</p>
+						<p :class="activeTime=='week'?'selected':''" @click="activeTimeChange('week')">周榜</p>
+						<p :class="activeTime=='month'?'selected':''" @click="activeTimeChange('month')">月榜</p>
+						<p :class="activeTime=='total'?'selected':''" @click="activeTimeChange('total')">总榜</p>
+					</div>
+					<!-- <div class="tabDiv2" id="tabDiv2">
+						<p :class="skipType=='number'?'selected':''" @click="skipTypeChange('number')">总次数</p>
+						<p :class="skipType=='activeTime'?'selected':''" @click="skipTypeChange('activeTime')">达标率</p>
+					</div> -->
+				</div>
 
 				<van-pull-refresh v-model="isLoading" :head-height="90" @refresh="refreshList"
 					:class="userType=='all'?'van-pull-refresh2':''" style="height:calc(100vh - 4.5rem) ;overflow: auto;"

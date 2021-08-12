@@ -1,5 +1,5 @@
 <template>
-  <div id="app" style="background:#12121f;color:#fff;">
+  <div id="app" >
     <transition :name="transitionName">
       <router-view />
     </transition>
@@ -18,7 +18,7 @@
         },
         watch: {//使用watch 监听$router的变化
             $route(to, from) {
-                if(to.meta.index > 0){
+               if(to.meta.index > 0){
                    if(from.meta.index==0){
                      this.transitionName = 'slide-left';
                    }

@@ -82,7 +82,6 @@ body {
 
 .contain .recentBox .btn_train {
   width: 1.28rem;
-  height: 0.48rem;
   background-image: -webkit-gradient(linear, left top, right top, from(#FF4E3E), to(#FFAA88));
   background-image: linear-gradient(to right, #FF4E3E, #FFAA88);
   font-size: 0.24rem;
@@ -101,7 +100,6 @@ body {
 
 .contain .recentBox .btn_viewMore {
   width: 1.84rem;
-  height: 0.6rem;
   font-size: 0.24rem;
   color: #71717f;
   line-height: 0.6rem;
@@ -428,6 +426,7 @@ body {
 }
 
 .courseList .tabBox {
+  overflow: hidden;
   background-color: #12121f;
   border-top-left-radius: 0.5rem;
   border-top-right-radius: 0.5rem;
@@ -435,7 +434,12 @@ body {
   top: -0.88rem;
 }
 
+.courseList .tabBox .van-sticky--fixed {
+  top: 0.92rem;
+}
+
 .courseList .tabBox .tabTitle {
+  background-color: #12121f;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -641,7 +645,7 @@ body {
   margin-top: 0.4rem;
 }
 
-.courseList .commentBox ul li .basicBox {
+.courseList .commentBox .basicBox {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -653,7 +657,7 @@ body {
           justify-content: space-between;
 }
 
-.courseList .commentBox ul li .basicBox .infoBox {
+.courseList .commentBox .basicBox .infoBox {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -665,30 +669,30 @@ body {
           justify-content: flex-start;
 }
 
-.courseList .commentBox ul li .basicBox .infoBox .userImg {
+.courseList .commentBox .basicBox .infoBox .userImg {
   margin-right: 0.16rem;
 }
 
-.courseList .commentBox ul li .basicBox .infoBox .userImg img {
+.courseList .commentBox .basicBox .infoBox .userImg img {
   width: 0.8rem;
   height: 0.8rem;
   border-radius: 50%;
 }
 
-.courseList .commentBox ul li .basicBox .infoBox .detail .nickname {
+.courseList .commentBox .basicBox .infoBox .detail .nickname {
   font-size: 0.32rem;
   line-height: 0.5rem;
   min-height: 0.5rem;
 }
 
-.courseList .commentBox ul li .basicBox .infoBox .detail .time {
+.courseList .commentBox .basicBox .infoBox .detail .time {
   font-size: 0.2rem;
   color: #71717f;
   line-height: 0.3rem;
   height: 0.3rem;
 }
 
-.courseList .commentBox ul li .basicBox .likeBox {
+.courseList .commentBox .basicBox .likeBox {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -701,16 +705,16 @@ body {
   font-size: 0.28rem;
 }
 
-.courseList .commentBox ul li .basicBox .liked {
+.courseList .commentBox .basicBox .liked {
   color: #FF4E3E;
 }
 
-.courseList .commentBox ul li .commentDiv {
+.courseList .commentBox .commentDiv {
   margin-left: 0.96rem;
   border-bottom: 1px solid #1e1e2a;
 }
 
-.courseList .commentBox ul li .commentDiv .comment {
+.courseList .commentBox .commentDiv .comment {
   padding: 0.2rem 0;
   font-size: 0.28rem;
   line-height: 0.5rem;
@@ -718,26 +722,26 @@ body {
   word-break: break-all;
 }
 
-.courseList .commentBox ul li .commentDiv .commentBck {
+.courseList .commentBox .commentDiv .commentBck {
   font-size: 0.28rem;
   background-color: #1e1e2a;
   padding: 0.24rem;
   margin-bottom: 0.4rem;
 }
 
-.courseList .commentBox ul li .commentDiv .commentBck .commentBckItem {
+.courseList .commentBox .commentDiv .commentBck .commentBckItem {
   margin-bottom: 0.1rem;
 }
 
-.courseList .commentBox ul li .commentDiv .commentBck .commentBckItem span {
+.courseList .commentBox .commentDiv .commentBck .commentBckItem span {
   line-height: 0.35rem;
 }
 
-.courseList .commentBox ul li .commentDiv .commentBck .commentBckItem .name {
+.courseList .commentBox .commentDiv .commentBck .commentBckItem .name {
   color: #71717f;
 }
 
-.courseList .commentBox ul li .commentDiv .commentBck .more {
+.courseList .commentBox .commentDiv .commentBck .more {
   font-size: 0.28rem;
   line-height: 0.5rem;
 }
@@ -758,7 +762,16 @@ body {
   color: #71717f;
 }
 
-.courseList .commentBox .sendBox {
+.courseList .commentBox .van-list__error-text,
+.courseList .commentBox .van-list__finished-text,
+.courseList .commentBox .van-list__loading {
+  color: #71717f;
+  font-size: 0.2rem;
+  text-align: center;
+  padding: 0.2rem 0;
+}
+
+.courseList .sendBox {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -772,11 +785,12 @@ body {
   width: 100%;
   bottom: 0;
   left: 0;
+  z-index: 19;
   padding: 0.16rem 0.24rem;
   background-color: #12121f;
 }
 
-.courseList .commentBox .sendBox .van-cell {
+.courseList .sendBox .van-cell {
   background-color: #1e1e2a;
   padding: 0.03rem 0.2rem;
   border-radius: 0.4rem;
@@ -786,12 +800,76 @@ body {
   -o-border-radius: 0.4rem;
 }
 
-.courseList .commentBox .sendBox .van-cell:after {
+.courseList .sendBox .van-cell:after {
   border: none;
 }
 
-.courseList .commentBox .sendBox .van-field__control {
+.courseList .sendBox .van-field__control {
   color: #CFCFD2;
+}
+
+.courseList .van-popup {
+  background-color: #12121f;
+}
+
+.courseList .van-popup .popupHeader {
+  position: absolute;
+  background-color: #12121f;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 0 0.3rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 1rem;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.courseList .van-popup .popupHeader .title {
+  font-size: 0.36rem;
+}
+
+.courseList .van-popup .commentBox {
+  position: relative;
+  z-index: 3;
+  height: calc( 100% - 1rem);
+  overflow: auto;
+  padding: 0;
+}
+
+.courseList .van-popup .commentBox .mainComment {
+  padding: 0 0.3rem;
+  margin-top: 1rem;
+  border-bottom: 4px solid #1e1e2a;
+}
+
+.courseList .van-popup .commentBox .commentDiv {
+  padding-left: 0.96rem;
+  margin: 0;
+  border-bottom: none;
+}
+
+.courseList .van-popup .commentBox .allCommentTitle {
+  font-size: 0.36rem;
+  line-height: 1rem;
+  padding: 0 0.3rem;
+}
+
+.courseList .van-popup .commentBox .childComment {
+  padding: 0 0.3rem;
+  margin-top: 0.15rem;
+}
+
+.courseList .van-popup .sendBox {
+  position: absolute;
+  z-index: 9;
 }
 
 .van-dialog {
@@ -810,8 +888,19 @@ body {
   border-color: #1e1e2a;
 }
 
+.van-action-sheet .van-action-sheet__cancel, .van-action-sheet .van-action-sheet__item {
+  background-color: #12121f;
+  color: #CFCFD2;
+  border-bottom: 1px solid #1e1e2a;
+}
+
+.van-action-sheet .van-action-sheet__gap {
+  background-color: #1e1e2a;
+  color: #CFCFD2;
+}
+
 .normalHeader .header {
-  height: 1rem;
+  height: 0.92rem;
   position: relative;
   z-index: 100;
 }
@@ -834,9 +923,14 @@ body {
 
 @supports ((height: constant(safe-area-inset-top)) or (height: env(safe-area-inset-top))) and (-webkit-overflow-scrolling: touch) {
   .normalHeader .header {
-    height: 1rem;
-    height: calc(1rem + constant(safe-area-inset-top));
-    height: calc(1rem + env(safe-area-inset-top));
+    height: 0.92rem;
+    height: calc(0.92rem + constant(safe-area-inset-top));
+    height: calc(0.92rem + env(safe-area-inset-top));
+  }
+  .courseList .tabBox .van-sticky--fixed {
+    top: 0.92rem;
+    top: calc(0.92rem + constant(safe-area-inset-top));
+    top: calc(0.92rem + env(safe-area-inset-top));
   }
 }
 

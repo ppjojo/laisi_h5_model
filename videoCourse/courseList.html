@@ -10,6 +10,12 @@
 	<link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
 	<link rel="stylesheet" href="font/iconfont.css">
 	<link rel="stylesheet" href="css/index.css">
+	<script src="https://cdn.bootcdn.net/ajax/libs/vConsole/3.8.1/vconsole.min.js"></script>
+		<script>
+			// init vConsole
+		        var vConsole = new VConsole();
+		      
+		    </script>
 
 
 </head>
@@ -74,13 +80,16 @@
 					</div>
 				</div>
 			</div>
+
 			<div class="tabBox">
-				<div class="tabTitle">
-					<div class="tabName " :class="tabSelected==1?'selected':''" @click="tabSelected=1">
-						内容<span>({{classDetail.smallClass.length}}个)</span></div>
-					<div class="tabName" :class="tabSelected==2?'selected':''" @click="tabSelected=2">评论
-						<span>({{total}}条)</span> </div>
-				</div>
+				<van-sticky>
+					<div class="tabTitle">
+						<div class="tabName " :class="tabSelected==1?'selected':''" @click="tabSelected=1">
+							内容<span>({{classDetail.smallClass.length}}个)</span></div>
+						<div class="tabName" :class="tabSelected==2?'selected':''" @click="tabSelected=2">评论
+							<span>({{total}}条)</span> </div>
+					</div>
+				</van-sticky>
 				<div class="tabContain">
 					<div v-if="tabSelected==1">
 						<div class=" listBox">
@@ -150,7 +159,6 @@
 														style="font-size: 0.28rem;" />
 													200000
 												</div>
-
 											</div>
 											<div class="commentDiv">
 												<div class="comment">{{item.comment}}</div>
@@ -162,11 +170,10 @@
 														<span> : ccc</span>
 														<span v-for="r in 9" style="color:steelblue"> @ddd</span>
 													</div>
-													<div class="more">查看全部{{item.commentCount}}条回复>></div>
+													<div class="more" @click="moreCommentShow=true">
+														查看全部{{item.commentCount}}条回复>></div>
 												</div>
 											</div>
-
-
 										</li>
 									</ul>
 								</van-list>
@@ -183,18 +190,87 @@
 											style="font-size: 0.3rem;" />
 									</template>
 								</van-field>
-								<span class="icon iconfont icon-duihua-fasong" @click="submitCommentFirst" style="font-size: 0.48rem;padding-left: 0.24rem;" />
+								<span class="icon iconfont icon-duihua-fasong" @click="submitCommentFirst"
+									style="font-size: 0.48rem;padding-left: 0.24rem;" />
 
+							</div>
 						</div>
 					</div>
-
 				</div>
-
 			</div>
+
+			<van-popup v-model="moreCommentShow" round position="bottom" :style="{ height: '70%' }">
+				<div class="popupHeader">
+					<span class="icon iconfont icon-fanhuianniu" @click="moreCommentShow=false"
+						style="font-size: 0.48rem;"></span>
+					<div class="title">评论</div>
+					<div style="width: 0.48rem;"></div>
+				</div>
+				<div class="commentBox ">
+					<div class="mainComment">
+						<div v-for="(item,index) in commmentList" v-if="index==1">
+							<div class="basicBox">
+								<div class="infoBox">
+									<div class="userImg">
+										<img :src="item.user.headPictureUrl"
+											@click="Interaction.visitPersonalHomepage(item.user.uid)" alt="">
+									</div>
+									<div class="detail">
+										<p class="nickname" @click="Interaction.visitPersonalHomepage(item.user.uid)">
+											{{item.user.nickname}}</p>
+										<p class="time">{{renderTime(item.createTime)}}</p>
+									</div>
+								</div>
+								<div class="likeBox liked">
+									<span class="icon iconfont icon-dianzan-gaoliang" style="font-size: 0.28rem;" />
+									200000
+								</div>
+							</div>
+							<div class="commentDiv">
+								<div class="comment">{{item.comment}}</div>
+							</div>
+						</div>
+					</div>
+					<div class="allCommentTitle">全部回复</div>
+					<div class="childComment" v-for="(item,index) in commmentList" v-if="index<4">
+						<div class="basicBox">
+							<div class="infoBox">
+								<div class="userImg">
+									<img :src="item.user.headPictureUrl"
+										@click="Interaction.visitPersonalHomepage(item.user.uid)" alt="">
+								</div>
+								<div class="detail">
+									<p class="nickname" @click="Interaction.visitPersonalHomepage(item.user.uid)">
+										{{item.user.nickname}}</p>
+									<p class="time">{{renderTime(item.createTime)}}</p>
+								</div>
+							</div>
+							<div class="likeBox liked">
+								<span class="icon iconfont icon-dianzan-gaoliang" style="font-size: 0.28rem;" />
+								200000
+							</div>
+						</div>
+						<div class="commentDiv">
+							<div class="comment" @click="actionSheetShow=true">{{item.comment}}</div>
+						</div>
+					</div>
+				</div>
+				<div class="sendBox">
+					<van-field v-model="comment_message" rows="1" type="textarea" autosize maxlength="50"
+						placeholder="说点什么，分享训练心得…">
+						<template #right-icon>
+							<span class="icon iconfont icon-a-shequ-" @click="noticeSomePeople"
+								style="font-size: 0.3rem;" />
+						</template>
+					</van-field>
+					<span class="icon iconfont icon-duihua-fasong" @click="submitCommentFirst"
+						style="font-size: 0.48rem;padding-left: 0.24rem;" />
+				</div>
+			</van-popup>
+
+			<van-action-sheet v-model="actionSheetShow" @select="actionSheetSelect" :actions="actions" cancel-text="取消" close-on-click-action
+				@cancel="actionSheetCancel" />
 		</div>
-
-
-	</div>
 	</div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
@@ -224,10 +300,8 @@
 				isClick: false,
 
 
-				moreComment: false,
-				moreCommentContent: "查看全部",
 
-				downlaodContent: "缓存课程",
+
 				downlaodStatus: false, //缓存打开的状态
 
 				commmentList: [],
@@ -244,7 +318,19 @@
 				userId: "",
 
 				isChooseAll: 0,
-				classArray: []
+				classArray: [],
+
+				moreCommentShow: false,
+
+				actionSheetShow: false,
+				actions: [{
+					name: '复制'
+				}, {
+					name: '回复'
+				}, {
+					name: '删除',
+					color: '#ee0a24'
+				}],
 
 			};
 		},
@@ -296,12 +382,17 @@
 				window.removeEventListener('scroll', this.scrollFn); // 销毁监听
 			},
 			onclickLeft() {
-				this.$interaction.closePage();
+				Interaction.closePage();
 			},
 			//@别人
 			noticeSomePeople() {
 				alert("@")
 			},
+			actionSheetSelect(obj,index){
+				console.log(index)
+				console.log(obj)
+			},
+			actionSheetCancel(){},
 			//获取大课程下的课程详情以及小课程列表
 			getClassDetail() {
 				var that = this;
@@ -375,6 +466,7 @@
 					success: function (res) {
 						if (res.code == 0) {
 							that.total = res.data.total;
+							that.loading = false;
 							if (nowPageNum - 1 > (res.data.total / that.pageSize)) {
 								that.finished = true;
 							} else if (nowPageNum == 1) {
@@ -495,17 +587,6 @@
 			courseDetail(id) {
 				window.location.href = "courseDetail.html?id=" + id
 			},
-
-
-			//展开全部的评论
-			viewMoreComment() {
-				this.moreComment = !(this.moreComment);
-				if (!this.moreComment) {
-					this.moreCommentContent = "查看全部"
-				} else {
-					this.moreCommentContent = "收起全部"
-				}
-			},
 			//评论得分页加载
 			onLoad() {
 				if (this.refreshing) {
@@ -513,22 +594,13 @@
 					this.refreshing = false;
 					this.pageNum = 1;
 				} else {
-					if (this.moreComment) this.pageNum++;
-					else {
-						this.loading = false;
-						return
-					}
-
+					this.pageNum++;
 				}
 				this.getCommentList()
-				this.loading = false;
 			},
 			//评论刷新
 			onRefresh() {
-				// 清空列表数据
 				this.finished = false;
-				// 重新加载数据
-				// 将 loading 设置为 true，表示处于加载状态
 				this.loading = true;
 				this.refreshing = true;
 				this.onLoad();
@@ -630,14 +702,7 @@
 			//缓存视频
 			downButton() {
 				this.downlaodStatus = !(this.downlaodStatus);
-				if (this.downlaodStatus) {
-					this.downlaodContent = "取消"
-					//缓存前先确定有木有缓存的视频
-					this.getCheckDownloadCourseList()
-				} else {
-					this.downlaodContent = "缓存课程"
-				}
-
+				this.tabSelected = 1
 			},
 			//获取已经缓存的视频
 			getCheckDownloadCourseList() {
@@ -661,7 +726,6 @@
 
 					this.classDetail.smallClass = JSON.parse(obj);
 				}
-				console.log(this.classDetail.smallClass)
 				this.isChooseAll = -1;
 				this.classDetail.smallClass.forEach(item => {
 					if (item.isDownload == 0 || !item.isDownload || item.isDownload == 2) {
@@ -743,7 +807,6 @@
 						}));
 					}
 					this.downlaodStatus = false;
-					this.downlaodContent = "缓存课程"
 					this.isChooseAll = 0;
 					this.classArray = [];
 
