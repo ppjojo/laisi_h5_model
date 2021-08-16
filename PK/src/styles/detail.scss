@@ -1,0 +1,667 @@
+@font-face {
+    font-family: "BebasNeue";
+    src: url("../font/BebasNeue/BebasNeue.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+//黑字
+$text_color:#595962;
+//白字
+$text_color_white:#CFCFD2;
+//黑色背景
+$bg_color:#12121f;
+//边框色
+$border_color:#1e1e2a;
+
+.detailBox {
+
+    .van-nav-bar {
+        background-color: transparent;
+        z-index: 999;
+        color: #fff;
+
+        .van-nav-bar__title {
+            color: #fff;
+        }
+    }
+
+    .van-hairline--bottom::after {
+        border: none;
+    }
+
+    .detailBgBox {
+        height: 4.6rem;
+
+        .detailBg {
+            background-size: cover;
+            width: 100%;
+            height: 6rem;
+            position: absolute;
+            top: 0;
+            left: 0;
+
+        }
+
+        .detailBg_personal {
+            @extend .detailBg;
+            background-image: url(../img/bg_personal.png);
+
+        }
+
+        .detailBg_team {
+            @extend .detailBg;
+            background-image: url(../img/bg_team.png);
+        }
+
+        .detailBg_multiTeam {
+            @extend .detailBg;
+            background-image: url(../img/bg_multiTeam.png);
+        }
+    }
+
+    .detailContain {
+        position: relative;
+        z-index: 2;
+        padding: 0.3rem 0.3rem 0;
+
+        .detailDiv {
+            background-color: $border_color;
+            border-radius: 0.2rem;
+            padding: 0.4rem 0.4rem;
+        }
+
+        .laberTitle {
+            font-size: 0.28rem;
+            text-align: justify;
+            line-height: 0.6rem;
+            height: 0.6rem;
+            color: $text_color_white;
+            padding-right: 0.1rem;
+        }
+
+        .laberTitle i {
+            display: inline-block;
+            width: 100%;
+        }
+
+        .laberContent {
+            font-size: 0.28rem;
+            color: #71717f;
+            text-align: left;
+            line-height: 0.6rem;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+
+            .lock_img {
+                width: 0.3rem;
+                position: relative;
+                top: 0.05rem;
+            }
+        }
+
+        .van-tag-official {
+            font-size: 0.2rem;
+            padding: 0 0.05rem;
+            position: relative;
+            text-align: center;
+            background-color: #E50012;
+            color: #fff;
+            line-height: 0.26rem;
+            height: 0.26rem;
+            margin-left: 0.1rem;
+        }
+
+    }
+
+
+    .raceInformation {
+        padding-bottom: 2.5rem;
+
+        .raceInformationTitle {
+            font-size: 0.32rem;
+            text-align: center;
+            line-height: 1rem;
+        }
+
+        .bigNumberSpan {
+            font-size: 0.48rem;
+            font-family: 'BebasNeue';
+        }
+
+        //个人赛
+        .listItem {
+            box-sizing: border-box;
+            margin: 0 .24rem;
+            height: 1.28rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid $bg_color;
+
+            .rank {
+                text-align: center;
+                font-size: 0.36rem;
+                font-family: 'BebasNeue';
+                min-width: 0.5rem;
+
+                .sortPic {
+                    width: 0.4rem;
+                    height: 0.46rem;
+                    position: relative;
+                    top: 0.1rem;
+                }
+            }
+
+            .user {
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                width: 45%;
+
+                .headpic {
+                    width: .6rem;
+                    height: .6rem;
+                    border-radius: 50%;
+                    margin: 0 0.16rem;
+                }
+
+                .name {
+                    font-size: .28rem;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
+            }
+
+            .times {
+                text-align: right;
+                width: 15%;
+                white-space: nowrap;
+                font-size: 0.24rem;
+            }
+
+            .num {
+                text-align: right;
+                width: 25%;
+                white-space: nowrap;
+                font-size: 0.24rem;
+            }
+
+            .bigNumberSpan {
+                font-size: 0.48rem;
+                font-family: 'BebasNeue';
+            }
+        }
+
+        .noData-box {
+            text-align: center;
+            padding-top: 0.5rem;
+        }
+
+        .noData-box .noData-img {
+            width: 4rem;
+        }
+
+        //团队赛
+        .teamcount {
+            display: flex;
+            align-items: center;
+            padding: 0.8rem 0.3rem;
+            justify-content: space-between;
+            position: relative;
+
+            .leftBox {
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                width: 50%;
+            }
+
+            .pkImg {
+                position: absolute;
+                top: 0.75rem;
+                left: 50%;
+                z-index: 3;
+                margin-left: -0.5rem;
+
+                .centerimg {
+                    width: 0.96rem;
+                    height: 0.96rem;
+                    border-radius: 50%;
+                    border: 2px solid $bg_color;
+                }
+            }
+
+            .rightBox {
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+                width: 50%;
+            }
+
+            .skipImg {
+                width: 0.8rem;
+                height: 0.8rem;
+                border-radius: 50%;
+                background-image: linear-gradient(to right, #FF7B45, #FFBE85);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border: 2px solid $bg_color;
+                position: relative;
+                z-index: 2;
+
+                &:last-child {
+                    background-image: linear-gradient(to right, #6DCAFB, #4684EF);
+                }
+
+                img {
+                    width: 0.7rem;
+                    height: 0.7rem;
+                }
+            }
+
+            .line {
+                height: 0.4rem;
+                color: #fff;
+                font-size: 0.24rem;
+                line-height: 0.4rem;
+                text-align: center;
+                width: calc(97% - 0.8rem);
+                box-sizing: border-box;
+                min-width: 1rem;
+                display: flex;
+                align-items: center;
+
+                .bigNumberSpan {
+                    font-family: 'BebasNeue';
+                    font-size: 0.32rem;
+                }
+            }
+
+            .lineLeft {
+                background-image: linear-gradient(to right, #FF4E3E, #FFAA88);
+                text-align: left;
+                padding-left: 0.35rem;
+                justify-content: flex-start;
+                position: relative;
+                left: -0.28rem;
+                top: -0.2rem;
+            }
+
+            .lineRight {
+                background-image: linear-gradient(to right, #6DCAFB, #4684EF);
+                text-align: right;
+                padding-right: 0.35rem;
+                justify-content: flex-end;
+                position: relative;
+                right: -0.28rem;
+                top: 0.2rem;
+            }
+        }
+
+        .activeTeam {
+            height: 1.4rem;
+            font-size: 0.24rem;
+            color: #fff;
+            background-image: linear-gradient(to right, #FF4E3E, #FFAA88);
+            border-radius: 10px;
+            padding: 0.2rem;
+            position: relative;
+
+            .teamName {
+                font-size: 0.32rem;
+                color: #fff;
+
+                img {
+                    width: 0.26rem;
+                    height: 0.2rem;
+                    float: right;
+                    position: relative;
+                    top: 0.1rem;
+                }
+            }
+
+            .resultPic {
+                width: 1rem;
+                position: absolute;
+                right: 1rem;
+                top: -0.25rem;
+            }
+        }
+
+        .powerTeam {
+            @extend .activeTeam;
+            background-image: linear-gradient(to right, #4684EF, #6DCAFB);
+
+        }
+
+        .loserTeam {
+            @extend .activeTeam;
+            background-image: none;
+            background-color: #aaa;
+        }
+
+        /* 多团队比赛的补充css */
+        .multiTeamBox {
+
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            padding: 0.3rem;
+
+            .haveSelf {
+                border: 1px solid rgba(85, 153, 221, 1);
+            }
+
+            .multiTeamDiv {
+                position: relative;
+                width: 49%;
+                font-size: 0.28rem;
+                line-height: 0.58rem;
+                text-align: center;
+                margin-top: 0.16rem;
+                box-sizing: border-box;
+                border-radius: 0.24rem;
+                background-color: $border_color;
+                padding: 0 0.2rem;
+                height: 2.64rem;
+
+                .resultBox {
+                    position: absolute;
+                    top: 0.5rem;
+                    width: calc(100% - 0.4rem);
+                    text-align: center;
+
+                    img {
+                        width: 1.2rem;
+                        position: relative;
+                        top: 0.1rem;
+                    }
+
+                }
+
+                .multiTeamTitle {
+                    font-size: 0.28rem;
+                    line-height: 0.76rem;
+                    text-align: left;
+                    position: relative;
+                    height: 0.76rem;
+                    box-sizing: border-box;
+
+                    .bigNumberSpan {
+                        font-family: "BebasNeue";
+                        font-size: 0.48rem;
+                    }
+                }
+
+                .multiTeamItem {
+                    border-top: 1px solid #12121F;
+                    text-align: left;
+                    line-height: 0.58rem;
+                    height: 0.58rem;
+                    font-size: 0.28rem;
+                    box-sizing: border-box;
+
+                    .bigNumberSpan {
+                        font-family: "BebasNeue";
+                        font-size: 0.36rem;
+                    }
+                }
+
+                .name {
+                    text-align: left;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
+
+                .selfName {
+                    color: rgba(85, 153, 221, 1);
+                    ;
+                }
+
+                .score {
+                    text-align: right;
+                }
+
+                .noTeam-div {
+                    position: absolute;
+                    top: 0.5rem;
+                    width: calc(100% - 0.4rem);
+                    text-align: center;
+
+                    .noTeamPic {
+                        width: 1.8rem;
+                    }
+                }
+
+
+            }
+        }
+
+    }
+
+    .btn_box {
+        text-align: center;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        z-index: 10;
+        display: flex;
+        justify-content: center;
+        padding: 0.66rem 0;
+        background-image: linear-gradient(to bottom, rgba(18, 18, 31, 0.1), rgba(18, 18, 31, 0.8));
+
+        .btn {
+            border: none;
+            color: #fff;
+            width: 6.3rem;
+            height: 0.88rem;
+            font-size: 0.4rem;
+            line-height: 0.88rem;
+            background-image: linear-gradient(to right, #FF4E3E, #FFAA88);
+            border-radius: 0.44rem;
+        }
+
+        .btn2 {
+            background-image: none;
+            background-color: #74747E;
+        }
+
+
+    }
+
+    .officialRulePopup {
+        padding: 0.3rem;
+        box-sizing: border-box;
+
+        .officalRule {
+            font-size: 0.28rem;
+            margin: 0;
+            padding: 0;
+            line-height: 0.4rem;
+        }
+
+        .van-popup__close-icon--top-right {
+            top: 0.16rem;
+            right: 0.16rem;
+        }
+    }
+
+    .shareBox {
+        text-align: center;
+        padding: 0.5rem 0.2rem 0.3rem 0.2rem;
+        background-color: #fff;
+        box-sizing: border-box;
+        margin-bottom: 0.2rem;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 3;
+
+        .headPic {
+            width: 1.4rem;
+            height: 1.4rem;
+            border-radius: 50%;
+            background-size: cover;
+            margin: 0 auto;
+            margin-top: 0.4rem;
+        }
+
+        .codeTitle {
+            font-size: 0.28rem;
+            color: #727272;
+            margin-top: 0.1rem;
+
+        }
+
+        .personalName {
+            @extend .codeTitle;
+        }
+
+        .competitionName {
+            font-size: 0.28rem;
+            color: #000;
+            margin-top: 0.2rem;
+        }
+
+        .invitationCode {
+            color: #333;
+            font-size: 0.4rem;
+            margin-top: 0.2rem;
+        }
+    }
+
+    /* 弹出框查看成绩 */
+    .multiTeamPopup {
+        overflow-y: inherit;
+        background-color: transparent;
+        top: 40%;
+
+        .scoreListBox {
+            background-image: url("../img/multiTeambg.png");
+            background-size: cover;
+            width: 5.9rem;
+            height: 10.6rem;
+            box-sizing: border-box;
+
+            .scoreListDiv {
+                padding-top: 3.5rem;
+                box-sizing: border-box;
+
+                .scoreItem {
+                    width: 120px;
+                    height: 120px;
+                }
+
+                .scoreBg {
+                    padding: 0 0.3rem;
+                }
+
+                .scoreListTile {
+                    font-size: 0.36rem;
+                    line-height: 0.7rem;
+                    text-align: center;
+                    color: #333;
+                }
+
+                .scoreListDetail {
+                    font-size: 0.24rem;
+                    color: #666;
+                    line-height: 0.7rem;
+                    text-align: center;
+                    margin: 0 0.15rem;
+                    border-bottom: 4px solid #F1E3CA;
+
+                    .name {
+                        text-align: left;
+                        font-size: 0.24rem;
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-start;
+
+                        .rank {
+                            width: 0.5rem;
+                            display: flex;
+                            align-items: center;
+
+                            img {
+                                width: 0.34rem;
+                            }
+                        }
+                    }
+
+                    .score {
+                        text-align: right;
+                    }
+
+                    .bigNumberSpan {
+                        font-family: "BebasNeue";
+                        font-size: 0.44rem;
+                        color: #FF5644;
+                    }
+                }
+
+                .scoreListItem {
+                    @extend .scoreListDetail;
+                    border-bottom: 1px solid #F1E3CA;
+
+                    .bigNumberSpan {
+                        color: #999;
+                    }
+
+                    .name {
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
+                }
+
+                .selfItem {
+                    .bigNumberSpan {
+                        color: #5599DD;
+                    }
+                }
+            }
+        }
+    }
+
+
+
+
+    .scoreListItemDiv {
+        height: 6rem;
+        overflow-y: auto;
+    }
+
+    .scoreListBox .scoreListDiv .scoreListItem {
+        font-size: 0.28rem;
+        color: #333;
+        line-height: 0.74rem;
+        text-align: center;
+        border-bottom: 1px solid rgba(184, 184, 187, 0.14);
+        padding: 0 0.35rem;
+    }
+
+    .multiTeamClose {
+        text-align: center;
+
+        img {
+            width: 0.6rem;
+            height: 0.6rem;
+        }
+    }
+
+
+
+
+}

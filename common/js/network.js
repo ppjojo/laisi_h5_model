@@ -408,6 +408,15 @@ var Interaction = {
       url: info.url,
     });
   },
+//H5调原生分享模板，链接分享模板，模板中又存在截图分享功能
+LSTH5APP_UrlAndSheetImageShareModel:function(info){
+	if (!info) return;
+    this.appNative("LSTH5APP_UrlAndSheetImageShareModel", {
+      shareTitle: info.title,
+      shareContent: info.description,
+      shareUrl: info.url,
+    });
+},
 
   //点击用户头像或者昵称，跳转到原生个人主页
   visitPersonalHomepage: function (userId) {

@@ -1,0 +1,313 @@
+* {
+    margin: 0;
+    padding: 0;
+    /* background: #f8f8f8; */
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: "BebasNeue";
+    src: url("../../common/font/BebasNeue/BebasNeue.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+.loading {
+    display: block;
+    position: fixed;
+    left: calc(50% - 0.195rem);
+    left: -webkit-calc(50% - 0.195rem);
+    left: -moz-calc(50% - 0.195rem);
+    top: calc(50% - 0.195rem);
+    top: -webkit-calc(50% - 0.195rem);
+    top: -moz-calc(50% - 0.195rem);
+    width: .39rem;
+    height: .39rem;
+}
+
+.nulldataDiv {
+    display: block;
+    position: fixed;
+    left: calc(35% - 0.195rem);
+    left: -webkit-calc(35% - 0.195rem);
+    left: -moz-calc(35% - 0.195rem);
+    top: calc(50% - 0.195rem);
+    top: -webkit-calc(50% - 0.195rem);
+    top: -moz-calc(50% - 0.195rem);
+
+    font-size: .3rem;
+    color: #fff;
+}
+
+.main_contaniner {
+    color: #333;
+    width: 100%;
+    height: 100vh;
+    background: #23B5F6;
+}
+
+.main_contaniner .flexDiv {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+/* background */
+.bg-green {
+    background-color: #01EA01
+}
+
+.bg-Lightblue {
+    background-color: #00EAEA
+}
+
+.bg-orange {
+    background-color: #FFE12F
+}
+
+.bg-purple {
+    background-color: #FF00FF
+}
+
+.bg-red {
+    background-color: #FF0000
+}
+
+.bg-gray {
+    background: #B3B8BB;
+}
+
+/* 超出省略显示 */
+.ellipsis {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+
+/* 空气等级,数据,时间 */
+.flexDiv .circle-bar {
+    margin-top: 5%;
+    width: 3.3rem;
+    height: 3.3rem;
+    border-radius: 50%;
+    z-index: 2;
+    background: #4FC4F7;
+    position: relative;
+}
+
+.circle-bar:after,
+.circle-bar:before {
+    content: '';
+    width: .14rem;
+    height: .14rem;
+    border-radius: 50%;
+    margin-left: -.07rem;
+    margin-top: -.07rem;
+    background: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 1;
+}
+
+.circle-bar:before {
+    z-index: 1;
+    transform: rotate(32deg) translate(0, 1.58rem);
+}
+
+.circle-bar:after {
+    z-index: 2;
+    transform: translate(0, 1.58rem);
+}
+
+
+
+/* 底部缺口区域 */
+.circle-bar .sector {
+    width: 3.3rem;
+    height: 3.3rem;
+    position: absolute;
+    clip: rect(0 3.3rem 3.3rem 1.65rem);
+    overflow: hidden;
+    transform: rotate(150deg);
+}
+
+.sector::after {
+    content: '';
+    width: 100%;
+    height: 100%;
+    background: #23B5F6;
+    position: absolute;
+    clip: rect(0 1.65rem 3.3rem 0);
+    transform: rotate(60deg);
+    border-radius: 50%;
+    border: 1px solid #23B5F6;
+}
+
+.sector::before {
+    content: '';
+    width: .14rem;
+    height: .14rem;
+    border-radius: 50%;
+    margin-left: -.07rem;
+    background: #4FC4F7;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    z-index: 1;
+}
+
+
+.circle-bar .infodata {
+    position: absolute;
+    top: 0.15rem;
+    right: 0.15rem;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background: #23B5F6;
+    color: #fff;
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: column;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+
+}
+.circle-bar .leveltxt {
+    width: 1rem;
+    height: 0.4rem;
+    border-radius: 0.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-size: .26rem;
+    position: absolute;
+    bottom: -3%;
+    left: 33.3%;
+    z-index: 5;
+
+}
+
+.infodata .time {
+    font-size: .2rem;
+}
+
+.infodata .bloddata {
+    font-size: 1.2rem;
+    font-family: 'BebasNeue';
+    margin: 8% 0 0 0;
+}
+
+.infodata .unit {
+    font-size: .28rem;
+    margin: 0;
+}
+
+
+
+
+
+/* 温度和湿度显示 */
+.main_contaniner .addDataShow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    width: 100%;
+}
+
+.addDataShow .item {
+    width: 50%;
+    text-align: center;
+}
+.addDataShow .item .num{
+    height: 1.2rem;
+}
+.num .data {
+    font-size: .56rem;
+    font-family: 'BebasNeue';
+}
+
+.num .unit {
+    font-size: .28rem;
+}
+
+.item .name {
+    font-size: .25rem;
+}
+
+
+
+/* 空气质量的PPM等级显示(notes) */
+.PPM_Notes {
+    width: 92%;
+    background: #FFF;
+    border-radius: 5px;
+}
+
+/* PM等级对比条 */
+.PPM_Notes .levelbar {
+    padding:0.5rem 0.3rem;
+    padding-bottom: 0.3rem;
+}
+
+.levelbar .levelindex {
+    margin: 0 auto;
+    width: 95%;
+    border-radius: 1.25rem;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.levelindex .levelbg {
+    width: 25%;
+    height: .138rem;
+}
+
+.levelbar .levelindex_p {
+    display: flex;
+}
+
+.levelindex_p .leveldata {
+    width: 19%;
+    font-size: .2rem;
+    color: #B3B8BB;
+    line-height: .5rem;
+}
+
+.PPM_Notes .levelnotes {
+    width: 100%;
+    color: #727272;
+    font-size: .32rem;
+
+}
+
+.levelnotes .notesItem {
+    padding: 0 0.3rem;
+    width: 100%;
+    display: flex;
+    margin-bottom: 0.5rem;
+    align-items: center;
+    justify-content: space-between;
+
+    border-top: 1px #f8f8f8 solid;
+}
+
+.notesItem .level-margin {
+    margin-right: .2rem;
+}
+
+.notesItem .ppm_left {
+    padding-left: .228rem;
+}

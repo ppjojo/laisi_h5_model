@@ -18,9 +18,11 @@
         },
         watch: {//使用watch 监听$router的变化
             $route(to, from) {
-                //如果to的索引值为0，不添加任何动画；如果to索引大于from索引,判断为前进状态,反之则为后退状态
-                 if(to.meta.index > 0){
-                   if(from.meta.index){
+                if(to.meta.index > 0){
+                   if(from.meta.index==0){
+                     this.transitionName = 'slide-left';
+                   }
+                   if(from.meta.index){//如果是分享的页面直接打开不需要效果
                      if( to.meta.index < from.meta.index){
                         this.transitionName = 'slide-right';
                     }else{
@@ -31,13 +33,6 @@
                 }else if(to.meta.index == 0 && from.meta.index > 0){
                     this.transitionName = 'slide-right';
                 }
-
-                //当然，如果你没有需要设置索引值为0的页面可以直接用着一段
-                // if( to.meta.index < from.meta.index){
-                //       this.transitionName = 'slide-right';
-                // }else{
-                //       this.transitionName = 'slide-left';
-                // }
             }
         }
     }
