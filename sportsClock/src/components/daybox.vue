@@ -9,7 +9,7 @@
 		props:{
 			light:{
 				type: Boolean,
-				default: () => true
+				default: () => false
 			}
 		},
         components: {

@@ -66,6 +66,7 @@ export default {
 				date: nowTime,
 				isToday: false,
 				otherMonth: 'preMonth',
+				timeStamp: new Date(nowTime).getTime()
 			});
 		}
 		return arr;
@@ -79,10 +80,11 @@ export default {
 		for (let i = 0; i < _length; i++) {
 			const nowTime = nextDate.getFullYear() + '/' + (nextDate.getMonth() + 1) + '/' + (i + 1);
 			arr.push({
-				id: (i + 1)<10?("0"+(i+1)):(i+1),
+				id: (i + 1) < 10 ? ("0" + (i + 1)) : (i + 1),
 				date: nowTime,
 				isToday: false,
 				otherMonth: 'nextMonth',
+				timeStamp: new Date(nowTime).getTime()
 			});
 		}
 		return arr;
@@ -103,14 +105,15 @@ export default {
 		const toDay = this.dateFormat(nowdate);
 		const nowYear = nowdate.getFullYear();
 		const nowMonth = nowdate.getMonth() + 1;
-		var isNowMonth = nowYear==year&&nowMonth ==month;
+		var isNowMonth = nowYear == year && nowMonth == month;
 		for (let i = 0; i < num; i++) {
 			const nowTime = year + '/' + month + '/' + (i + 1);
 			arr.push({
-				id: (i + 1)<10?("0"+(i+1)):(i+1),
+				id: (i + 1) < 10 ? ("0" + (i + 1)) : (i + 1),
 				date: nowTime,
 				isToday: toDay === nowTime,
-				otherMonth: isNowMonth?'nowMonth':'othermonth',
+				otherMonth: isNowMonth ? 'nowMonth' : 'othermonth',
+				timeStamp: new Date(nowTime).getTime()
 			});
 		}
 		return arr;
@@ -121,8 +124,8 @@ export default {
 	},
 	// 默认是周一开始
 	sundayStart: false,
-	getTimeStr(date,id){
-		var datetime =date;
+	getTimeStr(date, id) {
+		var datetime = date;
 		var year = datetime.getFullYear();
 		var month = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() + 1;
 		var date = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();
@@ -131,5 +134,27 @@ export default {
 		} else if (id == "ym") {
 			return year + "." + month;
 		}
-	}
+	},
+	formatSeconds(value) {
+		var secondTime = parseInt(value/1000); // 秒
+		var minuteTime = 0; // 分
+		var hourTime = 0; // 小时
+		if (secondTime >= 60) {
+			minuteTime = parseInt(secondTime / 60);
+			secondTime = parseInt(secondTime % 60);
+			if (minuteTime >= 60) {
+				hourTime = parseInt(minuteTime / 60);
+				minuteTime = parseInt(minuteTime % 60);
+			}
+		}
+		var result = "" + (parseInt(secondTime) < 10 ? "0" + parseInt(secondTime) : parseInt(secondTime));
+
+		// if (minuteTime > 0) {
+		result = "" + (parseInt(minuteTime) < 10 ? "0" + parseInt(minuteTime) : parseInt(minuteTime)) + ":" + result;
+		// }
+		// if (hourTime > 0) {
+		result = "" + (parseInt(hourTime) < 10 ? "0" + parseInt(hourTime) : parseInt(hourTime)) + ":" + result;
+		// }
+		return result;
+	},
 };

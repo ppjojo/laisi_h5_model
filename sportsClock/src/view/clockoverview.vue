@@ -21,54 +21,42 @@
 		<!-- 月度统计 -->
 		<div v-show="tabIndex==1">
 			<div class="calendaroutbox">
-				<nCalendar ref="calendar"></nCalendar>
+				<nCalendar ref="calendar" :showOnly="true"></nCalendar>
 			</div>
 			<!-- 进度条 -->
 			<div class="percent">
 				<div class="percentoutbox">
-					<div class="percentTip" :style="{left:'calc( '+50+'% - .35rem )'}">50%</div>
-					<div class="inside" :style="{width:'50%'}"></div>
+					<div class="percentTip" :style="{left:'calc( '+rate[0]+'% - .35rem )'}">{{rate[0]}}%</div>
+					<div class="inside" :style="{width:rate[0]+'%'}"></div>
 				</div>
 			</div>
 			<!-- 打卡目标 -->
 			<div class="target">
 				亲爱的爽歪歪～</br>
-				本月已经完成了 <span style="font-size: .3rem;">48</span> %的打卡目标，要继续加油哦！
+				本月已经完成了 <span style="font-size: .3rem;">{{rate[0]}}</span> %的打卡目标，要继续加油哦！
 			</div>
 			<!-- 完成程度 -->
 			<div class="ub ub-ac ub-pj finishList">
-				<div class="listItem">
-					<returnIcon></returnIcon>
-				</div>
-				<div class="listItem">
-					<returnIcon></returnIcon>
-				</div>
-				<div class="listItem">
-					<returnIcon></returnIcon>
+				<div class="listItem" v-for="(item,i) in monthObj">
+					<returnIcon :name="i" :taskNum="item"></returnIcon>
 				</div>
 			</div>
 		</div>
 		<!-- 年度统计 -->
 		<div v-show="tabIndex==2">
 			<div class="calendaroutbox">
-				<year ref="year"></year>
+				<year ref="year" :monthbar="yearDetail.checkTimeMap||{}"></year>
 			</div>
 			<!-- 打卡目标 -->
 			<div style="margin-top:.48rem;">
 				<div class="target">
 					亲爱的爽歪歪～</br>
-					你本年度填满了<span style="font-size: .3rem;">128</span>个方块，太棒啦！
+					你本年度填满了<span style="font-size: .3rem;">{{yearDetail.yearCount||0}}</span>个方块，太棒啦！
 				</div>
 				<!-- 完成程度 -->
 				<div class="ub ub-ac ub-pj finishList">
-					<div class="listItem">
-						<returnIcon></returnIcon>
-					</div>
-					<div class="listItem">
-						<returnIcon></returnIcon>
-					</div>
-					<div class="listItem">
-						<returnIcon></returnIcon>
+					<div class="listItem" v-for="(item,i) in yearObj">
+						<returnIcon :name="i" :taskNum="item"></returnIcon>
 					</div>
 				</div>
 			</div>
@@ -89,8 +77,7 @@
 	import year from '@c/year';
 	import returnIcon from '@c/returnIcon';
 	import {
-		listItem
-	} from '@a/test'
+	} from '@a/api'
 	import {
 		NavBar,
 		Icon,
@@ -98,7 +85,9 @@
 		Picker,
 		DatetimePicker,
 	} from 'vant';
-
+	import {
+		getMonthDeviceTotal,getYearDeviceTotal,getSportByYear
+	} from '@a/api'
 	export default {
 		components: {
 			[NavBar.name]: NavBar,
@@ -109,10 +98,6 @@
 			[DatetimePicker.name]: DatetimePicker,
 			[Picker.name]: Picker,
 			year
-			// [SwipeItem.name]: SwipeItem,
-			// [GoodsAction.name]: GoodsAction,
-			// [GoodsActionIcon.name]: GoodsActionIcon,
-			// [GoodsActionButton.name]: GoodsActionButton
 		},
 
 		data() {
@@ -120,25 +105,44 @@
 				minDate: new Date(2021, 0, 1),
 				maxDate: new Date(),
 				currentDate: new Date(),
+				checkTime:new Date().getTime(),
 				YMshow: false,
-				tabIndex: 2, //1月度2年度
-				columns: [2021, 2022],
+				tabIndex: 1, //1月度2年度
+				columns: [2021, 2022,2023],
 				sheetImageStatus: false,
+				monthObj:{},
+				yearObj:{},
+				rate:[0,0],//index0月1年
+				yearDetail:{},
 			};
 		},
 		filters: {},
 		mounted() {
 			window.sheetImageHideHeader = this.sheetImageHideHeader;
 			window.sheetImageshowHeader = this.sheetImageshowHeader;
-			this.getList()
+			this.getList(1);
+			this.getList(2);
 		},
 		created() {},
 		methods: {
-			getList() {
-				listItem().then(() => {
-					console.log("success")
-				}).catch(() => {
-					console.log("error")
+			getList(flag) {
+				if(flag==1){
+					this.monthAPI();
+				}else{
+					this.yearAPI();
+				}
+			},
+			monthAPI(){
+				getMonthDeviceTotal({checkTime:this.checkTime}).then(res=>{
+					this.monthObj = res.data;
+				})
+			},
+			yearAPI(){
+				getSportByYear({checkTime:this.checkTime}).then(res=>{
+					this.yearDetail = res.data;
+				})
+				getYearDeviceTotal({checkTime:this.checkTime}).then(res=>{
+					this.yearObj = res.data;
 				})
 			},
 			changeTab(index) { //点击切换tab
@@ -160,17 +164,27 @@
 				});
 
 			},
+			fatherSetMonthObj(obj,index){
+				this.rate[index] = obj.standardRate;
+			},
 			fatherPickYearMonth() { //子组件调用打开时间选择
 				this.YMshow = true;
 			},
 			pickConfirm(value) { //时间选择回调
 				this.$refs.calendar.getList(value)
 				this.$refs.calendar.dateTitleStr(value, 'ym')
+				this.checkTime = new Date(value).getTime()
+				this.getList(1);
 				this.YMshow = false;
 			},
 			onConfirmYear(value) { //选择年份确定
 				this.$refs.year.dateTitleStr2(value)
+				this.checkTime = new Date(value,0,1).getTime()
+				this.getList(2);
 				this.YMshow = false;
+			},
+			valRate(arr){//赋值进度
+				this.rate=arr;
 			},
 			formatter(type, val) {
 				if (type === 'year') {
