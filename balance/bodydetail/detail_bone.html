@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1,maximum-scale=1, minimum-scale=1">
+	<meta name = "format-detection" content = "telephone=no">
+	<title>骨量</title>
+	<script type="text/javascript">
+		document.documentElement.style.fontSize = document.documentElement.clientWidth / 6.4 + 'px';
+	</script>
+	<link rel="stylesheet" type="text/css" href="css/body_detail_item.css?t=20180713">
+</head>
+<body>
+	<!-- <div class="Menu">
+        <ul class="clearboth">
+            <li><a href="detail_weight.html">体重</a></li>
+            <li><a href="detail_bmi.html">BMI</a></li>
+            <li><a href="detail_bodyage.html">身体年龄</a></li>
+            <li><a href="detail_bodyfat.html">体脂</a></li>
+            <li><a href="detail_sharp.html">体型</a></li>
+            <li><a href="detail_muscle.html">肌肉</a></li>
+            <li class="cur"><a href="#">骨量</a></li>
+            <li><a href="detail_water.html">水分</a></li>
+            <li><a href="detail_viscera.html">内脏脂肪等级</a></li>
+            <li><a href="detail_kcal.html">基础代谢</a></li>
+            <li><a href="detail_protein.html">蛋白质</a></li>
+            <li><a href="detail_score.html">身体得分</a></li>
+        </ul>
+    </div> -->
+	<div class="banner banner_bone">
+		<div class="content">
+			<div class="banner_text">
+				<!-- <span class="type">骨量</span><br /> -->
+				<div class="circleborder">
+					<div><span class="number" id="number"></span>
+					<span class="unit">kg</span><br /></div>
+					
+				</div>
+				<span class="index"></span>
+			</div>
+		</div>
+	</div>
+
+	<div class='boxlist'>
+		<div class="box box-top">
+			<div class="ruler ruler-g2">
+				<span id="index01"></span>
+			</div>
+			<div class="lines lines-g2">
+				<div class="scale"></div>
+				<span class="bg-green02"></span>
+				<span class="bg-green"></span>
+			</div>
+			<div class="text text-g2">
+				<span>偏低</span>
+				<span>标准</span>
+			</div>
+			<p class="text02">骨含量标准，骨量代表骨骼的健康状况，在适当补充钙的前提下，早睡早起，促进骨骼发育和重塑。</p>
+		</div>
+		<div class="box box-bottom">
+			<div class="title"><img src="images/icon_advice.png"><p>小建议</p></div>
+			<div class="list">
+				<!-- <img src="images/icon_eat.png"> -->
+				<p>饮食建议</p>
+			</div>
+			<p id="dietaryAdvice"></p>
+			<div class="list">
+				<!-- <img src="images/icon_exercise.png"> -->
+				<p>运动建议</p>
+			</div>
+			<p id="sportAdvice"></p>
+		</div>
+		<div class="box">
+			<div class="title"><img src="images/icon_standard.png"><p>骨量参考标准</p></div>
+			<p id="definition"></p>
+			<p class="standard_table"><img src="images/item_form_bone.png"></p>
+		</div>
+	</div>
+	
+	
+	<script src="../common/js/jquery-1.10.1.min.js"></script>
+	<script src="js/main.js"></script>
+	<script src="js/body_detail_item.js" type="text/javascript"></script>
+	<script src="../../common/js/network.js"></script>
+	<script type="text/javascript">
+		
+		
+		ajax({
+			type: "get",
+			url:getQueryString('deviceType')=='blebalance'?"bleBalance/h5/data/body/detail/accredited/msw" :"balance/h5/data/body/detail/accredited/msw",
+			data: {
+				memberId : getQueryString("memberId"),
+				measureId : getQueryString("measureId"),
+			},
+			success: function(res) {
+				if (res.code == 0) {
+					setData(res)
+				}
+			},
+			error: function(err) {
+				console.log("error")
+			}
+		})
+		
+		function setData(data){
+			var data = data.data;
+			console.log(data);
+			var number = parseFloat(data["msw"]);
+			var index01 = data["range"][0];
+			var index_min = 1, index_max = 4;
+			if(number<index_min) number=index_min;
+			if(number>index_max) number=index_max;
+			var percent;
+			
+			$("#number").html(data["msw"]);
+			$("#index01").html(index01);
+			$("#index").html(data["mswType"]);
+			$(".text02").html(data["description"]);
+			$("#dietaryAdvice").html(data["dietaryAdvice"]);
+			$("#sportAdvice").html(data["sportAdvice"]);
+			$("#definition").html(data["definition"]);
+	
+			if(number<index01){
+				percent = body.calcPercent(index_min,index01,2,46,number);
+				$(".scale").addClass("bg-green02").css("left",percent+"%").fadeIn();
+				$(".index").html("偏低");
+			}else{
+				percent = body.calcPercent(index01,index_max,52,96,number);
+				$(".scale").addClass("bg-green").css("left",percent+"%").fadeIn();
+				$(".index").html("标准");
+			}
+		}
+	</script>
+</body>
+</html>

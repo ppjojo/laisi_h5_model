@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1,maximum-scale=1, minimum-scale=1">
+	<meta name="format-detection" content="telephone=no">
+	<title>体脂</title>
+	<link rel="stylesheet" href="css/index.css">
+</head>
+
+<body>
+	<div class="itemContain" id="app" v-cloak>
+		<div class="topBg">
+			<div class="numBox">
+				<div>
+					<div class="num">{{bodyData.bodyFat}}</div>
+					<!-- <div class="dw">kg</div> -->
+				</div>
+			</div>
+			<div class="numInfo">
+				{{bodyData.bodyFatType}}
+			</div>
+		</div>
+		<div class="itemContent">
+			<div class="lineBox">
+				<div class="lineNum">
+					<div>{{bodyData.range[0]}}</div>
+					<div>{{bodyData.range[1]}}</div>
+					<div>{{bodyData.range[2]}}</div>
+					<div></div>
+				</div>
+				<div class="line">
+					<div class="bg-green"></div>
+					<div class="bg-green02"></div>
+					<div class="bg-yellow"></div>
+					<div class="bg-orange rightDiv"></div>
+					<span class="point" :style="{'left':leftNum+'%'}"></span>
+				</div>
+				<div class="lineInfo">
+					<div>偏瘦</div>
+					<div>标准</div>
+					<div>偏胖</div>
+					<div>肥胖</div>
+				</div>
+				<div class="detailInfo">
+					{{bodyData.description}}
+				</div>
+			</div>
+
+			<div class="imgBox">
+				<div class="title"><img src="img/icon_advice.png">小建议</div>
+				<div class="info">
+					<p>饮食建议</p>
+					<div>{{bodyData.dietaryAdvice}}</div>
+					<p>运动建议</p>
+					<div>{{bodyData.sportAdvice}}</div>
+				</div>
+			</div>
+			<div class="imgBox">
+				<div class="title"><img src="img/icon_standard.png">体脂参考标准</div>
+				<div class="info">
+					{{bodyData.definition}}
+				</div>
+				<div class="standard_table"><img src="images/item_form_bodyfat.png"></div>
+			</div>
+		</div>
+	</div>
+	<script src="../../common/js/network.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+	<script>
+		new Vue({
+			el: '#app',
+			data() {
+				return {
+					memberId: getQueryString("memberId"), //成员id
+					measureId: getQueryString("measureId"), //数据id
+					deviceType: getQueryString("deviceType"), //设备类型 区分是不是非智能体脂秤
+					bodyData: {},
+					leftNum: 0,
+				};
+			},
+			created() {
+				this.initData();
+			},
+			methods: {
+
+				initData() {
+					var that = this
+					ajax({
+						type: "get",
+						url: getQueryString('deviceType') == 'blebalance' ?
+							"bleBalance/h5/data/body/detail/accredited/bodyBfr" :
+							"balance/h5/data/body/detail/accredited/bodyBfr",
+						data: {
+							memberId: this.memberId,
+							measureId: this.measureId,
+						},
+						success: function (res) {
+							if (res.code == 0) {
+								that.bodyData = res.data;
+								var number = res.data.bmi;
+								var index01 = res.data.range[0];
+								var index02 = res.data.range[1];
+								var index03 = res.data.range[2];
+								if (number < index01) {
+									that.leftNum = ((number - 10) / (index01 - 10)) * 25
+								} else if (number < index02) {
+									that.leftNum = ((number - index01) / (index02 - index01)) * 25 + 25
+								} else if (number < index03) {
+									that.leftNum = ((number - index02) / (index03 - index02)) * 25 + 50
+								} else {
+									that.leftNum = ((number - index03) / (35 - index03)) * 25 + 75
+								}
+								if (that.leftNum < 0) {
+									that.leftNum = 0
+								} else if (that.leftNum > 98) {
+									that.leftNum = 98
+								}
+							}
+						},
+						error: function (err) {
+							console.log("error")
+						}
+					})
+				},
+			}
+		})
+	</script>
+</body>
+</html>

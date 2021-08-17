@@ -1,0 +1,613 @@
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+[v-cloak] {
+  display: none !important;
+}
+
+body {
+  background-color: #12121f;
+  color: #cfcfd2;
+  font-size: 0.24rem;
+}
+
+@font-face {
+  font-family: "BebasNeue";
+  src: url("../../../common/font/BebasNeue/BebasNeue.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.bg-blue {
+  background-image: -webkit-gradient(linear, left top, right top, from(#188DFF), to(#7DB3FF));
+  background-image: linear-gradient(to right, #188DFF, #7DB3FF);
+}
+
+.bg-green {
+  background-image: -webkit-gradient(linear, left top, right top, from(#3AD266), to(#8ED2B0));
+  background-image: linear-gradient(to right, #3AD266, #8ED2B0);
+}
+
+.bg-yellow {
+  background-image: -webkit-gradient(linear, left top, right top, from(#FDBF39), to(#FFE5AE));
+  background-image: linear-gradient(to right, #FDBF39, #FFE5AE);
+}
+
+.bg-orange {
+  background-image: -webkit-gradient(linear, left top, right top, from(#FE9556), to(#FFB487));
+  background-image: linear-gradient(to right, #FE9556, #FFB487);
+}
+
+.bg-red {
+  background-image: -webkit-gradient(linear, left top, right top, from(#FF4E3E), to(#FFAA88));
+  background-image: linear-gradient(to right, #FF4E3E, #FFAA88);
+}
+
+.bg-gray {
+  background-image: -webkit-gradient(linear, left top, right top, from(#A3A1A1), to(#d1d1d1));
+  background-image: linear-gradient(to right, #A3A1A1, #d1d1d1);
+}
+
+.txt-blue {
+  color: #1DC6DA;
+}
+
+.txt-green {
+  color: #2ECD70;
+}
+
+.txt-yellow {
+  color: #FDBF39;
+}
+
+.txt-orange {
+  color: #FE9556;
+}
+
+.txt-red {
+  color: #EF7161;
+}
+
+.txt-gray {
+  color: #d1d1d1;
+}
+
+.topContain {
+  height: 6.22rem;
+  background-image: url(../img/mainBg.png);
+  background-size: cover;
+  color: #fff;
+  position: relative;
+}
+
+.topContain .scoreBox {
+  position: absolute;
+  top: 2rem;
+  left: 1.02rem;
+}
+
+.topContain .scoreBox .scoreDiv {
+  font-family: "BebasNeue";
+  font-size: 1.08rem;
+  line-height: 1.3rem;
+}
+
+.topContain .scoreBox .scoreInfo {
+  background-color: #75CAD2;
+  width: 1.26rem;
+  height: 0.56rem;
+  line-height: 0.56rem;
+  border-radius: 4px;
+  font-size: 0.24rem;
+  text-align: center;
+}
+
+.topContain .scoreBox .scoreTime {
+  font-size: 0.24rem;
+  line-height: 0.6rem;
+}
+
+.contain {
+  position: relative;
+  top: -1.5rem;
+  padding: 0 0.24rem;
+}
+
+.contain .basicContain .basicBox {
+  background-color: #1e1e2a;
+  width: 100%;
+  padding: 0.4rem;
+  border-radius: 0.24rem;
+}
+
+.contain .basicContain .basicBox .infoBox {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.contain .basicContain .basicBox .infoBox .text {
+  line-height: 0.4rem;
+}
+
+.contain .basicContain .basicBox .infoBox .text .imgBox {
+  width: 3.7rem;
+  height: 0.7rem;
+  float: right;
+}
+
+.contain .basicContain .basicBox .infoBox .people {
+  position: absolute;
+  top: -3rem;
+  right: 0;
+}
+
+.contain .basicContain .basicBox .infoBox .people img {
+  width: 3.7rem;
+}
+
+.contain .basicContain .basicBox .detailBox {
+  margin-top: 0.5rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.contain .basicContain .basicBox .detailBox .detailDiv {
+  width: 1.2rem;
+  text-align: center;
+}
+
+.contain .basicContain .basicBox .detailBox .detailDiv .num {
+  font-family: "BebasNeue";
+  font-size: 0.56rem;
+}
+
+.contain .basicContain .basicBox .detailBox .detailDiv .numInfo {
+  line-height: 0.5rem;
+  margin-bottom: 0.2rem;
+}
+
+.contain .basicContain .basicBox .detailBox .detailDiv .numStatus {
+  color: #fff;
+  width: 1.16rem;
+  height: 0.48rem;
+  text-align: center;
+  line-height: 0.48rem;
+  border-radius: 0.24rem;
+}
+
+.contain .listContain {
+  border-radius: 0.24rem;
+  margin-top: 0.24rem;
+  background-color: #1e1e2a;
+  padding: 0 0.24rem;
+  font-size: 0.28rem;
+}
+
+.contain .listContain .itemBox {
+  height: 1.28rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  border-bottom: 1px solid #12121f;
+}
+
+.contain .listContain .itemBox .itemName {
+  width: 35%;
+}
+
+.contain .listContain .itemBox .itemStatus {
+  width: 20%;
+  text-align: center;
+}
+
+.contain .listContain .itemBox .itemNum {
+  width: 35%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.contain .listContain .itemBox .itemNum img {
+  width: 0.2rem;
+}
+
+.contain .listContain .itemBox .itemNum .bodyimg {
+  height: 0.7rem;
+  width: auto;
+}
+
+.contain .bodyContain {
+  border-radius: 0.24rem;
+  margin-top: 0.24rem;
+  background-color: #1e1e2a;
+  padding: 0.24rem;
+  text-align: center;
+}
+
+.contain .bodyContain .title {
+  font-size: 0.28rem;
+  text-align: left;
+  line-height: 0.5rem;
+}
+
+.contain .bodyContain .bodyBox {
+  position: relative;
+  margin: auto;
+  margin-top: 0.5rem;
+  width: 3rem;
+}
+
+.contain .bodyContain .bodyBox .bodyImg {
+  width: 3rem;
+}
+
+.contain .bodyContain .bodyBox .leftHand, .contain .bodyContain .bodyBox .rightHand, .contain .bodyContain .bodyBox .leftfoot, .contain .bodyContain .bodyBox .rightfoot, .contain .bodyContain .bodyBox .mainBody {
+  position: absolute;
+  top: 1.2rem;
+  left: -1rem;
+}
+
+.contain .bodyContain .bodyBox .leftHand .partTitle, .contain .bodyContain .bodyBox .rightHand .partTitle, .contain .bodyContain .bodyBox .leftfoot .partTitle, .contain .bodyContain .bodyBox .rightfoot .partTitle, .contain .bodyContain .bodyBox .mainBody .partTitle {
+  font-size: 0.24rem;
+  text-align: right;
+}
+
+.contain .bodyContain .bodyBox .leftHand .jr, .contain .bodyContain .bodyBox .rightHand .jr, .contain .bodyContain .bodyBox .leftfoot .jr, .contain .bodyContain .bodyBox .rightfoot .jr, .contain .bodyContain .bodyBox .mainBody .jr, .contain .bodyContain .bodyBox .leftHand .zf, .contain .bodyContain .bodyBox .rightHand .zf, .contain .bodyContain .bodyBox .leftfoot .zf, .contain .bodyContain .bodyBox .rightfoot .zf, .contain .bodyContain .bodyBox .mainBody .zf {
+  color: #fff;
+  height: 0.48rem;
+  padding: 0 0.1rem;
+  line-height: 0.48rem;
+  background-color: #18CBFC;
+  text-align: center;
+  min-width: 0.9rem;
+  border-radius: 0.24rem;
+  margin-top: 0.1rem;
+}
+
+.contain .bodyContain .bodyBox .leftHand .zf, .contain .bodyContain .bodyBox .rightHand .zf, .contain .bodyContain .bodyBox .leftfoot .zf, .contain .bodyContain .bodyBox .rightfoot .zf, .contain .bodyContain .bodyBox .mainBody .zf {
+  background-color: #3A96FF;
+}
+
+.contain .bodyContain .bodyBox .rightHand {
+  left: auto;
+  right: -1rem;
+  top: 1.8rem;
+}
+
+.contain .bodyContain .bodyBox .rightHand .partTitle {
+  text-align: left;
+}
+
+.contain .bodyContain .bodyBox .leftfoot {
+  left: -1rem;
+  bottom: 0;
+  top: auto;
+}
+
+.contain .bodyContain .bodyBox .leftfoot .partTitle {
+  text-align: right;
+}
+
+.contain .bodyContain .bodyBox .rightfoot {
+  left: auto;
+  right: -1rem;
+  bottom: 0;
+  top: auto;
+}
+
+.contain .bodyContain .bodyBox .rightfoot .partTitle {
+  text-align: left;
+}
+
+.contain .bodyContain .bodyBox .mainBody {
+  left: auto;
+  right: -1rem;
+  top: 0rem;
+}
+
+.contain .bodyContain .bodyBox .mainBody .partTitle {
+  text-align: left;
+}
+
+.contain .bodyContain .pointInfo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin: 0.5rem 0;
+}
+
+.contain .bodyContain .pointInfo .pointBox {
+  margin-right: 0.5rem;
+  color: #fff;
+}
+
+.contain .bodyContain .pointInfo .pointBox .span1, .contain .bodyContain .pointInfo .pointBox .span2 {
+  width: 6px;
+  height: 6px;
+  display: inline-block;
+  border-radius: 50%;
+  background-color: #18CBFC;
+  margin-right: 0.15rem;
+}
+
+.contain .bodyContain .pointInfo .pointBox .span2 {
+  background-color: #3A96FF;
+}
+
+.contain .copyright {
+  padding: 0.2rem 0.5rem;
+  color: #71717f;
+}
+
+.itemContain .bg-green {
+  background-image: none;
+  background: #84FF84;
+}
+
+.itemContain .bg-green02 {
+  background-image: none;
+  background: #16D216;
+}
+
+.itemContain .bg-green03 {
+  background-image: none;
+  background: #56f593;
+}
+
+.itemContain .bg-yellow {
+  background-image: none;
+  background: #FFD200;
+}
+
+.itemContain .bg-orange {
+  background-image: none;
+  background: #FF9000;
+}
+
+.itemContain .bg-blue {
+  background-image: none;
+  background: #1DC6DA;
+}
+
+.itemContain .bg-orange2 {
+  background-image: none;
+  background: #FFa400;
+}
+
+.itemContain .bg-red {
+  background-image: none;
+  background: #EF7161;
+}
+
+.itemContain .bg-red2 {
+  background-image: none;
+  background: #FF3C00;
+}
+
+.itemContain .bg-gray {
+  background-image: none;
+  background: #d1d1d1;
+}
+
+.itemContain .topBg {
+  height: 6rem;
+  background-image: url(../img/itemBg.png);
+  background-size: cover;
+  color: #fff;
+  position: relative;
+  text-align: center;
+  padding-top: 1rem;
+}
+
+.itemContain .topBg .numBox {
+  width: 2.1rem;
+  height: 2.1rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  margin: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.itemContain .topBg .numBox .num {
+  font-size: 0.88rem;
+  font-family: "BebasNeue";
+  text-align: center;
+}
+
+.itemContain .topBg .numBox .dw {
+  line-height: 0.4rem;
+  text-align: center;
+}
+
+.itemContain .topBg .numInfo {
+  margin-top: 0.24rem;
+  border: 1px solid white;
+  height: 24px;
+  line-height: 24px;
+  border-radius: 0.24rem;
+  text-align: center;
+  padding: 0 0.15rem;
+  display: inline-block;
+  min-width: 1.16rem;
+}
+
+.itemContain .itemContent {
+  position: relative;
+  top: -1.5rem;
+  padding: 0 0.24rem;
+}
+
+.itemContain .itemContent .lineBox {
+  background-color: #1e1e2a;
+  width: 100%;
+  padding: 0.4rem 0.24rem;
+  border-radius: 0.24rem;
+  color: #71717f;
+}
+
+.itemContain .itemContent .lineBox .lineNum {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.itemContain .itemContent .lineBox .lineNum div {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  text-align: right;
+  line-height: 0.5rem;
+}
+
+.itemContain .itemContent .lineBox .line {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  position: relative;
+}
+
+.itemContain .itemContent .lineBox .line .point {
+  position: absolute;
+  left: 0;
+  width: 0.3rem;
+  height: 0.3rem;
+  border: 3px solid #2E80F3;
+  border-radius: 50%;
+  background: #fff;
+  -webkit-box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+          box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+}
+
+.itemContain .itemContent .lineBox .line div {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  height: 0.12rem;
+}
+
+.itemContain .itemContent .lineBox .line div:first-child {
+  border-radius: 0.06rem 0 0 0.06rem;
+}
+
+.itemContain .itemContent .lineBox .line .rightDiv {
+  border-radius: 0 0.06rem 0.06rem 0;
+}
+
+.itemContain .itemContent .lineBox .lineInfo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.itemContain .itemContent .lineBox .lineInfo div {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  text-align: center;
+  line-height: 0.5rem;
+}
+
+.itemContain .itemContent .lineBox .detailInfo {
+  line-height: 0.4rem;
+  color: #cfcfd2;
+}
+
+.itemContain .itemContent .imgBox {
+  margin-top: 0.24rem;
+  background-color: #1e1e2a;
+  width: 100%;
+  padding: 0.4rem 0.24rem;
+  border-radius: 0.24rem;
+}
+
+.itemContain .itemContent .imgBox .title {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 0.28rem;
+  margin-bottom: 0.24rem;
+}
+
+.itemContain .itemContent .imgBox .title img {
+  width: 0.4rem;
+  margin-right: 0.1rem;
+}
+
+.itemContain .itemContent .imgBox .info {
+  line-height: 0.4rem;
+}
+
+.itemContain .itemContent .imgBox .standard_table {
+  margin-top: 0.24rem;
+}
+
+.itemContain .itemContent .imgBox .standard_table img {
+  width: 100%;
+}
+/*# sourceMappingURL=index.css.map */

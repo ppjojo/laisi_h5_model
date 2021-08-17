@@ -1,0 +1,559 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+[v-cloak] {
+    display: none !important;
+}
+
+body {
+    background-color: #12121f;
+    color: #cfcfd2;
+    font-size: 0.24rem;
+}
+
+@font-face {
+    font-family: "BebasNeue";
+    src: url("../../../common/font/BebasNeue/BebasNeue.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+.bg-blue {
+    background-image: linear-gradient(to right, #188DFF, #7DB3FF);
+}
+
+.bg-green {
+    background-image: linear-gradient(to right, #3AD266, #8ED2B0);
+}
+
+.bg-yellow {
+    background-image: linear-gradient(to right, #FDBF39, #FFE5AE);
+}
+
+.bg-orange {
+    background-image: linear-gradient(to right, #FE9556, #FFB487);
+}
+
+.bg-red {
+    background-image: linear-gradient(to right, #FF4E3E, #FFAA88);
+}
+
+.bg-gray {
+    background-image: linear-gradient(to right, #A3A1A1, #d1d1d1);
+}
+
+.txt-blue {
+    color: #1DC6DA;
+}
+
+.txt-green {
+    color: #2ECD70;
+}
+
+.txt-yellow {
+    color: #FDBF39;
+}
+
+.txt-orange {
+    color: #FE9556;
+}
+
+.txt-red {
+    color: #EF7161;
+}
+
+.txt-gray {
+    color: #d1d1d1;
+}
+
+
+
+.topContain {
+    height: 6.22rem;
+    background-image: url(../img/mainBg.png);
+    background-size: cover;
+    color: #fff;
+    position: relative;
+
+    .scoreBox {
+        position: absolute;
+        top: 2rem;
+        left: 1.02rem;
+
+        .scoreDiv {
+            font-family: "BebasNeue";
+            font-size: 1.08rem;
+            line-height: 1.3rem;
+        }
+
+        .scoreInfo {
+            background-color: #75CAD2;
+            width: 1.26rem;
+            height: 0.56rem;
+            line-height: 0.56rem;
+            border-radius: 4px;
+            font-size: 0.24rem;
+            text-align: center;
+        }
+
+        .scoreTime {
+            font-size: 0.24rem;
+            line-height: 0.6rem;
+        }
+    }
+
+}
+
+.contain {
+    position: relative;
+    top: -1.5rem;
+    padding: 0 0.24rem;
+
+    .basicContain {
+        .basicBox {
+            background-color: #1e1e2a;
+            width: 100%;
+            padding: 0.4rem;
+            border-radius: 0.24rem;
+
+            .infoBox {
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                .text {
+                    // width: 2rem;
+                    line-height: 0.4rem;
+
+                    .imgBox {
+                        width: 3.7rem;
+                        height: 0.7rem;
+                        float: right;
+                    }
+                }
+
+                .people {
+                    position: absolute;
+                    top: -3rem;
+                    right: 0;
+
+                    img {
+                        width: 3.7rem;
+
+                    }
+                }
+            }
+
+            .detailBox {
+                margin-top: 0.5rem;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                .detailDiv {
+                    width: 1.2rem;
+                    text-align: center;
+
+                    .num {
+                        font-family: "BebasNeue";
+                        font-size: 0.56rem;
+                    }
+
+                    .numInfo {
+                        line-height: 0.5rem;
+                        margin-bottom: 0.2rem;
+                    }
+
+                    .numStatus {
+                        color: #fff;
+                        width: 1.16rem;
+                        height: 0.48rem;
+                        text-align: center;
+                        line-height: 0.48rem;
+                        border-radius: 0.24rem;
+                    }
+                }
+            }
+        }
+    }
+
+    .listContain {
+        border-radius: 0.24rem;
+        margin-top: 0.24rem;
+        background-color: #1e1e2a;
+        padding: 0 0.24rem;
+        font-size: 0.28rem;
+
+        .itemBox {
+            height: 1.28rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #12121f;
+
+            .itemName {
+                width: 35%;
+            }
+
+            .itemStatus {
+                width: 20%;
+                text-align: center;
+            }
+
+            .itemNum {
+
+                width: 35%;
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+
+                img {
+                    width: 0.2rem;
+                }
+
+                .bodyimg {
+                    height: 0.7rem;
+                    width: auto;
+                }
+            }
+        }
+    }
+
+    .bodyContain {
+        border-radius: 0.24rem;
+        margin-top: 0.24rem;
+        background-color: #1e1e2a;
+        padding: 0.24rem;
+        text-align: center;
+
+        .title {
+            font-size: 0.28rem;
+            text-align: left;
+            line-height: 0.5rem;
+        }
+
+        .bodyBox {
+            position: relative;
+            margin: auto;
+            margin-top: 0.5rem;
+            width: 3rem;
+
+            .bodyImg {
+                width: 3rem;
+            }
+
+            .leftHand {
+                position: absolute;
+                top: 1.2rem;
+                left: -1rem;
+
+                .partTitle {
+                    font-size: 0.24rem;
+                    text-align: right;
+                }
+
+                .jr {
+                    color: #fff;
+                    height: 0.48rem;
+                    padding: 0 0.1rem;
+                    line-height: 0.48rem;
+                    background-color: #18CBFC;
+                    text-align: center;
+                    min-width: 0.9rem;
+                    border-radius: 0.24rem;
+                    margin-top: 0.1rem
+                }
+
+                .zf {
+                    @extend .jr;
+                    background-color: #3A96FF;
+                }
+            }
+
+            .rightHand {
+                @extend .leftHand;
+
+                .partTitle {
+                    text-align: left;
+                }
+
+                left: auto;
+                right: -1rem;
+                top: 1.8rem;
+            }
+
+            .leftfoot {
+                @extend .leftHand;
+
+                .partTitle {
+                    text-align: right;
+                }
+
+                left: -1rem;
+                bottom: 0;
+                top: auto;
+            }
+
+            .rightfoot {
+                @extend .leftHand;
+
+                .partTitle {
+                    text-align: left;
+                }
+
+                left: auto;
+                right: -1rem;
+                bottom: 0;
+                top: auto;
+            }
+
+            .mainBody {
+                @extend .leftHand;
+
+                .partTitle {
+                    text-align: left;
+                }
+
+                left: auto;
+                right: -1rem;
+                top: 0rem;
+            }
+        }
+
+        .pointInfo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0.5rem 0;
+
+            .pointBox {
+                margin-right: 0.5rem;
+                color: #fff;
+
+                .span1 {
+                    width: 6px;
+                    height: 6px;
+                    display: inline-block;
+                    border-radius: 50%;
+                    background-color: #18CBFC;
+                    margin-right: 0.15rem
+                }
+
+                .span2 {
+                    @extend .span1;
+                    background-color: #3A96FF;
+                }
+            }
+        }
+
+    }
+
+    .copyright {
+        padding: 0.2rem 0.5rem;
+        color: #71717f;
+    }
+}
+
+
+//详情页
+.itemContain {
+    .bg-green {
+        background-image: none;
+        background: #84FF84;
+    }
+
+    .bg-green02 {
+        background-image: none;
+        background: #16D216;
+    }
+
+    .bg-green03 {
+        background-image: none;
+        background: #56f593;
+    }
+
+    .bg-yellow {
+        background-image: none;
+        background: #FFD200;
+    }
+
+    .bg-orange {
+        background-image: none;
+        background: #FF9000;
+    }
+
+
+
+    .bg-blue {
+        background-image: none;
+        background: #1DC6DA;
+    }
+
+    .bg-orange2 {
+        background-image: none;
+        background: #FFa400;
+    }
+
+    .bg-red {
+        background-image: none;
+        background: #EF7161;
+    }
+
+    .bg-red2 {
+        background-image: none;
+        background: #FF3C00;
+    }
+
+    .bg-gray {
+        background-image: none;
+        background: #d1d1d1;
+    }
+
+    .topBg {
+        height: 6rem;
+        background-image: url(../img/itemBg.png);
+        background-size: cover;
+        color: #fff;
+        position: relative;
+        text-align: center;
+        padding-top: 1rem;
+
+        .numBox {
+
+            width: 2.1rem;
+            height: 2.1rem;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .num {
+                font-size: 0.88rem;
+                font-family: "BebasNeue";
+                text-align: center;
+            }
+
+            .dw {
+                line-height: 0.4rem;
+                text-align: center;
+            }
+        }
+
+        .numInfo {
+            margin-top: 0.24rem;
+            border: 1px solid rgba(255, 255, 255, 1);
+            height: 24px;
+            line-height: 24px;
+            border-radius: 0.24rem;
+            text-align: center;
+            padding: 0 0.15rem;
+            display: inline-block;
+            min-width: 1.16rem
+        }
+    }
+
+    .itemContent {
+        position: relative;
+        top: -1.5rem;
+        padding: 0 0.24rem;
+        .lineBox {
+            background-color: #1e1e2a;
+            width: 100%;
+            padding: 0.4rem 0.24rem;
+            border-radius: 0.24rem;
+            color: #71717f;
+
+            .lineNum {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                div{
+                    flex-grow:1;
+                    text-align: right;
+                    line-height: 0.5rem;
+                }
+            }
+    
+            .line {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                position: relative;
+                .point{
+                    position: absolute;
+                    // top: 0;
+                    left: 0;
+                    width: 0.3rem;
+                    height: 0.3rem;
+                    border: 3px solid #2E80F3;
+                    border-radius: 50%;
+                    background: #fff;
+                    box-shadow: 1px 1px 5px rgba(0,0 ,0, 0.3);
+                }
+                div{
+                    flex-grow:1;
+                    height: 0.12rem;
+                    &:first-child{
+                        border-radius: 0.06rem 0 0 0.06rem;
+                    }
+                    
+                }
+                .rightDiv{
+                    border-radius: 0 0.06rem 0.06rem 0;
+                }
+                
+            }
+    
+            .lineInfo {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                div{
+                    flex-grow:1;
+                    text-align: center;
+                    line-height: 0.5rem;
+                }
+            }
+            .detailInfo{
+                line-height: 0.4rem;
+                color: #cfcfd2;
+            }
+        }
+
+        
+        .imgBox{
+            margin-top: 0.24rem;
+            background-color: #1e1e2a;
+            width: 100%;
+            padding: 0.4rem 0.24rem;
+            border-radius: 0.24rem;
+            .title{
+                display: flex;
+                align-items: center;
+                font-size: 0.28rem;
+                margin-bottom: 0.24rem;
+                img{
+                    width: 0.4rem;
+                    margin-right: 0.1rem;
+                }
+            }
+            .info{
+                line-height: 0.4rem;
+            }
+            .standard_table{
+                margin-top: 0.24rem;
+                img{
+                    width: 100%;
+                }
+            }
+        }
+    }
+
+    
+}

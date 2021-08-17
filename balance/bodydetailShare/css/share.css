@@ -1,0 +1,330 @@
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    margin:0;
+    padding: 0;
+}
+
+@font-face {
+    font-family: 'PingFang';
+    src: url('PingFangRegular.ttf'); 
+ } 
+
+body,html{
+    background-color: #f8f8f8;
+    font-family: 'PingFang';
+}
+
+.loading{
+	display: block;
+	position: fixed;
+	left: calc(50% - 0.195rem);
+	left: -webkit-calc(50% - 0.195rem);
+	left: -moz-calc(50% - 0.195rem);
+	top: calc(50% - 0.195rem);
+	top: -webkit-calc(50% - 0.195rem);
+	top: -moz-calc(50% - 0.195rem);
+	width: .39rem;
+	height: .39rem;
+}
+
+.contain{
+    /* background-image: url("../images/backgroundColor.jpg");
+    background-size: 100% 100%;
+    background-repeat:no-repeat; */
+    width:100%;
+    overflow: hidden;
+    position: relative;
+
+    /* background-image: linear-gradient(to bottom , #569bff, #6be3fe); */
+    background: #23b5f6;
+}
+
+.bg-top {
+    width: 90%;
+    position: absolute;
+    top:.5rem;
+    left:0;
+    margin: 0 5%;
+
+}
+.bg-bottom {
+    width: 100%;
+    /* height: 1rem; */
+    position: absolute;
+    bottom:0;
+    left:0;
+}
+
+
+.headerBg {
+    width:90%;
+    margin: .8rem 5% .5rem;
+    /* box-shadow:5px 5px 5px #3597d6; */
+    /* box-shadow: 0 30px 60px #0194d6; */
+    /* box-shadow:-5px 30px 10px 4px #0194d6,5px 30px 10px 4px #0194d6; */
+
+    position: relative;
+}
+
+.header{
+    /* width: 5.94rem; */
+    width:90%;
+    /* height: 5.37rem; */
+    border-radius: 0.1rem;
+    /* padding: 1.08rem 5.87% 1.08rem 6.67%; */
+
+    position: absolute;
+    top:1.4rem;
+    left:5%;
+}
+ .headertop{
+    width:100%;
+    height:1.1rem;
+
+}
+.topleft{
+    float: left;
+    width: 46%;
+    height: 67px;
+    font-size: 0.6rem;
+    text-align: left;
+    color: #3c3a3c;
+    line-height: 0.8rem;
+    margin-left: 0.46rem;
+}
+.user{
+    float: left;
+    width: 45%;
+    height: 1.1rem;
+}
+
+.username{
+    font-size: 0.36rem;
+    text-align: center;
+    color: #3c3a3c;
+    position: relative;
+    top: -.9rem;
+    /* width: 1.6rem; */
+    width: 55%;
+    left:0.9rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.score{
+    width: 100%;
+    /* height: 2rem; */
+    text-align: center;
+    font-size: 0.6rem;
+    overflow: hidden;
+    padding: 0 1rem 0.3rem;
+
+    height: 1.6rem;
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: .3rem;
+}
+.bodyscore{
+    width: 1rem;
+    /* height: 2rem; */
+    float: left;
+    font-size: 0.38rem;
+}
+.userscore{
+    width: 1.8rem;
+    /* height: 2rem; */
+    height: 1.3rem;
+    float: left;
+    font-size: 1.2rem;
+    font-weight: 600;
+    /* margin: 0 0.2rem; */
+}
+.scoresingle{
+    float: left;
+    /* line-height: 1.6rem; */
+    font-size: 0.4rem;
+}
+.showtime{
+
+    font-size: .28rem;
+    text-align: center;
+    color: #3c3a3c;
+    -margin-top: 0.4rem;
+}
+.aside{
+    /* margin: .6rem 0 0; */
+    width: 100%;
+    display: box;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    cursor: pointer;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+.detailpic{
+    height: .8rem;
+}
+.asidebox{
+    text-align: center;
+    color: #ffffff;
+    width:33%;
+    height:2.2rem;
+    overflow: hidden;
+}
+.asidebox p{
+    width:100%;
+}
+.asidebox p:nth-of-type(1){
+    margin-top: 0.2rem;
+    font-size: 0.23rem;
+    height: 0.3rem;
+    vertical-align: bottom;
+}
+.asidebox p:nth-of-type(2){
+    height: 0.82rem;
+    line-height:1.3rem;
+    font-size: 0.36rem;
+    margin-top: 0.2rem;
+}
+.asidebox a{
+    font-size: 0.26rem;
+    width: 0.86rem;
+    height: 0.44rem;
+    text-align: center;
+    line-height: 0;
+    padding: 0.23rem 0;
+    border-radius: 0.2rem;
+    vertical-align: top;
+    display: inline-block;
+}
+
+
+.footer{
+    margin-top:0.3rem;
+    width:100%;
+    padding: 0 0 .66rem;
+    font-size: .2rem;
+    color: #fff;
+    /* background: #fff; */
+    /* margin-bottom:1rem; */
+}
+.footer .title{
+	margin-left: .45rem;
+	font-size: .3rem;
+}
+.footerdetail{
+    position: relative;
+    width:100%;
+    text-align: center;
+}
+.footerdetail .body-image{
+	position: relative;
+	width: 2.5rem;
+	height: 4rem;
+	margin: .67rem 0 .72rem;
+}
+.footer-left{
+	position: absolute;
+	right: 4.62rem;
+	text-align: right;
+}
+.footer-right{
+	position: absolute;
+	left: 4.62rem;
+	text-align: left;
+}
+.fatrate{
+	display: block;
+	margin: .1rem 0;
+	padding: 0rem .16rem;
+	font-size: .28rem;
+	line-height: .4rem;
+	color: #23b5f6;
+	text-align: center;
+	border-radius: 1000px;
+	background: #c1ebfe;
+	/* transform: scale(0.5); */
+	/* -webkit-transform: scale(0.5); */
+	vertical-align: middle;
+}
+.muscle{
+	display: inline-block;
+
+	font-size: .28rem;
+	/* line-height: 1; */
+    color: #fff;
+	text-align: center;
+	border-radius: 1000px;
+    background: #4edafd;
+
+    vertical-align: middle;
+    padding: 0 0.16rem;
+    margin: 0;
+}
+.footer .righthand{top: 1.44rem;}
+.footer .rightleg{top: 3.4rem;}
+.footer .body{top: 0.4rem;}
+.footer .lefthand{top: 2.09rem;}
+.footer .leftleg{top: 3.78rem;}
+.footer-tooltip{
+	width: 100%;
+	text-align: center;
+	font-size: .2rem;
+	color: #fff;
+}
+.icon-fatrate{
+	display: inline-block;
+	width: .13rem;
+	height: .13rem;
+	margin-right: .23rem;
+	border-radius: 100%;
+	background: #c1ebfe;
+}
+.icon-muscle{
+	display: inline-block;
+	width: .13rem;
+	height: .13rem;
+	margin-left: .84rem;
+	margin-right: .23rem;
+	border-radius: 100%;
+	background: #4edafd;
+}
+
+.footernone{
+    display: none;
+}
+
+
+.iconBottom {
+    width:40%;
+
+    margin: .5rem auto ;
+    font-size: .2rem;
+    color:#fff;
+
+    display: flex;
+    align-items: center;
+}
+.iconBottom img {
+    width: .75rem;
+    height: .75rem;
+}
+.iconBottom .logotxt {
+    margin-left: 6%;
+    text-align: justify;
+    text-align-last:justify;
+}
+.logotxt .big {
+    /* letter-spacing: 0.185rem; */
+    font-size: .32rem;
+    text-align: justify;
+    text-align-last:justify;
+    /* font-weight: 550; */
+}

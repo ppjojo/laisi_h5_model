@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1, minimum-scale=1">
+    <meta name="format-detection" content="telephone=no">
+    <title>体型</title>
+	<script type="text/javascript">
+		document.documentElement.style.fontSize = document.documentElement.clientWidth / 6.4 + 'px';
+	</script>
+    <link rel="stylesheet" type="text/css" href="css/body_detail_item.css?t=20180713">
+    <style type="text/css">
+        .showbodyimg{width:0.95rem;height:3.1rem;margin-top: 0.15rem;}
+		.sharp-box-bottom {
+		    margin-top: -.7rem;
+		}
+    </style>
+</head>
+<body>
+	<!-- <div class="Menu">
+        <ul class="clearboth">
+            <li><a href="detail_weight.html">体重</a></li>
+            <li><a href="detail_bmi.html">BMI</a></li>
+            <li><a href="detail_bodyage.html">身体年龄</a></li>
+            <li><a href="detail_bodyfat.html">体脂</a></li>
+            <li class="cur"><a href=" class="cur"">体型</a></li>
+            <li><a href="detail_muscle.html">肌肉</a></li>
+            <li><a href="detail_bone.html">骨量</a></li>
+            <li><a href="detail_water.html">水分</a></li>
+            <li><a href="detail_viscera.html">内脏脂肪等级</a></li>
+            <li><a href="detail_kcal.html">基础代谢</a></li>
+            <li><a href="detail_protein.html">蛋白质</a></li>
+            <li><a href="detail_score.html">身体得分</a></li>
+        </ul>
+    </div> -->
+	<div class="banner banner_sharp">
+		<div class="content">
+			<div class="banner_text" >
+				<!-- <span class="type">体型</span><br /> -->
+				<div class="circleborder">
+					<span class="number" id="number"></span>
+				</div>
+				<!-- <span class="index"></span> -->
+			</div>
+			<p class="text02 text-sharp"></p>
+		</div>
+	</div>
+	<!-- <div class="box">
+	    <p class="text02"></p>
+	</div> -->
+
+	<div class='boxlist'>
+		<div class="box sharp-top">
+			<div class="title"><img src="images/icon_advice.png"><p>小建议</p></div>
+			<!-- <div class="list">
+				<img src="images/icon_eat.png">
+				<p>饮食建议</p>
+			</div> -->
+			<p class="ti" id="dietaryAdvice"></p>
+			<!-- <div class="list">
+				<img src="images/icon_exercise.png">
+				<p >运动建议</p>
+			</div> -->
+			<p class="ti"id="sportAdvice"></p>
+		</div>
+		<div class="box sharp-box-bottom">
+			<div class="title"><img src="images/icon_standard.png"><p>体型参考标准</p></div>
+			<p id="definition"></p>
+			<p class="standard_table"><img src="images/item_form_sharp.png"></p>
+		</div>
+	</div>
+
+	<script src="../common/js/jquery-1.10.1.min.js"></script>
+	<script type="text/javascript" src="js/main.js" ></script>
+	<script src="js/body_detail_item.js" type="text/javascript"></script>
+	<script src="../../common/js/network.js"></script>
+	<script type="text/javascript">
+		ajax({
+			type: "get",
+			url:getQueryString('deviceType')=='blebalance'? "bleBalance/h5/data/body/detail/accredited/sharp":"balance/h5/data/body/detail/accredited/sharp",
+			data: {
+				memberId : getQueryString("memberId"),
+				measureId : getQueryString("measureId"),
+			},
+			success: function(res) {
+				if (res.code == 0) {
+					setData(res)
+				}
+			},
+			error: function(err) {
+				console.log("error")
+			}
+		})
+		
+		
+		function setData(data){
+			var data = data.data;
+			console.log(data);
+			// $(".index").html(data["sharp"]);
+			$("#number").html(data["sharp"].replace(/型/g,''));
+			if(data["sharp"].length>2){
+				$(".number").css("fontSize",'0.45rem')
+			}
+			$(".text02").html(data["description"]);
+			$("#dietaryAdvice").html(data["dietaryAdvice"]);
+			$("#sportAdvice").html(data["sportAdvice"]);
+			$("#definition").html(data["definition"]);
+		}
+	</script>
+</body>
+</html>
