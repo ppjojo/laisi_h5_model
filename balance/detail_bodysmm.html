@@ -14,19 +14,19 @@
 			<div class="numBox">
 				<div>
 					<div class="num">{{bodyData.smm}}</div>
-					<!-- <div class="dw">kg</div> -->
+					<div class="dw">%</div>
 				</div>
 			</div>
-			<!-- <div class="numInfo">
-				{{bodyData.smmType}}
-			</div> -->
+			<div class="numInfo">
+				骨骼重量：{{(parseFloat(getQueryString("weight"))*parseFloat(bodyData.smm)/100).toFixed(2)}} kg
+			</div>
 		</div>
 		<div class="itemContent">
 			<div class="lineBox">
 				<div class="lineNum">
 					<div>{{bodyData.range[0]}}</div>
 					<div>{{bodyData.range[1]}}</div>
-					<div>{{bodyData.range[2]}}</div>
+					<!-- <div>{{bodyData.range[2]}}</div> -->
 					<div></div>
 				</div>
 				<div class="line">

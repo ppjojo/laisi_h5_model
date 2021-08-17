@@ -475,8 +475,7 @@
 
 			gotoDetail(urlType) {
 				if (this.isShare) return
-				window.location.href = "detail_" + urlType +
-					`.html?memberId=${this.memberId}&measureId=${this.measureId}&deviceType=${this.deviceType}`;
+				window.location.href = "detail_" + urlType +`.html?memberId=${this.memberId}&measureId=${this.measureId}&deviceType=${this.deviceType}&weight=${this.bodyData.weight}`;
 			}
 		}
 	})
