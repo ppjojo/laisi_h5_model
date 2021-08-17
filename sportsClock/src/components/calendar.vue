@@ -11,11 +11,11 @@
 			<div class="wh_content_item greystate" v-for="tag in textTop">
 				<div class="wh_top_tag">{{tag}}</div>
 			</div>
-			<div class="wh_content_item" v-for="(item,index) in list">
-				<div class="wh_item_date" :class="{greystate:item.otherMonth!='nowMonth',isToday:item.isToday}">
-					{{item.id}}
+			<div class="wh_content_item" v-for="(item,index) in list" @click="dayDetail(index)">
+				<div class="wh_item_date" :class="{greystate:item.otherMonth!='nowMonth',isToday:(item.isToday||clickIndex==index),isToday2:(item.isToday&&clickIndex!=null)}">
+					<span>{{item.id}}</span>
 					<!--这里是控制异常、正常的那个小圆点-->
-					<div class="spot"></div>	
+					<div class="spot" :class="{successdot:item.finished}"></div>	
 				</div>
 			</div>
 		</div>
@@ -28,7 +28,9 @@
 		NavBar,
 		Icon
 	} from 'vant';
-
+	import {
+		getSportByMonth,
+	} from '@a/api'
 	export default {
 		props: {
 			showOnly: { //是否只是做显示，点击无效（为true情况是月度统计等）
@@ -49,6 +51,8 @@
 			return {
 				dateTitle: '',
 				list: [],
+				nowDate:new Date().getTime(),
+				clickIndex:null,
 			};
 		},
 		filters: {},
@@ -59,13 +63,47 @@
 			this.dateTitleStr(new Date(), 'ym');
 		},
 		methods: {
+			dayDetail(index){//过往某一天
+				if(this.list[index].isToday||(this.list[index].timeStamp>this.nowDate||this.showOnly)){//如果点的是今天或者今天以后的没反应
+					if(this.list[index].isToday&&this.clickIndex!=null){//重新点回来
+						this.clickIndex=null;
+						this.$parent.clickBeforeDay(this.list[index].timeStamp);
+					}
+					return;
+				}
+				this.$parent.clickBeforeDay(this.list[index].timeStamp);
+				this.clickIndex = index;
+			},
+			calindarList(arr){
+				let timeObj = {
+					startTime:arr[0].timeStamp,
+					endTime:arr[arr.length-1].timeStamp,
+					checkTime:null
+				}
+				for (let i=0;i<arr.length;i++) {
+					if(arr[i].otherMonth=="nowMonth"||arr[i].otherMonth=="othermonth"){
+						timeObj.checkTime = arr[i].timeStamp;
+						break;
+					}
+				}
+				getSportByMonth(timeObj).then(res=>{
+					this.$parent.fatherSetMonthObj(res.data,0);
+					res.data.checkTimeList.forEach(d=>{//给上小绿点
+						arr.forEach(e=>{
+							if(d.checkTime==e.timeStamp)e.finished = true;
+						})
+					})
+					this.list = arr;
+					console.log(arr);
+				})
+			},
 			openFatherPickYearMonth() {//打开父组件选择年月调用
 				this.$parent.fatherPickYearMonth();
 			},
 			getList(date) {
-				console.log(date)
 				let arr = timeUtil.getMonthList(date?date:new Date());
-				this.list = arr;
+				// console.log(arr)
+				this.calindarList(arr);
 			},
 			goGroupIndex(item) {
 				this.$router.push({
@@ -130,6 +168,7 @@
 				}
 				.isToday {
 					background-color: #FF4E3E;
+					color: #fff;
 					display: flex;
 					flex-wrap: wrap;
 					border-radius: 100%;
@@ -137,6 +176,10 @@
 					height: .48rem;
 					align-items: center;
 					justify-content: center;
+					padding-right: .05rem;
+				}
+				.isToday2{
+					background-color:#70292B;
 				}
 				
 			}

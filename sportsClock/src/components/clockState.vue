@@ -15,7 +15,7 @@
 			<div class="unit ub ub-ad">
 				<div class="ub ub-aend">
 					<div class="num">100</div>
-					<div style="padding-bottom: .1rem;">逗币</div>
+					<div style="padding-bottom: .2rem;padding-left: .1rem;">逗币</div>
 				</div>
 			</div>
 		</div>
@@ -25,7 +25,7 @@
 				现在去运动！
 			</div>
 			<div>
-				<img class="" style="width: 2.2rem;" :src="require('@i/none.png')" alt="">
+				<img class="" style="width: 1.9rem;" :src="require('@i/none.png')" alt="">
 			</div>
 		</div>
 		<div class="bottomBtn">

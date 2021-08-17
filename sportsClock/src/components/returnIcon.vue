@@ -1,64 +1,81 @@
 <template>
-    <div id="" v-cloak>
+	<div id="" v-cloak>
 		<div id="" v-if="bgw" class="sporticon">
 			<img :src="url" alt="">
 		</div>
-		<div v-else class="sporticon2 ub ub-ac" >
+		<div v-else class="sporticon2 ub ub-ac">
 			<img :src="url" alt="">
 			<div>
-				1.285<span>个</span>
+				{{typeUtilStr(itemObj,name,'unit')}}<span>{{typeUtilStr(itemObj,name,'val')}}</span>
 			</div>
 		</div>
-    </div>
+	</div>
 </template>
 
 <script>
-    export default {
-		props:{
-			name:{
-				type:String,
+	import typeUtil from "@u/type";
+	export default {
+		props: {
+			name: {
+				type: String,
 				default: () => ''
 			},
-			bgw:{
-				type:Boolean,
+			bgw: {
+				type: Boolean,
 				default: () => false
+			},
+			taskNum: {
+				type: Number,
+				default: () => 0
 			}
 		},
-        components: {
-        },
+		components: {},
 
-        data() {
-            return {
-                url:''
-            };
-        },
-        filters: {},
-        mounted() {
-        },
-        created() {
-			this.url = require('@i/sporticon/icon_skipping.png')
+		data() {
+			return {
+				url: '',
+				itemObj: {
+					number: 0,
+					takeMs: 0
+				}
+			};
 		},
-        methods: {
-        }
-    };
+		filters: {},
+		mounted() {},
+		created() {
+			this.url = typeUtil.returnImg(this.name);
+			if (!this.bgw) {
+				this.itemObj.number = this.itemObj.takeMs = this.taskNum;
+			}
+		},
+		methods: {
+			typeUtilStr(val, key, type) { //返回运动名称
+				if (type == 'val') return typeUtil.returnUnit(val, key, 'time');
+				if (type == 'unit') return typeUtil.formatStrUnit2(val, key);
+			},
+		}
+	};
 </script>
-<style lang="scss" >
-	.sporticon img{
+<style lang="scss">
+	.sporticon img {
 		width: .64rem;
 		height: .64rem;
 	}
-	.sporticon2{
-		img{
+
+	.sporticon2 {
+		img {
 			width: .56rem;
 			height: .56rem;
 			margin-right: .16rem;
 		}
-		div{
+
+		div {
 			color: #cfcfd2;
 			font-size: .48rem;
-			span{
+
+			span {
 				font-size: .24rem;
 			}
 		}
-	} 
- </style>
+	}
+</style>

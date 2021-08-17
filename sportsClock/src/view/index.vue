@@ -12,22 +12,26 @@
 		<div class="" v-if="flag==1">
 			<!-- 今日尚未打卡有打卡按钮 -->
 			<div class="normaltxt" style="width: 4rem;text-align: center;margin: .4rem auto 1.2rem;">
-				本月最大连续签到打卡<span>7</span>天！
+				本月最大连续签到打卡<span>{{monthObj.sportClockMax||0}}</span>天！
 				继续加油哦～
 			</div>
-			<div class="clockBtn">
+			<div class="clockBtn" @click="firstClick">
 				运动打卡
 			</div>
 		</div>
-		<div v-else-if="flag==2">
+		<div class="infobox" v-else-if="flag==2||flag==5">
 			<!-- 打卡失败 一点都没有运动-->
-			<div class="normaltxt" style="width: 4rem;text-align: center;margin: .4rem auto .8rem;">
-				本月最大连续签到打卡<span>7</span>天！
+			<div v-if="flag==2" class="normaltxt" style="width: 4rem;text-align: center;margin: .4rem auto .8rem;">
+				本月最大连续签到打卡<span>{{monthObj.sportClockMax||0}}</span>天！
 				继续加油哦～
+			</div>
+			<div v-else class="ub ub-ac sportfinish">
+				<img class="" :src="require('@i/sportunfinish.png')" alt="">
+				<div>当日未达到目标运动量！请继续加油哦！</div>
 			</div>
 			<div style="margin:0 auto .2rem;text-align: center;">
 				<img class="" style="width: 2.5rem;" :src="require('@i/none.png')" alt="">
-				<div style="font-size: .28rem;color:#71717F;">您还没有运动，先去运动吧～</div>
+				<div style="font-size: .28rem;color:#71717F;">{{flag==2?'您还没有运动，先去运动吧～':'无运动打卡记录'}}</div>
 			</div>
 		</div>
 		<div class="infobox" v-else-if="flag==3||flag==4">
@@ -44,7 +48,7 @@
 						运动时长
 					</div>
 					<div>
-						00:56:55
+						{{formatSeconds(sportObj.takeMs||0)}}
 					</div>
 				</div>
 				<div class="sportbox sportItem">
@@ -52,44 +56,24 @@
 						运动消耗
 					</div>
 					<div>
-						5555<span>kcal</span>
+						{{sportObj.burn||0}}<span>kcal</span>
 					</div>
 				</div>
 			</div>
 			<!-- 运动详情 -->
 			<div class="sportdetail" :class="{fixedpd:flag==3||flag==4}">
 				<div class="title">运动详情</div>
-				<div class="sportItem ub ub-ac ub-pj">
+				<div class="sportItem ub ub-ac ub-pj" v-for="(item,i) in sportObj.deviceDetail">
 					<div class="ub ub-ac">
-						<img class="sporticon" :src="require('@i/sporticon/icon_skipping.png')" alt="">
+						<returnIcon :bgw="true" :name="i"></returnIcon>
+						<!-- <img class="sporticon" :src="require('@i/sporticon/icon_skipping.png')" alt=""> -->
 						<div class="iteminfo">
-							<div>跳绳</div>
-							<div>1,200个</div>
+							<div>{{typeUtilStr(item,i,'name')}}</div>
+							<div>{{typeUtilStr(item,i,'unit')}}</div>
 						</div>
 					</div>
-					<img class="iconselect" :src="require('@i/icon_select.png')" alt="">
-				</div>
-				<div class="sportItem ub ub-ac ub-pj">
-					<div class="ub ub-ac">
-						<img class="sporticon" :src="require('@i/sporticon/icon_wristball.png')" alt="">
-						<div class="iteminfo">
-							<div>腕力球</div>
-							<div>1,200个</div>
-						</div>
-					</div>
-					<img class="iconselect" :src="require('@i/icon_select.png')" alt="">
-				</div>
-				<!-- 训练课程 -->
-				<div class="sportItem ub ub-pj">
-					<div class="ub">
-						<img class="sporticon" :src="require('@i/icon_course.png')" alt="">
-						<div class="iteminfo">
-							<div>训练课程</div>
-							<div>1,200个</div>
-							<div>1,200个</div>
-							<div>1,200个</div>
-						</div>
-					</div>
+					<img v-if="item.isFinish" class="iconselect" :src="require('@i/icon_select.png')" alt="">
+					<img v-else-if="item.isFinish===0" class="iconselect" :src="require('@i/icon_unselect.png')" alt="">
 				</div>
 				<!-- 查看我的运动目标 -->
 				<div class="ub ub-ac ub-ad target">
@@ -100,8 +84,8 @@
 			</div>
 		</div>
 		<!-- 更新打卡 -->
-		<div class="updateclock" v-if="flag==3||flag==4">
-			<div class="btn">
+		<div class="updateclock" v-if="(flag==3||flag==4)&&(currentZero==sportObj.checkTime)">
+			<div class="btn" @click="reClick">
 				更新打卡
 			</div>
 		</div>
@@ -121,21 +105,27 @@
 <script>
 	import nCalendar from '@c/calendar';
 	import clockState from '@c/clockState';
+	import returnIcon from '@c/returnIcon';
 	import {
-		listItem
-	} from '@a/test'
+		insertSportData,
+		updateSportData,
+		getSportByMonth,
+		getDayData
+	} from '@a/api'
 	import {
 		NavBar,
 		Icon,
 		Popup,
 		DatetimePicker
 	} from 'vant';
-
+	import timeUtil from "@u/calendar";
+	import typeUtil from "@u/type";
 	export default {
 		components: {
 			[NavBar.name]: NavBar,
 			[Icon.name]: Icon,
 			nCalendar,
+			returnIcon,
 			clockState,
 			[Popup.name]: Popup,
 			[DatetimePicker.name]: DatetimePicker,
@@ -151,24 +141,72 @@
 				minDate: new Date(2021, 0, 1),
 				maxDate: new Date(),
 				currentDate: new Date(),
+				currentZero: new Date(new Date().toLocaleDateString()).getTime(),
 				YMshow: false,
 				clockShow: false,
 				clockState: true,
-				flag: 3, //1未打卡2打卡失败3打卡成功未达标4打卡成功已达标
+				flag: null, //1未打卡2打卡失败3打卡成功未达标4打卡成功已达标5当天无打卡记录
+				sportObj: { //当日运动详情
+				},
+				monthObj: {} //打卡详情
 			};
 		},
 		filters: {},
 		mounted() {
-			this.getList()
+			this.getList();
+			// this.calindarList();
 		},
 		created() {},
 		methods: {
 			getList() {
-				listItem().then(() => {
-					console.log("success")
-				}).catch(() => {
-					console.log("error")
+				getDayData({
+					checkTime: this.currentZero
+				}).then(res => { //获取当天设备信息
+					if (res.code == "0") {
+						this.sportObj = Object.assign(this.sportObj, res.data);
+						// if (this.sportObj.isFinishDays == null) {
+						// 	if(this.sportObj.checkTime == null||this.sportObj.checkTime<this.currentZero){
+						// 		this.flag = 5;
+						// 		return;
+						// 	}
+						// 	this.flag = 1;
+						// 	return;
+						// }
+						this.flag = this.sportObj.isFinishDays == 1 ? 4 : 3;
+					} else if(res.code == "1") {
+						//打卡失败 相当于未打卡
+						this.flag = 1;
+					}else if(res.code == "2") {
+						//过去未打卡
+						this.flag = 5;
+					}
 				})
+			},
+			firstClick() {
+				//首次打卡
+				insertSportData({}).then(res => {
+					this.clockState = (res.code == "0");
+					this.clockShow = true;
+					if (!this.clockState) {
+						this.flag = 2
+					} else {
+						this.getList()
+						this.$refs.calendar.calindarList()
+						// this.calindarList()
+					}
+				})
+			},
+			reClick() {
+				//更新打卡
+				updateSportData({}).then(res => {
+					this.getList()
+					this.$refs.calendar.calindarList()
+					// this.calindarList()
+				})
+			},
+			clickBeforeDay(stamp){//点击了过去的某个时间
+				this.currentZero = stamp;
+				this.getList();
 			},
 			onClickLeft() {
 				this.$interaction.closePage();
@@ -179,14 +217,9 @@
 					path: '/clockoverview',
 				});
 			},
-			goGroupIndex(item) {
-				this.$router.push({
-					path: '/groupIndex',
-					query: {
-						id: item
-					}
-				});
-
+			formatSeconds: timeUtil.formatSeconds,
+			fatherSetMonthObj(obj) {
+				this.monthObj = Object.assign(this.monthObj, obj);
 			},
 			fatherPickYearMonth() { //子组件调用打开时间选择
 				this.YMshow = true;
@@ -195,6 +228,10 @@
 				this.$refs.calendar.getList(value)
 				this.$refs.calendar.dateTitleStr(value, 'ym')
 				this.YMshow = false;
+			},
+			typeUtilStr(val, key, type) { //返回运动名称
+				if (type == 'name') return typeUtil.formatStr(val, key);
+				if(type=='unit')return typeUtil.formatStrUnit(val, key);
 			},
 			formatter(type, val) {
 				if (type === 'year') {
@@ -314,7 +351,7 @@
 			height: .88rem;
 			width: 6.7rem;
 			margin: 0 auto;
-			background: linear-gradient(to right, #ffaa88, #ff4e3e);
+			background: linear-gradient(to left, #ffaa88, #ff4e3e);
 			font-size: .4rem;
 			color: #fff;
 			line-height: .88rem;

@@ -10,9 +10,9 @@
 			<div class="monthbox ub ub-ac" v-for="mitem in monthList">
 				<div class="title">{{mitem.id}}月</div>
 				<div class=" ub ub-ac">
-					<template v-for="item in mitem.daylength">
+					<template v-for="(item,index) in mitem.daylength">
 						<div class="daybox">
-							<dayBox></dayBox>
+							<dayBox :light="mitem.days.includes(index)"></dayBox>
 						</div>
 					</template>
 				</div>
@@ -33,6 +33,10 @@
 				type: Boolean,
 				default: () => false
 			},
+			monthbar:{
+				type:Object,
+				default: () => {}
+			}
 		},
 		components: {
 			[Icon.name]: Icon,
@@ -48,33 +52,21 @@
 		},
 		filters: {},
 		mounted() {
+			// this.getMonthList();
 		},
 		created() {
 			this.dateTitleStr(new Date(), 'y');
-			this.getMonthList();
 		},
 		methods: {
 			openFatherPickYear() { //打开父组件选择年月调用
 				this.$parent.fatherPickYearMonth();
-			},
-			getList(date) {
-				console.log(date)
-				let arr = timeUtil.getMonthList(date ? date : new Date());
-				this.list = arr;
-			},
-			goGroupIndex(item) {
-				this.$router.push({
-					path: '/groupIndex',
-					query: {
-						id: item
-					}
-				});
 			},
 			dateTitleStr(date, id) {
 				this.dateTitle = timeUtil.getTimeStr(date, id);
 			},
 			dateTitleStr2(str) {
 				this.dateTitle = str;
+				this.getMonthList();
 			},
 			getMonthList() {
 				let arr = [];
@@ -82,9 +74,17 @@
 					let obj = {
 						id: i,
 						daylength: this.returnDaylength(i),
+						days:[]
 					}
 					arr.push(obj);
 				}
+				for(let key in this.monthbar){
+					let Mon = this.monthbar[key];
+					Mon.forEach(d=>{
+						arr[key].days.push(new Date(d.checkTime).getDate());
+					})
+				}
+				// console.log(arr)
 				this.monthList = arr;
 			},
 			returnDaylength(num) {//返回个月份的天数
@@ -98,7 +98,11 @@
 				}
 			}
 		},
-		watch: {}
+		watch: {
+			monthbar(){
+				this.getMonthList()
+			}
+		}
 	};
 </script>
 <style lang="scss">
