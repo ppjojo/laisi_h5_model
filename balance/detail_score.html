@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1,maximum-scale=1, minimum-scale=1">
+	<meta name="format-detection" content="telephone=no">
+	<title>身体得分</title>
+	<link rel="stylesheet" type="text/css" href="css/index.css">
+</head>
+
+<body>
+	<div class="itemContain" id="app" v-cloak>
+		<div class="topBg">
+			<div class="numBox">
+				<div>
+					<div class="num">{{bodyData.score}}</div>
+					<div class="dw">分</div>
+				</div>
+			</div>
+			<div class="numInfo">
+				{{bodyData.scoreType}}
+			</div>
+		</div>
+		<div class="itemContent">
+			<div class="lineBox">
+				<div class="lineNum">
+					<div>{{bodyData.range[2]}}</div>
+					<div>{{bodyData.range[1]}}</div>
+					<div>{{bodyData.range[0]}}</div>
+					<div></div>
+				</div>
+				<div class="line">
+					<div class="bg-green"></div>
+					<div class="bg-green02"></div>
+					<div class="bg-yellow"></div>
+					<div class="bg-orange rightDiv"></div>
+					<span class="point" :style="{'left':leftNum+'%'}"></span>
+				</div>
+				<div class="lineInfo">
+					<div>健康</div>
+					<div>良好</div>
+					<div>一般</div>
+					<div>亚健康</div>
+				</div>
+				<div class="detailInfo">
+					{{bodyData.description}}
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+	<script src="../common/js/network.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+	<script>
+		new Vue({
+			el: '#app',
+			data() {
+				return {
+					memberId: getQueryString("memberId"), //成员id
+					measureId: getQueryString("measureId"), //数据id
+					deviceType: getQueryString("deviceType"), //设备类型 区分是不是非智能体脂秤
+					bodyData: {
+						range:[]
+					},
+					leftNum:0,
+				};
+			},
+			created() {
+				this.initData();
+			},
+			methods: {
+
+				initData() {
+					var that = this
+					ajax({
+						type: "get",
+						url: getQueryString('deviceType') == 'blebalance' ?
+							"bleBalance/h5/data/body/detail/accredited/score" :
+							"balance/h5/data/body/detail/accredited/score",
+						data: {
+							memberId: this.memberId,
+							measureId: this.measureId,
+						},
+						success: function (res) {
+							if (res.code == 0) {
+								that.bodyData = res.data;
+								var point = parseFloat(res.data.score);
+								var centerNum=res.data.range[1];
+								var len=res.data.range[1]-res.data.range[0];
+								var percent=(Math.abs(point-centerNum)/len)*25
+								if(point>centerNum){
+									that.leftNum=50-percent-2
+								}else{
+									that.leftNum=50+percent-2
+								}
+							}
+						},
+						error: function (err) {
+							console.log("error")
+						}
+					})
+				},
+			}
+		})
+	</script>
+</body>
+
+</html>
