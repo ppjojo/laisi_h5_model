@@ -112,12 +112,34 @@
                 </div>
             </div>
         </div>
+        <!-- 研发实力 -->
+        <div class="cooperationBox">
+            <div class="moduleTitleBox">
+                <img src="../assets/img/solution/sl-title.png" class="moduleTitleImg" alt="">
+            </div>
+            <div>
+                <el-row>
+                    <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6">
+                        <img src="../assets/img/solution/sl1.png" alt="">
+                    </el-col>
+                    <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6">
+                        <img src="../assets/img/solution/sl2.png" alt="">
+                    </el-col>
+                    <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6">
+                        <img src="../assets/img/solution/sl3.png" alt="">
+                    </el-col>
+                    <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6">
+                        <img src="../assets/img/solution/sl4.png" alt="">
+                    </el-col>
+                </el-row>
+            </div>
+        </div>
         <!-- 合作案例 -->
         <div class="cooperationBox">
             <div class="moduleTitleBox">
                 <img src="../assets/img/solution/cooperate-title.png" class="moduleTitleImg" alt="">
             </div>
-            <div >
+            <div>
                 <el-row>
                     <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6">
                         <img src="../assets/img/solution/cooperate-1.png" alt="">
@@ -148,8 +170,18 @@
                 </el-row>
             </div>
         </div>
+
+        <!-- 咨询业务 -->
+        <div class="lyBox">
+            <div class="bg">
+                <div class="customizedTitleBox">
+                    <p class="title">“ 留言咨询您的需求业务 ”</p>
+                    <div class="btn" @click="joinUs"> 留言咨询</div>
+                </div>
+            </div>
+        </div>
         <!-- 定制样式 -->
-        <div class="styleBox">
+        <!-- <div class="styleBox">
             <div class="moduleTitleBox">
                 <img src="../assets/img/solution/style-title.png" class="moduleTitleImg" alt="">
             </div>
@@ -248,7 +280,7 @@
                 </el-row>
             </div>
 
-        </div>
+        </div> -->
 
 
 
@@ -293,6 +325,11 @@
                     this.banner = res.data[0]
                 })
             },
+            joinUs(){
+                this.$router.push({
+                    path: "joinUs"
+                })
+            }
         }
     }
 </script>
@@ -311,7 +348,7 @@
     }
 
     .contain {
-        background: linear-gradient(to top, #EEF3FD, #E6FBFF , #F9FDFF, #EEF3FC , #FFFFFF);
+        background: linear-gradient(to top, rgba(238, 243, 253, 0.8), rgba(230, 251, 255, 0.8), rgba(249, 253, 255, 0.8), rgba(238, 243, 252, 0.8), rgba(255, 255, 255, 0.8));
 
         .bannerBox {
             background-image: url('../assets/img/banner.png');
@@ -349,6 +386,7 @@
         .advantageBox {
             max-width: 12.2rem;
             margin: 0 auto;
+
             .el-row {
                 .el-col {
                     padding: 0 0.1rem 0.2rem 0.1rem;
@@ -449,6 +487,46 @@
             }
         }
 
+        .lyBox {
+            padding: 1rem 0 1.8rem 0;
+
+            .customizedTitleBox {
+                text-align: center;
+                position: relative;
+                top: 1.5rem;
+
+                .title {
+                    color: rgba(255, 255, 255, 100);
+                    font-size: 0.36rem;
+                    line-height: 0.5rem;
+                }
+
+                .btn {
+                    
+                    height:0.5rem;
+                    width: 1.7rem;
+                    line-height: 0.5rem;
+                    color: #fff;
+                    text-align: center;
+                    border-radius: 0.25rem;
+                    background-color: #252525;
+                    margin: auto;
+                    margin-top: 0.5rem;
+                }
+            }
+
+            .bg {
+                background-image: url('../assets/img/solution/ly.png');
+                width: 100%;
+                height: 4.7rem;
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-position: center center;
+                position: relative;
+
+            }
+        }
+
         .cooperationBox {
             max-width: 12.2rem;
             margin: 0 auto;
@@ -509,11 +587,12 @@
 
     }
 
-     //小于992
+    //小于992
     @media (max-width: 992px) {
         .contain {
             margin-top: 0.66rem;
-             .bannerBox {
+
+            .bannerBox {
                 width: 100%;
                 height: 7.68rem;
                 background-size: cover !important;
@@ -523,6 +602,6 @@
             }
         }
 
-       
+
     }
 </style>

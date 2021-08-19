@@ -17,9 +17,9 @@
 				{{user.nickname}}
 			</div>
 			<div class="scoreBox">
-				<div class="scoreDiv" @click="gotoDetail('score')">{{bodyData.score}}</div>
+				<div class="scoreDiv" @click="gotoDetail('score')">{{bodyData.score||'--'}}</div>
 				<div class="scoreInfo">身体得分</div>
-				<div class="scoreTime">{{bodyData.createTime.replaceAll("-", "/")}}</div>
+				<div class="scoreTime">{{bodyData.createTime.replace(/-/g, "/")}}</div>
 			</div>
 		</div>
 		<div class="contain">
@@ -37,19 +37,19 @@
 					</div>
 					<div class="detailBox">
 						<div class="detailDiv" @click="gotoDetail('weight')">
-							<div class="num">{{bodyData.weight}}</div>
+							<div class="num">{{bodyData.weight||'--'}}</div>
 							<div class="numInfo">体重(kg)</div>
 							<div class="numStatus " :class="textFormart(bodyData.weightType,1)">
 								{{bodyData.weightType=="偏瘦"?"偏轻":bodyData.weightType}}
 							</div>
 						</div>
 						<div class="detailDiv" @click="gotoDetail('bmi')">
-							<div class="num">{{bodyData.bmi}}</div>
+							<div class="num">{{bodyData.bmi||'--'}}</div>
 							<div class="numInfo">BMI</div>
 							<div class="numStatus" :class="textFormart(bodyData.bmiType,1)">{{bodyData.bmiType}}</div>
 						</div>
 						<div class="detailDiv" @click="gotoDetail('bodyFat')">
-							<div class="num">{{bodyData.bodyFat.replace("%","")}}</div>
+							<div class="num">{{bodyData.bodyFat.replace("%","")||'--'}}</div>
 							<div class="numInfo">体脂(%)</div>
 							<div class="numStatus " :class="textFormart(bodyData.bodyFatType,1)">
 								{{bodyData.bodyFatType}}</div>
@@ -198,7 +198,7 @@
 			<div class="shareBox" v-if="isShare">
 				<div class="item">
 					<div class="num">
-						{{bodyData.bodyAge}}-{{bodyData.bodyAgeType}}
+						{{bodyData.bodyAge||'-'}}-{{bodyData.bodyAgeType}}
 					</div>
 					<div class="info">
 						身体年龄
@@ -206,7 +206,7 @@
 				</div>
 				<div class="item">
 					<div class="num">
-						{{bodyData.sharp}}
+						{{bodyData.sharp||'--'}}
 					</div>
 					<div class="info">
 						体型
@@ -214,7 +214,7 @@
 				</div>
 				<div class="item">
 					<div class="num">
-						{{bodyData.muscle}}-{{bodyData.muscleType}}
+						{{bodyData.muscle||'-'}}-{{bodyData.muscleType}}
 					</div>
 					<div class="info">
 						肌肉
@@ -222,7 +222,7 @@
 				</div>
 				<div class="item">
 					<div class="num">
-						{{bodyData.msw}}-{{bodyData.mswType}}
+						{{bodyData.msw||'-'}}-{{bodyData.mswType}}
 					</div>
 					<div class="info">
 						骨量(kg)
@@ -230,7 +230,7 @@
 				</div>
 				<div class="item">
 					<div class="num">
-						{{bodyData.tfr}}-{{bodyData.tfrType}}
+						{{bodyData.tfr||'-'}}-{{bodyData.tfrType}}
 					</div>
 					<div class="info">
 						水分
@@ -238,7 +238,7 @@
 				</div>
 				<div class="item">
 					<div class="num">
-						{{bodyData.visceralFat}}-{{bodyData.visceralFatType}}
+						{{bodyData.visceralFat||'-'}}-{{bodyData.visceralFatType}}
 					</div>
 					<div class="info">
 						内脏脂肪
@@ -246,7 +246,7 @@
 				</div>
 				<div class="item">
 					<div class="num">
-						{{bodyData.bmr}}-{{bodyData.bmrType}}
+						{{bodyData.bmr||'-'}}-{{bodyData.bmrType}}
 					</div>
 					<div class="info">
 						基础代谢
@@ -254,7 +254,7 @@
 				</div>
 				<div class="item">
 					<div class="num">
-						{{bodyData.protein}}-{{bodyData.proteinType}}
+						{{bodyData.protein||'-'}}-{{bodyData.proteinType}}
 					</div>
 					<div class="info">
 						蛋白质
@@ -262,7 +262,7 @@
 				</div>
 				<div class="item">
 					<div class="num">
-						{{bodyData.score}}-{{bodyData.scoreType}}
+						{{bodyData.score||'-'}}-{{bodyData.scoreType}}
 					</div>
 					<div class="info">
 						身体得分
@@ -348,7 +348,7 @@
 					createTime:"",
 					tfr:"",
 					bodyFat:"",
-					protein:""
+					protein:"",
 				},
 				user: {},
 				sharpImg: "img/icon_normal.png"

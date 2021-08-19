@@ -11,7 +11,8 @@
                     <div class="newsDetail">
                         <div class="title">{{detail.newsTitle}}</div>
                         <div class="descript">
-                            <img v-if="detail.newsTop==1"  style="width:0.3rem;margin-right:0.2rem" src="../assets/img/index/hot.png" alt="">
+                            <img v-if="detail.newsTop==1" style="width:0.3rem;margin-right:0.2rem"
+                                src="../assets/img/index/hot.png" alt="">
                             <span>{{detail.newsEditor}}</span>
                             <span>{{detail.updateTime | formatDate}}</span>
                         </div>
@@ -75,23 +76,24 @@
     import {
         getNewsDetail
     } from "@a/news";
-    
+
     export default {
         filters: {
-			formatDate(time) {
-				time = time
-				let date = new Date(time)
-				return formatDate(date, 'yyyy-MM-dd hh:mm')
-			},
-		},
+            formatDate(time) {
+                time = time
+                let date = new Date(time)
+                return formatDate(date, 'yyyy-MM-dd hh:mm')
+            },
+        },
         name: 'index',
+        
         props: {},
         data() {
             return {
                 active: 1,
                 newsList: [],
-                detail:{},
-                activeId:""
+                detail: {},
+                activeId: ""
 
             }
         },
@@ -112,22 +114,22 @@
                 })
             },
             newsDetail(id) {
-                this.activeId=id
+                this.activeId = id
                 getNewsDetail({
-                    id:id
+                    id: id
                 }).then(res => {
                     this.detail = res;
                 })
             },
-            changeNews(type){
-                var index=this.newsList.findIndex((item)=>{
-                    return item.id==this.activeId
+            changeNews(type) {
+                var index = this.newsList.findIndex((item) => {
+                    return item.id == this.activeId
                 })
-                let len=this.newsList.length
-                let to= (index+type+len)%len
+                let len = this.newsList.length
+                let to = (index + type + len) % len
                 this.newsDetail(this.newsList[to].id)
 
-              
+
             }
 
         }
@@ -136,7 +138,6 @@
 
 
 <style lang="scss" scoped>
-	
     .contain {
         text-align: left;
 
@@ -174,7 +175,8 @@
                     line-height: 0.5rem;
                     display: flex;
                     align-items: center;
-                    span{
+
+                    span {
                         margin-right: 0.2rem;
                     }
                 }
@@ -286,7 +288,7 @@
 
     //大于992
     @media (min-width: 992px) {
-        .newsDetail{
+        .newsDetail {
             padding-right: 0.5rem;
         }
     }
@@ -295,7 +297,8 @@
     @media (max-width: 992px) {
         .contain {
             margin-top: 0.66rem;
-            .bannerBox{
+
+            .bannerBox {
                 background-size: cover;
             }
 

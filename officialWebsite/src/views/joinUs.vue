@@ -18,6 +18,7 @@
                                 <el-option label="与派健康合作" value="2"></el-option>
                                 <el-option label="媒体合作" value="3"></el-option>
                                 <el-option label="渠道及分销" value="4"></el-option>
+                                <el-option label="产品定制" value="6"></el-option>
                                 <el-option label="其他" value="5"></el-option>
                             </el-select>
                         </el-form-item>

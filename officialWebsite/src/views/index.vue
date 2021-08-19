@@ -5,7 +5,7 @@
 				<swiper-slide v-for="item in banner" @click-slide="bannerLink">
 					<video v-if="item.pictureVideo.indexOf('.mp4')!='-1'" :src="item.pictureVideo" muted="" autoplay=""
 						loop="" width="100%"></video>
-					<div class="bannerImg_contain"  v-else :style="{'background-image':'url('+item.pictureVideo+')'}">
+					<div class="bannerImg_contain" v-else :style="{'background-image':'url('+item.pictureVideo+')'}">
 					</div>
 				</swiper-slide>
 				<div class="swiper-pagination" slot="pagination"></div>
@@ -32,7 +32,7 @@
 			</div>
 			<div class="pc_box">
 				<swiper :options="swiperOptions" v-if="newsList.length>0">
-					<swiper-slide v-for="item in newsList">
+					<swiper-slide v-for="item in newsList" :data-id="item.id">
 						<div class="newsTag" v-if="item.newsTag==1">新闻</div>
 						<div class="newsTag" v-else>活动</div>
 						<div class="newsImg" :style="{'background-image':'url('+item.newsPicture+')'}"></div>
@@ -48,14 +48,14 @@
 							<div class="content" v-html="item.newsBody">
 
 							</div>
-							<div class="button_more" @click="gotoNewsList(item.id)">阅读全文</div>
+							<div class="button_more">阅读全文</div>
 						</div>
 					</swiper-slide>
 				</swiper>
 			</div>
 			<div class="phone_box" style="margin-bottom:0.3rem;border:1px solid #eee;margin:15px">
 				<swiper :options="swiperOptions2" v-if="newsList.length>0">
-					<swiper-slide v-for="item in newsList">
+					<swiper-slide v-for="item in newsList" >
 						<div class="newsTag" v-if="item.newsTag==1">新闻</div>
 						<div class="newsTag" v-else>活动</div>
 						<div class="newsImg" :style="{'background-image':'url('+item.newsPicture+')'}"></div>
@@ -93,6 +93,7 @@
 	import {
 		getNews
 	} from "@a/index";
+	var  vm = null
 	export default {
 		filters: {
 			formatDate(time) {
@@ -120,7 +121,7 @@
 					// },
 					pagination: {
 						el: '.swiper-pagination',
-						clickable:true
+						clickable: true
 					},
 
 				},
@@ -131,6 +132,14 @@
 					loop: true,
 					observer: true,
 					observeParents: true,
+					on: {
+						click: function () {
+							vm.gotoNewsList(this.clickedSlide.attributes["data-id"].nodeValue);
+
+						}
+					}
+
+
 					// autoplay: {
 					// 	delay: 3000,
 					// },
@@ -146,6 +155,9 @@
 					},
 				}
 			}
+		},
+		created(){
+			vm=this
 		},
 		computed: {},
 		mounted() {
@@ -187,21 +199,22 @@
 				})
 			},
 			gotoProductDetail(item) {
-                this.$router.push({
-                    path: "productDetail",
-                    query: {
-                        id: item.id
-                    }
-                })
-            },
-			bannerLink(index,realIndex){
-                let item=this.banner[realIndex]
-				if(item.pictureProductLink) {
-                    window.location.href=item.pictureProductLink 
-                }
+				this.$router.push({
+					path: "productDetail",
+					query: {
+						id: item.id
+					}
+				})
 			},
-			pictureProductLink(item){
-				if(item.pictureProductLink) window.location.href=item.pictureProductLink
+			bannerLink(index, realIndex) {
+				let item = this.banner[realIndex]
+				if (item.pictureProductLink) {
+					window.location.href = item.pictureProductLink
+				}
+			},
+			
+			pictureProductLink(item) {
+				if (item.pictureProductLink) window.location.href = item.pictureProductLink
 			}
 
 		}

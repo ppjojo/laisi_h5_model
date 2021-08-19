@@ -32,7 +32,7 @@ router.beforeEach((to, from, next) => {
     next()
     window.scrollTo(0,0)
 })
-
+console.log(process.env.NODE_ENV)
 
 new Vue({
 	router,
