@@ -30,14 +30,14 @@
 						@mouseleave="menuTreeHide">
 						<a @click="menuChange('outdoorSport',1)">户外运动系列</a>
 					</li>
-					<li :class="navActive==2?'active':''" @mouseover="menuTreeShow(1)" @mouseleave="menuTreeHide">
+					<li :class="navActive==2?'active':''" @mouseover="swiperStart=false;menuTreeShow(1)" @mouseleave="menuTreeHide">
 						<a @click="menuChange('smartWear',2)">智能穿戴系列</a>
 					</li>
 					<li :class="navActive==3?'active':''">
 						<a @click="menuChange('paiactive',3)">派健康</a>
 
 					</li>
-					<li :class="navActive==4?'active':''" @mouseover="menuTreeShow(2)" @mouseleave="menuTreeHide">
+					<li :class="navActive==4?'active':''" @mouseover="swiperStart=false;menuTreeShow(2)" @mouseleave="menuTreeHide">
 						<a @click="menuChange('solution',4)">行业解决方案</a>
 					</li>
 					<li :class="navActive==5?'active':''">
@@ -59,14 +59,14 @@
 								<div class="firstTree_title" :class="activeNum==3?'active':''" @click="activeNum=3">
 									智能健腹轮</div>
 							</div>
-							<div class="secondTree">
-								<div class=" iconfont " v-if="activeNum==1" @click="slidePrev">
+							<div class="secondTree"  v-if="activeNum==1">
+								<div class=" iconfont " @click="slidePrev">
 									<img style="width:0.36rem;" src="../assets/img/outdoorSport/iconLeft.png" alt="">
 								</div>
 								<swiper :options="swiperOptions_nav" v-if="swiperStart&&outdoorlist.length>0"
 									ref="pcSwiper" @click-slide="swipergotoProductDetail">
 									<swiper-slide v-for="item in outdoorlist" style="width:auto;"
-										v-if="activeNum==1&&item.productDeviceType=='3'">
+										v-if="item.productDeviceType=='3'">
 										<div class="secondTreeBox " >
 											<img class="secondTree_img" :src="item.navPic" alt="">
 											<div class="secondTree_title">{{item.productName}}</div>
@@ -74,13 +74,13 @@
 										</div>
 									</swiper-slide>
 								</swiper>
-								<div class=" iconfont " v-if="activeNum==1" @click="slideNext">
+								<div class=" iconfont " @click="slideNext">
 									<img style="width:0.36rem;" src="../assets/img/outdoorSport/iconRight.png" alt="">
 								</div>
 							</div>
-							<div class="secondTree">
+							<div class="secondTree" v-if="activeNum==2">
 								<template v-for="item in outdoorlist">
-									<div class="secondTreeBox" v-if="activeNum==2&&item.productDeviceType=='5'"
+									<div class="secondTreeBox" v-if="item.productDeviceType=='5'"
 										@click="gotoProductDetail(item)">
 										<img class="secondTree_img" :src="item.navPic" alt="">
 										<div class="secondTree_title">{{item.productName}}</div>
@@ -88,9 +88,9 @@
 									</div>
 								</template>
 							</div>
-							<div class="secondTree">
+							<div class="secondTree" v-if="activeNum==3">
 								<template v-for="item in outdoorlist">
-									<div class="secondTreeBox" v-if="activeNum==3&&item.productDeviceType=='4'"
+									<div class="secondTreeBox" v-if="item.productDeviceType=='4'"
 										@click="gotoProductDetail(item)">
 										<img class="secondTree_img" :src="item.navPic" alt="">
 										<div class="secondTree_title">{{item.productName}}</div>
@@ -109,9 +109,9 @@
 								<div class="firstTree_title" :class="activeNum2==5?'active':''" @click="activeNum2=5">
 									无线耳机</div>
 							</div>
-							<div class="secondTree">
+							<div class="secondTree" v-if="activeNum2=4">
 								<template v-for="item in smartwearlist">
-									<div class="secondTreeBox" v-if="activeNum2==4&&item.productDeviceType=='1'"
+									<div class="secondTreeBox" v-if="item.productDeviceType=='1'"
 										@click="gotoProductDetail(item)">
 										<img class="secondTree_img" :src="item.navPic" alt="">
 										<div class="secondTree_title">{{item.productName}}</div>
@@ -119,9 +119,9 @@
 									</div>
 								</template>
 							</div>
-							<div class="secondTree">
+							<div class="secondTree" v-if="activeNum2==5">
 								<template v-for="item in smartwearlist">
-									<div class="secondTreeBox" v-if="activeNum2==5&&item.productDeviceType=='2'"
+									<div class="secondTreeBox" v-if="item.productDeviceType=='2'"
 										@click="gotoProductDetail(item)">
 										<img class="secondTree_img" :src="item.navPic" alt="">
 										<div class="secondTree_title">{{item.productName}}</div>
