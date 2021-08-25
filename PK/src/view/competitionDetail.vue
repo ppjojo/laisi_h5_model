@@ -1,6 +1,6 @@
 <template>
     <div id="app" class="detailBox" v-cloak>
-        <div class="header" v-if="!isShare">
+        <div class="header" v-if="!isShare" style="height:auto;">
             <van-nav-bar @click-left="onclickLeft" title="比赛详情" left-arrow safe-area-inset-top fixed>
                 <template #left>
                     <span class="icon iconfont icon-fanhuianniu" style="font-size: 0.48rem;" />
@@ -23,9 +23,10 @@
         </div>
         <div>
             <div class="detailBgBox">
-                <div v-if="!competitionItem.picUrl"
-                    :class="competitionItem.type=='personal'?'detailBg_personal':competitionItem.type=='team'?'detailBg_team':'detailBg_multiTeam'">
+                <div class="detailBg" v-if="competitionItem&&!competitionItem.picUrl"
+                    :style="{'background-image':'url('+require('@/img/'+type+'/'+competitionItem.type+'.png')+')'}">
                 </div>
+
                 <div v-else class="detailBg"
                     :style="{'backgroundImage':'url('+competitionItem.picUrl+')','background-size': 'contain'}"></div>
             </div>
@@ -42,27 +43,67 @@
                             <img class="lock_img" v-if="competitionItem.isVerify" src="../img/is_public.png" />
                         </van-col>
                     </van-row>
-                    <van-row v-if="competitionItem.type!='multiTeam'">
-                        <van-col span="5" class="laberTitle">比赛模式<i></i></van-col>
-                        <van-col span="1" class="laberTitle">：</van-col>
-                        <van-col span="18" class="laberContent"
-                            v-if="competitionItem.mode==2&&competitionItem.modeValue">
-                            {{competitionItem.modeValue==30?"30秒钟倒计时跳":(parseInt((competitionItem.modeValue)/60))+"分钟倒计时跳"}}
-                        </van-col>
-                        <van-col span="18" class="laberContent" v-else-if="competitionItem.modeValue">
-                            {{competitionItem.modeValue+"个倒计数跳"}}</van-col>
-                    </van-row>
-                    <van-row v-if="competitionItem.type=='multiTeam'">
-                        <van-col span="5" class="laberTitle">比赛模式<i></i></van-col>
-                        <van-col span="1" class="laberTitle">：</van-col>
-                        <van-col span="18" class="laberContent"
-                            v-if="competitionItem.mode==2&&competitionItem.modeValue">
-                            {{competitionItem.modeValue==30?"30秒钟倒计时跳":(parseInt((competitionItem.modeValue)/60))+"分钟倒计时跳"}}/{{competitionItem.repeatTimes==-1?"不限次数":competitionItem.repeatTimes+"次内取最优"}}
-                        </van-col>
-                        <van-col span="18" class="laberContent" v-else-if="competitionItem.modeValue">
-                            {{competitionItem.modeValue+"个倒计数跳"}}/{{competitionItem.repeatTimes==-1?"不限次数":competitionItem.repeatTimes+"次内取最优"}}
-                        </van-col>
-                    </van-row>
+
+                    <div v-if="type=='skipping'">
+                        <van-row v-if="competitionItem.type!='multiTeam'">
+                            <van-col span="5" class="laberTitle">比赛模式<i></i></van-col>
+                            <van-col span="1" class="laberTitle">：</van-col>
+                            <van-col span="18" class="laberContent"
+                                v-if="competitionItem.mode==2">
+                                {{competitionItem.modeValue==30?"30秒钟倒计时跳":(parseInt((competitionItem.modeValue)/60))+"分钟倒计时跳"}}
+                            </van-col>
+                            <van-col span="18" class="laberContent" v-else>
+                                {{competitionItem.modeValue+"个倒计数跳"}}</van-col>
+                        </van-row>
+
+                        <van-row v-if="competitionItem.type=='multiTeam'">
+                            <van-col span="5" class="laberTitle">比赛模式<i></i></van-col>
+                            <van-col span="1" class="laberTitle">：</van-col>
+                            <van-col span="18" class="laberContent"
+                                v-if="competitionItem.mode==2">
+                                {{competitionItem.modeValue==30?"30秒钟倒计时跳":(parseInt((competitionItem.modeValue)/60))+"分钟倒计时跳"}}/{{competitionItem.repeatTimes==-1?"不限次数":competitionItem.repeatTimes+"次内取最优"}}
+                            </van-col>
+                            <van-col span="18" class="laberContent" v-else>
+                                {{competitionItem.modeValue+"个倒计数跳"}}/{{competitionItem.repeatTimes==-1?"不限次数":competitionItem.repeatTimes+"次内取最优"}}
+                            </van-col>
+                        </van-row>
+                    </div>
+                    <div v-else-if="type=='running'">
+                        <van-row>
+                            <van-col span="5" class="laberTitle">比赛模式<i></i></van-col>
+                            <van-col span="1" class="laberTitle">：</van-col>
+                            <van-col span="18" class="laberContent">
+                                {{competitionItem.modeValue+"公里跑"}}
+                            </van-col>
+                        </van-row>
+                    </div>
+                    <div v-else-if="type=='wristBall'">
+                        <van-row >
+                            <van-col span="5" class="laberTitle">比赛模式<i></i></van-col>
+                            <van-col span="1" class="laberTitle">：</van-col>
+                            <van-col span="18" class="laberContent"
+                                v-if="competitionItem.mode==2">
+                                {{competitionItem.modeValue==30?"30秒钟倒计时转":(parseInt((competitionItem.modeValue)/60))+"分钟倒计时转"}}
+                            </van-col>
+                            <van-col span="18" class="laberContent" v-else>
+                                {{competitionItem.modeValue+"个倒计数转"}}</van-col>
+                        </van-row>
+                       
+                    </div>
+                    <div v-else-if="type=='wheel'">
+                        <van-row >
+                            <van-col span="5" class="laberTitle">比赛模式<i></i></van-col>
+                            <van-col span="1" class="laberTitle">：</van-col>
+                            <van-col span="18" class="laberContent"
+                                v-if="competitionItem.mode==2">
+                                {{competitionItem.modeValue==30?"30秒钟倒计时":(parseInt((competitionItem.modeValue)/60))+"分钟倒计时"}}
+                            </van-col>
+                            <van-col span="18" class="laberContent" v-else>
+                                {{competitionItem.modeValue+"个倒计次"}}</van-col>
+                        </van-row>
+                    </div>
+
+
                     <van-row>
                         <van-col span="5" class="laberTitle">发起人<i></i></van-col>
                         <van-col span="1" class="laberTitle">：</van-col>
@@ -364,7 +405,7 @@
         userQuitCompetition,
         participateCompetition,
         teamPeopleRemain,
-        teamList
+        teamListArr
     } from '@a/detail'
 
     import {
@@ -409,11 +450,14 @@
 
         data() {
             return {
+                type: this.$route.query.type,
                 currentUserId: JSON.parse(localStorage.getItem('appInfo')).userId,
                 DateTime: DateTime,
                 competitionId: getQueryString("id"),
                 isShare: getQueryString("isShare"),
-                competitionItem: {},
+                competitionItem: {
+                    type:"personal"
+                },
                 userItem: {},
                 joinDetailItem: {},
                 competitionStatus: "", //1进行中 2即将开始 3已结束
@@ -457,8 +501,8 @@
                 drawStatus: false,
                 multiTeamShow: false,
                 multiTeamChoose: {
-                    dataDetail:[],
-                    totalBestValue:""
+                    dataDetail: [],
+                    totalBestValue: ""
                 },
                 chineseRank: ["一", "二", "三", "四", "五", "六", "七", "八", "九", "十", "十一", "十二", "十三", "十四", "十五", "十六",
                     "十七", "十八",
@@ -484,7 +528,6 @@
             this.initData();
             this.joinStatusAndTimesRemain()
 
-            this.getTeamList()
         },
         methods: {
             goApp() {
@@ -769,7 +812,7 @@
             },
             //获取比赛队伍列表
             getTeamList() {
-                teamList({
+                teamListArr({
                     competitionId: this.competitionId,
                 }).then(res => {
                     if (res.code == 0) {
@@ -834,7 +877,8 @@
             sign() {
                 participateCompetition({
                     competitionId: this.competitionItem.id,
-                    teamId: this.teamId_choose || ""
+                    teamId: this.teamId_choose || "",
+                    userId: this.currentUserId
                 }, this.competitionItem.type).then(res => {
                     if (res.code == 0) {
                         this.initData();
@@ -844,7 +888,33 @@
                 })
             },
             gotoSkip() {
-                alert("等app的交互")
+                try {
+                    if (isIOS) {
+                        window.webkit.messageHandlers.lstNative.postMessage({
+                            method: "LSTH5APP_SelectDeviceAndPushToSport", //H5调起原生选择设备，并跳转到对应设备类型的运动页，目前3.0后有：跳绳、健腹轮、腕力球
+                            deviceType: this.type, //skipping、wristball、wheel 
+                            mode: this.competitionItem.mode, //倒计时、倒计数，按照原先跳绳PK类型定义的值",
+                            modeValue: this.competitionItem.modeValue, //按照原先跳绳的类型传值
+                            jumpCount: this.competitionItem.repeatTimes, //按照原先跳绳的类型传值
+                            category: 1, //1：PK赛，2俱乐部比赛,
+                            isPK: 1, //0不是，1是，表示是否是PK类型的运动，是的话去pk运动页面，不是去普通运动页面
+                            dataId: this.competitionItem.id
+                        });
+                    } else {
+                        window.android.LSTH5APP_SelectDeviceAndPushToSport(JSON.stringify({
+                            deviceType: this.type,
+                            mode: this.competitionItem.mode,
+                            modeValue: this.competitionItem.modeValue,
+                            jumpCount: this.competitionItem.repeatTimes,
+                            category: 1,
+                            isPK: 1,
+                            dataId: this.competitionItem.id
+                        }));
+                    }
+                } catch (e) {
+                    console.log(e);
+                }
+
             }
 
 

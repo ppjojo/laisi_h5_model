@@ -372,6 +372,7 @@ var Interaction = {
   getAppInfo: function (info) {
     localStorage.setItem("appInfo", info);
   },
+  
 
   //新开一个原生得window窗口
   pushToNextVC: function (htmlUrl) {

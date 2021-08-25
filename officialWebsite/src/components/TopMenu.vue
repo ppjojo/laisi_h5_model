@@ -109,7 +109,7 @@
 								<div class="firstTree_title" :class="activeNum2==5?'active':''" @click="activeNum2=5">
 									无线耳机</div>
 							</div>
-							<div class="secondTree" v-if="activeNum2=4">
+							<div class="secondTree" v-if="activeNum2==4">
 								<template v-for="item in smartwearlist">
 									<div class="secondTreeBox" v-if="item.productDeviceType=='1'"
 										@click="gotoProductDetail(item)">

@@ -1,22 +1,42 @@
 <template>
 
-    <div class="list-item " :class="item.isOfficial?'list-item-official':'list-item'+(item.id%5)" @click="itemClick(item)">
+    <div class="list-item" @click="itemClick(item)"  
+    :style="{'background-image':'url('+require('@/img/'+type+'/'+item.id%5+'.png')+')'}" >
         <div class="pkTitle">
             {{item.name}}
             <span v-if="item.isOfficial">官方</span>
             <img class="lock_img" v-if="item.isVerify" src="../img/is_public.png" />
         </div>
         <div class="pkDescript">
-
             <span>{{item.type=="personal"?"个人PK":"团队PK"}}</span>
-            <span class="laberContent"
-                v-if="item.mode==2">{{item.modeValue==30?"30秒钟倒计时跳":(parseInt((item.modeValue)/60))+"分钟倒计时跳"}}</span>
-            <span class="laberContent" v-else>{{item.modeValue+"个倒计数跳"}}</span>
+
+            <div v-if="type=='running'">
+                <span class="laberContent" >{{item.modeValue+"公里跑"}}</span>
+                
+            </div>
+            <div v-else-if="type=='wristBall'">
+                <span class="laberContent"
+                    v-if="item.mode==2">{{item.modeValue==30?"30秒钟倒计时转":(parseInt((item.modeValue)/60))+"分钟倒计时转"}}</span>
+                <span class="laberContent" v-else>{{item.modeValue+"个倒计数转"}}</span>
+            </div>
+            <div v-else-if="type=='wheel'">
+                <span class="laberContent"
+                    v-if="item.mode==2">{{item.modeValue==30?"30秒钟倒计时":(parseInt((item.modeValue)/60))+"分钟倒计时"}}</span>
+                <span class="laberContent" v-else>{{item.modeValue+"个倒计次"}}</span>
+            </div>
+            <div v-else>
+                <span class="laberContent"
+                    v-if="item.mode==2">{{item.modeValue==30?"30秒钟倒计时跳":(parseInt((item.modeValue)/60))+"分钟倒计时跳"}}</span>
+                <span class="laberContent" v-else>{{item.modeValue+"个倒计数跳"}}</span>
+            </div>
 
             <span>{{item.repeatTimes==-1?"不限次数取最优":item.repeatTimes+"次内取最优"}}</span>
-            <span v-if="item.type=='personal'">{{"已参赛:"+item.registerCount+'/不限'}}</span>
-            <span
-                v-else>{{" 已参加:"+item.registerCount}}/{{item.teamPersonLimit==-1?'不限':item.teamPersonLimit*item.teamNum}}</span>
+            <div>
+                <span v-if="item.type=='personal'">{{"已参赛:"+item.registerCount+'/不限'}}</span>
+                <span
+                    v-else>{{" 已参加:"+item.registerCount}}/{{item.teamPersonLimit==-1?'不限':item.teamPersonLimit*item.teamNum}}</span>
+            </div>
+
         </div>
         <div class="pkPromoter">
             <span>发起人:{{item.nickName}} </span>
@@ -34,19 +54,21 @@
 
 <script>
     import {
-        DateTime
+        DateTime,
+        getQueryString
     } from "@u/tool"
     export default {
         props: ['item'],
         data() {
             return {
-                DateTime: DateTime
+                DateTime: DateTime,
+                type: this.$route.query.type
             }
         },
         mounted() {},
         methods: {
-            itemClick(item){
-                this.$emit("getJoinStatus",item)
+            itemClick(item) {
+                this.$emit("getJoinStatus", item)
             }
         }
     }

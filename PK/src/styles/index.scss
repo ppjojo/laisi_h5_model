@@ -99,8 +99,7 @@ $border_color:#1e1e2a;
     padding: 0.2rem;
 
     .van-field {
-        background-color: #292934;
-        border: 1px solid $text_color_white;
+        // border: 1px solid $text_color_white;
         padding: 0.1rem;
         box-sizing: border-box;
     }
@@ -194,9 +193,8 @@ $border_color:#1e1e2a;
         .chosed .van-cell__value {
             color: $text_color_white;
             font-size: 0.28rem;
-            -webkit-box-flex: 2;
-            -ms-flex: 2;
-            flex: 2;
+            
+            flex: 1;
         }
     }
 

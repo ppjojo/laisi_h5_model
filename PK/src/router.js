@@ -1,5 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import {
+  getQueryString,
+} from '@u/tool'
 
 Vue.use(Router);
 
@@ -64,6 +67,7 @@ router.beforeEach((to, from, next) => {
   if (title) {
     document.title = title;
   }
+  to.query.type=getQueryString('type')||"skipping"// skipping 跳绳   running 跑步  wristBall 腕力球 wheel 健腹轮
   next();
 });
 

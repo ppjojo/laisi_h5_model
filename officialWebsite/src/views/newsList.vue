@@ -16,7 +16,7 @@
                             <span>{{detail.newsEditor}}</span>
                             <span>{{detail.updateTime | formatDate}}</span>
                         </div>
-                        <div class="content" v-html="detail.newsBody">
+                        <div class="content content-a" v-html="detail.newsBody">
                         </div>
                         <div class="buttonBox">
                             <div class="button" @click="changeNews(-1)"> 上一篇</div>
@@ -86,7 +86,7 @@
             },
         },
         name: 'index',
-        
+
         props: {},
         data() {
             return {
@@ -159,8 +159,11 @@
             max-width: 12.4rem;
             position: relative;
 
+
             .newsDetail {
                 margin-bottom: 1rem;
+
+
 
                 .title {
                     color: #333;
@@ -185,6 +188,11 @@
                     color: #333;
                     font-size: 0.16rem;
                     line-height: 0.4rem;
+
+                    img {
+                        max-width: 100% !important;
+                    }
+
                 }
 
                 .buttonBox {
@@ -303,5 +311,10 @@
             }
 
         }
+    }
+</style>
+<style>
+    .content-a img {
+        max-width: 100% !important;
     }
 </style>

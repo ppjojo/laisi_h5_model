@@ -74,7 +74,7 @@ export function teamPeopleRemain(data) {
 }
 
 //团队赛的队伍
-export function teamList(data) {
+export function teamListArr(data) {
     return request({
         url: "ropeSkipping/team/list",
         method: 'post',

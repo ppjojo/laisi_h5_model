@@ -141,6 +141,7 @@
 
         data() {
             return {
+                type: this.$route.query.type,
                 currentUserId: getQueryString("userId"),
                 DateTime: DateTime,
                 competitionId: getQueryString("id"),

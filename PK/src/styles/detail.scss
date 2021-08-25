@@ -48,21 +48,7 @@ $border_color:#1e1e2a;
 
         }
 
-        .detailBg_personal {
-            @extend .detailBg;
-            background-image: url(../img/bg_personal.png);
-
-        }
-
-        .detailBg_team {
-            @extend .detailBg;
-            background-image: url(../img/bg_team.png);
-        }
-
-        .detailBg_multiTeam {
-            @extend .detailBg;
-            background-image: url(../img/bg_multiTeam.png);
-        }
+     
     }
 
     .detailContain {

@@ -42,7 +42,7 @@
 
         data() {
             return {
-
+                  type: this.$route.query.type,
             };
         },
         filters: {},

@@ -494,8 +494,12 @@
             }
 
             .picBox {
+                display: flex;
+                align-content: flex-end;
+                justify-content: center;
                 img {
-                    width: 4.4rem;
+                
+                    width: 3.9rem;
                 }
             }
         }
@@ -506,6 +510,18 @@
             align-items: flex-end;
             height: 3.8rem;
             padding-bottom: 0.5rem;
+            padding: 0.3rem;
+            .content {
+                color: rgba(102, 102, 102, 100);
+                font-size: 0.16rem;
+                line-height: 0.4rem;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: box;
+                display: -webkit-box;
+                -webkit-line-clamp: 1;
+                -webkit-box-orient: vertical;
+            }
             .picBox {
                 img {
                     width: 2.15rem;

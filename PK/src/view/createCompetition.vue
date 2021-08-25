@@ -14,39 +14,116 @@
                         show-word-limit />
                 </div>
             </div>
-            <div class="item_box">
-                <div class="laber">
-                    比赛模式
+            <div v-if="type=='skipping'">
+                <div class="item_box">
+                    <div class="laber">
+                        比赛模式
+                    </div>
+                    <div>
+                        <van-radio-group @change="modeChange" v-model="submitform.mode" direction="horizontal">
+                            <van-radio name="2">倒计时跳</van-radio>
+                            <van-radio name="3">倒计数跳</van-radio>
+                        </van-radio-group>
+                    </div>
+                    <div v-if="submitform.mode" class="borderTop">
+                        <van-cell class="pk_cell" :class="form.pkMode.indexOf('请选择')!=-1?'':'chosed'"
+                            @click="modeChange(submitform.mode)" :title="submitform.mode==2?'倒计时长':'倒计数跳个数'" is-link
+                            :value="form.pkMode" />
+                    </div>
                 </div>
-                <div>
-                    <van-radio-group @change="modeChange" v-model="submitform.mode" direction="horizontal">
-                        <van-radio name="2">倒计时跳</van-radio>
-                        <van-radio name="3">倒计数跳</van-radio>
-                    </van-radio-group>
-                </div>
-                <div v-if="submitform.mode" class="borderTop">
-                    <van-cell class="pk_cell" :class="form.pkMode.indexOf('请选择')!=-1?'':'chosed'"
-                        @click="modeChange(submitform.mode)" :title="submitform.mode==2?'倒计时长':'倒计数跳个数'" is-link
-                        :value="form.pkMode" />
+                <div class="item_box">
+                    <div class="laber">
+                        比赛类型
+                    </div>
+                    <div class="border">
+                        <van-radio-group @change="typeChange" v-model="submitform.type" direction="horizontal">
+                            <van-radio name="personal">个人赛</van-radio>
+                            <van-radio name="team">团体赛</van-radio>
+                        </van-radio-group>
+                    </div>
+
+                    <div v-if="submitform.type=='team'" class="borderTop">
+                        <van-cell class="pk_cell" :class="form.pkType.toString().indexOf('请选择')!=-1?'':'chosed'"
+                            @click="typeChange(submitform.type)" title="团队赛人数" is-link :value="form.pkType" />
+                    </div>
                 </div>
             </div>
 
-            <div class="item_box">
-                <div class="laber">
-                    比赛类型
+            <div v-else-if="type=='running'">
+                <div class="item_box">
+                    <div>
+                        <van-cell class="pk_cell2" :class="form.pkMode.indexOf('请选择')!=-1?'':'chosed'"
+                            @click="distanceShow = true" title="比赛模式(公里数)" is-link :value="form.pkMode" />
+                    </div>
                 </div>
-                <div class="border">
-                    <van-radio-group @change="typeChange" v-model="submitform.type" direction="horizontal">
-                        <van-radio name="personal">个人赛</van-radio>
-                        <van-radio name="team">团体赛</van-radio>
-                    </van-radio-group>
+                <div class="item_box">
+                    <div>
+                        <van-cell class="pk_cell2 chosed" title="比赛类型" value="个人赛" />
+                    </div>
                 </div>
 
-                <div v-if="submitform.type=='team'" class="borderTop">
-                    <van-cell class="pk_cell" :class="form.pkType.toString().indexOf('请选择')!=-1?'':'chosed'"
-                        @click="typeChange(submitform.type)" title="团队赛人数" is-link :value="form.pkType" />
+            </div>
+
+            <div v-else-if="type=='wristBall'">
+                <div class="item_box">
+                    <div>
+                        <van-cell class="pk_cell2" :class="form.pkMode.indexOf('请选择')!=-1?'':'chosed'"
+                            @click="countTimeShow = true" title="比赛模式(倒计时转)" is-link :value="form.pkMode" />
+                    </div>
+                </div>
+                <div class="item_box">
+                    <div class="laber">
+                        比赛类型
+                    </div>
+                    <div class="border">
+                        <van-radio-group @change="typeChange" v-model="submitform.type" direction="horizontal">
+                            <van-radio name="personal">个人赛</van-radio>
+                            <van-radio name="team">团体赛</van-radio>
+                        </van-radio-group>
+                    </div>
+
+                    <div v-if="submitform.type=='team'" class="borderTop">
+                        <van-cell class="pk_cell" :class="form.pkType.toString().indexOf('请选择')!=-1?'':'chosed'"
+                            @click="typeChange(submitform.type)" title="团队赛人数" is-link :value="form.pkType" />
+                    </div>
                 </div>
             </div>
+
+            <div v-if="type=='wheel'">
+                <div class="item_box">
+                    <div class="laber">
+                        比赛模式
+                    </div>
+                    <div>
+                        <van-radio-group @change="modeChange" v-model="submitform.mode" direction="horizontal">
+                            <van-radio name="2">倒计时</van-radio>
+                            <van-radio name="3">倒计数</van-radio>
+                        </van-radio-group>
+                    </div>
+                    <div v-if="submitform.mode" class="borderTop">
+                        <van-cell class="pk_cell" :class="form.pkMode.indexOf('请选择')!=-1?'':'chosed'"
+                            @click="modeChange(submitform.mode)" :title="submitform.mode==2?'倒计时长':'倒计数跳个数'" is-link
+                            :value="form.pkMode" />
+                    </div>
+                </div>
+                <div class="item_box">
+                    <div class="laber">
+                        比赛类型
+                    </div>
+                    <div class="border">
+                        <van-radio-group @change="typeChange" v-model="submitform.type" direction="horizontal">
+                            <van-radio name="personal">个人赛</van-radio>
+                            <van-radio name="team">团体赛</van-radio>
+                        </van-radio-group>
+                    </div>
+
+                    <div v-if="submitform.type=='team'" class="borderTop">
+                        <van-cell class="pk_cell" :class="form.pkType.toString().indexOf('请选择')!=-1?'':'chosed'"
+                            @click="typeChange(submitform.type)" title="团队赛人数" is-link :value="form.pkType" />
+                    </div>
+                </div>
+            </div>
+
 
             <van-button round class="nextStep" :class="canNext1?'canNextStep':''" block @click="nextPage()">下一步
             </van-button>
@@ -83,9 +160,9 @@
                         @click="endTimeShow = true" title="结束时间" is-link :value="form.pkEnd" />
                 </div>
             </div>
-            <div class="item_box">
+            <div class="item_box" v-if="type!='running'">
                 <div class="laber">
-                    比赛模式
+                    比赛奖励
                 </div>
                 <div>
                     <van-radio-group @change="gameRewardChange" v-model="form.pkGameReward" direction="horizontal">
@@ -108,13 +185,19 @@
 
 
         <van-popup v-model="countTimeShow" position="bottom">
-            <van-picker title="倒计时跳时长" show-toolbar :columns="countTimeColumns" :default-index="1"
+            <van-picker :title="type=='skipping'?'倒计时跳时长':'倒计时转时长'" show-toolbar :columns="countTimeColumns" :default-index="1"
                 @cancel="countTimeShow = false" @confirm="onCountTimeConfirm" />
         </van-popup>
-        <van-popup v-model="countNumberShow" position="bottom">
+
+        <van-popup v-model="distanceShow" position="bottom">
+            <van-picker title="公里数" show-toolbar :columns="distanceColumns" :default-index="1"
+                @cancel="distanceShow = false" @confirm="onDistanceConfirm" />
+        </van-popup>
+
+        <!-- <van-popup v-model="countNumberShow" position="bottom">
             <van-picker title="倒计数跳个数" show-toolbar :columns="countNumberColumns" @cancel="countNumberShow = false"
                 @confirm="onCountNumberConfirm" />
-        </van-popup>
+        </van-popup> -->
         <van-popup v-model="teamShow" position="bottom">
             <van-picker title="团体赛人数" show-toolbar :columns="teamColumns" @cancel="teamShow = false"
                 @confirm="onteamConfirm" />
@@ -132,6 +215,12 @@
             <van-picker show-toolbar title="结束时间" :columns="endTimeColumns" @cancel="endTimeShow = false"
                 @confirm="onendTimeConfirm" @change="onendTimeChange" />
         </van-popup>
+
+        <van-dialog v-model="countNumberShow" width="80%" :title="type=='skipping'?'倒计数跳个数':'倒计数次数'" show-cancel-button @confirm="onCountNumberConfirm">
+            <div>
+                <van-field v-model="form.modeValue" />
+            </div>
+        </van-dialog>
     </div>
 
     </div>
@@ -147,7 +236,8 @@
         Radio,
         Button,
         Cell,
-        Picker
+        Picker,
+        Dialog,
     } from 'vant';
 
     import {
@@ -169,11 +259,13 @@
             [Radio.name]: Radio,
             [Button.name]: Button,
             [Cell.name]: Cell,
-            [Picker.name]: Picker
+            [Picker.name]: Picker,
+             [Dialog.Component.name]: Dialog.Component,
         },
 
         data() {
             return {
+                type: this.$route.query.type,
                 flag: 1,
                 countTimeColumns: ['30秒'],
                 countTimeShow: false,
@@ -206,6 +298,9 @@
                 endTimeColumns: [],
                 endTimeShow: false,
 
+                distanceShow: false,
+                distanceColumns: [],
+
 
 
                 teamColumns: ["不限"],
@@ -213,25 +308,25 @@
 
                 form: {
                     pkType: "",
-                    pkMode: "",
+                    pkMode: "请选择倒计时跳时长",
                     pkRepeatTimes: "请选择比赛次数",
                     pkStart: "请选择开始时间",
                     pkEnd: "请选择结束时间",
-                    pkGameReward: ""
+                    pkGameReward: "",
                 },
                 submitform: {
-                    "startTime": "",
-                    "endTime": "",
-                    "name": "",
-                    "mode": "", //比赛模式: 2(倒计时)/3(倒计数)
-                    "type": "", //比赛类型: team(团队赛)/personal(个人赛)
-                    "isOfficial": true, // true(官方比赛)，false(非官方比赛)
-                    "modeValue": "", //倒计时/秒, 倒计数/个
-                    "repeatTimes": "", //比赛  -1:表示不限制比赛次数
-                    "invitationCode": "", //邀请码
-                    "isVerify": "", //是否需要邀请码   true(需要)
-                    "gameReward": "", //比赛奖励
-                    "teamPersonLimit": "" //团队人数
+                    startTime: "",
+                    endTime: "",
+                    name: "",
+                    mode: "2", //比赛模式: 2(倒计时)/3(倒计数)
+                    type: "personal", //比赛类型: team(团队赛)/personal(个人赛)
+                    isOfficial: false, // true(官方比赛)，false(非官方比赛)
+                    modeValue: "", //倒计时/秒, 倒计数/个
+                    repeatTimes: "", //比赛  -1:表示不限制比赛次数
+                    invitationCode: "", //邀请码
+                    isVerify: "", //是否需要邀请码   true(需要)
+                    gameReward: "", //比赛奖励
+                    teamPersonLimit: "" //团队人数
 
                 },
                 canNext1: false,
@@ -241,7 +336,14 @@
         watch: {
             submitform: {
                 handler: function (val, oldval) {
-                    this.checkIsNull()
+                    if (this.type == "skipping") {
+                        this.skippingCheckIsNull()
+                    } else if (this.type == "running") {
+                        this.runningCheckIsNull()
+                    }else if(this.type == "wristBall"){
+                        this.wristBallCheckIsNull()
+                    }
+
                 },
                 deep: true
             },
@@ -316,13 +418,25 @@
         },
 
         mounted() {
-            for (let i = 1; i <= 60; i++) {
-                this.countTimeColumns.push(i + '分');
+            if (this.type == "skipping" || this.type == "wristBall") {
+                for (let i = 1; i <= 60; i++) {
+                    this.countTimeColumns.push(i + '分');
+                }
+                for (let i = 2; i <= 50; i++) {
+                    this.teamColumns.push(i);
+                }
+            } else if (this.type == "running") {
+                this.form.pkMode="请选择公里数"
+                for (let i = 1; i <= 60; i++) {
+                    this.distanceColumns.push(i + '公里');
+                }
+
             }
 
-            for (let i = 2; i <= 50; i++) {
-                this.teamColumns.push(i);
+            if(this.type == "wristBall"){
+                this.form.pkMode="请选择倒计时转时长"
             }
+
 
             var startTime = DateTime.initStart();
             this.startTimeColumns = [{
@@ -336,13 +450,15 @@
             //先初始化结束时间
             this.initEndTime();
         },
-        created() {},
+        created() {
+            console.log(this.$route.query.type)
+        },
         methods: {
             onclickLeft() {
                 this.$router.go(-1)
             },
-            //检查是否有空项
-            checkIsNull() {
+            //检查跳绳是否有空项
+            skippingCheckIsNull() {
                 let submitform = this.submitform;
                 if (!(submitform.mode && submitform.type && submitform.modeValue)) { //submitform.name &&
                     this.canNext1 = false;
@@ -358,6 +474,39 @@
                     }
                 }
 
+                if (!(submitform.repeatTimes && submitform.isVerify && submitform.startTime && submitform.endTime &&
+                        submitform.gameReward)) {
+                    this.canNext2 = false;
+                    return
+                } else {
+                    if (this.form.pkGameReward == 2 && submitform.gameReward) {
+                        this.canNext2 = true;
+                    } else if (this.form.pkGameReward == 1) {
+                        this.canNext2 = true;
+                    } else {
+                        this.canNext2 = false;
+                        return
+                    }
+                }
+
+            },
+            runningCheckIsNull() {
+                let submitform = this.submitform;
+                if (submitform.type && submitform.modeValue) { //submitform.name &&
+                    this.canNext1 = true;
+
+                }
+                if (submitform.repeatTimes && submitform.isVerify && submitform.startTime && submitform.endTime) {
+                    this.canNext2 = true;
+                }
+
+            },
+            wristBallCheckIsNull() {
+                let submitform = this.submitform;
+                if (submitform.type && submitform.modeValue) { //submitform.name &&
+                    this.canNext1 = true;
+
+                }
                 if (!(submitform.repeatTimes && submitform.isVerify && submitform.startTime && submitform.endTime &&
                         submitform.gameReward)) {
                     this.canNext2 = false;
@@ -398,10 +547,11 @@
 
             //倒计时的回调
             onCountTimeConfirm(value, index) {
+                var afterText=this.type=="skipping"?"倒计时跳":"倒计时转"
                 if (value == "60分") {
-                    this.form.pkMode = "1小时倒计时跳";
+                    this.form.pkMode = "1小时"+afterText;
                 } else {
-                    this.form.pkMode = value + "钟倒计时跳";
+                    this.form.pkMode = value + "钟"+afterText;
                 }
                 if (index == 0) {
                     this.submitform.modeValue = 30;
@@ -409,6 +559,13 @@
                     this.submitform.modeValue = index * 60;
                 }
                 this.countTimeShow = false;
+            },
+            //公里数回调
+            onDistanceConfirm(value, index) {
+                this.form.pkModeValue = value;
+                this.form.pkMode = value + "跑";
+                this.submitform.modeValue = index + 1;
+                this.distanceShow = false;
             },
             //倒计数的回调
             onCountNumberConfirm(value, index) {
@@ -601,14 +758,13 @@
             //最后的创建比赛
             submitFormData() {
                 if (!this.canNext2) return;
-                this.submitform.isOfficial = false;
                 this.submitform.promoterId = JSON.parse(localStorage.getItem("appInfo")).userId;
                 createCompetition(this.submitform).then(res => {
                     this.$toast("比赛创建成功！");
                     this.$router.replace({
                         path: '/competitionDetail',
                         query: {
-                            id: res.data[0].id,
+                            id: res.data[1].id,
                         }
                     });
                 })

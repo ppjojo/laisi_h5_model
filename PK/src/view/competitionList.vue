@@ -1,7 +1,7 @@
 <template>
     <div id="app" v-cloak>
         <div class="header">
-            <van-nav-bar title="跳绳PK赛" @click-left="onclickLeft" left-arrow safe-area-inset-top fixed>
+            <van-nav-bar :title="navBarTitle" @click-left="onclickLeft" left-arrow safe-area-inset-top fixed>
                 <template #left>
                     <span class="icon iconfont icon-fanhuianniu" style="font-size: 0.48rem;" />
                 </template>
@@ -61,6 +61,9 @@
 
 <script>
     import {
+        getQueryString,
+    } from '@u/tool'
+    import {
         NavBar,
         Icon,
         Tabs,
@@ -107,7 +110,8 @@
 
         data() {
             return {
-                type:"skipping",// skipping跳绳   running跑步  wristBall腕力球 wheel健腹轮
+                type: this.$route.query.type, 
+                navBarTitle: "跳绳PK赛",
                 active: 0, //0 正在进行 1 即将开始 2 我的
                 all: [{
                         title: "正在进行",
@@ -149,7 +153,11 @@
         mounted() {
             this.getList()
         },
-        created() {},
+        created() {
+            // skipping跳绳   running跑步  wristBall腕力球 wheel健腹轮
+            this.navBarTitle = this.type == "running" ? "跑步Pk赛" : this.type == "wristBall" ? "腕力球PK赛" : this.type ==
+                "wheel" ? "健腹轮PK赛" : "跳绳PK赛"
+        },
         methods: {
             onclickLeft() {
                 this.$interaction.closePage();
@@ -247,7 +255,7 @@
                 this.$router.push({
                     path: '/competitionDetail',
                     query: {
-                        id: this.itemDetail.id
+                        id: this.itemDetail.id,
                     }
                 });
 
@@ -274,33 +282,35 @@
                 }
             },
             getOrderToCreate() {
-                boundDeviceCount().then(res => {
-                    if (res.code == 0) {
-                        var items = [];
-                        for (var i = 0; i < res.data.length; i++) {
-                            if (res.data[i].deviceType == "skipping") {
-                                var item = {
-                                    name: res.data[i].deviceNickName,
-                                    mac: res.data[i].deviceId || res.data[i].btMac,
-                                }
-                                items.push(item);
-                            }
-                        }
-                        if (items.length == 0) {
-                            this.$toast("请先绑定设备");
-                            return
-                        } else {
-                            //获取当天可以创建比赛的次数
-                            createTimes().then(res => {
-                                if (res.data > 0) {
-                                    this.$router.push({
-                                        path: '/createCompetition',
-                                    });
-                                } else {
-                                    this.$toast("您今天创建的次数已达上限，请明天再来吧");
-                                }
-                            })
-                        }
+                // boundDeviceCount().then(res => {
+                //     if (res.code == 0) {
+                //         var items = [];
+                //         for (var i = 0; i < res.data.length; i++) {
+                //             if (res.data[i].deviceType == "skipping") {
+                //                 var item = {
+                //                     name: res.data[i].deviceNickName,
+                //                     mac: res.data[i].deviceId || res.data[i].btMac,
+                //                 }
+                //                 items.push(item);
+                //             }
+                //         }
+                //         if (items.length == 0) {
+                //             this.$toast("请先绑定设备");
+                //             return
+                //         } else {
+                //             //获取当天可以创建比赛的次数
+
+                //         }
+                //     }
+                // })
+                createTimes().then(res => {
+                    if (res.data > 0) {
+                        this.$router.push({
+                            path: '/createCompetition',
+
+                        });
+                    } else {
+                        this.$toast("您今天创建的次数已达上限，请明天再来吧");
                     }
                 })
 

@@ -45,7 +45,7 @@
 								<span>{{item.newsEditor}}</span>
 								<span>{{item.updateTime | formatDate}}</span>
 							</div>
-							<div class="content" v-html="item.newsBody">
+							<div class="content" v-html="item.newsSimpleBody">
 
 							</div>
 							<div class="button_more">阅读全文</div>
@@ -55,7 +55,7 @@
 			</div>
 			<div class="phone_box" style="margin-bottom:0.3rem;border:1px solid #eee;margin:15px">
 				<swiper :options="swiperOptions2" v-if="newsList.length>0">
-					<swiper-slide v-for="item in newsList" >
+					<swiper-slide v-for="item in newsList"  :data-id="item.id">
 						<div class="newsTag" v-if="item.newsTag==1">新闻</div>
 						<div class="newsTag" v-else>活动</div>
 						<div class="newsImg" :style="{'background-image':'url('+item.newsPicture+')'}"></div>
@@ -68,10 +68,10 @@
 								<span>{{item.newsEditor}}</span>
 								<span>{{item.updateTime | formatDate}}</span>
 							</div>
-							<div class="content" v-html="item.newsBody">
+							<div class="content" v-html="item.newsSimpleBody">
 
 							</div>
-							<div class="button_more" @click="gotoNewsList(item.id)">阅读全文</div>
+							<div class="button_more" >阅读全文</div>
 						</div>
 
 					</swiper-slide>
@@ -153,6 +153,12 @@
 					autoplay: {
 						delay: 3000,
 					},
+					on: {
+						click: function () {
+							vm.gotoNewsList(this.clickedSlide.attributes["data-id"].nodeValue);
+
+						}
+					}
 				}
 			}
 		},
