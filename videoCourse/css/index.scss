@@ -33,7 +33,7 @@ body {
 
 //课程主页
 .contain {
-    padding: 0 0.24rem;
+    padding:0.24rem;
 
     /* 视频课程的轮播图 */
     .course-swipe {
@@ -54,6 +54,7 @@ body {
 
     /* 分类导航 */
     .nav_grid {
+        margin-bottom: 0.32rem;
         .van-image {
             width: 0.96rem;
             height: 0.96rem;
@@ -116,21 +117,7 @@ body {
 
         }
 
-        .btn_viewMore {
-            width: 1.84rem;
-            // height: 0.6rem;
-            font-size: 0.24rem;
-            color: #71717f;
-            line-height: 0.6rem;
-            margin: 0 auto 0.32rem auto;
-            border: 1px solid #71717f;
-            text-align: center;
-            border-radius: 0.3rem;
-            -webkit-border-radius: 0.3rem;
-            -moz-border-radius: 0.3rem;
-            -ms-border-radius: 0.3rem;
-            -o-border-radius: 0.3rem;
-        }
+        
     }
 }
 
@@ -144,6 +131,24 @@ body {
             color: #71717f;
             font-size: 0.2rem;
         }
+    }
+
+    .title2 {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .txt {
+            font-size: 0.4rem;
+            line-height: 1.04rem;
+        }
+        .btn_viewMore {
+            font-size: 0.24rem;
+            color: #71717f;
+            line-height: 0.6rem;
+        }
+
+
     }
 
     .courseDiv {
@@ -449,7 +454,8 @@ body {
         border-top-right-radius: 0.5rem;
         position: relative;
         top: -0.88rem;
-        .van-sticky--fixed{
+
+        .van-sticky--fixed {
             top: 0.92rem;
         }
 
@@ -642,6 +648,7 @@ body {
                 margin-top: 0.4rem;
             }
         }
+
         .basicBox {
             display: flex;
             align-items: center;
@@ -744,7 +751,7 @@ body {
             }
         }
 
-        
+
 
         .van-list__error-text,
         .van-list__finished-text,
@@ -756,6 +763,7 @@ body {
         }
 
     }
+
     .sendBox {
         display: flex;
         justify-content: space-between;
@@ -790,9 +798,10 @@ body {
 
     }
 
-    .van-popup{
+    .van-popup {
         background-color: $bg_color;
-        .popupHeader{
+
+        .popupHeader {
             position: absolute;
             background-color: $bg_color;
             z-index: 10;
@@ -804,46 +813,53 @@ body {
             height: 1rem;
             justify-content: space-between;
             align-items: center;
-            .title{
-                font-size :0.36rem;
+
+            .title {
+                font-size: 0.36rem;
             }
         }
-        .commentBox{
+
+        .commentBox {
             position: relative;
             z-index: 3;
-            height: calc( 100% - 1rem);
+            height: calc(100% - 1rem);
             overflow: auto;
             padding: 0;
-            .mainComment{
+
+            .mainComment {
                 padding: 0 0.3rem;
                 margin-top: 1rem;
-                border-bottom: 4px solid $border_color; 
+                border-bottom: 4px solid $border_color;
             }
-            .commentDiv{
+
+            .commentDiv {
                 padding-left: 0.96rem;
                 margin: 0;
-               border-bottom: none; 
+                border-bottom: none;
             }
-            .allCommentTitle{
+
+            .allCommentTitle {
                 font-size: 0.36rem;
                 line-height: 1rem;
                 padding: 0 0.3rem;
             }
-            .childComment{
+
+            .childComment {
 
                 padding: 0 0.3rem;
                 margin-top: 0.15rem;
             }
-            
-         }
-         .sendBox{
-             position: absolute;
-             z-index: 9;
-         }
-         
+
+        }
+
+        .sendBox {
+            position: absolute;
+            z-index: 9;
+        }
+
 
     }
-    
+
 
 
 }
@@ -866,14 +882,18 @@ body {
         border-color: $border_color;
     }
 }
+
 //action-sheet
-.van-action-sheet{
-    .van-action-sheet__cancel, .van-action-sheet__item{
+.van-action-sheet {
+
+    .van-action-sheet__cancel,
+    .van-action-sheet__item {
         background-color: $bg_color;
         color: $text_color_white;
         border-bottom: 1px solid $border_color;
     }
-    .van-action-sheet__gap{
+
+    .van-action-sheet__gap {
         background-color: $border_color;
         color: $text_color_white;
     }
@@ -918,7 +938,8 @@ body {
         height: calc(0.92rem + constant(safe-area-inset-top));
         height: calc(0.92rem + env(safe-area-inset-top));
     }
-    .courseList .tabBox .van-sticky--fixed{
+
+    .courseList .tabBox .van-sticky--fixed {
         top: 0.92rem;
         top: calc(0.92rem + constant(safe-area-inset-top));
         top: calc(0.92rem + env(safe-area-inset-top));

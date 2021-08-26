@@ -97,12 +97,12 @@
                     <div>
                         <van-radio-group @change="modeChange" v-model="submitform.mode" direction="horizontal">
                             <van-radio name="2">倒计时</van-radio>
-                            <van-radio name="3">倒计数</van-radio>
+                            <van-radio name="3">倒计次</van-radio>
                         </van-radio-group>
                     </div>
                     <div v-if="submitform.mode" class="borderTop">
                         <van-cell class="pk_cell" :class="form.pkMode.indexOf('请选择')!=-1?'':'chosed'"
-                            @click="modeChange(submitform.mode)" :title="submitform.mode==2?'倒计时长':'倒计数跳个数'" is-link
+                            @click="modeChange(submitform.mode)" :title="submitform.mode==2?'倒计时长':'倒计数次数'" is-link
                             :value="form.pkMode" />
                     </div>
                 </div>
@@ -185,8 +185,8 @@
 
 
         <van-popup v-model="countTimeShow" position="bottom">
-            <van-picker :title="type=='skipping'?'倒计时跳时长':'倒计时转时长'" show-toolbar :columns="countTimeColumns" :default-index="1"
-                @cancel="countTimeShow = false" @confirm="onCountTimeConfirm" />
+            <van-picker :title="type=='skipping'?'倒计时跳时长':'倒计时转时长'" show-toolbar :columns="countTimeColumns"
+                :default-index="1" @cancel="countTimeShow = false" @confirm="onCountTimeConfirm" />
         </van-popup>
 
         <van-popup v-model="distanceShow" position="bottom">
@@ -216,9 +216,10 @@
                 @confirm="onendTimeConfirm" @change="onendTimeChange" />
         </van-popup>
 
-        <van-dialog v-model="countNumberShow" width="80%" :title="type=='skipping'?'倒计数跳个数':'倒计数次数'" show-cancel-button @confirm="onCountNumberConfirm">
+        <van-dialog v-model="countNumberShow" width="80%" :title="type=='skipping'?'倒计数跳个数':'倒计数次数'" show-cancel-button
+            @confirm="onCountNumberConfirm">
             <div>
-                <van-field v-model="form.modeValue" />
+                <van-field type="number" v-model="inputValue" :placeholder="type=='skipping'?'请输入倒计数跳个数':'请输入倒计数次数'" />
             </div>
         </van-dialog>
     </div>
@@ -260,7 +261,7 @@
             [Button.name]: Button,
             [Cell.name]: Cell,
             [Picker.name]: Picker,
-             [Dialog.Component.name]: Dialog.Component,
+            [Dialog.Component.name]: Dialog.Component,
         },
 
         data() {
@@ -331,16 +332,17 @@
                 },
                 canNext1: false,
                 canNext2: false,
+                inputValue: ""
             };
         },
         watch: {
             submitform: {
                 handler: function (val, oldval) {
-                    if (this.type == "skipping") {
+                    if (this.type == "skipping"||this.type=="wheel") {
                         this.skippingCheckIsNull()
                     } else if (this.type == "running") {
                         this.runningCheckIsNull()
-                    }else if(this.type == "wristBall"){
+                    } else if (this.type == "wristBall") {
                         this.wristBallCheckIsNull()
                     }
 
@@ -426,15 +428,15 @@
                     this.teamColumns.push(i);
                 }
             } else if (this.type == "running") {
-                this.form.pkMode="请选择公里数"
+                this.form.pkMode = "请选择公里数"
                 for (let i = 1; i <= 60; i++) {
                     this.distanceColumns.push(i + '公里');
                 }
 
             }
 
-            if(this.type == "wristBall"){
-                this.form.pkMode="请选择倒计时转时长"
+            if (this.type == "wristBall") {
+                this.form.pkMode = "请选择倒计时转时长"
             }
 
 
@@ -531,7 +533,7 @@
                     this.form.pkMode = "请选择倒计时跳时长";
                 } else {
                     this.countNumberShow = true
-                    this.form.pkMode = "请选择倒计数跳个数";
+                    this.form.pkMode =this.type=="skipping"?"请选择倒计数跳个数":"请选择倒计数次数";
                 }
             },
             typeChange(name) { //比赛类型切换回调
@@ -547,11 +549,11 @@
 
             //倒计时的回调
             onCountTimeConfirm(value, index) {
-                var afterText=this.type=="skipping"?"倒计时跳":"倒计时转"
+                var afterText = this.type == "skipping" ? "倒计时跳" : "倒计时转"
                 if (value == "60分") {
-                    this.form.pkMode = "1小时"+afterText;
+                    this.form.pkMode = "1小时" + afterText;
                 } else {
-                    this.form.pkMode = value + "钟"+afterText;
+                    this.form.pkMode = value + "钟" + afterText;
                 }
                 if (index == 0) {
                     this.submitform.modeValue = 30;
@@ -568,14 +570,31 @@
                 this.distanceShow = false;
             },
             //倒计数的回调
-            onCountNumberConfirm(value, index) {
-                let countNumber = value[0] * 1000 + value[1] * 100 + value[2] * 10 + value[3] * 1;
-                if (countNumber < 50) {
-                    this.$toast('倒计数必须不小于50');
-                    return;
+            // onCountNumberConfirm(value, index) {
+            //     let countNumber = value[0] * 1000 + value[1] * 100 + value[2] * 10 + value[3] * 1;
+            //     if (countNumber < 50) {
+            //         this.$toast('倒计数必须不小于50');
+            //         return;
+            //     }
+            //     this.form.pkMode = countNumber + "个倒计数跳";
+            //     this.submitform.modeValue = countNumber;
+            //     this.countNumberShow = false;
+            // },
+            onCountNumberConfirm() {
+                if (this.type == "skipping") {
+                    if (this.inputValue < 50) {
+                        this.$toast('倒计数必须不小于50');
+                        return;
+                    }
+                    this.form.pkMode = this.inputValue + "个倒计数跳";
+                } else {
+                    if (this.inputValue < 1) {
+                        this.$toast('倒计数次数必须不小于1');
+                        return;
+                    }
+                    this.form.pkMode = this.inputValue + "次倒计数次数";
                 }
-                this.form.pkMode = countNumber + "个倒计数跳";
-                this.submitform.modeValue = countNumber;
+                 this.submitform.modeValue = this.inputValue
                 this.countNumberShow = false;
             },
 

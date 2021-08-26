@@ -51,7 +51,7 @@
 
         <van-dialog v-model="verifyShow" width="80%" title="请输入邀请码" show-cancel-button @confirm="invitationCodeConfirm">
             <div>
-                <van-field v-model="invitationCode" />
+                <van-field v-model="invitationCode" placeholder="请输入邀请码" />
             </div>
         </van-dialog>
 

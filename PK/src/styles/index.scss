@@ -20,6 +20,15 @@ $border_color:#1e1e2a;
 .van-hairline--bottom::after {
     border: none;
 }
+.van-hairline--left::after{
+    border: none;
+}
+.van-hairline--top::after{
+    border: none;
+}
+.van-hairline--right::after{
+    border: none;
+}
 
 .comListBox {
     .van-sticky--fixed {

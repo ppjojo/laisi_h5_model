@@ -284,6 +284,7 @@
                         position: relative;
                         margin-right: 0.2rem;
                         cursor: pointer;
+                        box-shadow: 2px 2px 5px 1px #999;
 
                     }
 

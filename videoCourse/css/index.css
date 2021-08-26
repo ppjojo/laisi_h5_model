@@ -22,7 +22,7 @@ body {
 }
 
 .contain {
-  padding: 0 0.24rem;
+  padding: 0.24rem;
   /* 视频课程的轮播图 */
   /* 分类导航 */
 }
@@ -41,6 +41,10 @@ body {
 .contain .course-swipe .van-swipe-item img {
   width: 100%;
   height: 100%;
+}
+
+.contain .nav_grid {
+  margin-bottom: 0.32rem;
 }
 
 .contain .nav_grid .van-image {
@@ -98,21 +102,6 @@ body {
   bottom: 0;
 }
 
-.contain .recentBox .btn_viewMore {
-  width: 1.84rem;
-  font-size: 0.24rem;
-  color: #71717f;
-  line-height: 0.6rem;
-  margin: 0 auto 0.32rem auto;
-  border: 1px solid #71717f;
-  text-align: center;
-  border-radius: 0.3rem;
-  -webkit-border-radius: 0.3rem;
-  -moz-border-radius: 0.3rem;
-  -ms-border-radius: 0.3rem;
-  -o-border-radius: 0.3rem;
-}
-
 .courseBox .title, .courseBox-bg .title {
   font-size: 0.4rem;
   line-height: 1.04rem;
@@ -121,6 +110,29 @@ body {
 .courseBox .title .titleInfo, .courseBox-bg .title .titleInfo {
   color: #71717f;
   font-size: 0.2rem;
+}
+
+.courseBox .title2, .courseBox-bg .title2 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.courseBox .title2 .txt, .courseBox-bg .title2 .txt {
+  font-size: 0.4rem;
+  line-height: 1.04rem;
+}
+
+.courseBox .title2 .btn_viewMore, .courseBox-bg .title2 .btn_viewMore {
+  font-size: 0.24rem;
+  color: #71717f;
+  line-height: 0.6rem;
 }
 
 .courseBox .courseDiv, .courseBox-bg .courseDiv {
@@ -839,7 +851,7 @@ body {
 .courseList .van-popup .commentBox {
   position: relative;
   z-index: 3;
-  height: calc( 100% - 1rem);
+  height: calc(100% - 1rem);
   overflow: auto;
   padding: 0;
 }
@@ -888,7 +900,8 @@ body {
   border-color: #1e1e2a;
 }
 
-.van-action-sheet .van-action-sheet__cancel, .van-action-sheet .van-action-sheet__item {
+.van-action-sheet .van-action-sheet__cancel,
+.van-action-sheet .van-action-sheet__item {
   background-color: #12121f;
   color: #CFCFD2;
   border-bottom: 1px solid #1e1e2a;

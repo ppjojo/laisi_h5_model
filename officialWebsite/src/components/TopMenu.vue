@@ -64,8 +64,8 @@
 									<img style="width:0.36rem;" src="../assets/img/outdoorSport/iconLeft.png" alt="">
 								</div>
 								<swiper :options="swiperOptions_nav" v-if="swiperStart&&outdoorlist.length>0"
-									ref="pcSwiper" @click-slide="swipergotoProductDetail">
-									<swiper-slide v-for="item in outdoorlist" style="width:auto;"
+									ref="pcSwiper" >
+									<swiper-slide v-for="item in outdoorlist" style="width:auto; " :data-id="item.id"
 										v-if="item.productDeviceType=='3'">
 										<div class="secondTreeBox " >
 											<img class="secondTree_img" :src="item.navPic" alt="">
@@ -179,6 +179,7 @@
 	import {
 		getAllProduct
 	} from "@a/product";
+	var  vm = null
 	export default {
 		name: 'TopMenu',
 		props: {},
@@ -201,6 +202,12 @@
 					loop: true,
 					observer: true,
 					observeParents: true,
+					on: {
+						click: function () {
+							vm.swipergotoProductDetail(this.clickedSlide.attributes["data-id"].nodeValue);
+
+						}
+					}
 					// autoplay: {
 					// 	delay: 1000,
 					// 	stopOnLastSlide: false,
@@ -225,6 +232,7 @@
 			// wow.init();
 		},
 		created() {
+			vm=this
 			//window.addEventListener('scroll', this.scrollFn);
 			this.getGoods();
 		},
@@ -340,12 +348,13 @@
 				})
 				this.menuTreeHide()
 			},
-			swipergotoProductDetail(index,realIndex) {
-                 let item=this.outdoorlist[realIndex]
+			swipergotoProductDetail(id) {
+				
+                 
                 this.$router.push({
                     path: "productDetail",
                     query: {
-                        id: item.id
+                        id: id
                     }
                 })
             },

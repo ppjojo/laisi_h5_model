@@ -14,7 +14,7 @@
                             <img v-if="detail.newsTop==1" style="width:0.3rem;margin-right:0.2rem"
                                 src="../assets/img/index/hot.png" alt="">
                             <span>{{detail.newsEditor}}</span>
-                            <span>{{detail.updateTime | formatDate}}</span>
+                            <span v-if="detail.updateTime">{{detail.updateTime | formatDate}}</span>
                         </div>
                         <div class="content content-a" v-html="detail.newsBody">
                         </div>
@@ -122,12 +122,14 @@
                 })
             },
             changeNews(type) {
+                window.scrollTo(0,0)
                 var index = this.newsList.findIndex((item) => {
                     return item.id == this.activeId
                 })
                 let len = this.newsList.length
                 let to = (index + type + len) % len
                 this.newsDetail(this.newsList[to].id)
+
 
 
             }
