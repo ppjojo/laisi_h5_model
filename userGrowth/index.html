@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+		<title>升级攻略</title>
+	<style type="text/css">
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			body{
+				background-color: rgba(86,167,249);
+			}
+			.bg{
+				height: 38rem;
+			}
+			.bg .bgpic {
+				width: 100%;
+				height: auto;
+			}
+
+			.levelProgressContain {
+				position: absolute;
+				top: 8.2rem;
+				width: 100%;
+				padding: 0 0.7rem;
+				box-sizing: border-box;
+			}
+
+			.levelProgress {
+				display: flex;
+				overflow-x: scroll;
+				width: 100%;
+				padding-left: .4rem;
+				-webkit-overflow-scrolling: touch;
+				box-sizing: border-box;
+			}
+
+			.levelProgress .levelItem {
+				width: 3rem;
+			}
+
+			.levelItem .levelBar {
+				display: flex;
+				align-items: center;
+				padding: 0.1rem 0;
+			}
+
+			.levelBar .dot {
+				width: .2rem;
+				height: .2rem;
+				background: rgb(61, 61, 61);
+				border-radius: 50%;
+
+			}
+
+			.levelBar img {
+				width: .16rem;
+				height: auto;
+				margin-left: 0.2rem;
+			}
+
+			.levelBar .barline {
+				width: 1.5rem;
+				height: 2px;
+				background: #EDEDED;
+			}
+
+
+			.levelItem .leveltxtDiv {
+				min-width: 1.5rem;
+				margin-left: -.25rem;
+			}
+
+			.levelItem .leveltxtDiv .growthValue {
+				font-size: .24rem;
+				line-height: .38rem;
+				color: #999;
+			}
+
+			.levelItemContainer {
+				white-space: nowrap;
+				display: flex;
+				height: .45rem;
+				align-items: flex-end;
+			}
+
+			.levelItemContainer .levelicon {
+				width: .36rem;
+			}
+
+			.levelItemContainer .leveltxt {
+				position: relative;
+				top: 0.07rem;
+				font-size: .28rem;
+				color: #E60012;
+				white-space: nowrap;
+			}
+			
+			.tableBox{
+				margin: 0 0.3rem;
+				background: #ffffff;
+				border-radius: 8px;
+				position: absolute;
+				width: calc(100% - 0.6rem);
+				box-sizing: border-box;
+				top: 12.6rem;
+			}
+			
+			/* 成长值奖励列表 */
+			.rewardValueList {
+			    margin:0.3rem;
+			}
+			
+			.rewardValueList .item:nth-child(2n+1){
+				background-color: rgba(232,244,252);
+			}
+			.rewardValueList .item:nth-child(2n){
+				background-color:#FFFFFF;
+			}
+			.rewardValueList .item{
+			    min-height: 0.8rem;
+			    text-align: center;
+			    display: flex;
+			    align-items: center;
+			    justify-content: center;
+				font-size: 0.24rem;
+				color: #999;
+			}
+			.rewardValueList .title{
+				font-size: 0.28rem;
+				color: #1f1f1f;
+				background-color: rgba(232,244,252);
+			}
+			.item div.action{
+			    width: 40%;
+			    min-height: 0.8rem;
+			    display: flex;
+			    align-items: center;
+			    justify-content: center;
+			}
+			.item div.value{
+			    width:20%;
+			    min-height: 0.8rem;
+			    display: flex;
+			    align-items: center;
+			    justify-content: center;
+			}
+			.item div.desc{
+			    width:40%;
+			    min-height: 0.8rem;
+			    display: flex;
+			    align-items: center;
+			    justify-content: center;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div>
+			<div class="bg" style="font-size: 0;">
+				<div class="levelProgressContain">
+					<div class="levelProgress" id="levelProgressList"></div>
+				</div>
+
+				<img class="bgpic" src="img/bg.png">
+				
+				<div class="tableBox">
+					<img src="./img/boxTitle.png" style="width: 7rem;">
+					<div class='rewardValueList'>
+					    <div class='item title' >
+					        <div class='action'>用户行为</div>
+					        <div class='value'>成长值</div>
+					        <div class='desc'>说明</div>
+					    </div>
+					    <div class='item '>
+					        <div class='action'>完成注册</div>
+					        <div class='value'>10</div>
+					        <div class='desc'>总上限为1次</div>
+					    </div>
+						<div class='item '>
+						    <div class='action'>每日登录</div>
+						    <div class='value'>1</div>
+						    <div class='desc'>每天上限为1次</div>
+						</div>
+					    <div class='item '>
+					        <div class='action'>完善个人资料</div>
+					        <div class='value'>5</div>
+					        <div class='desc'>总上限为1次</div>
+					    </div>
+					    <div class='item '>
+					        <div class='action'>填写身体数据</div>
+					        <div class='value'>5</div>
+					        <div class='desc'>每天上限为1次</div>
+					    </div>
+					    <div class='item '>
+					        <div class='action'>添加亲友管理</div>
+					        <div class='value'>10</div>
+					        <div class='desc'>总上限为5次</div>
+					    </div>
+					
+					    
+					    <div class='item '>
+					        <div class='action'>设定个人目标</div>
+					        <div class='value'>2</div>
+					        <div class='desc'>无上限</div>
+					    </div>
+					    <div class='item '>
+					        <div class='action'>达成目标</div>
+					        <div class='value'>2</div>
+					        <div class='desc'>无上限</div>
+					    </div>
+						<div class='item '>
+						    <div class='action'>发动态</div>
+						    <div class='value'>5</div>
+						    <div class='desc'>每天上限为3次</div>
+						</div>
+						<div class='item '>
+						    <div class='action'>评论</div>
+						    <div class='value'>2</div>
+						    <div class='desc'>每天上限为3次</div>
+						</div>
+						<div class='item '>
+						    <div class='action'>点赞</div>
+						    <div class='value'>1</div>
+						    <div class='desc'>每天上限为3次</div>
+						</div>
+						<div class='item '>
+						    <div class='action'>收藏</div>
+						    <div class='value'>2</div>
+						    <div class='desc'>每天上限为3次</div>
+						</div>
+						<div class='item '>
+						    <div class='action'>分享动态</div>
+						    <div class='value'>1</div>
+						    <div class='desc'>每天上限为3次</div>
+						</div>
+						<div class='item '>
+						    <div class='action'>参加课程</div>
+						    <div class='value'>2</div>
+						    <div class='desc'>每天上限为3次</div>
+						</div>
+						<div class='item '>
+						    <div class='action'>评论课程</div>
+						    <div class='value'>1</div>
+						    <div class='desc'>每天上限为3次</div>
+						</div>
+						<div class='item '>
+						    <div class='action'>分享课程</div>
+						    <div class='value'>1</div>
+						    <div class='desc'>每天上限为3次</div>
+						</div>
+						<div class='item '>
+						    <div class='action'>创建俱乐部</div>
+						    <div class='value'>10</div>
+						    <div class='desc'>总上限为1次</div>
+						</div>
+						<div class='item '>
+						    <div class='action'>加入俱乐部</div>
+						    <div class='value'>2</div>
+						    <div class='desc'>每天上限为3次</div>
+						</div>
+						<div class='item '>
+						    <div class='action'>分享俱乐部</div>
+						    <div class='value'>1</div>
+						    <div class='desc'>每天上限为3次</div>
+						</div>
+						<div class='item '>
+						    <div class='action'>创建PK赛</div>
+						    <div class='value'>5</div>
+						    <div class='desc'>每天上限为1次</div>
+						</div>
+						<div class='item '>
+						    <div class='action'>参加PK赛</div>
+						    <div class='value'>2</div>
+						    <div class='desc'>每天上限为3次</div>
+						</div>
+						<div class='item '>
+						    <div class='action'>分享PK赛</div>
+						    <div class='value'>1</div>
+						    <div class='desc'>每天上限为3次</div>
+						</div>
+					    <div class='item '>
+					        <div class='action'>虚拟体验T20</div>
+					        <div class='value'>10</div>
+					        <div class='desc'>总上限为1次</div>
+					    </div>
+					    
+					    <div class='item '>
+					        <div class='action'>虚拟体验H10</div>
+					        <div class='value'>10</div>
+					        <div class='desc'>总上限为1次</div>
+					    </div>
+					    <div class='item '>
+					        <div class='action'>虚拟体验T10N</div>
+					        <div class='value'>10</div>
+					        <div class='desc'>总上限为1次</div>
+					    </div>
+					    <div class='item '>
+					        <div class='action'>绑定设备</div>
+					        <div class='value'>20</div>
+					        <div class='desc'>无上限</div>
+					    </div>
+					    <!-- <div class='item '>
+					        <div class='action'>绑定H10</div>
+					        <div class='value'>20</div>
+					        <div class='desc'>无上限</div>
+					    </div>
+					
+					    <div class='item '>
+					        <div class='action'>绑定T10N</div>
+					        <div class='value'>20</div>
+					        <div class='desc'>无上限</div>
+					    </div>
+						<div class='item '>
+						    <div class='action'>绑定R10</div>
+						    <div class='value'>20</div>
+						    <div class='desc'>无上限</div>
+						</div>
+						<div class='item '>
+						    <div class='action'>绑定CT2</div>
+						    <div class='value'>20</div>
+						    <div class='desc'>无上限</div>
+						</div>
+						<div class='item '>
+						    <div class='action'>绑定S9</div>
+						    <div class='value'>20</div>
+						    <div class='desc'>无上限</div>
+						</div>
+						<div class='item '>
+						    <div class='action'>绑定S7</div>
+						    <div class='value'>20</div>
+						    <div class='desc'>无上限</div>
+						</div>
+						<div class='item '>
+						    <div class='action'>绑定S7PE</div>
+						    <div class='value'>20</div>
+						    <div class='desc'>无上限</div>
+						</div>
+						<div class='item '>
+						    <div class='action'>绑定M10</div>
+						    <div class='value'>20</div>
+						    <div class='desc'>无上限</div>
+						</div> -->
+						<!-- <div class='item '>
+						    <div class='action'>绑定B20</div>
+						    <div class='value'>20</div>
+						    <div class='desc'>无上限</div>
+						</div> -->
+					    <div class='item '>
+					        <div class='action'>分享设备</div>
+					        <div class='value'>5</div>
+					        <div class='desc'>每天上限为3次</div>
+					    </div>
+					   <!-- <div class='item '>
+					        <div class='action'>分享H10</div>
+					        <div class='value'>5</div>
+					        <div class='desc'>每天上限为3次</div>
+					    </div>
+					
+					    <div class='item '>
+					        <div class='action'>分享T10N</div>
+					        <div class='value'>5</div>
+					        <div class='desc'>每天上限为3次</div>
+					    </div> -->
+					    <div class='item '>
+					        <div class='action action_normal'>分享设备数据</div>
+					        <div class='value'>5</div>
+					        <div class='desc'>每天上限为3次</div>
+					    </div>
+					    <!-- <div class='item '>
+					        <div class='action longtxt maytwoline_action'>分享体脂秤测量报告</div>
+					        <div class='value maytwoline_value'>5</div>
+					        <div class='desc'>每天上限为3次</div>
+					    </div>
+					    <div class='item '>
+					        <div class='action'>分享空气检测报告</div>
+					        <div class='value'>5</div>
+					        <div class='desc'>每天上限为3次</div>
+					    </div> -->
+						<!-- <div class='item '>
+						    <div class='action'>分享R10</div>
+						    <div class='value'>5</div>
+						    <div class='desc'>每天上限为3次</div>
+						</div>
+						<div class='item '>
+						    <div class='action'>分享CT2</div>
+						    <div class='value'>5</div>
+						    <div class='desc'>每天上限为3次</div>
+						</div>
+						<div class='item '>
+						    <div class='action'>分享S9</div>
+						    <div class='value'>5</div>
+						    <div class='desc'>每天上限为3次</div>
+						</div>
+						<div class='item '>
+						    <div class='action'>分享S7</div>
+						    <div class='value'>5</div>
+						    <div class='desc'>每天上限为3次</div>
+						</div>
+						<div class='item '>
+						    <div class='action'>分享S7PE</div>
+						    <div class='value'>5</div>
+						    <div class='desc'>每天上限为3次</div>
+						</div>
+						<div class='item '>
+						    <div class='action'>分享M10</div>
+						    <div class='value'>5</div>
+						    <div class='desc'>每天上限为3次</div>
+						</div> -->
+						<!-- <div class='item '>
+						    <div class='action'>分享B20</div>
+						    <div class='value'>5</div>
+						    <div class='desc'>每天上限为3次</div>
+						</div> -->
+						<!-- <div class='item '>
+						    <div class='action'>分享手表单次数据、历史数据</div>
+						    <div class='value'>5</div>
+						    <div class='desc'>每天上限为3次</div>
+						</div>
+						<div class='item '>
+						    <div class='action'>分享心率手环单次数据、历史数据</div>
+						    <div class='value'>5</div>
+						    <div class='desc'>每天上限为3次</div>
+						</div> -->
+					    <div class='item '>
+					        <div class='action twoline_action'>使用设备</div>
+					        <div class='value twoline_value'>5</div>
+					        <div class='desc'>每天上限为3次</div>
+					    </div>
+					   <!-- <div class='item '>
+					        <div class='action twoline_action'>每天使用<br>智能体脂秤H10</div>
+					        <div class='value twoline_value'>5</div>
+					        <div class='desc'>每天上限为3次</div>
+					    </div>
+					    <div class='item '>
+					        <div class='action twoline_action'>每天使用<br>空气检测仪T10N</div>
+					        <div class='value twoline_value'>5</div>
+					        <div class='desc'>每天上限为3次</div>
+					    </div>
+						<div class='item '>
+						    <div class='action twoline_action'>每天使用<br>R10</div>
+						    <div class='value twoline_value'>5</div>
+						    <div class='desc'>每天上限为3次</div>
+						</div>
+						<div class='item '>
+						    <div class='action twoline_action'>每天使用<br>CT2</div>
+						    <div class='value twoline_value'>5</div>
+						    <div class='desc'>每天上限为3次</div>
+						</div>
+						<div class='item '>
+						    <div class='action twoline_action'>每天使用<br>S9</div>
+						    <div class='value twoline_value'>5</div>
+						    <div class='desc'>每天上限为3次</div>
+						</div>
+						<div class='item '>
+						    <div class='action twoline_action'>每天使用<br>S7</div>
+						    <div class='value twoline_value'>5</div>
+						    <div class='desc'>每天上限为3次</div>
+						</div>
+						<div class='item '>
+						    <div class='action twoline_action'>每天使用<br>S7PE</div>
+						    <div class='value twoline_value'>5</div>
+						    <div class='desc'>每天上限为3次</div>
+						</div>
+						<div class='item '>
+						    <div class='action twoline_action'>每天使用<br>M10</div>
+						    <div class='value twoline_value'>5</div>
+						    <div class='desc'>每天上限为3次</div>
+						</div> -->
+						<!-- <div class='item '>
+						    <div class='action twoline_action'>每天使用<br>B20</div>
+						    <div class='value twoline_value'>5</div>
+						    <div class='desc'>每天上限为3次</div>
+						</div> -->
+					</div>
+					
+				</div>
+			</div>
+		</div>
+
+	</body>
+	<script src="../../common/js/network.js"></script>
+	<script type="text/javascript">
+		window.onload = function() {
+			ajax({
+				type: "GET",
+				url: "grow/growHomepage",
+				data: {
+					uid: getQueryString('userId')
+				},
+				success: function(res) {
+					if (res.code == 0) {
+						renderLevelProgressList(res.data.growthLevelRelationList)
+					}
+				},
+				error: function() {
+					console.log("error")
+				}
+			})
+		}
+
+		// 等级进度条的循环渲染
+		function renderLevelProgressList(datalist) {
+			var html = '';
+			for (var i = 0; i < datalist.length; i++) {
+				// var index = i
+				var item = datalist[i]
+
+				var barlineShow = "<div class='barline'></div>"
+				i == datalist.length - 1 ? barlineShow = "" : barlineShow = "<div class='barline'></div>";
+
+				html += "<div class='levelItem'>"
+
+					+
+					"<div class='leveltxtDiv'>" +
+					"<div class='levelItemContainer'>" +
+					'<img class="levelicon" src="./img/75pai.png" alt="">' +
+					"<span class='leveltxt'>."+item.memberLevel + "</span>" +
+					'</div>' +
+					"<div class='levelBar'>" +
+					"<img src='./img/dot.png' alt=''>" +
+					barlineShow +
+					"</div>" +
+					"<p class='growthValue'>" + item.growthVal + '成长值</p>' +
+					'</div>' +
+					'</div>'
+			}
+			document.getElementById("levelProgressList").innerHTML = html
+
+		}
+	</script>
+
+</html>

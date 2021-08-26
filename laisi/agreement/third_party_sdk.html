@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>派健康 第三方SDK</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+	</head>
+	<style type="text/css">
+		* {
+			margin: 0;
+			padding: 0;
+		}
+
+		body {
+			height: 100%;
+			margin: auto;
+			font-size: 100px;
+		}
+
+		body {
+			font-family: microsoft yahei, Arial, sans-serif;
+			font-size: 16px;
+			background-color: #12121f;
+				color: #cfcfd2;
+			box-sizing: border-box;
+		}
+
+		table {
+			border: 1px solid #eee;
+			border-collapse: collapse;
+			border-spacing: 0;
+			display: table;
+
+		}
+
+		thead {
+			display: table-header-group;
+			vertical-align: middle;
+			border-color: inherit;
+		}
+
+		th {
+			display: table-cell;
+			vertical-align: inherit;
+			font-weight: bold;
+			text-align: -internal-center;
+		}
+
+		tr {
+			display: table-row;
+			vertical-align: inherit;
+			border-color: inherit;
+		}
+
+		table td,
+		table th {
+			padding: 3px;
+		}
+		td {
+			border: 1px solid #eee;
+			height: 150px;
+		}
+	</style>
+	<body>
+		<table>
+			<tr>
+				<th >第三方SDK名称</th>
+				<th>所属公司</th>
+				<th>信息获取</th>
+				<th>使用目的</th>
+				<th>隐私协议链接sdk url</th>
+			</tr>
+			<tr>
+				<td>腾讯第三方认证</td>
+				<td>腾讯</td>
+				<td>系统语言，外部存储状态，最近一次地理位置信息，网络位置信息，持续定位，网络类型，手机号码，SIM 卡序列号，网络服务运营商，IMEI，MAC 地址，ANDROID_ID，IP 地址，WiFi 信息，应用安装列表，读取剪切板</td>
+				<td>QQ 登录、微信登录</td>
+				<td><a href="https://privacy.qq.com/">https://privacy.qq.com/</a></td>
+			</tr>
+			<tr>
+				<td>友盟统计</td>
+				<td>友盟同欣（北京）科技有限公司</td>
+				<td>相机，系统语言，外部存储状态，最近一次地理位置信息，网络位置信息，网络类型，SIM 卡
+					序列号，网络服务运营商，IMEI，MAC 地址，ANDROID_ID，IP 地址，WiFi 信息，OpenUDID，读取剪切板</td>
+				<td>用户使用效果统计分析</td>
+				<td><a href="https://www.umeng.com/policy">https://www.umeng.com/policy</a></td>
+			</tr>
+			<tr>
+				<td>友盟推送</td>
+				<td>友盟同欣（北京）科技有限公司</td>
+				<td>系统语言，外部存储状态，最近一次地理位置信息，网络位置信息，网络类型，SIM 卡
+					序列号，网络服务运营商，IMEI，MAC 地址，ANDROID_ID，IP 地址，WiFi 信息，OpenUDID，读取剪切板</td>
+				<td>友盟推送SDK</td>
+				<td><a href="https://www.umeng.com/policy">https://www.umeng.com/policy</a></td>
+			</tr>
+			<tr>
+				<td>友盟社会化分享SDK</td>
+				<td>友盟同欣（北京）科技有限公司</td>
+				<td>系统语言，外部存储状态，最近一次地理位置信息，网络位置信息，网络类型，SIM 卡
+					序列号，网络服务运营商，IMEI，MAC 地址，ANDROID_ID，IP 地址，WiFi 信息，OpenUDID，读取剪切板</td>
+				<td>社会化组件包含了国内外多平台分享、第三方登录功能。</td>
+				<td><a href="https://www.umeng.com/policy">https://www.umeng.com/policy</a></td>
+			</tr>
+			<tr>
+				<td>微博登录</td>
+				<td>微博</td>
+				<td>网络类型，SIM 卡序列号，IMEI，MAC 地址，ANDROID_ID，WiFi 信息，相册，读取剪切板
+				</td>
+				<td>微博第三方登录 </td>
+				<td><a href="https://passport.sinaimg.cn/html/sso/privacyclause.html">https://passport.sinaimg.cn/html/sso/privacyclause.html</a></td>
+			</tr>
+			<tr>
+				<td>高德地图</td>
+				<td>高德地图</td>
+				<td>外部存储状态，最近一次地理位置信息，持续定位，网络类型，网络服务运营商，IMEI，MAC 地址，WiFi 信息</td>
+				<td>定位以及地图展示及 poi 查询 </td>
+				<td><a href="https://lbs.amap.com/home/privacy/">https://lbs.amap.com/home/privacy/</a></td>
+			</tr>
+			<tr>
+				<td>ADmobile广告服务SDK</td>
+				<td>杭州艾狄墨搏数字科技有限公司</td>
+				<td>IP地址、Android匿名设备标识符OAID或特定于ADmobile广告服务的标识符。
+					设备类型和型号、制造商、操作系统及版本、运营商名称、移动浏览器和屏幕尺寸、地理位置信息等。</td>
+				<td>开屏广告，视频广告 </td>
+				<td><a href="http://admobile.top/pc/admobile_officialweb/privacyPolicy.html">http://admobile.top/pc/admobile_officialweb/privacyPolicy.html</a></td>
+			</tr>
+			<tr>
+				<td>有赞商城服务</td>
+				<td>杭州起码科技有限公司</td>
+				<td>MAC地址、设备型号、操作系统版本、设备设置、唯一设备标识符、设备环境、移动应用列表软硬件特征信息）、设备所在位置相关信息（包括你授权的GPS位置以及WLAN接入点和基站传感器信息）。
+				</td>
+				<td>有赞商城 </td>
+				<td><a href="https://www.youzan.com/intro/rule/detail?alias=132atyi19&pageType=rules">https://www.youzan.com/intro/rule/detail?alias=132atyi19&pageType=rules</a></td>
+			</tr>
+			<tr>
+				<td>环信即时通信SDK</td>
+				<td>北京易掌云峰科技有限公司</td>
+				<td>IMEI、IP 地址、浏览器的类型、使用的语言、访问日期和时间、软硬件特征信息、用户标识符及网页浏览记录、GPS等位置服务使用情况 等等。
+				</td>
+				<td>环信 SDK 为用户开发 IM 相关的应用提供的一套完善的开发框架。主要用于聊天消息推送功能
+				</td>
+				<td><a href="https://www.easemob.com/protocol">https://www.easemob.com/protocol</a></td>
+			</tr>
+			<tr>
+				<td>Tencent X5 (SMTT)</td>
+				<td>腾讯</td>
+				<td>系统语言，外部存储状态，最近一次地理位置信息，网络位置信息，持续定位，网络类型，手机号码，SIM 卡序列号，网络服务运营商，IMEI，MAC 地址，ANDROID_ID，IP 地址，WiFi 信息。
+				</td>
+				<td>QQ浏览器X5内核SDK和X5云端服务，解决移动端webview网页展示问题。
+				</td>
+				<td><a href="https://privacy.tencent.com/">https://privacy.tencent.com/</a></td>
+			</tr>
+
+			<tr>
+				<td>腾讯TBS</td>
+				<td>腾讯</td>
+				<td>系统语言，外部存储状态，最近一次地理位置信息，网络位置信息，持续定位，网络类型，手机号码，SIM 卡序列号，网络服务运营商，IMEI，MAC 地址，ANDROID_ID，IP 地址，WiFi 信息。自动更新SDK
+</td>
+				<td>腾讯浏览服务，依托X5内核强大的能力，致力于提供优化移动端浏览体验的整套解决方案。
+ </td>
+				<td><a href="https://privacy.tencent.com/">https://privacy.tencent.com/</a></td>
+			</tr>
+
+			<tr>
+				<td>穿山甲SDK</td>
+				<td>北京巨量引擎网络技术有限公司</td>
+				<td>设备信息：【Android】：设备品牌、型号、软件系统版本相关信息、OAID等基础信息【iOS】设备品牌、型号、软件系统版本相关信息、手机系统重启时间、磁盘总内存空间、CPU数量等基础信息应用信息：开发者应用名、 应用包名、 版本号等信息其它信息：运营商信息、设备时区。【可选信息】【Android】无线网SSID名称、 WIFI路由器MAC地址、设备MAC、设备IMEI、设备地理位置。- 仅适用于iOS2800以下版本：剪切版调用：openudid可选信息获取（通过调用剪切板获取并用于广告投放和反作弊）App崩溃监测（系通过调用剪切板实现，用于监测是否会因SDK导致APP运行不稳定或其它运行异常状态）上述调用仅用于广告投放和反作弊相关的必要场景，不会获取隐私信息。- 仅适用于iOS3200以下版本【iOS】无线网SSID名称、 WIFI路由器MAC地址、 设备MAC地址
+				</td>
+				<td>1. 基于用户设备信息调整广告投放策略；2. 基于用户设备信息分析广告行为(如广告加载、展示、点击等）
+				</td>
+				<td><a href="https://www.pangle.cn/privacy">https://www.pangle.cn/privacy</a></td>
+			</tr>
+
+			<tr>
+				<td>优量汇SDK</td>
+				<td>腾讯</td>
+				<td>1.【设备信息】：系统版本名、系统版本号、设备型号、分辨率、屏幕DPI设备生产商、网络类型、系统语言、时区、时间戳、User Agent信息、屏幕方向;2.【应用信息】当前应用包名、应用版本名、应用版本号等信息3.【设备标识信息】设备id(android_id)、IMEI（用户授权才收集）、OAID、Mac地址、IDFA4. 地理位置信息、广告交付数据
+				</td>
+				<td>1. 基于用户设备信息调整广告投放策略；2. 基于用户设备信息分析广告行为(如广告加载、展示、点击等）
+				</td>
+				<td><a href="https://adnet.qq.com/">https://adnet.qq.com/</a></td>
+			</tr>
+
+			<tr>
+				<td>Bugly</td>
+				<td>腾讯</td>
+				<td>系统版本名、系统版本号、设备型号、分辨率、屏幕DPI设备生产商、网络类型、系统语言、时区、时间戳、崩溃数据、应用bundlID,地理位置信息
+				</td>
+				<td>1、统计使用效果2、崩溃分析
+				</td>
+				<td><a href="https://static.bugly.qq.com/bugly-sdk-privacy-statement.pdf">https://static.bugly.qq.com/bugly-sdk-privacy-statement.pdf</a></td>
+			</tr>
+
+
+		</table>
+	</body>
+</html>
