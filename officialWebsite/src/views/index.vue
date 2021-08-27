@@ -215,12 +215,13 @@
 			bannerLink(index, realIndex) {
 				let item = this.banner[realIndex]
 				if (item.pictureProductLink) {
-					window.location.href = item.pictureProductLink
+					window.open ( item.pictureProductLink,'_blank')
 				}
 			},
 			
 			pictureProductLink(item) {
-				if (item.pictureProductLink) window.location.href = item.pictureProductLink
+				if (item.pictureProductLink) 
+				window.open ( item.pictureProductLink,'_blank')
 			}
 
 		}

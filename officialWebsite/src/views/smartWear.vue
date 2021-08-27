@@ -156,12 +156,12 @@
             },
              buyNow(item){
                  if(item.productTianmaoLink)
-                 window.location.href=item.productTianmaoLink
+                 window.open (item.productTianmaoLink,'_blank')
              },
               bannerLink(index,realIndex){
                 let item=this.banner[realIndex]
 				if(item.pictureProductLink) {
-                    window.location.href=item.pictureProductLink 
+                    window.open (item.pictureProductLink,'_blank')
                 }
 			}
         }

@@ -296,10 +296,11 @@
             },
             bannerLink(item){
 				if(item.pictureProductLink) {
-                    window.location.href=item.pictureProductLink 
+                    window.open ( item.pictureProductLink,'_blank')
                     return
                 }
-                if(item.pictureTianmaoLink) window.location.href=item.pictureTianmaoLink
+                if(item.pictureTianmaoLink)
+                window.open ( item.productTianmaoLink,'_blank')
 			}
 
         }

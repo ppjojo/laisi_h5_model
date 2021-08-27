@@ -45,7 +45,8 @@ import {
 				
 			},
             gotoBuy() {
-                window.location.href=this.obj.productTianmaoLink
+                window.open (this.obj.productTianmaoLink,'_blank')
+                
             }
 
         }
@@ -63,12 +64,13 @@ import {
         height: 0.42rem;
         color: rgba(255, 255, 255, 100);
         font-size: 0.2rem;
-        position: absolute;
+        position: fixed;
         top: 2rem;
-        right: 0;
+        right: 1rem;
         line-height: 0.42rem;
         text-align: center;
         background-color: rgba(230, 0, 18, 1);
+        border-radius: 5px;
     }
 
 
