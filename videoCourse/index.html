@@ -12,11 +12,10 @@
 	<link rel="stylesheet" href="../common/css/basic.css">
 	<link rel="stylesheet" href="css/index.css">
 	<script src="https://cdn.bootcdn.net/ajax/libs/vConsole/3.8.1/vconsole.min.js"></script>
-		<script>
-			// init vConsole
-		        var vConsole = new VConsole();
-		      
-		    </script>
+	<script>
+		// init vConsole
+		var vConsole = new VConsole();
+	</script>
 
 </head>
 
@@ -61,9 +60,9 @@
 					</van-grid-item>
 				</van-grid>
 				<!-- 最近再练 -->
-				<div class="recentBox">
+				<div class="recentBox" v-if="recentList.length>0">
 					<div class="courseBox">
-						
+
 						<div class="title2">
 							<div class="txt">最近在练</div>
 							<div class="btn_viewMore">
@@ -71,27 +70,28 @@
 							</div>
 						</div>
 						<ul>
-							<li class="courseDiv" v-for="item in 3" @click="courseList(27)">
+							<li class="courseDiv" v-for="(item ,index) in recentList" v-if="index<3"
+								@click="courseList(item.bigClassId)">
 								<img src="./img/new.png" class="iconlabel" alt="">
-								<div class="cover"
-									style="background-image: url('https://oss.laisitech.com/a77f52ef-2632-4e9a-b3a5-abb8ed60b122.jpg');">
+								<div class="cover" :style="{'backgroundImage':'url('+item.classCover+')'}">
 								</div>
 								<div class="content">
 									<div>
-										<p class="stitle">初级-心肺耐力训练</p>
+										<p class="stitle">{{item.className}}</p>
 										<p class="detail">
-											低强度&nbsp;&nbsp;222分钟&nbsp;&nbsp;448千卡
+											{{Math.round(item.classDuration/60)}}分钟 · {{item.calory}}千卡 ·
+											{{item.classLevelName}}
 										</p>
 									</div>
 									<div class="progress">
-										已锻炼25%
+										已锻炼{{item.pageFinish}}%
 									</div>
 								</div>
 								<div class="btn_train">继续锻炼</div>
 							</li>
 						</ul>
 					</div>
-					
+
 				</div>
 				<!-- 推荐 -->
 				<div class="recommendBox">
@@ -101,13 +101,15 @@
 						</div>
 						<van-swipe :show-indicators="false" :loop="false" :width="220">
 							<van-swipe-item v-for="item in 3">
-								<div class="courseDiv" style="background-image: url('https://oss.laisitech.com/a77f52ef-2632-4e9a-b3a5-abb8ed60b122.jpg');">
+								<div class="courseDiv"
+								:style="{'backgroundImage':'url('+item.classCover+')'}">
 									<img src="./img/recommend.png" class="iconlabel" alt="">
 									<div class="content">
 										<div>
-											<p class="stitle">初级-心肺耐力训练</p>
+											<p class="stitle">{{item.className}}</p>
 											<p class="detail">
-												低强度&nbsp;&nbsp;222分钟&nbsp;&nbsp;448千卡
+												{{Math.round(item.classDuration/60)}}分钟 · {{item.calory}}千卡 ·
+												{{item.classLevelName}}
 											</p>
 										</div>
 									</div>
@@ -125,18 +127,18 @@
 						<ul>
 							<li class="courseDiv" v-for="item in 3">
 								<img :src="'./img/hot'+item+'.png'" class="iconlabel" alt="">
-								<div class="cover"
-									style="background-image: url('https://oss.laisitech.com/a77f52ef-2632-4e9a-b3a5-abb8ed60b122.jpg');">
+								<div class="cover" :style="{'backgroundImage':'url('+item.classCover+')'}">
 								</div>
 								<div class="content">
 									<div>
-										<p class="stitle">初级-心肺耐力训练</p>
+										<p class="stitle">{{item.className}}</p>
 										<p class="detail">
-											低强度&nbsp;&nbsp;222分钟&nbsp;&nbsp;448千卡
+											{{Math.round(item.classDuration/60)}}分钟 · {{item.calory}}千卡 ·
+											{{item.classLevelName}}
 										</p>
 									</div>
 									<div class="progress">
-										已锻炼25%
+										已锻炼{{item.pageFinish}}%
 									</div>
 								</div>
 							</li>
@@ -184,36 +186,14 @@
 		data() {
 			return {
 				bannerList: [],
-				allClassification: [],
 				classification: [],
 				hotClass: [],
-				//ProfessionalTrainingList: [],
-				joinCount: 0, //我加入得课程数量
+				recentList: [],
 				isLoading: false,
-				transList: [],
-				userId: ""
 			}
 		},
 		filters: {
-			filtersDevice: function (value) {
-				return value == 1 ? '手表' : '跳绳'
-			},
 
-			filtersLevel: function (value) {
-				let name = value
-				if (value == 1) {
-					name = '低强度'
-				} else if (value == 2) {
-					name = '中低强度'
-				} else if (value == 3) {
-					name = '中强度'
-				} else if (value == 4) {
-					name = '中高强度'
-				} else if (value == 5) {
-					name = '高强度'
-				}
-				return name
-			},
 
 		},
 		mounted() {
@@ -223,8 +203,7 @@
 		created() {
 			this.getBanner() //获取banner
 			this.getClassify() //获取分类
-			this.getHotClass() //获取热门课程
-			this.getNewProfessionalTraining()
+			this.getRecentList() //最近在练
 			ajax({
 				type: "post",
 				url: "integral/add/integral",
@@ -242,9 +221,7 @@
 		methods: {
 			//原生调用h5的方法局部刷新课程主页
 			initIndexData() {
-				this.getHotClass() //获取热门课程
-				this.getNewProfessionalTraining()
-				this.getMyJoinCount()
+
 			},
 			//轮播图的滚动
 			onChange(index) {
@@ -254,31 +231,20 @@
 			},
 			//获取bannner图
 			getBanner() {
-				var that = this;
 				ajax({
 					type: "post",
 					url: "advBanner/ad/banner",
 					data: {
 						type: 1, //1代表banner
 						location: 3
-					},
-					success: function (res) {
-						that.userId = JSON.parse(localStorage.getItem("appInfo")).userId
-						that.getMyJoinCount()
-						if (res.code == 0) {
-							that.bannerList = res.data;
-							if (res.data.length > 0)
-								Interaction.umengStatistics("course_banner_show", that.bannerList[0]
-									.id)
-
-						} else {
-							that.$toast(res.msg)
-						}
-
-					},
-					error: function (err) {
-						console.log("error")
 					}
+				}).then(res => {
+					this.bannerList = res.data;
+					this.isLoading = false;
+					if (res.data.length > 0)
+						Interaction.umengStatistics("course_banner_show", this.bannerList[0].id)
+				}).catch((err) => {
+					console.log(err)
 				})
 			},
 			//banner点击事件
@@ -305,7 +271,7 @@
 
 				Interaction.umengStatistics("cource_banner_click")
 			},
-			//获取分t类
+			//获取分类
 			getClassify() {
 				var that = this;
 				that.refresh = true;
@@ -316,7 +282,6 @@
 					success: function (res) {
 						if (res.code == 0) {
 							that.classification = [];
-							that.allClassification = res.data;
 							res.data.forEach(item => {
 								if (item.isShow == 1) {
 									that.classification.push(item);
@@ -332,6 +297,17 @@
 					error: function () {
 						console.log("apiServer error")
 					}
+				})
+			},
+			//获取最近在练
+			getRecentList() {
+				var that = this;
+				ajax({
+					url: "community/threeUserCollect/see/near/by/homepage",
+				}).then(res => {
+					that.recentList = res.data;
+				}).catch((err) => {
+					console.log(e)
 				})
 			},
 			//获取热门课程
@@ -355,47 +331,8 @@
 					}
 				})
 			},
-			//获取我加入的课程
-			getMyJoinCount() {
-				var that = this;
-				ajax({
-					type: "post",
-					url: "community/cUserClassJoin/queryMyClass",
-					data: {
-						uid: that.userId
-					},
-					success: function (res) {
-						if (res.code == 0) {
-							that.joinCount = res.data.length;
-							that.isLoading = false;
-						} else {
-							//that.$toast(res.msg)
-						}
-					},
-					error: function () {
-						console.log("apiServer error")
-					}
-				})
-			},
-			//新的专项训练
-			getNewProfessionalTraining() {
-				var that = this;
-				ajax({
-					type: "get",
-					url: "community/cUserClassJoin/bigClassByCatalog",
-					data: {},
-					success: function (res) {
-						if (res.code == 0) {
-							that.transList = res.data
-						} else {
-							that.$toast(res.msg)
-						}
-					},
-					error: function () {
-						console.log("error")
-					}
-				})
-			},
+
+
 			//跳转课程详情
 			courseList(id) {
 				try {
@@ -408,21 +345,6 @@
 					} else if (isAndroid) {
 						var str = "h5/h5V3/videoCourse/courseList.html?id=" + id
 						window.android.goToCourseList(str)
-					}
-				} catch (e) {
-					console.log(e)
-				}
-			},
-			//跳转我加入的课程列表
-			myCourse() {
-				try {
-					if (isIOS) {
-						window.webkit.messageHandlers.lstNative.postMessage({
-							"method": "pushToNextVC",
-							"htmlUrl": "/h5/h5V3/videoCourse/myCourse.html"
-						});
-					} else if (isAndroid) {
-						window.location.href = "myCourse.html"
 					}
 				} catch (e) {
 					console.log(e)

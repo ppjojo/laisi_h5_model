@@ -13,9 +13,8 @@
             </van-nav-bar>
         </div>
         <div class="shareBox" v-if="isShare">
-            <div class="headPic" v-if="!competitionItem.isOfficial"
-                :style="{'background-image': 'url(' + userItem.headerPicUrl + ')'}"></div>
-            <div class="headPic" v-else style="background-image: url(../common/img/logo.png)"></div>
+            <div class="headPic"
+                :style="{'background-image': 'url(' + userItem.headPictureUrl + ')'}"></div>
             <div class="personalName">{{userItem.nickName}}</div>
             <div class="competitionName">我在派健康参与了比赛【{{competitionItem.name}}】,快来和我battle吧</div>
             <div class="codeTitle" v-if="competitionItem.invitationCode">邀请码</div>
@@ -48,8 +47,7 @@
                         <van-row v-if="competitionItem.type!='multiTeam'">
                             <van-col span="5" class="laberTitle">比赛模式<i></i></van-col>
                             <van-col span="1" class="laberTitle">：</van-col>
-                            <van-col span="18" class="laberContent"
-                                v-if="competitionItem.mode==2">
+                            <van-col span="18" class="laberContent" v-if="competitionItem.mode==2">
                                 {{competitionItem.modeValue==30?"30秒钟倒计时跳":(parseInt((competitionItem.modeValue)/60))+"分钟倒计时跳"}}
                             </van-col>
                             <van-col span="18" class="laberContent" v-else>
@@ -59,8 +57,7 @@
                         <van-row v-if="competitionItem.type=='multiTeam'">
                             <van-col span="5" class="laberTitle">比赛模式<i></i></van-col>
                             <van-col span="1" class="laberTitle">：</van-col>
-                            <van-col span="18" class="laberContent"
-                                v-if="competitionItem.mode==2">
+                            <van-col span="18" class="laberContent" v-if="competitionItem.mode==2">
                                 {{competitionItem.modeValue==30?"30秒钟倒计时跳":(parseInt((competitionItem.modeValue)/60))+"分钟倒计时跳"}}/{{competitionItem.repeatTimes==-1?"不限次数":competitionItem.repeatTimes+"次内取最优"}}
                             </van-col>
                             <van-col span="18" class="laberContent" v-else>
@@ -78,24 +75,22 @@
                         </van-row>
                     </div>
                     <div v-else-if="type=='wristBall'">
-                        <van-row >
+                        <van-row>
                             <van-col span="5" class="laberTitle">比赛模式<i></i></van-col>
                             <van-col span="1" class="laberTitle">：</van-col>
-                            <van-col span="18" class="laberContent"
-                                v-if="competitionItem.mode==2">
+                            <van-col span="18" class="laberContent" v-if="competitionItem.mode==2">
                                 {{competitionItem.modeValue==30?"30秒钟倒计时转":(parseInt((competitionItem.modeValue)/60))+"分钟倒计时转"}}
                             </van-col>
                             <van-col span="18" class="laberContent" v-else>
                                 {{competitionItem.modeValue+"个倒计数转"}}</van-col>
                         </van-row>
-                       
+
                     </div>
                     <div v-else-if="type=='wheel'">
-                        <van-row >
+                        <van-row>
                             <van-col span="5" class="laberTitle">比赛模式<i></i></van-col>
                             <van-col span="1" class="laberTitle">：</van-col>
-                            <van-col span="18" class="laberContent"
-                                v-if="competitionItem.mode==2">
+                            <van-col span="18" class="laberContent" v-if="competitionItem.mode==2">
                                 {{competitionItem.modeValue==30?"30秒钟倒计时":(parseInt((competitionItem.modeValue)/60))+"分钟倒计时"}}
                             </van-col>
                             <van-col span="18" class="laberContent" v-else>
@@ -390,6 +385,7 @@
 </template>
 
 <script>
+    var vm;
     import {
         DateTime,
         getQueryString,
@@ -451,12 +447,13 @@
         data() {
             return {
                 type: this.$route.query.type,
-                currentUserId: JSON.parse(localStorage.getItem('appInfo')).userId,
+                currentUserId: "",
                 DateTime: DateTime,
                 competitionId: getQueryString("id"),
                 isShare: getQueryString("isShare"),
+                fromList: 1,
                 competitionItem: {
-                    type:"personal"
+                    type: "personal"
                 },
                 userItem: {},
                 joinDetailItem: {},
@@ -516,6 +513,14 @@
 
             }
         },
+        beforeRouteEnter(to, from, next) {
+            next(vm => { //vm为vue的实例,代替this
+                if (!from.meta.index) {
+                    vm.fromList = 0
+                }
+
+            }) //一定不要忘记写
+        },
         beforeRouteLeave(to, from, next) {
             this.destroyed();
             next() //一定不要忘记写
@@ -525,6 +530,7 @@
             window.addEventListener('scroll', this.scrollFn);
         },
         created() {
+            vm = this
             this.initData();
             this.joinStatusAndTimesRemain()
 
@@ -578,7 +584,12 @@
             },
             onclickLeft() {
                 this.destroyed();
-                this.$router.go(-1)
+                if (this.fromList) {
+                    this.$router.go(-1)
+                } else {
+                    this.$interaction.closePage();
+                }
+
 
             },
             //初始化比赛详情
@@ -587,6 +598,12 @@
                     id: this.competitionId,
                 }).then(res => {
                     if (res.code == 0) {
+                        if(this.isShare){
+                             this.currentUserId = getQueryString("userId")
+                        }else{
+                            this.currentUserId=JSON.parse(localStorage.getItem('appInfo')).userId
+                        }
+                       
                         this.competitionItem = res.data[1];
                         if (this.competitionItem.isOfficial) {
                             //奖励的换行处理

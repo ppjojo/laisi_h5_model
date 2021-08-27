@@ -21,7 +21,7 @@
         watch: {//使用watch 监听$router的变化
             $route(to, from) {
                if(to.meta.index > 0){
-                   if(from.meta.index==0){
+                   if(from.meta.index==1){
                      this.transitionName = 'slide-left';
                    }
                    if(from.meta.index){//如果是分享的页面直接打开不需要效果
@@ -32,7 +32,7 @@
                     }
                    }
                     
-                }else if(to.meta.index == 0 && from.meta.index > 0){
+                }else if(to.meta.index == 1 && from.meta.index > 0){
                     this.transitionName = 'slide-right';
                 }
             }

@@ -16,7 +16,7 @@ const routes = [
     component: () => import('./view/competitionList'),
     meta: {
       title: '赛事列表',
-      index:0
+      index:1
     }
   },
   {
@@ -24,7 +24,7 @@ const routes = [
     component: () => import('./view/competitionDetail'),
     meta: {
       title: '赛事详情',
-      index:2
+      index:3
     }
   },
   {
@@ -32,7 +32,7 @@ const routes = [
     component: () => import('./view/rule'),
     meta: {
       title: '赛事规则',
-      index:3
+      index:4
     }
   },
   {
@@ -40,7 +40,7 @@ const routes = [
     component: () => import('./view/teamDetail'),
     meta: {
       title: '比赛详情',
-      index:3
+      index:4
     }
   },
   {
@@ -48,7 +48,7 @@ const routes = [
     component: () => import('./view/createCompetition'),
     meta: {
       title: '创建PK赛',
-      index:1
+      index:2
     }
   },
  
