@@ -163,7 +163,7 @@ body {
   width: 2.72rem;
   height: 2.04rem;
   background-position: 75% 0;
-  background-size: auto 100%;
+  background-size: 100% 100%;
   margin-right: 0.24rem;
 }
 
@@ -200,7 +200,7 @@ body {
 .courseBox-bg .courseDiv {
   height: 3.3rem;
   background-position: 75% 0;
-  background-size: auto 100%;
+  background-size: 100% 100%;
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
@@ -215,6 +215,7 @@ body {
   width: 100%;
   background-image: -webkit-gradient(linear, left bottom, left top, from(#1e1e2a), to(rgba(30, 30, 42, 0)));
   background-image: linear-gradient(to top, #1e1e2a, rgba(30, 30, 42, 0));
+  border-radius: 8px;
 }
 
 .courseBox-bg .courseDiv .content .stitle {
@@ -227,7 +228,6 @@ body {
 
 .classificationBox {
   padding: 0 0.24rem;
-  margin-bottom: 0.4rem;
 }
 
 .classificationBox .title {
@@ -255,7 +255,7 @@ body {
 .classificationBox .classificationDiv .classificationList .name {
   font-size: 0.32rem;
   margin-right: 0.24rem;
-  width: 1.2rem;
+  width: 0.8rem;
 }
 
 .classificationBox .classificationDiv .classificationList .typeList {

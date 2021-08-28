@@ -25,37 +25,24 @@
         </div>
         <div class="classificationBox">
             <div class="title">课程筛选
-                <span class="titleInfo">已选5项</span>
-                <span class="icon iconfont icon-shurukuang-chahao" style="font-size: 0.2rem;color: #595962;" />
+                <span class="titleInfo">已选{{chooseLength}}项</span>
+                <span class="icon iconfont icon-shurukuang-chahao" @click="initCondition(0)"
+                    style="font-size: 0.2rem;color: #595962;" />
             </div>
             <div class="classificationDiv">
-                <div class="classificationList">
+                <div class="classificationList" v-for="(items, key) in laberList">
                     <div class="name">
-                        目标
+                        {{key}}
                     </div>
                     <div class="typeList">
-                        <div class="typeItem" v-for="item in 10">减值</div>
+                        <div class="typeItem" v-for="item in items" @click="laberChoose(item,items)"
+                            :class="item.choose?'selected':''">{{item.attribute}}</div>
                     </div>
                 </div>
-                <div class="classificationList">
-                    <div class="name">
-                        目标
-                    </div>
-                    <div class="typeList">
-                        <div class="typeItem" v-for="item in 10">减值</div>
-                    </div>
-                </div>
-                <div class="classificationList">
-                    <div class="name">
-                        目标
-                    </div>
-                    <div class="typeList">
-                        <div class="typeItem selected" v-for="item in 10">减值</div>
-                    </div>
-                </div>
+
             </div>
         </div>
-        <van-pull-refresh v-model="isLoading" :head-height="90" @refresh="initIndexData" class="monkey-pull-refresh">
+        <van-pull-refresh v-model="isLoading" :head-height="90" @refresh="getNormalClass" class="monkey-pull-refresh">
             <template #pulling="props">
                 <div class="monkeyBox">
                     <img class="monkey" src="../common/img/monkey.gif" />
@@ -77,31 +64,38 @@
                     <p>正在刷新</p>
                 </div>
             </template>
-            <div class="contain">
-                <div class="courseBox">
+            <div class="contain" style="height: 7.2rem;overflow-y: auto;">
+                <div class="courseBox" v-if="classList.length>0">
                     <ul>
-                        <li class="courseDiv" v-for="item in 3">
-                            <img src="./img/new.png" class="iconlabel" alt="">
-                            <div class="cover"
-                                style="background-image: url('https://oss.laisitech.com/a77f52ef-2632-4e9a-b3a5-abb8ed60b122.jpg');">
+                        <li class="courseDiv" v-for="item in classList"  @click="courseList(item)">
+                            <img v-if="item.classLableList.length>0" :src="'./img/'+item.classLableList[0].classLabel+'.png'" class="iconlabel" alt="">
+                            <div class="cover" :style="{'backgroundImage':'url('+item.classCover+')'}">
                             </div>
                             <div class="content">
                                 <div>
-                                    <p class="stitle">初级-心肺耐力训练</p>
+                                    <p class="stitle">{{item.className}}</p>
                                     <p class="detail">
-                                        低强度&nbsp;&nbsp;222分钟&nbsp;&nbsp;448千卡
+                                        {{Math.round(item.classDuration/60)}}分钟 · {{item.calory}}千卡 ·
+                                        {{item.classLevelName}}
                                     </p>
                                 </div>
                                 <div class="progress">
-                                    已锻炼25%
+                                    已锻炼{{item.pageFinish||0}}%
                                 </div>
                             </div>
 
                         </li>
                     </ul>
                 </div>
+
+                <div class="noData-box" style="padding-top: 0;" v-else-if="!isLoading">
+                    <img class="noData-img" src="../common/img/noData.png" />
+                    <p class="noData-p">暂无符合条件的训练课程，换个条件试试吧~</p>
+                </div>
             </div>
-        </van-pull-refresh>
+
+    </div>
+    </van-pull-refresh>
     </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
@@ -113,41 +107,130 @@
         data() {
             return {
                 isLoading: false,
-                userId: ""
+                laberList: [],
+                userId: "",
+                classList: [],
+                chooseLength: 0
+
             }
         },
         filters: {
 
-            filtersLevel: function (value) {
-                let name = value
-                if (value == 1) {
-                    name = '低强度'
-                } else if (value == 2) {
-                    name = '中低强度'
-                } else if (value == 3) {
-                    name = '中强度'
-                } else if (value == 4) {
-                    name = '中高强度'
-                } else if (value == 5) {
-                    name = '高强度'
-                }
-                return name
-            },
 
         },
         mounted() {
 
         },
         created() {
-
+            this.getNormalClass()
+            this.getLaberList()
         },
         methods: {
             onclickLeft() {
                 Interaction.closePage();
             },
             initIndexData() {
-                this.isLoading = false;
-            }
+
+
+            },
+            //标签库
+            getLaberList() {
+                ajax({
+                    url: "community/threeAttribute/group/see/all/attribute",
+                }).then(res => {
+                    this.laberList = res.data;
+                    this.isLoading = false;
+                }).catch((err) => {
+                    console.log(err)
+                })
+            },
+            //初始化课程
+            getNormalClass() {
+                ajax({
+                    url: "community/threeUserCollect/see/all/bigClass/orderBy",
+                }).then(res => {
+                    this.classList = res.data;
+                    this.isLoading = false;
+                }).catch((err) => {
+                    console.log(e)
+                })
+            },
+            //筛选课程
+            getClassByConditions(form) {
+                ajax({
+                    type: "post",
+                    data: form,
+                    url: "community/threeUserCollect/see/class/by/conditions",
+                }).then(res => {
+                    if (res.code == 0) {
+                        this.classList = res.data;
+                    } else {
+                        this.classList = [];
+                    }
+                    this.isLoading = false;
+                }).catch((err) => {
+                    console.log(err)
+                })
+
+            },
+            //选择标签
+            laberChoose(item, items) {
+                if(item.choose){
+                    return
+                }
+                items.forEach(ele => {
+                    ele.choose = false
+                })
+                if(!item.choose){
+                    item.choose=true
+                    this.initCondition()
+                }
+               
+            },
+            //筛选条件处理
+            initCondition(flag) {//0 清空筛选条件
+                let obj = this.laberList;
+                let form = {};
+                this.chooseLength=0;
+                for (const key in obj) {
+                    let submitKey = ""
+                    if (key == "目标") {
+                        submitKey = "classTarget"
+                    } else if (key == "部位") {
+                        submitKey = "classOnePart"
+                    } else if (key == "等级") {
+                        submitKey = "classLevel"
+                    } else if (key == "器械") {
+                        submitKey = "classKit"
+                    } else if (key == "时间") {
+                        submitKey = "durationRangeId"
+                    } else {
+                        continue
+                    }
+
+                    form[submitKey] = [];
+                    obj[key].forEach(item => {
+                        if (flag == 0) {
+                            item.choose = false;
+                            this.chooseLength = 0
+                        } else if (item.choose) {
+                            this.chooseLength++
+                            form[submitKey].push(item.id)
+                        }
+                    });
+                    form[submitKey] = form[submitKey].join()
+                }
+
+                if(flag==0){
+                    this.getNormalClass()
+                }else{
+                    this.getClassByConditions()
+                }
+            },
+            //跳转课程详情
+			courseList(item) {
+				window.location.href=`courseList.html?id=${item.bigClassId}&back=1`
+			},
 
 
 

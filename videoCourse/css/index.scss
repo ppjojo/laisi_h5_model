@@ -173,7 +173,7 @@ body {
             width: 2.72rem;
             height: 2.04rem;
             background-position: 75% 0;
-            background-size: auto 100%;
+            background-size: 100% 100%;
             margin-right: 0.24rem;
         }
 
@@ -220,7 +220,7 @@ body {
     .courseDiv {
         height: 3.3rem;
         background-position: 75% 0;
-        background-size: auto 100%;
+        background-size: 100% 100%;
         justify-content: flex-start;
         align-items: flex-end;
         border-radius: 8px;
@@ -229,6 +229,7 @@ body {
             padding: 0.24rem;
             width: 100%;
             background-image: linear-gradient(to top, rgba(30, 30, 42, 1), rgba(30, 30, 42, 0));
+            border-radius: 8px;
 
             .stitle {
                 color: $text_color_white;
@@ -247,7 +248,7 @@ body {
 //全部课程的分类选择
 .classificationBox {
     padding: 0 0.24rem;
-    margin-bottom: 0.4rem;
+    // margin-bottom: 0.4rem;
 
     .title {
         font-size: 0.4rem;
@@ -268,7 +269,7 @@ body {
             .name {
                 font-size: 0.32rem;
                 margin-right: 0.24rem;
-                width: 1.2rem;
+                width: 0.8rem;
             }
 
             .typeList {

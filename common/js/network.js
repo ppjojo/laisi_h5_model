@@ -109,6 +109,8 @@ let ajaxResolve = (config)=> {
             if (xhr.status == 200) {
               if (parseInt(xhr.response.code) == 2000) {
                 Interaction.getAppInfoAndUserInfo();
+                localStorage.removeItem("appInfo")
+                return ajax(response.config)
               } else {
                 ajaxData.success(xhr.response);
                 return resolve(xhr.response);

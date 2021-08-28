@@ -11,11 +11,10 @@
 	<link rel="stylesheet" href="font/iconfont.css">
 	<link rel="stylesheet" href="css/index.css">
 	<script src="https://cdn.bootcdn.net/ajax/libs/vConsole/3.8.1/vconsole.min.js"></script>
-		<script>
-			// init vConsole
-		        var vConsole = new VConsole();
-		      
-		    </script>
+	<script>
+		// init vConsole
+		var vConsole = new VConsole();
+	</script>
 
 
 </head>
@@ -34,7 +33,7 @@
 					<div @click="goSetting()" style="margin-right: 0.25rem;">
 						<span class="icon iconfont icon-shoucangdongtai" style="font-size: 0.48rem;" />
 					</div>
-					<div @click="shareGroup()">
+					<div @click="sharePage()">
 						<span class="icon iconfont icon-fenxianganniu" style="font-size: 0.48rem;" />
 					</div>
 				</template>
@@ -44,34 +43,34 @@
 
 		<div>
 			<div class="topBox">
-				<div class="bg" :style="{'background-image': 'url('+classDetail.bigClass.classCover+')'}">
+				<div class="bg" :style="{'background-image': 'url('+classDetail.classCover+')'}">
 					<div class="opacity">
-						<div class="title">{{classDetail.bigClass.className}}</div>
-						<div class="discript" @click="courseDetail(classDetail.bigClass.id)">
-							{{classDetail.bigClass.classDes}}</div>
+						<div class="title">{{classDetail.className}}</div>
+						<div class="discript" @click="goCourseDetail(classDetail.bigClassId)">
+							{{classDetail.classDes}}</div>
 						<div class="classifyBox">
 							<div class="classifyDiv">
-								<div class="classifyItem">测试ui1</div>
-								<div class="classifyItem">测试ui1</div>
-								<div class="classifyItem">测试ui1</div>
+								<div class="classifyItem">{{classDetail.smallClassList.length}}个动作</div>
+								<div class="classifyItem">不限训练频次</div>
+								<div class="classifyItem">{{classDetail.classKitName}}</div>
 							</div>
-							<div class="transPeopleCount">
-								{{peopleList.total>100000?(peopleList.total/100000).toFixed(2):peopleList.total}}人练过
+							<div class="transPeopleCount" @click="goPeopleList">
+								{{classDetail.sumExercise>100000?(classDetail.sumExercise/100000).toFixed(2):classDetail.sumExercise}}人练过
 							</div>
 						</div>
 						<div class="information">
 							<van-row>
 								<van-col span="8">
-									<div class="need1">{{ Math.round(classDetail.duration/60)}}</div>
+									<div class="need1">{{ Math.round(classDetail.classDuration/60)}}</div>
 									<div class="needTitle1">时长(分钟)</div>
 								</van-col>
 								<van-col span="8">
-									<div class="need2">{{Math.round(classDetail.calory/1000)}}</div>
+									<div class="need2">{{Math.round(classDetail.calory)}}</div>
 									<div class="needTitle2">消耗(kcal)</div>
 								</van-col>
 								<van-col span="8">
 									<div class="needBox3">
-										<div class="need3">{{classDetail.bigClass.classGrade | filtersLevel}}</div>
+										<div class="need3">{{classDetail.classLevelName}}</div>
 										<div class="needTitle3">等级</div>
 									</div>
 								</van-col>
@@ -85,8 +84,8 @@
 				<van-sticky>
 					<div class="tabTitle">
 						<div class="tabName " :class="tabSelected==1?'selected':''" @click="tabSelected=1">
-							内容<span>({{classDetail.smallClass.length}}个)</span></div>
-						<div class="tabName" :class="tabSelected==2?'selected':''" @click="tabSelected=2">评论
+							内容<span>({{classDetail.smallClassList.length}}个)</span></div>
+						<div class="tabName" :class="tabSelected==2?'selected':''" @click="tabSelected=2;getCommentList()">评论
 							<span>({{total}}条)</span> </div>
 					</div>
 				</van-sticky>
@@ -95,8 +94,8 @@
 						<div class=" listBox">
 							<div class="courseList">
 								<ul>
-									<li v-for="(item,index) in classDetail.smallClass" class=""
-										@click="joinClass(classDetail.bigClass,item,index)">
+									<li v-for="(item,index) in classDetail.smallClassList" class=""
+										@click="playVideo(item,index)">
 										<div class="chooseBox" @click.stop="chooseClass(item,index)"
 											v-if="downlaodStatus">
 											<img src="./img/unable.png" v-if="item.isDownload==-1" alt="">
@@ -108,7 +107,7 @@
 											<div class="itemDiscript">
 												<div class="smallTile">{{item.className}}</div>
 												<div class="need">
-													{{item.classGrade | filtersLevel}}&nbsp&nbsp{{Math.round(item.duration/60)}}分钟&nbsp&nbsp{{Math.round(item.calory/1000)}}千卡
+													时长:{{item.duration}}s
 												</div>
 											</div>
 										</div>
@@ -268,8 +267,8 @@
 				</div>
 			</van-popup>
 
-			<van-action-sheet v-model="actionSheetShow" @select="actionSheetSelect" :actions="actions" cancel-text="取消" close-on-click-action
-				@cancel="actionSheetCancel" />
+			<van-action-sheet v-model="actionSheetShow" @select="actionSheetSelect" :actions="actions" cancel-text="取消"
+				close-on-click-action @cancel="actionSheetCancel" />
 		</div>
 	</div>
 </body>
@@ -294,7 +293,7 @@
 					calory: 0
 
 				},
-				tabSelected: 2,
+				tabSelected: 1,
 
 				comment_message: "",
 				isClick: false,
@@ -334,35 +333,15 @@
 
 			};
 		},
-		filters: {
-			filtersLevel: function (value) {
-				let name = value
-				if (value == 1) {
-					name = '低强度'
-				} else if (value == 2) {
-					name = '中低强度'
-				} else if (value == 3) {
-					name = '中强度'
-				} else if (value == 4) {
-					name = '中高强度'
-				} else if (value == 5) {
-					name = '高强度'
-				}
-				return name
-			},
-
-		},
 		mounted() {
 			window.getClassDetail = this.getClassDetail
 			window.H5_getDownloadCourseList = this.H5_getDownloadCourseList
-			if (this.isShare != 1) {
+			if (!this.isShare) {
 				window.addEventListener('scroll', this.scrollFn);
 			}
 		},
 		created() {
 			this.getClassDetail()
-			this.getCommentList()
-			this.getPeopleList()
 		},
 		methods: {
 			scrollFn() {
@@ -382,106 +361,81 @@
 				window.removeEventListener('scroll', this.scrollFn); // 销毁监听
 			},
 			onclickLeft() {
-				Interaction.closePage();
+				if (getQueryString('back')) {
+					window.history.back();
+				} else {
+					Interaction.closePage();
+				}
+			},
+			//跳转参与列表
+			goPeopleList() {
+				window.location.href = `peopleList.html?id=${this.classDetail.bigClassId}`
+			},
+			//跳转课程介绍
+			goCourseDetail() {
+				window.location.href = `courseDetail.html?id=${this.classDetail.bigClassId}`
+			},
+			//分享
+			sharePage() {
+				Interaction.sharePage({
+					title: this.classDetail.className,
+					description: this.classDetail.description,
+					url: host + "h5/h5V3/videoCourse/courseList.html?isShare=1&id=" + this.classDetail
+						.bigClassId,
+				})
 			},
 			//@别人
 			noticeSomePeople() {
 				alert("@")
 			},
-			actionSheetSelect(obj,index){
+			actionSheetSelect(obj, index) {
 				console.log(index)
 				console.log(obj)
 			},
-			actionSheetCancel(){},
+			actionSheetCancel() {},
 			//获取大课程下的课程详情以及小课程列表
 			getClassDetail() {
-				var that = this;
 				ajax({
-					type: "post",
-					url: "community/cBigClass/queryAllSmallByBigId",
+					url: "community/threeUserCollect/see/bigClass/detail",
 					data: {
-						id: that.id
-					},
-					success: function (res) {
-						if (res.code == 0) {
-							that.classDetail = res.data;
-							that.headPictureUrl = JSON.parse(localStorage.getItem("appInfo"))
-								.headPictureUrl
-							that.userId = JSON.parse(localStorage.getItem("appInfo")).userId
-							that.sendDataToShare(res.data.bigClass)
-							if (that.classDetail.joinNum) {
-								that.classDetail.smallClass.forEach(s => {
-									that.classDetail.joinNum.forEach(j => {
-										if (j.smallClassId == s.id) {
-											s.trainTime = j.num
-										}
-									});
-								});
-							}
+						bigClassId: this.id
+					}
+				}).then(res => {
+					if (res.code == 0) {
+						this.classDetail = res.data;
+					} else {
+						this.$toast(res.msg)
+					}
+				}).catch(err => {
 
-						} else {
-							that.$toast(res.msg)
-						}
-					},
-					error: function () {
-						console.log("error")
-					}
 				})
-			},
-			//获取课程参与得人数以及头像
-			getPeopleList() {
-				var that = this;
-				ajax({
-					type: "post",
-					url: "community/cUserClassJoin/queryAllUserByBigClassId",
-					data: {
-						bigClassId: that.id,
-						pageNum: 1,
-						pageSize: 8
-					},
-					success: function (res) {
-						if (res.code == 0) {
-							that.peopleList = res.data
-						} else {
-							that.$toast(res.msg)
-						}
-					},
-					error: function () {
-						console.log("error")
-					}
-				})
+
+
 			},
 			//获取评论列表
 			getCommentList() {
-				var that = this;
-				var nowPageNum = that.pageNum;
+				var nowPageNum = this.pageNum;
 				ajax({
-					type: "post",
-					url: "community/cBigClassComment/queryAllByPage",
+					url: "community/threeComment/see/all/class/commend",
 					data: {
-						bigClassId: that.id,
-						pageNum: that.pageNum,
-						pageSize: that.pageSize
-					},
-					success: function (res) {
-						if (res.code == 0) {
-							that.total = res.data.total;
-							that.loading = false;
-							if (nowPageNum - 1 > (res.data.total / that.pageSize)) {
-								that.finished = true;
-							} else if (nowPageNum == 1) {
+						bigClassId: this.id,
+						pageNum: this.pageNum,
+						pageSize: this.pageSize
+					}
+				}).then(res => {
+					if (res.code == 0) {
+						this.total = res.data.total;
+						this.loading = false;
+						if (nowPageNum - 1 > (res.data.total / this.pageSize)) {
+							this.finished = true;
+						} else if (nowPageNum == 1) {
 
-								that.commmentList = res.data.list
-							} else {
-								that.commmentList = that.commmentList.concat(res.data.list);
-							}
-
+							this.commmentList = res.data.list
 						} else {
-							that.$toast(res.msg)
+							this.commmentList = this.commmentList.concat(res.data.list);
 						}
-					},
-					error: function () {
-						console.log("error")
+					} else {
+						this.$toast(res.msg)
 					}
 				})
 			},
@@ -570,22 +524,12 @@
 
 
 			},
-			//跳转参与列表
-			goPeopleList(id) {
-				if (isIOS) {
-					console.log("ios设备进入参与列表")
-					window.webkit.messageHandlers.lstNative.postMessage({
-						"method": "pushToNextVC",
-						"htmlUrl": "/h5/h5V2/videoCourse/peopleList.html?id=" + id //isFullScreen存在就全屏
-					});
-				} else if (isAndroid) {
-					window.location.href = "peopleList.html?id=" + id
-				}
-
-			},
-			//跳转课程介绍
-			courseDetail(id) {
-				window.location.href = "courseDetail.html?id=" + id
+			//评论刷新
+			onRefresh() {
+				this.finished = false;
+				this.loading = true;
+				this.refreshing = true;
+				this.onLoad();
 			},
 			//评论得分页加载
 			onLoad() {
@@ -598,102 +542,22 @@
 				}
 				this.getCommentList()
 			},
-			//评论刷新
-			onRefresh() {
-				this.finished = false;
-				this.loading = true;
-				this.refreshing = true;
-				this.onLoad();
-			},
-			//参加课程
-			joinClass(bigClass, smalClass, index) {
-				var that = this;
-				ajax({
-					type: "post",
-					url: "community/cUserClassJoin/save",
-					data: {
-						bigClassId: bigClass.id,
-						uid: that.userId,
-					},
-					success: function (res) {
-						if (res.code == 0) {
-							that.joinClassCount(bigClass, smalClass, index)
-						} else {
-							that.$toast(res.msg)
-						}
-					},
-					error: function () {
-						console.log("error")
-					}
-				})
-			},
-			//参加课程得数量 并播放
-			joinClassCount(bigClass, smalClass, index) {
-				if (this.downlaodStatus) return
-				var that = this;
-				ajax({
-					type: "post",
-					url: "community/cUserClassJoin/update",
-					data: {
-						"uid": that.userId,
-						"bigClassId": bigClass.id,
-						"smallClassId": smalClass.id,
-					},
-					success: function (res) {
-						if (res.code == 0) {
-							// console.log(smalClass.classVod, index)
-							that.getClassDetail()
-							that.classDetail.bigClass.calory = that.classDetail.calory
-							that.classDetail.bigClass.duration = that.classDetail.duration
-							if (isIOS) {
-								console.log("ios设备播放视频")
-								window.webkit.messageHandlers.lstNative.postMessage({
-									"method": "goToVideoPlayer",
-									"videoId": smalClass.classVod,
-									"currentIndex": index,
-									"videoList": that.classDetail.smallClass,
-									"bigClassId": bigClass.id,
-									"bigClass": that.classDetail.bigClass
-								});
-							} else if (isAndroid) {
-								console.log("android设备播放视频")
-								window.android.goToVideoPlayer(JSON.stringify({
-									"method": "goToVideoPlayer",
-									"videoId": smalClass.classVod,
-									"currentIndex": index,
-									"videoList": that.classDetail.smallClass,
-									"bigClassId": bigClass.id,
-									"bigClass": that.classDetail.bigClass
-								}));
-							}
-							//window.location.href = "videoPlay.html?id=" + smalClass.classVod
-						} else {
-							that.$toast(res.msg)
-						}
-					},
-					error: function () {
-						console.log("error")
-					}
-				})
-			},
-			//原生分享前先告诉他们分享的内容
-			sendDataToShare(bigClass) {
+			
+			//播放
+			playVideo(item, index) {
+				var methodItem = {
+					method: "goToVideoPlayer",
+					videoId: item.classVod,
+					currentIndex: index,
+					videoList: this.classDetail.smallClassList,
+					bigClassId: this.classDetail.bigClassId,
+					bigClass: this.classDetail
+				}
 				try {
 					if (isIOS) {
-						window.webkit.messageHandlers.lstNative.postMessage({
-							"method": "getShareData",
-							"shareUrl": "/h5/h5V2/videoCourse/courseListShare.html?id=" + bigClass.id +
-								"&isShare=1",
-							"shareTitle": bigClass.className,
-							"shareDescribe": bigClass.classDes
-						});
+						window.webkit.messageHandlers.lstNative.postMessage(methodItem);
 					} else if (isAndroid) {
-						window.android.getShareData(JSON.stringify({
-							"shareUrl": "h5/h5V2/videoCourse/courseListShare.html?id=" + bigClass.id +
-								"&isShare=1",
-							"shareTitle": bigClass.className,
-							"shareDescribe": bigClass.classDes
-						}));
+						window.android.goToVideoPlayer(JSON.stringify(methodItem));
 					}
 				} catch (e) {
 					console.log(e)

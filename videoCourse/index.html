@@ -71,8 +71,8 @@
 						</div>
 						<ul>
 							<li class="courseDiv" v-for="(item ,index) in recentList" v-if="index<3"
-								@click="courseList(item.bigClassId)">
-								<img src="./img/new.png" class="iconlabel" alt="">
+								@click="courseList(item)">
+								<img v-if="item.classLableList.length>0" :src="'./img/'+item.classLableList[0].classLabel+'.png'" class="iconlabel" alt="">
 								<div class="cover" :style="{'backgroundImage':'url('+item.classCover+')'}">
 								</div>
 								<div class="content">
@@ -84,7 +84,7 @@
 										</p>
 									</div>
 									<div class="progress">
-										已锻炼{{item.pageFinish}}%
+										已锻炼{{item.pageFinish||0}}%
 									</div>
 								</div>
 								<div class="btn_train">继续锻炼</div>
@@ -94,16 +94,15 @@
 
 				</div>
 				<!-- 推荐 -->
-				<div class="recommendBox">
+				<div class="recommendBox" v-if="recommendList.length>0">
 					<div class="courseBox-bg">
 						<div class="title">为你推荐
 							<span class="titleInfo">(根据训练目标等数据智能生成)</span>
 						</div>
 						<van-swipe :show-indicators="false" :loop="false" :width="220">
-							<van-swipe-item v-for="item in 3">
-								<div class="courseDiv"
-								:style="{'backgroundImage':'url('+item.classCover+')'}">
-									<img src="./img/recommend.png" class="iconlabel" alt="">
+							<van-swipe-item v-for="item in recommendList"  @click="courseList(item)">
+								<div class="courseDiv" :style="{'backgroundImage':'url('+item.classCover+')'}">
+									<img v-if="item.classLableList.length>0" :src="'./img/'+item.classLableList[0].classLabel+'.png'" class="iconlabel" alt="">
 									<div class="content">
 										<div>
 											<p class="stitle">{{item.className}}</p>
@@ -121,12 +120,12 @@
 
 
 				<!-- 热门 -->
-				<div class="hot">
+				<div class="hot" v-if="hotClassList.length>0">
 					<div class="courseBox">
 						<div class="title">热门课程</div>
 						<ul>
-							<li class="courseDiv" v-for="item in 3">
-								<img :src="'./img/hot'+item+'.png'" class="iconlabel" alt="">
+							<li class="courseDiv" v-for="item in hotClassList" @click="courseList(item)">
+								<img v-if="item.classLableList.length>0" :src="'./img/'+item.classLableList[0].classLabel+'.png'" class="iconlabel" alt="">
 								<div class="cover" :style="{'backgroundImage':'url('+item.classCover+')'}">
 								</div>
 								<div class="content">
@@ -138,7 +137,7 @@
 										</p>
 									</div>
 									<div class="progress">
-										已锻炼{{item.pageFinish}}%
+										已锻炼{{item.pageFinish||0}}%
 									</div>
 								</div>
 							</li>
@@ -148,30 +147,6 @@
 
 					</div>
 				</div>
-
-
-
-
-
-				<!-- <div class="courseBox" v-for="(item,key,index) in transList">
-					<div class="title">{{key}}专项训练</div>
-					<ul>
-						<li v-for="(bitem ,bindex) in transList[key]" @click="courseList(bitem.id)">
-							<div class="cover" :style="{'backgroundImage':'url('+bitem.classCover+')'}"></div>
-							<div class="content">
-								<div>
-									<p class="stitle">{{bitem.className}}</p>
-									<p class="detail">
-										{{bitem.classGrade | filtersLevel}}&nbsp&nbsp{{Math.round(bitem.duration/60)}}&nbsp&nbsp{{Math.round(bitem.calory/1000)}}千卡
-									</p>
-								</div>
-								<div class="progress">
-									{{bitem.sum||0}}人已参加
-								</div>
-							</div>
-						</li>
-					</ul>
-				</div> -->
 			</div>
 		</van-pull-refresh>
 	</div>
@@ -185,11 +160,13 @@
 		el: '#app',
 		data() {
 			return {
+				isLoading: false,
 				bannerList: [],
 				classification: [],
-				hotClass: [],
 				recentList: [],
-				isLoading: false,
+				hotClassList: [],
+				recommendList:[]
+
 			}
 		},
 		filters: {
@@ -201,22 +178,12 @@
 			window.refreshList = this.initIndexData;
 		},
 		created() {
+			this.addIntegral()
 			this.getBanner() //获取banner
 			this.getClassify() //获取分类
 			this.getRecentList() //最近在练
-			ajax({
-				type: "post",
-				url: "integral/add/integral",
-				data: {
-					actionType: "0300"
-				},
-				success: function (res) {
-
-				},
-				error: function () {
-
-				}
-			})
+			this.getRecommend() //为你推荐
+			this.getHotClass()//热门
 		},
 		methods: {
 			//原生调用h5的方法局部刷新课程主页
@@ -228,6 +195,16 @@
 				if (isAndroid)
 					Interaction.umengStatistics("course_banner_show", this.bannerList[index].id)
 
+			},
+			//浏览加逗比
+			addIntegral() {
+				ajax({
+					type: "post",
+					url: "integral/add/integral",
+					data: {
+						actionType: "0300"
+					}
+				})
 			},
 			//获取bannner图
 			getBanner() {
@@ -301,49 +278,49 @@
 			},
 			//获取最近在练
 			getRecentList() {
-				var that = this;
 				ajax({
 					url: "community/threeUserCollect/see/near/by/homepage",
 				}).then(res => {
-					that.recentList = res.data;
+					this.recentList = res.data;
 				}).catch((err) => {
 					console.log(e)
 				})
 			},
+			//为你推荐
+			getRecommend() {
+				ajax({
+					url: "community/threeUserCollect/get/recommend/to/you",
+				}).then(res => {
+					this.recommendList = res.data;
+				}).catch((err) => {
+					console.log(e)
+				})
+
+			},
 			//获取热门课程
 			getHotClass() {
-				var that = this;
 				ajax({
-					type: "post",
-					url: "community/cHotClass/queryAll",
-					data: {
-						status: 1
-					},
-					success: function (res) {
-						if (res.code == 0) {
-							that.hotClass = res.data;
-						} else {
-							that.$toast(res.msg)
-						}
-					},
-					error: function () {
-						console.log("apiServer error")
-					}
+					url: "community/threeUserCollect/see/most/class/top/three",
+				}).then(res => {
+					this.hotClassList = res.data;
+				}).catch((err) => {
+					console.log(e)
 				})
+
 			},
 
 
 			//跳转课程详情
-			courseList(id) {
+			courseList(item) {
 				try {
 					if (isIOS) {
 						window.webkit.messageHandlers.lstNative.postMessage({
-							"method": "pushToNextVC",
-							"htmlUrl": "/h5/h5V3/videoCourse/courseList.html?id=" + id
+							method: "pushToNextVC",
+							htmlUrl: `/h5/h5V3/videoCourse/courseList.html?id=${item.bigClassId}`
 						});
 
 					} else if (isAndroid) {
-						var str = "h5/h5V3/videoCourse/courseList.html?id=" + id
+						var str = `/h5/h5V3/videoCourse/courseList.html?id=${item.bigClassId}`
 						window.android.goToCourseList(str)
 					}
 				} catch (e) {
@@ -386,30 +363,7 @@
 
 
 			},
-			//参加课程
-			joinClass(id) {
-				var that = this;
-				ajax({
-					type: "post",
-					url: "community/cUserClassJoin/save",
-					data: {
-						bigClassId: id,
-						uid: that.userId,
-					},
-					success: function (res) {
-						if (res.code == 0) {
-							that.$toast("课程加入成功！")
-							that.getMyJoinCount()
-							that.getHotClass()
-						} else {
-							that.$toast(res.msg)
-						}
-					},
-					error: function () {
-						console.log("error")
-					}
-				})
-			}
+			
 
 
 

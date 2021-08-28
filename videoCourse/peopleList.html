@@ -8,6 +8,8 @@
     <title>参与用户</title>
     <!-- 引入样式文件 -->
     <link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
+    <link rel="stylesheet" href="font/iconfont.css">
+    <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/peopleList.css?t=20200831">
 </head>
 
@@ -35,7 +37,7 @@
                         </li>
                     </ul>
                     <div class="noData-box" v-else-if="!loading">
-                        <img class="noData-img" src="./img/noData.png" />
+                        <img class="noData-img" src="../common/img/noData.png" />
                         <p class="noData-p">暂无数据</p>
                     </div>
                 </van-list>
@@ -70,43 +72,39 @@
             this.getPeopleList();
         },
         methods: {
+            onclickLeft() {
+                window.history.back(-1)
+            },
             //获取参与用户列表
             getPeopleList() {
-                var that = this;
-                var nowPageNum = that.pageNum;
+                var nowPageNum = this.pageNum;
                 ajax({
                     type: "post",
                     url: "community/cUserClassJoin/queryAllUserByBigClassId",
                     data: {
-                        bigClassId: that.id,
-                        pageNum: that.pageNum,
-                        pageSize: that.pageSize
-                    },
-                    success: function (res) {
-                        that.loading = false;
-                        if (res.code == 0) {
-                            that.total = res.data.total;
-                            if (nowPageNum > res.data.pages) {
-                                that.finished = true;
-                            } else if (nowPageNum == 1) {
-                                that.list = res.data.list
-                            } else {
-                                that.list = that.list.concat(res.data.list);
-                            }
+                        bigClassId: this.id,
+                        pageNum: this.pageNum,
+                        pageSize: this.pageSize
+                    }
+                }).then(res => {
+                    if (res.code == 0) {
+                        this.loading = false;
+                        this.finished = true;
+                        this.total = res.data.total;
+                        if (nowPageNum > res.data.pages) {
+                            this.finished = true;
+                        } else if (nowPageNum == 1) {
+                            this.list = res.data.list
                         } else {
-                            that.$toast(res.msg)
+                            this.list = that.list.concat(res.data.list);
                         }
-                    },
-                    error: function () {
-                        console.log("error")
+                    } else {
+                        this.$toast(res.msg)
                     }
                 })
             },
             onRefresh() {
-                // 清空列表数据
                 this.finished = false;
-                // 重新加载数据
-                // 将 loading 设置为 true，表示处于加载状态
                 this.loading = true;
                 this.onLoad();
             },

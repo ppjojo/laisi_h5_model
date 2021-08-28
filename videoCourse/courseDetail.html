@@ -21,7 +21,8 @@
             font-size: 0.28rem;
             line-height: 0.4rem;
         }
-        .contain{
+
+        .contain {
             padding: 0.3rem;
         }
     </style>
@@ -39,8 +40,8 @@
         </div>
         <div style="height:1rem" v-else></div>
         <div class="contain">
-            <div id="title">{{title}}</div>
-            <div id="discript">{{discript}}</div>
+            <div id="title">{{classDetail.className}}</div>
+            <div id="discript">{{classDetail.classDes}}</div>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
@@ -52,13 +53,12 @@
             data() {
                 return {
                     isLoading: false,
-                    title: "",
-                    discript: ""
+                    classDetail:{}
                 }
             },
 
             mounted() {
-                this.getCourseDetail()
+                this.getClassDetail()
             },
             created() {
 
@@ -67,28 +67,26 @@
                 onclickLeft() {
                     window.history.back(-1)
                 },
-                getCourseDetail() {
-                    var id = getQueryString("id");
-                    var that = this;
+                //获取大课程下的课程详情以及小课程列表
+                getClassDetail() {
                     ajax({
-                        type: "post",
-                        url: "community/cBigClass/queryAllSmallByBigId",
+                        url: "community/threeUserCollect/see/bigClass/detail",
                         data: {
-                            id: id
-                        },
-                        success: function (res) {
-                            if (res.code == 0) {
-                                that.title = res.data.bigClass.className
-                                that.discript = res.data.bigClass.classDes
-                            } else {
-                                that.$toast(res.msg)
-                            }
-                        },
-                        error: function () {
-                            console.log("error")
+                            bigClassId: getQueryString("id")
                         }
+                    }).then(res => {
+                        if (res.code == 0) {
+                            this.classDetail = res.data;
+                        } else {
+                            this.$toast(res.msg)
+                        }
+                    }).catch(err => {
+
                     })
-                }
+
+
+                },
+
 
 
 
