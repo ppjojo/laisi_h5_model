@@ -121,15 +121,19 @@
                 <el-row>
                     <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6">
                         <img src="../assets/img/solution/sl1.png" alt="">
+                        <p style="text-align:center;line-height:0.5rem;">礼品定制</p>
                     </el-col>
                     <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6">
                         <img src="../assets/img/solution/sl2.png" alt="">
+                        <p style="text-align:center;line-height:0.5rem;">ODM</p>
                     </el-col>
                     <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6">
                         <img src="../assets/img/solution/sl3.png" alt="">
+                        <p style="text-align:center;line-height:0.5rem;">OEM</p>
                     </el-col>
                     <el-col :xs="12" :sm="12" :md="6" :lg="6" :xl="6">
                         <img src="../assets/img/solution/sl4.png" alt="">
+                        <p style="text-align:center;line-height:0.5rem;">联合开发</p>
                     </el-col>
                 </el-row>
             </div>

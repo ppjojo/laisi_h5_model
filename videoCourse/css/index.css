@@ -734,6 +734,10 @@ body {
   word-break: break-all;
 }
 
+.courseList .commentBox .commentDiv .comment span {
+  font-size: 0.28rem;
+}
+
 .courseList .commentBox .commentDiv .commentBck {
   font-size: 0.28rem;
   background-color: #1e1e2a;
@@ -797,7 +801,7 @@ body {
   width: 100%;
   bottom: 0;
   left: 0;
-  z-index: 19;
+  z-index: 99;
   padding: 0.16rem 0.24rem;
   background-color: #12121f;
 }

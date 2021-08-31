@@ -27,21 +27,40 @@ function secondsFormat(s, flag) { //有flag的是小课程
 		}
 	}
 }
-//2019-11-20T02:22:58.000+0000 转换2019-11-20 11:11:59
-function renderTime(utc_datetime) {
-	var T_pos = utc_datetime.indexOf('T');
-	var Z_pos = utc_datetime.indexOf('.');
-	var year_month_day = utc_datetime.substr(0, T_pos);
-	var hour_minute_second = utc_datetime.substr(T_pos + 1, Z_pos - T_pos - 1);
-	var new_datetime = year_month_day + " " + hour_minute_second; // 2017-03-31 08:02:06
-	// 处理成为时间戳
-	var timestamp = getTime(new_datetime);
-	// 增加8个小时，北京时间比utc时间多八个时区
-	var timestamp = timestamp + 8 * 60 * 60 * 1000;
-	// 时间戳转为时间
-	var beijing_datetime = sjc2time("ymd3", timestamp);
-	return beijing_datetime;
+
+function formatMsgTime(timespan) {
+	var dateTime = new Date(timespan);
+
+	var year = dateTime.getFullYear();
+	var month = dateTime.getMonth() + 1;
+	var day = dateTime.getDate();
+	var hour = dateTime.getHours();
+	var minute = dateTime.getMinutes();
+	var second = dateTime.getSeconds();
+	var now = new Date();
+	var now_new =now.getTime()  //typescript转换写法
+
+	var milliseconds = 0;
+	var timeSpanStr;
+
+	milliseconds = now_new - timespan;
+
+	if (milliseconds <= 1000 * 60 * 1) {
+		timeSpanStr = '刚刚';
+	} else if (1000 * 60 * 1 < milliseconds && milliseconds <= 1000 * 60 * 60) {
+		timeSpanStr = Math.round((milliseconds / (1000 * 60))) + '分钟前';
+	} else if (1000 * 60 * 60 * 1 < milliseconds && milliseconds <= 1000 * 60 * 60 * 24) {
+		timeSpanStr = Math.round(milliseconds / (1000 * 60 * 60)) + '小时前';
+	} else if (1000 * 60 * 60 * 24 < milliseconds && milliseconds <= 1000 * 60 * 60 * 24 * 15) {
+		timeSpanStr = Math.round(milliseconds / (1000 * 60 * 60 * 24)) + '天前';
+	} else if (milliseconds > 1000 * 60 * 60 * 24 * 15 && year == now.getFullYear()) {
+		timeSpanStr = month + '/' + day + ' ' + hour + ':' + minute;
+	} else {
+		timeSpanStr = year + '/' + month + '/' + day + ' ' + hour + ':' + minute;
+	}
+	return timeSpanStr;
 }
+
 
 function getTime(time) {
 	var myDate = new Date(time);

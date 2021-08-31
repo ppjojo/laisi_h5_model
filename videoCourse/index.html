@@ -65,7 +65,7 @@
 
 						<div class="title2">
 							<div class="txt">最近在练</div>
-							<div class="btn_viewMore">
+							<div class="btn_viewMore" @click="goAPPwebview_Recent">
 								查看全部<span class="icon iconfont icon-tongyong-gengduo" style="font-size: 0.25rem;" />
 							</div>
 						</div>
@@ -308,7 +308,20 @@
 				})
 
 			},
-
+			//跳转最近再练
+			goAPPwebview_Recent(){
+				try {
+					if (isIOS) {
+						window.webkit.messageHandlers.lstNative.postMessage({
+							method: "LSTH5APP_GoToMyCourse",
+						});
+					} else if (isAndroid) {
+						window.android.LSTH5APP_GoToMyCourse()
+					}
+				} catch (e) {
+					console.log(e)
+				}
+			},
 
 			//跳转课程详情
 			courseList(item) {

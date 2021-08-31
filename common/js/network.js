@@ -373,7 +373,7 @@ let ajaxResolve = (config)=> {
             this.getAppInfo(window.android.getAppInfo());
           }
         } catch (e) {
-          console.log(e);
+          console.log("===================重新获取appInfo==================");
         }
       },
       //获取app设备的信息 以及token信息的回调

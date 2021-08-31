@@ -708,6 +708,9 @@ body {
                 line-height: 0.5rem;
                 min-height: 0.5rem;
                 word-break: break-all;
+                span{
+                    font-size: 0.28rem;
+                }
             }
 
             .commentBck {
@@ -773,7 +776,7 @@ body {
         width: 100%;
         bottom: 0;
         left: 0;
-        z-index: 19;
+        z-index: 99;
         padding: 0.16rem 0.24rem;
         background-color: $bg_color;
 
