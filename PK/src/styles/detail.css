@@ -1,0 +1,701 @@
+@charset "UTF-8";
+@font-face {
+  font-family: "BebasNeue";
+  src: url("../font/BebasNeue/BebasNeue.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.detailBox {
+  /* 弹出框查看成绩 */
+}
+
+.detailBox .van-nav-bar {
+  background-color: transparent;
+  z-index: 999;
+  color: #fff;
+}
+
+.detailBox .van-nav-bar .van-nav-bar__title {
+  color: #fff;
+}
+
+.detailBox .van-hairline--bottom::after {
+  border: none;
+}
+
+.detailBox .detailBgBox {
+  height: 4.6rem;
+}
+
+.detailBox .detailBgBox .detailBg {
+  background-size: cover;
+  width: 100%;
+  height: 6rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.detailBox .detailContain {
+  position: relative;
+  z-index: 2;
+  padding: 0.3rem 0.3rem 0;
+}
+
+.detailBox .detailContain .detailDiv {
+  background-color: #1e1e2a;
+  border-radius: 0.2rem;
+  padding: 0.4rem 0.4rem;
+}
+
+.detailBox .detailContain .laberTitle {
+  font-size: 0.28rem;
+  text-align: justify;
+  line-height: 0.6rem;
+  height: 0.6rem;
+  color: #CFCFD2;
+  padding-right: 0.1rem;
+}
+
+.detailBox .detailContain .laberTitle i {
+  display: inline-block;
+  width: 100%;
+}
+
+.detailBox .detailContain .laberContent {
+  font-size: 0.28rem;
+  color: #71717f;
+  text-align: left;
+  line-height: 0.6rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+.detailBox .detailContain .laberContent .lock_img {
+  width: 0.3rem;
+  position: relative;
+  top: 0.05rem;
+}
+
+.detailBox .detailContain .van-tag-official {
+  font-size: 0.2rem;
+  padding: 0 0.05rem;
+  position: relative;
+  text-align: center;
+  background-color: #E50012;
+  color: #fff;
+  line-height: 0.26rem;
+  height: 0.26rem;
+  margin-left: 0.1rem;
+}
+
+.detailBox .raceInformation {
+  padding-bottom: 2.5rem;
+  /* 多团队比赛的补充css */
+}
+
+.detailBox .raceInformation .raceInformationTitle {
+  font-size: 0.32rem;
+  text-align: center;
+  line-height: 1rem;
+}
+
+.detailBox .raceInformation .bigNumberSpan {
+  font-size: 0.48rem;
+  font-family: 'BebasNeue';
+}
+
+.detailBox .raceInformation .listItem {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin: 0 .24rem;
+  height: 1.28rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  border-bottom: 1px solid #12121f;
+}
+
+.detailBox .raceInformation .listItem .rank {
+  text-align: center;
+  font-size: 0.36rem;
+  font-family: 'BebasNeue';
+  min-width: 0.5rem;
+}
+
+.detailBox .raceInformation .listItem .rank .sortPic {
+  width: 0.4rem;
+  height: 0.46rem;
+  position: relative;
+  top: 0.1rem;
+}
+
+.detailBox .raceInformation .listItem .user {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  width: 45%;
+}
+
+.detailBox .raceInformation .listItem .user .headpic {
+  width: .6rem;
+  height: .6rem;
+  border-radius: 50%;
+  margin: 0 0.16rem;
+}
+
+.detailBox .raceInformation .listItem .user .name {
+  font-size: .28rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.detailBox .raceInformation .listItem .times {
+  text-align: right;
+  width: 15%;
+  white-space: nowrap;
+  font-size: 0.24rem;
+}
+
+.detailBox .raceInformation .listItem .num {
+  text-align: right;
+  width: 25%;
+  white-space: nowrap;
+  font-size: 0.24rem;
+}
+
+.detailBox .raceInformation .listItem .bigNumberSpan {
+  font-size: 0.48rem;
+  font-family: 'BebasNeue';
+}
+
+.detailBox .raceInformation .noData-box {
+  text-align: center;
+  padding-top: 0.5rem;
+}
+
+.detailBox .raceInformation .noData-box .noData-img {
+  width: 4rem;
+}
+
+.detailBox .raceInformation .teamcount {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0.8rem 0.3rem;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  position: relative;
+}
+
+.detailBox .raceInformation .teamcount .leftBox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  width: 50%;
+}
+
+.detailBox .raceInformation .teamcount .pkImg {
+  position: absolute;
+  top: 0.75rem;
+  left: 50%;
+  z-index: 3;
+  margin-left: -0.5rem;
+}
+
+.detailBox .raceInformation .teamcount .pkImg .centerimg {
+  width: 0.96rem;
+  height: 0.96rem;
+  border-radius: 50%;
+  border: 2px solid #12121f;
+}
+
+.detailBox .raceInformation .teamcount .rightBox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  width: 50%;
+}
+
+.detailBox .raceInformation .teamcount .skipImg {
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 50%;
+  background-image: -webkit-gradient(linear, left top, right top, from(#FF7B45), to(#FFBE85));
+  background-image: linear-gradient(to right, #FF7B45, #FFBE85);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border: 2px solid #12121f;
+  position: relative;
+  z-index: 2;
+}
+
+.detailBox .raceInformation .teamcount .skipImg:last-child {
+  background-image: -webkit-gradient(linear, left top, right top, from(#6DCAFB), to(#4684EF));
+  background-image: linear-gradient(to right, #6DCAFB, #4684EF);
+}
+
+.detailBox .raceInformation .teamcount .skipImg img {
+  width: 0.7rem;
+  height: 0.7rem;
+}
+
+.detailBox .raceInformation .teamcount .line {
+  height: 0.4rem;
+  color: #fff;
+  font-size: 0.24rem;
+  line-height: 0.4rem;
+  text-align: center;
+  width: calc(97% - 0.8rem);
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  min-width: 1rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.detailBox .raceInformation .teamcount .line .bigNumberSpan {
+  font-family: 'BebasNeue';
+  font-size: 0.32rem;
+}
+
+.detailBox .raceInformation .teamcount .lineLeft {
+  background-image: -webkit-gradient(linear, left top, right top, from(#FF4E3E), to(#FFAA88));
+  background-image: linear-gradient(to right, #FF4E3E, #FFAA88);
+  text-align: left;
+  padding-left: 0.35rem;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  position: relative;
+  left: -0.28rem;
+  top: -0.2rem;
+}
+
+.detailBox .raceInformation .teamcount .lineRight {
+  background-image: -webkit-gradient(linear, left top, right top, from(#6DCAFB), to(#4684EF));
+  background-image: linear-gradient(to right, #6DCAFB, #4684EF);
+  text-align: right;
+  padding-right: 0.35rem;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  position: relative;
+  right: -0.28rem;
+  top: 0.2rem;
+}
+
+.detailBox .raceInformation .activeTeam, .detailBox .raceInformation .powerTeam, .detailBox .raceInformation .loserTeam {
+  height: 1.4rem;
+  font-size: 0.24rem;
+  color: #fff;
+  background-image: -webkit-gradient(linear, left top, right top, from(#FF4E3E), to(#FFAA88));
+  background-image: linear-gradient(to right, #FF4E3E, #FFAA88);
+  border-radius: 10px;
+  padding: 0.2rem;
+  position: relative;
+}
+
+.detailBox .raceInformation .activeTeam .teamName, .detailBox .raceInformation .powerTeam .teamName, .detailBox .raceInformation .loserTeam .teamName {
+  font-size: 0.32rem;
+  color: #fff;
+}
+
+.detailBox .raceInformation .activeTeam .teamName img, .detailBox .raceInformation .powerTeam .teamName img, .detailBox .raceInformation .loserTeam .teamName img {
+  width: 0.26rem;
+  height: 0.2rem;
+  float: right;
+  position: relative;
+  top: 0.1rem;
+}
+
+.detailBox .raceInformation .activeTeam .resultPic, .detailBox .raceInformation .powerTeam .resultPic, .detailBox .raceInformation .loserTeam .resultPic {
+  width: 1rem;
+  position: absolute;
+  right: 1rem;
+  top: -0.25rem;
+}
+
+.detailBox .raceInformation .powerTeam {
+  background-image: -webkit-gradient(linear, left top, right top, from(#4684EF), to(#6DCAFB));
+  background-image: linear-gradient(to right, #4684EF, #6DCAFB);
+}
+
+.detailBox .raceInformation .loserTeam {
+  background-image: none;
+  background-color: #aaa;
+}
+
+.detailBox .raceInformation .multiTeamBox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  padding: 0.3rem;
+}
+
+.detailBox .raceInformation .multiTeamBox .haveSelf {
+  border: 1px solid #5599dd;
+}
+
+.detailBox .raceInformation .multiTeamBox .multiTeamDiv {
+  position: relative;
+  width: 49%;
+  font-size: 0.28rem;
+  line-height: 0.58rem;
+  text-align: center;
+  margin-top: 0.16rem;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  border-radius: 0.24rem;
+  background-color: #1e1e2a;
+  padding: 0 0.2rem;
+  height: 2.64rem;
+}
+
+.detailBox .raceInformation .multiTeamBox .multiTeamDiv .resultBox {
+  position: absolute;
+  top: 0.5rem;
+  width: calc(100% - 0.4rem);
+  text-align: center;
+}
+
+.detailBox .raceInformation .multiTeamBox .multiTeamDiv .resultBox img {
+  width: 1.2rem;
+  position: relative;
+  top: 0.1rem;
+}
+
+.detailBox .raceInformation .multiTeamBox .multiTeamDiv .multiTeamTitle {
+  font-size: 0.28rem;
+  line-height: 0.76rem;
+  text-align: left;
+  position: relative;
+  height: 0.76rem;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.detailBox .raceInformation .multiTeamBox .multiTeamDiv .multiTeamTitle .bigNumberSpan {
+  font-family: "BebasNeue";
+  font-size: 0.48rem;
+}
+
+.detailBox .raceInformation .multiTeamBox .multiTeamDiv .multiTeamItem {
+  border-top: 1px solid #12121F;
+  text-align: left;
+  line-height: 0.58rem;
+  height: 0.58rem;
+  font-size: 0.28rem;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.detailBox .raceInformation .multiTeamBox .multiTeamDiv .multiTeamItem .bigNumberSpan {
+  font-family: "BebasNeue";
+  font-size: 0.36rem;
+}
+
+.detailBox .raceInformation .multiTeamBox .multiTeamDiv .name {
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.detailBox .raceInformation .multiTeamBox .multiTeamDiv .selfName {
+  color: #5599dd;
+}
+
+.detailBox .raceInformation .multiTeamBox .multiTeamDiv .score {
+  text-align: right;
+}
+
+.detailBox .raceInformation .multiTeamBox .multiTeamDiv .noTeam-div {
+  position: absolute;
+  top: 0.5rem;
+  width: calc(100% - 0.4rem);
+  text-align: center;
+}
+
+.detailBox .raceInformation .multiTeamBox .multiTeamDiv .noTeam-div .noTeamPic {
+  width: 1.8rem;
+}
+
+.detailBox .btn_box {
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 10;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 0.66rem 0;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(18, 18, 31, 0.1)), to(rgba(18, 18, 31, 0.8)));
+  background-image: linear-gradient(to bottom, rgba(18, 18, 31, 0.1), rgba(18, 18, 31, 0.8));
+}
+
+.detailBox .btn_box .btn {
+  border: none;
+  color: #fff;
+  width: 6.3rem;
+  height: 0.88rem;
+  font-size: 0.4rem;
+  line-height: 0.88rem;
+  background-image: -webkit-gradient(linear, left top, right top, from(#FF4E3E), to(#FFAA88));
+  background-image: linear-gradient(to right, #FF4E3E, #FFAA88);
+  border-radius: 0.44rem;
+}
+
+.detailBox .btn_box .btn2 {
+  background-image: none;
+  background-color: #74747E;
+}
+
+.detailBox .officialRulePopup {
+  padding: 0.3rem;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.detailBox .officialRulePopup .officalRule {
+  font-size: 0.28rem;
+  margin: 0;
+  padding: 0;
+  line-height: 0.4rem;
+}
+
+.detailBox .officialRulePopup .van-popup__close-icon--top-right {
+  top: 0.16rem;
+  right: 0.16rem;
+}
+
+.detailBox .shareBox {
+  text-align: center;
+  padding: 0.5rem 0.2rem 0.3rem 0.2rem;
+  background-color: #fff;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin-bottom: 0.2rem;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 3;
+}
+
+.detailBox .shareBox .headPic {
+  width: 1.4rem;
+  height: 1.4rem;
+  border-radius: 50%;
+  background-size: cover;
+  margin: 0 auto;
+  margin-top: 0.4rem;
+}
+
+.detailBox .shareBox .codeTitle, .detailBox .shareBox .personalName {
+  font-size: 0.28rem;
+  color: #727272;
+  margin-top: 0.1rem;
+}
+
+.detailBox .shareBox .competitionName {
+  font-size: 0.28rem;
+  color: #000;
+  margin-top: 0.2rem;
+}
+
+.detailBox .shareBox .invitationCode {
+  color: #333;
+  font-size: 0.4rem;
+  margin-top: 0.2rem;
+}
+
+.detailBox .multiTeamPopup {
+  overflow-y: inherit;
+  background-color: transparent;
+  top: 40%;
+}
+
+.detailBox .multiTeamPopup .scoreListBox {
+  background-image: url("../img/multiTeambg.png");
+  background-size: cover;
+  width: 5.9rem;
+  height: 10.6rem;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.detailBox .multiTeamPopup .scoreListBox .scoreListDiv {
+  padding-top: 3.5rem;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.detailBox .multiTeamPopup .scoreListBox .scoreListDiv .scoreItem {
+  width: 120px;
+  height: 120px;
+}
+
+.detailBox .multiTeamPopup .scoreListBox .scoreListDiv .scoreBg {
+  padding: 0 0.3rem;
+}
+
+.detailBox .multiTeamPopup .scoreListBox .scoreListDiv .scoreListTile {
+  font-size: 0.36rem;
+  line-height: 0.7rem;
+  text-align: center;
+  color: #333;
+}
+
+.detailBox .multiTeamPopup .scoreListBox .scoreListDiv .scoreListDetail, .detailBox .multiTeamPopup .scoreListBox .scoreListDiv .scoreListItem {
+  font-size: 0.24rem;
+  color: #666;
+  line-height: 0.7rem;
+  text-align: center;
+  margin: 0 0.15rem;
+  border-bottom: 4px solid #F1E3CA;
+}
+
+.detailBox .multiTeamPopup .scoreListBox .scoreListDiv .scoreListDetail .name, .detailBox .multiTeamPopup .scoreListBox .scoreListDiv .scoreListItem .name {
+  text-align: left;
+  font-size: 0.24rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+.detailBox .multiTeamPopup .scoreListBox .scoreListDiv .scoreListDetail .name .rank, .detailBox .multiTeamPopup .scoreListBox .scoreListDiv .scoreListItem .name .rank {
+  width: 0.5rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.detailBox .multiTeamPopup .scoreListBox .scoreListDiv .scoreListDetail .name .rank img, .detailBox .multiTeamPopup .scoreListBox .scoreListDiv .scoreListItem .name .rank img {
+  width: 0.34rem;
+}
+
+.detailBox .multiTeamPopup .scoreListBox .scoreListDiv .scoreListDetail .score, .detailBox .multiTeamPopup .scoreListBox .scoreListDiv .scoreListItem .score {
+  text-align: right;
+}
+
+.detailBox .multiTeamPopup .scoreListBox .scoreListDiv .scoreListDetail .bigNumberSpan, .detailBox .multiTeamPopup .scoreListBox .scoreListDiv .scoreListItem .bigNumberSpan {
+  font-family: "BebasNeue";
+  font-size: 0.44rem;
+  color: #FF5644;
+}
+
+.detailBox .multiTeamPopup .scoreListBox .scoreListDiv .scoreListItem {
+  border-bottom: 1px solid #F1E3CA;
+}
+
+.detailBox .multiTeamPopup .scoreListBox .scoreListDiv .scoreListItem .bigNumberSpan {
+  color: #999;
+}
+
+.detailBox .multiTeamPopup .scoreListBox .scoreListDiv .scoreListItem .name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.detailBox .multiTeamPopup .scoreListBox .scoreListDiv .selfItem .bigNumberSpan {
+  color: #5599DD;
+}
+
+.detailBox .scoreListItemDiv {
+  height: 6rem;
+  overflow-y: auto;
+}
+
+.detailBox .scoreListBox .scoreListDiv .scoreListItem {
+  font-size: 0.28rem;
+  color: #333;
+  line-height: 0.74rem;
+  text-align: center;
+  border-bottom: 1px solid rgba(184, 184, 187, 0.14);
+  padding: 0 0.35rem;
+}
+
+.detailBox .multiTeamClose {
+  text-align: center;
+}
+
+.detailBox .multiTeamClose img {
+  width: 0.6rem;
+  height: 0.6rem;
+}
+/*# sourceMappingURL=detail.css.map */

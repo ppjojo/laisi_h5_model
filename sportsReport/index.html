@@ -22,11 +22,11 @@
 			<div class="headerRightBox"></div>
 		</div>
 		<div class="listBox main-contain">
-			<div class="weekItem" @click="weekReport()">
+			<div class="weekItem" @click="goReport(1)">
 				<div class="title">运动周报</div>
 				<div class="date">{{lastWeek.startDateTime+'-'+lastWeek.endDateTime}}</div>
 			</div>
-			<div class="monthItem" @click="monthReport()">
+			<div class="monthItem" @click="goReport(2)">
 				<div class="title">运动月报</div>
 				<div class="date">{{lastMonth.startDateTime}}</div>
 			</div>
@@ -41,8 +41,8 @@
 		el: '#app',
 		data() {
 			return {
-				lastWeek:{},
-				lastMonth:{}
+				lastWeek: {},
+				lastMonth: {}
 
 			};
 		},
@@ -53,18 +53,39 @@
 
 		},
 		mounted() {
-			this.lastWeek=this.getLastWeek(new Date())
-			this.lastMonth=this.getLastMonth(new Date())
+			this.lastWeek = this.getLastWeek(new Date())
+			this.lastMonth = this.getLastMonth(new Date())
 		},
 		methods: {
 			goback() {
 				Interaction.closePage()
+				localStorage.removeItem("report_startTime")
+				localStorage.removeItem("report_endTime")
 			},
-			weekReport() {
-				window.location.href = "weekReport.html"
+			goReport(flag) {
+				let times={}
+				if(flag==1){
+					times=this.lastWeek
+					window.location.href = `weekReport.html`
+				}else{
+					times=this.lastMonth
+					window.location.href =`monthReport.html`
+				}
+				
+				localStorage.setItem("report_startTime", times.startTime)
+				localStorage.setItem("report_endTime", times.endTime)
 			},
-			monthReport() {
-				window.location.href = "monthReport.html"
+			getTime(time) {
+				var myDate = new Date(time);
+				var u = navigator.userAgent;
+				var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+				var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+				if (isiOS) {
+					var t = new Date(time.replace(/-/g, '/')).getTime();
+				} else {
+					var t = myDate.getTime();
+				}
+				return t;
 			},
 			getLastWeek(value) {
 				if (value == '' || value == undefined) {
@@ -80,24 +101,27 @@
 
 				let time = myDate.getDate() - day + (day === 0 ? -6 : 1)
 				let startTime = new Date(myDate.setDate(time))
-				startDateTime =
-					// startTime.getFullYear() +
-					// '-' +
+				let startDateTime =
 					(startTime.getMonth() + 1) +
 					'月' +
-					startTime.getDate()+
+					startTime.getDate() +
 					'日'
+				let startDateTime2 = (startTime.getFullYear()) + "-" + (startTime.getMonth() + 1) + '-' + startTime
+					.getDate()
+
+
 				let endTime = new Date(myDate.setDate(time + 6))
-				endDateTime =
-					// endTime.getFullYear() +
-					// '-' +
-					(endTime.getMonth() + 1) +
+				let endDateTime = (endTime.getMonth() + 1) +
 					'月' +
-					endTime.getDate()+
+					endTime.getDate() +
 					'日'
+				let endDateTime2 = (endTime.getFullYear()) + "-" + (endTime.getMonth() + 1) + '-' + endTime
+					.getDate()
 				return {
 					startDateTime: startDateTime,
-					endDateTime: endDateTime
+					endDateTime: endDateTime,
+					startTime: new Date(startDateTime2).getTime(),
+					endTime: new Date(endDateTime2).getTime(),
 				}
 			},
 			getLastMonth(value) {
@@ -122,11 +146,14 @@
 				let yDate = new Date(year, month, 0)
 
 				startDateTime = year + '年' + month + '月' //上个月第一天
+				startDateTime2 = year + '-' + month + '-' + 1
 				endDateTime = year + '-' + month + '-' + yDate.getDate() //上个月最后一天
 
 				return {
 					startDateTime: startDateTime,
-					endDateTime: endDateTime
+					endDateTime: endDateTime,
+					startTime: new Date(startDateTime2).getTime(),
+					endTime: new Date(endDateTime).getTime(),
 				}
 			}
 

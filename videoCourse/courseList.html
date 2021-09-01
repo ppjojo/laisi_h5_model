@@ -140,7 +140,7 @@
 							<van-pull-refresh v-model="refreshing" @refresh="onRefresh">
 								<van-list v-model="loading" :finished="finished" finished-text="全部评论都在这里了，快去锻炼吧！"
 									@load="onLoad" :immediate-check=false>
-									<ul>
+									<ul v-if="commmentList.length>0">
 										<li v-for="(item,index) in commmentList">
 											<div class="basicBox">
 												<div class="infoBox"
@@ -161,7 +161,7 @@
 												</div>
 											</div>
 											<div class="commentDiv">
-												<div class="comment" @click="commentAction(item)">
+												<div class="comment" @click="getCommentDetail(item)">
 													{{item.dadContent}}
 													<span v-for="r in item.dadAtResultList"
 														@click.stop="Interaction.visitPersonalHomepage(r.atUserId)"
@@ -184,29 +184,18 @@
 											</div>
 										</li>
 									</ul>
+									<div class="noData-box" v-else>
+										<img class="noData-img" src="../common/img/noData.png" />
+										<p class="noData-p">还没有评论，快来抢沙发</p>
+									</div>
 								</van-list>
 							</van-pull-refresh>
-							<!-- <div class="noData-box" >
-								<img class="noData-img" src="../common/img/noData.png" />
-								<p class="noData-p">还没有评论，快来抢沙发</p>
-							</div> -->
-							<div class="sendBox">
-								<van-field v-model="comment_message" rows="1" @blur="initSendBox" type="textarea"
-									autosize maxlength="50" :placeholder="placeholder">
-									<template #right-icon>
-										<span class="icon iconfont icon-a-shequ-" @click="noticeSomePeople"
-											style="font-size: 0.3rem;" />
-									</template>
-								</van-field>
-								<span class="icon iconfont icon-duihua-fasong" @click="submitCommentFirst"
-									style="font-size: 0.48rem;padding-left: 0.24rem;" />
-							</div>
-
+							
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="sendBox" v-if="tabSelected==2">
+			<div class="sendBox" v-if="this.tabSelected==2">
 				<van-field v-model="comment_message" rows="1" @blur="initSendBox" type="textarea" autosize
 					maxlength="50" :placeholder="placeholder">
 					<template #right-icon>
@@ -217,7 +206,6 @@
 				<span class="icon iconfont icon-duihua-fasong" @click="submitCommentFirst"
 					style="font-size: 0.48rem;padding-left: 0.24rem;" />
 			</div>
-
 			<van-popup v-model="moreCommentShow" round position="bottom" :style="{ height: '70%' }">
 				<div class="popupHeader">
 					<span class="icon iconfont icon-fanhuianniu" @click="moreCommentShow=false"
@@ -247,7 +235,7 @@
 								</div>
 							</div>
 							<div class="commentDiv">
-								<div class="comment">
+								<div class="comment" @click="commentAction(commentDetail.dadCommendResult)">
 									{{commentDetail.dadCommendResult.dadContent}}
 									<span v-for="r in commentDetail.dadCommendResult.dadAtResultList"
 										@click="Interaction.visitPersonalHomepage(r.atUserId)"
@@ -286,18 +274,12 @@
 							</div>
 						</div>
 					</div>
+					<div class="noData-box" v-if="commentDetail.sonCommendResult==0">
+						<img class="noData-img" src="../common/img/noData.png" />
+						<p class="noData-p">还没有回复，快来抢沙发</p>
+					</div>
 				</div>
-				<div class="sendBox">
-					<van-field v-model="comment_message" rows="1" @blur="initSendBox" type="textarea" autosize
-						maxlength="50" :placeholder="placeholder">
-						<template #right-icon>
-							<span class="icon iconfont icon-a-shequ-" @click="noticeSomePeople"
-								style="font-size: 0.3rem;" />
-						</template>
-					</van-field>
-					<span class="icon iconfont icon-duihua-fasong" @click="submitCommentFirst"
-						style="font-size: 0.48rem;padding-left: 0.24rem;" />
-				</div>
+				
 			</van-popup>
 
 			<van-popup v-model="friendListShow" round position="right" :style="{ height: '100%' ,width:'100%'}">
@@ -342,7 +324,6 @@
 				isClick: false,
 				replyAuthorId: "", //二级回复的时候
 				placeholder: "说点什么",
-				commentVideo: true,
 				replyCommentItem: {},
 
 
@@ -452,13 +433,13 @@
 					url: apiUrl,
 					data: {
 						bigClassId: this.classDetail.bigClassId,
-						commendId:item.dadCommendId||item.sonCommendId
+						commendId: item.dadCommendId || item.sonCommendId
 					}
 				}).then(res => {
 					if (res.code == 0) {
-						if(item.dadCommendId){
+						if (item.dadCommendId) {
 							item.dadCommendLikeCount++;
-						}else{
+						} else {
 							item.commendLike++;
 						}
 
@@ -485,7 +466,6 @@
 			},
 			actionSheetSelect(obj, index) {
 				if (index == 1) {
-					this.commentVideo = false;
 					this.initReplyAuthorIdandPlaceholder((this.replyCommentItem.sonSendAuthorId || this
 						.replyCommentItem.dadUserId), (this
 						.replyCommentItem.sonSendAuthorName || this.replyCommentItem.dadCommendNickName))
@@ -497,9 +477,12 @@
 			commentAction(item) {
 				this.actions = [{
 					name: '复制'
-				}, {
-					name: '回复'
-				}];
+				}]
+				if (this.moreCommentShow) {
+					this.actions.push({
+						name: '回复'
+					})
+				}
 				if ((item.sonSendAuthorId || item.dadUserId) == JSON.parse(localStorage.getItem("appInfo"))
 					.userId) {
 					this.actions.push({
@@ -507,6 +490,7 @@
 						color: '#ee0a24'
 					})
 				}
+
 
 				this.actionSheetShow = true;
 				this.replyCommentItem = item;
@@ -567,7 +551,6 @@
 					if (res.code == 0) {
 						this.comment_message = ""
 						this.moreCommentShow = true;
-						this.commentVideo = false;
 						this.commentDetail = res.data;
 						this.initReplyAuthorIdandPlaceholder(this.commentDetail.dadCommendResult.dadUserId)
 					} else {
@@ -663,7 +646,7 @@
 
 						}
 
-						if (!this.commentVideo) {
+						if (this.moreCommentShow) {
 							form = {
 								...form,
 								replyAuthorId: this.replyAuthorId, //被评论回复的用户id

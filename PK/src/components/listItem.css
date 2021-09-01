@@ -1,0 +1,104 @@
+.list-item {
+  margin: 0.16rem 0.24rem;
+  background-size: cover;
+  height: 2.7rem;
+  border-radius: 0.15rem;
+  margin-bottom: 0.24rem;
+  color: #cfcfd2;
+  text-align: left;
+  padding: 0 0.16rem;
+  padding-top: 1.14rem;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  position: relative;
+  -webkit-border-radius: 0.15rem;
+  -moz-border-radius: 0.15rem;
+  -ms-border-radius: 0.15rem;
+  -o-border-radius: 0.15rem;
+}
+
+.pkTitle {
+  font-size: 0.36rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+.pkTitle span {
+  background-image: -webkit-gradient(linear, left top, right top, from(#FF4E3E), to(#FFAA88));
+  background-image: linear-gradient(to right, #FF4E3E, #FFAA88);
+  color: #fff;
+  font-size: 0.2rem;
+  padding: 1px 0.05rem;
+  text-align: center;
+  margin: 0 0.1rem;
+}
+
+.pkTitle .lock_img {
+  width: 0.3rem;
+  position: relative;
+  top: 0.02rem;
+}
+
+.pkDescript {
+  font-size: 0.2rem;
+  line-height: 0.6rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+.pkDescript span {
+  margin-right: 0.16rem;
+}
+
+.pkPromoter {
+  font-size: 0.2rem;
+}
+
+.pkTime {
+  font-size: 12px;
+  line-height: 0.36rem;
+  position: absolute;
+  left: 0;
+  top: 0.2rem;
+  padding: 0 0.1rem;
+  height: 0.36rem;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  text-align: center;
+  background-color: #E50012;
+  border-top-right-radius: 0.18rem;
+  border-bottom-right-radius: 0.18rem;
+}
+
+.pkTime_ing {
+  min-width: 1.44rem;
+  background-color: transparent;
+  border: 1px solid #fff;
+  color: #fff;
+  border-left: none;
+}
+
+.pkTime_todo {
+  min-width: 1.44rem;
+  background-color: #fff;
+  color: #E60012;
+}
+
+.pkTime_done {
+  background-color: #999;
+}
+/*# sourceMappingURL=listItem.css.map */

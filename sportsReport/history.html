@@ -26,7 +26,7 @@
                 <div v-for="item2 in item.data">
                     <div class="title">{{item.name+'年'+item2.name+'月'}}</div>
                     <div class="itemList">
-                        <div class="itemTitle" v-for="item3 in item2.data" @click="weekReport">
+                        <div class="itemTitle" v-for="item3 in item2.data" @click="goReport(item3)">
                             {{item3.startDateTime+'-'+item3.endDateTime}}
                             <span class="icon iconfont icon-tongyong-gengduo" style="font-size: 0.35rem;"></span>
                         </div>
@@ -38,14 +38,14 @@
 
         <div class="main-contain historyListBox" v-else>
             <div class="historyListDiv" v-for="item in monthList">
-               
-                    <div class="title">{{item.name+'年'}}</div>
-                    <div class="itemList">
-                        <div class="itemTitle" v-for="item2 in item.data"  @click="monthReport">
-                            {{item2.startDateTime}}
-                            <span class="icon iconfont icon-tongyong-gengduo" style="font-size: 0.35rem;"></span>
-                        </div>
+
+                <div class="title">{{item.name+'年'}}</div>
+                <div class="itemList">
+                    <div class="itemTitle" v-for="item2 in item.data" @click="goReport(item2)">
+                        {{item2.startDateTime}}
+                        <span class="icon iconfont icon-tongyong-gengduo" style="font-size: 0.35rem;"></span>
                     </div>
+                </div>
             </div>
 
         </div>
@@ -59,10 +59,10 @@
         el: '#app',
         data() {
             return {
-                minDate: "2021-05-01",
+                minDate: "2021-08-01",
                 weekList: [],
                 monthList: [],
-                type:getQueryString("type"),//1 week 2 month
+                type: getQueryString("type"), //1 week 2 month
 
             };
         },
@@ -73,24 +73,24 @@
 
         },
         mounted() {
-            if(this.type==1){
+            if (this.type == 1) {
                 this.getWeekList()
-            }else {
+            } else {
                 this.getMonthList()
             }
-            
-            
+
+
         },
         methods: {
             goback() {
                 window.history.back()
             },
-            weekReport() {
-                window.location.href = "weekReport.html"
+            goReport(item) {
+				localStorage.setItem("report_startTime", item.startTime)
+				localStorage.setItem("report_endTime", item.endTime)
+                window.history.back()
             },
-            monthReport() {
-                window.location.href = "monthReport.html"
-            },
+           
             getWeekList() {
                 let minDateTime = new Date(this.minDate).getTime();
                 let nowDateTime = new Date().getTime();
@@ -118,6 +118,10 @@
                         '月' +
                         startTime.getDate() +
                         '日'
+                    let startDateTime2 = (startTime.getFullYear()) + "-" + (startTime.getMonth() + 1) + '-' +
+                        startTime
+                        .getDate()
+
                     let endTime = new Date(myDate.setDate(time + 6))
                     let endDateTime =
                         // endTime.getFullYear() +
@@ -126,11 +130,15 @@
                         '月' +
                         endTime.getDate() +
                         '日'
+                    let endDateTime2 = (endTime.getFullYear()) + "-" + (endTime.getMonth() + 1) + '-' + endTime
+                        .getDate()
 
                     weekItem.startDateTime = startDateTime;
                     weekItem.endDateTime = endDateTime;
                     weekItem.year = endTime.getFullYear();
                     weekItem.month = endTime.getMonth() + 1;
+                    weekItem.startTime= new Date(startDateTime2).getTime(),
+                    weekItem.endTime= new Date(endDateTime2).getTime(),
 
                     weekList.push(weekItem);
 
@@ -204,11 +212,15 @@
                     let yDate = new Date(year, month, 0)
 
                     startDateTime = year + '年' + month + '月' //上个月第一天
-                    endDateTime = year + '-' + month + '-' + yDate.getDate() //上个月最后一天
+                    endDateTime = year + '年' + month + '月' + yDate.getDate() //上个月最后一天
 
                     monthItem.startDateTime = startDateTime;
                     monthItem.endDateTime = endDateTime;
                     monthItem.year = year;
+                    
+                    monthItem.startTime= new Date(year + '-' + month + '-' + 1).getTime(),
+                    monthItem.endTime= new Date(year + '-' + month + '-' + yDate.getDate()).getTime(),
+
                     monthList.push(monthItem);
 
                     if (new Date(endDateTime).getTime() > minDateTime) {
@@ -219,12 +231,6 @@
                 console.log(this.monthList)
             },
 
-            weekReport() {
-				window.history.back(-1)
-			},
-			monthReport() {
-				window.location.href = "monthReport.html"
-			},
         }
     })
 </script>
