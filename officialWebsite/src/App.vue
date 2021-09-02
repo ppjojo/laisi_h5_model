@@ -25,7 +25,7 @@
 				if (to.meta.color) {
 					this.color = to.meta.color
 				}
-				if(from.path == "/productDetail"){
+				if (from.path == "/productDetail") {
 					document.getElementsByClassName("header_pc")[0].style.background = `rgba(255,255,255,0)`;
 					document.getElementsByClassName("web-top")[0].style.color = "#fff"
 				}
@@ -36,8 +36,8 @@
 		},
 		methods: {
 			scrollFn() {
-				if (this.$route.path=="/productDetail")return;
-					var t = document.documentElement.scrollTop || document.body.scrollTop;
+				if (this.$route.path == "/productDetail") return;
+				var t = document.documentElement.scrollTop || document.body.scrollTop;
 				var rate = t / 200
 				if (rate > 1) rate = 1
 				var colorValue = `rgba(255,255,255,${rate})`
@@ -59,6 +59,14 @@
 </script>
 
 <style>
+	.moduleTitleBox {
+		text-align: center;
+	}
+
+	.moduleTitleImg {
+		width: 100% !important;
+	}
+
 	#app {
 		font-family: 'Avenir', Helvetica, Arial, sans-serif;
 		-webkit-font-smoothing: antialiased;

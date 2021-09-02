@@ -222,18 +222,11 @@
 			}
 		},
 		mounted() {
-			// let wow = new WOW.WOW({
-			//     boxClass: 'wow',
-			//     animateClass: 'animated',
-			//     offset: 0,
-			//     mobile: true,
-			//     live: true
-			// });
-			// wow.init();
+			
 		},
 		created() {
 			vm=this
-			//window.addEventListener('scroll', this.scrollFn);
+			window.addEventListener('scroll', this.scrollFn);
 			this.getGoods();
 		},
 		methods: {

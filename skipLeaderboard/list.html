@@ -10,17 +10,16 @@
 	<link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
 	<link href="css/index.css" rel="stylesheet" type="text/css" />
 	<script src="https://cdn.bootcdn.net/ajax/libs/vConsole/3.8.1/vconsole.min.js"></script>
-    <script>
-            var vConsole = new VConsole();
-          
-        </script>
+	<script>
+		var vConsole = new VConsole();
+	</script>
 
 </head>
 
 <body id="body">
 	<div id="app" v-cloak>
-		<div class="main-container" v-if="userType!='none'">
-			<div class="threeDiv" >
+		<div class="main-container">
+			<div class="threeDiv">
 				<div class="no1">
 					<div class="noDiv">
 						<div class="headerPic"></div>
@@ -47,74 +46,36 @@
 					<p class="num" v-if="listData.length>3" v-html="listData[3].value"></p>
 				</div>
 			</div>
-			<div class="content-container" id="content-container" >
-				<div class="allHeader" v-if="userType=='all'">
-					<van-dropdown-menu active-color="#fff">
-						<van-dropdown-item v-model="deviceType" :options="deviceType_option" @change="deviceTypeChange">
-						</van-dropdown-item>
-						<van-dropdown-item v-if="deviceType=='skip'" v-model="skipType" :options="skipType_option"
-							@change="skipTypeChange"></van-dropdown-item>
-						<van-dropdown-item v-else v-model="wristballType" :options="wristballType_option"
-							@change="wristballTypeChange"></van-dropdown-item>
-						<van-dropdown-item v-model="activeTime" :options="activeTime_option" @change="activeTimeChange">
-						</van-dropdown-item>
-					</van-dropdown-menu>
-				</div>
-				<div class="headerBox" v-else-if="userType=='wristball'">
-					<div class="tabDiv" id="tabDiv">
-						<p :class="activeTime=='daily'?'selected':''" @click="activeTimeChange('daily')">日榜</p>
-						<p :class="activeTime=='week'?'selected':''" @click="activeTimeChange('week')">周榜</p>
-						<p :class="activeTime=='month'?'selected':''" @click="activeTimeChange('month')">月榜</p>
-						<p :class="activeTime=='total'?'selected':''" @click="activeTimeChange('total')">总榜</p>
+			<div class="content-container">
+				<div class="headerBox">
+					<div class="tabDiv">
+						<p v-for="item in activeTimeOption" :class="activeTime==item.en?'selected':''"
+							@click="activeTimeChange(item.en)">{{item.zh}}</p>
 					</div>
-					<div class="tabDiv2" id="tabDiv2">
-						<p :class="wristballType=='maxRate'?'selected':''" @click="wristballTypeChange('maxRate')">竞速派
+					<div class="tabDiv2" v-if="userType=='skipping'">
+						<p :class="secondType=='number'?'selected':''" @click="secondTypeChange('number')">总个数</p>
+						<p :class="secondType=='activeTime'?'selected':''" @click="secondTypeChange('activeTime')">总时长
 						</p>
-						<p :class="wristballType=='maxStrength'?'selected':''"
-							@click="wristballTypeChange('maxStrength')">力量派</p>
-						<p :class="wristballType=='count'?'selected':''" @click="wristballTypeChange('count')">数量派</p>
 					</div>
-				</div>
-				<div class="headerBox" v-else-if="userType=='skip'">
-					<div class="tabDiv" id="tabDiv">
-						<p :class="activeTime=='daily'?'selected':''" @click="activeTimeChange('daily')">日榜</p>
-						<p :class="activeTime=='week'?'selected':''" @click="activeTimeChange('week')">周榜</p>
-						<p :class="activeTime=='month'?'selected':''" @click="activeTimeChange('month')">月榜</p>
-						<p :class="activeTime=='total'?'selected':''" @click="activeTimeChange('total')">总榜</p>
+
+					<div class="tabDiv2" v-else-if="userType=='wristball'">
+						<p :class="secondType=='maxRate'?'selected':''" @click="secondTypeChange('maxRate')">竞速派
+						</p>
+						<p :class="secondType=='maxStrength'?'selected':''" @click="secondTypeChange('maxStrength')">力量派
+						</p>
+						<p :class="secondType=='count'?'selected':''" @click="secondTypeChange('count')">数量派</p>
 					</div>
-					<div class="tabDiv2" id="tabDiv2">
-						<p :class="skipType=='number'?'selected':''" @click="skipTypeChange('number')">总个数</p>
-						<p :class="skipType=='activeTime'?'selected':''" @click="skipTypeChange('activeTime')">总时长</p>
+
+					<div class="tabDiv2" v-else-if="userType=='wheel'">
+						<p :class="secondType=='number'?'selected':''" @click="secondTypeChange('number')">总次数</p>
+						<p :class="secondType=='activeTime'?'selected':''" @click="secondTypeChange('activeTime')">达标率
+						</p>
 					</div>
-				</div>
-				<div class="headerBox" v-else-if="userType=='jfl'">
-					<div class="tabDiv" id="tabDiv">
-						<p :class="activeTime=='daily'?'selected':''" @click="activeTimeChange('daily')">日榜</p>
-						<p :class="activeTime=='week'?'selected':''" @click="activeTimeChange('week')">周榜</p>
-						<p :class="activeTime=='month'?'selected':''" @click="activeTimeChange('month')">月榜</p>
-						<p :class="activeTime=='total'?'selected':''" @click="activeTimeChange('total')">总榜</p>
-					</div>
-					<div class="tabDiv2" id="tabDiv2">
-						<p :class="skipType=='number'?'selected':''" @click="skipTypeChange('number')">总次数</p>
-						<p :class="skipType=='activeTime'?'selected':''" @click="skipTypeChange('activeTime')">达标率</p>
-					</div>
-				</div>
-				<div class="headerBox" v-else-if="userType=='step'">
-					<div class="tabDiv" id="tabDiv">
-						<p :class="activeTime=='daily'?'selected':''" @click="activeTimeChange('daily')">日榜</p>
-						<p :class="activeTime=='week'?'selected':''" @click="activeTimeChange('week')">周榜</p>
-						<p :class="activeTime=='month'?'selected':''" @click="activeTimeChange('month')">月榜</p>
-						<p :class="activeTime=='total'?'selected':''" @click="activeTimeChange('total')">总榜</p>
-					</div>
-					<!-- <div class="tabDiv2" id="tabDiv2">
-						<p :class="skipType=='number'?'selected':''" @click="skipTypeChange('number')">总次数</p>
-						<p :class="skipType=='activeTime'?'selected':''" @click="skipTypeChange('activeTime')">达标率</p>
-					</div> -->
 				</div>
 
-				<van-pull-refresh v-model="isLoading" :head-height="90" @refresh="refreshList"
-					:class="userType=='all'?'van-pull-refresh2':''" style="height:calc(100vh - 4.5rem) ;overflow: auto;"
-					class="monkey-pull-refresh">
+				<van-pull-refresh v-model="refreshing" :head-height="90" @refresh="onRefresh"
+					:class="userType=='running'?'van-pull-refresh2':''"
+					style="height:calc(100vh - 4.5rem) ;overflow: auto;" class="monkey-pull-refresh">
 					<template #pulling="props">
 						<div class="monkeyBox">
 							<img class="monkey" src="../common/img/monkey.gif" />
@@ -150,22 +111,12 @@
 
 
 					</div>
-					<div class="noData-box" v-else-if="!isLoading">
+					<div class="noData-box" v-else-if="!refreshing">
 						<img class="noData-img" src="../common/img/noData.png" />
 					</div>
 				</van-pull-refresh>
 			</div>
-			<p  class="bottomTip">{{bottomTipMsg}}</p>
-
-		</div>
-		<!-- 无 -->
-		<div v-else-if="userType=='none'">
-			<div class="noData-box">
-				<img class="noData-img" src="../common/img/noData.png" />
-				<p class="noData-p">
-					快去绑定跳绳/腕力球吧，较量一下～
-				</p>
-			</div>
+			<p class="bottomTip">{{bottomTipMsg}}</p>
 
 		</div>
 	</div>
@@ -179,252 +130,162 @@
 		el: '#app',
 		data() {
 			return {
-				userType: "skip", //用户拥有的设备类型 skip wristball all none
-				isLoading: false,
+				userType: getQueryString("type") || "skipping", //skipping跳绳   running跑步  wristBall腕力球 wheel健腹轮
+				refreshing: false,
 				listData: [],
 				bottomTipMsg: "排名来源于所有跳绳数据",
 				apiUrl: "ropeSkipping/rank/number",
 				activeTime: "daily", //type： daily， week， month， total
-
-				skipType: "number", //number activeTime
-				skipType_option: [{
-						text: '总个数',
-						value: "number"
+				activeTimeOption: [{
+						zh: "日榜",
+						en: "daily"
 					},
 					{
-						text: '总时长',
-						value: "activeTime"
+						zh: "周榜",
+						en: "week"
+					},
+					{
+						zh: "月榜",
+						en: "month"
+					}, {
+						zh: "总榜",
+						en: "total"
 					}
 				],
-				deviceType: "skip",
-				deviceType_option: [{
-						text: '跳绳',
-						value: "skip"
-					},
-					{
-						text: '腕力球',
-						value: "wristball"
-					}
-				],
+				secondType: "number",
+				//skipping :number activeTime
+				//wristball: "maxRate", //maxRate maxStrength count
 
-				wristballType: "maxRate", //maxRate maxStrength count
-				wristballType_option: [{
-						text: '竞速派',
-						value: 'maxRate'
-					},
-					{
-						text: '力量派',
-						value: 'maxStrength'
-					},
-					{
-						text: '数量派',
-						value: 'count'
-					},
-				],
 
-				activeTime_option: [{
-						text: '日榜',
-						value: 'daily'
-					},
-					{
-						text: '周榜',
-						value: 'week'
-					},
-					{
-						text: '月榜',
-						value: 'month'
-					},
-					{
-						text: '总榜',
-						value: 'total'
-					},
-				],
 			}
 		},
 		created() {
-			this.getUserType()
+			this.initUserType()
 			ajax({
 				type: "post",
 				url: "integral/add/integral",
 				data: {
 					actionType: "0800"
-				},
-				success: function (res) {
-
-				},
-				error: function () {
-
 				}
 			})
 		},
 		methods: {
-			getUserType() {
-				var that = this;
-				ajax({
-					type: "get",
-					url: "device/bind/devicetypes/userId",
-					success: function (res) {
-						var skipFlag = false;
-						var wristballFlag = false;
-						if (res.code == 0) {
-							res.data.forEach(item => {
-								if (item == "skipping") skipFlag = true;
-								if (item == "wristball") wristballFlag = true;
-							})
-							if (wristballFlag && !skipFlag) {
-								that.userType = "wristball"
-								that.apiUrl = "wristball/rank/maxRate";
-								that.deviceType = 'wristball'
-								that.wristballType = 'maxRate'
-								that.activeTime = 'daily'
-								that.bottomTipMsg = "排名来源于所有腕力球数据"
-
-								that.getList()
-							} else if (!wristballFlag && skipFlag) {
-								that.userType = "skip"
-								that.apiUrl = "ropeSkipping/rank/number"
-								that.deviceType = 'skip'
-								that.wristballType = 'number'
-								that.activeTime = 'daily'
-								that.bottomTipMsg = "排名来源于所有跳绳数据"
-								that.getList()
-							} else if (wristballFlag && skipFlag) {
-								that.userType = "all"
-								that.apiUrl = "ropeSkipping/rank/number"
-								that.deviceType = 'skip'
-								that.skipType = 'number'
-								that.activeTime = 'daily'
-								that.getList()
-							} else if (!wristballFlag && !skipFlag) {
-								that.userType = "none"
-							}
-
-						} else {
-							that.$toast(res.msg)
-						}
-
-					},
-					error: function (err) {
-						console.log("error")
-					}
-				})
+			initUserType() {
+				if (this.userType == "skipping") {
+					this.secondTypeChange('number')
+					this.bottomTipMsg = "排名来源于所有跳绳数据"
+				} else if (this.userType == "wristball") {
+					this.secondTypeChange('maxRate')
+					this.bottomTipMsg = "排名来源于所有腕力球数据"
+				} else if (this.userType == "running") {
+					this.secondTypeChange('maxRate')
+					this.bottomTipMsg = "排名来源于所有步数数据"
+				} else if (this.userType == "wheel") {
+					this.secondTypeChange('maxRate')
+					this.bottomTipMsg = "排名来源于所有健腹轮数据"
+				}
 
 			},
-			refreshList() {
+			onRefresh() {
+				this.refreshing = true;
 				this.getList()
 			},
 			activeTimeChange(str) {
 				this.activeTime = str;
 				this.getList()
 			},
-			deviceTypeChange(str) {
-				if (str == 'skip') {
-					if (this.skipType == 'number') {
-						this.apiUrl = "ropeSkipping/rank/number" //个数
-					} else {
-						this.apiUrl = "ropeSkipping/rank/activeTime" //时长
-					}
-					this.getList()
-				} else if (str == 'wristball') {
-					if (this.wristballType == 'maxRate') {
-						this.apiUrl = "wristball/rank/maxRate" //竞速
-					} else if (this.wristballType == 'maxStrength') {
-						this.apiUrl = "wristball/rank/maxStrength" //力量
-					} else {
-						this.apiUrl = "wristball/rank/count" //数量
-					}
-					this.getList()
-				}
-			},
-			skipTypeChange(str) {
-				this.skipType = str;
-				if (str == 'number') {
-					this.apiUrl = "ropeSkipping/rank/number" //个数
-				} else {
-					this.apiUrl = "ropeSkipping/rank/activeTime" //时长
-				}
-				this.getList()
-			},
-			wristballTypeChange(str) {
-				this.wristballType = str;
-				if (str == 'maxRate') {
-					this.apiUrl = "wristball/rank/maxRate" //竞速
-				} else if (str == 'maxStrength') {
-					this.apiUrl = "wristball/rank/maxStrength" //力量
-				} else {
-					this.apiUrl = "wristball/rank/count" //数量
+
+			secondTypeChange(str) {
+				this.secondType = str;
+				if (this.userType == "skipping") {
+					this.apiUrl = `ropeSkipping/rank/${str}` //个数
+				} else if (this.userType == "wristball") {
+					this.apiUrl = `wristball/rank/${str}`
+				} else if (this.userType == "running") {
+					this.apiUrl = `steps/rank/${str}`
+				} else if (this.userType == "wheel") {
+					this.apiUrl = `wheel/rank/${str}`
 				}
 				this.getList()
 			},
 			getList() {
-				var that = this;
-				that.isLoading = true;
 				ajax({
-					type: "GET",
-					url: that.apiUrl,
+					url: this.apiUrl,
 					data: {
-						type: that.activeTime,
-					},
-					success: function (res) {
-						setTimeout(() => {
-							that.isLoading = false;
-						}, 500);
-						if (res.code == 0) {
-							if (res.data.length == 1 && res.data[0].value == 0) {
-								that.listData = []
-								return
-							}
-							if (that.deviceType == 'skip') {
-								if (that.skipType == 'activeTime') {
-									res.data.forEach(item => {
-										item.value = that.countTimeAll(item.value);
-									})
-								} else {
-									res.data.forEach(item => {
-										item.value = "<span class='bigNumberSpan'>" + item
-											.value + "</span>" + "个";
-									})
-								}
-								that.bottomTipMsg = "排名来源于所有跳绳数据"
-							} else if (that.deviceType == 'wristball') {
-								if (that.wristballType == 'maxRate') {
-									res.data.forEach(item => {
-										item.value = "<span class='bigNumberSpan'>" + item
-											.value + "</span>" + "rpm";
-									})
-								} else if (that.wristballType == 'maxStrength') {
-									res.data.forEach(item => {
-										item.value = "<span class='bigNumberSpan'>" + (item
-												.value / 1000).toFixed(1) + "</span>" +
-											"KG";
-									})
-								} else if (that.wristballType == 'count') {
-									res.data.forEach(item => {
-										var count = item.value;
-										if (count > 10000000) {
-											count = parseInt(count * 0.0001);
-										} else {
-											var num2 = (count * 0.0001).toFixed(3);
-											count = num2.substring(0, num2.lastIndexOf('.') +
-												4);
-										}
-										item.value = "<span class='bigNumberSpan'>" + count +
-											"</span>" + "万圈";
-									})
-								}
-								that.bottomTipMsg = "排名来源于所有腕力球数据"
-							}
-							that.listData = res.data;
-
-						} else {
-							that.listData = [];
-						}
-
-					},
-					error: function () {
-						console.log("error")
+						type: this.activeTime,
 					}
+				}).then(res => {
+					setTimeout(() => {
+						this.refreshing = false
+					}, 500);
+					if (res.code == 0) {
+						if (res.data.length == 1 && res.data[0].value == 0) {
+							this.listData = []
+							return
+						}
+						if (this.userType == 'skipping') {
+							if (this.secondType == 'activeTime') {
+								res.data.forEach(item => {
+									item.value = this.countTimeAll(item.value);
+								})
+							} else {
+								res.data.forEach(item => {
+									item.value = "<span class='bigNumberSpan'>" + item
+										.value + "</span>" + "个";
+								})
+							}
+						} else if (this.userType == 'wristball') {
+							if (this.secondType == 'maxRate') {
+								res.data.forEach(item => {
+									item.value = "<span class='bigNumberSpan'>" + item
+										.value + "</span>" + "rpm";
+								})
+							} else if (this.secondType == 'maxStrength') {
+								res.data.forEach(item => {
+									item.value = "<span class='bigNumberSpan'>" + (item
+											.value / 1000).toFixed(1) + "</span>" +
+										"KG";
+								})
+							} else if (this.secondType == 'count') {
+								res.data.forEach(item => {
+									var count = item.value;
+									if (count > 10000000) {
+										count = parseInt(count * 0.0001);
+									} else {
+										var num2 = (count * 0.0001).toFixed(3);
+										count = num2.substring(0, num2.lastIndexOf('.') +
+											4);
+									}
+									item.value = "<span class='bigNumberSpan'>" + count +
+										"</span>" + "万圈";
+								})
+							}
+						} else if (this.userType == 'wheel') {
+							if (this.secondType == 'count') {
+								res.data.forEach(item => {
+									item.value = "<span class='bigNumberSpan'>" + item
+										.value + "</span>" + "个";
+								})
+							} else {
+								res.data.forEach(item => {
+									item.value = "<span class='bigNumberSpan'>" + item
+										.value + "</span>" + "个";
+								})
+							}
+						} else {
+							res.data.forEach(item => {
+								item.value = "<span class='bigNumberSpan'>" + item
+									.value + "</span>" + "步";
+							})
+						}
+						this.listData = res.data;
+
+					} else {
+						this.listData = [];
+					}
+
 				})
+
 			},
 			countTimeAll(time) {
 				time = parseInt(time / 1000)

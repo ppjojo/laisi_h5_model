@@ -1,30 +1,26 @@
 //传入秒数 返回相应的日时分秒
-function secondsFormat(s, flag) { //有flag的是小课程
+function secondsFormat(s) { 
 	var day = Math.floor(s / (24 * 3600)); // Math.floor()向下取整 
 	var hour = Math.floor((s - day * 24 * 3600) / 3600);
 	var minute = Math.floor((s - day * 24 * 3600 - hour * 3600) / 60);
 	var second = s - day * 24 * 3600 - hour * 3600 - minute * 60;
-	if (flag) {
-		if (day > 0) {
-			return day + "天" + hour + "小时" + minute + "分" + second + "秒";
-		} else if (hour > 0) {
-			return (hour * 60 + minute) + "分" + second + "秒";
-		} else if (minute > 0) {
-			return minute + "分" + second + "秒";
-		} else {
-			return second + "秒";
-		}
+	// if (day > 0) {
+	// 	return day + "d" + hour + "h" + minute + "m" + second + "s";
+	// } else if (hour > 0) {
+	// 	return hour + "h" + minute + "m" + second + "s";
+	// }else if (minute > 0) {
+	// 	return minute + "m" + second + "s";
+	// } else {
+	// 	return second + "s";
+	// }
+	if (day > 0) {
+		return day + "d" + hour + "h" + minute + "m" + second + "s";
+	} else if (hour > 0) {
+		return  hour* 60+minute + "m" + second + "s";
+	}else if (minute > 0) {
+		return minute + "m" + second + "s";
 	} else {
-		if (second > 0) {
-			minute = minute + 1
-		}
-		if (day > 0) {
-			return day + "天" + hour + "小时" + minute + "分"
-		} else if (hour > 0) {
-			return (hour * 60 + minute) + "分钟"
-		} else if (minute > 0) {
-			return minute + "分钟"
-		}
+		return second + "s";
 	}
 }
 
@@ -38,7 +34,7 @@ function formatMsgTime(timespan) {
 	var minute = dateTime.getMinutes();
 	var second = dateTime.getSeconds();
 	var now = new Date();
-	var now_new =now.getTime()  //typescript转换写法
+	var now_new = now.getTime() //typescript转换写法
 
 	var milliseconds = 0;
 	var timeSpanStr;

@@ -72,7 +72,8 @@
 						<ul>
 							<li class="courseDiv" v-for="(item ,index) in recentList" v-if="index<3"
 								@click="courseList(item)">
-								<img v-if="item.classLableList.length>0" :src="'./img/'+item.classLableList[0].classLabel+'.png'" class="iconlabel" alt="">
+								<img v-if="item.classLableList.length>0"
+									:src="'./img/'+item.classLableList[0].classLabel+'.png'" class="iconlabel" alt="">
 								<div class="cover" :style="{'backgroundImage':'url('+item.classCover+')'}">
 								</div>
 								<div class="content">
@@ -100,9 +101,11 @@
 							<span class="titleInfo">(根据训练目标等数据智能生成)</span>
 						</div>
 						<van-swipe :show-indicators="false" :loop="false" :width="220">
-							<van-swipe-item v-for="item in recommendList"  @click="courseList(item)">
+							<van-swipe-item v-for="item in recommendList" @click="courseList(item)">
 								<div class="courseDiv" :style="{'backgroundImage':'url('+item.classCover+')'}">
-									<img v-if="item.classLableList.length>0" :src="'./img/'+item.classLableList[0].classLabel+'.png'" class="iconlabel" alt="">
+									<img v-if="item.classLableList.length>0"
+										:src="'./img/'+item.classLableList[0].classLabel+'.png'" class="iconlabel"
+										alt="">
 									<div class="content">
 										<div>
 											<p class="stitle">{{item.className}}</p>
@@ -125,7 +128,8 @@
 						<div class="title">热门课程</div>
 						<ul>
 							<li class="courseDiv" v-for="item in hotClassList" @click="courseList(item)">
-								<img v-if="item.classLableList.length>0" :src="'./img/'+item.classLableList[0].classLabel+'.png'" class="iconlabel" alt="">
+								<img v-if="item.classLableList.length>0"
+									:src="'./img/'+item.classLableList[0].classLabel+'.png'" class="iconlabel" alt="">
 								<div class="cover" :style="{'backgroundImage':'url('+item.classCover+')'}">
 								</div>
 								<div class="content">
@@ -165,7 +169,7 @@
 				classification: [],
 				recentList: [],
 				hotClassList: [],
-				recommendList:[]
+				recommendList: []
 
 			}
 		},
@@ -183,12 +187,15 @@
 			this.getClassify() //获取分类
 			this.getRecentList() //最近在练
 			this.getRecommend() //为你推荐
-			this.getHotClass()//热门
+			this.getHotClass() //热门
 		},
 		methods: {
 			//原生调用h5的方法局部刷新课程主页
 			initIndexData() {
-
+				this.getBanner() //获取banner
+				this.getRecentList() //最近在练
+				this.getRecommend() //为你推荐
+				this.getHotClass() //热门
 			},
 			//轮播图的滚动
 			onChange(index) {
@@ -309,7 +316,7 @@
 
 			},
 			//跳转最近再练
-			goAPPwebview_Recent(){
+			goAPPwebview_Recent() {
 				try {
 					if (isIOS) {
 						window.webkit.messageHandlers.lstNative.postMessage({
@@ -376,7 +383,7 @@
 
 
 			},
-			
+
 
 
 

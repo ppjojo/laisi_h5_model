@@ -53,11 +53,11 @@
 							{{classDetail.classDes}}</div>
 						<div class="classifyBox">
 							<div class="classifyDiv">
-								<div class="classifyItem">{{classDetail.actionSize}}个动作</div>
+								<div class="classifyItem">{{classDetail.actionSize}}个{{classDetail.actionOrClass?'内容':'动作'}}</div>
 								<div class="classifyItem">不限训练频次</div>
 								<div class="classifyItem">{{classDetail.classKitName}}</div>
 							</div>
-							<div class="transPeopleCount" @click="goPeopleList">
+							<div class="transPeopleCount" >
 								{{classDetail.sumExercise>100000?(classDetail.sumExercise/100000).toFixed(2):classDetail.sumExercise}}人练过
 							</div>
 						</div>
@@ -86,7 +86,7 @@
 				<van-sticky>
 					<div class="tabTitle">
 						<div class="tabName " :class="tabSelected==1?'selected':''" @click="tabSelected=1">
-							内容<span>({{classDetail.actionSize||0}}个)</span></div>
+							{{classDetail.actionOrClass?'内容':'动作'}}<span>({{classDetail.actionSize||0}}个)</span></div>
 						<div class="tabName" :class="tabSelected==2?'selected':''"
 							@click="tabSelected=2;getCommentList()">评论
 							<span>({{classDetail.commendCount||0}}条)</span> </div>
@@ -110,7 +110,7 @@
 											<div class="itemDiscript">
 												<div class="smallTile">{{item.className}}</div>
 												<div class="need">
-													时长:{{item.duration}}s
+													时长:{{secondsFormat(item.duration)}}
 												</div>
 											</div>
 										</div>
@@ -118,7 +118,7 @@
 								</ul>
 								<div class="info">全部内容都在这里了，快去锻炼吧！</div>
 								<div class="btn_box" v-if="!downlaodStatus">
-									<div class="btn">开始训练</div>
+									<div class="btn" @click="playVideo(classDetail.smallClassList[0],0)">开始训练</div>
 								</div>
 								<div v-if="downlaodStatus" class="chooseDiv">
 									<div class="box" @click="chooseAll">
@@ -154,7 +154,8 @@
 														<p class="time">{{formatMsgTime(item.dadSendTime)}}</p>
 													</div>
 												</div>
-												<div class="likeBox liked" @click="goLikeComment(item)">
+												<div class="likeBox " :class="item.likeStatus?'liked':''"
+													@click="goLikeComment(item)">
 													<span class="icon iconfont icon-dianzan-gaoliang"
 														style="font-size: 0.28rem;" />
 													{{item.dadCommendLikeCount}}
@@ -190,7 +191,7 @@
 									</div>
 								</van-list>
 							</van-pull-refresh>
-							
+
 						</div>
 					</div>
 				</div>
@@ -229,7 +230,8 @@
 											{{formatMsgTime(commentDetail.dadCommendResult.dadSendTime)}}</p>
 									</div>
 								</div>
-								<div class="likeBox liked" @click="goLikeComment(commentDetail.dadCommendResult)">
+								<div class="likeBox " :class="commentDetail.dadCommendResult.likeStatus?'liked':''"
+									@click="goLikeComment(commentDetail.dadCommendResult)">
 									<span class="icon iconfont icon-dianzan-gaoliang" style="font-size: 0.28rem;" />
 									{{commentDetail.dadCommendResult.dadCommendLikeCount}}
 								</div>
@@ -257,9 +259,9 @@
 									<p class="time">{{formatMsgTime(item.sonSendTime)}}</p>
 								</div>
 							</div>
-							<div class="likeBox liked" @click="goLikeComment(item)">
+							<div class="likeBox" :class="item.likeStatus?'liked':''" @click="goLikeComment(item)">
 								<span class="icon iconfont icon-dianzan-gaoliang" style="font-size: 0.28rem;" />
-								{{item.commendLike}}
+								{{item.sonLikeCount}}
 							</div>
 						</div>
 						<div class="commentDiv">
@@ -279,7 +281,7 @@
 						<p class="noData-p">还没有回复，快来抢沙发</p>
 					</div>
 				</div>
-				
+
 			</van-popup>
 
 			<van-popup v-model="friendListShow" round position="right" :style="{ height: '100%' ,width:'100%'}">
@@ -318,7 +320,7 @@
 					dadCommendResult: {},
 					sonCommendResult: {}
 				},
-				tabSelected: 2,
+				tabSelected: 1,
 
 				comment_message: "",
 				isClick: false,
@@ -392,10 +394,6 @@
 					Interaction.closePage();
 				}
 			},
-			//跳转参与列表
-			goPeopleList() {
-				window.location.href = `peopleList.html?id=${this.classDetail.bigClassId}`
-			},
 			//跳转课程介绍
 			goCourseDetail() {
 				window.location.href = `courseDetail.html?id=${this.classDetail.bigClassId}`
@@ -425,12 +423,14 @@
 			},
 			//点赞相关
 			goLikeComment(item) {
-				let apiUrl = "community/threeComment/insert/commend/like/count"
-				if (this.classDetail.isLike) {
-					apiUrl = "community/threeUserCollect/update/status"
-				}
+				let apiUrl = "community/threeCommentUserLike/user/insert/like/commend"
+
+				// if (item.likeStatus) {
+				// 	apiUrl = "community/threeCommentUserLike/cancel/user/like"
+				// }
 				ajax({
 					url: apiUrl,
+					type: "post",
 					data: {
 						bigClassId: this.classDetail.bigClassId,
 						commendId: item.dadCommendId || item.sonCommendId
@@ -438,10 +438,20 @@
 				}).then(res => {
 					if (res.code == 0) {
 						if (item.dadCommendId) {
-							item.dadCommendLikeCount++;
+							if (item.likeStatus) {
+								item.dadCommendLikeCount--;
+							} else {
+								item.dadCommendLikeCount++;
+							}
+
 						} else {
-							item.commendLike++;
+							if (item.likeStatus) {
+								item.dadCommendLikeCount--;
+							} else {
+								item.dadCommendLikeCount++;
+							}
 						}
+						item.likeStatus = !item.likeStatus
 
 					} else {
 						this.$toast(res.msg)
@@ -580,12 +590,19 @@
 				}).then(res => {
 					if (res.code == 0) {
 						if (this.moreCommentShow) {
-							this.getCommentDetail(this.commentDetail.dadCommendResult)
-						} else {
-							this.commmentList = [];
-							this.pageNum = 0;
-							this.onRefresh();
+							if (item.dadCommendId) {
+								this.moreCommentShow = false;
+							} else {
+								this.getCommentDetail(this.commentDetail.dadCommendResult)
+								return
+
+							}
 						}
+
+						this.commmentList = [];
+						this.pageNum = 0;
+						this.onRefresh();
+
 					} else {
 						this.$toast(res.msg)
 					}

@@ -42,8 +42,14 @@
             <div class="Interface_Contain">
                 <div class="imgBox">
                     <swiper :options="swiperOptions">
-                        <swiper-slide v-for="item in 3">
+                        <swiper-slide >
                             <img src="../assets/img/paiactive/appshow-1.png" alt="">
+                        </swiper-slide>
+                        <swiper-slide >
+                            <img src="../assets/img/paiactive/appshow-2.png" alt="">
+                        </swiper-slide>
+                        <swiper-slide >
+                            <img src="../assets/img/paiactive/appshow-3.png" alt="">
                         </swiper-slide>
                     </swiper>
                 </div>
