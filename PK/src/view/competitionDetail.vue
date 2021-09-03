@@ -518,8 +518,7 @@
                 if (!from.meta.index) {
                     vm.fromList = 0
                 }
-
-            }) //一定不要忘记写
+            }) 
         },
         beforeRouteLeave(to, from, next) {
             this.destroyed();

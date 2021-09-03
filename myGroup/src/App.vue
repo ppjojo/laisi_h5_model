@@ -1,10 +1,7 @@
 <template> 
   <div id="app" >
-     <transition :name="transitionName" >
-       <keep-alive ><router-view v-if="$route.meta.keepAlive" /></keep-alive>
-    </transition>
     <transition :name="transitionName">
-       <router-view v-if="!$route.meta.keepAlive" />
+       <router-view  />
     </transition>
   </div>
 </template>
@@ -22,7 +19,7 @@
         watch: {
             $route(to, from) {
                  if(to.meta.index > 0){
-                   if(from.meta.index==0){
+                   if(from.meta.index==1){
                      this.transitionName = 'slide-left';
                    }
                    if(from.meta.index){//如果是分享的页面直接打开不需要效果
@@ -33,7 +30,7 @@
                     }
                    }
                     
-                }else if(to.meta.index == 0 && from.meta.index > 0){
+                }else if(to.meta.index == 1 && from.meta.index > 0){
                     this.transitionName = 'slide-right';
                 }
                               

@@ -62,3 +62,11 @@ export function applyOnly(data) {
         params:data
     })
 }
+
+export function personalInfo(data) {
+    return request({
+        url: 'myteam/homepage/member/detail',
+        method: 'get',
+        params:data
+    })
+}

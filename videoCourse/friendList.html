@@ -161,13 +161,13 @@
 			</van-nav-bar>
 		</div>
 		<div class="searchBox">
-			<van-search v-model="searchval" @input="search" shape="round" background="#12121f" placeholder="请输入成员昵称或ID">
+			<van-search v-model="searchval" @input="initList" shape="round" background="#12121f" placeholder="请输入成员昵称或ID">
 			</van-search>
 		</div>
 
 
 		<van-checkbox-group v-model="chooseList">
-			<van-cell-group v-show="searchval&&searchList.length>0">
+			<!-- <van-cell-group v-show="searchval&&searchList.length>0">
 				<template>
 					<van-cell v-for="(item,index) in searchList" clickable :key="item.userId"
 						@click="toggle(index,item)">
@@ -182,8 +182,9 @@
 						</template>
 					</van-cell>
 				</template>
-			</van-cell-group>
-			<div v-show="!searchval||searchval==''">
+			</van-cell-group> -->
+			<!-- <div v-show="!searchval||searchval==''"> -->
+			<div >
 				<van-cell-group v-model="chooseList">
 					<van-index-bar :index-list="indexList">
 						<template v-if="Object.keys(dataList).length>0" v-for="(item,key,index) in dataList">
@@ -225,14 +226,19 @@
 		filters: {},
 		mounted() {},
 		created() {
+			this.searchval=""
 			this.initList()
 		},
 		methods: {
 			initList() {
 				ajax({
 					url: "community/threeCommendRefer/see/all/Refer",
+					data:{
+						key: this.searchval,
+					},
 				}).then(res => {
 					this.dataList = res.data;
+					this.indexList=[]
 					for (const key in this.dataList) {
 						this.indexList.push(key.toUpperCase())
 					}
@@ -250,11 +256,9 @@
 			search() {
 				if (!this.searchval) return;
 				ajax({
-					url: "community-core/interest/get/interests",
+					url: "community/threeCommendRefer/see/all/Refer",
 					data: {
 						key: this.searchval,
-						page: 0,
-						pageSize: 999
 					}
 				}).then(res => {
 					this.searchList = res.data;

@@ -74,8 +74,8 @@
         <template scope="scope">
           <el-button @click="btn_edit(scope.row)" type="text" size="mini">编辑
           </el-button>
-          <el-button @click=" btn_delete(scope.row)" type="text" style="color:#f78989;" size="mini">删除
-          </el-button>
+          <!-- <el-button @click=" btn_delete(scope.row)" type="text" style="color:#f78989;" size="mini">删除
+          </el-button> -->
         </template>
       </el-table-column>
     </el-table>
@@ -86,6 +86,7 @@
           <el-input v-model="form.className"></el-input>
         </el-form-item>
         <el-form-item label="课程封面图" prop="classCover">
+          <el-input v-model="form.classCover"></el-input>
           <el-upload ref='upload' action="" :http-request="requestFile" :show-file-list="false" class="avatar-uploader">
             <img v-if="form.classCover" :src="form.classCover" class="avatar">
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>

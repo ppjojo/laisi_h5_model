@@ -11,39 +11,39 @@
 		</div>
 		<van-loading type="spinner" vertical v-show="overlayShow"></van-loading>
 		<!-- 人数box -->
-		<div class="cellbox ub ub-ac ub-pj" @click="goMember(4)">
+		<div class="cellbox " @click="goMember(4)">
 			<div class="title">小组成员</div>
-			<div class="ub ub-ac pgc">
+			<div class="rightBox">
 				<div class="detail">{{groupItem.count}}人</div>
 				<span class="icon iconfont icon-tongyong-gengduo" />
 			</div>
 		</div>
-		<div class="cellbox ub ub-ac border-bottom2" style="height: auto;">
+		<div class="cellbox  border-bottom2">
 			<template v-for="(item,index) in memberIcon">
-				<div class="groupMember ub-ac" v-if="index<=(isCurrentUser?(groupItem.count==10?3:2):3)">
-					<div class="imgbox ub ub-ac ub-pc">
+				<div class="groupMember " v-if="index<=(isCurrentUser?(groupItem.count==10?3:2):3)">
+					<div class="imgbox ">
 						<div class="headImg" :style="{'background-image':'url('+item.headPictureUrl+')'}"></div>
 					</div>
 					<div class="van-ellipsis detail">{{item.nickname}}</div>
 				</div>
 			</template>
-			<div class="groupMember ub-ac" @click="goInvite()" v-if="groupItem.count<10">
-				<div class="imgbox ub ub-ac ub-pc">
+			<div class="groupMember " @click="goInvite()" v-if="groupItem.count<10">
+				<div class="imgbox ">
 					<img class="menuicon" :src="require('../img/plus.png')" alt="">
 				</div>
 				<div class="van-ellipsis detail">邀请</div>
 			</div>
-			<div class="groupMember ub-ac" v-if="isCurrentUser" @click="goMember(3)">
-				<div class="imgbox ub ub-ac ub-pc">
+			<div class="groupMember " v-if="isCurrentUser" @click="goMember(3)">
+				<div class="imgbox ">
 					<img class="menuicon" :src="require('../img/minus.png')" alt="">
 				</div>
 				<div class="van-ellipsis detail">移除</div>
 			</div>
 		</div>
 		<!-- 小组菜单 -->
-		<div class="cellbox ub ub-ac ub-pj border-bottom">
+		<div class="cellbox  ">
 			<div class="title">小组形象</div>
-			<div class="ub ub-ac">
+			<div class="rightBox">
 				<template v-if="isCurrentUser">
 					<van-uploader :after-read="afterRead">
 						<div class="headpic" :style="{'background-image':'url('+groupItem.portrait+')'}"></div>
@@ -54,24 +54,24 @@
 			</div>
 		</div>
 		<!-- 小组名称 -->
-		<div class="cellbox ub ub-ac ub-pj border-bottom" @click="goChangeMult(4)">
+		<div class="cellbox  " @click="goChangeMult(4)">
 			<div class="title">小组名称</div>
-			<div class="ub ub-ac pgc">
+			<div class="rightBox">
 				<div class="van-ellipsis detail">{{groupItem.name}}</div>
 				<span v-if="isCurrentUser" class="icon iconfont icon-tongyong-gengduo" />
 			</div>
 		</div>
 		<!-- 小组口号 -->
-		<div class="cellbox ub ub-ac ub-pj border-bottom" @click="goChangeMult(1)">
+		<div class="cellbox  " @click="goChangeMult(1)">
 			<div class="title">小组口号</div>
-			<div class="ub ub-ac pgc">
+			<div class="rightBox">
 				<div class="van-ellipsis detail">{{groupItem.slogon}}</div>
 				<span v-if="isCurrentUser" class="icon iconfont icon-tongyong-gengduo" />
 			</div>
 		</div>
 		<!-- 小组公告 -->
-		<div class="cellbox border-bottom ub ub-ac ub-pj" style="height: auto;" @click="goChangeMult(2)">
-			<div class="">
+		<div class="cellbox " @click="goChangeMult(2)">
+			<div >
 				<div class="title" style="margin-bottom: .2rem;">小组公告</div>
 				<div class="van-multi-ellipsis--l3 detail" style="max-width: 6.6rem;white-space: normal;">
 					{{groupItem.content}}</div>
@@ -79,65 +79,62 @@
 			<span class="icon iconfont icon-tongyong-gengduo" />
 		</div>
 		<!-- 小组标签 -->
-		<div class="cellbox ub ub-ac ub-pj border-bottom" @click="goChangeMult(3)">
+		<div class="cellbox  " @click="goChangeMult(3)">
 			<div class="title">小组标签</div>
-			<div class="ub ub-ac">
-				<div class="ub ub-ac">
-					<div class="labelBox ub ub-ac">
-						<div v-for="labelItem in labelFun(groupItem.labelId)" class="labelItem" :class="labelItem[0]">
-							{{labelItem[1]}}
-						</div>
+			<div class="rightBox">
+				<div class="labelBox ">
+					<div v-for="labelItem in labelFun(groupItem.labelId)" class="labelItem" :class="labelItem[0]">
+						{{labelItem[1]}}
 					</div>
 				</div>
 				<span v-if="isCurrentUser" class="icon iconfont icon-tongyong-gengduo" />
 			</div>
 		</div>
 		<!-- 小组qr -->
-		<div class="cellbox border-bottom2 ub ub-ac ub-pj" @click="groupQR">
+		<div class="cellbox border-bottom2 " @click="groupQR">
 			<div class="title">小组二维码</div>
 			<span class="icon iconfont icon-tongyong-gengduo" />
 		</div>
 		<!-- 设为置顶 -->
-		<div class="cellbox ub ub-ac ub-pj border-bottom">
+		<div class="cellbox  ">
 			<div class="title">设为置顶</div>
 			<van-switch active-color="#07c160" @change="switchChange(1)" :active-value="1" :inactive-value="0"
 				v-model="groupItem.isTop" size="20"></van-switch>
 		</div>
 		<!-- 消息免打扰 -->
-		<div class="cellbox ub ub-ac ub-pj border-bottom">
+		<div class="cellbox ">
 			<div class="title">消息免打扰</div>
 			<van-switch active-color="#07c160" @change="switchChange(2)" :active-value="1" :inactive-value="0"
 				v-model="groupItem.isSilent" size="20"></van-switch>
 		</div>
 		<!-- 小组邀请确认 -->
-		<div class="cellbox ub ub-ac ub-pj border-bottom2" v-if="isCurrentUser">
+		<div class="cellbox  " v-if="isCurrentUser">
 			<div class="title">小组邀请确认</div>
 			<van-switch active-color="#07c160" @change="switchChange(false)" :active-value="1" :inactive-value="0"
 				v-model="groupItem.isInviteConfirm" size="20"></van-switch>
 		</div>
 		<!-- 我在小组中昵称 -->
-		<div class="cellbox ub ub-ac ub-pj border-bottom" @click="goChangeNickname">
+		<div class="cellbox  " @click="goChangeNickname">
 			<div class="title">我在小组中昵称</div>
-			<div class="ub ub-ac pgc">
+			<div class="rightBox">
 				<div class="van-ellipsis detail">{{groupItem.nickname}}</div>
 				<span class="icon iconfont icon-tongyong-gengduo" />
 			</div>
 		</div>
 		<!-- 转让组长 -->
-		<div class="cellbox ub ub-ac ub-pj border-bottom2" v-if="isCurrentUser" @click="goMember(1)">
+		<div class="cellbox  border-bottom2" v-if="isCurrentUser" @click="goMember(1)">
 			<div class="title">转让组长</div>
 			<span class="icon iconfont icon-tongyong-gengduo" />
 		</div>
 		<!-- 删除聊天记录 -->
-		<div class="cellbox ub ub-ac ub-pj border-bottom2" @click="delChatRecord">
+		<div class="cellbox  border-bottom2" @click="delChatRecord">
 			<div class="title">删除聊天记录</div>
 			<span class="icon iconfont icon-tongyong-gengduo" />
 		</div>
 		<!-- 退出 -->
-		<div class="cellbox quit" v-if="isCurrentUser" @click="goMember(2)">
+		<div class="cellbox quit border-bottom2" v-if="isCurrentUser" @click="goMember(2)">
 			转让并退出小组
 		</div>
-		<div class="border-bottom2" v-if="isCurrentUser"></div>
 		<!-- 退出 -->
 		<div class="cellbox quit" @click="cancelGroup">
 			{{isCurrentUser?'解散小组':'退出小组'}}
@@ -207,8 +204,8 @@
 
 		},
 		created() {
-			this.groupItem =Object.assign(this.groupItem, this.$store.state.group.groupInfo);
-			this.memberIcon =Object.assign(this.memberIcon, this.$store.state.group.groupInfo.memberIcon); 
+			this.groupItem = Object.assign(this.groupItem, this.$store.state.group.groupInfo);
+			this.memberIcon = Object.assign(this.memberIcon, this.$store.state.group.groupInfo.memberIcon);
 			this.initData()
 		},
 		methods: {

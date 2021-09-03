@@ -336,12 +336,11 @@
 					if (isIOS) {
 						window.webkit.messageHandlers.lstNative.postMessage({
 							method: "pushToNextVC",
-							htmlUrl: `/h5/h5V3/videoCourse/courseList.html?id=${item.bigClassId}`
+							htmlUrl: `/h5/h5V3/videoCourse/courseList.html?id=${item.bigClassId}&hideTitle=1`
 						});
 
 					} else if (isAndroid) {
-						var str = `/h5/h5V3/videoCourse/courseList.html?id=${item.bigClassId}`
-						window.android.goToCourseList(str)
+						window.location.href = `courseList.html?id=${item.bigClassId}&hideTitle=1`
 					}
 				} catch (e) {
 					console.log(e)

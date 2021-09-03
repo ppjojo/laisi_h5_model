@@ -13,7 +13,10 @@ if(process.env.NODE_ENV != 'dev'){
 }
 import store from './store'
 
-
+router.beforeEach((to, from, next) => {
+  next()
+  window.scrollTo(0,0)
+})
 new Vue({
   router,
   el: "#app",

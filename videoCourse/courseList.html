@@ -53,11 +53,12 @@
 							{{classDetail.classDes}}</div>
 						<div class="classifyBox">
 							<div class="classifyDiv">
-								<div class="classifyItem">{{classDetail.actionSize}}个{{classDetail.actionOrClass?'内容':'动作'}}</div>
+								<div class="classifyItem">
+									{{classDetail.actionSize}}个{{classDetail.actionOrClass?'内容':'动作'}}</div>
 								<div class="classifyItem">不限训练频次</div>
 								<div class="classifyItem">{{classDetail.classKitName}}</div>
 							</div>
-							<div class="transPeopleCount" >
+							<div class="transPeopleCount">
 								{{classDetail.sumExercise>100000?(classDetail.sumExercise/100000).toFixed(2):classDetail.sumExercise}}人练过
 							</div>
 						</div>
@@ -121,7 +122,7 @@
 									<div class="btn" @click="playVideo(classDetail.smallClassList[0],0)">开始训练</div>
 								</div>
 								<div v-if="downlaodStatus" class="chooseDiv">
-									<div class="box" @click="chooseAll">
+									<div class="box" @click="chooseAll()">
 										<img src="./img/unable.png" v-if="isChooseAll==-1" alt="">
 										<img src="./img/choose.png" v-else-if="isChooseAll==1" alt="">
 										<img src="./img/unchoose.png" v-else alt="">
@@ -191,22 +192,23 @@
 									</div>
 								</van-list>
 							</van-pull-refresh>
+							<div class="sendBox" v-if="this.tabSelected==2">
+								<van-field v-model="comment_message" rows="1" @blur="initSendBox" type="textarea" autosize
+									maxlength="50" placeholder="说点什么">
+									<template #right-icon>
+										<span class="icon iconfont icon-a-shequ-" @click="noticeSomePeople"
+											style="font-size: 0.3rem;" />
+									</template>
+								</van-field>
+								<span class="icon iconfont icon-duihua-fasong" @click="submitCommentFirst"
+									style="font-size: 0.48rem;padding-left: 0.24rem;" />
+							</div>
 
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="sendBox" v-if="this.tabSelected==2">
-				<van-field v-model="comment_message" rows="1" @blur="initSendBox" type="textarea" autosize
-					maxlength="50" :placeholder="placeholder">
-					<template #right-icon>
-						<span class="icon iconfont icon-a-shequ-" @click="noticeSomePeople"
-							style="font-size: 0.3rem;" />
-					</template>
-				</van-field>
-				<span class="icon iconfont icon-duihua-fasong" @click="submitCommentFirst"
-					style="font-size: 0.48rem;padding-left: 0.24rem;" />
-			</div>
+			
 			<van-popup v-model="moreCommentShow" round position="bottom" :style="{ height: '70%' }">
 				<div class="popupHeader">
 					<span class="icon iconfont icon-fanhuianniu" @click="moreCommentShow=false"
@@ -280,6 +282,17 @@
 						<img class="noData-img" src="../common/img/noData.png" />
 						<p class="noData-p">还没有回复，快来抢沙发</p>
 					</div>
+				</div>
+				<div class="sendBox" v-if="this.tabSelected==2">
+					<van-field v-model="comment_message" rows="1" @blur="initSendBox" type="textarea" autosize
+						maxlength="50" :placeholder="placeholder">
+						<template #right-icon>
+							<span class="icon iconfont icon-a-shequ-" @click="noticeSomePeople"
+								style="font-size: 0.3rem;" />
+						</template>
+					</van-field>
+					<span class="icon iconfont icon-duihua-fasong" @click="submitCommentFirst"
+						style="font-size: 0.48rem;padding-left: 0.24rem;" />
 				</div>
 
 			</van-popup>
@@ -733,6 +746,11 @@
 			},
 			//播放
 			playVideo(item, index) {
+				//如果是动作的话 从第一个开始播放
+				if (this.classDetail.actionOrClass == 0) {
+					item = this.classDetail.smallClassList[0];
+					index = 0
+				}
 				//观看课程添加观看记录和增加观看人数
 				ajax({
 					url: "community/threeUserCollect/add/num/by/see/class",
@@ -743,6 +761,7 @@
 					if (res.code == 0) {
 						var methodItem = {
 							method: "goToVideoPlayer",
+							actionOrClass: this.classDetail.actionOrClass, //0 动作 1课程
 							videoId: item.classVod,
 							currentIndex: index,
 							videoList: this.classDetail.smallClassList,
@@ -768,8 +787,21 @@
 			},
 			//缓存视频
 			downButton() {
+				this.tabSelected = 1;
+				//如果是动作直接下载全部动作
+				if (this.classDetail.actionOrClass == 0) {
+					var obj = this.classDetail
+					obj.smallClassList.forEach(item => {
+						if (item.isDownload != -1) {
+							item.isDownload = 1;
+							this.classArray.push(item)
+						}
+					})
+					this.downAll()
+					return;
+				}
 				this.downlaodStatus = !(this.downlaodStatus);
-				this.tabSelected = 1
+				
 			},
 			//获取已经缓存的视频
 			getCheckDownloadCourseList() {
@@ -833,7 +865,7 @@
 					this.isChooseAll == 1 ? this.isChooseAll = 0 : this.isChooseAll = 1
 				}
 				var obj = this.classDetail
-				obj.smallClass.forEach(item => {
+				obj.smallClassList.forEach(item => {
 					if (item.isDownload != -1) {
 						this.isChooseAll == 1 ? item.isDownload = 1 : item.isDownload = 0;
 						if (this.isChooseAll == 1) {
@@ -847,6 +879,7 @@
 
 			},
 			downAll() {
+
 				if (this.classArray.length == 0) {
 					this.$toast("请先选择需要缓存的课程！")
 					return

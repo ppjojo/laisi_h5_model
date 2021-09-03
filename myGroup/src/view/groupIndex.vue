@@ -83,72 +83,69 @@
 								<span class="icon iconfont icon-tongyong-gengduo" @click="goMemberDataDetail(item)" />
 							</div>
 							<div class="deviceList">
-								<div class="deviceItem" v-if="returnUserData('balance',item.dataList)">
-									<img class="deviceImg" :src="require('../img/group_tzc.png')" alt="">
-									<div class="deviceData">
-										<span>体重:</span>
-										<span class="num">{{returnUserData('balance',item.dataList).weight}}</span>
-										<span>kg</span>
+								<div v-for="item2 in item.dataList">
+									<div class="deviceItem" v-if="item2.deviceType=='balance'">
+										<img class="deviceImg" :src="require('../img/group_tzc.png')" alt="">
+										<div class="deviceData">
+											<span>体重:</span>
+											<span class="num">{{item2.weight}}</span>
+											<span>kg</span>
+										</div>
+										<div class="deviceData">
+											<span>体脂:</span>
+											<span class="num">{{item2.bfr.toFixed(1)}}</span>
+											<span>%</span>
+										</div>
 									</div>
-									<div class="deviceData">
-										<span>体脂:</span>
-										<span
-											class="num">{{returnUserData('balance',item.dataList).bfr.toFixed(1)}}</span>
-										<span>%</span>
+									<div class="deviceItem" v-else-if="item2.deviceType=='skipping'">
+										<img class="deviceImg" :src="require('../img/group_ts.png')" alt="">
+										<div class="deviceData">
+											<span>个数:</span>
+											<span class="num">{{item2.number}}</span>
+											<span>个</span>
+										</div>
+										<div class="deviceData">
+											<span>用时:</span>
+											<span class="num">{{returnTime(item2.takeMs)}}</span>
+										</div>
+									</div>
+									<div class="deviceItem" v-else-if="item2.deviceType=='wristball'">
+										<img class="deviceImg" :src="require('../img/group_wlq.png')" alt="">
+										<div class="deviceData">
+											<span>圈数:</span>
+											<span
+												class="num">{{ item2.number?(item2.number/10000).toFixed(3):0 }}</span>
+											<span>万</span>
+										</div>
+										<div class="deviceData">
+											<span>用时:</span>
+											<span class="num">{{returnTime(item2.takeMs)}}</span>
+										</div>
 									</div>
 
-								</div>
-								<div class="deviceItem" v-if="returnUserData('wristball',item.dataList)">
-									<img class="deviceImg" :src="require('../img/group_wlq.png')" alt="">
-									<div class="deviceData">
-										<span>圈数:</span>
-										<span
-											class="num">{{ returnUserData('wristball',item.dataList).number?(returnUserData('wristball',item.dataList).number/10000).toFixed(3):0 }}</span>
-										<span>万</span>
+									<div class="deviceItem" v-else-if="item2.deviceType=='wheel'">
+										<img class="deviceImg" :src="require('../img/group_jfl.png')" alt="">
+										<div class="deviceData">
+											<span>次数:</span>
+											<span class="num">{{item2.number}}</span>
+											<span>个</span>
+										</div>
+										<div class="deviceData">
+											<span>用时:</span>
+											<span class="num">{{returnTime(item2.takeMs)}}</span>
+										</div>
 									</div>
-									<div class="deviceData">
-										<span>用时:</span>
-										<span
-											class="num">{{returnTime(returnUserData('wristball',item.dataList).takeMs)}}</span>
-									</div>
-								</div>
-								<div class="deviceItem" v-if="returnUserData('skipping',item.dataList)">
-									<img class="deviceImg" :src="require('../img/group_ts.png')" alt="">
-									<div class="deviceData">
-										<span>个数:</span>
-										<span class="num">{{returnUserData('skipping',item.dataList).number}}</span>
-										<span>个</span>
-									</div>
-									<div class="deviceData">
-										<span>用时:</span>
-										<span
-											class="num">{{returnTime(returnUserData('skipping',item.dataList).takeMs)}}</span>
-									</div>
-								</div>
-								<div class="deviceItem" v-if="returnUserData('skipping',item.dataList)">
-									<img class="deviceImg" :src="require('../img/group_jfl.png')" alt="">
-									<div class="deviceData">
-										<span>次数:</span>
-										<span class="num">{{returnUserData('skipping',item.dataList).number}}</span>
-										<span>个</span>
-									</div>
-									<div class="deviceData">
-										<span>用时:</span>
-										<span
-											class="num">{{returnTime(returnUserData('skipping',item.dataList).takeMs)}}</span>
-									</div>
-								</div>
-								<div class="deviceItem" v-if="returnUserData('skipping',item.dataList)">
-									<img class="deviceImg" :src="require('../img/group_step.png')" alt="">
-									<div class="deviceData">
-										<span>步数:</span>
-										<span class="num">{{returnUserData('skipping',item.dataList).number}}</span>
-										<span>个</span>
-									</div>
-									<div class="deviceData">
-										<span>距离:</span>
-										<span
-											class="num">{{returnTime(returnUserData('skipping',item.dataList).takeMs)}}</span>
+									<div class="deviceItem" v-else-if="item2.deviceType=='watch'">
+										<img class="deviceImg" :src="require('../img/group_step.png')" alt="">
+										<div class="deviceData">
+											<span>步数:</span>
+											<span class="num">{{item2.steps}}</span>
+											<span>个</span>
+										</div>
+										<div class="deviceData">
+											<span>距离:</span>
+											<span class="num">{{returnTime(item2.distance)}}</span>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -156,7 +153,7 @@
 						</li>
 					</ul>
 					<div v-if="userIdData.length==0" class="nullDataBox">
-						<img :src="require('../img/noData.png')" alt="">
+						<img style="width:2rem" :src="require('../img/noData.png')" alt="">
 						<p>今日无运动</p>
 					</div>
 				</div>
@@ -183,6 +180,7 @@
 </template>
 
 <script>
+	var vm;
 	import {
 		getGroupInfo,
 		joinGroup,
@@ -210,6 +208,7 @@
 
 		data() {
 			return {
+				fromList: 1,
 				loading: false,
 				finished: false,
 				groupId: parseInt(this.$route.query.id),
@@ -226,7 +225,6 @@
 				userIdData: [],
 				huanxinGroupId: null,
 				ownerUserId: null,
-				searchTime: new Date().getTime(),
 				groupItem: {
 					name: '',
 					portrait: '',
@@ -243,37 +241,45 @@
 			}
 
 		},
+
+		beforeRouteEnter(to, from, next) {
+			next(vm => { //vm为vue的实例,代替this
+				if (!from.meta.index) {
+					vm.fromList = 0
+				}
+			})
+		},
+
 		beforeRouteLeave(to, from, next) {
 			this.destroyed();
 			next() //一定不要忘记写
 		},
 		created() {
-			//this.initData();
-		},
-		activated() {
-			this.groupItem =Object.assign(this.groupItem, this.$store.state.group.groupInfo);
-			if (this.$store.state.groupIndexRefresh) {
-				this.groupId = parseInt(this.$route.query.id),
-					this.initData()
-				this.$store.commit("setData", {
-					key: "groupIndexRefresh",
-					val: false
-				})
-
-			}
+			vm = this;
+			this.initData()
+			this.groupItem = Object.assign(this.groupItem, this.$store.state.group.groupInfo);
 			if (this.isShare != 1) {
 				window.addEventListener('scroll', this.scrollFn);
 			}
-
-
-
-
 		},
+
 		methods: {
 			initData() {
+				if (this.$store.state.searchTime ) {
+					var year = new Date(this.$store.state.searchTime).getFullYear(),
+				month = new Date(this.$store.state.searchTime).getMonth() + 1,
+				dates = new Date(this.$store.state.searchTime).getDate();
+				month = month > 9 ? month : "0" + month;
+				dates = dates > 9 ? dates : "0" + dates;
+				this.currentDatestr = year + '年' + month + '月' + dates + '日';
+				}
+				if(parseInt(this.$store.state.searchTime/1000)==parseInt(new Date().getTime()/1000)){
+					this.currentDatestr="今日运动"
+				}
+
 				getGroupInfo({
 					groupId: this.groupId,
-					searchTime: this.searchTime
+					searchTime: this.$store.state.searchTime
 				}).then(res => {
 					this.groupItem = res.data.groupInfo;
 					this.memberIcon = res.data.memberIcon;
@@ -311,8 +317,9 @@
 				window.removeEventListener('scroll', this.scrollFn); // 销毁监听
 			},
 			onclickLeft() {
-				if (this.$route.query.isFromList == 1) {
-					this.$router.go(-1);
+				this.destroyed();
+				if (this.fromList) {
+					this.$router.go(-1)
 				} else {
 					this.$interaction.closePage();
 				}
@@ -381,17 +388,11 @@
 				dates = dates > 9 ? dates : "0" + dates;
 				this.currentDatestr = year + '年' + month + '月' + dates + '日';
 				this.dateshow = false;
-				this.searchTime = new Date(val).getTime();
+				this.$store.commit("setData", {
+					key: "searchTime",
+					val: new Date(val).getTime()
+				})
 				this.initData();
-			},
-			returnUserData(id, list) {
-				let obj = null;
-				list.forEach(d => {
-					if (id == d.deviceType) {
-						obj = d;
-					}
-				});
-				return obj
 			},
 			goNotice() {
 				if (!this.isGrouptMember || this.isShare) return;
@@ -477,8 +478,8 @@
 				this.$router.push({
 					path: '/memberDataDetail',
 					query: {
-						searchTime: this.searchTime,
-						searchUserId: item.userId
+						searchUserId: item.userId,
+						groupId: this.groupId,
 					}
 				});
 			}
