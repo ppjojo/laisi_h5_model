@@ -148,15 +148,16 @@
 				flag: null, //1未打卡2打卡失败3打卡成功未达标4打卡成功已达标5当天无打卡记录
 				sportObj: { //当日运动详情
 				},
-				monthObj: {} //打卡详情
+				monthObj: {sportClockMax:0} //打卡详情
 			};
 		},
 		filters: {},
 		mounted() {
-			this.getList();
 			// this.calindarList();
 		},
-		created() {},
+		created() {
+			this.getList();
+		},
 		methods: {
 			getList() {
 				getDayData({
@@ -219,7 +220,10 @@
 			},
 			formatSeconds: timeUtil.formatSeconds,
 			fatherSetMonthObj(obj) {
-				this.monthObj = Object.assign(this.monthObj, obj);
+				this.$nextTick(()=>{
+					this.monthObj = Object.assign(this.monthObj, obj);
+					console.log(this.monthObj)
+				})
 			},
 			fatherPickYearMonth() { //子组件调用打开时间选择
 				this.YMshow = true;

@@ -1,0 +1,81 @@
+#app {
+	min-height: 100vh;
+	background-color: #12121f;
+}
+html{
+	background-color: #f5f5f5;
+}
+.header {
+	margin-bottom: .3rem;
+}
+
+.van-field__label {
+	color: #71717f;
+}
+
+.van-picker__confirm,
+.van-picker__cancel {
+	color: #CFCFD2;
+}
+
+.van-picker-column__item--selected {
+	font-size: .4rem;
+}
+
+.van-cell {
+	min-height: 1.2rem;
+	line-height: .8rem;
+	background-color: #12121F;
+}
+
+.van-field__control--custom {
+	margin-top: .2rem;
+}
+
+#switch {
+	margin-top: .3rem;
+}
+
+.van-switch--on {
+	background-color: #34c759;
+}
+
+.van-switch__node {
+	width: .45rem;
+	height: .45rem;
+}
+
+.van-switch--on .van-switch__node {
+	transform: translateX(.55rem);
+}
+
+.van-switch {
+	width: 1rem;
+	height: .48rem;
+}
+
+#switch .van-field__label {
+	width: 6rem;
+	color: #71717f;
+	font-size: .32rem;
+	margin-right: 0;
+
+}
+.van-field__control{
+	color: #CFCFD2;
+}
+.van-picker{
+	background-color: #1E1E2A;
+}
+.van-picker-column__item{
+	color: #CFCFD2;
+}
+.van-picker__toolbar{
+	background-color: #1E1E2A;
+}
+.van-picker__mask{
+	background-image: none;
+}
+.submit {
+	margin-top: .6rem;
+}

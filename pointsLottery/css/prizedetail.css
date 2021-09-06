@@ -1,0 +1,57 @@
+.bigpic {
+	width: 7.5rem;
+	height: 6.8rem;
+	background-color: #F7F6E1;
+}
+
+.bigpic img {
+	width: 4.2rem;
+	height: 4.2rem;
+}
+
+.redbg {
+	background-color: #F7E6E1;
+}
+
+.detailbox {
+	padding: .36rem;
+	padding-bottom: 1.6rem;
+	background-color: #12121F;
+}
+
+.detailbox .title {
+	font-size: .36rem;
+	color: #CFCFD2;
+	margin-bottom: .1rem;
+}
+
+.detailbox .pricetag {
+	color: #E60012;
+	font-size: .6rem;
+}
+
+.detailbox .pricetag span {
+	font-size: .24rem;
+}
+
+.detailbox .changedetail {
+	font-size: .24rem;
+	color: #71717f;
+	padding-bottom: .1rem;
+}
+
+.detailbox .describle {
+	color: #CFCFD2;
+	font-size: .36rem;
+	margin: .55rem 0;
+}
+
+.detailbox .describle .detail {
+	font-size: .28rem;
+	color: #71717f;
+	line-height: .45rem;
+	margin: .2rem 0;
+}
+.bottombox{
+	background: #12121F;
+}

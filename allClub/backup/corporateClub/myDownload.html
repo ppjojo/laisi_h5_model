@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+		<title></title>
+		<!-- 引入样式文件 -->
+		<link rel="stylesheet" href="../../common/css/vant-rem.css">
+		<link rel="stylesheet" href="../../common/css/basic.css">
+		<link rel="stylesheet" href="css/normal.css">
+		<link rel="stylesheet" href="../club/css/clubCreateCompetition.css">
+		<!-- <script src="https://cdn.bootcss.com/vConsole/3.3.4/vconsole.min.js"></script>
+				<script>
+					// init vConsole
+				        var vConsole = new VConsole();
+				        console.log('Hello world');
+				    </script> -->
+		<style type="text/css">
+			.outbox {
+				padding: .4rem .6rem;
+				font-size: .36rem;
+			}
+
+			.title {
+				color: #1f1f1f;
+
+			}
+
+			.detail {
+				color: #999;
+				font-size: .24rem;
+				margin: .1rem 0 1rem;
+			}
+
+			.van-calendar__day--start-end,
+			.van-calendar__day--start,
+			.van-calendar__day--end,
+			.van-calendar__confirm {
+				background: linear-gradient(to right, #FF6A88, #FF5136);
+			}
+
+			.van-icon-arrow-down {
+				margin-left: .34rem;
+			}
+
+			.submit {
+				width: 100%;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="app" v-cloak>
+			<div class="header">
+				<van-nav-bar title="下载数据" @click-left="OnclickLeft" @click-right="onClickRight" left-arrow>
+					<template #right>
+						<!-- <van-icon name="ellipsis" size="30" /> -->
+					</template>
+				</van-nav-bar>
+			</div>
+			<div class="outbox">
+				<div class="title">选择时间</div>
+				<div class="detail">({{editor==1?'所有部门全部成员':'所在部门所有成员'}}在选择时间内跳绳个数汇总)</div>
+				<div class="ub ub-ac ub-ad" @click="show = true">
+					<div class="ub ub-ac">
+						<div>{{date[0]}}</div>
+						<van-icon name="arrow-down" size="16" />
+					</div>
+					<div style="font-weight: bolder;">——</div>
+					<div class="ub ub-ac">
+						<div>{{date[1]}}</div>
+						<van-icon name="arrow-down" size="16" />
+					</div>
+				</div>
+				<van-calendar v-model="show" :min-date="new Date('2021/1/1')" :allow-same-day="true" type="range" @confirm="onConfirm"></van-calendar>
+				<van-button round class="submit" block @click="initData()">下载</van-button>
+			</div>
+		</div>
+	</body>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vant@2.9/lib/vant.min.js"></script>
+	<script src="../../common/js/network.js"></script>
+	<script src="js/tool.js"></script>
+	<script>
+		window.addEventListener('pageshow', function(event) {
+			console.log("PageShow Event  " + event.persisted);
+			console.log(event)
+			if (isIOS) {
+
+			}
+		})
+		new Vue({
+			el: '#app',
+			data() {
+				return {
+					date: ['请选择', '请选择'],
+					show: false,
+					editor: parseInt(getQueryString('editor')), //1部长，2，分部长
+					clubGroupId: parseInt(getQueryString('clubGroupId')),
+					clubId: getQueryString('id'),
+				}
+			},
+			filters: {},
+			mounted() {},
+			created() {
+				if (this.editor == 1) this.clubGroupId = '';
+			},
+			methods: {
+				initData() {
+					if (this.date[0] == '请选择') {
+						this.$toast('请先选择时间段');
+						return;
+					}
+					let _self = this;
+					ajax({
+						type: "get",
+						url: "club/excel/exportClubToExcel",
+						data: {
+							clubId: _self.clubId,
+							clubGroupId: _self.clubGroupId,
+							startTime: _self.date[0],
+							endTime: _self.date[1],
+						},
+						success: function(res) {
+							if (res.code == 0) {
+								Interaction.appNative('generateQRcode',{url:res.data});
+							} else {
+								_self.$toast(res.msg);
+							}
+						},
+						error: function() {
+							console.log("error")
+						}
+					})
+				},
+				formatDate(date) {
+					return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+				},
+				OnclickLeft() {
+					window.history.back(-1);
+				},
+				onClickRight() { //显示。。。
+				},
+				onConfirm(date) {
+					const [start, end] = date;
+					this.show = false;
+					this.date = [`${this.formatDate(start)}`, `${this.formatDate(end)}`];
+				},
+			}
+		})
+	</script>
+
+</html>

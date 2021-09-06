@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+		<title>开盒记录</title>
+		<!-- 引入样式文件 -->
+		<link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
+		<link rel="stylesheet" href="../common/css/basic.css">
+		<link rel="stylesheet" href="css/pointsLottery.css">
+		<style type="text/css">
+			.list_ul .title {
+				width: 5.19rem;
+			}
+
+			.list_ul .boxtitle {
+				font-size: .36rem;
+			}
+			.list_ul .imgbox{
+				background-color: #1E1E2A;
+			}
+			#app{
+				min-height: 100vh;
+				background-color: #12121F;
+			}
+			#app>.header,.van-nav-bar,.monkey-pull-refresh,.DBnotice,.van-tabs__nav,.van-cell-group,.van-cell,#pricechange,.van-action-sheet__gap{
+				background-color: #12121F;
+			}
+			.van-tab{
+				color:#71717f;
+			}
+			.van-nav-bar .van-icon,.van-nav-bar__title,.van-list__error-text, .van-list__finished-text, .van-list__loading,.van-tab--active,.van-checkbox__label,.van-action-sheet{
+				color:#CFCFD2;
+			}
+			.van-tab--active{
+				font-size: .36rem;
+				position: relative;
+			}
+			.van-tabs__line{
+				display: none;
+			}
+			.van-tab--active::after {
+				content: '';
+				position: absolute;
+				left: 50%;
+				bottom: 0;
+				transform: translate(-50%, -50%);
+				width: 0.4rem;
+				height: 0.14rem;
+				background-position: 100% 100%;
+				background: url(./img/tabselect.png) no-repeat;
+				background-size: 100%;
+			
+			}
+			.van-popup--bottom.van-popup--round,.van-action-sheet__cancel, .van-action-sheet__item{
+				background-color: #1e1e2a;
+			}
+			.van-tabs--line .van-tabs__wrap{
+				border-bottom-color: #1E1E2A;
+			}
+		</style>
+		<!-- <script src="https://cdn.bootcss.com/vConsole/3.3.4/vconsole.min.js"></script>
+				<script>
+					// init vConsole
+				        var vConsole = new VConsole();
+				        console.log('Hello world');
+				    </script> -->
+	</head>
+
+	<body>
+		<div id="app" v-cloak>
+			<div class="header">
+				<van-nav-bar title="开盒记录" @click-left="OnclickLeft" left-arrow>
+				</van-nav-bar>
+			</div>
+			<van-tabs v-model="menuactive" sticky swipeable @change="changeTab">
+				<van-tab title="红盒子">
+					<van-pull-refresh v-model="isLoading" :head-height="90" @refresh="initIndexData" class="monkey-pull-refresh" style="min-height: 80vh;">
+						<template #pulling="props">
+							<div class="monkeyBox">
+								<img class="monkey" src="../common/img/monkey.gif" />
+								<p>下拉刷新</p>
+							</div>
+						</template>
+						<!-- 释放提示 -->
+						<template #loosing>
+							<div class="monkeyBox">
+								<img class="monkey" src="../common/img/monkey.gif" />
+								<p>释放刷新</p>
+							</div>
+						</template>
+						<!-- 加载提示 -->
+						<template #loading>
+							<div class="monkeyBox">
+								<img class="monkey" src="../common/img/monkey.gif" />
+								<p>正在刷新</p>
+							</div>
+						</template>
+						<van-list v-model="loading" offset="50" :finished="finished" @load="onLoad" :immediate-check=false :finished-text="dataList1.length>0?'已加载全部开盒记录':''">
+							<ul class="list_ul">
+								<li class="ub" v-for="item in dataList1">
+									<div class="ub ub-ac">
+										<div class="imgbox">
+											<img :src="item.type==2?'./img/cashicon.png':item.type==0?'./img/DBimg.png':item.logo" alt="">
+										</div>
+										<div>
+											<div v-if="item.type!=2&&item.type!=0" class="title van-ellipsis">{{item.name}}</div>
+											<div v-else class="title van-ellipsis">{{item.type==2?'现金红包':'逗币'}}{{item.type==2?(item.redPackageValue/100).toFixed(2)+'元':item.redPackageValue+'个'}}</div>
+											<div class="detail">{{ DateTime.sjc2time('mdhm4',item.createTime) }}</div>
+										</div>
+									</div>
+								</li>
+							</ul>
+							<div class="noData-box" v-if="dataList1.length==0&&!loading">
+								<img class="noData-img" src="../common/img/noData.png" />
+								<p class="noData-p">还没有开盒记录哦！</p>
+							</div>
+						</van-list>
+					</van-pull-refresh>
+				</van-tab>
+				<van-tab title="紫盒子">
+					<van-pull-refresh v-model="isLoading" :head-height="90" @refresh="initIndexData" class="monkey-pull-refresh" style="min-height: 80vh;">
+						<template #pulling="props">
+							<div class="monkeyBox">
+								<img class="monkey" src="../common/img/monkey.gif" />
+								<p>下拉刷新</p>
+							</div>
+						</template>
+						<!-- 释放提示 -->
+						<template #loosing>
+							<div class="monkeyBox">
+								<img class="monkey" src="../common/img/monkey.gif" />
+								<p>释放刷新</p>
+							</div>
+						</template>
+						<!-- 加载提示 -->
+						<template #loading>
+							<div class="monkeyBox">
+								<img class="monkey" src="../common/img/monkey.gif" />
+								<p>正在刷新</p>
+							</div>
+						</template>
+						<van-list v-model="loading" offset="50" :finished="finished" @load="onLoad" :immediate-check=false :finished-text="dataList2.length>0?'已加载全部开盒记录':''">
+							<ul class="list_ul">
+								<li class="ub" v-for="item in dataList2">
+									<div class="ub ub-ac">
+										<div class="imgbox">
+											<img :src="item.type==2?'./img/cashicon.png':item.type==0?'./img/DBimg.png':item.logo" alt="">
+										</div>
+										<div>
+											<div v-if="item.type!=2&&item.type!=0" class="title van-ellipsis">{{item.name}}</div>
+											<div v-else class="title van-ellipsis">{{item.type==2?'现金红包':'逗币'}}{{item.type==2?(item.redPackageValue/100).toFixed(2)+'元':item.redPackageValue+'个'}}</div>
+											<div class="detail">{{ DateTime.sjc2time('mdhm4',item.createTime) }}</div>
+										</div>
+									</div>
+								</li>
+							</ul>
+							<div class="noData-box" v-if="dataList2.length==0&&!loading">
+								<img class="noData-img" src="../common/img/noData.png" />
+								<p class="noData-p">还没有开盒记录哦！</p>
+							</div>
+						</van-list>
+					</van-pull-refresh>
+				</van-tab>
+				<van-tab title="金盒子">
+					<van-pull-refresh v-model="isLoading" :head-height="90" @refresh="initIndexData" class="monkey-pull-refresh" style="min-height: 80vh;">
+						<template #pulling="props">
+							<div class="monkeyBox">
+								<img class="monkey" src="../common/img/monkey.gif" />
+								<p>下拉刷新</p>
+							</div>
+						</template>
+						<!-- 释放提示 -->
+						<template #loosing>
+							<div class="monkeyBox">
+								<img class="monkey" src="../common/img/monkey.gif" />
+								<p>释放刷新</p>
+							</div>
+						</template>
+						<!-- 加载提示 -->
+						<template #loading>
+							<div class="monkeyBox">
+								<img class="monkey" src="../common/img/monkey.gif" />
+								<p>正在刷新</p>
+							</div>
+						</template>
+						<van-list v-model="loading" offset="50" :finished="finished" @load="onLoad" :immediate-check=false :finished-text="dataList3.length>0?'已加载全部开盒记录':''">
+							<ul class="list_ul">
+								<li class="ub" v-for="item in dataList3">
+									<div class="ub ub-ac">
+										<div class="imgbox">
+											<img :src="item.type==2?'./img/cashicon.png':item.type==0?'./img/DBimg.png':item.logo" alt="">
+										</div>
+										<div>
+											<div v-if="item.type!=2&&item.type!=0" class="title van-ellipsis">{{item.name}}</div>
+											<div v-else class="title van-ellipsis">{{item.type==2?'现金红包':'逗币'}}{{item.type==2?(item.redPackageValue/100).toFixed(2)+'元':item.redPackageValue+'个'}}</div>
+											<div class="detail">{{ DateTime.sjc2time('mdhm4',item.createTime) }}</div>
+										</div>
+									</div>
+								</li>
+							</ul>
+							<div class="noData-box" v-if="dataList3.length==0&&!loading">
+								<img class="noData-img" src="../common/img/noData.png" />
+								<p class="noData-p">还没有开盒记录哦！</p>
+							</div>
+						</van-list>
+					</van-pull-refresh>
+				</van-tab>
+			</van-tabs>
+		</div>
+	</body>
+	<script src="https://oss.laisitech.com/0bb12bf1-cb87-4d2c-a724-8a7c25b7ae04.js "></script>
+<script src="https://oss.laisitech.com/6172e6c1-f460-40ac-97ba-31c8526f2e16.js"></script>
+	<script src="../common/js/network.js"></script>
+	<script src="js/tool.js"></script>
+	<script>
+		new Vue({
+			el: '#app',
+			data() {
+				return {
+					isLoading: false,
+					loading: false,
+					finished: false,
+					dataList1: [],
+					dataList2: [],
+					dataList3: [],
+					page: 0,
+					pageSize:15,
+					menuactive: 0, //1hong2紫/3金
+				}
+			},
+			filters: {},
+			mounted() {
+
+			},
+			created() {
+				this.initData(1);
+				// this.initData(2);
+				// this.initData(3)
+			},
+			methods: {
+				initData(type) {
+					var _self = this;
+					let nowPage= _self.page
+					ajax({
+						type: "get",
+						url: "activity/UserBag/allBoxesHistory",
+						data: {
+							boxType: type ? type : _self.menuactive == 0 ? 1 : _self.menuactive == 1 ? 2 : 3,
+							page: _self.page,
+							pageSize: _self.pageSize,
+						},
+						success: function(res) {
+							_self.loading = false;
+							if (res.code == 0) {
+								if (nowPage == 0) {
+									if(_self.menuactive == 0){
+										_self.dataList1 = [];
+										_self.dataList1 = res.data.content;
+									}
+									if(_self.menuactive == 1){
+										_self.dataList2 = [];
+										_self.dataList2 = res.data.content;
+									}
+									if(_self.menuactive == 2){
+										_self.dataList3 = [];
+										_self.dataList3 = res.data.content;
+									}
+								} else {
+									if(_self.menuactive == 0)_self.dataList1 = _self.dataList1.concat(res.data.content);
+									if(_self.menuactive == 1)_self.dataList2 = _self.dataList2.concat(res.data.content)
+									if(_self.menuactive == 2)_self.dataList3 = _self.dataList3.concat(res.data.content)
+								}
+								
+								if((nowPage+1)*_self.pageSize >= res.data.totalNum){
+									console.log(nowPage)
+									_self.finished = true;
+								}
+							} else {
+								_self.$toast(res.msg);
+							}
+						},
+						error: function() {
+							_self.loading = false;
+							console.log("error")
+						}
+					})
+				},
+				initIndexData() {
+					// 清空列表数据
+					this.finished = false;
+					// 重新加载数据
+					// 将 loading 设置为 true，表示处于加载状态
+					this.loading = true;
+					this.isLoading = true;
+					this.onLoad();
+				},
+				onLoad() {
+					if (this.isLoading) {
+						this.isLoading = false;
+						this.page = 0;
+					} else {
+						this.page++;
+					}
+					this.initData()
+					//this.getCommentList()
+					this.loading = false;
+				},
+				OnclickLeft() {
+					window.history.back(-1);
+				},
+				changeTab(name,title){
+					this.page = 0;
+					this.initData(name+1);
+				}
+
+
+
+			}
+		})
+	</script>
+
+</html>

@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+		<title>成员列表</title>
+		<script type="text/javascript">
+			
+		</script>
+		<link rel="stylesheet" href="../../common/css/vant-rem.css">
+		<link rel="stylesheet" href="css/memberList.css">
+		<link rel="stylesheet" type="text/css" href="css/iosTop.css" />
+		<script type="text/javascript">
+			document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';
+		</script>
+		<!-- <script src="https://cdn.bootcss.com/vConsole/3.3.4/vconsole.min.js"></script>
+		<script>
+			// init vConsole
+			var vConsole = new VConsole();
+			console.log('Hello world');
+		</script> -->
+		<style type="text/css">
+			[class*=van-hairline]::after{
+				border:none;
+			}
+			#app{
+				min-height: 100vh;
+				background-color: #fff;
+			}
+			/* .memberList{
+				padding-top: .92rem;
+			} */
+		</style>
+	</head>
+	<body>
+		<div id="app" class="page" v-cloak>
+			<div class="header">
+			<van-nav-bar :title="titleText"
+			v-if="!hiddenTitle"
+			 @click-left="OnclickLeft"
+			 left-arrow>
+			</van-nav-bar>
+			</div>
+			<div class=" memberList" :style="{paddingTop:hiddenTitle?'':'.92rem'}">
+				<van-pull-refresh v-model="isDownLoading" @refresh="Refresh" class="list-item-box">
+					<van-list v-model="isUpLoading" :finished="upFinished" finished-text="已经到底啦" :offset="offset" @load="LoadList" :immediate-check=false v-if="memberList.length>0">
+						<van-row v-for="item in memberList">
+							<van-col span="4" class="createrHeadPic" @click="Interaction.visitPersonalHomepage(item.memberId)">
+								<div class="detail_headpic" :style="{'background-image': 'url(' + item.headPictureUrl + ')'}"></div>
+							</van-col>
+							<van-col span="15">
+								<div class="createrName" @click="Interaction.visitPersonalHomepage(item.memberId)">{{item.nickname}}
+									<van-tag class="van-tag-ower " v-if="flag!=3&&item.isMinister=='Y'">部长</van-tag>
+								</div>
+								<div class="activityTime">
+									<span v-if="flag!=3">{{flag==3?"申请时间":"加入时间"}}:</span>
+									<span>{{renderTime(item.createTime)}}</span>
+								</div>
+							</van-col>
+							<van-col span="5" v-if="flag==1&&item.isMinister!=='Y'">
+								<div class="acceptStatus"  @click="deleteMemberReady(item)">删除</div>
+							</van-col>
+							<van-col span="5" v-else-if="flag==2&&item.isMinister!=='Y'">
+								<div class="acceptStatus" @click="transferMinisterReady(item)">转让</div>
+							</van-col>
+							<van-col span="5" v-else-if="flag==3">
+								<div class="acceptStatus2" @click="handleApply(item,flag)">通过</div>
+							</van-col>
+							<van-col span="5" v-else-if="flag==4">
+								<div class="acceptStatus">已接受</div>
+							</van-col>
+							<van-col span="5" v-else-if="flag==5&&item.relation==3">
+								<div class="acceptStatus">相互关注</div>
+							</van-col>
+							<van-col span="5" v-else-if="flag==5&&item.relation==0">
+								<div class="acceptStatus2" @click="addFans(item)">关注</div>
+							</van-col>
+							<van-col span="5" v-else-if="flag==5&&item.relation==1">
+								<div class="acceptStatus2" @click="addFans(item)">回粉</div>
+							</van-col>
+							<van-col span="5" v-else-if="flag==5&&item.relation==2">
+								<div class="acceptStatus">已关注</div>
+							</van-col>
+						</van-row>
+					</van-list>
+					<div class="noData-box" v-else-if="upFinished">
+						<img class="noData-img" src="../clubList_Detail/img/nulldata.png" />
+						<p class="noData-p">暂无数据</p>
+					</div>
+				</van-pull-refresh>
+			</div>
+		</div>
+	</body>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vant@2.9/lib/vant.min.js"></script>
+	 
+	<script src="js/DateTime.js"></script>
+	<script src="../../common/js/network.js"></script>
+	<script type="text/javascript">
+		new Vue({
+			el: '#app',
+			data() {
+				return {
+					flag: 0, //部长成员管理1  部长转让2    任务查看加入情况4  成员从设置进入的成员管理5 
+					memberId:"",//成员id
+					ministerId:"",//部长id
+					clubId:"",//俱乐部id
+					taskId:"",//任务id
+					hiddenTitle:false,
+					memberList: [],
+					isDownLoading: false, // 下拉刷新
+					isUpLoading: false, // 上拉加载
+					upFinished: false, // 上拉加载完毕
+					page: 1,
+					pageSize: 30,
+					offset: 200, // 滚动条与底部距离小于 offset 时触发load事件
+					titleText:"成员列表"
+				}
+			},
+			beforeCreate(){
+				this.flag = getQueryString("flag")||"";
+				if (this.flag == 2) {
+					document.getElementsByTagName("title")[0].innerText = "部长转让"
+				}
+				//if(isAndroid)this.hiddenTitle=false;
+			},
+			created() {
+				this.flag = getQueryString("flag")||"1";
+				this.hiddenTitle=getQueryString("hiddenTitle");
+				if (this.flag == 1) {
+					this.clubId = getQueryString("id")||"10000137";
+					this.memberManage();
+				} else if (this.flag == 2) {
+					this.titleText = "部长转让";
+					this.clubId = getQueryString("id")||"10000130";
+					this.memberManage();
+				} else if (this.flag == 5) {
+					this.clubId = getQueryString("id")||"10000130";
+					this.memberManage();
+				}
+				// document.getElementsByTagName("title")[0].innerText = titleText
+			},
+			methods: {
+				OnclickLeft(){
+					window.history.back(-1)
+				},
+				//成员管理
+				memberManage() {
+					var _self = this;
+					var index = this.page;
+					ajax({
+						type: "post",
+						url: "club/memberManage",
+						data: {
+							clubId: _self.clubId,
+							page:_self.page,
+							pageSize:_self.pageSize
+						},
+						success: function(res) {
+							_self.isDownLoading = false;
+							_self.isUpLoading = false;
+							if (res.code == 0) {
+								var rows = res.data.memberList;
+								if (rows == null || rows.length === 0) {
+									_self.upFinished = true;
+									return;
+								}
+								
+								if (index > Math.ceil(res.data.totalNum / _self.pageSize)) {
+									_self.upFinished = true;
+									return;
+								} else {
+									_self.upFinished = false;
+								}
+								if (rows.length < _self.pageSize) {
+									_self.upFinished = true;
+								}
+								// 处理数据
+								if (index == 1) {
+									_self.memberList = rows;
+								} else {
+									_self.memberList = _self.memberList.concat(rows);
+								}
+							} else if(index==1&&res.code==1000){
+								_self.memberList=[];
+								_self.upFinished = true;
+							}else{
+								_self.memberList = _self.memberList.concat([])
+								_self.upFinished = true;
+							}
+							
+						},
+						error: function() {
+							console.log("error")
+						}
+					})
+				},
+				//2019-11-20T02:22:58.000+0000 转换2019-11-20 11:11:59
+				renderTime(utc_datetime) {
+					var T_pos = utc_datetime.indexOf('T');
+					var Z_pos = utc_datetime.indexOf('.');
+					var year_month_day = utc_datetime.substr(0, T_pos);
+					var hour_minute_second = utc_datetime.substr(T_pos + 1, Z_pos - T_pos - 1);
+					var new_datetime = year_month_day + " " + hour_minute_second; // 2017-03-31 08:02:06
+				
+					// 处理成为时间戳
+					var timestamp = DateTime.getTime(new_datetime);
+					// 增加8个小时，北京时间比utc时间多八个时区
+					var timestamp = timestamp + 8 * 60 * 60 * 1000;
+				
+					// 时间戳转为时间
+					var beijing_datetime = DateTime.sjc2time("ymd3", timestamp);
+					return beijing_datetime;
+				
+				},
+				//刷新成员管理
+				Refresh() {
+					this.page = 1;
+					this.upFinished = false; // 不写这句会导致你上拉到底过后在下拉刷新将不能触发下拉加载事件
+					this.memberManage(); // 加载数据
+				},
+				// 成员管理上拉加载请求方法
+				LoadList() {
+					this.page++;
+					this.memberManage();
+				},
+				deleteMemberReady(item){
+					var _self=this;
+					this.$dialog.confirm({
+					  // title: '标题',
+					  message: '您确定要删除 '+item.nickname+' 吗？'
+					}).then(() => {
+					  _self.deleteMember(item);
+					}).catch(() => {
+					  
+					});
+				},
+				//部长的删除成员
+				deleteMember(item){
+					var _self = this;
+					ajax({
+						type: "post",
+						url: "club/deleteMember",
+						data: {
+							clubId: _self.clubId,
+							memberId: item.memberId,
+						},
+						success: function(res) {
+							if (res.code == 0) {
+								_self.$toast("成员删除成功");
+								_self.Refresh();
+								_self.deleteMemberSuccess();
+								localStorage.setItem('settingChange',1)
+							} else {
+								_self.$toast(res.msg);
+							}
+						},
+						error: function() {
+							console.log("error")
+						}
+					})
+				},
+				deleteMemberSuccess(){
+					var _self=this;
+					if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) { //判断iPhone|iPad|iPod|iOS
+						try {
+							window.webkit.messageHandlers.lstNative.postMessage({
+								'method': 'clubMemberChange',
+							})
+						} catch (err) {
+							console.log('window.webkit.messageHandlers 回传Id failed')
+						}
+					
+					} else if (/(Android)/i.test(navigator.userAgent)) { //判断Android
+						window.android.clubMemberChange()
+					}
+				},
+				transferMinisterReady(item){
+					var _self=this;
+					this.$dialog.confirm({
+					  // title: '标题',
+					  message: '您确定要转让部长给 '+item.nickname+' 吗？'
+					}).then(() => {
+					  _self.transferMinister(item);
+					}).catch(() => {
+					  
+					});
+				},
+				//部长转让部长的身份
+				transferMinister(item){
+					var _self = this;
+					ajax({
+						type: "post",
+						url: "club/transferMinister",
+						data: {
+							clubId: _self.clubId,
+							memberId: item.memberId,
+							ministerId:JSON.parse(localStorage.getItem("appInfo")).userId
+						},
+						success: function(res) {
+							if (res.code == 0) {
+								_self.$toast("部长转让成功");
+								_self.Refresh();
+								setTimeout(function(){
+									_self.transferMinisterSuccess();
+								},500)
+							} else {
+								_self.$toast(res.msg);
+							}
+						},
+						error: function() {
+							console.log("error")
+						}
+					})
+				},
+				//转让成功后退出到主页
+				transferMinisterSuccess(){
+					var _self=this;
+					if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) { //判断iPhone|iPad|iPod|iOS
+						try {
+							window.webkit.messageHandlers.lstNative.postMessage({
+								'method': 'clubTransferMinister',
+							})
+						} catch (err) {
+							console.log('window.webkit.messageHandlers 回传Id failed')
+						}
+					
+					} else if (/(Android)/i.test(navigator.userAgent)) { //判断Android
+						window.android.clubTransferMinister();
+					}
+				},
+				//任务的成员列表查看加入情况
+				taskMemberList(){
+					var _self = this;
+					ajax({
+						type: "post",
+						url: "club/taskMemberList",
+						data: {
+							taskId: _self.taskId,
+						},
+						success: function(res) {
+							if (res.code == 0) {
+								_self.memberList = res.data;
+							} else {
+								_self.$toast(res.msg);
+							}
+						},
+						error: function() {
+							console.log("error")
+						}
+					})
+				},
+				//添加关注
+				addFans(item){
+					var _self = this;
+					ajax({
+						type: "post",
+						url: "community-core/interest/add",
+						data: {
+							targetId: item.memberId,
+						},
+						success: function(res) {
+							if (res.code == 0) {
+								_self.memberManage();
+							} else {
+								_self.$toast(res.msg);
+							}
+						},
+						error: function() {
+							console.log("error")
+						}
+					})
+				}
+				
+			}
+		})
+	</script>
+</html>

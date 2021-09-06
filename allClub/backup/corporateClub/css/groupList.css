@@ -1,0 +1,38 @@
+#app {
+	background-color: #f5f5f5;
+}
+
+.cardList {
+	padding: .2rem .3rem;
+	font-size: .32rem;
+}
+
+.cardList>li {
+	background-color: #fff;
+	border-radius: .2rem;
+	margin-bottom: .2rem;
+}
+
+.cardList>li>div {
+	height: 1.2rem;
+}
+
+.cardList>li .van-ellipsis {
+	font-size: .28rem;
+	max-width: 4rem;
+}
+
+.cardList>li .headpic {
+	width: .72rem;
+	height: .72rem;
+	border-radius: .1rem;
+}
+
+.cardList>li>div {
+	border-bottom: .02rem solid #f5f5f5;
+	padding: .4rem .3rem;
+}
+
+.cropper-container {
+	display: none;
+}

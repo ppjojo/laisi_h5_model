@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+		<title>我的记录</title>
+		<!-- 引入样式文件 -->
+		<link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
+		<link rel="stylesheet" href="../common/css/basic.css">
+		<link rel="stylesheet" href="css/normal.css">
+		<link rel="stylesheet" href="css/myrecord.css">
+		<link rel="stylesheet" href="css/balancedetail.css">
+		<!-- <script src="https://cdn.bootcss.com/vConsole/3.3.4/vconsole.min.js"></script>
+				<script>
+					// init vConsole
+				        var vConsole = new VConsole();
+				        console.log('Hello world');
+				    </script> -->
+		<style type="text/css">
+			.wallet .detail span{
+				font-size: .2rem;
+				color: #CFCFD2;
+			}
+			#recordbox .detail{
+				font-size: .36rem;
+			}
+			#recordbox{
+				padding: 0;
+			}
+			#app>.header,.van-nav-bar,.monkey-pull-refresh,.DBnotice{
+				background-color: #12121F;
+			}
+			.van-nav-bar .van-icon,.van-nav-bar__title,.van-list__error-text, .van-list__finished-text{
+				color:#CFCFD2;
+			}
+			.van-list__finished-text{
+				color:#71717f;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="app" :style="{paddingTop:isIOS?'.15rem':'.92rem'}" v-cloak>
+			<div class="header">
+				<van-nav-bar title="我的钱包" @click-left="OnclickLeft" @click-right="onClickRight" left-arrow>
+					<template #right>
+						<!-- <div>余额明细</div> -->
+					</template>
+				</van-nav-bar>
+			</div>
+			<!-- 钱包 -->
+			<div class="wallet ub ub-ac ub-pj">
+				<div>
+					<div class="detail">我的余额 <span class="">注:我的余额为全部活动余额</span> </div>
+					<div class="detail2 cfF24023">{{allPrice}}</div>
+				</div>
+				<div class="pinkBtn" :style="{background:dataList.length>0?'':'#999'}" @click="withdrawal">提现</div>
+			</div>
+			<!-- 记录 -->
+			<div id="recordbox">
+				<div class="ub ub-ac ub-pj" style="background-color: #12121F;padding-bottom: .32rem;border-bottom: .02rem solid #1E1E2A;" v-if="dataList.length>0">
+					<div class="detail">全部余额明细</div>
+				</div>
+				<van-pull-refresh v-model="isLoading" :head-height="90" @refresh="initIndexData" class="monkey-pull-refresh" style="min-height:calc( 100vh - 5.3rem );">
+					<template #pulling="props">
+						<div class="monkeyBox">
+							<img class="monkey" src="../common/img/monkey.gif" />
+							<p>下拉刷新</p>
+						</div>
+					</template>
+					<!-- 释放提示 -->
+					<template #loosing>
+						<div class="monkeyBox">
+							<img class="monkey" src="../common/img/monkey.gif" />
+							<p>释放刷新</p>
+						</div>
+					</template>
+				
+					<!-- 加载提示 -->
+					<template #loading>
+						<div class="monkeyBox">
+							<img class="monkey" src="../common/img/monkey.gif" />
+							<p>正在刷新</p>
+						</div>
+					</template>
+					<van-list v-model="loading" :finished="finished" @load="onLoad" :immediate-check=false :finished-text="dataList.length>0?'已加载全部明细记录哦～':''">
+						<ul class="list_ul" v-for="item in dataList">
+							<li class="">
+								<div class="ub ub-ac ub-pj">
+									<div class="title1">{{item.trade_describe||""}}</div>
+									<div class="detail1">{{ item.total_amount<0?'':item.total_amount==0?'-':'+' }}{{ (item.total_amount/100).toFixed(2) }}</div>
+								</div>
+								<div class="ub ub-ac ub-pj">
+									<div class="title2">{{DateTime.timeStamp2String('ymdhms',item.create_time)}}</div>
+									<div class="title2">余额:{{(item.remain_amount/100).toFixed(2)}}</div>
+								</div>
+							</li>
+						</ul>
+					</van-list>
+					<div class="noData-box" v-if="dataList.length==0&&!loading">
+						<img class="noData-img" src="../common/img/noData.png" />
+						<p class="noData-p">还没有任何明细记录哦～</p>
+					</div>
+				</van-pull-refresh>
+
+			</div>
+		</div>
+	</body>
+	<script src="https://oss.laisitech.com/0bb12bf1-cb87-4d2c-a724-8a7c25b7ae04.js "></script>
+<script src="https://oss.laisitech.com/6172e6c1-f460-40ac-97ba-31c8526f2e16.js"></script>
+	<script src="../common/js/network.js"></script>
+	<script src="js/tool.js"></script>
+	<script>
+		window.addEventListener('pageshow', function(event) {
+			console.log("PageShow Event  " + event.persisted);
+			console.log(event)
+			if (isIOS) {
+				window.showAccountMoney();
+				window.initIndexData();
+			}
+			
+		})
+		new Vue({
+			el: '#app',
+			data() {
+				return {
+					isLoading: false,
+					loading: false,
+					finished: false,
+					dataList: [],
+					page: 0,
+					pageSize: 15,
+					allPrice:0,
+				}
+			},
+			filters: {},
+			mounted() {
+				window.showAccountMoney = this.showAccountMoney;
+				window.initIndexData = this.initIndexData;
+			},
+			created() {
+				this.initData();
+				this.showAccountMoney();
+			},
+			methods: {
+				initData() {
+					this.loading = true;
+					var _self = this;
+					let nowPage = _self.page;
+					ajax({
+						type: "get",
+						url: "ropeRedPackage/userTradeStatement/userTradeStatement",
+						data: {
+							page: nowPage,
+							pageSize: _self.pageSize,
+							dsd:new Date().getTime()
+						},
+						success: function(res) {
+							_self.loading = false;
+							if (res.code == 0) {
+								if (nowPage == 0) {
+									_self.dataList = [];
+									_self.dataList = res.data.data;
+								} else {
+									_self.dataList = _self.dataList.concat(res.data.data);
+								}
+								if ((nowPage + 1) * _self.pageSize >= res.data.count) {
+									_self.finished = true;
+								}
+							} else {
+								_self.$toast(res.msg);
+							}
+						},
+						error: function() {
+							_self.loading = false;
+							console.log("error")
+						}
+					})
+				},
+				initIndexData() {
+					// 清空列表数据
+					this.finished = false;
+					// 重新加载数据
+					// 将 loading 设置为 true，表示处于加载状态
+					this.loading = true;
+					this.isLoading = true;
+					this.onLoad();
+				},
+				onLoad() {
+					console.log(this.isLoading)
+					if (this.isLoading) {
+						this.isLoading = false;
+						this.page = 0;
+					} else {
+						this.page++;
+					}
+					this.initData()
+					this.loading = false;
+				},
+				showAccountMoney() { //获取余额
+					var _self = this;
+					ajax({
+						type: "get",
+						url: "ropeRedPackage/userAmount/userAmount",
+						data: {dsd:new Date().getTime()},
+						success: function(res) {
+							if (res.code == 0) {
+								_self.allPrice = res.data ? (res.data.totalAmount / 100).toFixed(2) : 0;
+							} else {
+								_self.$toast(res.msg);
+							}
+						},
+						error: function() {
+							console.log("error")
+						}
+					})
+				},
+				OnclickLeft() {
+					if(getQueryString('type')=='both'){
+						Interaction.closePage()
+					}else{
+						window.history.back(-1);
+						if(isAndroid)Interaction.closePage()
+					}
+				},
+				onClickRight() { //余额明细
+					window.location.href = './balancedetail.html'
+				},
+				withdrawal() {
+					window.location.href = './withdrawal.html'
+
+				}
+			}
+		})
+	</script>
+
+</html>

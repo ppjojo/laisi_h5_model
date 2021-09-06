@@ -1,0 +1,1371 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,
+			maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+    <title>俱乐部主页</title>
+    <!-- 引入样式文件 -->
+    <link rel="stylesheet" href="../../common/css/vant-rem-2122.css">
+    <link rel="stylesheet" href="../../common/css/basic.css">
+    <link href="css/clubIndex.css" rel="stylesheet" type="text/css" />
+    <link href="../club/css/corporateCompetion.css" rel="stylesheet" type="text/css" />
+
+    <!-- <script src="https://cdn.bootcss.com/vConsole/3.3.4/vconsole.min.js"></script>
+    <script>
+        var vConsole = new VConsole();
+    </script> -->
+    <style type="text/css">
+		.taskDiv .van-ellipsis{
+			max-width: 3.5rem;
+		}
+		.corporate .deptList .deptInfoBox .deptPic div{
+			border-radius: 50%;
+			width: .6rem;
+			height: .6rem;
+			background-size: cover;
+			background-position: center;
+		}
+    </style>
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <div class="header">
+            <div class="blackbg"></div>
+            <img class="bannerBg" :src='clubObject.photo' alt="">
+            <div class="infoBox">
+                <div class="clubPic" :style="{'backgroundImage':'url('+clubObject.photo+')'}"></div>
+                <div class="clubDescript">
+                    <div class="clubName">{{clubObject.name}}</div>
+                    <div class="clubId">俱乐部ID：<span id="INcode">{{clubObject.id}}</span> <img v-if="clubObject.self"
+                            @click="copyInvite" src="../corporateClub/img/copyicon_white.png" alt=""></div>
+                    <div class="clubDate">成立：{{renderTime(clubObject.createTime)}}</div>
+                    <div class="clubAddress">城市：{{(clubObject.city||'')+"·"+(clubObject.county||'')}}</div>
+                    <div class="clubLabel">{{clubObject.label=="00"?"跳绳":"其他"}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="containBox" v-if="clubObject.self">
+            <div class="noticeBox" @click="goNotice(clubObject.notice)">
+                <div class="noticeBoxLeft">
+                    <img class="iconNotice" src="img/iconNotice.png" alt="">
+                    <span class="noticeContent">{{clubObject.notice.title||""}}</span>
+                </div>
+                <img class="iconRight" src="img/iconRight.png" alt="">
+            </div>
+            <div class="memberBox">
+                <div class="title">成员</div>
+                <div class="memberListDiv">
+                    <div class="memberPersonPic">
+                        <img :src="item.headPictureUrl" v-for="(item ,index) in
+								clubObject.memberList" :style="{left:''+index*0.5+'rem'}">
+                    </div>
+                    <div class="memberPersonNum" @click="goMemberlist()">
+                        <div class="numP">{{clubObject.memberNumber||0}}人</div>
+                        <img class="iconRight" src="img/iconRight.png" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="tabBox">
+                <van-tabs v-model:active="activeTab" sticky title-active-color="#1F1F1F" @change="tabChange" swipeable
+                    color="#1F1F1F">
+                    <van-tab title="今日运动" class="todaySport">
+                        <div class="todayBox" v-if="today.list.length>0&&clubObject.type!='05'">
+                            <van-list v-model:loading="today.loading" :finished="today.finished" finished-text="没有更多了"
+                                @load="getTodaySport">
+                                <van-row class="memberSport" v-for="item in today.list">
+                                    <van-col span="3" class=""
+                                        @click="Interaction.visitPersonalHomepage(item.memberId)">
+                                        <img class="headerPic" :src="item.headPictureUrl" alt="">
+                                    </van-col>
+                                    <van-col span="7" class="nickName"
+                                        @click="Interaction.visitPersonalHomepage(item.memberId)">
+                                        {{item.nickname}}
+                                    </van-col>
+                                    <van-col span="6" class="flexBox">
+                                        <span class="boldNum">{{item.ropeNum}}</span>
+                                        <span class="descript">个</span>
+                                    </van-col>
+                                    <van-col span="8" class="flexBox">
+                                        <span class="boldNum">{{timestamp2HMS(item.duraMs/1000,"h")}}</span><span
+                                            class="descript">小时</span>
+                                        <span class="boldNum">{{timestamp2HMS(item.duraMs/1000,"m")}}</span>
+                                        <span class="descript">分</span>
+                                        <span class="boldNum">{{timestamp2HMS(item.duraMs/1000,"s")}}</span><span
+                                            class="descript">秒</span>
+                                    </van-col>
+                                </van-row>
+                            </van-list>
+                        </div>
+                        <div v-else-if="today.list.length>0&&clubObject.type=='05'" class="corporate"
+                            style="background-color: #fff;margin-bottom:0;">
+                            <van-row v-for="item in today.list" class="deptList" @click="gotoDeptSportDetail(item)">
+                                <van-col span="16" class="deptInfoBox">
+                                    <div class="deptPic">
+										<div :style="{'background-image':'url('+(item.image||'../corporateClub/img/notgroup.png')+')'}"> </div>
+                                        <!-- <img :src="item.image||'../corporateClub/img/notgroup.png'" alt=""> -->
+                                    </div>
+                                    <div class="deptD">
+                                        <div class="name">
+                                            {{item.name||"未分部部门"}}
+                                        </div>
+                                        <div class="userInfo">
+                                            <span><span v-if="item.id!='-1'">分部长：<span>{{item.subMinisterName | ellipsis4}}</span></span></span>
+                                            <span>成员：{{item.totalNumber||0}}人</span>
+                                        </div>
+                                    </div>
+                                </van-col>
+                                <van-col span="7" class="scoreBox">
+                                    <div class="numBox">
+                                        <span class="num">{{item.totalRopeSkipping||0}}</span>
+                                        <!-- <span class="unit"></span>	 -->
+                                    </div>
+                                    <div class="numD">
+                                        共完成(个)
+                                    </div>
+                                </van-col>
+                                <van-col span="1" class="iconBox">
+                                    <van-icon name="arrow" size="0.3rem" />
+                                </van-col>
+                            </van-row>
+                        </div>
+                        <div v-else class="nullDataBox">
+                            <img src="../../common/img/noData.png" alt="">
+                            <p>今日运动暂无数据</p>
+                        </div>
+
+                        <div class="historyBox">
+                            <van-collapse v-model="historyActive" accordion :change="historyDataChange()">
+                                <van-collapse-item v-for="(item ,index) in pastSportData" :title="item.date"
+                                    :name="index+1" :value="item.sportNum+'人'" :border="false">
+
+                                    <div class="todayBox" v-if="item.list.length>0&&clubObject.type!='05'">
+                                        <van-list v-model:loading="item.loading" :finished="item.finished"
+                                            finished-text="没有更多了" @load="getHistorySport(item)">
+                                            <van-row class="memberSport" v-for="sitem in item.list">
+                                                <van-col span="3" class=""
+                                                    @click="Interaction.visitPersonalHomepage(sitem.memberId)">
+                                                    <img class="headerPic" :src="sitem.headPictureUrl" alt="">
+                                                </van-col>
+                                                <van-col span="7" class="nickName"
+                                                    @click="Interaction.visitPersonalHomepage(sitem.memberId)">
+                                                    {{sitem.nickname}}
+                                                </van-col>
+                                                <van-col span="6" class="flexBox">
+                                                    <span class="boldNum">{{sitem.ropeNum}}</span>
+                                                    <span class="descript">个</span>
+                                                </van-col>
+                                                <van-col span="8" class="flexBox">
+                                                    <span
+                                                        class="boldNum">{{timestamp2HMS(sitem.duraMs/1000,"h")}}</span><span
+                                                        class="descript">小时</span>
+                                                    <span
+                                                        class="boldNum">{{timestamp2HMS(sitem.duraMs/1000,"m")}}</span>
+                                                    <span class="descript">分</span>
+                                                    <span
+                                                        class="boldNum">{{timestamp2HMS(sitem.duraMs/1000,"s")}}</span><span
+                                                        class="descript">秒</span>
+                                                </van-col>
+                                            </van-row>
+                                        </van-list>
+                                    </div>
+                                    <div v-else-if="item.list.length>0&&clubObject.type=='05'" class="corporate"
+                                        style="background-color: #fff;margin-bottom:0;">
+                                        <van-row v-for="sitem in item.list" class="deptList"
+                                            @click="gotoDeptSportDetail(sitem,item.date)">
+                                            <van-col span="16" class="deptInfoBox">
+                                                <div class="deptPic">
+                                                    <img :src="sitem.image||'../corporateClub/img/notgroup.png'" alt="">
+                                                </div>
+                                                <div class="deptD">
+                                                    <div class="name">
+                                                        {{sitem.name||"未分部部门"}}
+                                                    </div>
+                                                    <div class="userInfo">
+                                                        <span><span v-if="sitem.id!='-1'">分部长：<span>{{sitem.subMinisterName | ellipsis4}}</span></span></span>
+                                                        <span>成员：{{sitem.totalNumber||0}}人</span>
+                                                    </div>
+                                                </div>
+                                            </van-col>
+                                            <van-col span="7" class="scoreBox">
+                                                <div class="numBox">
+                                                    <span class="num">{{sitem.totalRopeSkipping||0}}</span>
+                                                    <!-- <span class="unit"></span>	 -->
+                                                </div>
+                                                <div class="numD">
+                                                    共完成(个)
+                                                </div>
+                                            </van-col>
+                                            <van-col span="1" class="iconBox">
+                                                <van-icon name="arrow" size="0.3rem" />
+                                            </van-col>
+                                        </van-row>
+                                    </div>
+                                    <div v-else class="nullDataBox">
+                                        <img src="../../common/img/noData.png" alt="">
+                                    </div>
+
+
+                                </van-collapse-item>
+                            </van-collapse>
+                        </div>
+                    </van-tab>
+                    <van-tab title="任务" class="task">
+                        <div v-if="clubObject.type=='05'">
+                            <div class="taskBox">
+                                <div class="taskDiv" v-if="taskObject.join.list.length>0" style="max-height: 5rem;">
+                                    <van-list v-model:loading="taskObject.join.loading"
+                                        :finished="taskObject.join.finished" @load="getTask()">
+                                        <div class="taskList" v-for="item in taskObject.join.list"
+                                            @click="gotoTask(item)">
+                                            <div class="taskName">
+                                                <span class="label">
+                                                    {{item.period=='00'?'日':item.period=='01'?'周':item.period=='02'?'月':""}}
+                                                </span>
+                                                <span>
+                                                    {{item.assignType=='01'?'全员参加:':item.assignType=='02'?'指定成员参加:':item.assignType=='03'?'指定部门参加:':""}}
+                                                </span>
+                                                <span class="van-ellipsis" v-if="item.period=='00'"> {{item.name}}</span>
+
+                                                <span class="van-ellipsis" v-if="item.period!='00'">
+                                                    ({{ timestampTodate(item.taskStartTime,"M/D")+'-'+timestampTodate(item.taskEndTime,"M/D")}})
+                                                </span>
+
+
+                                            </div>
+                                            <div class="taskPeopleNum">
+                                                <span v-if="item.isDone=='N'">正在进行</span>
+                                                <span v-else>{{item.doneTaskNum}}人完成</span>
+                                                <img src="img/iconRight.png" class="iconRight" alt="">
+                                            </div>
+                                        </div>
+                                    </van-list>
+                                </div>
+                                <div class="taskDiv" v-else-if="taskObject.unJoin.list.length>0"
+                                    style="max-height: 5rem;">
+                                    <van-list v-model:loading="taskObject.unJoin.loading"
+                                        :finished="taskObject.unJoin.finished" @load="getTask()">
+                                        <div class="taskList" v-for="item in taskObject.unJoin.list"
+                                            @click="gotoTask(item)">
+                                            <div class="taskName">
+                                                <span class="label">
+                                                    {{item.period=='00'?'日':item.period=='01'?'周':item.period=='02'?'月':""}}
+                                                </span>
+                                                <span>
+                                                    {{item.assignType=='01'?'全员参加:':item.assignType=='02'?'指定成员参加:':item.assignType=='03'?'指定部门参加:':""}}
+                                                </span>
+                                                <span class="van-ellipsis" v-if="item.period=='00'"> {{item.name}}</span>
+
+                                                <span class="van-ellipsis" v-if="item.period!='00'">
+                                                    ({{ timestampTodate(item.taskStartTime,"M/D")+'-'+timestampTodate(item.taskEndTime,"M/D")}})
+                                                </span>
+
+
+                                            </div>
+                                            <div class="taskPeopleNum">
+                                                <span>未开始</span>
+                                                <img src="img/iconRight.png" class="iconRight" alt="">
+                                            </div>
+                                        </div>
+                                    </van-list>
+                                </div>
+                                <div v-else class="nullDataBox">
+                                    <img src="../../common/img/noData.png" alt="">
+                                </div>
+                            </div>
+                        </div>
+                        <div v-else>
+                            <div class="taskBox">
+                                <div class="title">我的任务</div>
+                                <div class="taskDiv" v-if="taskObject.join.list.length>0">
+                                    <van-list v-model:loading="taskObject.join.loading"
+                                        :finished="taskObject.join.finished" @load="getTask()">
+                                        <div class="taskList" v-for="item in taskObject.join.list"
+                                            @click="gotoTask(item)">
+                                            <div class="taskName">{{item.name}}</div>
+                                            <div class="taskPeopleNum">
+                                                {{item.doneTaskNum}}人完成
+                                                <img src="img/iconRight.png" class="iconRight" alt="">
+                                            </div>
+                                        </div>
+                                    </van-list>
+                                </div>
+                                <div v-else class="nullDataBox">
+                                    <img src="../../common/img/noData.png" alt="">
+                                </div>
+                            </div>
+                            <div class="taskBox">
+                                <div class="title">未参加</div>
+                                <div class="taskDiv" v-if="taskObject.unJoin.list.length>0">
+                                    <van-list v-model:loading="taskObject.unJoin.loading"
+                                        :finished="taskObject.unJoin.finished" @load="getnotJoinTask()">
+                                        <div class="taskList" v-for="item in taskObject.unJoin.list"
+                                            @click="gotoTask(item)">
+                                            <div class="taskName">{{item.name}}</div>
+                                            <div class="taskPeopleNum">
+                                                {{item.doneTaskNum}}人完成
+                                                <img src="img/iconRight.png" class="iconRight" alt="">
+                                            </div>
+                                        </div>
+                                    </van-list>
+                                </div>
+                                <div v-else class="nullDataBox">
+                                    <img src="../../common/img/noData.png" alt="">
+                                </div>
+                            </div>
+                        </div>
+
+                    </van-tab>
+                    <van-tab title="线上赛" class="competition">
+                        <div class="taskBox">
+                            <div class="title">已报名</div>
+                            <div class="taskDiv" v-if="competitionObject.join.list.length>0">
+                                <van-list v-model:loading="competitionObject.join.loading"
+                                    :finished="competitionObject.join.finished" @load="getCompetition()">
+                                    <div class="taskList" v-for="item in competitionObject.join.list"
+                                        @click="gotoCompetition(item)">
+                                        <div class="taskName">{{item.name}}</div>
+                                        <div class="taskPeopleNum">
+                                            <p>{{item.repeatNumber == 0?"未跳绳":item.endTime>nowTime?"进行中":('比赛排名'+item.rank)}}
+                                                <span v-if="item.repeatNumber == 0" class="redcircle"></span>
+                                            </p>
+                                            <img src="img/iconRight.png" class="iconRight" alt="">
+                                        </div>
+                                    </div>
+                                </van-list>
+                            </div>
+                            <div v-else class="nullDataBox">
+                                <img src="../../common/img/noData.png" alt="">
+                            </div>
+                        </div>
+                        <div class="taskBox">
+                            <div class="title">未报名</div>
+                            <div class="taskDiv" v-if="competitionObject.unJoin.list.length>0">
+                                <van-list v-model:loading="competitionObject.unJoin.loading"
+                                    :finished="competitionObject.unJoin.finished" @load="getnotJoinCompetition()">
+                                    <div class="taskList" v-for="item in competitionObject.unJoin.list"
+                                        @click="gotoCompetition(item)">
+                                        <div class="taskName">{{item.name}}</div>
+                                        <div class="taskPeopleNum">
+                                            {{item.registerCount||0}}人参赛
+                                            <img src="img/iconRight.png" class="iconRight" alt="">
+                                        </div>
+                                    </div>
+                                </van-list>
+                            </div>
+                            <div v-else class="nullDataBox">
+                                <img src="../../common/img/noData.png" alt="">
+                            </div>
+                        </div>
+                    </van-tab>
+                    <van-tab title="活动" class="activity" v-if="clubObject.type!='05'">
+                        <div class="taskBox">
+                            <div class="title">已报名</div>
+                            <div class="taskDiv" v-if="activityObject.join.list.length>0">
+                                <van-list v-model:loading="activityObject.join.loading"
+                                    :finished="activityObject.join.finished" @load="getActivity()">
+                                    <div class="taskList" v-for="item in activityObject.join.list"
+                                        @click="gotoactivity(item,1)">
+                                        <div class="taskName">{{item.title}}</div>
+                                        <div class="taskPeopleNum">
+                                            {{item.attendCount}}人报名
+                                            <img src="img/iconRight.png" class="iconRight" alt="">
+                                        </div>
+                                    </div>
+                                </van-list>
+                            </div>
+                            <div v-else class="nullDataBox">
+                                <img src="../../common/img/noData.png" alt="">
+                            </div>
+                        </div>
+                        <div class="taskBox">
+                            <div class="title">未报名</div>
+                            <div class="taskDiv" v-if="activityObject.unJoin.list.length>0">
+                                <van-list v-model:loading="activityObject.unJoin.loading"
+                                    :finished="activityObject.unJoin.finished" @load="getnotJoinActivity()">
+                                    <div class="taskList" v-for="item in activityObject.unJoin.list"
+                                        @click="gotoactivity(item,0)">
+                                        <div class="taskName">{{item.title}}</div>
+                                        <div class="taskPeopleNum">
+                                            {{item.attendCount}}人报名
+                                            <img src="img/iconRight.png" class="iconRight" alt="">
+                                        </div>
+                                    </div>
+                                </van-list>
+                            </div>
+                            <div v-else class="nullDataBox">
+                                <img src="../../common/img/noData.png" alt="">
+                            </div>
+                        </div>
+                    </van-tab>
+                </van-tabs>
+            </div>
+
+            <div class="addBtn" v-if="activeTab!=0&&isMinister=='Y'">
+                <img src="img/iconAdd.png" @click="goAddEvent" alt="">
+            </div>
+
+        </div>
+        <div class="containBox2" v-else>
+            <div style="height: 1rem; margin-bottom: 0.2rem;">
+                <div class="memberBox">
+                    <div class="title">成员</div>
+                    <div class="memberListDiv" @click="goMemberlist()">
+                        <div class="memberPersonPic">
+                            <img :src="item.headPictureUrl" v-for="(item
+                                    ,index) in
+                                    clubObject.memberList" :style="{left:''+index*0.5+'rem'}">
+                        </div>
+                        <div class="memberPersonNum">
+                            <div class="numP">{{clubObject.memberNumber||0}}人</div>
+                            <img class="iconRight" src="img/iconRight.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="introduceBox">
+                <div class="titleBox">俱乐部简介</div>
+                <div class="clubDescript">
+                    {{clubObject.introduce}}
+                </div>
+            </div>
+
+            <div class="detailBox">
+                <div class="titleBox">今日运动数据</div>
+                <div class="clubDataBox">
+                    <div class="totalSkipBox">
+                        <div class="num">{{clubObject.ropeTotalNum||0}}</div>
+                        <div class="txt">跳绳总个数</div>
+                    </div>
+                    <div class="totalSkipBox">
+                        <div class="num">{{clubObject.totalJumps||0}}
+                            <span class="smallNum">/{{clubObject.memberNumber||0}}</span>
+                        </div>
+                        <div class="txt">活跃成员</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="btn_box">
+                <div v-if="getQueryString('isShare')">
+                    <a :href="linkUrl">
+                        <p id="joinBtn" class="addClubBtn" @click="joinClubReq(0)">立即加入</p>
+                    </a>
+                </div>
+                <div v-else-if="clubObject.type!='05'">
+                    <p id="joinBtn" class="addClubBtn" v-if="clubObject.isPublic=='Y'" @click="joinClubReq(0)">立即加入</p>
+
+                    <p id="applyJoinBtn" class="addClubBtn" v-else @click="joinClubReq(1)">申请加入</p>
+                </div>
+                <div v-else-if="clubObject.type=='05'">
+                    <p id="joinBtn" class="addClubBtn" v-if="clubObject.isInviteCode=='Y'" @click="reqShow=true">立即加入
+                    </p>
+
+                    <p id="applyJoinBtn" class="addClubBtn" v-if="clubObject.isInviteCode=='N'" @click="joinClubReq(1)">
+                        申请加入</p>
+                </div>
+
+            </div>
+        </div>
+        <van-dialog v-model="reqShow" confirm-button-text="加入" confirm-button-color="#007AFF" title="申请加入"
+            show-cancel-button @confirm="joinClubReq(3)">
+            <van-field v-model="reqNum" placeholder="请输入邀请码" style="margin: 0.2rem 0;"></van-field>
+        </van-dialog>
+
+
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vant@2.12.2/lib/vant.min.js"></script>
+<script src="../../common/js/network.js"></script>
+<script>
+    window.addEventListener('pageshow', function (e) {
+        var dataChangeVar = localStorage.getItem('dataChange')
+        localStorage.removeItem('dataChange');
+        if (dataChangeVar == 'tabDetailChange') {
+            try {
+                refreshDetailData()
+            } catch (e) {
+                console.log(e)
+            }
+        }
+    }, false)
+
+    function renderTime(utc_datetime) {
+        if (!utc_datetime) return
+        var T_pos = utc_datetime.indexOf('T');
+        var Z_pos = utc_datetime.indexOf('.');
+        var year_month_day = utc_datetime.substr(0, T_pos);
+        var hour_minute_second = utc_datetime.substr(T_pos + 1, Z_pos - T_pos - 1);
+        var new_datetime = year_month_day + " " + hour_minute_second; // 2017-03-31 08:02:06
+        // 处理成为时间戳
+        var timestamp = getTime(new_datetime);
+        // 增加8个小时，北京时间比utc时间多八个时区
+        var timestamp = timestamp + 8 * 60 * 60 * 1000;
+        // 时间戳转为时间
+        var beijing_datetime = timestampTodate(timestamp);
+        return beijing_datetime;
+    }
+
+    function getTime(time) {
+        var myDate = new Date(time);
+        var u = navigator.userAgent;
+        if (isIOS) {
+            var t = new Date(time.replace(/-/g, '/')).getTime();
+        } else {
+            var t = myDate.getTime();
+        }
+        return t;
+    }
+
+    function timestampTodate(date, type) {
+        if (date) {
+            var newdate = new Date(date)
+            var year = newdate.getFullYear();
+            var day = newdate.getDate() < 10 ? '0' + newdate.getDate() : newdate.getDate();
+            var month = newdate.getMonth() + 1 < 10 ? '0' + (newdate.getMonth() + 1) : newdate.getMonth() + 1;
+
+            if (type == '-') {
+                return year + '-' + month + '-' + day;
+            } else if (type == 'M/D') {
+                return newdate.getMonth() + 1 + '月' + newdate.getDate() + '日';
+            } else {
+                return year + '/' + month + '/' + day;
+            }
+
+        }
+    }
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                clubId: getQueryString('id') || "",
+                clubObject: {
+                    notice: {},
+                    memberList: {},
+                    self: {}
+                },
+                nowTime: new Date().getTime(),
+                isMinister: "",
+                activeTab: 0,
+                today: {
+                    loading: false,
+                    finished: false,
+                    list: [],
+                    page: 1,
+                    pageSize: 20,
+                },
+                pastSportData: [],
+                historyActive: [0],
+                lasthistoryActive: 0,
+                taskObject: {
+                    join: {
+                        loading: false,
+                        finished: false,
+                        list: [],
+                        page: 1,
+                        pageSize: 20,
+                    },
+                    unJoin: {
+                        loading: false,
+                        finished: false,
+                        list: [],
+                        page: 1,
+                        pageSize: 20,
+                    }
+                },
+                competitionObject: {
+                    join: {
+                        loading: false,
+                        finished: false,
+                        list: [],
+                        page: 1,
+                        pageSize: 20,
+                    },
+                    unJoin: {
+                        loading: false,
+                        finished: false,
+                        list: [],
+                        page: 1,
+                        pageSize: 20,
+                    },
+
+                },
+                activityObject: {
+                    join: {
+                        loading: false,
+                        finished: false,
+                        list: [],
+                        page: 1,
+                        pageSize: 20,
+                    },
+                    unJoin: {
+                        loading: false,
+                        finished: false,
+                        list: [],
+                        page: 1,
+                        pageSize: 20,
+                    }
+                },
+                linkUrl: "",
+                reqShow: false,
+                reqNum: "",
+            }
+        },
+        filters: {
+            ellipsis4(value) {
+                if (!value) return '';
+                if (value.length > 4) {
+                    return value.slice(0, 4) + '...';
+                }
+                return value;
+            }
+        },
+        computed: {
+            timestamp2HMS: function () {
+                return function (timestamp, type) {
+                    //timestamp 是秒
+                    var h = parseInt(timestamp / 3600)
+                    var m = parseInt((timestamp - h * 3600) / 60)
+                    var s = timestamp - h * 3600 - m * 60
+                    m = m < 10 ? ("0" + m) : m
+                    s = s < 10 ? ("0" + s) : s
+                    if (type == "h") {
+                        return h
+                    } else if (type == "m") {
+                        return m
+                    } else if (type == "s") {
+                        return s
+                    }
+                }
+            }
+        },
+        mounted() {
+            window.refreshDetailData = this.refreshDetailData
+            window.ininPageData = this.refreshDetailData
+
+        },
+        created() {
+            if (!getQueryString("isShare")) {
+                this.addIntegral()
+            }
+
+            this.getClubDetail()
+
+            if (navigator.userAgent.toLowerCase().indexOf('micromessenger') !== -1) { //微信
+                this.linkUrl = "https://a.app.qq.com/o/simple.jsp?pkgname=com.lstech.rehealth"
+                if (isIOS) {
+                    this.linkUrl = "https://lstemp.laisitech.com/?actionType=clubDetail&id=" + this.clubId
+                } else {
+                    this.linkUrl = "rehealth://clubDetail?id=" + this.clubId
+                }
+            } else if (navigator.userAgent.toLowerCase().indexOf('qq') !== -1) { //qq
+                this.linkUrl = "https://a.app.qq.com/o/simple.jsp?pkgname=com.lstech.rehealth"
+                if (isIOS) {
+                    this.linkUrl = "https://lstemp.laisitech.com/?actionType=clubDetail&id=" + this.clubId
+                } else {
+                    this.linkUrl = "rehealth://clubDetail?id=" + this.clubId
+                }
+            } else { //浏览器打开
+                if (isIOS) {
+                    this.linkUrl = "https://lstemp.laisitech.com/?actionType=clubDetail&id=" + this.clubId
+                } else {
+                    this.linkUrl = "rehealth://clubDetail?id=" + this.clubId
+                }
+            }
+        },
+        methods: {
+            refreshDetailData() {
+                if (this.activeTab == 0) {
+                    that.getTodaySport()
+                    that.getPastSportData()
+
+                } else if (this.activeTab == 1) {
+                    //任务
+                    this.taskObject.join.page = 1
+                    this.taskObject.unJoin.page = 1
+                    this.getTask()
+                    this.getnotJoinTask()
+                } else if (this.activeTab == 2) {
+                    //线上赛
+                    this.competitionObject.join.page = 1
+                    this.competitionObject.unJoin.page = 1
+                    this.getCompetition()
+                    this.getnotJoinCompetition()
+                } else if (this.activeTab == 3) {
+                    //活动
+                    this.activityObject.join.page = 1
+                    this.activityObject.unJoin.page = 1
+                    this.getActivity()
+                    this.getnotJoinActivity()
+                }
+            },
+            //浏览俱乐部加积分
+            addIntegral() {
+                ajax({
+                    type: "post",
+                    url: "integral/add/integral",
+                    data: {
+                        actionType: "0503"
+                    },
+                    success: function (res) {
+
+                    }
+                })
+            },
+            //俱乐部信息
+            getClubDetail() {
+                var that = this
+                ajax({
+                    type: "get",
+                    url: "club/clubDetail",
+                    data: {
+                        clubId: that.clubId,
+                    },
+                    success: function (res) {
+                        if (res.code == 0) {
+                            that.clubObject = res.data
+                            that.sendDataToShare()
+                            that.isMinister = getQueryString("isMinister")
+                            if (res.data.self) {
+                                that.getTodaySport()
+                                that.getPastSportData()
+                                that.isMinister = res.data.self.isMinister
+                            }
+                            if (res.data.type == '05') {
+                                localStorage.setItem("isCorporate", 1)
+                            } else {
+                                localStorage.removeItem("isCorporate")
+                            }
+                        }
+                    }
+                })
+            },
+            //跳转通知详情
+            goNotice(noticeInfo) {
+                var relatedId = noticeInfo.relatedId;
+                var userId = JSON.parse(localStorage.getItem("appInfo")).userId
+                if (relatedId) {
+                    var isHistory = noticeInfo.isExpired == 'Y' ? "1" : "0"
+                    if (noticeInfo.type == '00') {
+                        //跳转任务详情
+                        var str =
+                            `id=${relatedId}&userId=${userId}&clubId=${this.clubId}&isHistory=${isHistory}`
+                        if (this.clubObject.type == '05') str += `&isCorporate=1`
+                        if (isIOS) {
+                            window.webkit.messageHandlers.lstNative.postMessage({
+                                'method': 'clubToTaskDetail',
+                                'taskId': relatedId,
+                                "isHistory": isHistory,
+                                "url": "/h5/h5V2/allClub/club/tasksDetail.html?" + str
+                            })
+                        } else {
+                            window.android.clubToTaskDetail(str)
+                        }
+                    } else if (noticeInfo.type == '01') {
+                        //跳转比赛详情
+                        var str =
+                            `id=${relatedId}&userId=${userId}&clubId=${this.clubId}&isHistory=${isHistory}`
+                        if (this.clubObject.type == '05') str += `&isCorporate=1`
+                        if (isIOS) {
+                            window.webkit.messageHandlers.lstNative.postMessage({
+                                'method': 'clubToCompetitionDetail',
+                                'matchId': relatedId,
+                                "isHistory": isHistory,
+                                "url": "/h5/h5V2/allClub/club/clubCompetitionDetail.html?" + str
+                            })
+                        } else {
+                            window.android.clubToCompetitionDetail(str)
+                        }
+                    } else if (noticeInfo.type == '02') {
+                        //跳转活动详情
+                        var str =
+                            `id=${relatedId}&userId=${userId}&clubId=${this.clubId}&isHistory=${isHistory}`
+                        if (this.clubObject.type == '05') str += `&isCorporate=1`
+                        if (isIOS) {
+                            window.webkit.messageHandlers.lstNative.postMessage({
+                                'method': 'clubToActivityDetail',
+                                'activityId': relatedId,
+                                "isHistory": isHistory,
+                                "url": "/h5/h5V2/allClub/club/activityDetail.html?" + str
+                            })
+                        } else {
+                            window.android.clubToActivityDetail(str)
+                        }
+                    }
+                } else {
+                    if (noticeInfo.noticeId) {
+                        //跳转任务、通知详情
+                        if (isIOS) {
+                            var allstr =
+                                `/h5/h5V2/allClub/clubList_Detail/noticeDetail.html?id=${noticeInfo.noticeId}&userId=${userId} `
+                            Interaction.pushToNextVC(allstr)
+                        } else {
+                            var allstr = host +
+                                `h5/h5V2/allClub/clubList_Detail/noticeDetail.html?id=${noticeInfo.noticeId}&userId=${userId}`
+                            Interaction.pushToNextVC(allstr)
+                        }
+                    }
+                }
+            },
+            //跳转成员列表
+            goMemberlist() {
+
+                if (getQueryString('isShare')) {
+                    return
+                }
+                if (this.clubObject.type == '05') {
+                    var str = `h5/h5V2/allClub/corporateClub/groupMember.html?clubId=${this.clubId}&hideTitle=1`
+                    if (this.clubObject.self && this.clubObject.self.isMinister == "Y") {
+                        str += '&fromchoose=8'
+                    } else if (this.clubObject.self && this.clubObject.self.isSubMinister == "Y") {
+                        str += '&fromchoose=8&clubGroupId=' + this.clubObject.self.clubGroupId
+                    } else if (this.clubObject.self) {
+                        str += '&fromchoose=8&clubGroupId=' + this.clubObject.self.clubGroupId
+                    } else {
+                        str += `&fromchoose=-1`
+                    }
+
+                } else {
+                    var str =
+                        `h5/h5V2/allClub/club/memberList.html?id=${this.clubId}&userId=${JSON.parse(localStorage.getItem("appInfo")).userId}&flag=5&hiddenTitle=1`
+                }
+
+                if (isIOS) {
+                    var allstr = "/" + str
+                    Interaction.pushToNextVC(allstr)
+                } else {
+                    var allstr = host + str
+                    Interaction.pushToNextVC(allstr)
+                }
+            },
+            //获取今日跳绳数据
+            getTodaySport() {
+                var that = this
+                var currentPage = that.today.page - 1
+                ajax({
+                    type: "get",
+                    url: "club/todaySport",
+                    data: {
+                        clubId: getQueryString('id'),
+                        page: that.today.page - 1,
+                        pageSize: that.today.pageSize,
+                        date: timestampTodate(new Date(), '-'),
+                    },
+                    success: function (res) {
+                        that.today.loading = false;
+                        if (res.code == 0) {
+                            if (currentPage == 0) {
+                                that.today.list = res.data.sportList || res.data.clubGroupVoList ||
+                                    []
+                            } else {
+                                if (that.clubObject.type == "05") return
+                                that.today.list = that.today.list.concat(res.data.sportList || res
+                                    .data.clubGroupVoList)
+                            }
+                            // that.today.list = that.today.list.filter(item => {
+                            //     return item.id
+                            // })
+                            //当加载的数量大于总数的时候
+                            if (!res.data.totalNum) {
+                                that.today.finished = true;
+                            }
+                            if (currentPage * that.today.pageSize > res.data.totalNum) {
+                                that.today.finished = true;
+                            }
+
+                            that.today.page++
+                        }
+                    }
+                })
+            },
+            historyDataChange() {
+                if (this.lasthistoryActive == this.historyActive || !this.historyActive) return
+                this.getHistorySport(this.pastSportData[this.historyActive - 1])
+                this.lasthistoryActive = this.historyActive
+            },
+            //获取历史跳绳数据
+            getHistorySport(historyObject) {
+                var that = this
+                var currentPage = historyObject.page - 1
+                ajax({
+                    type: "get",
+                    url: "club/todaySport",
+                    data: {
+                        clubId: that.clubId,
+                        page: historyObject.page - 1,
+                        pageSize: historyObject.pageSize,
+                        date: historyObject.date,
+                    },
+                    success: function (res) {
+                        historyObject.loading = false;
+                        if (res.code == 0) {
+                            if (currentPage == 0) {
+                                historyObject.list = res.data.sportList || res.data
+                                    .clubGroupVoList || []
+                            } else {
+                                if (that.clubObject.type == "05") return
+                                historyObject.list = historyObject.list.concat(res.data.sportList ||
+                                    res.data.clubGroupVoList)
+                            }
+                            //当加载的数量大于总数的时候
+                            if (currentPage * historyObject.pageSize > res.data.totalNum) {
+                                historyObject.finished = true;
+                            }
+                            // historyObject.list = historyObject.list.filter(item => {
+                            //     return item.id
+                            // })
+                            historyObject.page++
+                        }
+                    }
+                })
+            },
+            //获取历史数据的日期
+            getPastSportData() {
+                var that = this
+                ajax({
+                    type: "get",
+                    url: "club/pastSportData",
+                    data: {
+                        clubId: getQueryString('id'),
+                    },
+                    success: function (res) {
+                        if (res.code == 0) {
+                            that.pastSportData = res.data
+                            that.pastSportData.forEach(obj => { //对tabs数据预处理
+                                that.$set(obj, 'finished', false);
+                                that.$set(obj, 'loading', true);
+                                that.$set(obj, 'page', 1);
+                                that.$set(obj, 'pageSize', 20);
+                                that.$set(obj, 'list', []);
+                            });
+                        }
+                    }
+                })
+            },
+            // 发布按钮： 发布任务、比赛、活动按钮
+            goAddEvent() {
+                var activeTab = this.activeTab
+                localStorage.removeItem('taskForm');
+                localStorage.removeItem('taskForm2');
+                localStorage.removeItem('activityForm');
+                localStorage.removeItem('competitionForm');
+                localStorage.removeItem('competitionForm2')
+                localStorage.removeItem('chooseGroup')
+                localStorage.removeItem('groupname')
+
+                //给APP回传 
+                if (isIOS) { //判断iPhone|iPad|iPod|iOS
+                    //IOS 调用方法，跳转创建页面
+                    if (activeTab == 1) {
+                        window.webkit.messageHandlers.lstNative.postMessage({
+                            'method': 'clubCreatTask',
+                            "isCorporate": this.clubObject.type == '05' ? 1 : 0
+                        })
+                    } else if (activeTab == 2) {
+                        window.webkit.messageHandlers.lstNative.postMessage({
+                            'method': 'clubCreatCompetition',
+                            "isCorporate": this.clubObject.type == '05' ? 1 : 0
+                        })
+                    } else if (activeTab == 3) {
+                        window.webkit.messageHandlers.lstNative.postMessage({
+                            'method': 'clubCreatActivity',
+                            "isCorporate": this.clubObject.type == '05' ? 1 : 0
+                        })
+                    }
+
+                } else { //判断Android
+                    if (activeTab == 1) {
+                        window.android.clubCreatTask()
+                    } else if (activeTab == 2) {
+                        window.android.clubCreatCompetition()
+                    } else if (activeTab == 3) {
+                        window.android.clubCreatActivity()
+                    }
+                }
+            },
+            //tab的切换
+            tabChange(tabName) {
+                if (tabName == 1) {
+                    //任务
+                    this.taskObject.join.page = 1
+                    this.taskObject.unJoin.page = 1
+                    this.getTask()
+                    this.getnotJoinTask()
+                } else if (tabName == 2) {
+                    //线上赛
+                    this.competitionObject.join.page = 1
+                    this.competitionObject.unJoin.page = 1
+                    this.getCompetition()
+                    this.getnotJoinCompetition()
+                } else if (tabName == 3) {
+                    //活动
+                    this.activityObject.join.page = 1
+                    this.activityObject.unJoin.page = 1
+                    this.getActivity()
+                    this.getnotJoinActivity()
+                }
+            },
+            //获取已参加的任务
+            getTask() {
+                var that = this
+                var currentPage = that.taskObject.join.page
+                ajax({
+                    type: "post",
+                    url: "club/myTask",
+                    data: {
+                        page: that.taskObject.join.page,
+                        pageSize: that.taskObject.join.pageSize,
+                        memberId: JSON.parse(localStorage.getItem("appInfo")).userId,
+                        clubId: getQueryString('id'),
+                    },
+                    success: function (res) {
+                        that.taskObject.join.loading = false;
+                        if (res.code == 0) {
+                            if (currentPage == 1) {
+                                that.taskObject.join.list = res.data.joinTaskList || []
+                            } else {
+                                that.taskObject.join.list = that.taskObject.join.list.concat(res
+                                    .data
+                                    .joinTaskList)
+                            }
+                            //当加载的数量大于总数的时候
+                            if (currentPage * that.taskObject.join.pageSize > res.data.totalNum) {
+                                that.taskObject.join.finished = true;
+                            }
+                            that.taskObject.join.page++
+                        }
+                    }
+                })
+            },
+            //获取未参加的任务
+            getnotJoinTask() {
+                var that = this
+                var currentPage = that.taskObject.unJoin.page
+                ajax({
+                    type: "post",
+                    url: "club/notJoinTask",
+                    data: {
+                        page: that.taskObject.unJoin.page,
+                        pageSize: that.taskObject.unJoin.pageSize,
+                        memberId: JSON.parse(localStorage.getItem("appInfo")).userId,
+                        clubId: getQueryString('id'),
+                    },
+                    success: function (res) {
+                        that.taskObject.unJoin.loading = false;
+                        if (res.code == 0) {
+                            if (currentPage == 1) {
+                                that.taskObject.unJoin.list = res.data.notJoinTaskList || []
+                            } else {
+                                that.taskObject.unJoin.list = that.taskObject.unJoin.list.concat(res
+                                    .data.notJoinTaskList)
+                            }
+                            //当加载的数量大于总数的时候
+                            if (currentPage * that.taskObject.unJoin.pageSize > res.data.totalNum) {
+                                that.taskObject.unJoin.finished = true;
+                            }
+                            that.taskObject.unJoin.page++
+                        }
+                    }
+                })
+            },
+            //获取已参加的比赛
+            getCompetition() {
+                var that = this
+                var currentPage = that.competitionObject.join.page
+                ajax({
+                    type: "post",
+                    url: "club/competition/user/attended",
+                    data: {
+                        page: that.competitionObject.join.page,
+                        pageSize: that.competitionObject.join.pageSize,
+                        memberId: JSON.parse(localStorage.getItem("appInfo")).userId,
+                        clubId: getQueryString('id'),
+                    },
+                    success: function (res) {
+                        that.competitionObject.join.loading = false;
+                        if (res.code == 0) {
+                            if (currentPage == 1) {
+                                that.competitionObject.join.list = res.data.content || []
+                            } else {
+                                that.competitionObject.join.list = that.competitionObject.join.list
+                                    .concat(res.data.content)
+                            }
+                            //当加载的数量大于总数的时候
+                            if (currentPage * that.competitionObject.join.pageSize > res.data
+                                .total) {
+                                that.competitionObject.join.finished = true;
+                            }
+                            that.competitionObject.join.page++
+                        }
+                    }
+                })
+            },
+            //获取未参加的比赛
+            getnotJoinCompetition() {
+                var that = this
+                var currentPage = that.competitionObject.unJoin.page
+                ajax({
+                    type: "post",
+                    url: "club/competition/user/notAttended",
+                    data: {
+                        page: that.competitionObject.unJoin.page,
+                        pageSize: that.competitionObject.unJoin.pageSize,
+                        memberId: JSON.parse(localStorage.getItem("appInfo")).userId,
+                        clubId: getQueryString('id'),
+                    },
+                    success: function (res) {
+                        that.competitionObject.unJoin.loading = false;
+                        if (res.code == 0) {
+                            if (currentPage == 1) {
+                                that.competitionObject.unJoin.list = res.data.content || []
+                            } else {
+                                that.competitionObject.unJoin.list = that.competitionObject.unJoin
+                                    .list
+                                    .concat(res.data.content)
+                            }
+                            //当加载的数量大于总数的时候
+                            if (currentPage * that.competitionObject.unJoin.pageSize > res.data
+                                .total) {
+                                that.competitionObject.unJoin.finished = true;
+                            }
+                            that.competitionObject.unJoin.page++
+                        }
+                    }
+                })
+            },
+            //获取已参加的活动
+            getActivity() {
+                var that = this
+                var currentPage = that.activityObject.join.page
+                ajax({
+                    type: "post",
+                    url: "club/activity/user/attended",
+                    data: {
+                        page: that.activityObject.join.page,
+                        pageSize: that.activityObject.join.pageSize,
+                        memberId: JSON.parse(localStorage.getItem("appInfo")).userId,
+                        clubId: getQueryString('id'),
+                    },
+                    success: function (res) {
+                        that.activityObject.join.loading = false;
+                        if (res.code == 0) {
+                            if (currentPage == 1) {
+                                that.activityObject.join.list = res.data.content || []
+                            } else {
+                                that.activityObject.join.list = that.activityObject.join.list
+                                    .concat(
+                                        res.data.content)
+                            }
+                            //当加载的数量大于总数的时候
+                            if (currentPage * that.activityObject.join.pageSize > res.data.total) {
+                                that.activityObject.join.finished = true;
+                            }
+                            that.activityObject.join.page++
+                        }
+                    }
+                })
+            },
+            //获取未参加的活动
+            getnotJoinActivity() {
+                var that = this
+                var currentPage = that.activityObject.unJoin.page
+                ajax({
+                    type: "post",
+                    url: "club/activity/user/notAttended",
+                    data: {
+                        page: that.activityObject.unJoin.page,
+                        pageSize: that.activityObject.unJoin.pageSize,
+                        memberId: JSON.parse(localStorage.getItem("appInfo")).userId,
+                        clubId: getQueryString('id'),
+                    },
+                    success: function (res) {
+                        that.activityObject.unJoin.loading = false;
+                        if (res.code == 0) {
+                            if (currentPage == 1) {
+                                that.activityObject.unJoin.list = res.data.content || []
+                            } else {
+                                that.activityObject.unJoin.list = that.activityObject.unJoin.list
+                                    .concat(res.data.content)
+                            }
+                            //当加载的数量大于总数的时候
+                            if (currentPage * that.activityObject.unJoin.pageSize > res.data
+                                .total) {
+                                that.activityObject.unJoin.finished = true;
+                            }
+                            that.activityObject.unJoin.page++
+                        }
+                    }
+                })
+            },
+            //跳转任务
+            gotoTask(item) {
+                var str =
+                    `id=${item.taskId}&userId=${JSON.parse(localStorage.getItem("appInfo")).userId}&clubId=${this.clubId}`
+                if (this.clubObject.type == '05') str += `&isCorporate=1`
+                if (isIOS) {
+                    window.webkit.messageHandlers.lstNative.postMessage({
+                        'method': 'clubToTaskDetail',
+                        'taskId': item.taskId,
+                        'url': "/h5/h5V2/allClub/club/tasksDetail.html?" + str
+                    })
+                } else { //判断Android
+                    window.android.clubToTaskDetail(str)
+                }
+            },
+            //跳转比赛
+            gotoCompetition(item) {
+                var str =
+                    `id=${item.id}&userId=${JSON.parse(localStorage.getItem("appInfo")).userId}&clubId=${this.clubId}`
+                if (this.clubObject.type == '05') str += `&isCorporate=1`
+                if (isIOS) {
+                    window.webkit.messageHandlers.lstNative.postMessage({
+                        'method': 'clubToCompetitionDetail',
+                        'matchId': item.id,
+                        'url': "/h5/h5V2/allClub/club/clubCompetitionDetail.html?" + str
+                    })
+                } else {
+                    window.android.clubToCompetitionDetail(str)
+                }
+            },
+            //跳转活动
+            gotoactivity(item, type) {
+                if (type == 1) {
+                    var str =
+                        `id=${item.id}&userId=${JSON.parse(localStorage.getItem("appInfo")).userId}&clubId=${this.clubId}&isAttend=1`
+                } else {
+                    var str =
+                        `id=${item.id}&userId=${JSON.parse(localStorage.getItem("appInfo")).userId}&clubId=${this.clubId}`
+                }
+                if (this.clubObject.type == '05') str += `&isCorporate=1`
+                if (isIOS) {
+                    window.webkit.messageHandlers.lstNative.postMessage({
+                        'method': 'clubToActivityDetail',
+                        'activityId': item.id,
+                        'url': "/h5/h5V2/allClub/club/activityDetail.html?" + str
+                    })
+
+                } else { //判断Android
+                    window.android.clubToActivityDetail(str)
+                }
+            },
+            //跳转部门的运动详情
+            gotoDeptSportDetail(item, date) {
+                if (!date) var date = timestampTodate(new Date(), '-')
+                var str =
+                    `h5/h5V2/allClub/clubList_Detail/deptSportDetail.html?clubId=${this.clubId}&clubGroupId=${item.id}&date=${date}&deptName=${item.name}`
+
+                if (isIOS) {
+                    var allstr = "/" + str
+                    Interaction.pushToNextVC(allstr)
+                } else {
+                    var allstr = host + str
+                    Interaction.pushToNextVC(allstr)
+                }
+
+            },
+            //原生分享前先告诉他们分享的内容
+            sendDataToShare() {
+                var that = this
+                try {
+                    if (isIOS) {
+                        window.webkit.messageHandlers.lstNative.postMessage({
+                            "method": "getShareData",
+                            "shareUrl": "/h5/h5V2/allClub/clubList_Detail/clubDetail.html?id=" +
+                                that.clubObject.id + "&isShare=1",
+                            "shareTitle": that.clubObject.name,
+                            "shareDescribe": that.clubObject.introduce
+                        });
+                    } else if (isAndroid) {
+                        window.android.getShareData(JSON.stringify({
+                            "shareUrl": host +
+                                "h5/h5V2/allClub/clubList_Detail/clubDetail.html?id=" +
+                                that.clubObject.id + "&isShare=1",
+                            "shareTitle": that.clubObject.name,
+                            "shareDescribe": that.clubObject.introduce
+                        }));
+                    }
+                } catch (e) {
+                    console.log(e)
+                }
+            },
+            //加入俱乐部
+            joinClubReq(isApply) {
+
+                var appInfo = JSON.parse(localStorage.getItem("appInfo"));
+                var version = appInfo.appVersion;
+                version = version.split(".");
+                if (isIOS) {
+                    if (parseInt(version[version.length - 1]) < 1167) {
+                        this.$toast("请先升级到最新版本后再加入企业俱乐部");
+                        return
+                    }
+                } else if (isAndroid) {
+                    if (parseInt(version[version.length - 1]) < 1143) {
+                        this.$toast("请先升级到最新版本后再加入企业俱乐部");
+                        return
+                    }
+                }
+                var that = this
+                if (this.isClicked) return
+                this.isClicked = true;
+                var params = {
+                    clubId: getQueryString('id'),
+                    memberId: JSON.parse(localStorage.getItem("appInfo")).userId
+                }
+                if (isApply == 3) {
+                    params.clubGroupId = getQueryString('clubGroupId') || null
+                    params.inviteCode = that.reqNum || ""
+                }
+                ajax({
+                    type: "post",
+                    url: "club/joinClub",
+                    data: params,
+                    success: function (res) {
+                        that.isClicked = false
+                        if (parseInt(res.code) == 0) {
+                            if (isApply == 1) {
+                                that.$toast('您已申请加入, 请等待部长审核')
+                            } else {
+                                that.getClubDetail()
+                            }
+                        } else if (parseInt(res.code) == 3001) {
+                            that.getClubDetail()
+                        } else if (parseInt(res.code) == 4003) {
+                            that.$toast(res.msg + '日后可加入该俱乐部')
+
+                        } else if (parseInt(res.code) == 3002) {
+                            that.$toast('您已申请加入, 请等待部长审核')
+
+                        } else {
+                            that.$toast(res.msg)
+                        }
+                    }
+                })
+            },
+            //复制俱乐部id
+            copyInvite() {
+                if (isAndroid) {
+                    const range = document.createRange();
+                    range.selectNode(document.getElementById('INcode'));
+                    const selection = window.getSelection();
+                    if (selection.rangeCount > 0) selection.removeAllRanges();
+                    selection.addRange(range);
+                    document.execCommand('copy');
+                } else {
+                    Interaction.appNative('clipboardCopy', {
+                        str: this.clubObject.id + ""
+                    });
+                }
+
+                this.$toast('复制成功');
+            },
+        }
+
+    })
+</script>
+
+</html>

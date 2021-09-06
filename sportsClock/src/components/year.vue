@@ -12,7 +12,7 @@
 				<div class=" ub ub-ac">
 					<template v-for="(item,index) in mitem.daylength">
 						<div class="daybox">
-							<dayBox :light="mitem.days.includes(index)"></dayBox>
+							<dayBox :light="mitem.days.includes(index+1)"></dayBox>
 						</div>
 					</template>
 				</div>
@@ -81,7 +81,7 @@
 				for(let key in this.monthbar){
 					let Mon = this.monthbar[key];
 					Mon.forEach(d=>{
-						arr[key].days.push(new Date(d.checkTime).getDate());
+						arr[key-1].days.push(new Date(d.checkTime).getDate());
 					})
 				}
 				// console.log(arr)

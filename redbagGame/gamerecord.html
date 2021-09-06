@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+		<title>我的记录</title>
+		<!-- 引入样式文件 -->
+		<link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
+		<link rel="stylesheet" href="../common/css/basic.css">
+		<link rel="stylesheet" href="css/normal.css">
+		<link rel="stylesheet" href="css/gamerecord.css">
+		<!-- <script src="https://cdn.bootcss.com/vConsole/3.3.4/vconsole.min.js"></script>
+				<script>
+					// init vConsole
+				        var vConsole = new VConsole();
+				        console.log('Hello world');
+				    </script> -->
+		<style type="text/css">
+			.infobox>div:nth-child(1) span:last-child{
+				font-size: .48rem;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="app" :style="{paddingTop:isIOS?'.15rem':'.92rem'}" v-cloak>
+			<div class="header">
+				<van-nav-bar title="我的记录" @click-left="OnclickLeft" @click-right="onClickRight" left-arrow>
+					<template #right>
+						<!-- <div>余额明细</div> -->
+					</template>
+				</van-nav-bar>
+			</div>
+			<img class="shadow" src="img/shadow.png" alt="">
+			<div class="whitebox">
+				<div class="ub ub-ac ub-pj">
+					<div class="detail" style="margin-bottom: .35rem;font-weight: bold;">参赛信息</div>
+				</div>
+				<div class="infobox ub ub-ac">
+					<div class="ub-f1 ub ub-pj ub-aend">
+						<div>
+							<div class="title"><span>{{gameData.completeNum}}</span><span>/{{gameData.joinNum}}</span></div>
+							<div class="detail4">达标/参赛(次)</div>
+						</div>
+						<div class="borderline"></div>
+					</div>
+					<div class="ub-f1">
+						<div class="title">{{ (gameData.completeNum/(gameData.joinNum>0?gameData.joinNum:1)*100).toFixed(2) }}%</div>
+						<div class="detail4">达标率</div>
+					</div>
+					<div class="ub-f1 ub ub-pj ub-aend">
+						<div class="borderline"></div>
+						<div>
+							<div class="title">{{ (gameData.earnMoney!=0&&!isNaN(gameData.earnMoney))?(gameData.earnMoney/100).toFixed(2):0 }}</div>
+							<div class="detail4">累计收益(元)</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 记录 -->
+			
+				<van-pull-refresh v-model="isLoading" :head-height="90" @refresh="initIndexData" class="monkey-pull-refresh" style="min-height: 65.5vh;">
+					<template #pulling="props">
+						<div class="monkeyBox">
+							<van-loading color="#fff" />
+						</div>
+					</template>
+					<!-- 释放提示 -->
+					<template #loosing>
+						<div class="monkeyBox">
+							<van-loading color="#fff" />
+						</div>
+					</template>
+
+					<!-- 加载提示 -->
+					<template #loading>
+						<div class="monkeyBox">
+							<img class="monkey" src="../common/img/monkey.gif" />
+							<p>正在刷新</p>
+						</div>
+					</template>
+					<van-list v-model="loading" :finished="finished" @load="onLoad" :immediate-check=false :finished-text="dataList.length>0?'已加载全部参赛历史记录哦～':''">
+						<ul class="recordList">
+							<li class="" v-for="item in dataList">
+								<div class="ub ub-ac ub-pj toptitle">
+									<div @click="goDetail(item)">
+										<div class="detail ub ub-ac" style="font-weight: bold;"><span v-if="item.type==1" style="color: #F24023;">(新用户)</span> {{item.teamName}} <van-icon v-if="item.classify!='NoBegin'" color="#F24023" name="arrow" size="16" /></div>
+										<div class="detail3">{{item.submitTime?DateTime.timeStamp2String('ymdhms',item.submitTime):'--'}}</div>
+									</div>
+									<div
+									 class="detail cfF24023">
+									 {{(item.classify=='okFinish'||item.classify=='refund')?'已完成':item.classify=='NotFinish'?'未完成':item.classify=='ongoing'?'进行中':'未开始'}}
+									 <span style="font-size: .24rem;" v-if="item.classify=='okFinish'||item.classify=='NotFinish'">({{item.ropeSkippingCount}})</span>
+									 </div>
+								</div>
+								<div class="bottomtitle ub ub-ac ub-pj">
+									<div>
+										<div class="detail5">报名费<span v-if="item.type==1"> (官方补贴{{ parseInt(item.price/100)}}元)</span></div>
+										<div class="detail3">{{item.signTime?DateTime.timeStamp2String('ymdhms',item.signTime):'--'}}</div>
+									</div>
+									<div class="detail cfF24023" v-if="item.type==1">-¥0.00</div>
+									<div class="detail cfF24023" v-else>-¥{{(item.price/100).toFixed(2)}}</div>
+								</div>
+								<div class="bottomtitle ub ub-ac ub-pj" v-if="item.classify!='NotFinish'">
+									<div>
+										<div class="detail5">{{item.classify=='refund'?'报名费退款':'奖金'}}</div>
+										<div class="detail3">{{item.endTime?DateTime.timeStamp2String('ymdhms',item.endTime):'--'}}</div>
+									</div>
+									<div v-if="item.classify=='refund'" class="detail cfF24023">+¥{{(item.price/100).toFixed(2)}}</div>
+									<div v-else-if="item.endPrice" class="detail cfF24023">+¥{{(item.endPrice/100).toFixed(2)}}</div>
+									<div v-else class="detail cfF24023">--</div>
+								</div>
+							</li>
+						</ul>
+					</van-list>
+					<div id="recordbox" class="" v-if="dataList.length==0&&!loading">
+					<div class="noData-box" >
+						<img class="noData-img" src="../common/img/noData.png" />
+						<p class="noData-p">还没有任何记录哦～</p>
+					</div>
+					</div>
+				</van-pull-refresh>
+		</div>
+	</body>
+	<script src="https://oss.laisitech.com/0bb12bf1-cb87-4d2c-a724-8a7c25b7ae04.js "></script>
+<script src="https://oss.laisitech.com/6172e6c1-f460-40ac-97ba-31c8526f2e16.js"></script>
+	<script src="../common/js/network.js"></script>
+	<script src="js/tool.js"></script>
+	<script>
+		window.addEventListener('pageshow', function(event) {
+			console.log("PageShow Event  " + event.persisted);
+			console.log(event)
+			if (isIOS) {
+			}
+		})
+		new Vue({
+			el: '#app',
+			data() {
+				return {
+					isLoading: false,
+					loading: false,
+					finished: false,
+					dataList: [],
+					pageNum: 0,
+					pageSize: 15,
+					gameData:{
+						joinNum:0,
+						completeNum:0,
+						success:0,
+						earnMoney:0
+					},
+				}
+			},
+			filters: {},
+			mounted() {
+			},
+			created() {
+				this.initData();
+			},
+			methods: {
+				initData() {
+					var _self = this;
+					_self.loading = true;
+					let nowPage = _self.pageNum;
+					ajax({
+						type: "get",
+						url: "ropeRedPackage/ropeRedTypeInfo/get/myRecord/cover",
+						data: {
+							offset: nowPage,
+							limit: _self.pageSize
+						},
+						success: function(res) {
+							_self.loading = false;
+							if (res.code == 0) {
+								if (nowPage == 0) {
+									_self.gameData = res.data;
+									_self.dataList = [];
+									_self.dataList = res.data.detailList;
+								} else {
+									_self.dataList = _self.dataList.concat(res.data.detailList);
+								}
+								if ((nowPage + 1) * _self.pageSize >= res.data.count) {
+									_self.finished = true;
+								}
+							} else {
+								_self.$toast(res.msg);
+							}
+						},
+						error: function() {
+							_self.loading = false;
+							console.log("error")
+						}
+					})
+				},
+				initIndexData() {
+					// 清空列表数据
+					this.finished = false;
+					// 重新加载数据
+					// 将 loading 设置为 true，表示处于加载状态
+					this.loading = true;
+					this.isLoading = true;
+					this.onLoad();
+				},
+				onLoad() {
+					if (this.isLoading) {
+						this.isLoading = false;
+						this.pageNum = 0;
+					} else {
+						this.pageNum++;
+					}
+					this.initData()
+					this.loading = false;
+				},
+				goDetail(items){
+					if(items.classify=="NoBegin")return;
+					window.location.href = './groupsituation.html?type='+items.type+'&typeId='+items.id+'&status='+(items.classify=="ongoing"?1:items.classify=="okFinish"?2:items.classify=="NotFinish"?3:2)
+				},
+				OnclickLeft() {
+					window.history.back(-1);
+				},
+				onClickRight() { //余额明细
+					window.location.href = './balancedetail.html'
+				},
+				withdrawal() {
+					window.location.href = './withdrawal.html'
+
+				}
+			}
+		})
+	</script>
+
+</html>

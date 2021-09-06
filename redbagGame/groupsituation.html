@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+	<title>本组战况</title>
+	<!-- 引入样式文件 -->
+	<link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
+	<link rel="stylesheet" href="../common/css/basic.css">
+	<link rel="stylesheet" href="css/normal.css">
+	<link rel="stylesheet" href="css/groupsituation.css">
+	<!-- <script src="https://cdn.bootcss.com/vConsole/3.3.4/vconsole.min.js"></script>
+				<script>
+					// init vConsole
+				        var vConsole = new VConsole();
+				        console.log('Hello world');
+				    </script> -->
+	<style type="text/css">
+		.noData-box {
+			padding: .3rem 0;
+			background-color: #fff;
+			border-radius: .3rem;
+		}
+	</style>
+</head>
+
+<body style="background-color: #F24023;">
+	<div id="app" :style="{paddingTop:isIOS?'.15rem':'.92rem'}" v-cloak>
+		<div class="header">
+			<van-nav-bar title="本组战况" @click-left="OnclickLeft" left-arrow>
+			</van-nav-bar>
+		</div>
+		<div class="ybbox">
+			<img src="./img/bzzk.png" alt="">
+			<div class="ub ub-ac" style="margin-bottom: .52rem;">
+				<div class=" ub-f1" v-if="dataList.poolType!=1">
+					<div class="detail">红包总额(元)</div>
+					<div class="detail2">{{ toThousands(dataList.totalPrice/100,true) }}</div>
+				</div>
+				<div class="ub-f1 ">
+					<div class="detail">报名人数(人)</div>
+					<div class="detail2">{{toThousands(dataList.totalCount)}}</div>
+				</div>
+			</div>
+			<div class="ub ub-ac">
+				<div class=" ub-f1">
+					<div class="detail">{{status!=1?'':'预计'}}分得红包(元)</div>
+					<div class="detail2">
+						{{ ((status==3||status==2)&&activeName==0)?'0.00':((!dataList.submitGetPrice&&status==1)||activeName==0)?'—':toThousands(dataList.submitGetPrice/100,true) }}
+					</div>
+				</div>
+				<div class="ub-f1 ">
+					<div class="detail">
+						{{(status==1&&activeName==0)?'未提交':(status==1&&activeName==1)?'已提交':(status!=1&&activeName==0)?'未完成':'已完成'}}人数(人)
+					</div>
+					<div class="detail2">{{ toThousands(activeName==1?dataList.submitCount:dataList.notSubmitCount) }}
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 分组 -->
+		<van-tabs v-model="activeName" @change="tabChange">
+			<van-tab v-for="item in tabList" :title="item.title" class="rankList" :name="item.status">
+				<van-pull-refresh v-model="isLoading" :head-height="90" @refresh="initIndexData"
+					class="monkey-pull-refresh" style="min-height: 45.5vh;">
+					<template #pulling="props">
+						<div class="monkeyBox">
+							<van-loading color="#fff" />
+						</div>
+					</template>
+					<!-- 释放提示 -->
+					<template #loosing>
+						<div class="monkeyBox">
+							<van-loading color="#fff" />
+						</div>
+					</template>
+
+					<!-- 加载提示 -->
+					<template #loading>
+						<div class="monkeyBox">
+							<img class="monkey" src="../common/img/monkey.gif" />
+							<p>正在刷新</p>
+						</div>
+					</template>
+					<van-list v-model="loading" :finished="finished" @load="onLoad" :immediate-check=false
+						:finished-text="''">
+						<ul class="">
+							<li class="ub ub-ac self" v-if="selfdata.status==activeName">
+								<div class="ub ub-ac ub-pc" v-if="activeName!=0">
+									<img class="rankpic" v-if="selfdata.ranking<=3"
+										:src="'img/NO'+(selfdata.ranking||1)+'.png'" alt="">
+									<div v-else>{{  toThousands(selfdata.ranking||1) }}</div>
+								</div>
+								<div class="ub ub-ac ub-pc" v-else>
+									<div>{{  toThousands(selfdata.ranking||1) }}</div>
+								</div>
+								<div class="ub ub-ac">
+									<img @click="Interaction.visitPersonalHomepage(selfdata.userId)" class="headpic"
+										:src="selfdata.headPictureUrl" alt="">
+									<div>
+										<div class="van-ellipsis nickName">{{ selfdata.nickName }}</div>
+										<div class="time">
+											{{DateTime.timeStamp2String('ymdhms',activeName==0?selfdata.lastTime:selfdata.updateTime)}}
+										</div>
+									</div>
+								</div>
+								<div>
+									{{selfdata.number}}个
+								</div>
+							</li>
+							<li class="ub ub-ac" v-for="item in activeName==0?dataRight:dataLeft">
+								<div class="ub ub-ac ub-pc" v-if="activeName!=0">
+									<img class="rankpic" v-if="item.ranking<=3" :src="'img/NO'+(item.ranking||1)+'.png'"
+										alt="">
+									<div v-else>{{  toThousands(item.ranking||1) }}</div>
+								</div>
+								<div class="ub ub-ac ub-pc" v-else>
+									<div>{{  toThousands(item.ranking||1) }}</div>
+								</div>
+								<div class="ub ub-ac">
+									<img @click="Interaction.visitPersonalHomepage(item.userId)" class="headpic"
+										:src="item.headPictureUrl" alt="">
+									<div>
+										<div class="van-ellipsis nickName">{{item.nickName}}</div>
+										<div class="time">
+											{{DateTime.timeStamp2String('ymdhms',activeName==0?item.lastTime:item.updateTime)}}
+										</div>
+									</div>
+								</div>
+								<div>
+									{{item.number}}个
+								</div>
+							</li>
+							<div class="noData-box"
+								v-if="((activeName==0&&dataRight.length==0)||(activeName==1&&dataLeft.length==0))&&!loading">
+								<img class="noData-img" src="../common/img/noData.png" />
+								<!-- <p class="noData-p">还没有任何记录哦～</p> -->
+							</div>
+						</ul>
+					</van-list>
+				</van-pull-refresh>
+			</van-tab>
+		</van-tabs>
+	</div>
+</body>
+<script src="https://oss.laisitech.com/0bb12bf1-cb87-4d2c-a724-8a7c25b7ae04.js "></script>
+<script src="https://oss.laisitech.com/6172e6c1-f460-40ac-97ba-31c8526f2e16.js"></script>
+<script src="../common/js/network.js"></script>
+<script src="js/tool.js"></script>
+<script>
+	window.addEventListener('pageshow', function (event) {
+		console.log("PageShow Event  " + event.persisted);
+		console.log(event)
+		if (isIOS) {
+
+		}
+	})
+	new Vue({
+		el: '#app',
+		data() {
+			return {
+				moreDataing: false,
+				isLoading: false,
+				loading: false,
+				finished: false,
+				pageNum: 1,
+				pageSize: 50,
+				typeId: parseInt(getQueryString("typeId")),
+				type: parseInt(getQueryString("type")),
+				status: parseInt(getQueryString("status")), //1进行中2已完成3未完成
+				dataList: {
+					totalCount: 0,
+					totalPrice: 0,
+					completeCount: 0,
+					getPrice: 0
+				},
+				selfdata: {
+					ranking: 4,
+					headPictureUrl: JSON.parse(localStorage.getItem('appInfo')).headPictureUrl,
+					ropeSkippingCount: 0,
+					status: null
+				},
+				activeName: 1,
+				tabList: [{
+					title: '已完成',
+					status: 1,
+				}, {
+					title: '未完成',
+					status: 0,
+				}],
+				dataLeft: [],
+				dataRight: [],
+			}
+		},
+		filters: {},
+		mounted() {},
+		created() {
+			if (this.status == 1) {
+				this.tabList = [{
+					title: '已提交',
+					status: 1,
+				}, {
+					title: '未提交',
+					status: 0,
+				}]
+			}
+			this.initUserData();
+			this.initData();
+		},
+		methods: {
+			initUserData() {
+				var _self = this;
+				ajax({
+					type: "get",
+					//ropeRedPackage/ropeRedTypeInfo/get/our/group/status
+					url: "ropeRedPackage/ropeRedTypeInfo/get/my/all/status",
+					data: {
+						typeId: _self.typeId
+					},
+					success: function (res) {
+						if (res.code == 0) {
+							// _self.dataList = res.data;
+							if (res.data.myStatusSubmit) { //已提交
+								_self.selfdata = res.data.myStatusSubmit;
+							} else {
+								_self.selfdata = res.data.MyStatusNotSubmit[0];
+							}
+						} else {
+							_self.$toast(res.msg);
+						}
+					},
+					error: function () {
+						console.log("error")
+					}
+				})
+			},
+			initData() {
+				var _self = this;
+				this.moreDataing = true;
+				this.loading = true;
+				let pageNum = this.pageNum;
+				if (this.activeName == 0) this.pageSize = 99999
+				if (this.activeName == 0 && _self.dataRight.length > 0) {
+					_self.loading = false;
+					_self.isLoading = false;
+					_self.moreDataing = false;
+					return
+				} else {
+					this.pageSize = 50
+				}
+				ajax({
+					type: "get",
+					url: "ropeRedPackage/ropeRedTypeInfo/get/our/group/status",
+					data: {
+						typeId: _self.typeId,
+						behavior: _self.activeName,
+						pageSize: _self.pageSize,
+						pageNum: pageNum - 1
+					},
+					success: function (res) {
+						_self.loading = false;
+
+
+						if (res.code == 0) {
+
+							if (pageNum == 1) _self.dataList = Object.assign(_self.dataList, res.data);
+							if (_self.activeName == 0) {
+								_self.dataRight = res.data.notSubmitResultList
+							} else {
+								if (pageNum == 1) _self.dataLeft = res.data.submitList
+								else _self.dataLeft = _self.dataLeft.concat(res.data.submitList);
+
+								if (pageNum * _self.pageSize >= res.data.submitCount) {
+									_self.finished = true;
+								}
+
+							}
+							_self.isLoading = false;
+							_self.moreDataing = false;
+						} else {
+							_self.$toast(res.msg);
+						}
+					},
+					error: function () {
+						_self.loading = false;
+						console.log("error")
+					}
+				})
+			},
+			initIndexData() {
+				// 清空列表数据
+				this.finished = false;
+				// 重新加载数据
+				// 将 loading 设置为 true，表示处于加载状态
+				this.loading = true;
+				this.isLoading = true;
+				this.onLoad();
+			},
+			onLoad() {
+				if (this.isLoading) {
+					this.pageNum = 1;
+				} else {
+					if (this.moreDataing) {
+						return
+					}
+					this.pageNum++;
+				}
+
+				this.initData()
+				this.loading = false;
+			},
+			tabChange(tab) {
+				this.activeName = tab;
+				this.pageNum = 1
+				if ((tab == 0 && this.dataRight.length > 0) || (tab == 1 && this.dataLeft.length > 0)) return;
+				if (this.moreDataing) {
+					return
+				}
+				this.initData();
+			},
+			OnclickLeft() {
+				window.history.back(-1);
+			},
+		}
+	})
+</script>
+
+</html>

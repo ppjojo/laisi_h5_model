@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+		<title>队伍详情</title>
+		<!-- 引入样式文件 -->
+		<link rel="stylesheet" href="../common/css/vant-rem.css">
+		<link rel="stylesheet" href="css/competitionDetail.css">
+		<script type="text/javascript">
+			document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';
+		</script>
+	</head>
+	<style type="text/css">
+		.van-pull-refresh{
+			min-height: 100%;
+		}
+		html ,body,.van-list,.van-pull-refresh__track{
+			height: 100%;
+		}
+		.teamDetail{
+			height: 100%;
+		}
+	</style>
+
+
+	<body>
+		<div id="app" v-cloak class="teamDetail">
+			<van-pull-refresh v-model="refreshing" @refresh="onRefresh" class="list-item-box" id="list-item-box">
+				<van-list v-model="loading" :finished="finished" @load="onLoad"  :immediate-check=false>
+					<van-row class="scoreList-box">
+						<div class="leftTeam">
+							<div class="Team-div">
+								<van-row class="teamName">
+									<van-col span="24" class="">{{teamList[0].name}}</van-col>
+								</van-row>
+								<van-row class="teamScore" style="margin-bottom: 0.1rem">
+									<van-col span="24" class="" v-if="competitionItem.mode==2">总个数： {{teamList[0].totalBestValue||'--'}} <span
+										 class="numberDescript">个</span> </van-col>
+									<van-col span="24" class="" v-else-if="competitionItem.mode==3&&teamList[0].totalBestValue">总时长：{{parseInt(teamList[0].totalBestValue/60)+'<span class='numberDescript'>分</span>'+(teamList[0].totalBestValue%60<10?('0'+teamList[0].totalBestValue%60):teamList[0].totalBestValue%60)+'<span class='numberDescript'>秒</span>'}}</van-col>
+									<p v-else>总时长：--<span class="numberDescript">分</span>--<span class="numberDescript">秒</span></p>
+								</van-row>
+								<div v-if="teamList[0].dataDetail.length>0">
+									<div v-for="(item,index)  in teamList[0].dataDetail" class="teamList" :class="(item.userId==JSON.parse(localStorage.getItem('appInfo')).userId)&&index==0?'leftself':''">
+										<div>
+											<div @click="Interaction.visitPersonalHomepage(item.userId)" class="nickNameBox">
+												<div class="detail_headpic" :style="{'background-image': 'url(' + item.headerPicUrl + ')'}"></div>
+												<div>{{item.nickName|ellipsis}}</div>
+											</div>
+											<div class="personItemScore">
+												<p v-if="competitionItem.mode==2">总数：{{item.bestValue||'--'}}个</p>
+												<p v-else-if="competitionItem.mode==3&&item.bestValue">用时：{{parseInt(item.bestValue/60)+'<span class='numberDescript'>分</span>'+(item.bestValue%60<10?('0'+item.bestValue%60):item.bestValue%60)+'<span class='numberDescript'>秒</span>'}}</p>
+												<p v-else>用时：--<span class="numberDescript">分</span>--<span class="numberDescript">秒</span></p>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div v-else>
+									<div class="noPeople-div">
+										<img class="noPeoplePic" src="./img/noPeople.png" />
+										<p class="noPeopleP">队伍竟然没有人</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="middleDiv"></div>
+						<div class="rightTeam">
+							<div class="Team-div">
+								<van-row class="teamName">
+									<van-col span="24" class="">{{teamList[1].name}}</van-col>
+								</van-row>
+								<van-row class="teamScore" style="margin-bottom: 0.1rem">
+									<van-col span="24" class="" v-if="competitionItem.mode==2">总个数：{{teamList[1].totalBestValue||'--'}}<span class="numberDescript">个</span></van-col>
+									<van-col span="24" class="" v-else-if="competitionItem.mode==3&&teamList[1].totalBestValue">总时长：{{parseInt(teamList[1].totalBestValue/60)+'<span class='numberDescript'>分</span>'+(teamList[1].totalBestValue%60<10?('0'+teamList[1].totalBestValue%60):teamList[1].totalBestValue%60)+'<span class='numberDescript'>秒</span>'}}</van-col>
+									<p v-else>总时长：--<span class="numberDescript">分</span>--<span class="numberDescript">秒</span></p>
+								</van-row>
+								<div v-if="teamList[1].dataDetail.length>0">
+									<div v-for="(item,index)  in teamList[1].dataDetail" class="teamList" :class="(item.userId==JSON.parse(localStorage.getItem('appInfo')).userId)&&index==0?'leftself':''">
+										<div @click="Interaction.visitPersonalHomepage(item.userId)" class="nickNameBox">
+											<div class="detail_headpic" :style="{'background-image': 'url(' + item.headerPicUrl + ')'}"></div>
+											<div>{{item.nickName|ellipsis}}</div>
+										</div>
+										<div class="personItemScore">
+											<p v-if="competitionItem.mode==2">总数：{{item.bestValue||'--'}}个</p>
+											<p v-else-if="competitionItem.mode==3&&item.bestValue">用时：{{parseInt(item.bestValue/60)+'<span class='numberDescript'>分</span>'+(item.bestValue%60<10?('0'+item.bestValue%60):item.bestValue%60)+'<span class='numberDescript'>秒</span>'}}</p>
+											<p v-else>用时：--<span class="numberDescript">分</span>--<span class="numberDescript">秒</span></p>
+										</div>
+									</div>
+								</div>
+								<div v-else>
+									<div class="noPeople-div">
+										<img class="noPeoplePic" src="./img/noPeople.png" />
+										<p class="noPeopleP">队伍竟然没有人</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</van-row>
+				</van-list>
+			</van-pull-refresh>
+		</div>
+
+	</body>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vant@2.9/lib/vant.min.js"></script>
+	<script src="js/DateTime.js"></script>
+	<script src="../common/js/network.js"></script>
+	<script type="text/javascript">
+		new Vue({
+			el: '#app',
+			data() {
+				return {
+					id: getQueryString("id"),
+					apiUrl:"ropeSkipping/competition/detail/play",
+					loading: false,
+					refreshing: false,
+					finished: false,
+					pageIndex2: 0,
+					pageSize: 20,
+					competitionItem: {
+						endTime: "",
+						gameReward: "",
+						isOfficial: false,
+						isVerify: false,
+						mode: "",
+						modeValue: "",
+						name: "",
+						picUrl: null,
+						repeatTimes: "",
+						startTime: "",
+						type: "",
+						rule: "",
+					},
+					userItem: {
+						nickName: ""
+					},
+					joinDetailItem: {
+						registerCount: ""
+					},
+					teamList: [{
+						name: "",
+						dataDetail: [],
+						average: ""
+					}, {
+						name: "",
+						dataDetail: [],
+						average: ""
+					}],
+					teamdetail: [],
+				}
+			},
+			created() {
+				if(getQueryString("isShare")==1){
+					this.apiUrl="share/ropeSkipping/competition/detail/play"
+				}
+				this.initData();
+			},
+			methods: {
+				//初始化比赛详情
+				initData() {
+					var _self = this;
+					ajax({
+						type: "post",
+						url: "ropeSkipping/competition/get/item",
+						data: {
+							id: this.id,
+						},
+						success: function(res) {
+							if (res.code == 0) {
+								_self.competitionItem = res.data[1];
+								_self.userItem = res.data[0];
+								_self.joinDetailItem = res.data[2];
+				
+				
+								if ((!DateTime.timeContrast(_self.competitionItem.startTime)) && (DateTime.timeContrast(
+										_self.competitionItem.endTime))) {
+									_self.competitionStatus = 1;
+								} else if (DateTime.timeContrast(_self.competitionItem.startTime) && DateTime.timeContrast(
+										_self.competitionItem.endTime)) {
+									_self.competitionStatus = 2;
+								} else if (!DateTime.timeContrast(_self.competitionItem.endTime)) {
+									_self.competitionStatus = 3;
+								}
+								
+									_self.pageIndex2 = 0;
+									_self.team_initData();
+								
+				
+							}
+				
+						},
+						error: function() {
+							console.log("error")
+						}
+					})
+				},
+				//团队比赛的直播
+				team_initData() {
+					var that = this;
+					var index = this.pageIndex2;
+					ajax({
+						type: "post",
+						url:that.apiUrl,
+						data: {
+							competitionId: that.id,
+							page: that.pageIndex2,
+							pageSize: that.pageSize
+						},
+						success: function(res) {
+							that.loading = false;
+							if (res.code == 0) {
+								var rows = res.data.content;
+								if (res.data.content.length < 2) {
+									return;
+								}
+								if (rows == null || rows.length === 0) {
+									// 加载结束
+									that.finished = true;
+									return;
+								}
+
+								if ((res.data.content[0].dataDetail.length < that.pageSize) && (res.data.content[1].dataDetail.length <
+										that.pageSize)) {
+									that.finished = true;
+								}
+								var leftPage = Math.ceil(res.data.content[0].totalAttend / that.pageSize);
+								var rightPage = Math.ceil(res.data.content[1].totalAttend / that.pageSize);
+								var maxPage = leftPage;
+								if (leftPage <= rightPage) {
+									maxPage = rightPage
+								}
+								if (maxPage != 0) {
+									if (index + 1 > maxPage) {
+										that.finished = true;
+										return;
+									}
+								}
+
+
+								// 处理数据
+								if (index == 0) {
+									that.teamList = rows;
+									if (that.teamList[0].totalAttend) {
+										that.teamList[0].average = Math.round(that.teamList[0].totalBestValue / that.teamList[0].totalAttend);
+									} else {
+										that.teamList[0].average = 0;
+									}
+									if (that.teamList[1].totalAttend) {
+										that.teamList[1].average = Math.round(that.teamList[1].totalBestValue / that.teamList[1].totalAttend);
+									} else {
+										that.teamList[1].average = 0;
+									}
+
+									
+									that.teamdetail = rows
+								} else {
+									that.teamList[0].dataDetail = that.teamList[0].dataDetail.concat(rows[0].dataDetail);
+									that.teamList[1].dataDetail = that.teamList[1].dataDetail.concat(rows[1].dataDetail)
+								}
+							} else {
+								that.teamList = that.teamList.concat([]);
+								that.finished = true;
+							}
+						},
+						error: function() {
+							that.loading = false;
+							that.finished = true;
+						}
+					})
+
+				},
+				onRefresh() {
+					this.finished = false;
+					this.loading = true;
+					this.onLoad();
+				},
+				onLoad() {
+					if (this.refreshing) {
+						this.refreshing = false;
+						this.pageNum = 1;
+					} else {
+						this.pageNum++;
+					}
+					this.team_initData()
+				},
+			}
+		})
+	</script>
+
+</html>

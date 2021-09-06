@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+		<title>俱乐部简介</title>
+		<!-- 引入样式文件 -->
+		<link rel="stylesheet" href="../../common/css/vant-rem.css">
+		<link rel="stylesheet" href="css/clubCreateCompetition.css">
+		<link rel="stylesheet" href="css/iosTop.css">
+		<script type="text/javascript">
+			document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';
+		</script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.min.js"></script>
+		<script src="js/exif.js"></script>
+		<script src="js/upload.js"></script>
+		<style type="text/css">
+			.van-cell:not(:last-child)::after {
+				left: 0;
+			}
+
+			.van-cell::after {
+				border-bottom: none;
+			}
+
+			.van-hairline--top-bottom::after,
+			.van-hairline-unset--top-bottom::after {
+				border-width: 0;
+			}
+
+			.van-nav-bar__text {
+				color: #999;
+			}
+
+			.van-nav-bar__left,
+			.van-nav-bar__right {
+				font-size: .32rem;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app" v-cloak class="page">
+			<div class="header">
+				<van-nav-bar title="俱乐部简介"
+			 @click-left="OnclickLeft"
+			 left-arrow
+			 >
+			</van-nav-bar>
+			</div>
+			
+			<div style="font-size: .32rem;line-height: .44rem;padding: 0 .2rem;padding-top: 1rem;">
+				{{submitform.introduce}}
+			</div>
+		</div>
+	</body>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vant@2.9/lib/vant.min.js"></script>
+	<script src="../../common/js/network.js"></script>
+	<script type="text/javascript">
+		new Vue({
+			el: '#app',
+			data() {
+				return {
+					flag: getQueryString("flag"), //1俱乐部名称2//俱乐部简介
+					submitform: JSON.parse(localStorage.getItem('clubForm')) || {},
+					isClick:false
+				};
+			},
+			mounted() {
+
+			},
+			created() {
+
+			},
+			methods: {
+				OnclickLeft(){
+					localStorage.removeItem('clubForm');
+					window.history.back(-1);
+				},
+				OnclickRight(){
+					this.submitForm();
+				},
+				submitForm(){
+					var _self = this;
+					if(this.isClick)return;
+					if((!this.submitform.name&&this.flag==1)||(!this.submitform.introduce&&this.flag==2)){
+						return;
+					}
+					this.isClick = true;
+					ajax({
+						type: "post",
+						url: "club/updateClub",
+						data: _self.submitform,
+						success: function(res) {
+							if (res.code == 0) {
+								_self.$toast("俱乐部设置成功！");
+								localStorage.removeItem('clubForm');
+								setTimeout(function(){
+									window.history.back(-1)
+								},1500)
+							} else {
+								_self.$toast(res.msg);
+								_self.isClick = false;
+							}
+						},
+						error: function() {
+							_self.isClick = false;
+							console.log("error")
+						}
+					})
+				},
+				titleChange() {
+					this.submitform.name = this.submitform.name.replace(
+						/[^\u4E00-\u9FA5|\d|\a-zA-Z|\r\n\s,.?!，。#￥$%\`~^？！@…—&$=()\-+/*{}【】\\（）[\]]|\s/g, '')
+				},
+				contentChange() {
+					this.submitform.introduce = this.submitform.introduce.replace(
+						/[^\u4E00-\u9FA5|\d|\a-zA-Z|\r\n\s,.?!，。#￥$%\`~^？！@…—&$=()\-+/*{}【】\\（）[\]]|\s/g, '')
+				}
+			}
+		})
+	</script>

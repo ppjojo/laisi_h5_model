@@ -464,7 +464,18 @@ const constantRoutes = [{
       title: '帮助中心',
       icon: 'menu_helpCenter'
     },
-    children: [{
+    children: [
+      {
+        path: 'bigQuestion',
+        permission: 'helpCenter:bigQuestion',
+        hidden: true,
+        component: () => import('@/views/helpCenter/bigQuestion'),
+        meta: {
+          title: '问题大类',
+          icon: 'helpCenter_guideList'
+        }
+      },
+      {
         path: 'problemList',
         permission: 'helpCenter:problemList',
         hidden: true,
@@ -472,6 +483,16 @@ const constantRoutes = [{
         meta: {
           title: '常见问题',
           icon: 'helpCenter_problemList'
+        }
+      },
+      {
+        path: '设备分类',
+        permission: 'helpCenter:deviceType',
+        hidden: true,
+        component: () => import('@/views/helpCenter/deviceType'),
+        meta: {
+          title: '设备分类',
+          icon: 'helpCenter_guideList'
         }
       },
       {

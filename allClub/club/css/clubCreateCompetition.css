@@ -1,0 +1,327 @@
+#app {
+	background-color: #12121f;
+	min-height: 100vh;
+}
+
+.ub {
+	display: -webkit-flex !important;
+	display: flex !important;
+	position: relative;
+}
+
+.ub-rev {
+	-webkit-flex-direction: row;
+	flex-direction: row
+}
+
+.ub-f1 {
+	flex: 1;
+}
+
+.ub-fh {
+	width: 100%;
+}
+
+.ub-fv {
+	height: 100%;
+}
+
+.ub-con {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
+
+.ub-ac {
+	-webkit-align-items: center;
+	align-items: center;
+}
+
+.ub-aend {
+	-webkit-align-items: flex-end;
+	align-items: flex-end;
+}
+
+.ub-ae {
+	-webkit-justify-content: end;
+	justify-content: end;
+}
+
+.ub-pc {
+	-webkit-justify-content: center;
+	justify-content: center;
+}
+
+.ub-pe {
+	-webkit-justify-content: flex-start;
+	justify-content: flex-start;
+}
+
+.ub-pj {
+	-webkit-justify-content: space-between;
+	justify-content: space-between;
+}
+
+.ub-ad {
+	-webkit-justify-content: space-around;
+	justify-content: space-around;
+}
+
+.van-nav-bar .van-icon {
+	color: #cfcfd2;
+}
+
+.van-nav-bar__title {
+	font-size: .36rem;
+	color: #cfcfd2;
+	font-weight: unset;
+}
+
+.border-bottom {
+	border-bottom: 1px solid #1E1E2A;
+}
+
+.van-cell {
+	text-align: left;
+	font-size: 0.32rem;
+	line-height: 1rem;
+	padding: 0 0.3rem;
+	background-color: #12121f;
+	color: #CFCFD2;
+}
+.van-cell-group{
+	background-color: #12121f;
+}
+.van-cell__left-icon,
+.van-cell__right-icon {
+	line-height: 1rem;
+}
+
+.van-collapse-item__content {
+	padding: 0 0rem;
+	text-align: left;
+}
+
+.hasInput .van-collapse-item__content {
+	padding: 0 0.3rem;
+}
+
+.collapseList-item {
+	font-size: 0.28rem;
+	color: #727272;
+	line-height: 1rem;
+	text-align: center;
+	border-bottom: 1px solid #1E1E2A;
+}
+
+.collapseList-item-done {
+	text-align: left;
+}
+
+.collapseListBox .collapseList-item:last-child {
+	border: none;
+}
+
+.matchName-box .van-collapse-item__wrapper {
+	padding-bottom: 0.2rem;
+}
+
+.matchName-input {
+	background-color: #f8f8f8;
+	font-size: 0.32rem;
+	line-height: 0.6rem;
+	position: relative;
+	padding: 0 0.2rem;
+	height: 1.32rem;
+}
+
+.gameReward-input {
+	height: auto;
+}
+
+.van-field__control {
+	color: #CFCFD2;
+}
+
+.matchName-input .van-field__word-limit {
+	position: absolute;
+	bottom: 0.1rem;
+	right: 0.1rem;
+}
+
+.matchName-input .van-cell__value {
+	overflow: auto;
+	position: relative;
+}
+
+.matchName-box .van-cell:not(:last-child)::after {
+	border-bottom: none;
+}
+
+.matchTime-box .van-cell:not(:last-child)::after {
+	border-bottom: none;
+}
+
+.matchTime-box .matchTime-box-discript {
+	padding-bottom: 0.2rem;
+}
+
+.matchTime-box .matchTime-box-discript::after {
+	position: absolute;
+	box-sizing: border-box;
+	content: ' ';
+	pointer-events: none;
+	right: 0;
+	top: 1.6rem;
+	left: 0.32rem;
+	border-bottom: 0.02rem solid #1E1E2A;
+	-webkit-transform: scaleY(.5);
+	transform: scaleY(.5);
+}
+
+.laberDiv {
+	text-align: left;
+	font-size: 0.32rem;
+	line-height: 1rem;
+	padding: 0 0.32rem;
+	color: #CFCFD2;
+	/* font-weight: bold; */
+}
+
+/* 活动说明 */
+.content-input {
+	min-height: 4.8rem;
+	background-color: #f8f8f8;
+	font-size: 0.32rem;
+	line-height: 0.6rem;
+	position: relative;
+	padding: 0 0.2rem;
+}
+
+
+/* 任务说明 */
+.tasks-input {
+	height: 1.8rem;
+	background-color: #1e1e2a;
+	font-size: 0.32rem;
+	line-height: 0.6rem;
+	position: relative;
+	padding: 0 0.2rem;
+}
+
+.van-field__word-limit {
+	color: #999;
+	margin-bottom: .08rem;
+}
+
+.van-field__control {
+	padding: .2rem 0;
+}
+
+textarea::placeholder {
+	font-size: .24rem;
+	color: #999;
+}
+
+.tasks-input .van-field__word-limit {
+	position: absolute;
+	bottom: 0.1rem;
+	right: 0.1rem;
+
+}
+
+/* 俱乐部简介 */
+.club-input {
+	min-height: 3.5rem;
+	background-color: #1E1E2A;
+	font-size: 0.32rem;
+	line-height: 0.6rem;
+	position: relative;
+	padding: 0 0.2rem;
+	border-radius: .08rem;
+}
+
+
+.submit {
+	width: 4rem;
+	height: 0.8rem;
+	line-height: .8rem;
+	margin: 1.2rem auto;
+	opacity: .8;
+	font-size: .4rem;
+}
+
+.nameSubmit {
+	margin: 0.2rem
+}
+
+.van-picker__cancel,
+.van-picker__confirm {
+	color: #333E47;
+}
+
+.errorSpan {
+	color: #FF0000;
+	font-size: 0.24rem;
+}
+
+.chooseActive {
+	background-color: rgba(252, 171, 46, 0.1);
+}
+
+/* 上传图片的地方 */
+.van-uploader {
+	margin: 0 auto;
+}
+
+.van-uploader__upload {
+	border: none;
+	background-color: #1E1E2A;
+	width: 2.4rem;
+	height: 2.4rem;
+}
+
+.van-uploader__upload-icon {
+	font-size: 1rem;
+	color: #292934;
+}
+
+/* 俱乐部形象 */
+.clubImg .clubImg_photo {
+	width: 0.64rem;
+	height: 0.64rem;
+	border-radius: 5px;
+	vertical-align: middle;
+	top: 0.2rem;
+	position: relative;
+	float: right;
+}
+
+.van-cell__value {
+	flex: 2;
+}
+
+.van-cell__value span {
+	font-size: 0.24rem;
+	color: #71717f;
+}
+
+.chosed .van-cell__value span {
+	font-size: 0.28rem;
+	color: #71717f;
+}
+
+.van-switch {
+	width: 1.2rem;
+	height: .46rem;
+}
+
+.van-switch__node {
+	width: .32rem;
+	height: .32rem;
+	top: .06rem;
+}
+
+.van-switch--on .van-switch__node {
+	transform: translateX(.6rem);
+}

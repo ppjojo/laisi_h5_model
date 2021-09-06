@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+		<title>邀请好友</title>
+		<!-- 引入样式文件 -->
+		<link rel="stylesheet" href="../../common/css/vant-rem-2122.css">
+		<link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
+		<link rel="stylesheet" href="../../common/css/basic.css">
+		<link rel="stylesheet" href="css/normal.css">
+		<link rel="stylesheet" href="css/member.css">
+		<!-- <script src="https://cdn.bootcss.com/vConsole/3.3.4/vconsole.min.js"></script>
+				<script>
+					// init vConsole
+				        var vConsole = new VConsole();
+				        console.log('Hello world');
+				    </script> -->
+		<style type="text/css">
+			.van-collapse-item__wrapper .van-cell {
+				padding: 0;
+			}
+
+			.van-hairline--top-bottom::after,
+			.van-hairline-unset--top-bottom::after {
+				border: none;
+			}
+
+			.van-checkbox {
+				margin-right: .2rem;
+			}
+
+			.invitebox {
+				padding: .4rem .4rem;
+				font-size: .2rem;
+				color: #cfcfd2;
+				border-bottom: .02rem solid #1e1e2a;
+			}
+
+			.tx-c {
+				text-align: center;
+			}
+
+			.van-index-bar__sidebar {
+				top: 60%;
+			}
+			.van-index-anchor{
+				background-color:#12121f;
+				color: #CFCFD2;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="app" v-cloak>
+			<div class="header">
+				<van-nav-bar title="邀请好友" @click-left="OnclickLeft" @click-right="onClickRight" left-arrow>
+					<template #right>
+						<div @click="">邀请({{memberResult.length}})</div>
+					</template>
+				</van-nav-bar>
+			</div>
+			<van-search v-model="searchval.searchKey" @input="search" placeholder="请输入成员昵称或ID"></van-search>
+			<div class="ub ub-ac ub-ad invitebox">
+				<div class="tx-c" @click="shareClub('wechat')">
+					<img src="img/weixin-4.png" alt="">
+					<div class="">微信好友</div>
+				</div>
+				<div class="tx-c" @click="shareClub('wxcircle')">
+					<img src="img/pyq.png" alt="">
+					<div>朋友圈</div>
+				</div>
+				<div class="tx-c">
+					<img src="img/qq.png" alt="" @click="shareClub('qq')">
+					<div>QQ好友</div>
+				</div>
+				<div class="tx-c">
+					<img src="img/qqzone.png" alt="" @click="shareClub('qzone')">
+					<div>QQ空间</div>
+				</div>
+			</div>
+			<van-checkbox-group v-model="memberResult" ref="checkboxGroup">
+				<van-cell-group v-show="searchval.searchKey&&searchList.length>0">
+					<template v-if="searchList.length>0">
+						<van-cell v-for="(memItem,index) in searchList" clickable :key="memItem.userId" @click="toggle(index,memItem)">
+							<template #icon>
+								<van-checkbox :name="memItem.userId" ref="checkboxes"></van-checkbox>
+							</template>
+							<template #title>
+								<ul class="ul_class">
+									<li class="ub ub-ac ub-pj">
+										<div class="ub ub-ac">
+											<img class="headpic" :src="memItem.headPictureUrl" alt="">
+											<div>
+												<div class="ub ub-ac">
+													<div class="nickname van-ellipsis">{{memItem.nickName}}</div>
+												</div>
+												<!-- <div class="time">加入时间：{{DateTime.sjc2time('ymd',memItem.createTime)}}
+												</div> -->
+											</div>
+										</div>
+									</li>
+								</ul>
+							</template>
+						</van-cell>
+					</template>
+				</van-cell-group>
+				<div v-show="!searchval.searchKey||searchval.searchKey==''">
+					<van-cell-group v-model="memberResult">
+						<van-index-bar>
+							<template v-if="Object.keys(dataList).length>0" v-for="(bigitem,key,index) in dataList">
+								<van-index-anchor :index="key.toUpperCase()"></van-index-anchor>
+								<van-cell v-for="(memItem,index2) in bigitem" clickable :key="memItem.userId" @click="toggle(index2,memItem)">
+									<template #icon>
+										<van-checkbox :name="memItem.userId" :disabled="memItem.isMinister=='Y'" ref="checkboxes"></van-checkbox>
+									</template>
+									<template #title>
+										<ul class="ul_class">
+											<li class="ub ub-ac ub-pj">
+												<div class="ub ub-ac">
+													<img class="headpic" :src="memItem.headPictureUrl" alt="">
+													<div>
+														<div class="ub ub-ac">
+															<div class="nickname van-ellipsis">{{memItem.nickName}}</div>
+														</div>
+														<!-- <div class="time">
+															加入时间：{{DateTime.sjc2time('ymd',memItem.createTime)}}</div> -->
+													</div>
+												</div>
+											</li>
+										</ul>
+									</template>
+								</van-cell>
+							</template>
+						</van-index-bar>
+					</van-cell-group>
+				</div>
+			</van-checkbox-group>
+		</div>
+	</body>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vant@2.12.2/lib/vant.min.js"></script>
+	<script src="../../common/js/network.js"></script>
+	<script src="js/tool.js"></script>
+	<script>
+		window.addEventListener('pageshow', function(event) {
+
+		})
+		new Vue({
+			el: '#app',
+			data() {
+				return {
+					clubId: getQueryString('clubId'),
+					clubGroupId: parseInt(getQueryString('clubGroupId')),
+					isMinister: parseInt(getQueryString('isMinister')),
+					userId: JSON.parse(localStorage.getItem("appInfo")).userId,
+					memberResult: [],
+					searchval: {
+						searchKey: '',
+						userId: JSON.parse(localStorage.getItem("appInfo")).userId
+					},
+					searchList: [],
+					dataList: [],
+					clubObject: {}
+
+				}
+			},
+			filters: {},
+			mounted() {},
+			created() {
+				this.initGroup()
+				this.getClubDetail()
+			},
+			methods: {
+				//俱乐部信息
+				getClubDetail() {
+					var that = this
+					ajax({
+						type: "get",
+						url: "club/clubDetail",
+						data: {
+							clubId: that.clubId,
+						},
+						success: function(res) {
+							if (res.code == 0) {
+								that.clubObject = res.data
+							}
+						}
+					})
+				},
+				initGroup() {
+					let _self = this;
+					ajax({
+						type: "get",
+						url: "club/getFriends",
+						data: {
+							clubId: _self.clubId,
+						},
+						success: function(res) {
+							if (res.code == 0) {
+								_self.dataList = res.data;
+							} else {
+								_self.$toast(res.msg);
+							}
+						},
+						error: function() {
+							console.log("error")
+						}
+					})
+				},
+				initGroupMember(gid, index) {
+					let _self = this;
+					ajax({
+						type: "get",
+						url: "club/clubGroupInfo",
+						data: {
+							clubId: _self.clubId,
+							clubGroupId: gid == 'wfb' ? '' : gid
+						},
+						success: function(res) {
+							if (res.code == 0) {
+								_self.dataList[index].member = res.data.clubGroupList;
+							} else {
+								_self.$toast(res.msg);
+							}
+						},
+						error: function() {
+							console.log("error")
+						}
+					})
+				},
+				toggle(index, mid) {
+					this.$refs.checkboxes.forEach((d, f) => {
+						if (d.name == mid.userId) {
+							this.$refs.checkboxes[f].toggle();
+						}
+					})
+				},
+				search: debounce(function(e) {
+					let _self = this;;
+					if (!_self.searchval.searchKey) return;
+					ajax({
+						type: "get",
+						url: "club/searchUsersInvite",
+						data: {
+							searchKey: _self.searchval.searchKey,
+							clubId: _self.clubId,
+						},
+						success: function(res) {
+							if (res.code == 0) {
+								_self.searchList = res.data;
+								
+								console.log(_self.searchList)
+							} else {
+								_self.$toast(res.msg);
+							}
+						},
+						error: function() {
+							console.log("error")
+						}
+					})
+				}),
+				OnclickLeft() {
+					window.history.back(-1);
+				},
+				onClickRight() { //显示。。。
+					if (this.memberResult.length == 0) {
+						this.$toast("请先选择邀请对象");
+						return
+					}
+					if (this.isMinister) {
+						window.location.href =
+							`./inviateTo.html?isMinister=1&clubId=${this.clubId}&memberId=${JSON.stringify(this.memberResult)}&flag=2`
+					} else {
+						window.location.href =
+							`./inviateTo.html?isMinister=0&clubGroupId=${this.clubGroupId}&clubId=${this.clubId}&memberId=${JSON.stringify(this.memberResult)}&flag=2`
+					}
+
+				},
+				shareClub(mode) {
+					var that = this
+					Interaction.appNative("shareClub", {
+						mode: mode,
+						shareTitle: that.clubObject.name,
+						shareDescribe: that.clubObject.introduce,
+						shareUrl: host + "h5/h5V2/allClub/clubList_Detail/clubDetail.html?id=" + that.clubObject.id +"&isShare=1"
+					})
+				},
+			}
+		})
+	</script>
+
+</html>

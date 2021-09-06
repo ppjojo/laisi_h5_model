@@ -4,12 +4,12 @@ export default {
 	},
 	formatStrUnit(item, d) { //根据类型返回单位
 		if (d == 'runout' || d == 'runin' || d == 'ride' || d == 'onFoot' || d == 'mountaineering' || d == 'walkIn' ||
-			d == 'rideIndoor') {
-			return (this.toThousands(item.number) + this.returnUnit(item, d))
-		} else if (d == 'skipping' || d == 'wristball' || d == 'wheel' || d == 'walk' || d == 'steps' || d ==
+			d == 'rideIndoor'|| d == 'steps'|| d == 'walk') {
+			return (this.toThousands((item.number)||item.distance) +'      '+ this.returnUnit(item, d))
+		} else if (d == 'skipping' || d == 'wristball' || d == 'wheel' || d ==
 			'ropeSkipping') {
-			return (this.toThousands(item.number) + this.returnUnit(item, d) + '' + this.formatSeconds(item.takeMs ||
-				0))
+			return (this.toThousands(item.number||item.distance) + this.returnUnit(item, d) + '       ' + this.formatSeconds(item.takeMs ||
+				item.timeSpend||0))
 		} else {
 			return this.returnUnit(item, d)
 		}
@@ -17,10 +17,9 @@ export default {
 	formatStrUnit2(item, d) { //根据类型返回单位
 	if (d == 'runout' || d == 'runin' || d == 'ride' || d == 'onFoot' || d == 'mountaineering' || d == 'walkIn' ||
 		d == 'rideIndoor' || d == 'walk'||d == 'skipping' || d == 'ropeSkipping'||d == 'wristball' || d == 'wheel'||d=="steps"){
-			return this.toThousands(item.number);
+			return this.toThousands(item.number||item.distance);
 		}else{
-			console.log()
-			return this.formatSeconds2(item.takeMs || 0);
+			return this.formatSeconds2(item.takeMs || item.timeSpend||0);
 		}
 	},
 	formatSeconds(value) {
@@ -113,7 +112,7 @@ export default {
 				str = ''
 				return;
 			}
-			return this.formatSeconds(item.takeMs || 0);
+			return this.formatSeconds(item.takeMs || item.timeSpend||0);
 		}
 	},
 	returnName(d) { //返回名称

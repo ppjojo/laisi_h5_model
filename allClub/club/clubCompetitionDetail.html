@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html style="background-color: #fff;">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+	<title>比赛详情</title>
+	<!-- 引入样式文件 -->
+	<link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
+	<link rel="stylesheet" href="css/clubCompetitionDetail.css">
+	<link rel="stylesheet" href="css/corporateCompetion.css">
+	<style type="text/css">
+		#app{
+			min-height: 100vh;
+			background-color: #12121F;
+		}
+		.van-button--default{
+		border: 1px solid #FF6A88;	
+		}
+	</style>
+<!-- <script src="https://cdn.bootcss.com/vConsole/3.3.4/vconsole.min.js"></script>
+		<script>
+				        var vConsole = new VConsole();
+				    </script> -->
+
+</head>
+
+<body>
+	<div id="app" v-cloak>
+		<div>
+			<div class="detailBox">
+				<van-row>
+					<van-col span="4" class="laberTitle">比赛名称<i></i></van-col>
+					<van-col span="1" class="laberTitle">：</van-col>
+					<van-col span="19" class="laberContent">
+						{{competitionItem.name}}
+					</van-col>
+				</van-row>
+				<van-row>
+					<van-col span="4" class="laberTitle">比赛模式<i></i></van-col>
+					<van-col span="1" class="laberTitle">：</van-col>
+					<van-col span="19" class="laberContent" v-if="competitionItem.mode==2&&competitionItem.modeValue">
+						{{competitionItem.modeValue==30?"30秒钟倒计时跳":(parseInt((competitionItem.modeValue)/60))+"分钟倒计时跳"}}
+					</van-col>
+					<van-col span="19" class="laberContent" v-else-if="competitionItem.modeValue">
+						{{competitionItem.modeValue+"个倒计数跳"}}</van-col>
+				</van-row>
+				<van-row>
+					<van-col span="4" class="laberTitle">发起人<i></i></van-col>
+					<van-col span="1" class="laberTitle">：</van-col>
+					<van-col span="19" class="laberContent">{{userItem.nickName||""}}</van-col>
+				</van-row>
+				<van-row>
+					<van-col span="4" class="laberTitle">已参赛<i></i></van-col>
+					<van-col span="1" class="laberTitle">：</van-col>
+					<van-col span="19" class="laberContent">{{joinDetailItem.registerCount+'人'}}</van-col>
+				</van-row>
+				<van-row>
+					<van-col span="4" class="laberTitle">比赛次数<i></i></van-col>
+					<van-col span="1" class="laberTitle">：</van-col>
+					<van-col span="19" class="laberContent" v-if="competitionItem.repeatTimes">
+						{{competitionItem.repeatTimes==-1?"不限次数，比赛期间取最好成绩":competitionItem.repeatTimes+"次内取最好成绩"}}
+					</van-col>
+				</van-row>
+				<van-row>
+					<van-col span="4" class="laberTitle">比赛时间<i></i></van-col>
+					<van-col span="1" class="laberTitle">：</van-col>
+					<van-col span="19" class="laberContent" v-if="competitionItem.startTime">
+						{{DateTime.needYearOrNot(competitionItem.startTime,competitionItem.endTime)}}</van-col>
+				</van-row>
+				<van-row>
+					<van-col span="4" class="laberTitle">比赛奖励<i></i></van-col>
+					<van-col span="1" class="laberTitle">：</van-col>
+					<van-col span="19" class="laberContent">
+						{{competitionItem.gameReward=='无奖励'?competitionItem.gameReward:competitionItem.gameReward+'(由发起人提供)'}}
+					</van-col>
+				</van-row>
+			</div>
+			<div class="raceInformation" v-if="competitionItem.type">
+				<div class="raceInformationTitle">赛况直播</div>
+				<!-- 个人 -->
+				<div class="personnal" v-if="competitionItem.type=='personal'">
+					<van-pull-refresh v-model="isDownLoading1" @refresh="person_Refresh" class="list-item-box">
+						<van-list v-model="isUpLoading1" :finished="upFinished1" finished-text="没有更多了" :offset="offset"
+							@load="person_LoadList" :immediate-check=false>
+							<van-row v-for="(item,index) in personalList" type="flex" justify="center"
+								class="personnalList "
+								:class="(item.userId==JSON.parse(localStorage.getItem('appInfo')).userId)&&index==0?'self':''">
+								<van-col span="3" class="ranking">
+									<img v-if="item.rank==1" class="sortPic" src="./img/no1.png" />
+									<img v-else-if="item.rank==2" class="sortPic" src="./img/no2.png" />
+									<img v-else-if="item.rank==3" class="sortPic" src="./img/no3.png" />
+									<span v-else>{{item.rank}}</span>
+								</van-col>
+								<van-col span="3" class="" @click="Interaction.visitPersonalHomepage(item.userId)">
+									<div class="detail_headpic"
+										:style="{'background-image': 'url(' + item.headerPicUrl + ')'}"></div>
+								</van-col>
+								<van-col span="6" class="personalName"
+									@click="Interaction.visitPersonalHomepage(item.userId)">
+									{{ item.nickName | ellipsis4 }}</van-col>
+								<van-col span="6" class="align-right"><span
+										class="bigNumberSpan">{{item.repeatNumber||'--'}}</span>次</van-col>
+								<van-col span="6" class="align-right" v-if="competitionItem.mode==2"><span
+										class="bigNumberSpan">{{item.bestValue||'--'}}</span>个</van-col>
+								<van-col span="6" class="align-right"
+									v-else-if="competitionItem.mode==3&&item.bestValue">
+									<span class="bigNumberSpan">{{parseInt(item.bestValue/60)}}</span>分
+									<span
+										class="bigNumberSpan">{{(item.bestValue%60<10?('0'+item.bestValue%60):item.bestValue%60)}}</span>秒
+								</van-col>
+								<van-col span="6" class="align-right" v-else><span class="bigNumberSpan">--</span>分<span
+										class="bigNumberSpan">--</span>秒</van-col>
+							</van-row>
+						</van-list>
+					</van-pull-refresh>
+					<div class="btn_box">
+						<van-button class="creatMatch" size="large"
+							v-if="!isSign&&(competitionStatus==1||competitionStatus==2)" @click="signSubmit(1)">去报名
+						</van-button>
+						<van-button class="creatMatch " size="large"
+							v-else-if="isSign&&competitionStatus==1&&timesRemain!=0" @click="gotoSkipReady">去跳绳
+						</van-button>
+						<van-button class="creatMatch creatMatch2" size="large"
+							v-else-if="isSign&&competitionStatus==2">去跳绳</van-button>
+						<van-button class="creatMatch creatMatch2" size="large"
+							v-else-if="isSign&&competitionStatus==1&&timesRemain==0">去跳绳</van-button>
+						<van-button class="creatMatch creatMatch2" size="large" v-else-if="competitionStatus==3">已结束
+						</van-button>
+					</div>
+				</div>
+				<!-- 团队 -->
+				<div class="team" v-else-if="competitionItem.type=='team'&&iscorporate!=1">
+					<van-pull-refresh v-model="isDownLoading2" @refresh="team_Refresh" class="list-item-box">
+						<van-list v-model="isUpLoading2" :finished="upFinished2" finished-text="没有更多了" :offset="offset"
+							@load="team_LoadList" :immediate-check=false>
+							<van-row class="scoreList-box">
+								<div class="leftTeam">
+									<div class="Team-div">
+										<van-row class="teamTitle">
+											<img src="./img/winner.png" v-if="competitionStatus==3&&teamList[0].win==1"
+												class="resultPic" />
+											<img src="./img/draw.png"
+												v-else-if="competitionStatus==3&&teamList[0].win==0"
+												class="resultPic" />
+											<van-col span="24" class="">{{teamList[0].name}}</van-col>
+										</van-row>
+										<van-row class="teamTitle" style="margin-bottom: 0.1rem">
+											<van-col span="24" class="" v-if="competitionItem.mode==2"><span
+													class="bigNumberSpan">{{teamList[0].average||'--'}}</span>个
+											</van-col>
+											<van-col span="24"
+												v-else-if="competitionItem.mode==3&&teamList[0].totalBestValue"><span
+													class="bigNumberSpan">{{parseInt(teamList[0].average/60)}}</span>分<span
+													class="bigNumberSpan">{{(teamList[0].average%60<10?('0'+teamList[0].average%60):teamList[0].average%60)}}</span>秒
+											</van-col>
+											<van-col span="24" v-else><span class="bigNumberSpan">--</span>分<span
+													class="bigNumberSpan">--</span>秒</van-col>
+										</van-row>
+										<div v-if="teamList[0].dataDetail.length>0">
+											<van-row v-for="(item,index)  in teamList[0].dataDetail" class="teamList"
+												:class="(item.userId==localStorage.getItem('userId'))&&index==0?'leftself':''">
+												<van-col span="12" class=""
+													@click="Interaction.visitPersonalHomepage(item.userId)">
+													{{item.nickName|ellipsis4}}</van-col>
+												<van-col span="12" class="align-right" v-if="competitionItem.mode==2">
+													<span class="bigNumberSpan">{{item.bestValue||'--'}}</span>个
+												</van-col>
+												<van-col span="12" class="align-right"
+													v-else-if="competitionItem.mode==3&&item.bestValue"><span
+														class="bigNumberSpan">{{parseInt(item.bestValue/60)}}</span>分<span
+														class="bigNumberSpan">{{(item.bestValue%60<10?('0'+item.bestValue%60):item.bestValue%60)}}</span>秒
+												</van-col>
+												<van-col span="12" class="align-right" v-else><span
+														class="bigNumberSpan">--</span>分<span
+														class="bigNumberSpan">--</span>秒</van-col>
+											</van-row>
+										</div>
+										<div v-else>
+											<div class="noPeople-div">
+												<img class="noPeoplePic" src="./img/noPeople.png" />
+												<p class="noPeopleP">队伍竟然没有人</p>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="middleDiv"></div>
+								<div class="rightTeam">
+									<div class="Team-div">
+										<van-row class="teamTitle">
+											<img src="./img/winner.png" v-if="competitionStatus==3&&teamList[1].win==1"
+												class="resultPic" />
+											<img src="./img/draw.png"
+												v-else-if="competitionStatus==3&&teamList[1].win==0"
+												class="resultPic" />
+											<van-col span="24" class="">{{teamList[1].name}}</van-col>
+										</van-row>
+										<van-row class="teamTitle" style="margin-bottom: 0.1rem">
+											<van-col span="24" class="" v-if="competitionItem.mode==2"><span
+													class="bigNumberSpan">{{teamList[1].average||'--'}}</span>个
+											</van-col>
+											<van-col span="24"
+												v-else-if="competitionItem.mode==3&&teamList[1].totalBestValue"><span
+													class="bigNumberSpan">{{parseInt(teamList[1].average/60)}}</span>分<span
+													class="bigNumberSpan">{{(teamList[1].average%60<10?('0'+teamList[1].average%60):teamList[1].average%60)}}</span>秒
+											</van-col>
+											<van-col span="24" v-else><span class="bigNumberSpan">--</span>分<span
+													class="bigNumberSpan">--</span>秒</van-col>
+										</van-row>
+										<div v-if="teamList[1].dataDetail.length>0">
+											<van-row v-for="(item,index) in teamList[1].dataDetail" class="teamList"
+												:class="(item.userId==localStorage.getItem('userId'))&&index==0?'rightself':''">
+												<van-col span="12" class="team-list-name"
+													@click="Interaction.visitPersonalHomepage(item.userId)">
+													{{item.nickName|ellipsis4}}</van-col>
+												<van-col span="12" class="align-right" v-if="competitionItem.mode==2">
+													<span class="bigNumberSpan">{{item.bestValue||'--'}}</span>个
+												</van-col>
+												<van-col span="12" class="align-right"
+													v-else-if="competitionItem.mode==3&&item.bestValue"><span
+														class="bigNumberSpan">{{parseInt(item.bestValue/60)}}</span>分<span
+														class="bigNumberSpan">{{(item.bestValue%60<10?('0'+item.bestValue%60):item.bestValue%60)}}</span>秒
+												</van-col>
+												<van-col span="12" class="align-right" v-else><span
+														class="bigNumberSpan">--</span>分<span
+														class="bigNumberSpan">--</span>秒</van-col>
+											</van-row>
+										</div>
+										<div v-else>
+											<div class="noPeople-div">
+												<img class="noPeoplePic" src="./img/noPeople.png" />
+												<p class="noPeopleP">队伍竟然没有人</p>
+											</div>
+										</div>
+
+									</div>
+								</div>
+							</van-row>
+						</van-list>
+					</van-pull-refresh>
+					<div class="btn_box">
+						<van-button class="creatMatch" size="large"
+							v-if="!isSign&&(competitionStatus==1||competitionStatus==2)" @click="chooseTeam">去报名
+						</van-button>
+						<van-button class="creatMatch " size="large"
+							v-else-if="isSign&&competitionStatus==1&&timesRemain!=0" @click="gotoSkipReady">去跳绳
+						</van-button>
+						<van-button class="creatMatch creatMatch2" size="large"
+							v-else-if="isSign&&competitionStatus==2">去跳绳</van-button>
+						<van-button class="creatMatch creatMatch2" size="large"
+							v-else-if="isSign&&competitionStatus==1&&timesRemain==0">去跳绳</van-button>
+						<van-button class="creatMatch creatMatch2" size="large" v-else-if="competitionStatus==3">已结束
+						</van-button>
+					</div>
+				</div>
+				<!-- 企业团队 -->
+				<div class="corporate" v-else-if="iscorporate==1">
+					<van-row v-for="item in deptList" class="deptList" @click="gotoCompetitionDetail(item)">
+						<van-col span="2" class="ranking">
+							<img v-if="item.rank==1" src="./img/no1.png" />
+							<img v-else-if="item.rank==2" src="./img/no2.png" />
+							<img v-else-if="item.rank==3" src="./img/no3.png" />
+							<span v-else>{{item.rank}}</span>
+						</van-col>
+						<van-col span="15" class="deptInfoBox">
+							<div class="deptPic">
+								<img :src="item.image||'../corporateClub/img/notgroup.png'" alt="">
+							</div>
+							<div class="deptD">
+								<div class="name">
+									{{item.name||""}}
+								</div>
+								<div class="userInfo">
+									<span>分部长：<span>{{item.subMinisterName | ellipsis4}}</span></span>
+									<span>成员：{{item.totalAttend||0}}人</span>
+								</div>
+							</div>
+						</van-col>
+						<van-col span="6" class="scoreBox" v-if="competitionItem.mode==3">
+							<div class="numBox">
+								<span class="num">{{parseInt(item.totalBestValue/60)}}</span>
+								<span class="unit">分 </span>
+								<span class="num">{{(item.totalBestValue%60<10?('0'+item.totalBestValue%60):item.totalBestValue%60)}}</span>
+								<span class="unit">秒</span>
+							</div>
+							<div class="numD">
+								总时长
+							</div>
+						</van-col>
+						<van-col span="6" class="scoreBox" v-else>
+							<div class="numBox">
+								<span class="num">{{item.totalBestValue}}</span>
+								<span class="unit">个</span>
+							</div>
+							<div class="numD">
+								总个数
+							</div>
+						</van-col>
+						<van-col span="1" class="iconBox">
+							<van-icon name="arrow" size="0.3rem" />
+						</van-col>
+					</van-row>
+
+					<div class="btn_box">
+						<van-button class="creatMatch " size="large"v-if="competitionStatus==1&&timesRemain!=0" @click="gotoSkipReady">去跳绳</van-button>
+						<van-button class="creatMatch creatMatch2" size="large"v-else-if="competitionStatus==2">去跳绳</van-button>
+						<van-button class="creatMatch creatMatch2" size="large"v-else-if="competitionStatus==1&&timesRemain==0">去跳绳</van-button>
+						<van-button class="creatMatch creatMatch2" size="large" v-else-if="competitionStatus==3">已结束
+						</van-button>
+					</div>
+				</div>
+
+			</div>
+
+			<van-dialog v-model="chooseTeamShow" title="请选择你要加入的团队" showCancelButton @confirm="getCountRemain"
+				class="team-choose-dialog">
+				<van-row>
+					<van-row>
+						<van-col span="12">
+							<div class="team-choose-list "
+								:class="(teamdefault==1&&activeClass!=2)||activeClass==1?'active':''"
+								@click="activeClass =1;teamId_choose=teamList_choose[0].teamId">
+								{{teamList_choose[0].name}}</div>
+						</van-col>
+						<van-col span="12">
+							<div class="team-choose-list "
+								:class="(teamdefault==2&&activeClass!=1)||activeClass==2?'active2':''"
+								@click="activeClass =2;teamId_choose=teamList_choose[1].teamId">
+								{{teamList_choose[1].name}}</div>
+						</van-col>
+					</van-row>
+					<van-col span="12"></van-col>
+				</van-row>
+			</van-dialog>
+
+
+			<van-action-sheet v-model="macShow" :round=false description="请选择您的跳绳设备" cancel-text="取消">
+				<div class="button_box">
+					<button class="van-action-sheet__item van-hairline--top" v-for="item in macItem"
+						@click="macSelect(item)">
+						<span class="van-action-sheet__name active" v-if="item.bind">{{item.macName}} <img
+								class="blueboothPic" src="./img/bluebooth.png" /></span>
+						<span class="van-action-sheet__name" v-else>{{item.macName}}</span>
+					</button>
+				</div>
+			</van-action-sheet>
+
+		</div>
+	</div>
+</body>
+<script src="https://oss.laisitech.com/0bb12bf1-cb87-4d2c-a724-8a7c25b7ae04.js "></script>
+<script src="https://oss.laisitech.com/6172e6c1-f460-40ac-97ba-31c8526f2e16.js"></script>
+<script src="js/DateTime.js"></script>
+
+<script src="../../common/js/network.js"></script>
+<script>
+	new Vue({
+		el: '#app',
+		data() {
+			return {
+				activeClass: 0,
+				clubId: getQueryString("clubId"), //俱乐部id
+				competitionId: getQueryString("id"), //当前比赛id
+				iscorporate: localStorage.getItem('isCorporate')?parseInt(localStorage.getItem('isCorporate')):0,
+				competitionStatus: "", //1进行中 2即将开始 3已结束
+				isSign: false, //团队赛是否已经报名
+				timesRemain: -1, //跳绳剩余次数
+				countRemain: -1, //可加入人数
+				teamId_choose: -1,
+				teamdefault: 1,
+				macShow: false,
+				macItem: [
+
+				],
+				mac: "",
+				macName: "",
+				deviceModel: "",
+				teamList_choose: [{
+						name: "",
+					},
+					{
+						name: "",
+					}
+				],
+				competitionItem: {
+					endTime: "",
+					gameReward: "",
+					isOfficial: false,
+					isVerify: false,
+					mode: "",
+					modeValue: "",
+					name: "",
+					picUrl: null,
+					repeatTimes: "",
+					startTime: "",
+					type: ""
+				},
+				userItem: {
+					nickName: ""
+				},
+				joinDetailItem: {
+					registerCount: ""
+				},
+				clubItem: {
+					createTime: ""
+				},
+
+				pageSize: 15,
+				offset: 100, // 滚动条与底部距离小于 offset 时触发load事件
+				isDownLoading1: false, // 下拉刷新
+				isUpLoading1: false, // 上拉加载
+				upFinished1: false, // 上拉加载完毕
+				pageIndex1: 0,
+				personalList: [],
+
+
+				isDownLoading2: false, // 下拉刷新
+				isUpLoading2: false, // 上拉加载
+				upFinished2: false, // 上拉加载完毕
+				pageIndex2: 0,
+				teamList: [{
+					name: "",
+					dataDetail: [],
+					average: ""
+				}, {
+					name: "",
+					dataDetail: [],
+					average: ""
+				}],
+				teamdetail: [],
+
+				deptList: [],
+
+				chooseTeamShow: false,
+			};
+		},
+		filters: {
+			ellipsis(value) {
+				if (!value) return '';
+				if (value.length > 6) {
+					return value.slice(0, 6) + '...';
+				}
+				return value;
+			},
+			ellipsis4(value) {
+				if (!value) return '';
+				if (value.length > 4) {
+					return value.slice(0, 4) + '...';
+				}
+				return value;
+			}
+		},
+		created() {
+			this.teamId_choose = "";
+			this.initData(); //初始化详情
+			this.joinStatus();
+			this.getTimesRemain();
+			this.getMac();
+		},
+		mounted() {
+			//将Vue方法传到全局对象window中
+			window.initCompetitionDetail = this.initCompetitionDetail;
+			window.getConnectedMac = this.getConnectedMac
+		},
+		computed: {},
+		methods: {
+			//退出比赛或者跳绳回来后调用
+			initCompetitionDetail() {
+				//this.activeClass="0";
+				var _self = this;
+				setTimeout(function () {
+					_self.initData();
+					_self.joinStatus();
+					_self.getTimesRemain();
+				}, 1000)
+			},
+			//获取俱乐部的详情
+			// initClubData(clubId) {
+			// 	var _self = this;
+			// 	ajax({
+			// 		type: "get",
+			// 		url: "club/clubDetail",
+			// 		data: {
+			// 			clubId: clubId
+			// 		},
+			// 		success: function (res) {
+			// 			if (res.code == 0) {
+			// 				_self.clubItem = res.data;
+			// 			} else {
+			// 				_self.$toast(res.msg);
+			// 			}
+			// 		},
+			// 		error: function () {
+			// 			console.log("error")
+			// 		}
+			// 	})
+			// },
+			initData() {
+				var _self = this;
+				ajax({
+					type: "post",
+					url: "club/competition/get/item",
+					data: {
+						id: this.competitionId,
+					},
+					success: function (res) {
+						if (res.code == 0) {
+							_self.competitionItem = res.data[1];
+							_self.userItem = res.data[0];
+							_self.joinDetailItem = res.data[2];
+
+							//_self.initClubData(res.data[1].clubId);
+							if ((!DateTime.timeContrast(_self.competitionItem.startTime)) && (DateTime
+									.timeContrast(
+										_self.competitionItem.endTime))) {
+								_self.competitionStatus = 1;
+							} else if (DateTime.timeContrast(_self.competitionItem.startTime) &&
+								DateTime.timeContrast(
+									_self.competitionItem.endTime)) {
+								_self.competitionStatus = 2;
+							} else if (!DateTime.timeContrast(_self.competitionItem.endTime)) {
+								_self.competitionStatus = 3;
+							}
+							if (_self.competitionItem.type == "team") {
+								if (_self.iscorporate==1) {
+									_self.dept_initData();
+								} else {
+									_self.pageIndex2 = 0;
+									_self.getTeamList();
+									_self.team_initData();
+								}
+							} else {
+								_self.pageIndex1 = 0;
+								_self.person_initData();
+							}
+
+						}
+					},
+					error: function () {
+						console.log("error")
+					}
+				})
+			},
+			//mac地址的选取并进入跳绳页面
+			macSelect(item) {
+				this.mac = item.mac;
+				this.macName = item.macName;
+				this.deviceModel = item.deviceModel;
+				if (this.mac) {
+					this.gotoSkip2();
+				}
+				this.macShow = false;
+			},
+			//获取mac地址
+			getMac() {
+				var that = this;
+				that.macItem = [];
+				ajax({
+					type: "get",
+					url: "device/get/bound/device",
+					data: {},
+					success: function (res) {
+						if (res.code == 0) {
+							var items = [];
+							var unSupportItems = [];
+							var supportItems = [];
+							for (var i = 0; i < res.data.length; i++) {
+								if (res.data[i].deviceType == "skipping" ) {
+									var item = {
+										macName: res.data[i].deviceNickName,
+										mac: res.data[i].deviceId||res.data[i].btMac,
+										deviceModel: res.data[i].deviceModel,
+									}
+									items.push(item);
+								}
+							}
+							for (var i = 0; i < res.data.length; i++) {
+								if (res.data[i].deviceType == "skipping" && res.data[i].deviceModel !="rs-s3"&&res.data[i].deviceModel !="t30h") {
+									var item = {
+										macName: res.data[i].deviceNickName,
+										mac: res.data[i].deviceId||res.data[i].btMac,
+										deviceModel: res.data[i].deviceModel,
+									}
+									supportItems.push(item);
+								}
+							}
+							for (var i = 0; i < res.data.length; i++) {
+								if (res.data[i].deviceModel =="rs-s3"||res.data[i].deviceModel =="t30h") {
+									var item = {
+										macName: res.data[i].deviceNickName,
+										mac: res.data[i].deviceId||res.data[i].btMac,
+										deviceModel: res.data[i].deviceModel,
+									}
+									unSupportItems.push(item);
+								}
+							}
+
+							if (items.length ==unSupportItems.length) {
+								that.$toast("暂不支持第三方跳绳");
+								return
+							};
+
+							that.macItem = supportItems;
+						} else {
+							that.macItem = [];
+						}
+					},
+					error: function () {
+						console.log("error")
+					}
+				})
+			},
+
+			//判断是否参加了这场比赛
+			joinStatus() {
+				var _self = this;
+				ajax({
+					type: "post",
+					url: "club/competition/user/is/attended",
+					data: {
+						competitionId: this.competitionId,
+					},
+					success: function (res) {
+						if (res.code == 0) {
+							_self.isSign = res.data;
+							console.log("isSign" + _self.isSign)
+						}
+					},
+					error: function () {
+						console.log("error")
+					}
+				})
+			},
+			//获取可跳绳次数
+			getTimesRemain() {
+				var _self = this;
+				ajax({
+					type: "GET",
+					url: "club/competition/user/times/remain",
+					data: {
+						competitionId: this.competitionId,
+						userId: JSON.parse(localStorage.getItem("appInfo")).userId
+					},
+					success: function (res) {
+						if (res.code == 0) {
+							_self.timesRemain = res.data;
+							console.log("timesRemain" + _self.timesRemain)
+						}
+					},
+					error: function () {
+						console.log("error")
+					}
+				})
+			},
+			//获取队伍可加入人数
+			getCountRemain() {
+				var _self = this;
+				ajax({
+					type: "post",
+					url: "club/competition/team/count/remain",
+					data: {
+						id: _self.teamId_choose,
+					},
+					success: function (res) {
+						if (res.code == 0) {
+							_self.countRemain = res.data;
+							if (_self.countRemain != 0) {
+								_self.signSubmit();
+							} else {
+								_self.$toast("该队伍报名人数已满!")
+							}
+						}
+					},
+					error: function () {
+						console.log("error")
+					}
+				})
+			},
+			//获取比赛可加入人数
+			getCompetitionRemain() {
+				var _self = this;
+				ajax({
+					type: "post",
+					url: "club/competition/team/count/remain",
+					data: {
+						id: _self.teamId_choose,
+					},
+					success: function (res) {
+						if (res.code == 0) {
+							_self.countRemain = res.data;
+							if (_self.countRemain != 0) {
+								_self.signSubmit();
+							} else {
+								_self.$toast("该比赛报名人数已满!")
+							}
+						}
+					},
+					error: function () {
+						console.log("error")
+					}
+				})
+			},
+			//获取比赛队伍列表
+			getTeamList() {
+				var _self = this;
+				ajax({
+					type: "post",
+					url: "club/competition/team/list",
+					data: {
+						competitionId: _self.competitionId,
+					},
+					success: function (res) {
+						if (res.code == 0) {
+							_self.teamList_choose = res.data;
+							if (res.data.length < 2) {
+								return;
+							}
+							if (res.data[0].teamPersonCount <= res.data[1].teamPersonCount) {
+								_self.teamId_choose = res.data[0].teamId; //这个默认为人数较少的那个队伍
+								_self.teamdefault = 1;
+							} else {
+								_self.teamId_choose = res.data[1].teamId;
+								_self.teamdefault = 2;
+							}
+
+						} else {
+							_self.teamList_choose = [];
+						}
+					},
+					error: function () {
+						console.log("error")
+					}
+				})
+			},
+			//个人比赛的直播
+			person_initData() {
+				var _self = this;
+				var index = this.pageIndex1;
+				ajax({
+					type: "post",
+					url: "club/competition/detail/play",
+					data: {
+						competitionId: _self.competitionId,
+						page: _self.pageIndex1,
+						pageSize: _self.pageSize
+					},
+					success: function (res) {
+						_self.isDownLoading1 = false;
+						_self.isUpLoading1 = false;
+						if (res.code == 0) {
+							var rows = res.data.content;
+							if (rows == null || rows.length === 0) {
+								// 加载结束
+								_self.upFinished1 = true;
+								return;
+							}
+							if (rows.length < _self.pageSize) {
+								_self.upFinished1 = true;
+							}
+							if (index + 1 > Math.ceil(res.data.total / _self.pageSize)) {
+								_self.upFinished1 = true;
+								return;
+							}
+
+							// 处理数据
+							if (index == 0) {
+								_self.personalList = rows;
+							} else {
+								_self.personalList = _self.personalList.concat(rows);
+							}
+						} else if (index == 0 && res.code == 1000) {
+							_self.personalList = [];
+							_self.upFinished1 = true;
+						} else {
+							_self.personalList = _self.personalList.concat([]);
+							_self.upFinished1 = true;
+						}
+					},
+					error: function () {
+						console.log("error")
+					}
+				})
+			},
+			//个人比赛的直播的刷新
+			person_Refresh() {
+				this.pageIndex1 = 0;
+				this.upFinished1 = false; // 不写这句会导致你上拉到底过后在下拉刷新将不能触发下拉加载事件
+				this.person_initData(); // 加载数据
+			},
+			// 个人比赛上拉加载
+			person_LoadList() {
+				this.pageIndex1++;
+				this.person_initData();
+			},
+			//团队比赛的直播  接口的分页有问题 需要修改
+			team_initData() {
+				var _self = this;
+				var index = this.pageIndex2;
+				ajax({
+					type: "post",
+					url: "club/competition/detail/play",
+					data: {
+						competitionId: _self.competitionId,
+						page: _self.pageIndex2,
+						pageSize: _self.pageSize
+					},
+					success: function (res) {
+						_self.isDownLoading2 = false;
+						_self.isUpLoading2 = false;
+						if (res.code == 0) {
+							var rows = res.data.content;
+							if (res.data.content.length < 2) {
+								return;
+							}
+							if (rows == null || rows.length === 0) {
+								// 加载结束
+								_self.upFinished2 = true;
+								return;
+							}
+
+							if ((res.data.content[0].dataDetail.length < _self.pageSize) && (res.data
+									.content[1].dataDetail.length <
+									_self.pageSize)) {
+								_self.upFinished2 = true;
+							}
+							var leftPage = Math.ceil(res.data.content[0].totalAttend / _self.pageSize);
+							var rightPage = Math.ceil(res.data.content[1].totalAttend / _self
+							.pageSize);
+							var maxPage = leftPage;
+							if (leftPage <= rightPage) {
+								maxPage = rightPage
+							}
+							if (maxPage != 0) {
+								if (index + 1 > maxPage) {
+
+									_self.upFinished2 = true;
+									return;
+								}
+							}
+
+
+							// 处理数据
+							if (index == 0) {
+								_self.teamList = rows;
+								if (_self.teamList[0].totalAttend) {
+									_self.teamList[0].average = Math.round(_self.teamList[0]
+										.totalBestValue / _self.teamList[0].totalAttend);
+								} else {
+									_self.teamList[0].average = 0;
+								}
+								if (_self.teamList[1].totalAttend) {
+									_self.teamList[1].average = Math.round(_self.teamList[1]
+										.totalBestValue / _self.teamList[1].totalAttend);
+								} else {
+									_self.teamList[1].average = 0;
+								}
+
+								if (_self.competitionItem.mode == 2) {
+									if (_self.teamList[0].average > _self.teamList[1].average) {
+										_self.teamList[0].win = 1;
+										_self.teamList[1].win = -1;
+									} else if (_self.teamList[0].average == _self.teamList[1]
+										.average) {
+										_self.teamList[0].win = 0
+										_self.teamList[1].win = 0;
+
+									} else if (_self.teamList[0].average < _self.teamList[1].average) {
+										_self.teamList[0].win = -1
+										_self.teamList[1].win = 1;
+									}
+									if (_self.teamList[0].totalAttend == 0 && _self.teamList[1]
+										.totalAttend != 0) {
+										_self.teamList[0].win = -1;
+										_self.teamList[1].win = 1;
+									} else if (_self.teamList[0].totalAttend != 0 && _self.teamList[1]
+										.totalAttend == 0) {
+										_self.teamList[0].win = 1;
+										_self.teamList[1].win = -1;
+									} else if (_self.teamList[0].totalAttend == 0 && _self.teamList[1]
+										.totalAttend == 0) {
+										_self.teamList[0].win = 0;
+										_self.teamList[1].win = 0;
+									}
+								} else if (_self.competitionItem.mode == 3) {
+									if (_self.teamList[0].average > _self.teamList[1].average) {
+										_self.teamList[0].win = -1;
+										_self.teamList[1].win = 1;
+									} else if (_self.teamList[0].average == _self.teamList[1]
+										.average) {
+										_self.teamList[0].win = 0
+										_self.teamList[1].win = 0;
+									} else if (_self.teamList[0].average < _self.teamList[1].average) {
+										_self.teamList[0].win = 1
+										_self.teamList[1].win = -1;
+									}
+
+									if (_self.teamList[0].totalAttend == 0 && _self.teamList[1]
+										.totalAttend != 0) {
+										_self.teamList[0].win = -1;
+										_self.teamList[1].win = 1;
+									} else if (_self.teamList[0].totalAttend != 0 && _self.teamList[1]
+										.totalAttend == 0) {
+										_self.teamList[0].win = 1;
+										_self.teamList[1].win = -1;
+									} else if (_self.teamList[0].totalAttend == 0 && _self.teamList[1]
+										.totalAttend == 0) {
+										_self.teamList[0].win = 0;
+										_self.teamList[1].win = 0;
+									}
+								}
+								_self.teamdetail = rows
+							} else {
+								_self.teamList[0].dataDetail = _self.teamList[0].dataDetail.concat(
+									rows[0].dataDetail);
+								_self.teamList[1].dataDetail = _self.teamList[1].dataDetail.concat(
+									rows[1].dataDetail)
+							}
+						} else {
+							_self.teamList = _self.teamList.concat([]);
+							_self.upFinished2 = true;
+						}
+					},
+					error: function () {
+						console.log("error")
+					}
+				})
+
+			},
+			//团队比赛的刷新
+			team_Refresh() {
+				this.pageIndex2 = 0;
+				this.upFinished2 = false; // 不写这句会导致你上拉到底过后在下拉刷新将不能触发下拉加载事件
+				this.team_initData(); // 加载数据
+			},
+			//团队比赛的直上拉加载请
+			team_LoadList() {
+				this.pageIndex2++;
+				this.team_initData();
+			},
+			//企业俱乐部的比赛详情
+			dept_initData(){
+				var _self = this;
+				ajax({
+					type: "post",
+					url: "club/competition/detail/play",
+					data: {
+						competitionId: _self.competitionId,
+					},
+					success: function (res) {
+						if (res.code == 0) {
+							_self.deptList=res.data.content	
+						}
+					},
+					error: function () {
+						console.log("error")
+					}
+				})
+			},
+			//团队赛选择队伍
+			chooseTeam() {
+				if (this.macItem.length == 0) {
+					this.$toast("请先绑定设备");
+					return
+				};
+				this.chooseTeamShow = true;
+			},
+			//最终报名
+			signSubmit(flag) {
+				var _self = this;
+				if (this.macItem.length == 0 && flag == 1) { //个人报名
+					this.$toast("请先绑定设备");
+					return
+				}
+
+				if (flag == 1) {
+					ajax({
+						type: "post",
+						url: "club/competition/user/participate",
+						data: {
+							userId: JSON.parse(localStorage.getItem("appInfo")).userId,
+							competitionId: _self.competitionItem.id,
+							teamId: _self.teamId_choose || ""
+						},
+						success: function (res) {
+							if (res.code == 0) {
+								//去跳绳结束后要重新加载一些跳绳的条件
+								_self.initData();
+								_self.joinStatus();
+								_self.getTimesRemain();
+								_self.$toast("报名成功！")
+								_self.successfulRegistrationCallBack();
+							} else {
+								_self.isSign = false;
+							}
+						},
+						error: function () {
+							console.log("error")
+						}
+					})
+				} else {
+					ajax({
+						type: "post",
+						url: "club/competition/team/user/participate",
+						data: {
+							competitionId: _self.competitionItem.id,
+							teamId: _self.teamId_choose || ""
+						},
+						success: function (res) {
+							if (res.code == 0) {
+								//去跳绳结束后要重新加载一些跳绳的条件
+								_self.initData();
+								_self.joinStatus();
+								_self.getTimesRemain();
+								_self.$toast("报名成功！");
+								_self.successfulRegistrationCallBack();
+								localStorage.setItem('dataChange','tabDetailChange');
+							} else {
+								_self.isSign = false;
+							}
+						},
+						error: function () {
+							console.log("error")
+						}
+					})
+				}
+			},
+			//报名成功后告诉原生的去刷新比赛列表
+			successfulRegistrationCallBack() {
+				var _self = this;
+				if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) { //判断iPhone|iPad|iPod|iOS
+					try {
+						window.webkit.messageHandlers.lstNative.postMessage({
+							'method': 'successfulRegistrationCallBack',
+						})
+					} catch (err) {
+						console.log(err)
+					}
+
+				} else if (/(Android)/i.test(navigator.userAgent)) { //判断Android
+					window.android.registrationSuccess();
+				}
+			},
+
+			//2019-11-20T02:22:58.000+0000 转换2019-11-20 11:11:59
+			renderTime(utc_datetime) {
+				var T_pos = utc_datetime.indexOf('T');
+				var Z_pos = utc_datetime.indexOf('.');
+				var year_month_day = utc_datetime.substr(0, T_pos);
+				var hour_minute_second = utc_datetime.substr(T_pos + 1, Z_pos - T_pos - 1);
+				var new_datetime = year_month_day + " " + hour_minute_second; // 2017-03-31 08:02:06
+
+				// 处理成为时间戳
+				var timestamp = DateTime.getTime(new_datetime);
+				// 增加8个小时，北京时间比utc时间多八个时区
+				var timestamp = timestamp + 8 * 60 * 60 * 1000;
+
+				// 时间戳转为时间
+				var beijing_datetime = DateTime.sjc2time("ymd3", timestamp);
+				return beijing_datetime;
+
+			},
+			//获取绑定的设备以及当前连接的设备
+			gotoSkipReady() {
+				Interaction.gotoGetConnectedMac()
+			},
+			//获取到绑定的蓝牙地址后回调处理
+			getConnectedMac(list) {
+				console.log("连接中的mac地址的回调1")
+				console.log(list)
+				var that = this;
+				var linkList = JSON.parse(list);
+				var macBind = linkList.skipping || linkList.t18mac || linkList.t20mac || linkList.nkt30l ||
+					linkList.lst30l
+				var bindIndex = 0;
+				for (var i = 0; i < that.macItem.length; i++) {
+					if (macBind) {
+						if (that.macItem[i].mac.toLowerCase() == macBind.toLowerCase()) {
+							that.macItem[i].bind = true;
+							bindIndex = i;
+						}
+					}
+				}
+				if (macBind && that.macItem.length > 0) {
+					that.macItem.unshift(that.macItem[bindIndex]);
+					that.macItem.splice(bindIndex + 1, 1);
+				}
+				that.gotoSkip()
+			},
+			//去跳绳前先判断是否有设备
+			gotoSkip() {
+				if (this.macItem.length == 0) {
+					this.$toast("请先绑定设备");
+					return
+				};
+
+				if (this.macItem.length == 1) {
+					this.mac = this.macItem[0].mac;
+					this.macName = this.macItem[0].macName;
+					this.deviceModel = this.macItem[0].deviceModel;
+					this.gotoSkip2();
+					return;
+				}
+				var _self = this;
+				_self.macShow = true;
+			},
+			//前去app跳绳的跳绳页面ios安卓自行加载
+			gotoSkip2() {
+				var _self = this;
+				if (isIOS) {
+					try {
+						window.webkit.messageHandlers.lstNative.postMessage({
+							'method': 'goToRopeSkipForPKGame',
+							"mode": _self.competitionItem.mode,
+							"modeValue": _self.competitionItem.modeValue,
+							"mac": _self.mac,
+							"jumpCount": _self.competitionItem.repeatTimes,
+							"macName": _self.macName,
+							"culbId": _self.clubId,
+							"category": 2,
+							"deviceModel": _self.deviceModel
+						})
+					} catch (e) {
+						console.log(e)
+					}
+				} else { //判断Android
+					window.location.href = 'rehealth://competition/para?action=skipping&mode=' + _self
+						.competitionItem.mode +
+						'&modeValue=' + _self.competitionItem.modeValue + '&matchId=' + _self.competitionItem.id +
+						'&mac=' + _self.mac +
+						'&jumpCount=' + _self.competitionItem.repeatTimes + '&macName=' + _self.macName +
+						'&culbId' + _self.clubId +
+						'&category=2&deviceModel=' + _self.deviceModel
+				}
+				//去跳绳结束后要重新加载一些跳绳的条件
+				_self.initData();
+				_self.getTimesRemain();
+			},
+
+
+			//跳转部门详情
+			gotoCompetitionDetail(item) {
+				window.location.href = `deptCompetitionDetail.html?clubId=${this.clubId}&competitionId=${this.competitionId}&clubGroupId=${item.id}&mode=${this.competitionItem.mode}&deptName=${item.name}`
+			}
+
+		}
+	})
+</script>

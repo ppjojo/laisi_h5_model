@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+		<title>规则</title>
+		<!-- 引入样式文件 -->
+		<link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
+		<link rel="stylesheet" href="../common/css/basic.css">
+		<link rel="stylesheet" href="css/normal.css">
+		<!-- <link rel="stylesheet" href="css/balancedetail.css"> -->
+		<!-- <script src="https://cdn.bootcss.com/vConsole/3.3.4/vconsole.min.js"></script>
+				<script>
+					// init vConsole
+				        var vConsole = new VConsole();
+				        console.log('Hello world');
+				    </script> -->
+		<style type="text/css">
+			#app {
+				color: #fff;
+				padding-bottom: 1rem;
+				height:calc( 100vh - .92rem );
+				overflow-y: scroll;
+			}
+
+			.wbox {
+				background-color: #fff;
+				border-radius: .2rem;
+				padding: 1rem .3rem 0.15rem .3rem;
+				width: 6.9rem;
+				margin: 1rem auto;
+				position: relative;
+			}
+
+			.wbox .titleimg {
+				width: 3.56rem;
+				height: 1.32rem;
+				position: absolute;
+				left: calc(50% - 1.78rem);
+				top: -.66rem;
+			}
+
+			.wbox .pointimg {
+				width: 1.06rem;
+				height: auto;
+				position: absolute;
+				top: .3rem;
+				left: .3rem;
+			}
+
+			.wbox .pointimg2 {
+				width: 1.06rem;
+				height: auto;
+				position: absolute;
+				bottom: .3rem;
+				right: .3rem;
+				z-index: 1;
+			}
+
+			.wbox .stepimg {
+				width: .52rem;
+				height: .4rem;
+				margin-right: .1rem;
+			}
+
+			.wbox .detail,
+			.wbox .detail2 {
+				color: #1F1F1F;
+				font-family: PingFangSC-Regular;
+				font-size: .28rem;
+				margin-bottom: .2rem;
+				line-height: .4rem;
+			}
+
+			.wbox .detail2 {
+				margin-bottom: 0;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="app" :style="{paddingTop:isIOS?'.3rem':'.92rem'}" v-cloak>
+			<div class="header">
+				<van-nav-bar title="活动规则" @click-left="OnclickLeft" @click-right="onClickRight" left-arrow>
+					<template #right>
+					</template>
+				</van-nav-bar>
+			</div>
+			<div class="wbox">
+				<img class="titleimg" src="./img/rule_hdwf.png" alt="">
+				<img class="pointimg" src="img/rule_lt.png" alt="">
+				<img class="pointimg2" src="img/rule_rt.png" alt="">
+				<div class="detail ub">
+					<div><img class="stepimg" src="./img/1.png" alt=""></div>
+					<div>用户选择跳绳组别进行报名，需支付对应组别的报名费；</div>
+				</div>
+				<div class="detail ub">
+					<div><img class="stepimg" src="./img/2.png" alt=""></div>
+					<div>次日00:00:00-23:59:59完成目标跳绳个数，回到在活动页面提交成绩。</div>
+				</div>
+				<div class="detail ub">
+					<div><img class="stepimg" src="./img/3.png" alt=""></div>
+					<div>比赛结束后，成功提交成绩的用户可平分本组报名费，将获得一个大于等于报名费的奖金。</div>
+				</div>
+			</div>
+			<div class="wbox">
+				<img class="titleimg" src="./img/rule_qa.png" alt="">
+				<img class="pointimg" src="img/rule_lt.png" alt="">
+				<img class="pointimg2" src="img/rule_rt.png" alt="">
+				<div class="detail2 ub">
+					<div><img class="stepimg" src="./img/Q_.png" alt=""></div>
+					<div>如何报名？</div>
+				</div>
+				<div class="detail ub">
+					<div><img class="stepimg" src="./img/A_.png" alt=""></div>
+					<div>为了激励宝宝们养成运动的好习惯，每位宝宝们需选择挑战的组别，需预付报名费，且绑定了智能跳绳，即可参赛。</div>
+				</div>
+				<div class="detail2 ub">
+					<div><img class="stepimg" src="./img/Q_.png" alt=""></div>
+					<div>如何瓜分奖金？</div>
+				</div>
+				<div class="detail ub">
+					<div><img class="stepimg" src="./img/A_.png" alt=""></div>
+					<div>比赛时间段完成报名挑战的个数，并在比赛结束前提交成绩，视为比赛成功，作为奖励可平分本组奖金（本人保证金+平分本组未达标用户的报名费），获得一个大于等于报名费的奖金；若全组无一人达标，对应的报名费将退还。</div>
+				</div>
+				<div class="detail2 ub">
+					<div><img class="stepimg" src="./img/Q_.png" alt=""></div>
+					<div>红包如何提现？</div>
+				</div>
+				<div class="detail ub">
+					<div><img class="stepimg" src="./img/A_.png" alt=""></div>
+					<div>赛事结束后，用户打开派健康跳绳红包赛页面，即可查看瓜分金额，奖金自动发放至余额，请及时至派健康我的钱包（我的-我的钱包-余额明细）或跳绳红包赛-我的记录进行查看。</div>
+				</div>
+				<div class="detail2 ub">
+					<div><img class="stepimg" src="./img/Q_.png" alt=""></div>
+					<div>如果没有完赛，报名费还能退换吗？</div>
+				</div>
+				<div class="detail ub">
+					<div><img class="stepimg" src="./img/A_.png" alt=""></div>
+					<div>若比赛结束前未提交成绩，则挑战失败，报名费不予以退还，作为本组达标用户的奖金。</div>
+				</div>
+			</div>
+			<div class="wbox">
+				<img class="titleimg" src="./img/rule_zysm.png" alt="">
+				<img class="pointimg" src="img/rule_lt.png" alt="">
+				<img class="pointimg2" src="img/rule_rt.png" alt="">
+				<div class="detail ub">
+					<div><img class="stepimg" src="./img/1.png" alt=""></div>
+					<div>
+						数据来源</br>
+						1.1 绑定跳绳设备，已连接状态，同步记录跳绳个数，若跳绳时派健康app未打开，等打开app时，再次跳绳系统会记录上次未打开派健康app时的跳绳个数；</br></br>
+
+						1.2 跳绳时请连接APP，如未连接APP，请在跳绳结束后，及时连接APP同步跳绳数据，数据会同步至活动页面，结算数据以活动页面显示数据为准；</br></br>
+
+						1.3 如因未同步数据导致跳绳个数不准而被判定未完成扣除报名费，平台不予以返还。
+					</div>
+				</div>
+				<div class="detail ub">
+					<div><img class="stepimg" src="./img/2.png" alt=""></div>
+					<div>参与活动用户需同时符合以下条件：</br>2.1 用户绑定了智能跳绳</br>
+						2.2 蓝牙为打开状态</div>
+				</div>
+			</div>
+			<div class="wbox" style="margin-bottom: 0;">
+				<img class="titleimg" src="./img/rule_etc.png" alt="">
+				<img class="pointimg" src="img/rule_lt.png" alt="">
+				<img class="pointimg2" src="img/rule_rt.png" alt="">
+				<div class="detail ub">
+					<div><img class="stepimg" src="./img/1.png" alt=""></div>
+					<div>报名成功后不支持退款退赛，报名成功后请勿切换账号或设备，否则可能会导致无法准确记录跳绳个数；</div>
+				</div>
+				<div class="detail ub">
+					<div><img class="stepimg" src="./img/2.png" alt=""></div>
+					<div>报名成功视为用户知晓并同意比赛规则且认可平台判定的比赛结果；</div>
+				</div>
+				<div class="detail ub">
+					<div><img class="stepimg" src="./img/3.png" alt=""></div>
+					<div>秉持公平公正原则，比赛期间如用户被后台反作弊系统判定存在违规作弊行为，将被取消本场比赛的参赛资格并扣除报名费，并按照派健康活动相关规则进行处罚；</div>
+				</div>
+				<div class="detail ub">
+					<div><img class="stepimg" src="./img/4.png" alt=""></div>
+					<div>所有报名者将视为已了解本次活动细节，且了解运动活动可能带来的损伤和危害，并确认自己适合参与本次活动，自愿承担所有责任和风险，造成任何伤害与组织者无关；</div>
+				</div>
+				<div class="detail ub">
+					<div><img class="stepimg" src="./img/5.png" alt=""></div>
+					<div style="color: #E60012;font-weight: bold;">如有疑问请私信派小俊（官方）进行咨询。</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="https://oss.laisitech.com/0bb12bf1-cb87-4d2c-a724-8a7c25b7ae04.js "></script>
+<script src="https://oss.laisitech.com/6172e6c1-f460-40ac-97ba-31c8526f2e16.js"></script>
+	<script src="../common/js/network.js"></script>
+	<script src="js/tool.js"></script>
+	<script>
+		window.addEventListener('pageshow', function(event) {
+			console.log("PageShow Event  " + event.persisted);
+			console.log(event)
+			if (isIOS) {
+
+			}
+		})
+		new Vue({
+			el: '#app',
+			data() {
+				return {
+					loading: false,
+					finished: false,
+				}
+			},
+			filters: {},
+			mounted() {},
+			created() {
+				// setTopBarColor('white');
+			},
+			methods: {
+				OnclickLeft() {
+					if (getQueryString("stateFlag") == 2) {
+						window.localStorage.setItem('REDBAG_stateflag', 2);
+					}
+					window.history.back(-1);
+				},
+				onClickRight() { //显示。。。
+					// window.location.href='test.html'
+				},
+			}
+		})
+	</script>
+
+</html>

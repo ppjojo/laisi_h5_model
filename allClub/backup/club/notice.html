@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+		<title>发通知</title>
+		<!-- 引入样式文件 -->
+		<link rel="stylesheet" href="../../common/css/vant-rem.css">
+		<link rel="stylesheet" href="css/clubCreateCompetition.css">
+		<link rel="stylesheet" type="text/css" href="css/iosTop.css" />
+		<script type="text/javascript">
+			document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';
+		</script>
+		<style type="text/css">
+			body{
+				background-color: #fff;
+			}
+			.van-nav-bar__text{
+				color: #999;
+			}
+			.border-bottom{
+				border-bottom: 1px solid #f3f3f3;
+			}
+			.title{
+				height: 1.12rem;
+				line-height: 0.72rem;
+				font-size: 0.28rem;
+			}
+			.title .van-field__word-limit{
+				position: absolute;
+				bottom: 0.1rem;
+				right: 0.1rem;
+			}
+			.content-input{
+				min-height: 3rem;
+				font-size: 0.28rem;
+				line-height: 0.6rem;
+				position: relative;
+				padding: 0 0.32rem;
+			}
+			.laberDiv {
+			    text-align: left;
+			    font-size: 0.32rem;
+			    line-height: 1rem;
+			    padding: 0 0.32rem;
+			    /* font-weight: bold; */
+			}
+			[class*=van-hairline]::after{
+				border:none
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app" class="page" v-cloak>
+			<div class="header">
+				<van-nav-bar title="发通知"
+				left-text="取消"
+			 @click-left="OnclickLeft"
+			 @click-right="OnclickRight"
+			 >
+			 <template #right>
+			 	<div :style="{color:(title.length>0&&content.length>0)?'#e60012':'#999'}" >发送</div>
+			 </template>
+			</van-nav-bar>
+			</div>
+			
+			<div style="padding-top: .92rem;">
+				<div class="laberDiv">
+					通知标题
+				</div>
+				<div style="padding:0 0.2rem 0.2rem 0.2rem;">
+					<van-field v-model="title" :input="titleChange()" class="club-input" style="min-height:1.7rem;" rows="2"
+					 autosize type="textarea" maxlength="16" placeholder="请输入通知标题" show-word-limit />
+				</div>
+				<div class="laberDiv">
+					通知内容
+				</div>
+				<div style="padding:0 0.2rem 0.2rem 0.2rem;">
+					<van-field v-model="content" :input="contentChange()" class="club-input" style="min-height:2.7rem;" rows="4"
+					 autosize type="textarea" maxlength="100" placeholder="请输入通知内容" show-word-limit />
+				</div>
+				<!-- <div class="border-bottom">
+					<van-field v-model="title" :input="titleChange()" :error="isSubmit&&!title?true:false" class="title" placeholder="请输入通知标题"   maxlength="16" show-word-limit  />
+				</div> -->
+				<!-- <div>
+					<van-field v-model="content" :input="contentChange()" :error="isSubmit&&!content?true:false" class="content-input"  rows="4" autosize type="textarea" maxlength="100" placeholder="请输入通知内容" show-word-limit />
+				</div> -->
+				
+			</div>
+		</div>
+	<!-- 	<a onclick="saveNotice()">555555555</a> -->
+	</body>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vant@2.9/lib/vant.min.js"></script>
+	<script src="js/area.js"></script>
+	 
+	<script src="../../common/js/network.js"></script>
+	<script type="text/javascript">
+		new Vue({
+			el: '#app',
+			data() {
+				return {
+					title:"",
+					content:"",
+					parentId:"",
+					isSubmit:false,
+				};
+			},
+			beforeCreate(){
+				this.hiddenTitle=getQueryString("hiddenTitle")
+				if(isAndroid)this.hiddenTitle=false;
+			},
+			// watch:{
+			// 	title(newVal,oldVal){
+			// 		if(newVal&&this.content){
+			// 			console.log("success")
+			// 		}else{
+			// 			console.log("error")
+			// 		}
+					
+			// 	},
+			// 	content(newVal,oldVal){
+			// 		if(newVal&&this.title){
+			// 			console.log("success")
+			// 		}else{
+			// 			console.log("error")
+			// 		}
+			// 	},
+			// },
+			mounted() {
+			    //将Vue方法传到全局对象window中
+			    window.saveNotice = this.saveNotice;
+			},
+			created() {
+				this.parentId = getQueryString("id");
+				this.flag = getQueryString("flag");//1俱乐部通知  2或者空 是任务通知
+			},
+			methods:{
+				OnclickLeft(){
+					window.history.back(-1)
+				},
+				OnclickRight(){
+					this.saveNotice()
+				},
+				saveNotice() {
+					var _self=this;
+					_self.isSubmit=true;
+					if(!this.title){
+						//this.$toast("标题不为空！")
+						return;
+					}else if(!this.content){
+						//this.$toast("内容不为空！")
+						return;
+					}
+					var url="club/saveClubNotice";
+					var data={
+						title:_self.title,
+						content:_self.content,
+					};
+					
+					if(_self.flag==1){
+						url="club/saveClubNotice";
+						data.clubId=_self.parentId;
+					}else{
+						url="club/saveTaskNotice"
+						data.taskId=_self.parentId;
+					}
+					ajax({
+						type: "post",
+						url: url,
+						data:data,
+						success: function(res) {
+							if (res.code == 0) {
+								_self.$toast("通知创建成功！");
+								setTimeout(function(){
+									if(_self.flag==1){
+										window.history.back(-1);
+									}else{
+										_self.successBack(); 
+									}
+									
+								},500)
+							} else {
+								_self.$toast(res.msg);
+							}
+						},
+						error: function() {
+							console.log("error")
+						}
+					})
+				},
+				successBack(){
+					var _self = this;
+					if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) { //判断iPhone|iPad|iPod|iOS
+						window.webkit.messageHandlers.lstNative.postMessage({
+							'method': 'clubAutomaticPopBack',
+						})
+					} else if (/(Android)/i.test(navigator.userAgent)) { //判断Android
+						window.android.clubAutomaticPopBack();
+					}
+				},
+				titleChange(){
+					this.title=this.title.replace(/[^\u4E00-\u9FA5|\d|\a-zA-Z|\r\n\s,.?!，。#￥$%\`~^？！@…—&$=()\-+/*{}【】\\（）[\]]|\s/g, '');
+				},
+				contentChange(){
+					this.content=this.content.replace(/[^\u4E00-\u9FA5|\d|\a-zA-Z|\r\n\s,.?!，。#￥$%\`~^？！@…—&$=()\-+/*{}【】\\（）[\]]|\s/g, '');
+				},
+			}
+		})
+	</script>
+</html>

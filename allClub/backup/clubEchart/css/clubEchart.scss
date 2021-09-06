@@ -1,0 +1,63 @@
+.selectBox {
+  border-top: 0.2rem solid rgb(245, 245, 245);
+  border-bottom: 0.2rem solid rgb(245, 245, 245);
+  .selectDiv {
+    &:last-child{
+        border-bottom: none;
+    }
+    height: 1.2rem;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid  rgb(245, 245, 245);;
+    padding: 0 0.3rem;
+    align-items: center;
+    .selectLeftBox {
+        display: flex;
+        align-items: center;
+      img {
+        width: 0.4rem;
+        height: 0.4rem;
+        margin-right: 0.3rem;
+      }
+      .lable{
+        font-size: 0.32rem;
+        color: #1f1f1f;
+      }
+      .title {
+        font-size: 0.28rem;
+        color: #999999;
+      }
+      .titleActive {
+        font-size: 0.32rem;
+        color: #1f1f1f;
+      }
+      .titleActive2 {
+        font-size: 0.32rem;
+        color: #000000;
+      }
+    }
+
+    .icon {
+      font-size: 0.3rem;
+      color: #999999;
+    }
+  }
+}
+
+.scoreDetailBox{
+    height: 1.2rem;
+    display: flex;
+    padding: 0 0.3rem;
+    align-items: center;
+    color: #1F1F1F;
+    font-size: 0.32rem;
+    border-bottom: 0.2rem solid rgb(245, 245, 245);
+}
+
+
+.echartBox{
+  height: 5.04rem;
+  width: 100%;
+  padding: 0 0.3rem;
+  border-bottom: 0.2rem solid rgb(245, 245, 245);
+}

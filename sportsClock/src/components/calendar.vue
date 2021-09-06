@@ -75,6 +75,7 @@
 				this.clickIndex = index;
 			},
 			calindarList(arr){
+				if(!arr)arr = this.list;
 				let timeObj = {
 					startTime:arr[0].timeStamp,
 					endTime:arr[arr.length-1].timeStamp,

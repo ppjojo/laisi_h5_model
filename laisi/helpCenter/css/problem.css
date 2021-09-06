@@ -1,0 +1,110 @@
+*{margin:0;padding:0;}
+a,a:hover{text-decoration:none;cursor:pointer;}
+a,button,input{-webkit-tap-highlight-color:rgba(255,0,0,0); -webkit-tap-highlight-color: transparent; outline:none;}
+li{list-style:none;}
+html,body{max-width:640px; height:100%; margin:auto;}
+body{
+    font-family:'microsoft yahei', Arial, sans-serif; 
+    font-size:16px;
+    color:#666; 
+     background: #12121F;
+    -webkit-tap-highlight-color: rgba(255,255,255,0);
+}
+.qustion{
+    background: #fff;
+    font-size: 1.17rem;
+    padding-left: 2rem;
+    padding-top: .8rem;
+}
+/*** 常见问题 选择产品 ***/
+ul{
+    width: 100%;
+    color: #333;
+}
+ul li{
+    position:relative;
+    border-bottom: 10px solid #f8f8f8;
+    background:#fff;
+}
+.box{
+    display: block;
+    padding: 35px 15px;
+    /* padding: 2% 3%; */
+    color: #333;
+}
+.img-product{
+    display:inline-block;
+    width:35px;
+    height:35px;
+    margin-right:5px;
+    text-align:center;
+    vertical-align:middle;
+}
+.img-product img{
+    height:100%;
+}
+.icoRight{
+    display:block;
+    position:absolute;
+    top:50%;
+    right:15px;
+    height:16px;
+    transform:translateY(-8px);
+    -webkit-transform:translateY(-9px);
+}
+
+
+/*** 常见问题 问题列表 ***/
+.question .box{padding: 15px;}
+.question .box span{display:inline-block; width:calc(100% - 10px);}
+
+/*** 常见问题 答复 ***/
+.answer{
+     background: #12121F;
+    padding:15px;
+}
+.answer .container{
+}
+.answer h3{
+    display:inline-block;
+    width: calc(100% - 40px);
+    width: -webkit-calc(100% - 40px);
+    font-size: 16px;
+    font-weight: 400;
+   color: #BFBFC2;
+    margin: 0 0 20px;
+    line-height: 32px;
+}
+.answer .text{
+    display:inline-block;
+    width: calc(100% - 40px);
+    width: -webkit-calc(100% - 40px);
+}
+.answer p{
+    margin: 0 0 10px;
+    line-height: 28px;
+	color:#CFCFD2;
+     /* 两端对齐 */
+    /* text-align: justify;  */
+    text-align: left
+    
+}
+.answer p img{
+    display:block;
+    margin:auto;
+}
+.answer .icon{
+    display:inline-block;
+    width:24px;
+    height:24px;
+    line-height: 24px;
+    margin: 4px 5px 0 0;
+    color:#fff;
+    text-align:center;
+    vertical-align: top;
+    border-radius:100%;
+    background: linear-gradient(to right, #FF4E3E, #FFAA88);
+}
+.answer .icon.bgGreen{
+    background: linear-gradient(to right, #188DFF, #7DB3FF);
+}

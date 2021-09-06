@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+		<title>部长设置</title>
+		<!-- 引入样式文件 -->
+		<link rel="stylesheet" href="../../common/css/vant-rem.css">
+		<link rel="stylesheet" href="css/clubCreateCompetition.css">
+		<link rel="stylesheet" type="text/css" href="css/iosTop.css" />
+		<script type="text/javascript">
+			document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';
+		</script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.min.js"></script>
+		<script src="js/exif.js"></script>
+		<script src="js/upload.js"></script>
+		<!-- <script src="https://cdn.bootcss.com/vConsole/3.3.4/vconsole.min.js"></script>
+		<script>
+			// init vConsole
+			var vConsole = new VConsole();
+			console.log('Hello world');
+		</script> -->
+		<style type="text/css">
+			.van-cell:not(:last-child)::after {
+				left: 0;
+			}
+
+			.van-cell::after {
+				border-bottom: none;
+			}
+
+			.van-hairline--top-bottom::after,
+			.van-hairline-unset--top-bottom::after {
+				border-width: 0;
+			}
+
+			.cropper-container {
+				display: none;
+			}
+
+			.van-cell__value span {
+				font-size: .28rem;
+				color: #1f1f1f;
+			}
+
+			.listBox {
+				height: 0.96rem;
+				line-height: 0.96rem;
+				font-size: 0.32rem;
+				padding: 0 0.3rem;
+				border-bottom: 1px solid #f3f3f3;
+			}
+
+			.redPoint {
+				width: 0.08rem;
+				border-radius: 50%;
+				height: 0.08rem;
+				background-color: red;
+				display: inline-block;
+				position: relative;
+				top: -0.2rem;
+			}
+
+			.smallpic {
+				width: .72rem;
+				height: .72rem;
+				border-radius: .1rem;
+				vertical-align: middle;
+			}
+
+			.van-uploader__preview,
+			.van-uploader__preview-image {
+				width: .72rem;
+				height: .72rem;
+				border-radius: .1rem;
+				vertical-align: middle;
+				margin-top: .1rem;
+				/* display: none; */
+			}
+			.van-cell__value span{
+				overflow: hidden;
+				    white-space: nowrap;
+				    text-overflow: ellipsis;
+			}
+			[class*=van-hairline]::after{
+				border:none;
+			}
+			#clubname .van-cell__title{
+				-webkit-box-flex: none!important;
+				-webkit-flex: none!important;
+				flex:none!important;
+				width: 1.7rem;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app" class="page" v-cloak>
+			<div class="header">
+				<van-nav-bar title="俱乐部设置" @click-left="OnclickLeft" left-arrow>
+				</van-nav-bar>
+			</div>
+
+			<div>
+				<van-collapse v-model="activeNames" accordion>
+					<div id="clubname" @click="localStorage.setItem('clubForm', JSON.stringify(submitform));window.location.href='ministerSettingSecond.html?flag=1'"
+					 style="border-bottom: .02rem solid #EBEDF0;">
+						<van-cell title="俱乐部名称" is-link :value="submitform.name"></van-cell>
+					</div>
+					<div style="border-bottom: .02rem solid #EBEDF0;">
+						<van-cell title="俱乐部形象" is-link>
+							<template>
+								<van-uploader v-model="fileList" :max-count="1" :after-read="afterRead" :deletable=false>
+									<template #preview-cover="{ file }">
+									</template>
+									<van-uploader>
+										<img class="smallpic" :src="submitform.photo" />
+							</template>
+						</van-cell>
+					</div>
+					<div @click="localStorage.setItem('clubForm', JSON.stringify(submitform));window.location.href='ministerSettingSecond.html?flag=2'"
+					 style="border-bottom: .02rem solid #EBEDF0;">
+						<van-cell title="俱乐部简介" is-link value=""></van-cell>
+					</div>
+					<div class="ub ub-ac ub-pj" style="border-bottom: .02rem solid #EBEDF0;">
+						<div class="van-cell"><span>是否需要申请加入</span></div>
+						<van-switch style="margin-right: .3rem;" @change="ispublic" active-color="#07c160" v-model="publicFlag" size="20"></van-switch>
+					</div>
+					<!-- <van-collapse-item name="1" class="matchName-box hasInput">
+						<div slot="title">
+							<span>俱乐部名称</span>
+							<span v-if="submitform.name">{{':'+submitform.name}}</span>
+							<span v-else-if="isSubmit" class="errorSpan">{{"请输入俱乐部名称"}}</span>
+						</div>
+						<div>
+							<van-field class="matchName-input" v-model="submitform.name" :input="titleChange()" show-word-limit maxlength="16" placeholder="请输入俱乐部名称" />
+						</div>
+					</van-collapse-item> -->
+					<div class="listBox ub ub-pj" style="border-bottom: .2rem solid #f5f5f5;">
+						<span>所在城市</span><span id="" style="font-size: .28rem;">
+							{{(submitform.province||"")+(submitform.city||"")+(submitform.county||"")}}
+						</span>
+					</div>
+
+					<!-- <van-collapse-item name="5" class="border-bottom">
+						<div slot="title">
+							<span>是否公开</span>
+							<span v-if="submitform.isPublic">{{':'+(submitform.isPublic=='Y'?'公开':'不公开')}}</span>
+							<span v-else-if="isSubmit" class="errorSpan">{{"请选择是否公开"}}</span>
+						</div>
+						<div class="collapseListBox">
+							<div class="collapseList-item" :class="submitform.isPublic=='Y'?'chooseActive':''" @click="noCode">是</div>
+							<div class="collapseList-item" :class="submitform.isPublic=='N'?'chooseActive':''" @click="createCode">否</div>
+						</div>
+					</van-collapse-item>
+					<div class="border-bottom">
+						<div class="laberDiv">
+							俱乐部简介 
+							<span v-if="isSubmit&&!submitform.introduce" class="errorSpan">{{"请输入俱乐部简介"}}</span>
+						</div>
+						<div style="padding:0 0.2rem 0.2rem 0.2rem;">
+							<van-field v-model="submitform.introduce" :input="contentChange()" class="club-input" rows="5" autosize type="textarea" maxlength="100" placeholder="请输入俱乐部简介"
+							 show-word-limit />
+						</div>
+					</div> -->
+					<!-- <van-collapse-item name="2" class="clubImg border-bottom">
+						<div slot="title" >
+							<span>俱乐部形象</span>
+							<img class="clubImg_photo" v-if="submitform.photo" :src="submitform.photo" >
+						</div>
+						<div style="padding: 0.2rem ;text-align: center;overflow: hidden;">
+							<van-uploader v-model="fileList" :max-count="1" :after-read="afterRead" />
+						</div>
+					</van-collapse-item> -->
+					<van-cell title="发通知" is-link @click="gotoNotice" style="border-bottom: .02rem solid #EBEDF0;"></van-cell>
+					<van-cell style="border-bottom: .02rem solid #EBEDF0;" title="成员管理" is-link :value="submitform.memberNumber?submitform.memberNumber+'人':''" @click="gotoMemberList(1)"></van-cell>
+					<van-cell style="border-bottom: .02rem solid #EBEDF0;" title="部长转让" is-link @click="gotoMemberList(2)"></van-cell>
+					<van-cell title="" is-link @click="gotoApplyList" v-if="applyIsPublic=='N'" style="border-bottom: .2rem solid #f5f5f5;">
+						<div slot="title">
+							申请列表
+							<span v-if="applyMemberList.length>0" class="redPoint"></span>
+						</div>
+					</van-cell>
+					<van-cell title="参与历史" is-link @click="historyList()"></van-cell>
+				</van-collapse>
+				<!-- <van-button round class="submit" block color="linear-gradient(to right, #FAD961, #F76B1C )" @click="submitFormData">确认修改</van-button> -->
+				<van-overlay :show="overlayShow" @click="show = false" style="align-items: center;display: flex;justify-content: center;">
+					<van-loading size="0.7rem" color="#fff" vertical>
+						<p style="color:#fff;font-size:0.24rem">正在上传图片...</p>
+					</van-loading>
+				</van-overlay>
+			</div>
+		</div>
+	</body>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vant@2.9/lib/vant.min.js"></script>
+
+	<script src="../../common/js/network.js"></script>
+	<script type="text/javascript">
+		window.addEventListener('pageshow', function(e) {
+			console.log("pageshow")
+			if (localStorage.getItem('settingChange')) {
+				initData();
+				setTimeout(function(){
+					initData();
+				},500)
+				localStorage.removeItem("settingChange");
+			}
+		}, false)
+		new Vue({
+			el: '#app',
+			data() {
+				return {
+					isClick: false,
+					activeNames: 0,
+					matchName: '',
+					clubId: "",
+					overlayShow: false,
+					applyMemberList: [],
+					applyIsPublic: "",
+					publicFlag: false,
+					isSubmit: false,
+					fileList: [],
+					form: {
+						bq: "",
+						lx: "",
+						mc: "",
+						cs: "",
+						yqm: "",
+						jj: ""
+					},
+					submitform: {
+						"name": "",
+						"province": "",
+						"city": "",
+						"county": "",
+						"isPublic": "", // Y(官方比赛)，N(非官方比赛)
+						"introduce": "", //简介
+						"photo": ""
+					}
+
+				};
+			},
+			mounted() {
+				window.initData = this.initData;
+				// window.ininPageData = this.initData;
+			},
+			created() {
+				this.clubId = getQueryString("id") || 10000127;
+				this.initData();
+			},
+			methods: {
+				OnclickLeft() {
+					Interaction.closePage();
+				},
+				initData() {
+					this.applyList();
+					var _self = this;
+					ajax({
+						type: "get",
+						url: "club/clubDetail",
+						data: {
+							clubId: _self.clubId
+						},
+						success: function(res) {
+							if (res.code == 0) {
+								_self.submitform = res.data;
+								_self.publicFlag = res.data.isPublic == "N" ? true : false;
+								_self.applyIsPublic = res.data.isPublic;
+							} else {
+								_self.$toast(res.msg);
+							}
+						},
+						error: function() {
+							console.log("error")
+						}
+					})
+				},
+				//获取申请列表
+				applyList() {
+					var _self = this;
+					ajax({
+						type: "post",
+						url: "club/applyList",
+						data: {
+							clubId: _self.clubId,
+						},
+						success: function(res) {
+							if (res.code == 0) {
+								_self.applyMemberList = res.data;
+							} else {
+								_self.$toast(res.msg);
+							}
+						},
+						error: function() {
+							console.log("error")
+						}
+					})
+				},
+				datachange(){
+					localStorage.setItem("dataChange","tabDetailChange");
+				},
+				ispublic(val) {
+					var _self = this;
+					if (val) {
+						this.createCode()
+					} else {
+						this.noCode()
+					}
+					ajax({
+						type: "post",
+						url: "club/updateClub",
+						data: _self.submitform,
+						success: function(res) {
+							_self.isClick = false;
+							if (res.code == 0) {
+								_self.overlayShow = false;
+								if (_self.submitform.isPublic == 'Y') {
+									_self.applyIsPublic = 'Y';
+								} else {
+									_self.applyIsPublic = 'N';
+								}
+								_self.datachange();
+								_self.$toast("俱乐部设置成功！");
+								// _self.successBack();
+							} else {
+								_self.overlayShow = false;
+								_self.$toast(res.msg);
+							}
+						},
+						error: function() {
+							_self.isClick = false;
+							console.log("error")
+						}
+					})
+				},
+				//选择公开
+				noCode() {
+					this.form.yqm = "公开";
+					this.submitform.isPublic = "Y";
+					this.activeNames = 0;
+				},
+				//生成邀请码
+				createCode() {
+					this.submitform.isPublic = "N";
+					this.form.yqm = "不公开";
+					this.activeNames = 0;
+				},
+				//进入成员管理传入不同的参数
+				gotoMemberList(flag) { //
+					window.location.href = "memberList.html?flag=" + flag + "&id=" + this.clubId
+				},
+				//进入发通知的页面
+				gotoNotice() { //
+					window.location.href = "notice.html?flag=1&id=" + this.clubId
+				},
+				//进入申请列表
+				gotoApplyList(flag) { //
+					window.location.href = "applyList.html?id=" + this.clubId
+				},
+				//参与历史
+				historyList() {
+					window.location.href = "historyList.html?id=" + this.clubId + "&userId=" + JSON.parse(localStorage.getItem("appInfo")).userId;
+					// return;
+					// var str = "h5/h5V2/allClub/club/historyList.html?id=" + this.clubId + "&userId=" + JSON.parse(localStorage.getItem("appInfo")).userId;
+					// if (isIOS) {
+					// 	var allstr = "/" + str
+					// 	Interaction.pushToNextVC(allstr)
+					// } else {
+						
+					// }
+				},
+				//文件选择之后的回调压缩裁剪处理
+				afterRead(file) {
+					var _self = this;
+					_self.overlayShow = true;
+					setTimeout(function() {
+						_self.uploadPicReady(_self.fileList[0])
+					}, 500)
+				},
+				uploadPicReady(file) {
+					console.log("原始的文件")
+					//console.log(file.file)
+					var _self = this;
+					try {
+						var cropper = new Cropper(document.getElementsByClassName("van-image__img")[0], {
+							aspectRatio: 16 / 16,
+							viewMode: 1,
+							dragMode: "move",
+							background: false,
+							autoCropArea: 1,
+							crop: function(e) {
+								var canvas = cropper.getCroppedCanvas();
+								dataURLtoFile(canvas.toDataURL('image/jpeg'), file.file.name, function(dataURLtoFileData) {
+									_self.fileList[0].file = dataURLtoFileData;
+									console.log("裁剪后的文件")
+									console.log(dataURLtoFileData)
+									UpladFile({
+										file: dataURLtoFileData
+									}, function(item) {
+										_self.fileList[0] = item;
+										console.log("压缩后的文件")
+										console.log(item.file)
+										_self.uploadPic(item.file)
+									})
+								})
+							}
+						})
+					} catch (e) {
+						console.log(e)
+						_self.isClick = false;
+						_self.overlayShow = false;
+					}
+				},
+				//上传图片
+				uploadPic(file) {
+					console.log("准备上传的文件")
+					console.log(file)
+					var _self = this;
+					var formdata = new FormData();
+					formdata.append("file", file);
+
+					ajax({
+						type: "post",
+						url: "oss/upload/file",
+						contentType: "multipart/form-data",
+						data: formdata,
+						success: function(res) {
+							if (res.code == 0) {
+								_self.submitform.photo = res.data.url;
+								_self.submitFormDataSecond();
+							} else {
+								_self.overlayShow = false;
+								_self.$toast(res.msg);
+							}
+						},
+						error: function() {
+							console.log("error")
+						}
+					})
+				},
+				//提交表单数据
+				submitFormData() {
+					var _self = this;
+					if (_self.isClick) {
+						return;
+					}
+					_self.isClick = true
+					this.isSubmit = true;
+					for (var key in _self.submitform) {
+						//console.log(key+"---------"+_self.submitform[key])
+						if (this.submitform[key] === "") {
+							_self.isClick = false;
+							return;
+						}
+					}
+					if (_self.fileList.length > 0) {
+						_self.uploadPicReady(_self.fileList[0]);
+					} else {
+						_self.submitFormDataSecond();
+					}
+
+				},
+				submitFormDataSecond() {
+					var _self = this;
+					var endForm = {};
+					ajax({
+						type: "post",
+						url: "contentSecurity/aliyun/imageScan?userId=" + JSON.parse(localStorage.getItem("appInfo")).userId,
+						data: {
+							content: this.submitform.photo
+						},
+						success: function(res) {
+							if (res.code == 0) {
+								ajax({
+									type: "post",
+									url: "club/updateClub",
+									data: _self.submitform,
+									success: function(res) {
+										_self.isClick = false;
+										if (res.code == 0) {
+											_self.overlayShow = false;
+											if (_self.submitform.isPublic == 'Y') {
+												_self.applyIsPublic = 'Y';
+											} else {
+												_self.applyIsPublic = 'N';
+											}
+											_self.datachange();
+											_self.$toast("俱乐部设置成功！");
+											// _self.successBack();
+										} else {
+											_self.overlayShow = false;
+											_self.$toast(res.msg);
+										}
+									},
+									error: function() {
+										_self.isClick = false;
+										console.log("error")
+									}
+								})
+							} else {
+								_self.isClick = false;
+								_self.overlayShow = false;
+								_self.fileList = []
+								_self.$toast("图片审核未通过，请重新上传！");
+							}
+						},
+						error: function() {
+							_self.isClick = false;
+							_self.overlayShow = false;
+							_self.fileList = []
+							console.log("error")
+						}
+					})
+				},
+				successBack() {
+					var _self = this;
+					if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) { //判断iPhone|iPad|iPod|iOS
+						try {
+							window.webkit.messageHandlers.lstNative.postMessage({
+								'method': 'clubAutomaticPopBack',
+							})
+						} catch (err) {
+							console.log(err)
+						}
+
+					} else if (/(Android)/i.test(navigator.userAgent)) { //判断Android
+						window.android.clubAutomaticPopBack();
+					}
+				},
+				titleChange() {
+					this.submitform.name = this.submitform.name.replace(
+						/[^\u4E00-\u9FA5|\d|\a-zA-Z|\r\n\s,.?!，。#￥$%\`~^？！@…—&$=()\-+/*{}【】\\（）[\]]|\s/g, '')
+				},
+				contentChange() {
+					this.submitform.introduce = this.submitform.introduce.replace(
+						/[^\u4E00-\u9FA5|\d|\a-zA-Z|\r\n\s,.?!，。#￥$%\`~^？！@…—&$=()\-+/*{}【】\\（）[\]]|\s/g, '')
+				}
+			}
+		})
+	</script>

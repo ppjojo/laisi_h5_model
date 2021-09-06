@@ -1,0 +1,81 @@
+@font-face {
+    font-family: "BebasNeue";
+    src: url("./BebasNeue/BebasNeue.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+*{
+	box-sizing: border-box;
+	font-family: "BebasNeue";
+}
+.ub {
+	display: -webkit-flex !important;
+	display: flex !important;
+	position: relative;
+}
+
+.ub-rev {
+	-webkit-flex-direction: row;
+	flex-direction: row
+}
+
+.ub-f1 {
+	flex: 1;
+}
+
+.ub-fh {
+	width: 100%;
+}
+
+.ub-fv {
+	height: 100%;
+}
+
+.ub-con {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
+
+.ub-ac {
+	-webkit-align-items: center;
+	align-items: center;
+}
+
+.ub-aend {
+	-webkit-align-items: flex-end;
+	align-items: flex-end;
+}
+
+.ub-ae {
+	-webkit-justify-content: end;
+	justify-content: end;
+}
+
+.ub-pc {
+	-webkit-justify-content: center;
+	justify-content: center;
+}
+
+.ub-pe {
+	-webkit-justify-content: flex-start;
+	justify-content: flex-start;
+}
+.ub-pend {
+	-webkit-justify-content: flex-end;
+	justify-content: flex-end;
+}
+.ub-pj {
+	-webkit-justify-content: space-between;
+	justify-content: space-between;
+}
+
+.ub-ad {
+	-webkit-justify-content: space-around;
+	justify-content: space-around;
+}
+.header{
+	height: 1rem;
+	position: relative;
+	z-index: 100;
+}

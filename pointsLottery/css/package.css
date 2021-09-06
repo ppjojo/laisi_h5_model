@@ -1,0 +1,65 @@
+			.task_unfinish,
+			.task_finish {
+				background: linear-gradient(to right, #FF6A88, #FF5136);
+				border-radius: .26rem;
+				height: .52rem;
+				line-height: .52rem;
+				font-size: .24rem;
+				color: #fff;
+				padding: .01rem .15rem;
+				text-align: center;
+				font-family: "PingFangSC-Medium";
+				min-width: .96rem;
+			}
+
+			.task_finish {
+				/* border: 1px solid rgba(209, 209, 209, 1); */
+				background: #f5f5f5;
+				color: #E60012;
+			}
+
+			.list_ul .title {
+				font-family: "PingFangSC-Medium";
+				    overflow: hidden;
+				    white-space: nowrap;
+				    text-overflow: ellipsis;
+					max-width: 3rem;
+			}
+
+			.van-hairline--top-bottom::after,
+			.van-hairline-unset--top-bottom::after {
+				border-width: 0;
+			}
+
+			.list_ul {
+				padding: 0;
+				padding:0 .2rem;
+				/* padding-left: .36rem; */
+			}
+			#price .list_ul{
+				padding-right:0;
+			}
+			.list_ul>li,
+			.list_ul .title {
+				margin-bottom: 0;
+			}
+
+			.van-checkbox__label {
+				font-size: .28rem;
+			}
+			#price .van-cell{
+				padding:0 .25rem;
+			}
+			.van-cell::after {
+				border-bottom: 0;
+			}
+			.overtime{
+				height: .52rem;
+				color: #71717F;
+				text-align: center;
+				line-height: .52rem;
+				padding: 0 .2rem;
+				font-size: 0.24rem;
+				border-radius: .26rem;
+				border: .02rem solid rgba(113, 113, 127, 1);
+			}

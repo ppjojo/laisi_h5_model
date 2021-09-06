@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+		<title>逗币记录</title>
+		<!-- 引入样式文件 -->
+		<link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
+		<link rel="stylesheet" href="../common/css/basic.css">
+		<link rel="stylesheet" href="css/pointsLottery.css">
+		<style type="text/css">
+		#app>.header,.van-nav-bar,.monkey-pull-refresh,.DBnotice{
+			background-color: #12121F;
+		}
+				.van-nav-bar .van-icon,.van-nav-bar__title,.van-list__error-text, .van-list__finished-text, .van-list__loading{
+					color:#CFCFD2;
+				}
+		</style>
+		<!-- <script src="https://cdn.bootcss.com/vConsole/3.3.4/vconsole.min.js"></script>
+				<script>
+					// init vConsole
+				        var vConsole = new VConsole();
+				        console.log('Hello world');
+				    </script> -->
+	</head>
+
+	<body>
+		<div id="app" v-cloak>
+			<div class="header">
+				<van-nav-bar title="逗币记录"
+			 @click-left="OnclickLeft"
+			 left-arrow
+			 >
+			</van-nav-bar>
+			</div>
+			<div class="DBnotice" v-if="ifDB" >本月有<span>{{DBcount}}</span>枚逗币即将过期，赶快使用哟~</div>
+			<van-pull-refresh v-model="isLoading" :head-height="90" @refresh="initIndexData" class="monkey-pull-refresh" style="min-height: 100vh;">
+				<template #pulling="props">
+					<div class="monkeyBox">
+						<img class="monkey" src="../common/img/monkey.gif" />
+						<p>下拉刷新</p>
+					</div>
+				</template>
+				<!-- 释放提示 -->
+				<template #loosing>
+					<div class="monkeyBox">
+						<img class="monkey" src="../common/img/monkey.gif"/>
+						<p>释放刷新</p>
+					</div>
+				</template>
+				
+				<!-- 加载提示 -->
+				<template #loading>
+					<div class="monkeyBox">
+						<img class="monkey" src="../common/img/monkey.gif" />
+						<p>正在刷新</p>
+					</div>
+				</template>
+				<van-list v-model="loading" :finished="finished" @load="onLoad" :immediate-check=false :finished-text="dataList.length>0?'已加载全部逗币记录！':''">
+					<ul class="list_ul">
+						<li class="ub ub-pj ub-ac" v-for="(item,index) in dataList">
+							<div>
+								<div class="title">{{item.actionSource}}</div>
+								<div class="detail">{{DateTime.timeStamp2String(ifthisYear(item)?'mdhm3':'ymdhm3',item.status==2?item.consumeTime:item.createTime)}}</div>
+							</div>
+							<div class="titleL">
+								{{item.status==2?'-':'+'}}{{item.actionChange}}
+							</div>
+						</li>
+					</ul>
+				</van-list>
+				<div class="noData-box" v-if="dataList.length==0&&!loading">
+					<img class="noData-img" src="../common/img/noData.png" />
+					<p class="noData-p">你还没有逗币记录哦！</p>
+				</div>
+			</van-pull-refresh>
+		</div>
+	</body>
+	<script src="https://oss.laisitech.com/0bb12bf1-cb87-4d2c-a724-8a7c25b7ae04.js "></script>
+<script src="https://oss.laisitech.com/6172e6c1-f460-40ac-97ba-31c8526f2e16.js"></script>
+	<script src="../common/js/network.js"></script>
+	<script src="js/tool.js"></script>
+	<script>
+		new Vue({
+			el: '#app',
+			data() {
+				return {
+					isLoading: false,
+					loading:false,
+					finished:false,
+					dataList:[],
+					pageNum:0,
+					ifDB:false,
+					DBcount:0,
+					pageSize:15,
+					nowYear:new Date().getFullYear(),
+				}
+			},
+			filters: {
+			},
+			mounted() {
+				
+			},
+			created() {
+				this.initData();
+				this.coinovertime()
+			},
+			methods: {
+				initData() {
+					var _self = this;
+					let nowPage= _self.pageNum;
+					ajax({
+						type: "get",
+						url: "integral/list/record",
+						data: {
+							pageNum:nowPage,
+							pageSize:_self.pageSize
+						},
+						success: function(res) {
+							_self.loading = false;
+							if (res.code == 0) {
+								if(nowPage == 0){
+									_self.dataList = [];
+									_self.dataList = res.data.listRecord;
+								}else{
+									_self.dataList = _self.dataList.concat(res.data.listRecord);
+								}
+								if((nowPage+1)*_self.pageSize >= res.data.count){
+									_self.finished = true;
+								}
+							} else {
+								_self.$toast(res.msg);
+							}
+						},
+						error: function() {
+							_self.loading = false;
+							console.log("error")
+						}
+					})
+				},
+				coinovertime(){
+					var _self = this;
+					ajax({
+						type: "get",
+						url: "integral/recent/expire/coins",
+						data: {
+						},
+						success: function(res) {
+							if (res.code == 0) {
+								if(res.data > 0){
+									_self.DBcount = res.data;
+									_self.ifDB = true;
+								}
+							} else {
+								_self.$toast(res.msg);
+							}
+						},
+						error: function() {
+							console.log("error")
+						}
+					})
+				},
+				initIndexData(){
+					// 清空列表数据
+					this.finished = false;
+					// 重新加载数据
+					// 将 loading 设置为 true，表示处于加载状态
+					this.loading = true;
+					this.isLoading = true;
+					this.onLoad();
+				},
+				onLoad(){
+					console.log(this.isLoading)
+					if (this.isLoading) {
+						this.isLoading = false;
+						this.pageNum = 0;
+					} else {
+						this.pageNum++;
+					}
+					this.initData()
+					this.loading = false;
+				},
+				OnclickLeft(){
+					window.history.back(-1);
+				},
+				ifthisYear(item){
+					let year = DateTime.timeStamp2String('y',item.status==2?item.consumeTime:item.createTime)
+					return this.nowYear== year;
+				}
+
+
+			}
+		})
+	</script>
+
+</html>

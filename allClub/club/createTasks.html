@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+		<title>创建任务(1/2)</title>
+		<!-- 引入样式文件 -->
+		<link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
+		<link rel="stylesheet" href="css/clubCreateCompetition.css">
+		<link rel="stylesheet" href="css/tasks.css">
+		<script type="text/javascript">
+			document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';
+		</script>
+		<style type="text/css">
+			.van-field--error .van-field__control,
+			.van-field--error .van-field__control::placeholder {
+				color: red;
+				-webkit-text-fill-color: red
+			}
+			.club-input{
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app" v-cloak>
+			<div>
+				<div style="">
+					<div class="laberDiv">
+						任务名称
+					</div>
+					<div style="padding:0 0.2rem 0.2rem 0.2rem;">
+						<van-field v-model="submitform.name" :input="titleChange()" class="club-input" style="min-height:1.6rem;" rows="1"
+						 autosize type="textarea" maxlength="20" placeholder="请输入任务名称" show-word-limit />
+					</div>
+				</div>
+				<div style="margin-bottom: 1.6rem;">
+					<div class="laberDiv">任务说明</div>
+					<div style="padding:0 0.2rem 0.2rem 0.2rem;">
+						<van-field v-model="submitform.introduce" :input="contentChange()" class="tasks-input" rows="3" autosize type="textarea"
+						 maxlength="50" placeholder="请输入任务说明" show-word-limit />
+					</div>
+				</div>
+				<van-button round class="submit" block :color="submitform.introduce&&submitform.name?bgc:bgcgrey" @click="submitFormData">下一步</van-button>
+
+			</div>
+		</div>
+	</body>
+	<script src="https://oss.laisitech.com/0bb12bf1-cb87-4d2c-a724-8a7c25b7ae04.js "></script>
+<script src="https://oss.laisitech.com/6172e6c1-f460-40ac-97ba-31c8526f2e16.js"></script>
+	<script src="../../common/js/network.js"></script>
+	<script type="text/javascript">
+		new Vue({
+			el: '#app',
+			data() {
+				return {
+					bgc: "linear-gradient(to right, #FF6A88, #FF5136 )",
+					bgcgrey: '#999',
+					iscorporate:localStorage.getItem('isCorporate')?parseInt(localStorage.getItem('isCorporate')):0,
+					submitform: JSON.parse(localStorage.getItem('taskForm')) || {
+						"clubId": "",
+						"name": "",
+						"label": "00", //00跳绳
+						"period": "", //(00每天,01每周,02每月,03单次任务)
+						"target": "",
+						"assignType": "", //(00成员报名参加,01全员参加,02指定成员参加)
+						"introduce": "", //任务说明
+						"creator": "", //创建者
+
+					}
+				}
+			},
+			created() {
+				this.submitform.clubId = getQueryString("id") || 10000219;
+			},
+			methods: {
+				submitFormData() {
+					var _this = this;
+					if (!this.submitform.introduce || !this.submitform.name) {
+						return;
+					}
+					this.checkStr(this.submitform.name+this.submitform.introduce,function(){
+						_this.checkSame(_this.submitform.name,function(){
+							_this.submitform.creator = JSON.parse(localStorage.getItem("appInfo")).userId;
+							localStorage.setItem("taskForm", JSON.stringify(_this.submitform));
+							window.location.href = './createTasks2.html?iscorporate='+_this.iscorporate;
+						})
+					})
+				},
+				
+				titleChange() {
+					if(this.submitform.name)this.submitform.name = this.submitform.name.replace(
+						/[^\u4E00-\u9FA5|\d|\a-zA-Z|\r\n\s,.?!，。#￥$%\`~^？！@…—&$=()\-+\/*{}【】\\（）[\]]|\s/g, '')
+				},
+				contentChange() {
+					if(this.submitform.introduce)this.submitform.introduce = this.submitform.introduce.replace(
+						/[^\u4E00-\u9FA5|\d|\a-zA-Z|\r\n\s,.?!，。#￥$%\`~^？！@…—&$=()\-+\/*{}【】\\（）[\]]|\s/g, '')
+				},
+				checkStr(param, cb) {
+					var that = this;
+					ajax({
+						type: "post",
+						url: "contentSecurity/aliyun/textScan",
+						data: {content:param},
+						success: function(res) {
+							if (res.code == 0) {
+								cb()
+							} else if (res.code == 4001) {
+								that.$toast("输入的内容不合法!");
+							}
+						},
+						error: function() {
+							console.log("error")
+						}
+					})
+				},
+				checkSame(param,cb){
+					var that = this;
+					ajax({
+						type: "post",
+						url: "club/checkClubTaskName",
+						data: {
+							clubId:that.submitform.clubId,
+							name:param,
+							introduce:that.submitform.introduce
+						},
+						success: function(res) {
+							if (res.code == 0) {
+								cb()
+							} else {
+								that.$toast("任务名称有重复!");
+							}
+						},
+						error: function() {
+							console.log("error")
+						}
+					})
+				}
+			}
+		})
+	</script>
+</html>

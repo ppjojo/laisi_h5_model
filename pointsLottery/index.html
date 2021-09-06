@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport"
+			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+		<title>我的逗币</title>
+		<!-- 引入样式文件 -->
+		<link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
+		<link rel="stylesheet" href="../common/css/basic.css">
+		<link rel="stylesheet" href="css/pointsLottery.css?t=5">
+		<link rel="stylesheet" href="css/index.css">
+		<link rel="stylesheet" href="css/swiper.css">
+		<style type="text/css">
+			#app {
+				overflow-x: hidden;
+			}
+
+			.monkeysvga {
+				position: absolute;
+				width: 6.75rem;
+				height: 6rem;
+				top: 3.75rem;
+				left: calc(50% - 3.375rem);
+				z-index: 0;
+			}
+
+			.van-dialog,
+			.van-button--default {
+				background-color: rgba(41, 41, 52, 1);
+			}
+
+			[class*=van-hairline]::after {
+				border-color: #12121F;
+			}
+
+			.van-dialog__message {
+				color: #CFCFD2;
+			}
+			
+			.van-tab--active{
+				font-size: .36rem;
+				position: relative;
+			}
+			.van-tabs__line{
+				display: none;
+			}
+			.van-tab--active::after {
+				content: '';
+				position: absolute;
+				left: 50%;
+				bottom: 0;
+				transform: translate(-50%, -50%);
+				width: 0.4rem;
+				height: 0.14rem;
+				background-position: 100% 100%;
+				background: url(./img/tabselect.png) no-repeat;
+				background-size: 100%;
+			}
+			[class*=van-hairline]::after{
+				border-width:0;
+			}
+		</style>
+		<!-- <script src="https://cdn.bootcss.com/vConsole/3.3.4/vconsole.min.js"></script>
+		<script>
+			// init vConsole
+			var vConsole = new VConsole();
+			console.log('Hello world');
+		</script> -->
+	</head>
+
+	<body>
+		<div id="app" ref="DOM" class="page" v-cloak>
+			<div class="header">
+				<van-nav-bar title="我的逗币" @click-left="OnclickLeft" @click-right="onClickRight" left-arrow>
+					<template #right>
+						<van-icon name="ellipsis" size="30" />
+					</template>
+				</van-nav-bar>
+			</div>
+			<div id="versionShow" v-show="accept">
+				<van-action-sheet v-model="etcmenu" :actions="actions" cancel-text="取消" close-on-click-action
+					@cancel="onCancel" @select="onSelect"></van-action-sheet>
+				<div class="" id="energybox">
+					<!-- 飘云 -->
+					<img class="cloud midc" src="./img/midcloud.png" alt="">
+					<img class="cloud rightc" src="./img/rightcloud.png" alt="">
+					<img class="cloud leftc" src="./img/leftcloud.png" alt="">
+					<!-- 飘云 -->
+					<!-- 蚂蚁森林 -->
+					<div id="scorebox">
+						<div v-for="(item,index) in showbox" v-show="item.modelName?true:false" class="singlebox"
+							@click="clickscore(item,index)" :class="{singlebox2:index==1||index==4}">
+							<div class="poppic">
+								{{item.integralcount}}
+							</div>
+							<div class="detail">{{item.modelName}}</div>
+						</div>
+					</div>
+					<!-- 蚂蚁森林 -->
+					<!-- 用户逗币数量 -->
+					<div id="usercoin" class="ub ub-ac" :style="{top:boardList.length==0?'.56rem':'.96rem'}">
+						<div class="ub ub-ac num">
+							<img v-if="localStorage.getItem('appInfo')"
+								:src="JSON.parse(localStorage.getItem('appInfo')).headPictureUrl" alt="">
+							逗币：<div ref="Grow">{{coinnum}}</div>个
+						</div>
+					</div>
+					<div id="userday" class="ub ub-ac">已连续签到<span>{{signcount}}</span>天</div>
+					<div id="menuicon" class="ub ub-ac">
+						<img @click="goToTask" style="margin-right: 0;" src="./img/getcoin.png" alt="">
+						<img @click="goToPackage" src="./img/package.png" alt="">
+						<img v-if="packageflag" class="redpoint" src="img/redpoint.png">
+					</div>
+					<div id="normalMonkey" @click="monkeyClick()" v-show="isnormal&&!isminus" class="monkeysvga"></div>
+					<div id="clickMonkey" v-show="(!isnormal&&!isminus)||isInit" class="monkeysvga"></div>
+					<div id="jumpMonkey" v-show="(isminus)||isInit" class="monkeysvga"></div>
+					<!-- 跑马灯 -->
+					<div id="luckyCustomer" class="" v-show="boardList.length>0">
+						<div class="swiper-container">
+							<div class="swiper-wrapper">
+								<div class="swiper-slide" v-for="item in boardList">
+									<div class="slider ub ub-ac">
+										<img :src="item.headerPictureUrl" alt="">
+										<div class="title van-ellipsis">
+											用户{{nameformat(item.nickName)}}抽盲盒获得<span>{{item.awardName}}</span></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<van-tabs v-model="menuactive" @change="changeTab">
+					<van-tab title="抽盲盒" id="blindbox">
+						<ul class="list_ul">
+							<li v-for="(item,index) in blindboxList" @click="goToDetail(item,blindbg[index])">
+								<div class="adimg" :style="{backgroundColor:blindbg[index]}">
+									<img :src="item.logo" alt="">
+								</div>
+								<div class="van-ellipsis title">
+									{{item.name}}
+								</div>
+								<div class="detail">
+									{{item.integral}}逗币
+								</div>
+								<div class="detail2">
+									已兑换{{item.exchangedCount||0}}份
+								</div>
+							</li>
+							<li class="waitfornew">
+								<div class="adimg">
+									<img src="img/waitfornew.png" alt="">
+								</div>
+								<div class="van-ellipsis title">
+									即将上新
+								</div>
+							</li>
+						</ul>
+					</van-tab>
+					<van-tab title="兑换">
+						<ul class="list_ul">
+							<li v-for="(item,index) in changebox"
+								@click="goToDetail(item,pricebg[index<=3?index+1:parseInt(index%4)])">
+								<div class="adimg"
+									:style="{backgroundColor:pricebg[index<=3?index+1:parseInt(index%4)]}">
+									<img :src="item.logo" alt="">
+								</div>
+								<div class="van-ellipsis title">
+									{{item.name}}
+								</div>
+								<div class="detail">
+									{{item.integral}}逗币
+								</div>
+								<div class="detail2">
+									已兑换{{item.exchangedCount||0}}份
+								</div>
+							</li>
+							<li class="waitfornew">
+								<div class="adimg">
+									<img src="img/waitfornew.png" alt="">
+								</div>
+								<div class="van-ellipsis title">
+									即将上新
+								</div>
+							</li>
+						</ul>
+					</van-tab>
+				</van-tabs>
+			</div>
+			<div id="noshow" v-show="!accept&&localStorage.getItem('appInfo')">
+				<div class="noData-box">
+					<img class="noData-img" src="../common/img/noData.png" />
+					<!-- 请更新到最新版本再来体验新玩法 -->
+					<p class="noData-p">暂未开放！</p>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="https://oss.laisitech.com/0bb12bf1-cb87-4d2c-a724-8a7c25b7ae04.js "></script>
+	<script src="https://oss.laisitech.com/6172e6c1-f460-40ac-97ba-31c8526f2e16.js"></script>
+	<script src="../common/js/network.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/svgaplayerweb@2.3.1/build/svga.min.js"></script>
+	<script src="js/swiper.js"></script>
+	<script src="js/tool.js"></script>
+	<script>
+		// if (document.addEventListener) {
+		//         /*event.persisted 判断浏览器是否有缓存, 有为true, 没有为false*/
+		//         window.addEventListener('pageshow', function (event) {
+		//             if (event.persisted || window.performance && window.performance.navigation.type == 2){
+		//                 location.reload();
+		//             }
+		//         },false);
+		//  }
+		window.addEventListener('pageshow', function(event) {
+			console.log("PageShow Event  " + event.persisted);
+			console.log(event)
+			if (isIOS) {
+				if (localStorage.getItem('coinchange')) {
+					window.reflashFuc();
+					localStorage.removeItem('coinchange');
+				}
+			}
+		})
+		var vue = new Vue({
+			el: '#app',
+			data() {
+				return {
+					menuactive: parseInt(localStorage.getItem("P_indexTab") || 0),
+					etcmenu: false, //右上角单显示flag
+					signcount: 0, //签到次数
+					coinnum: 0,
+					targetCount: 0,
+					Allcount: 0,
+					packageflag: false, //背包是否有新东西
+					blindboxList: [], //盲盒
+					changebox: [], //兑换
+					coinlist: [], //未领取集合
+					boardList: [], //广播集合
+					actions: [{
+						name: "逗币记录"
+					}, {
+						name: "逗币攻略"
+					}], //右上角菜单
+					blindbg: {
+						0: '#F7E6E1',
+						1: '#EFE1F7',
+						2: '#F7F6E1'
+					},
+					pricebg: {
+						0: '#F7E6E1',
+						1: '#F7F6E1',
+						2: '#F7E1F0',
+						3: '#E1EFF7',
+						4: '#EFE1F7',
+					},
+					showbox: [],
+					isnormal: true, //猴子正常
+					isminus: false, //猴子+分
+					isInit: true,
+					accept: false,
+					SetT: null,
+				}
+			},
+			beforeCreate() {
+
+
+			},
+			mounted() {
+				var that = this;
+				getVersion()
+
+				function getVersion() {
+					if (localStorage.getItem("appInfo")) {
+						var appInfo = JSON.parse(localStorage.getItem("appInfo"));
+						var version = appInfo.appVersion;
+						version = version.split(".");
+						// version[version.length-1] = 1145
+						if (isIOS) {
+							if (parseInt(version[version.length - 1]) >= 1145) {
+								that.accept = true
+							} else {
+								that.accept = false
+							}
+						} else if (isAndroid) {
+							if (parseInt(version[version.length - 1]) >= 1121) {
+								that.accept = true
+							} else {
+								that.accept = false
+							}
+						}
+					} else {
+						Interaction.getAppInfoAndUserInfo()
+						setTimeout(() => {
+							getVersion()
+						}, 300)
+					}
+				}
+				console.log(this.accept)
+				window.reflashFuc = this.reflashFuc;
+				this.initnormal(); //初始化三只小猴子
+				this.initClick();
+				this.initTen();
+				setTimeout(() => {
+					this.isInit = false; //动画防抖防抖
+				}, 300);
+
+				if (localStorage.getItem("P_pageTop") && isAndroid) {
+					setTimeout(() => {
+						this.Wscroll();
+					}, 800)
+				}
+
+			},
+			created() {
+				this.judgeNew();
+				this.judgeThree();
+				this.signday(); //签到天数
+				this.getAllaward(); //获取兑换
+				this.getBlindbox(); //获取盲盒
+				this.mycoinnum(); //我的逗币
+				this.haveNew(); //被曝是否更新
+				this.winBroadcast(); //广播
+				// this.isNewUser()
+			},
+			methods: {
+				judgeNew(){
+					var _self = this;
+					ajax({
+						type: "get",
+						url: "integral/is/first/attend",
+						data: {},
+						success: function(res) {
+							if (res.code == 0) {
+								if(res.data){
+									_self.isNewUser();
+								}
+							} else {
+								_self.$toast(res.msg);
+							}
+						},
+						error: function() {
+							console.log("error")
+						}
+					})
+				},
+				judgeThree(){
+					var _self = this;
+					ajax({
+						type: "get",
+						url: "integral/continual/is/three/days",
+						data: {},
+						success: function(res) {
+							if (res.code == 0) {
+								if(res.data){
+									_self.isThreeDay();
+								}
+							} else {
+								_self.$toast(res.msg);
+							}
+						},
+						error: function() {
+							console.log("error")
+						}
+					})
+				},
+				isNewUser() { //1、 判断用户是否玩过逗币任务，若无，则首页弹出该弹框，点击去做任务，跳转“逗币任务页面”；
+					this.$dialog.confirm({
+						title: '',
+						width: '5.4rem',
+						confirmButtonText: '去做任务',
+						cancelButtonText: '先不去',
+						confirmButtonColor: '#CFCFD2',
+						cancelButtonColor: '#CFCFD2',
+						message: '连续3天完成≥1个逗币任务即可获得包邮券和备用绳各一份哦！',
+					}).then(() => {
+						// on close
+						this.goToTask();
+					});
+				},
+				isThreeDay() { //第三天给用户提示，不去兑换也可，可累计，点击去兑换跳转逗币-兑换页面
+					this.$dialog.confirm({
+						title: '',
+						width: '5.4rem',
+						confirmButtonText: '去兑换',
+						cancelButtonText: '先不去',
+						confirmButtonColor: '#CFCFD2',
+						cancelButtonColor: '#CFCFD2',
+						message: '恭喜完成3天连续逗币任务，可以兑换礼品了哦～',
+					}).then(() => {
+						// on close
+						this.menuactive = 1;
+					});
+				},
+				Wscroll() {
+					window.scrollTo(0, parseInt(localStorage.getItem('P_pageTop')));
+					localStorage.removeItem('P_pageTop');
+				},
+				reflashFuc() {
+					// this.getintegral(); //未领取集合
+					this.mycoinnum(); //我的逗币
+					this.haveNew(); //被曝是否更新
+					this.winBroadcast(); //广播
+				},
+				getintegral() { //未认领积分
+					var _self = this;
+					ajax({
+						type: "get",
+						url: "integral/get/integral/list",
+						data: {
+							dsd: new Date().getTime()
+						},
+						cache: false,
+						success: function(res) {
+							if (res.code == 0) {
+								_self.coinlist = res.data;
+								let onceShow = [];
+								let allscore = JSON.parse(JSON.stringify(res.data));
+								for (var i = 0; i < 5; i++) {
+									if (_self.coinlist[i]) {
+										onceShow.push(_self.coinlist[i]);
+										delete _self.coinlist[i];
+									}
+								}
+								_self.showbox = onceShow;
+								_self.coinlist = _self.deleteObj(_self.coinlist);
+								for (var i = 0; i < allscore.length; i++) {
+									_self.Allcount += allscore[i].integralcount;
+								}
+								_self.Allcount += _self.coinnum;
+								console.log(_self.Allcount)
+							} else {
+								_self.$toast(res.msg);
+							}
+						},
+						error: function() {
+							console.log("error")
+						}
+					})
+				},
+				getAllaward() { //获取兑换
+					var _self = this;
+					ajax({
+						type: "get",
+						url: "activity/exchange/show/award",
+						data: {},
+						success: function(res) {
+							if (res.code == 0) {
+								_self.changebox = res.data;
+							} else {
+								_self.$toast(res.msg);
+							}
+						},
+						error: function() {
+							console.log("error")
+						}
+					})
+				},
+				getBlindbox() { //获取盲盒
+					var _self = this;
+					ajax({
+						type: "get",
+						url: "activity/exchange/show/box",
+						data: {},
+						success: function(res) {
+							if (res.code == 0) {
+								_self.blindboxList = res.data;
+							} else {
+								_self.$toast(res.msg);
+							}
+						},
+						error: function() {
+							console.log("error")
+						}
+					})
+				},
+				signday() {
+					var _self = this;
+					ajax({
+						type: "post",
+						url: "integral/sign/continual",
+						data: {
+							"actionType": "0000"
+						},
+						success: function(res) {
+							if (res.code == 0) {
+								_self.signcount = res.data || 0;
+							} else {
+								_self.$toast(res.msg);
+							}
+						},
+						error: function() {
+							console.log("error")
+						}
+					})
+				},
+				haveNew() {
+					var _self = this;
+					ajax({
+						type: "get",
+						url: "activity/UserBag/haveNew",
+						data: {
+							dsd: new Date().getTime()
+						},
+						success: function(res) {
+							if (res.code == 0) {
+								_self.packageflag = res.data > 0 ? true : false;
+							} else {
+								_self.$toast(res.msg);
+							}
+						},
+						error: function() {
+							console.log("error")
+						}
+					})
+				},
+				winBroadcast() {
+					var _self = this;
+					ajax({
+						type: "get",
+						url: "activity/exchange/show/winBroadcast",
+						data: {},
+						success: function(res) {
+							if (res.code == 0) {
+								_self.boardList = res.data;
+								_self.$nextTick(() => {
+									_self.initSwiper();
+								})
+							} else {
+								_self.$toast(res.msg);
+							}
+						},
+						error: function() {
+							console.log("error")
+						}
+					})
+				},
+				mycoinnum() {
+					var _self = this;
+					ajax({
+						type: "get",
+						url: "integral/my/coins",
+						data: {
+							dsd: new Date().getTime()
+						},
+						success: function(res) {
+							if (res.code == 0) {
+								_self.coinnum = res.data || 0;
+								_self.targetCount = res.data || 0;
+								_self.getintegral(); //未领取集合
+							} else {
+								_self.$toast(res.msg);
+							}
+						},
+						error: function() {
+							console.log("error")
+						}
+					})
+				},
+				claincoin(item, cb) { //integral/claim/coins
+					var _self = this;
+					// cb();
+					// return;
+					ajax({
+						type: "post",
+						url: "integral/claim/coins",
+						data: item,
+						success: function(res) {
+							if (res.code == 0) {
+								_self.addScore();
+								cb();
+							} else {
+								_self.$toast(res.msg);
+							}
+						},
+						error: function() {
+							console.log("error")
+						}
+					})
+				},
+				OnclickLeft() {
+					Interaction.closePage();
+				},
+				onClickRight() { //显示。。。
+					this.etcmenu = true;
+				},
+				onSelect(action, index) { //点击选择。。。的菜单
+					if (index == 0) window.location.href = "record.html"
+					else if (index == 1) {
+						window.location.href = "strategy.html"
+					}
+				},
+				onCancel() { //关闭。。。的弹框
+					this.etcmenu = false;
+				},
+				goToTask() {
+					window.location.href = "task.html"
+				},
+				goToPackage() {
+					window.location.href = "package.html?fromindex=1"
+				},
+				goToDetail(item, bgc) {
+					this.markTop();
+					window.location.href = "prizedetail.html?id=" + item.awardClass + '&leftcount=' + item.leftCount +
+						'&bgc=' + bgc;
+				},
+				markTop() {
+					let toppx = document.documentElement.scrollTop;
+					localStorage.setItem("P_pageTop", toppx);
+				},
+				deleteObj(arry) {
+					var newAeey = [];
+					for (var i = 0; i < arry.length; i++) {
+						if (arry[i] != undefined) newAeey.push(arry[i])
+					}
+					return newAeey
+				},
+				clickscore(item, index) { //点击
+					var _self = this;
+					this.claincoin(item, function() {
+						_self.targetCount = _self.targetCount + _self.showbox[index].integralcount;
+
+						_self.numberGrow(_self.$refs.Grow, _self.targetCount);
+
+						delete _self.showbox[index];
+						_self.showbox[index] = {};
+						if (_self.coinlist.length > 0) {
+							_self.showbox[index] = _self.coinlist[0];
+							// _self.$set(_self,'showbox',_self.showbox);
+							delete _self.coinlist[0];
+							_self.coinlist = _self.deleteObj(_self.coinlist);
+						}
+						_self.$forceUpdate();
+						if (item.actionType == '0000') {
+							_self.signday();
+						}
+					})
+				},
+				numberGrow(ele, value) { //逗币增长特效
+					let _this = this
+					let step = 1;
+					if (this.SetT) {
+						clearInterval(this.SetT);
+					}
+					this.SetT = setInterval(function() {
+						if (_this.coinnum >= value) {
+							_this.coinnum = value
+							clearInterval(_this.SetT)
+							_this.SetT = null
+						} else if (_this.coinnum >= _this.Allcount) {
+							_this.coinnum = _this.Allcount
+							clearInterval(_this.SetT)
+							_this.SetT = null
+						} else {
+							_this.coinnum += step
+						}
+
+					}, 25)
+					// let t = setInterval(function() {
+					// 	if (_this.coinnum >= value) {
+					// 		_this.coinnum=value
+					// 		clearInterval(t)
+					// 		t = null
+					// 	}else{
+					// 		_this.coinnum += step
+					// 	}
+					// }, 25)
+				},
+				initnormal() {
+					try {
+						var _self = this;
+						var flag = false;
+						var player = new SVGA.Player('#normalMonkey');
+						var parser = new SVGA.Parser(
+						'#normalMonkey'); // Must Provide same selector eg:#demoCanvas IF support IE6+
+						parser.load('css/normal.svga', function(videoItem) {
+							player.setVideoItem(videoItem);
+							player.startAnimation();
+							flag = true;
+						});
+						setTimeout(() => {
+							if (!flag && isIOS) { //
+								_self.initnormal();
+							}
+						}, 800)
+					} catch (e) {
+						//TODO handle the exception
+					}
+
+				},
+				initClick() {
+					try {
+						var _self = this;
+						var flag = false;
+						var player = new SVGA.Player('#clickMonkey');
+						var parser = new SVGA.Parser(
+						'#clickMonkey'); // Must Provide same selector eg:#demoCanvas IF support IE6+
+						parser.load('css/click.svga', function(videoItem) {
+							player.setVideoItem(videoItem);
+							player.startAnimation();
+							flag = true;
+						})
+						setTimeout(() => {
+							if (!flag && isIOS) { //
+								_self.initClick();
+							}
+						}, 800)
+					} catch (e) {
+						//TODO handle the exception
+					}
+
+				},
+				initTen() {
+					var _self = this;
+					var flag = false;
+					try {
+						var player = new SVGA.Player('#jumpMonkey');
+						var parser = new SVGA.Parser(
+						'#jumpMonkey'); // Must Provide same selector eg:#demoCanvas IF support IE6+
+						parser.load('css/ten.svga', function(videoItem) {
+							player.setVideoItem(videoItem);
+							player.startAnimation();
+							flag = true;
+						})
+						setTimeout(() => {
+							if (!flag && isIOS) { //
+								_self.initTen();
+							}
+						}, 800)
+					} catch (e) {
+						//TODO handle the exception
+					}
+
+				},
+				monkeyClick() { //点击猴子动销
+					// this.isnormal = false;
+					try {
+						document.getElementById("normalMonkey").style.display = "none";
+						document.getElementById("clickMonkey").style.display = "block";
+						setTimeout(() => {
+							document.getElementById("normalMonkey").style.display = "block";
+							document.getElementById("clickMonkey").style.display = "none";
+							// this.isnormal = true;
+						}, 3000)
+					} catch (e) {
+						//TODO handle the exception
+					}
+
+				},
+				addScore() { //加分时动销
+					// this.isminus = true;
+					try {
+						document.getElementById("normalMonkey").style.display = "none";
+						document.getElementById("jumpMonkey").style.display = "block";
+						setTimeout(() => {
+							document.getElementById("jumpMonkey").style.display = "none";
+							document.getElementById("normalMonkey").style.display = "block";
+							// this.isminus = false;
+						}, 1800)
+					} catch (e) {
+						//TODO handle the exception
+					}
+
+				},
+				initSwiper() {
+					var swiper = new Swiper('.swiper-container', { //跑马灯获奖名单
+						loop: true,
+						direction: 'vertical',
+						autoplay: {
+							delay: 2500,
+							disableOnInteraction: false,
+						},
+						observer: true,
+						observeParents: true,
+					});
+				},
+				changeTab(name) {
+					localStorage.setItem("P_indexTab", name);
+				},
+				nameformat(str) {
+					var arr = Array.from(str);
+					if (arr.length == 1 || arr.length == 2) {
+						return arr[0] + "***";
+					} else {
+						let strlong = arr.length,
+							strformat = '';
+						strformat = arr[0] + "***" + arr[strlong - 1];
+						return strformat;
+					}
+				}
+			}
+		})
+	</script>
+
+</html>

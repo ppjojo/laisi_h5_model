@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+		<title>申请列表</title>
+		<link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
+		<link rel="stylesheet" href="css/memberList.css">
+		<link rel="stylesheet" type="text/css" href="css/iosTop.css" />
+		<!-- <link rel="stylesheet" href="css/clubCreateCompetition.css"> -->
+		<!-- <script src="https://cdn.bootcss.com/vConsole/3.3.4/vconsole.min.js"></script>
+				<script>
+					// init vConsole
+				        var vConsole = new VConsole();
+				        console.log('Hello world');
+				    </script> -->
+		<script type="text/javascript">
+			document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';
+		</script>
+		<style type="text/css">
+			body{
+				background-color: #12121f;
+			}
+			#app>.header,.van-nav-bar,.monkey-pull-refresh,.DBnotice,.submit2{
+				background-color: #12121F;
+			}
+			.van-nav-bar .van-icon,.van-nav-bar__title,.van-list__error-text, .van-list__finished-text, .van-list__loading{
+				color:#CFCFD2;
+			}
+			.van-nav-bar__title{
+				color: #cfcfd2;
+			}
+			.van-nav-bar__text {
+				color: #cfcfd2;
+			}
+			
+			.van-nav-bar .van-icon {
+				color: #cfcfd2;
+			}
+			.ub {
+				display: -webkit-flex !important;
+				display: flex !important;
+				position: relative;
+			}
+			
+			.ub-rev {
+				-webkit-flex-direction: row;
+				flex-direction: row
+			}
+			
+			.ub-f1 {
+				flex: 1;
+			}
+			
+			.ub-fh {
+				width: 100%;
+			}
+			
+			.ub-fv {
+				height: 100%;
+			}
+			
+			.ub-con {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+			}
+			
+			.ub-ac {
+				-webkit-align-items: center;
+				align-items: center;
+			}
+			.ub-aend {
+				-webkit-align-items: flex-end;
+				align-items: flex-end;
+			}
+			.ub-ae {
+				-webkit-justify-content: end;
+				justify-content: end;
+			}
+			
+			.ub-pc {
+				-webkit-justify-content: center;
+				justify-content: center;
+			}
+			
+			.ub-pe {
+				-webkit-justify-content: flex-start;
+				justify-content: flex-start;
+			}
+			
+			.ub-pj {
+				-webkit-justify-content: space-between;
+				justify-content: space-between;
+			}
+			
+			.ub-ad {
+				-webkit-justify-content: space-around;
+				justify-content: space-around;
+			}
+			.noData-img{
+				height: auto!important;
+			}
+			.van-hairline--bottom::after{
+				border-bottom:none;
+			}
+			.van-nav-bar__left,
+			.van-nav-bar__right {
+				font-size: .32rem;
+			}
+				.memberList{
+					padding-top: .92rem;
+				}
+				.popbox{
+					padding: .3rem;
+					padding-top: 0;
+				}
+				.popbox>div{
+					font-size: .32rem;
+					text-align: center;
+					border-bottom: .02rem solid #f5f5f5;
+					height: .88rem;
+					line-height: .88rem;
+				}
+				.cardList {
+					font-size: .32rem;
+					padding: .2rem 0;
+				}
+				.cardList>li{
+					margin-bottom: .3rem;
+				}
+				.cardList>li .van-ellipsis {
+					max-width: 5.5rem;
+					font-size: .32rem;
+					margin-bottom: .1rem;
+				}
+				
+				.cardList>li .detail {
+					font-size: .24rem;
+					color: #999;
+				}
+				
+				.cardList>li .headpic {
+					width: .72rem;
+					height: .72rem;
+					border-radius: .1rem;
+					margin-right: .2rem;
+				}
+				
+				.cardList>li>div {
+					border-bottom: none;
+				}
+		</style>
+	</head>
+	<body>
+		<div id="app" v-cloak class="page">
+			<div class="header">
+				<van-nav-bar title="申请列表"
+			 @click-left="OnclickLeft"
+			 @click-right="OnclickRight"
+			 right-text="全部通过"
+			 left-arrow
+			 >
+			</van-nav-bar>
+			</div>
+			<van-popup v-model="groupshow"  round position="bottom" :style="{ height: '50%' }" >
+				<div class="popbox">
+					<div>选择分部</div>
+					<ul class="cardList">
+						<li @click="createshow = true">
+							<div class="ub ub-ac">
+								<div class="headpic ub ub-ac ub-pc" style="background-color: #f5f5f5;"><img style="width: .46rem;height: .46rem;" class="" src="../corporateClub/img/plusicon.png" /></div>
+								<div class="">
+									<div class="van-ellipsis">新建分部门</div>
+								</div>
+							</div>
+						</li>
+						<li v-for="(item,index) in dataList" @click="confirmGroup(item)">
+							<!-- 分组名称 -->
+							<div class="ub ub-ac">
+								<div><img class="headpic" :src="item.id!='wfb'?item.image:'../corporateClub/img/notgroup.png'" /></div>
+								<div class="">
+									<div class="van-ellipsis">{{item.name}}</div>
+									<div class="detail">{{item.subMinisterName?('分部长：'+item.subMinisterName):item.id!='wfb'?('分部长：未设置'):''}} 成员数：{{item.totalNumber}}人</div>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</van-popup>
+			<van-dialog v-model="createshow" :before-close="beforeClose" @confirm="submitCreate" :confirm-button-color="createGroupObj.fileList.length==0||!createGroupObj.name?'#999':''"
+			 cancel-button-color="#999" :title="createGroupObj.id?'编辑分部':'创建分部'" :confirm-button-text="createGroupObj.id?'编辑':'创建'" show-cancel-button>
+				<div style="padding: .5rem;">
+					<div class="ub ub-ver ub-pc">
+						<van-uploader v-model="createGroupObj.fileList" upload-icon="plus" :deletable="false" :max-count="1" :after-read="afterRead2"></van-uploader>
+					</div>
+					<div style="color: #999;font-size: .24rem;text-align: center;">选择部门形象</div>
+					<van-field style="background-color: #f8f8f8;margin-top: .48rem;border-radius: .1rem;height: .64rem;padding: .1rem .32rem;"
+					 maxlength="16" v-model="createGroupObj.name" placeholder="请输入组别名称" />
+				</div>
+			</van-dialog>
+			<div >
+				<div class=" memberList applyList" v-if="memberList.length>0">
+					<van-swipe-cell v-for="item in memberList">
+						<van-row>
+							<van-col span="4" class="createrHeadPic">
+								<div class="detail_headpic" :style="{'background-image': 'url(' + item.headPictureUrl + ')'}"></div>
+							</van-col>
+							<van-col span="15">
+								<div class="createrName">
+									{{item.nickname}}
+								</div>
+								<div class="activityTime">
+									<span>申请时间:</span>
+									<span>{{renderTime(item.updateTime)}}</span>
+								</div>
+							</van-col>
+							<van-col span="5">
+								<div class="acceptStatus2" @click="beforeclick(item)">通过</div>
+							</van-col>
+						</van-row>
+			
+						<template slot="right">
+							<van-button square type="danger" @click="deleteApply(item)" text="删除" />
+						</template>
+					</van-swipe-cell>
+				</div>
+				<div class="noData-box" v-else-if="memberList.length<=0&&upFinished">
+					<img class="noData-img" src="./../clubList_Detail/img/nulldata.png" />
+					<p class="noData-p">暂无数据</p>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="https://oss.laisitech.com/0bb12bf1-cb87-4d2c-a724-8a7c25b7ae04.js "></script>
+<script src="https://oss.laisitech.com/6172e6c1-f460-40ac-97ba-31c8526f2e16.js"></script>
+	 
+	<script src="js/DateTime.js"></script>
+	<script src="../../common/js/network.js"></script>
+	<script src="js/exif.js"></script>
+	<script src="js/upload.js"></script>
+	<script src="../corporateClub/js/tool.js"></script>
+	<script type="text/javascript">
+		new Vue({
+			el: '#app',
+			data() {
+				return {
+					clubId: "", //俱乐部id
+					memberList: [],
+					applyByself:[],
+					inviteList:[],
+					upFinished: false, //加载完全
+					iscorporate:parseInt(getQueryString('iscorporate')),
+					groupshow:false,
+					pageIndex: 0,
+					pageSize: 10,
+					offset: 200, // 滚动条与底部距离小于 offset 时触发load事件
+					dataList:[],
+					createshow: false,
+					createGroupObj: {
+						name: '',
+						fileList: [],
+						image: '',
+						clubId:getQueryString('id'),
+						creator:JSON.parse(localStorage.getItem('appInfo')).userId
+					},
+					clubGroupId:'',
+					applyId:'',
+					ifall:false,
+				}
+			},
+			created() {
+				this.clubId = getQueryString("id") || "1";
+				this.applyList();
+				window.popdone = null;
+				if(this.iscorporate==1)this.initData();
+			},
+			methods: {
+				OnclickLeft(){
+					window.history.back(-1);
+				},
+				OnclickRight(){
+					var _self = this;
+					var mlength = _self.memberList.length;
+					if(this.iscorporate!=1){
+						for (var i = 0;i<mlength;i++) {
+							_self.handleApply2(_self.memberList[i],i)
+						}
+					}else{
+						let applyByself = [];
+						let inviteList = [];
+						for (var i = 0;i<mlength;i++) {
+							if(_self.memberList[i].isMinisterInvite=="N"){
+								inviteList.push(_self.memberList[i]);
+							}else{
+								applyByself.push(_self.memberList[i]);
+							}
+						}
+						_self.inviteList = inviteList;
+						for (var i = 0;i<_self.inviteList.length;i++) {
+							_self.handleApply3(_self.inviteList[i],i)
+						}
+						if(applyByself.length>0){
+							this.applyByself = applyByself;
+							this.groupshow = true;
+							this.ifall = true;
+						}
+					}
+				},
+				afterRead2(file) {
+					this.overlayShow = true;
+					uploadImg1(file, 'headpic', 0, res => {
+						console.log(res);
+						this.overlayShow = false;
+						if (res.code != 0) {
+							this.$toast("图片审核未通过，请重新上传！");
+						} else {
+							this.createGroupObj.image = res.url;
+						}
+					})
+				},
+				beforeClose(action, done) {//提交前的判断
+				window.popdone = done;
+					if (action === 'confirm') {
+						if (!this.createGroupObj.image) {
+							this.$toast("请选择组别形象");
+							done(false)
+						}
+						if (!this.createGroupObj.name) {
+							this.$toast("请输入组别名称");
+							done(false)
+						}
+					} else {
+						done();
+						this.resetcreateGroupObj();
+					}
+				
+				},
+				resetcreateGroupObj(){//重置分部编辑数据
+					this.createGroupObj = {
+						name: '',
+						fileList: [],
+						url: '',
+						clubId:getQueryString('id'),
+						creator:JSON.parse(localStorage.getItem('appInfo')).userId
+					}
+				},
+				submitCreate() {//编/创建分部
+					console.log(this.createGroupObj)
+					this.createshow = false;
+					let _self = this;
+					ajax({
+						type: "post",
+						url: !_self.createGroupObj.id?"club/saveClubGroup":"club/updateClubGroup",
+						data: _self.createGroupObj,
+						success: function(res) {
+							if (res.code == 0) {
+								_self.$toast(!_self.createGroupObj.id?"创建分部成功":"编辑分部成功");
+								_self.initData();
+								_self.resetcreateGroupObj();
+								window.popdone();
+							} else {
+								_self.$toast(res.msg);
+								window.popdone(false);
+							}
+						},
+						error: function() {
+							console.log("error")
+						}
+					})
+				},
+				initData() {
+					let _self = this;
+					ajax({
+						type: "get",
+						url: "club/queryClubGroup",
+						data: {
+							clubId: _self.clubId
+						},
+						success: function(res) {
+							if (res.code == 0) {
+								if(!res.data[res.data.length - 1].id){
+									res.data[res.data.length - 1].id = "wfb";
+									res.data[res.data.length - 1].name = "未分部部门";
+								}
+								_self.dataList = res.data;
+							} else {
+								_self.$toast(res.msg);
+							}
+						},
+						error: function() {
+							console.log("error")
+						}
+					})
+				},
+				//获取申请列表
+				applyList() {
+					var _self = this;
+					ajax({
+						type: "post",
+						url: "club/applyList",
+						data: {
+							clubId: _self.clubId,
+						},
+						success: function(res) {
+							if (res.code == 0) {
+								_self.memberList = res.data;
+								_self.upFinished=true;
+							} else {
+								_self.$toast(res.msg);
+							}
+						},
+						error: function() {
+							console.log("error")
+						}
+					})
+				},
+				beforeclick(item){
+					this.ifall = false;
+					if(this.iscorporate!=1){
+						this.handleApply(item)
+					}else{
+						this.applyId = item.applyId;
+						if(item.isMinisterInvite=="N"){
+							this.handleApply(item,1,item.clubGroupId);
+						}else{
+							this.groupshow = true;
+						}
+					} 
+				},
+				confirmGroup(item){
+					let _self = this;
+					this.$dialog.confirm({
+						// title: '标题',
+						message: '确定加入该组吗？'
+					}).then(() => {
+						this.clubGroupId = item.id;
+						if(this.clubGroupId == 'wfb')this.clubGroupId = '';
+						if(this.ifall){
+							var mlength = _self.applyByself.length;
+							for (var i = 0;i<mlength;i++) {
+								_self.handleApply2(_self.applyByself[i],i)
+							}
+						}else{
+							this.handleApply({applyId:this.applyId});
+						}
+						
+					}).catch(() => {
+					
+					});
+					
+				},
+				//处理申请 flag1 通过 2拒绝
+				handleApply(item, flag,clubGroupId) {
+					var _self = this;
+					var agree = true;
+					if (flag == 2) {
+						agree = false;
+					}
+					let params = {
+							clubId: _self.clubId,
+							applyId: item.applyId,
+							agree: agree
+						}
+					if(this.iscorporate==1)params.clubGroupId = clubGroupId || this.clubGroupId;
+					ajax({
+						type: "post",
+						url: "club/handleApply",
+						data: params,
+						success: function(res) {
+							// 0 成功
+							// 2003 参数错误
+							// 3001 已在该俱乐部
+							// 3002 已申请
+							if (res.code == 0) {
+								_self.groupshow = false;
+								_self.$toast("该申请已通过!")
+								_self.applyList();
+								localStorage.setItem("settingChange",1);
+								_self.handleApplySuccess();
+								
+							} else {
+								_self.$toast(res.msg);
+							}
+						},
+						error: function() {
+							console.log("error")
+						}
+					})
+				},
+				//处理申请 flag1 通过 2拒绝
+				handleApply2(item,index) {
+					var _self = this;
+					var agree = true;
+					let params = {
+							clubId: _self.clubId,
+							applyId: item.applyId,
+							agree: agree
+						}
+					if(this.iscorporate==1)params.clubGroupId = this.clubGroupId;
+					ajax({
+						type: "post",
+						url: "club/handleApply",
+						data: params,
+						success: function(res) {
+							// 0 成功
+							// 2003 参数错误
+							// 3001 已在该俱乐部
+							// 3002 已申请
+							if (res.code == 0) {
+								if(index == _self.memberList.length-1){
+									_self.groupshow = false;
+									_self.$toast("申请已全部通过!")
+									_self.applyList();
+									localStorage.setItem("settingChange",1);
+									_self.handleApplySuccess();
+								}
+							} else {
+								_self.$toast(res.msg);
+							}
+						},
+						error: function() {
+							console.log("error")
+						}
+					})
+				},
+				//处理申请 flag1 通过 2拒绝
+				handleApply3(item,index) {
+					var _self = this;
+					var agree = true;
+					let params = {
+							clubId: _self.clubId,
+							applyId: item.applyId,
+							agree: agree,
+							clubGroupId:item.clubGroupId
+						}
+					ajax({
+						type: "post",
+						url: "club/handleApply",
+						data: params,
+						success: function(res) {
+							// 0 成功
+							// 2003 参数错误
+							// 3001 已在该俱乐部
+							// 3002 已申请
+							if (res.code == 0) {
+								if(index == _self.inviteList.length-1){
+									_self.inviteList = [];
+									_self.groupshow = false;
+									_self.$toast("申请已全部通过!")
+									_self.applyList();
+									localStorage.setItem("settingChange",1);
+									_self.handleApplySuccess();
+								}
+							} else {
+								_self.$toast(res.msg);
+							}
+						},
+						error: function() {
+							console.log("error")
+						}
+					})
+				},
+				renderTime(utc_datetime) {
+					var T_pos = utc_datetime.indexOf('T');
+					var Z_pos = utc_datetime.indexOf('.');
+					var year_month_day = utc_datetime.substr(0, T_pos);
+					var hour_minute_second = utc_datetime.substr(T_pos + 1, Z_pos - T_pos - 1);
+					var new_datetime = year_month_day + " " + hour_minute_second; // 2017-03-31 08:02:06
+				
+					// 处理成为时间戳
+					var timestamp = this.getTime(new_datetime);
+					// 增加8个小时，北京时间比utc时间多八个时区
+					var timestamp = timestamp + 8 * 60 * 60 * 1000;
+				
+					// 时间戳转为时间
+					var beijing_datetime = this.sjc2time("ymd3", timestamp);
+					return beijing_datetime;
+				
+				},
+				getTime(time) {
+					var myDate = new Date(time);
+					var u = navigator.userAgent;
+					var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1;   //android终端
+					var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+					if (isiOS) {
+						var t = new Date(time.replace(/-/g, '/')).getTime();
+					} else {
+						var t = myDate.getTime();
+					}
+					return t;
+				},
+				sjc2time(id, sjc) {
+					var datetime = new Date(sjc);
+					var year = datetime.getFullYear();
+					var month = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() + 1;
+					var month2 = datetime.getMonth() + 1 < 10 ? datetime.getMonth() + 1 : datetime.getMonth() + 1;
+					var date = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();
+					var date2 = datetime.getDate() < 10 ? datetime.getDate() : datetime.getDate();
+					var hour = datetime.getHours() < 10 ? "0" + datetime.getHours() : datetime.getHours();
+					var minute = datetime.getMinutes() < 10 ? "0" + datetime.getMinutes() : datetime.getMinutes();
+					var second = datetime.getSeconds() < 10 ? "0" + datetime.getSeconds() : datetime.getSeconds();
+					if (id == "y") {
+						return year;
+					} else if (id == "d") {
+						return date;
+					} else if (id == "ym") {
+						return year + "-" + month;
+					} else if (id == "ymd") {
+						return year + "-" + month + "-" + date;
+					} else if (id == "ymd3") {
+						return year + "." + month + "." + date;
+					} else if (id == "ymd2") {
+						return year + "年" + month + "月" + date + "日";
+					} else if (id == "ymdhm") {
+						return year + "-" + month + "-" + date + " " + hour + ":" + minute;
+					} else if (id == "mdhm") {
+						return month + "月" + date + "日 " + hour + ":" + minute;
+					} else if (id == "ymdhms") {
+						return year + "-" + month + "-" + date + " " + hour + ":" + minute + ":" + second;
+					} else if (id == "ymdhm2") {
+						return year + "年" + month + "月" + date + "日 " + hour + ":" + minute;
+					} else if (id == "ymdhm3") {
+						return year + "/" + month + "/" + date + " " + hour + ":" + minute;
+					} else if (id == "md") {
+						return month + "-" + date;
+					} else if (id == "md2") {
+						return month2 + "月" + date2 + "日";
+					} else if (id == "hm") {
+						return hour + ":" + minute;
+					} else if (id == "hms") {
+						return hour + ":" + minute + ":" + second;
+					} else if (!id) {
+						return year + "-" + month + "-" + date;
+					} else if (id == "mdhm2") {
+						return month + "-" + date + " " + hour + ":" + minute;
+					} else if (id == "mdhm3") {
+						return month + "/" + date + " " + hour + ":" + minute;
+					} else if (id == "dhms") {
+						return date + "," + hour + "," + minute + "," + second;
+					}
+				},
+				handleApplySuccess(){
+					var _self=this;
+					if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) { //判断iPhone|iPad|iPod|iOS
+						try {
+							window.webkit.messageHandlers.lstNative.postMessage({
+								'method': 'clubMemberChange',
+							})
+						} catch (err) {
+							console.log('window.webkit.messageHandlers 回传Id failed')
+						}
+					
+					} else if (/(Android)/i.test(navigator.userAgent)) { //判断Android
+						window.android.clubMemberChange()
+					}
+				},
+				deleteApply(item) {
+					var _self = this;
+					ajax({
+						type: "post",
+						url: "club/deleteApply",
+						data: {
+							clubId: _self.clubId,
+							applyId: item.applyId,
+						},
+						success: function(res) {
+							if (res.code == 0) {
+								_self.applyList();
+							} else {
+								_self.$toast(res.msg);
+							}
+						},
+						error: function() {
+							console.log("error")
+						}
+					})
+				}
+			}
+		})
+	</script>
+</html>

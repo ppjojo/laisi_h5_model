@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0,
+      maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover" />
+		<title>查看报表</title>
+		<!-- 引入样式文件 -->
+		<link rel="stylesheet" href="../../common/css/vant-rem-2122.css" />
+		<link rel="stylesheet" href="../../common/css/basic.css" />
+		<link rel="stylesheet" href="../corporateClub/css/normal.css" />
+		<link rel="stylesheet" href="css/clubEchart.css" />
+		<!-- <script src="https://cdn.bootcss.com/vConsole/3.3.4/vconsole.min.js"></script>
+		<script>
+			// init vConsole
+				        var vConsole = new VConsole();
+				        console.log('Hello world');
+				    </script> -->
+		<style>
+			#app{overflow-x: hidden;}
+			.van-tab {
+				font-size: 0.32rem;
+			}
+
+			.van-tabs__line {
+				width: 0.48rem !important;
+				height: 2px;
+				background-color: #1f1f1f;
+				bottom: .2rem;
+			}
+
+			.van-tabs--line .van-tabs__wrap {
+				padding-bottom: 0.12rem;
+				height: 1rem;
+			}
+			.van-dropdown-menu__bar{
+				box-shadow: none;
+			}
+			.selectLeftBox{
+				width: 100%;
+				padding: 0 .3rem;
+				padding-right: 0;
+			}
+			.van-dropdown-menu{
+				width: 8rem;
+			}
+			.van-dropdown-menu__title::after{
+				border: none;
+			}
+			.van-dropdown-menu__item{
+				justify-content:start
+			}
+			.echartBox:last-child{
+				border-bottom: none;
+			}
+			.rankBox{
+				font-size: .20rem;
+				text-align: center;
+				width: 60%;
+				margin: 0 auto .2rem;
+			}
+			.rankBox .boxs{
+				width: .5rem;
+				height: .25rem;
+				border-radius: 5px;
+				background-color: #0000FF;
+				margin-right: .1rem;
+			}
+			.fixedIcon{
+				position: absolute;
+				right: .3rem;
+				z-index: 0;
+			}
+			.van-dropdown-menu__title .van-ellipsis{
+				width: 5.5rem;
+				    overflow: hidden;
+				    text-overflow: ellipsis;
+				    -webkit-line-clamp: 2;
+				    -webkit-box-orient: vertical;
+			}
+			.submit{
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="app" style="padding-top: 0;" v-cloak>
+			<!-- <div class="header">
+				<van-nav-bar title="查看报表" @click-left="OnclickLeft" left-arrow></van-nav-bar>
+			</div> -->
+			<van-tabs v-model="tabActive">
+				<van-tab title="任务">
+					<div class="selectBox">
+						<div class="selectDiv" @click="" v-if="minister">
+							<div class="selectLeftBox">
+								<img src="img/task.png" alt="" />
+								<van-dropdown-menu>
+									<van-dropdown-item :title="taskType" ref="itemtaskType" @close="confirmTaskType(false)">
+										<van-checkbox-group v-model="taskTypeResult" @change="taskTypeChoose">
+											<van-cell-group>
+												<van-cell v-for="(item, index) in taskTypeList" clickable :key="item.value" :title="`${item.name}`" @click="toggleType(index)">
+													<template #right-icon>
+														<van-checkbox :name="item.value" ref="taskTypecheckboxes" />
+													</template>
+												</van-cell>
+											</van-cell-group>
+										</van-checkbox-group>
+										<div style="">
+											<van-button style="margin: .3rem auto;" class="submit van-multi-ellipsis--l2" type="danger" block round
+											 @click="confirmTaskType(true);$refs.itemtaskType.toggle();">
+												确认
+											</van-button>
+										</div>
+									</van-dropdown-item>
+								</van-dropdown-menu>
+								<!-- <div class="title" :class="taskForm.taskType?'titleActive':''">
+									{{taskForm.taskType||"任务类型"}}
+								</div> -->
+							</div>
+							<van-icon class="icon fixedIcon" @click.stop="$refs.itemtaskType.toggle();$refs.itemgroup.toggle(false);" name="arrow-down"></van-icon>
+						</div>
+						<div class="selectDiv" @click="" v-if="minister">
+							<div class="selectLeftBox">
+								<img src="img/team.png" alt="" />
+								<van-dropdown-menu>
+									<van-dropdown-item :title="groupTitle" ref="itemgroup" @close="confirmGroup">
+										<van-checkbox-group v-model="groupResult" @change="groupChoose">
+											<van-cell-group>
+												<van-cell v-for="(item, index) in groupList" clickable :key="item.id" :title="`${item.name||'未分部部门'}`"
+												 @click="toggleGroup(index)">
+													<template #right-icon>
+														<van-checkbox :name="item.id" ref="groupcheckboxes" />
+													</template>
+												</van-cell>
+											</van-cell-group>
+										</van-checkbox-group>
+										<div style="">
+											<van-button style="margin: .3rem auto;" class="submit" type="danger" block round @click="confirmGroup();$refs.itemgroup.toggle();">
+												确认
+											</van-button>
+										</div>
+									</van-dropdown-item>
+								</van-dropdown-menu>
+								<!-- <div class="title" :class="taskForm.dept?'titleActive':''">
+									{{taskForm.dept||"部门名称"}}
+								</div> -->
+							</div>
+							<van-icon class="icon fixedIcon" @click.stop="$refs.itemgroup.toggle();" name="arrow-down"></van-icon>
+						</div>
+						<div class="selectDiv" @click="" v-if="!minister">
+							<div class="selectLeftBox">
+								<div class="lable">任务名称：</div>
+								<van-dropdown-menu class="van-ellipsis" style="width:5rem">
+									<van-dropdown-item :title="taskTitle" ref="item" :disabled="taskGroupList.length==0">
+										<van-checkbox-group v-model="taskResult" @change="taskChoose">
+											<van-cell-group>
+												<van-cell v-for="(item, index) in taskGroupList" clickable :key="item.id" :title="`${item.name}`" @click="toggle(index)">
+													<template #right-icon>
+														<van-checkbox :name="item.id" ref="checkboxes" />
+													</template>
+												</van-cell>
+											</van-cell-group>
+										</van-checkbox-group>
+										<div style="">
+											<van-button style="margin: .3rem auto;" class="submit" type="danger" block round @click="confirmTask()">
+												确认
+											</van-button>
+										</div>
+									</van-dropdown-item>
+								</van-dropdown-menu>
+								<van-icon class="icon fixedIcon" name="arrow-down"></van-icon>
+								<!-- <div class="title" :class="taskForm.name?'titleActive2':''">
+									{{taskForm.name||"任务名称"}}
+								</div> -->
+							</div>
+
+						</div>
+					</div>
+					<div class="scoreDetailBox" v-show="taskSingle&&minister">
+						部门任务完成率：{{taskSingleObj.rate.toFixed(2)}}%
+					</div>
+					<div class="scoreDetailBox" v-show="taskSingle&&minister">
+						部门任务跳绳总个数：{{ resetNum(taskSingleObj.ropeNum)}}万个
+					</div>
+
+					<div class="scoreDetailBox" v-show="taskSingle&&!minister">
+						任务完成率：{{taskSingleObj.rate.toFixed(2)}}%
+					</div>
+					<div class="scoreDetailBox" v-show="taskSingle&&!minister">
+						任务跳绳总个数：{{resetNum(taskSingleObj.ropeNum)}}万个
+					</div>
+
+					<div class="echartBox" v-if="minister==1&&!taskSingle" id="deptComplete"></div>
+					<div class="echartBox" v-else-if="!taskSingle" id="taskComplete"></div>
+					<!-- 部门任务总个数 -->
+					<div class="echartBox" v-if="minister==1&&!taskSingle" id="memberNum2"></div>
+					<!-- <div class="echartBox" v-if="!taskSingle" id="deptTask"></div> -->
+					<div class="echartBox" id="memberNum"></div>
+					<div v-if="!taskSingle&&minister!=1">
+						<div class="echartBox" id="deptPersonRank" style="border-bottom: none;"></div>
+						<div class="ub ub-ac ub-ad rankBox">
+							<div class="ub ub-ac">
+								<div class="boxs" style="background-color: #609CFF;"></div>
+								<div>第一名</div>
+							</div>
+							<div class="ub ub-ac">
+								<div class="boxs" style="background-color: #70E1AB;"></div>
+								<div>第二名</div>
+							</div>
+							<div class="ub ub-ac">
+								<div class="boxs" style="background-color: #657798;"></div>
+								<div>第三名</div>
+							</div>
+						</div>
+					</div>
+
+				</van-tab>
+				<van-tab title="线上赛">
+					<div class="selectBox">
+						<div class="selectDiv" @click="competitionTypeShow=true">
+							<div class="selectLeftBox">
+								<div class="lable">线上赛类型：</div>
+								<div class="title" :class="competitionForm.type?'titleActive2':''">
+									{{competitionForm.type||"请选择线上赛类型"}}
+								</div>
+							</div>
+							<van-icon class="icon fixedIcon" name="arrow-down"></van-icon>
+						</div>
+						<div class="selectDiv" @click="competitionModeShow=true">
+							<div class="selectLeftBox">
+								<div class="lable">线上赛模式：</div>
+								<div class="title" :class="competitionForm.mode?'titleActive2':''">
+									{{competitionForm.mode||"请选择线上赛模式"}}
+								</div>
+							</div>
+							<van-icon class="icon fixedIcon" name="arrow-down"></van-icon>
+						</div>
+						<div class="selectDiv" @click="competitionNameShow=true">
+							<div class="selectLeftBox">
+								<div class="lable">线上赛名称：</div>
+								<div class="title" :class="competitionForm.name?'titleActive2':''">
+									{{competitionForm.name||"请选择线上赛"}}
+								</div>
+							</div>
+							<van-icon class="icon fixedIcon" name="arrow-down"></van-icon>
+						</div>
+					</div>
+					<!-- <div class="scoreDetailBox">
+						{{competitionForm.type=="team"?'部门':''}}线上赛排名
+					</div> -->
+					<div class="echartBox" id="competitionChart"></div>
+				</van-tab>
+			</van-tabs>
+
+
+
+			<van-action-sheet cancel-text="取消" close-on-click-action v-model="taskTypeShow" :actions="taskTypeList" @select="taskTypeConfirm"></van-action-sheet>
+
+			<van-popup v-model="deptShow" position="bottom">
+				<van-picker show-toolbar title="部门名称" :columns="deptList" @confirm="deptConfirm" @cancel="deptShow=false" @change="deptChange"></van-picker>
+			</van-popup>
+
+			<van-popup v-model="taskNameShow" position="bottom">
+				<van-picker show-toolbar title="任务名称" :columns="taskNameList" @confirm="taskNameConfirm" @cancel="taskNameShow=false"
+				 @change="taskNameChange"></van-picker>
+			</van-popup>
+
+			<van-action-sheet cancel-text="取消" close-on-click-action v-model="competitionTypeShow" :actions="competitionTypeList"
+			 @select="competitionTypeConfirm"></van-action-sheet>
+
+			<van-action-sheet cancel-text="取消" close-on-click-action v-model="competitionModeShow" :actions="competitionModeList"
+			 @select="competitionModeConfirm"></van-action-sheet>
+
+
+			<van-popup v-model="competitionNameShow" position="bottom">
+				<van-picker show-toolbar title="线上赛名称" :columns="competitionNameList" @confirm="competitionNameConfirm" @cancel="competitionNameShow=false"
+				 @change="competitionNameChange"></van-picker>
+			</van-popup>
+		</div>
+	</body>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vant@2.12.2/lib/vant.min.js"></script>
+	<script src="../../common/js/network.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/echarts@5.0.0/dist/echarts.min.js"></script>
+	<script>
+		new Vue({
+			el: "#app",
+			data() {
+				return {
+					minister: getQueryString('isMinister') == "Y" ? 1 : 0, //部长的区分
+					clubId: getQueryString('clubId') || 10000241,
+					groupId: '',
+					tabActive: 0,
+					taskForm: {
+						taskType: "",
+						dept: "",
+						name: "",
+					},
+
+					taskTypeShow: false,
+					taskTypeList: [{
+						value: null,
+						name: "全部"
+					}, {
+						value: "00",
+						name: "每日任务"
+					}, {
+						value: "01",
+						name: "周任务"
+					}, {
+						value: "02",
+						name: "月任务"
+					}],
+
+					deptShow: false,
+					deptList: ["全部"],
+					groupList: [], //所有部门
+					groupResult: [], //选中的部门
+					groupTitle: '部门名称',
+					taskNameShow: false,
+					taskSingle: false, //是否是单个任务
+					taskSingleObj: {
+						rate: 0,
+						ropeNum: 0
+					},
+					taskNameList: ["aa", "bb", "cc", "dd"],
+					taskResult: [], //选中的任务
+					taskGroupList: [], //这个组有的任务
+					taskTitle: '全部',
+					taskType: '任务类型',
+					taskTypeResult: [], //选中的任务类型
+					competitionForm: {
+						type: "",
+						mode: "",
+						name: '',
+					},
+					competitionParam: {
+						type: "",
+						mode: "",
+						ts: new Date().getTime(),
+						clubId: getQueryString('clubId') || 10000250
+					},
+					competitionTypeShow: false,
+					competitionTypeList: [{
+						value: "team",
+						name: "团队赛"
+					}, {
+						value: "personal",
+						name: "个人赛"
+					}],
+					competitionModeShow: false,
+					competitionModeList: [{
+						value: "2",
+						name: "倒计时跳"
+					}, {
+						value: "3",
+						name: "倒计数跳"
+					}],
+					competitionNameShow: false,
+					competitionNameList: [],
+					competitionList: [],
+				};
+			},
+			filters: {},
+			mounted() {
+				if (this.minister == 1) { //部长
+					this.ministerGetAll()
+				} else { //分部长
+					this.getAllTastInfo()
+				}
+				this.initGroup();
+				this.initCompetition();
+			},
+			created() {},
+			methods: {
+				initGroup() {
+					let _self = this;
+					let arr = ['全部']
+					ajax({
+						type: "get",
+						url: "club/queryClubGroup",
+						data: {
+							clubId: _self.clubId,
+							ts: new Date().getTime()
+						},
+						success: function(res) {
+							if (res.code == 0) {
+								res.data.forEach(d => {
+									if (d.name) arr.push(d.name ? d.name : '未分部部门');
+								})
+								_self.deptList = arr;
+								_self.groupList = res.data;
+							} else {
+								_self.$toast(res.msg);
+							}
+						},
+						error: function() {
+							console.log("error")
+						}
+					})
+				},
+				initCompetition() {
+					let _self = this;
+					ajax({
+						type: "get",
+						url: "club/competition/detail/see/all/game/id/name",
+						data: _self.competitionParam,
+						success: function(res) {
+							if (res.code == 0) {
+								let arr = [];
+								res.data.forEach(d => {
+									arr.push(d.name);
+								});
+								_self.competitionNameList = arr;
+								_self.competitionList = res.data;
+								// _self.memberNum({}, 1)
+								// _self.groupList = res.data;
+							} else {
+								_self.$toast(res.msg);
+							}
+						},
+						error: function() {
+							console.log("error")
+						}
+					})
+				},
+				//部长获取所有任务的
+				ministerGetAll() {
+					let _self = this;
+					_self.taskSingle = false;
+					ajax({
+						type: "post",
+						url: "club/big/minister/see/allTask/allgroup/report",
+						data: {
+							clubId: _self.clubId,
+							groupIds: _self.groupResult,
+							periods: _self.taskTypeResult.includes(null) ? [] : _self.taskTypeResult
+						},
+						success: function(res) {
+							if (res.code == 0) {
+								//部门完成率
+								let deptCompleteArr = {
+									dept: [],
+									rate: []
+								};
+								res.data.completeResult.forEach(d => {
+									deptCompleteArr.dept.push(d.groupName);
+									deptCompleteArr.rate.push(d.comptele);
+								});
+								let deptRopeNumArr = {
+									Xline: [],
+									Yline: []
+								};
+								res.data.groupResult.forEach(d => {
+									deptRopeNumArr.Xline.push(d.groupName);
+									deptRopeNumArr.Yline.push(d.ropeNum / 10000);
+								});
+								let MemRopeNumArr = {
+									Xline: [],
+									Yline: []
+								};
+								res.data.userResult.forEach(d => {
+									MemRopeNumArr.Xline.push(d.nickName);
+									MemRopeNumArr.Yline.push(d.ropeNum / 10000);
+								});
+								_self.deptComplete(deptCompleteArr);
+								_self.memberNum(deptRopeNumArr, 3);
+								_self.memberNum(MemRopeNumArr, 2);
+							} else {
+								_self.$toast(res.msg);
+							}
+						},
+						error: function() {
+							console.log("error")
+						}
+					})
+				},
+				getCompetitionInfo(id, type, mode) {
+					let _self = this;
+					ajax({
+						type: "get",
+						url: "club/competition/detail/see/all/game/detail",
+						data: {
+							clubId: _self.clubId,
+							competitionId: id
+						},
+						success: function(res) {
+							if (res.code == 0) {
+								let arrList = {
+									Xline: [],
+									Yline: [],
+									num: []
+								};
+								res.data.resultMap.forEach((d, index) => {
+									arrList.Xline.push(type == 'team' ? d.teamName : d.nickname);
+									arrList.Yline.push(d.ranking);
+									arrList.num.push(type == 'team' ? d.aviNum : d.bestValue);
+								})
+								if (res.data.resultMap.length == 0) arrList = {
+									Xline: ['无'],
+									Yline: [0]
+								};
+								_self.memberNum(arrList, 1, type, mode);
+							} else {
+								_self.$toast(res.msg);
+							}
+						},
+						error: function() {
+							console.log("error")
+						}
+					})
+				},
+				getAllTastInfo(taskId) {
+					let _self = this;
+					ajax({
+						type: "post",
+						url: "club/small/minister/see/allTask/report",
+						data: {
+							clubId: _self.clubId,
+							// groupId: _self.groupId,
+							taskIds: taskId || []
+						},
+						success: function(res) {
+							if (res.code == 0) {
+								if (!taskId && res.data.JoinAllTaskTheGroup.length > 0) {
+									_self.taskGroupList = res.data.JoinAllTaskTheGroup;
+									_self.taskGroupList.unshift({
+										name: '全 部',
+										id: ''
+									})
+								}
+								if (res.data.JoinAllTaskTheGroup.length == 0) {
+									_self.taskTitle = '暂无任务'
+								}
+								_self.groupId = res.data.clubGroupId || '';
+								let deptCompleteArr = {
+									dept: [],
+									rate: []
+								}; //完成率
+								res.data.complete.forEach(d => {
+									deptCompleteArr.dept.push(d.taskName);
+									deptCompleteArr.rate.push(parseFloat(d.format));
+								})
+								let taskropeNumCount = {
+									Xline: [],
+									Yline: []
+								}; //部门跳神个数
+								let deptPersonRankArr = {
+									Xline: [],
+									series: [],
+									dataList: []
+								}
+								//任务部门排名
+								let arr = res.data.numTopThreeMap;
+								let index = 0;
+								let color = ['#609CFF', '#70E1AB', '#657798'];
+								arr.forEach((d, i) => {
+									taskropeNumCount.Xline.push(d.taskName);
+									deptPersonRankArr.Xline.push(d.taskName);
+									deptPersonRankArr.dataList.push(d.taskTopList);
+									taskropeNumCount.Yline.push((d.ropeAllCount / 10000));
+									d.taskTopList.forEach((e, f) => {
+										let obj = {
+											name: e.nickname,
+											type: 'bar',
+											barGap: 0,
+											itemStyle: {
+												barBorderRadius: [15, 15, 0, 0],
+												normal: {
+													color: color[f], //柱状颜色
+												}
+											},
+											data: []
+										}
+										obj.data[index] = e.ropeNum;
+										deptPersonRankArr.series.push(obj);
+									})
+									index++;
+								})
+								if (res.data.JoinAllTaskTheGroup.length == 1) { //只有一个任务
+									_self.confirmTask(res.data.JoinAllTaskTheGroup[0].id);
+									return;
+								}
+								_self.taskSingle = false;
+								if (_self.minister == 1) {
+									setTimeout(() => {
+										_self.deptComplete(deptCompleteArr);
+									}, 500)
+								} else {
+									setTimeout(() => {
+										_self.taskComplete(deptCompleteArr);
+										_self.memberNum(taskropeNumCount, 2);
+										_self.deptPersonRank(deptPersonRankArr)
+									}, 500)
+								}
+							} else {
+								_self.$toast(res.msg);
+							}
+						},
+						error: function() {
+							console.log("error")
+						}
+					})
+				},
+				OnclickLeft() {
+					window.history.back(-1);
+				},
+				//任务类型
+				taskTypeConfirm(obj, value) {
+					this.taskForm.taskType = obj.name;
+					this.taskTypeShow = false;
+				},
+				//部门名称
+				deptConfirm(value, index) {
+					this.taskForm.dept = this.groupList[index == 0 ? '' : index - 1];
+					this.deptShow = false;
+				},
+				deptChange() {
+					//this.deptShow=false
+				},
+				confirmTask(id) { //多选确定
+					let _self = this;
+					console.log(_self.taskResult, id)
+					if (!id) this.$refs.item.toggle();
+					if (this.taskResult.length == 0 && !id) return;
+					if (this.taskResult.length == 1 || id) {
+						if (_self.taskResult[0] == '') {
+							_self.getAllTastInfo();
+							return;
+						}
+						ajax({
+							type: "get",
+							url: "club/small/minister/oneTask/report",
+							data: {
+								clubId: _self.clubId,
+								groupId: _self.groupId,
+								taskId: id ? id : _self.taskResult[0]
+							},
+							success: function(res) {
+								if (res.code == 0) {
+									let MemropeNumCount = {
+										Xline: [],
+										Yline: []
+									}; //成员跳神个数
+									res.data.Top7List.forEach(d => {
+										MemropeNumCount.Xline.push(d.nickname + '(' + d.groupName + ')');
+										MemropeNumCount.Yline.push((d.ropeNum / 10000));
+									})
+									_self.taskSingleObj.rate = res.data.complete;
+									_self.taskSingleObj.ropeNum = res.data.ropeAllCount / 10000
+									_self.taskSingle = true;
+									setTimeout(() => {
+										_self.memberNum(MemropeNumCount, 2);
+									}, 500)
+								} else {
+									_self.$toast(res.msg);
+								}
+							},
+							error: function() {
+								console.log("error")
+							}
+						})
+					} else {
+						if (this.taskResult.includes('')) this.getAllTastInfo()
+						else this.getAllTastInfo(this.taskResult);
+					}
+				},
+				confirmGroup() { //多选部门
+					let _self = this;
+					console.log(_self.groupResult)
+					// this.$refs.itemgroup.toggle();
+					if (_self.groupResult.length == 1) {
+						//单拉一个部门
+						this.ministerSingleDept()
+					} else {
+						this.ministerGetAll();
+					}
+				},
+				confirmTaskType(flag) { //多选部门
+					if(!flag)return;
+					let _self = this;
+					console.log(_self.taskTypeResult)
+					// this.$refs.itemtaskType.toggle();
+					if (_self.groupResult.length == 1) {
+						//单拉一个部门
+						this.ministerSingleDept()
+					} else {
+						this.ministerGetAll();
+					}
+				},
+				ministerSingleDept() { //部长单拉一个部门
+					let _self = this;
+					ajax({
+						type: "post",
+						url: "club/big/minister/see/allTask/report",
+						data: {
+							clubId: _self.clubId,
+							clubGroupId: _self.groupResult[0] || '',
+							periods: _self.taskTypeResult.includes(null) ? [] : _self.taskTypeResult
+						},
+						success: function(res) {
+							if (res.code == 0) {
+								let MemropeNumCount = {
+									Xline: [],
+									Yline: []
+								}; //成员跳神个数
+								for (let key in res.data.userIdRopeNumMap) {
+									MemropeNumCount.Xline.push(key);
+									MemropeNumCount.Yline.push(res.data.userIdRopeNumMap[key] / 10000);
+								}
+								if (res.data.userIdRopeNumMap.length == 0) MemropeNumCount = {
+									Xline: ['无'],
+									Yline: [0]
+								};
+								_self.taskSingleObj.rate = res.data.complete.length == 0 ? 0 : res.data.complete;
+								_self.taskSingleObj.ropeNum = res.data.ropeAllCount / 10000
+								_self.taskSingle = true;
+								_self.memberNum(MemropeNumCount, 2);
+							} else {
+								_self.$toast(res.msg);
+							}
+						},
+						error: function() {
+							console.log("error")
+						}
+					})
+				},
+				//任务名称
+				taskNameConfirm(value, index) {
+					this.taskForm.name = value;
+					this.taskNameShow = false;
+				},
+				taskNameChange() {
+					//this.deptShow=false
+				},
+				toggle(index) {
+					this.$refs.checkboxes[index].toggle();
+				},
+				toggleType(index) {
+					this.$refs.taskTypecheckboxes[index].toggle();
+				},
+				toggleGroup(index) {
+					this.$refs.groupcheckboxes[index].toggle();
+				},
+				taskChoose(name) { //多选任务
+					// console.log(name)
+					if (name.includes('') && name[0] != '') {
+						if (name.length == 1) return;
+						this.taskTitle = '全 部'
+						this.taskGroupList.forEach((d, i) => {
+							if (i == 0) this.$refs.checkboxes[i].toggle(true)
+							else this.$refs.checkboxes[i].toggle(false);
+						})
+						// console.log(this.taskResult)
+					} else if (name.length > 1 && name.includes('') && name[0] == '') {
+						this.$refs.checkboxes[0].toggle(false)
+						let arr = [];
+						name.forEach(d => {
+							this.taskGroupList.forEach(e => {
+								if (d == e.id) {
+									arr.push(e.name);
+								}
+							})
+						});
+						this.taskTitle = arr.toString();
+						// this.taskResult = [''];
+
+					} else {
+						let arr = [];
+						name.forEach(d => {
+							this.taskGroupList.forEach(e => {
+								if (d == e.id) {
+									arr.push(e.name);
+								}
+							})
+						});
+						this.taskTitle = arr.toString();
+					}
+				},
+				groupChoose(name) { //多选部门
+					if (name.length > 0) {
+						let arr = [];
+						name.forEach(d => {
+							this.groupList.forEach(e => {
+								if (d == e.id) {
+									arr.push(e.name ? e.name : '未分部部门');
+								}
+							})
+						});
+						this.groupTitle = arr.toString();
+					} else {
+						this.groupTitle = '全部'
+					}
+				},
+				taskTypeChoose(name) { //多选任务类型
+					console.log(name)
+					console.log(name.includes(null)&&name.length>1)
+					if(name.includes(null)&&name.length>1){
+						name.forEach((i,d)=>{
+							if(i==null){
+								this.$refs.taskTypecheckboxes[d].toggle(false)
+							}
+						})
+					}
+					if (this.taskTypeResult.length > 0) {
+						let arr = [];
+						this.taskTypeResult.forEach(d => {
+							this.taskTypeList.forEach(e => {
+								if (d == e.value) {
+									arr.push(e.name);
+								}
+							})
+						});
+						this.taskType = arr.toString();
+					} else {
+						this.taskType = '任务类型'
+					}
+				},
+				//线上赛类型
+				competitionTypeConfirm(obj, value) {
+					this.competitionForm.type = obj.name;
+					this.competitionParam.type = obj.value || '';
+					this.competitionForm.name = '';
+					this.competitionTypeShow = false;
+					this.initCompetition();
+				},
+
+
+				//线上赛模式
+				competitionModeConfirm(obj, value) {
+					this.competitionForm.mode = obj.name;
+					this.competitionParam.mode = obj.value || '';
+					this.competitionForm.name = '';
+					this.competitionModeShow = false;
+					this.initCompetition();
+				},
+
+
+				//线上赛名称
+				competitionNameConfirm(value, index) {
+					this.competitionForm.name = value;
+					this.getCompetitionInfo(this.competitionList[index].id, this.competitionList[index].type, this.competitionList[
+						index].mode); //查看详情
+					this.competitionParam.mode = this.competitionList[index].mode;
+					this.competitionParam.type = this.competitionList[index].type;
+					this.competitionForm.mode = this.competitionList[index].mode == 2 ? "倒计时跳" : "倒计数跳";
+					this.competitionForm.type = this.competitionList[index].type == "team" ? "团队赛" : "个人赛";
+					this.competitionNameShow = false;
+				},
+				competitionNameChange() {},
+
+				//部门任务完成率
+				deptComplete(item) {
+					var myChart = echarts.init(document.getElementById("deptComplete"));
+					var option = {
+						title: {
+							text: "部门任务完成率",
+							textStyle: {
+								color: '#000000',
+								fontSize: "16",
+								fontWeight: "normal",
+								height: "50",
+								lineHeight: "50"
+							}
+						},
+						grid: {
+							left: '12%',
+							// right: '5%',
+							// bottom: '10%',
+							width: "90%",
+							height: "62%"
+						},
+						xAxis: {
+							type: "category",
+							data: item.dept || ["1bu", "2bu", "3bu", "4bu", "5bu", "6bu", "7bu"],
+							axisLine: {
+								show: false,
+							},
+							axisLabel: {
+								fontSize: 10,
+								color: "#000000",
+								formatter: val => {
+									let txt = val
+									if (val.length > 2) {
+										txt = val.substr(0, 2) + '..'
+									}
+									return txt
+								}
+							}
+						},
+						yAxis: {
+							type: "value",
+							minInterval: 1, //最小单位可读
+							axisLine: {
+								show: false,
+							},
+							axisLabel: {
+								fontSize: 12,
+								color: "#000000",
+								formatter: '{value}%'
+							}
+						},
+						tooltip: {
+							trigger: "item",
+							axisPointer: {
+								label: {
+									lineHeight: 20,
+									backgroundColor: "#ffffff",
+									padding: [0, 0, 0, 0]
+								},
+							},
+							formatter: (p) => {
+								console.log(p)
+								let str = p.data.toFixed(2) + '%' + '</br>';
+								str += p.name;
+								return str;
+							}
+							// trigger: 'item',
+						},
+						series: [{
+							itemStyle: {
+								normal: {
+									color: "#5B8FF9",
+
+								}
+							},
+
+							data: item.rate || [10, 52, 61, 94, 29, 33, 52],
+							type: "scatter",
+							symbolSize: 7
+						}, ],
+					};
+					myChart.setOption(option);
+				},
+				//部门任务完成量
+				deptTask() {
+					var myChart = echarts.init(document.getElementById("deptTask"));
+					var option = {
+						title: {
+							text: "部门任务完成量",
+							textStyle: {
+								color: '#000000',
+								fontSize: "16",
+								fontWeight: "normal",
+								height: "50",
+								lineHeight: "50"
+							}
+						},
+						grid: {
+							width: "90%",
+							height: "62%"
+						},
+						xAxis: {
+							type: "category",
+							data: ["1bu", "2bu", "3bu", "4bu", "5bu", "6bu", "7bu"],
+							axisTick: {
+								alignWithLabel: true
+							},
+							axisLine: {
+								show: false,
+							},
+							axisLabel: {
+								fontSize: 10,
+								color: "#000000",
+								formatter: val => {
+									let txt = val
+									if (val.length > 3) {
+										txt = val.substr(0, 3) + '..'
+									}
+									return txt
+								}
+							}
+						},
+						yAxis: {
+							type: "value",
+							axisLine: {
+								show: false,
+							},
+							axisLabel: {
+								fontSize: 12,
+								color: "#000000",
+								formatter: val => {
+									let txt = val
+									if (val.length > 6) {
+										txt = val.substr(0, 6) + '..'
+									}
+									return txt
+								}
+							}
+						},
+						tooltip: {
+							trigger: "axis",
+							axisPointer: {
+								type: 'shadow',
+								label: {
+									lineHeight: 20,
+									backgroundColor: "#ffffff",
+									padding: [0, 0, 0, 0]
+								},
+							},
+						},
+						series: [{
+							data: [10, 52, 61, 94, 29, 33, 52],
+							type: "bar",
+							barWidth: "22",
+							itemStyle: {
+								barBorderRadius: [15, 15, 0, 0],
+								color: {
+									type: 'linear',
+									x: 0,
+									y: 0,
+									x2: 0,
+									y2: 1,
+									colorStops: [{
+										offset: 0,
+										color: '#C1EEFE'
+									}, {
+										offset: 1,
+										color: '#43A7F9'
+									}],
+
+								},
+							},
+
+						}, ],
+					};
+					myChart.setOption(option);
+				},
+				//成员跳绳个数
+				memberNum(item, flag, type, mode) { //1线上赛来2成员跳绳总个数
+					var myChart = null;
+					let obj = {
+						title: "",
+						colorBottom: ''
+					}
+					// console.log(item)
+					if (this.tabActive == 1 && flag == 1) {
+						myChart = echarts.init(document.getElementById("competitionChart"));
+						if (this.competitionParam.type == "team") {
+							obj.title = "部门线上赛排名";
+							obj.colorBottom = "#FFA05F";
+						} else {
+							obj.title = "线上赛排名";
+							obj.colorBottom = "#5F73FF";
+						}
+					} else if (flag == 3) { //部门任务跳绳总个数
+						obj.title = "部门任务跳绳总个数(万个)";
+						obj.colorBottom = "#43A7F9";
+						myChart = echarts.init(document.getElementById("memberNum2"));
+					} else {
+						// console.log(item)
+						obj.title = this.minister == 1 || (flag == 1 || this.taskSingle) ? "成员跳绳总个数(万个)" :
+							"各任务跳绳总个数(万个)";
+						obj.colorBottom = this.taskSingle ? "#F94351" : "#33D467";
+						myChart = echarts.init(document.getElementById("memberNum"));
+					}
+					let _self = this;
+					var option = {
+						title: {
+							text: obj.title,
+							textStyle: {
+								color: '#000000',
+								fontSize: "16",
+								fontWeight: "normal",
+								height: "50",
+								lineHeight: "50"
+							}
+						},
+						grid: {
+							width: "90%",
+							height: "62%",
+							left: '12%',
+						},
+						xAxis: {
+							type: "category",
+							data: item.Xline || ["1bu", "2bu", "3bu", "4bu", "5bu", "6bu", "7bu"],
+							axisTick: {
+								alignWithLabel: true
+							},
+							axisLine: {
+								show: false,
+							},
+							axisLabel: {
+								fontSize: 10,
+								color: "#000000",
+								formatter: val => {
+									let txt = val
+									if (val.length > 2) {
+										txt = val.substr(0, 2) + '..'
+									}
+									return txt
+								}
+							}
+						},
+						yAxis: {
+							type: "value",
+							minInterval: flag == 1 ? 1 : 0.001, //最小单位可读
+							axisLine: {
+								show: false,
+							},
+							axisLabel: {
+								fontSize: 12,
+								color: "#000000",
+								formatter: function(value, index) {
+									if((value+"").length<=5)return value;
+									return value.toFixed(3);
+								}
+							}
+						},
+						tooltip: {
+							trigger: "item",
+							axisPointer: {
+								type: 'shadow',
+								label: {
+									lineHeight: 20,
+									backgroundColor: "#ffffff",
+									padding: [0, 0, 0, 0]
+								},
+							},
+							formatter: (p) => {
+								let str = '';
+								console.log(p)
+								let name = p.name;
+								if (name.length > 4) {
+									let namestr = name.substr(0, 5) + '<br/>';
+									namestr += name.substr(5, name.length - 1);
+									name = namestr
+								}
+								if (type == 'team' || type == 'personal') { //mode2倒计时
+									str += name + '<br/>';
+									str += '名次：第' + p.data + '名<br/>';
+									let unit = item.num[p.dataIndex];
+									if (mode == 3) {
+										unit = Math.round(unit);
+										let hour = Math.floor(unit / 3600) >= 10 ? Math.floor(unit / 3600) : '0' + Math.floor(unit / 3600);
+										unit -= 3600 * hour;
+										let min = Math.floor(unit / 60) >= 10 ? Math.floor(unit / 60) : '0' + Math.floor(unit / 60);
+										unit -= 60 * min;
+										let sec = unit >= 10 ? unit : '0' + unit;
+										unit = hour + ':' + min + ':' + sec;
+									} else {
+										unit = _self.resetNum(unit);
+									}
+									str += (mode == 3 ? '时长：' : type == 'team' ? '平均个数：' : '个数：') + unit + (mode == 3 ? '' : '个');
+								} else {
+									str += name + '<br/>';
+									str += _self.resetNum(p.data) + '万个<br/>';
+								}
+								return str;
+							}
+						},
+						series: [{
+							data: item.Yline || [10, 52, 61, 94, 29, 33, 52],
+							type: "bar",
+							barWidth: "22",
+							itemStyle: {
+								barBorderRadius: [15, 15, 0, 0],
+								color: {
+									type: 'linear',
+									x: 0,
+									y: 0,
+									x2: 0,
+									y2: 1,
+									colorStops: [{
+										offset: 0,
+										color: '#EFFFE6'
+									}, {
+										offset: 1,
+										color: obj.colorBottom
+									}],
+
+								},
+							},
+
+						}, ],
+					};
+					myChart.setOption(option);
+				},
+				//分部长任务完成率
+				taskComplete(item) {
+					var myChart = echarts.init(document.getElementById("taskComplete"));
+					var option = {
+						title: {
+							text: "任务完成率",
+							textStyle: {
+								color: '#000000',
+								fontSize: "16",
+								fontWeight: "normal",
+								height: "50",
+								lineHeight: "50"
+							}
+						},
+						grid: {
+							// left: '5%',
+							// right: '5%',
+							// bottom: '10%',
+							width: "90%",
+							height: "62%"
+						},
+						xAxis: {
+							type: "category",
+							data: item.dept || ["1bu", "2bu", "3bu", "4bu", "5bu", "6bu", "7bu"],
+							axisLine: {
+								show: false,
+							},
+							axisLabel: {
+								fontSize: 10,
+								color: "#000000",
+								formatter: val => {
+									let txt = val
+									if (val.length > 2) {
+										txt = val.substr(0, 2) + '..'
+									}
+									return txt
+								}
+							}
+						},
+						yAxis: {
+							type: "value",
+							axisLine: {
+								show: false,
+							},
+							axisLabel: {
+								fontSize: 12,
+								color: "#000000"
+							}
+						},
+						tooltip: {
+							trigger: "axis",
+							axisPointer: {
+								label: {
+									lineHeight: 20,
+									backgroundColor: "#ffffff",
+									padding: [0, 0, 0, 0]
+								},
+							},
+
+						},
+						series: [{
+							itemStyle: {
+								normal: {
+									color: "#5B8FF9",
+
+								}
+							},
+
+							data: item.rate || [10, 52, 61, 94, 29, 33, 52],
+							type: "line",
+							smooth: true,
+							symbolSize: 7
+						}, ],
+					};
+					myChart.setOption(option);
+				},
+				//分部长-部门个人排名
+				deptPersonRank(item) {
+					console.log(item)
+					// 基于准备好的dom，初始化echarts实例
+					var myChart = echarts.init(document.getElementById("deptPersonRank"));
+					var num = 0;
+					var option = {
+						title: {
+							text: "部门个人排名",
+							textStyle: {
+								color: '#000000',
+								fontSize: "16",
+								fontWeight: "normal",
+								height: "50",
+								lineHeight: "50"
+							}
+						},
+						grid: {
+							bottom: '10%', // 与容器底部的距离
+							left: '12%',
+							right: '0'
+						},
+						color: ['#609CFF', '#70E1AB', '#657798'],
+						tooltip: {
+							trigger: 'item',
+							axisPointer: {
+								type: 'shadow'
+							},
+							formatter: (p) => {
+								let color = ['#609CFF', '#70E1AB', '#657798'],
+									str = '';
+								item.dataList[p.dataIndex].forEach((d, i) => {
+									let namestr = d.nickname;
+									if (namestr.length > 4) {
+										namestr = d.nickname.substr(0, 5) + '<br/>';
+										namestr += d.nickname.substr(5, d.nickname.length - 1);
+									}
+									str +=
+										'<span style="display:inline-block;margin-right:4px;border-radius:10px;width:10px;height:10px;background-color:' +
+										color[i] + ';"></span>' + namestr + ":" + d.ropeNum + "</br>";
+								})
+								console.log(p);
+								return str;
+							}
+						},
+
+						xAxis: [{
+							type: 'category',
+							axisTick: {
+								show: false
+							},
+							data: item.Xline,
+							axisLabel: {
+								fontSize: 10,
+								color: "#000000",
+								formatter: val => {
+									let txt = val
+									if (val.length > 2) {
+										txt = val.substr(0, 2) + '..'
+									}
+									return txt
+								}
+							}
+						}],
+						yAxis: [{
+							type: 'value'
+						}],
+						series: item.series
+					};
+					myChart.setOption(option);
+				},
+				resetNum(num) {
+					var b = parseFloat(num).toFixed(3);
+					if (isNaN(b)) return '0.00';
+					b = b.substring(0, b.toString().length - 1);
+					return b
+				},
+			},
+		});
+	</script>
+
+</html>

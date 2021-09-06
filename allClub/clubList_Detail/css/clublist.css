@@ -1,0 +1,145 @@
+* {
+    margin: 0;
+    padding: 0; 
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+body,html{
+    width:100%;
+
+    background-color: #12121f;
+    font-size: .3rem;
+    font-family:PingFang SC,Helvetica Neue,Arial,sans-serif;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+}
+/* 列表区域 */
+
+.listDiv .listItem {
+    width:100%;
+    padding:0  4%;
+    height: 2.4rem;
+    color:#333;
+    font-size: .25rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    background: #12121f;
+
+}
+
+.listItem .listItem-picImg{
+    width: 1.8rem;
+    height: 1.8rem;
+    overflow: hidden;
+    border-radius: .2rem;
+    /* background: #f8f8f8; */
+
+}
+.listItem-picImg img {
+    width: 100%;
+	border-radius: .2rem;
+}
+.listItem .listItem-content{
+	padding: .3rem 0;
+    width: 75%;
+    margin-left: 3%;
+    color: #727272;
+    font-size: .2rem;
+    line-height: 1.5;
+	border-bottom: 1px solid #1e1e2a;
+}
+.listItem-content .name{
+    color: #CFCFD2;
+    font-size: .32rem;
+    line-height: 2;
+    display: flex;
+    align-items: center;
+}
+.listItem-content .van-ellipsis{
+	max-width: 4.8rem;
+}
+.listItem-content .name .van-ellipsis{
+	max-width: 4.32rem;
+}
+.listItem-content .ministerIcon{
+    display: block;
+    color: #fff;
+    font-size: .2rem;
+    background:#e60012;
+    border-radius: 5px;
+    text-align: center;
+    /* width: .5rem; */
+    margin-left: 2%;
+	padding: 0 .08rem;
+
+}
+.listItem-content  .content span {
+    display: inline-block;
+	color: #727272;
+	font-size: .28rem;
+    margin-right: 2%;
+}
+.listItem-content .desc{
+   width: 100%;
+   line-height: 2.5;
+   font-size: .28rem;
+   color: #999;
+}
+ .addClubBtn {
+    
+    
+}
+.addClubBtn img {
+    /* width:100%; */
+    width: 0.94rem;
+    height:0.94rem;
+	position: fixed;
+	bottom: 2.5rem;
+	right: 0.3rem;
+	z-index: 999;
+}
+
+
+/* 超出省略显示 */
+.ellipsis {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.van-search__content{
+	background-color:#1E1E2A;
+}
+.van-field__control{
+	color: #71717f;
+}
+
+
+
+  /* 无数据区域 */
+  .nulldataDiv {
+	position: fixed;
+	top: 1.96rem;
+	/* top: -webkit-calc(50% - 2rem);
+    top: -moz-calc(50% - 2rem); */
+    
+    font-size:.28rem;
+    line-height: 1rem;
+    color: #71717f;
+
+    width:100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+
+}
+.nulldataDiv img{
+    width: 50%;
+}
+
+

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,
+            maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+    <title>部门运动详情</title>
+    <!-- 引入样式文件 -->
+    <link rel="stylesheet" href="../../common/css/vant-rem.css">
+    <link rel="stylesheet" href="../../common/css/basic.css">
+    <link rel="stylesheet" href="../club/css/clubCompetitionDetail.css">
+    <style type="text/css">
+        .list-item-box {
+            min-height: 100vh;
+            background-color: #ffffff;
+        }
+
+        .personnalList {
+            background-color: #ffffff;
+        }
+
+        .van-pull-refresh {
+            margin-bottom: 0rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <div class="personnal">
+            <van-pull-refresh v-model="personalObject.refreshing" @refresh="onRefresh" class="list-item-box">
+                <van-list v-model="personalObject.loading" :finished="personalObject.finished" finished-text="没有更多了"
+                    @load="onLoad" :immediate-check=false v-if="personalObject.list.length>0">
+                    <van-row v-for="(item,index) in personalObject.list" type="flex" justify="center"
+                        class="personnalList">
+                        <van-col span="3" class="" @click="Interaction.visitPersonalHomepage(item.userId)">
+                            <div class="detail_headpic" :style="{'background-image': 'url(' +
+                                    item.headPictureUrl + ')'}"></div>
+                        </van-col>
+                        <van-col span="6" class="personalName" @click="Interaction.visitPersonalHomepage(item.userId)">{{
+                                item.nickname | ellipsis5 }}</van-col>
+
+                        <van-col span="7" class="align-right">
+                            <span class="bigNumberSpan">{{item.ropeNum||'--'}}</span>个</van-col>
+
+                        <van-col span="8" class="align-right">
+                            <span class="bigNumberSpan">{{parseInt(item.duraMs/60/1000)}}</span>分
+                            <span
+                                class="bigNumberSpan">{{(item.duraMs/1000%60<10?('0'+item.duraMs/1000%60):item.duraMs/1000%60)}}</span>秒
+                        </van-col>
+
+                    </van-row>
+                </van-list>
+                <div v-else-if="personalObject.list.length==0&&personalObject.finished" class="noData-box">
+                    <img class="noData-img" src="../../common/img/noData.png" alt="">
+                    <p class="noData-p">部门暂时无人参与运动</p>
+                </div>
+            </van-pull-refresh>
+        </div>
+
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vant@2.9/lib/vant.min.js"></script>
+<script src="../../common/js/network.js"></script>
+<script>
+    window.addEventListener('pageshow', function (event) {
+
+    })
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                clubId: getQueryString("clubId"),
+                clubGroupId:parseInt(getQueryString("clubGroupId")),
+                date: getQueryString("date") || timestampTodate(new Date(), '-'),
+                loading: false,
+                finished: false,
+                personalObject: {
+                    loading: false,
+                    finished: false,
+                    refreshing: true,
+                    list: [],
+                    page: 1,
+                    pageSize: 20,
+                },
+                competitionItem: {
+                    mode: 2
+                }
+            }
+        },
+        filters: {
+            ellipsis5(value) {
+                if (!value) return '';
+                if (value.length > 5) {
+                    return value.slice(0, 5) + '...';
+                }
+                return value;
+            }
+        },
+        mounted() {},
+        created() {
+            this.getList()
+            document.title=(getQueryString("deptName")=="null"?"未分部部门":getQueryString("deptName"))+"运动详情"
+        },
+        methods: {
+            OnclickLeft() {
+                window.history.back(-1);
+            },
+            getList() {
+                var that = this;
+                var nowPageNum = that.personalObject.page;
+                ajax({
+                    type: "get",
+                    url: "club/clubGroupTodaySport",
+                    data: {
+                        clubId: this.clubId,
+                        clubGroupId: this.clubGroupId=='null'?"":this.clubGroupId,
+                        date: this.date,
+                        page: nowPageNum - 1,
+                        pageSize: that.personalObject.pageSize
+                    },
+                    success: function (res) {
+                        that.loading = false;
+                        if (res.code == 0) {
+                            if (nowPageNum == 1) {
+                                that.personalObject.list = res.data.sportList
+                                console.log(that.personalObject.list)
+                            } else {
+                                that.personalObject.list = that.personalObject.list.concat(res.data
+                                    .sportList);
+                            }
+                            //如果获取的数据足够
+                            if (res.data.totalNum < nowPageNum * that.personalObject.pageSize) that
+                                .personalObject.finished = true
+
+
+                        } else {
+                            that.$toast(res.msg)
+                        }
+                    },
+                    error: function () {
+                        console.log("error")
+                    }
+                })
+            },
+            onRefresh() {
+                this.personalObject.finished = false;
+                this.personalObject.loading = true;
+                this.onLoad();
+            },
+            onLoad() {
+                if (this.personalObject.refreshing) {
+                    this.personalObject.list = []
+                    this.personalObject.refreshing = false
+                    this.personalObject.page = 1
+                } else {
+                    this.personalObject.page++;
+                }
+                this.getList()
+            },
+        }
+    })
+</script>
+
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+		<title>兑换结果</title>
+		<!-- 引入样式文件 -->
+		<link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
+		<link rel="stylesheet" href="../common/css/basic.css">
+		<link rel="stylesheet" href="../pointsLottery/css/pointsLottery.css">
+		<style type="text/css">
+			#app img {
+				width: 3.6rem;
+				margin: .96rem auto .48rem;
+			}
+
+			.resulttxt {
+				font-size: .32rem;
+				text-align: center;
+				font-family: 'PingFangSC-Regular';
+				color: #333;
+			}
+		</style>
+		<!-- <script src="https://cdn.bootcss.com/vConsole/3.3.4/vconsole.min.js"></script>
+				<script>
+					// init vConsole
+				        var vConsole = new VConsole();
+				        console.log('Hello world');
+				    </script> -->
+	</head>
+
+	<body>
+		<div id="app" v-cloak>
+			<div class="header">
+				<van-nav-bar :title="isSuccess==1?'兑换成功':'兑换失败'" @click-left="OnclickLeft" left-arrow>
+				</van-nav-bar>
+			</div>
+			<div id="demoCanvas" style=""></div>
+			<div class="ub ub-ac ub-pc">
+				<img v-if="isSuccess==1" src="../pointsLottery/img/ordersuccess.png" alt="">
+				<img v-else src="../pointsLottery/img/orderfail.png" alt="">
+			</div>
+			<div class="resulttxt">{{isSuccess==1?'支付成功，努力完成任务哦～':'好像没成功，要不再试试？'}}</div>
+		</div>
+	</body>
+	<script src="https://oss.laisitech.com/0bb12bf1-cb87-4d2c-a724-8a7c25b7ae04.js "></script>
+<script src="https://oss.laisitech.com/6172e6c1-f460-40ac-97ba-31c8526f2e16.js"></script>
+	<script src="../common/js/network.js"></script>
+	<script src="js/tool.js"></script>
+	<script>
+		new Vue({
+			el: '#app',
+			data() {
+				return {
+					isSuccess: getQueryString("isSuccess") || 2, //1成功2失败
+					fromwhere:getQueryString("fromwhere") || 2//1订单2提现
+				}
+			},
+			filters: {},
+			mounted() {
+				// var _this = this;
+				// if (this.fromwhere == 2) {
+				// 	setTimeout(function() {
+				// 		if (_this.isSuccess == 1) {
+				// 			window.location.replace("./package.html?menuindex=" + _this.menuindex);
+				// 		} else {
+				// 			window.history.back(-1);
+				// 		}
+				// 	}, 2500)
+				// } else {
+
+				// 	setTimeout(function() {
+				// 		if (_this.isSuccess == 1) {
+				// 			window.location.replace("./changerecord.html");
+				// 		} else {
+				// 			window.location.replace("./package.html?menuindex=1");
+				// 		}
+				// 	}, 2500)
+
+				// }
+			},
+			created() {
+				setTopBarColor('white');
+			},
+			methods: {
+				OnclickLeft() {
+					if (this.isSuccess == 1) {
+						window.location.replace("./index.html?stateFlag=3");
+					} else {
+						window.location.replace("./index.html?stateFlag=2");
+					}
+					setTopBarColor('red');
+				}
+
+
+
+			}
+		})
+	</script>
+
+</html>

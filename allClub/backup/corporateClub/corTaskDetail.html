@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+		<title></title>
+		<!-- 引入样式文件 -->
+		<link rel="stylesheet" href="../../common/css/vant-rem.css">
+		<link rel="stylesheet" href="../../common/css/basic.css">
+		<link rel="stylesheet" href="css/normal.css">
+		<!-- <script src="https://cdn.bootcss.com/vConsole/3.3.4/vconsole.min.js"></script>
+				<script>
+					// init vConsole
+				        var vConsole = new VConsole();
+				        console.log('Hello world');
+				    </script> -->
+		<style type="text/css">
+			.process{
+				padding: .4rem .3rem;
+				border-top: .02rem solid #fcfcfc;
+				border-bottom: .02rem solid #fcfcfc;
+				height: 1.2rem;
+				font-size: .32rem;
+			}
+			.processul li{
+				padding: .4rem .3rem;
+				height: 1.2rem;
+				border-top: .02rem solid #fcfcfc;
+				border-bottom: .02rem solid #fcfcfc;
+				font-size: .28rem;
+			}
+			.processul li .van-ellipsis{
+				max-width: 1.4rem;
+			}
+			.processul .headpic{
+				width: .6rem;
+				height: .6rem;
+				border-radius: 100%;
+				margin-right: .2rem;
+			}
+			.processul li>div:last-child{
+				text-align: right;
+			}
+			.processul li>div:nth-child(2){
+				text-align: center;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="app" style="padding-top: 0;" v-cloak>
+			<!-- <div class="header">
+				<van-nav-bar :title="title" @click-left="OnclickLeft" @click-right="onClickRight" left-arrow>
+					<template #right>
+					</template>
+				</van-nav-bar>
+			</div> -->
+			<div class="process ub ub-ac ub-pj">
+				<div>进度</div>
+				<div style="font-size: .28rem;">今日完成率{{rate}}%</div>
+			</div>
+			<ul class="processul">
+				<li class="ub ub-ac ub-ad" v-for="item in dataList">
+					<div class="ub ub-ac ub-f1">
+						<img class="headpic" :src="item.headPictureUrl" alt="">
+						<div class="van-ellipsis">{{item.nickname}}</div>
+					</div>
+					<div class="ub-f1">{{item.is_done=="N"?"未完成":"已完成"}}</div>
+					<div class="ub-f1">累计完成{{item.times||0}}次</div>
+				</li>
+			</ul>
+		</div>
+	</body>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vant@2.9/lib/vant.min.js"></script>
+	<script src="../../common/js/network.js"></script>
+	<script src="js/tool.js"></script>
+	<script>
+		window.addEventListener('pageshow', function(event) {
+			console.log("PageShow Event  " + event.persisted);
+			console.log(event)
+			if (isIOS) {
+				
+			}
+		})
+		new Vue({
+			el: '#app',
+			data() {
+				return {
+					loading: false,
+					finished: false,
+					taskId: getQueryString("taskId") || "",
+					clubId : getQueryString("clubId") || "",
+					clubGroupId:getQueryString("clubGroupId") || "",
+					rate:getQueryString("rate") || "",
+					gname:getQueryString("name") || "未分部部门",
+					title:'',
+					dataList:[]
+				}
+			},
+			filters: {},
+			mounted() {
+			},
+			created() {
+				document.title = this.gname+'任务详情';
+				if(this.clubGroupId=='null')this.clubGroupId='';
+				this.initData()
+			},
+			methods: {
+				initData(){
+					let _self = this;
+					ajax({
+						type: "get",
+						url: "club/clubGroupTaskDetail",
+						data: {
+							clubId: _self.clubId,
+							clubGroupId:_self.clubGroupId,
+							taskId:_self.taskId,
+							page:0,
+							pageSize:999
+						},
+						success: function(res) {
+							if (res.code == 0) {
+								_self.dataList = res.data.doneMemberList;
+							} else {
+								_self.$toast(res.msg);
+							}
+						},
+						error: function() {
+							console.log("error")
+						}
+					})
+				},
+				OnclickLeft() {
+					window.history.back(-1);
+				},
+				onClickRight() { //显示。。。
+				},
+			}
+		})
+	</script>
+
+</html>

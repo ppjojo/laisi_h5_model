@@ -1,0 +1,236 @@
+* {
+    margin: 0;
+    padding: 0; 
+    /* background: #f8f8f8; */
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+html,body{
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+#app{
+	min-height: 100vh;
+	background: #12121F;
+}
+.main_container {
+    font-size: .3rem;
+    color: #333;
+    font-family:  PingFangSC-Regular;
+
+    width:100%;
+    height:auto;
+    background: #12121F;
+    overflow: hidden;
+}
+.topMenu{
+	display:flex;
+	flex-wrap: wrap;
+	align-items: center;
+	color: #cfcfd2;
+	font-size: .28rem;
+	padding-top: .36rem;
+}
+.topMenu .menuItem{
+	width: 33%;
+	text-align: center;
+	margin: .36rem 0;
+}
+.topMenu .menuItem img{
+	width: .76rem;
+	height: .76rem;
+}
+.outcommonBox{
+	padding: .2rem;
+}
+.commonQA{
+	border-radius: .24rem;
+	background-color: rgba(30, 30, 42, 1);
+	padding: .4rem;
+	padding-top: .2rem;
+}
+.commonQA .listItem{
+	border-bottom: 1px solid #12121F;
+	padding: .24rem 0;
+	color:#CFCFD2;
+	font-size: .24rem;
+}
+.blodTitle{
+	border-left: .08rem solid #0b83ed;
+	font-size: .28rem;
+	color: #BFBFC2;
+	padding-left: .08rem;
+}
+/* 顶部背景 */
+.main_container .topBanner {
+    width:100%;
+    height:2.4rem;
+    background-image: url('../img/topBannerBg.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+   position: relative;
+   overflow: hidden;
+}
+.topBanner .toptxt {
+    width:100%;
+    padding: 0.3rem;
+	box-sizing: border-box;
+	position: absolute;
+	left: 0;
+	bottom: 0.3rem;
+}
+.toptxt p{
+    color: #fff;
+    font-size: .32rem;
+    line-height: .5rem;
+}
+
+/* 选项卡--（常见问题、操作指南） */
+.main_container .tabDiv {
+    width: 100%;
+    display: flex;
+    border-bottom:1px #f8f8f8 solid;
+}
+.tabDiv p {
+    width:50%;
+    text-align: center;
+    font-size: .36rem;
+    line-height: 1rem;
+	color: #999999;
+}
+.tabDiv .selected {
+    color:#1F1F1F ;
+    /* border-bottom: 1px solid #E60012; */
+    position: relative;
+}
+.tabDiv .selected::after{
+    width: 0.5rem;
+    height: 2px;
+    position: absolute;
+    bottom: 0;
+    content: "";
+    left: calc( 50% - 0.25rem);
+    background-color: #E60012;
+}
+
+
+/* 常见问题模块 */
+.problemDiv {
+    width:100%;
+    display: flex;
+
+}
+/* 常见问题左侧导航栏区域  */
+.problemDiv .problemMenu {
+    width:30%;
+    border-right:1px #f8f8f8 solid;
+    -webkit-tab-highlight-color: rgba(0,0,0,0);
+}
+.problemMenu .menuitem {
+    width: 100%;
+    padding: 16% 10% 0;
+    min-height: 2.4rem;
+    border-bottom:0.2rem #f8f8f8 solid;
+    text-align: center;
+
+    justify-content: flex-start;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    -webkit-tab-highlight-color: rgba(0,0,0,0); 
+}
+
+.problemMenu .menuitemClicked {
+    height: 4.096rem;
+    padding-bottom: 2.048rem;
+}
+
+.menuitem .menuIconImg {
+    width:.6rem;
+}
+.menuitem p {
+    font-family: PingFangSC-Regular;
+    font-size: .28rem;
+	color: #1f1f1f;
+    margin: 10% 0 2% 0;
+    white-space: nowrap;
+}
+.menuitem p.enTxt {
+    white-space: normal;
+    /* word-break: normal; */
+    /* word-break: break-all; */
+}
+.menuitem .downIcon {
+    width:.4rem;
+    color:#727272;
+}
+.menuitem .turn {
+    transform:rotate(180deg)
+}
+
+/* 常见问题列表 */
+
+
+.problemDiv .problemList {
+    width:70%;
+}
+.problemList .problemItemListDiv{
+	
+	box-sizing: border-box;
+}
+.problemList .problemItemListDiv .problemItem {
+    width:100%;
+    min-height: 1.2rem;
+    padding: 0 5%;
+    border-bottom:1px #f8f8f8 solid;
+    display: flex;
+    align-items: center;
+}
+.problemList .problemItemListDiv .problemItem:last-child{
+	border-bottom:0.2rem #f8f8f8 solid;
+}
+.problemItem p {
+    font-family: PingFangSC-Regular;
+    font-size: .28rem;
+	color: #1f1f1f;
+}
+
+
+/* 操作指南模块 */
+.guideDiv {
+    width:100%;
+}
+.guideDiv .guideproList {
+    width:100%;
+}
+.guideproList .guideproItem {
+    width: 100%;
+    padding: 0.2rem 0.3rem;
+	padding-right:0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.guideproItem .maincontainer {
+    width: 92%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height:1.76rem;
+	padding-right:0.3rem;
+    border-bottom:1px #f8f8f8 solid;
+}
+ .proIconImg {
+    width: 1.4rem;
+	border-radius: 5px;
+}
+.maincontainer p {
+    font-family: PingFangSC-Regular;
+    font-size: .28rem;
+    margin: 0 3%;
+	color: #1f1f1f;
+}
+.guideproItem .rightIcon {
+    width: .15rem;
+}

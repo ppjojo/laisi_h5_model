@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+	<title>创建俱乐部比赛(1/2)</title>
+	<!-- 引入样式文件 -->
+	<link rel="stylesheet" href="../../common/css/vant-rem.css">
+	<link rel="stylesheet" href="css/creat2.css">
+</head>
+
+<body>
+	<div id="app" v-cloak>
+		<div>
+			<div class="item_box">
+				<div class="laber">
+					比赛名称
+				</div>
+				<div class="pkName_box">
+					<van-field v-model="submitform.name" rows="2" type="textarea" maxlength="16" placeholder="请输入比赛名称吧~"
+						show-word-limit />
+				</div>
+			</div>
+			<div class="item_box">
+				<div class="laber">
+					比赛模式
+				</div>
+				<div>
+					<van-radio-group @change="modeChange" v-model="submitform.mode" direction="horizontal">
+						<van-radio name="2">倒计时跳</van-radio>
+						<van-radio name="3">倒计数跳</van-radio>
+					</van-radio-group>
+				</div>
+				<div v-if="submitform.mode" class="borderTop">
+					<van-cell class="pk_cell" :class="form.pkMode.indexOf('请选择')!=-1?'':'chosed'"
+						@click="modeChange(submitform.mode)" :title="submitform.mode==2?'倒计时长':'倒计数跳个数'" is-link
+						:value="form.pkMode" />
+				</div>
+			</div>
+
+			<div class="item_box">
+				<div class="laber">
+					比赛类型
+				</div>
+				<div class="border">
+					<van-radio-group @change="typeChange" v-model="submitform.type" direction="horizontal">
+						<van-radio name="personal">个人赛</van-radio>
+						<van-radio name="team">团体赛</van-radio>
+					</van-radio-group>
+				</div>
+				
+				<div v-if="submitform.type=='team'" class="borderTop">
+					<van-cell class="pk_cell"  :class="form.pkType.toString().indexOf('请选择')!=-1?'':'chosed'"
+						@click="typeChange(submitform.type)" title="团队赛人数" is-link :value="form.pkType" />
+				</div>
+			</div>
+		</div>
+
+		<div class="btn_box">
+			<van-button class="creatMatch" :class="canNext?'':'creatMatch2'" style="width: 4rem;" @click="nextPage">下一步
+			</van-button>
+		</div>
+
+		<van-popup v-model="countTimeShow" position="bottom">
+			<van-picker title="倒计时跳时长" show-toolbar :columns="countTimeColumns" :default-index="1"
+				@cancel="countTimeShow = false" @confirm="onCountTimeConfirm" />
+		</van-popup>
+		<van-popup v-model="countNumberShow" position="bottom">
+			<van-picker title="倒计数跳个数" show-toolbar :columns="countNumberColumns" @cancel="countNumberShow = false"
+				@confirm="onCountNumberConfirm" />
+		</van-popup>
+		<van-popup v-model="teamShow" position="bottom">
+			<van-picker title="团体赛人数" show-toolbar :columns="teamColumns" @cancel="teamShow = false"
+				@confirm="onteamConfirm" />
+		</van-popup>
+	</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vant@2.9/lib/vant.min.js"></script>
+<script src="js/DateTime.js"></script>
+<script src="../../common/js/network.js"></script>
+<script>
+	var handler = function (e) {
+		e.preventDefault();
+	}
+	new Vue({
+		el: '#app',
+		data() {
+			return {
+				countTimeColumns: ['30秒'],
+				countTimeShow: false,
+
+				countNumberColumns: [{
+					values: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+					defaultIndex: 1
+				},
+				{
+					values: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+					defaultIndex: 0
+				},
+				{
+					values: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+					defaultIndex: 0
+				},
+				{
+					values: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+					defaultIndex: 0
+				}
+				],
+				countNumberShow: false,
+
+
+
+				teamColumns: ["不限"],
+				teamShow: false,
+
+				form: {
+					pkType: "",
+					pkMode: ""
+				},
+				submitform: {
+					startTime: "",
+					endTime: "",
+					name: "",
+					mode: "", //比赛模式: 2(倒计时)/3(倒计数)
+					type: "", //比赛类型: team(团队赛)/personal(个人赛)
+					modeValue: "", //倒计时/秒, 倒计数/个
+					repeatTimes: "", //比赛  -1:表示不限制比赛次数
+					gameReward: "", //比赛奖励
+					teamPersonLimit: "", //团队人数
+					clubId :getQueryString("id")
+				},
+				canNext: false,
+
+			};
+		},
+		watch: {
+			submitform: {
+				handler: function (val, oldval) {
+					this.checkIsNull()
+				},
+				deep: true
+			},
+			countTimeShow: function (val) {
+				if (val) {
+					document.getElementsByTagName('body')[0].addEventListener('touchmove', this.handler, {
+						passive: false
+					});
+				} else {
+					document.getElementsByTagName('body')[0].removeEventListener('touchmove', this.handler, {
+						passive: false
+					});
+				}
+			},
+			countNumberShow: function (val) {
+				if (val) {
+					document.getElementsByTagName('body')[0].addEventListener('touchmove', this.handler, {
+						passive: false
+					});
+				} else {
+					document.getElementsByTagName('body')[0].removeEventListener('touchmove', this.handler, {
+						passive: false
+					});
+				}
+			},
+			teamShow: function (val) {
+				if (val) {
+					document.getElementsByTagName('body')[0].addEventListener('touchmove', this.handler, {
+						passive: false
+					});
+				} else {
+					document.getElementsByTagName('body')[0].removeEventListener('touchmove', this.handler, {
+						passive: false
+					});
+				}
+			},
+
+
+		},
+
+		created() {
+			var competitionForm=JSON.parse(localStorage.getItem("competitionForm"));
+			var descriptForm=JSON.parse(localStorage.getItem("descriptForm"));
+			this.submitform=Object.assign(this.submitform,competitionForm);
+			this.form=Object.assign(this.form,descriptForm);
+			
+			
+			for (let i = 1; i <= 60; i++) {
+				this.countTimeColumns.push(i + '分');
+			}
+
+			for (let i = 2; i <= 50; i++) {
+				this.teamColumns.push(i);
+			}
+
+		},
+		methods: {
+			//检查是否有空项
+			checkIsNull() {
+				let submitform = this.submitform;
+				if (!(submitform.mode && submitform.type && submitform.modeValue&&submitform.name)) {//submitform.name &&
+					this.canNext = false;
+				} else {
+					if (submitform.type == "team" && submitform.teamPersonLimit) {
+						this.canNext = true;
+					} else if(submitform.type == "personal"){
+						this.canNext = true;
+					}else{
+						this.canNext = false;
+					}
+				}
+
+			},
+
+			modeChange(name) { //比赛模式切换回调
+				this.submitform.modeValue = "";
+				if (name == 2) {
+					this.countTimeShow = true;
+					this.form.pkMode = "请选择倒计时跳时长";
+				} else {
+					this.countNumberShow = true
+					this.form.pkMode = "请选择倒计数跳个数";
+				}
+			},
+			typeChange(name) { //比赛类型切换回调
+
+				if (name == 'personal') {
+					this.submitform.teamPersonLimit = null;
+				} else {
+					this.teamShow = true;
+					this.form.pkType = "请选择团体赛人数";
+				}
+			},
+
+
+			//倒计时的回调
+			onCountTimeConfirm(value, index) {
+				if (value == "60分") {
+					this.form.pkMode = "1小时倒计时跳";
+				} else {
+					this.form.pkMode = value + "钟倒计时跳";
+				}
+				if (index == 0) {
+					this.submitform.modeValue = 30;
+				} else {
+					this.submitform.modeValue = index * 60;
+				}
+				this.countTimeShow = false;
+			},
+			//倒计数的回调
+			onCountNumberConfirm(value, index) {
+				let countNumber = value[0] * 1000 + value[1] * 100 + value[2] * 10 + value[3] * 1;
+				if (countNumber < 50) {
+					this.$toast('倒计数必须不小于50');
+					return;
+				}
+				this.form.pkMode = countNumber + "个倒计数跳";
+				this.submitform.modeValue = countNumber;
+				this.countNumberShow = false;
+			},
+
+			//团队人数的回调
+			onteamConfirm(value, index) {
+				this.form.pkType = value;
+				this.submitform.type = 'team';
+				if (value == "不限") {
+					this.submitform.teamPersonLimit = -1;
+				} else {
+					this.submitform.teamPersonLimit = value;
+				}
+				this.teamShow = false;
+			},
+
+
+
+			//进入创建的第二个页面之前先对pk赛名字进行审核
+			nextPage() {
+				var that = this;
+				if (!this.canNext) return;
+                ajax({
+                    type: "post",
+                    url: "contentSecurity/aliyun/textScan",
+                    data: {
+                        content: this.submitform.name
+                    },
+                    success: function (res) {
+                        if (res.code == 0) {
+                            localStorage.setItem('competitionForm', JSON.stringify(that.submitform));
+                            localStorage.setItem('descriptForm', JSON.stringify(that.form));
+                            window.location.href = './clubCreateCompetition2.html?clubId='+getQueryString("id");
+
+                        } else if (res.code == 4001) {
+                            that.$toast("比赛名称未通过审核！");
+                            that.submitform.name = "";
+                        }
+                    },
+                    error: function () {
+                        console.log("error")
+                    }
+                })
+				
+
+
+
+			},
+
+
+
+
+		}
+	})
+</script>
+
+</html>

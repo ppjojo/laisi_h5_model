@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+		<title>活动设置(1/2)</title>
+		<!-- 引入样式文件 -->
+		<link rel="stylesheet" href="../../common/css/vant-rem.css">
+		<link rel="stylesheet" href="css/clubCreateCompetition.css">
+		<script type="text/javascript">
+			document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';
+		</script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.min.js"></script>
+		<script src="js/exif.js"></script>
+		<script src="js/upload.js"></script>
+		<style type="text/css">
+			.cropper-container {
+				display: none;
+			}
+			.van-cell__value span{
+				color: #1f1f1f;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app" v-cloak>
+			<div>
+				<van-collapse v-model="activeNames" accordion>
+					<div style="">
+						<div class="laberDiv">
+							活动名称
+						</div>
+						<div style="padding:0 0.2rem 0.2rem 0.2rem;border-bottom: .02rem solid #f8f8f8;">
+							<van-field v-model="submitform.title" :input="titleChange()" class="club-input" style="min-height:1.7rem;" rows="2" autosize type="textarea"
+							 maxlength="16" placeholder="请输入活动名称" show-word-limit />
+						</div>
+					</div>
+					<!-- <van-collapse-item name="1" class="matchName-box hasInput">
+						<div slot="title">
+							<span>活动标题</span>
+							<span v-if="submitform.title">{{':'+submitform.title}}</span>
+							<span v-else-if="isSubmit" class="errorSpan">{{"请输入活动标题"}}</span>
+						</div>
+						<div>
+							<van-field class="matchName-input" v-model="submitform.title" :input="titleChange()" show-word-limit maxlength="16" placeholder="请输入活动标题" />
+						</div>
+					</van-collapse-item> -->
+					<div @click="startTimeShow = true" style="border-bottom: .02rem solid #f8f8f8;">
+						<van-cell title="开始时间" is-link :value="form.start"></van-cell>
+					</div>
+					<div @click="endTimeShow = true">
+						<van-cell title="结束时间" is-link :value="form.end"></van-cell>
+					</div>
+					<!-- <van-collapse-item title="活动时间" name="6" class="matchTime-box hasInput">
+						<div slot="title" v-if="(form.start==''||form.end=='')&&activeNames=='6'">
+							<span>活动时间</span>
+							<span v-if="isSubmit&&(form.start==''||form.end=='')" class="errorSpan">{{"请选择活动时间"}}</span>
+						</div>
+						<div slot="title" v-else-if="(form.start==''||form.end=='')">
+							<span>活动时间</span>
+							<span v-if="isSubmit&&(form.start==''||form.end=='')" class="errorSpan">{{"请选择活动时间"}}</span>
+						</div>
+						<div slot="title" v-else-if="(form.start!=''&&form.end!='')&&activeNames!='6'">
+							<div><span>开始时间:</span><span>{{ form.start}}</span></div>
+							<div><span>结束时间:</span><span>{{ form.end}}</span></div>
+						</div>
+						<div>
+							<div v-if="activeNames=='6'">
+								<div class="matchTime-box-discript" >必须在7天之内开始，时间间隔为1小时～3天</div>
+							</div>
+						</div>
+						<div class="collapseListBox">
+							<div>
+								<div class="collapseList-item" v-if="form.start==''" @click="startTimeShow = true">
+									<span>开始时间</span>
+									<span v-if="isSubmit" class="errorSpan">{{"请选择开始时间"}}</span>
+								</div>
+								<div class="collapseList-item collapseList-item-done" v-else @click="startTimeShow = true">
+									<span>开始时间</span>
+									<span>{{form.start}}</span>
+								</div>
+								<div class="collapseList-item" v-if="form.end==''" @click="endTimeShow = true">
+									<span>结束时间</span>
+									<span v-if="isSubmit" class="errorSpan">{{"请选择结束时间"}}</span>
+								</div>
+								<div class="collapseList-item collapseList-item-done" v-else @click="endTimeShow = true">
+									<span>结束时间</span>
+									<span>{{form.end}}</span>
+								</div>
+							</div>
+						</div>
+					</van-collapse-item> -->
+					<!-- <van-collapse-item name="3" class="clubImg border-bottom">
+						<div slot="title" >
+							<span>活动图片</span>
+							<img class="clubImg_photo" :src="submitform.picUrl" >
+						</div>
+						<div style="padding: 0.2rem ;text-align: center;overflow: hidden;">
+							<van-uploader v-model="fileList" :max-count="1" :after-read="afterRead" />
+						</div>
+					</van-collapse-item> -->
+				</van-collapse>
+				<!-- <div style="border-bottom: 1px solid #f8f8f8;">
+					<div class="laberDiv">活动内容
+					<span v-if="isSubmit&&!submitform.info" class="errorSpan">{{"请输入活动内容"}}</span></div>
+					<div style="padding:0 0.2rem 0.2rem 0.2rem;">
+						<van-field v-model="submitform.info" :input="contentChange()" class="content-input" rows="7"  autosize type="textarea" maxlength="300" placeholder="请输入活动内容"
+						 show-word-limit />
+					</div>
+				</div> -->
+				<van-button round class="submit" block 
+				:color="!submitform.startTime||!submitform.endTime||!submitform.title?bgcgrey:bgc" @click="submitFormData">下一步</van-button>
+			
+				<van-popup v-model="startTimeShow" position="bottom">
+					<van-picker show-toolbar :columns="startTimeColumns" @cancel="startTimeShow = false" @confirm="onstartTimeConfirm"
+					 @change="onstartTimeChange" />
+				</van-popup>
+			
+				<van-popup v-model="endTimeShow" position="bottom">
+					<van-picker show-toolbar :columns="endTimeColumns" @cancel="endTimeShow = false" @confirm="onendTimeConfirm"
+					 @change="onendTimeChange" />
+				</van-popup>
+				
+				<van-overlay :show="overlayShow" @click="show = false" style="align-items: center;display: flex;justify-content: center;">
+				  <van-loading size="0.7rem" color="#fff"  vertical>
+					<p style="color:#fff;font-size:0.24rem">正在上传图片...</p>	
+				  </van-loading>
+				</van-overlay>
+			</div>
+		</div>
+	</body>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vant@2.9/lib/vant.min.js"></script>
+	<script src="js/DateTime.js"></script>
+	 
+	<script src="../../common/js/network.js"></script>
+	<script>
+		var handler = function(e) {
+			e.preventDefault();
+		}
+		new Vue({
+			el: '#app',
+			data() {
+				return {
+					bgc: "linear-gradient(to right, #FF6A88, #FF5136 )",
+					bgcgrey: '#999',
+					isClick: false,
+					activeNames: 0,
+					clubId: "",
+					isSubmit: false,
+					jlinput: false,
+					overlayShow: false,
+
+
+					startTimeColumns: [],
+					startTimeShow: false,
+					startTime: [],
+
+					endTimeColumns: [],
+					endTimeShow: false,
+
+					fileList: [],
+
+
+					form: {
+						start: "",
+						end: "",
+
+					},
+					submitform: {
+						"startTime": "",
+						"endTime": "",
+						"title": "",
+						"picUrl": "",
+						"info": ""
+					}
+
+				};
+			},
+			watch: {
+				startTimeShow: function(val) {
+					if (val) {
+						document.getElementsByTagName('body')[0].addEventListener('touchmove', this.handler, {
+							passive: false
+						});
+					} else {
+						document.getElementsByTagName('body')[0].removeEventListener('touchmove', this.handler, {
+							passive: false
+						});
+					}
+				},
+				endTimeShow: function(val) {
+					if (val) {
+						document.getElementsByTagName('body')[0].addEventListener('touchmove', this.handler, {
+							passive: false
+						});
+					} else {
+						document.getElementsByTagName('body')[0].removeEventListener('touchmove', this.handler, {
+							passive: false
+						});
+					}
+				}
+			},
+			created() {
+				this.activityId = getQueryString("id");
+				if(JSON.parse(localStorage.getItem('activityForm'))){
+					this.submitform = JSON.parse(localStorage.getItem('activityForm'));
+					var timeArray = DateTime.needYearOrNot2(this.submitform.startTime, this.submitform.endTime);
+					this.form.start = timeArray[0];
+					this.form.end = timeArray[1];
+					this.initEndTime(DateTime.sjc2time('ymdhms', this.submitform.startTime + 3600000));
+				}else{
+					this.initData();
+				}
+				var startTime = DateTime.initStart(2);
+				this.startTimeColumns = [{
+						values: Object.keys(startTime),
+					},
+					{
+						values: [],
+					}
+				]
+				this.startTime = startTime;
+				//先初始化结束时间
+				this.initEndTime();
+
+			},
+			methods: {
+				//获取活动详情
+				initData() {
+					var _self = this;
+					ajax({
+						type: "post",
+						url: "club/activity/get/item",
+						data: {
+							id: _self.activityId,
+						},
+						success: function(res) {
+							if (res.code == 0) {
+								_self.submitform = res.data.itemList[1];
+								var timeArray = DateTime.needYearOrNot2(_self.submitform.startTime, _self.submitform.endTime);
+								_self.form.start = timeArray[0];
+								_self.form.end = timeArray[1];
+								_self.initEndTime(DateTime.sjc2time('ymdhms', res.data.itemList[1].startTime + 3600000));
+							} else {
+								_self.$toast(res.msg);
+							}
+						},
+						error: function() {
+							console.log("error")
+						}
+					})
+				},
+				//开始时间的回调
+				onstartTimeConfirm(value, index) {
+					if (value[0] == "立即开始") {
+						var nowTime = DateTime.timeStamp2String('ymdhm');
+						this.form.start = DateTime.timeStamp2String('mdhm');
+
+						this.submitform.startTime = DateTime.getSjc(nowTime);
+						this.initEndTime(DateTime.sjc2time('ymdhms', DateTime.getSjc(nowTime) + 3600000));
+					} else {
+						this.form.start = DateTime.sjc2time('mdhm2', DateTime.getSjc(value[0] + " " + value[1].text))
+
+						this.submitform.startTime = DateTime.getSjc(value[0] + " " + value[1].text);
+						this.initEndTime(value[0] + " " + value[1].text);
+					}
+					this.form.end = "";
+					this.submitform.endTime = "";
+					this.startTimeShow = false;
+
+				},
+				//开始时间的改变
+				onstartTimeChange(picker, value, index) {
+					picker.setColumnValues(1, this.startTime[value[0]]);
+				},
+				//初始化结束时间
+				initEndTime(time) {
+					var num = 5;
+					var endTime = DateTime.initEnd(time, 2);
+					num = 1
+					if (time) {
+						var starth = DateTime.timeStamp2String("h", DateTime.getTime(time))
+						var endh = Number(starth) + num;
+					} else {
+						var starth = DateTime.getHours()
+						var endh = Number(starth) + num;
+					}
+
+					if (endh > 23) {
+						this.endTimeColumns = [{
+								values: Object.keys(endTime),
+							},
+							{
+								values: endTime[DateTime.getDateByNum(1, time)],
+							}
+						]
+					} else {
+						this.endTimeColumns = [{
+								values: Object.keys(endTime),
+							},
+							{
+								values: endTime[DateTime.getDateByNum(0, time)],
+							}
+						]
+					}
+
+					this.endTime = endTime;
+				},
+				//结束时间的回调
+				onendTimeConfirm(value, index) {
+					var _self = this;
+					this.form.end = DateTime.sjc2time('mdhm2', DateTime.getSjc(value[0] + " " + value[1].text))
+					this.submitform.endTime = DateTime.getSjc(value[0] + " " + value[1].text);
+					if (this.submitform.startTime) {
+						var timeArray = DateTime.needYearOrNot2(this.submitform.startTime, this.submitform.endTime);
+						this.form.start = timeArray[0];
+						this.form.end = timeArray[1];
+					}
+					this.endTimeShow = false;
+					setTimeout(function() {
+						_self.activeNames = 0;
+					}, 300)
+				},
+				//结束时间的改变
+				onendTimeChange(picker, value, index) {
+					//this.form.end = value[0] + " " + value[1].text;
+					picker.setColumnValues(1, this.endTime[value[0]]);
+				},
+
+				//文件选择之后的回调压缩裁剪处理
+				afterRead(file) {
+
+				},
+				uploadPicReady(file) {
+					console.log("原始的文件")
+					console.log(file.file)
+					var _self = this;
+					UpladFile({
+						file: file.file
+					}, function(item) {
+						_self.fileList[0] = item;
+						console.log("压缩后的文件")
+						console.log(item.file)
+						_self.uploadPic(item.file)
+					})
+					// var cropper = new Cropper(document.getElementsByClassName("van-image__img")[0], {
+					// 	aspectRatio: 2.5,
+					// 	viewMode: 1,
+					// 	dragMode: "move",
+					// 	background: false,
+					// 	autoCropArea: 1,
+					// 	crop: function(e) {
+					// 		var canvas = cropper.getCroppedCanvas();
+					// 		dataURLtoFile(canvas.toDataURL('image/jpeg'), file.file.name, function(dataURLtoFileData) {
+					// 			_self.fileList[0].file = dataURLtoFileData;
+					// 			console.log("裁剪后的文件")
+					// 			console.log(dataURLtoFileData)
+					// 			UpladFile({
+					// 				file: dataURLtoFileData
+					// 			}, function(item) {
+					// 				_self.fileList[0] = item;
+					// 				console.log("压缩后的文件")
+					// 				console.log(item.file)
+					// 				_self.uploadPic(item.file)
+					// 			})
+					// 		})
+					// 	}
+					// })
+				},
+				//上传图片
+				uploadPic(file) {
+					console.log("准备上传的文件")
+					console.log(file)
+					var _self = this;
+					_self.overlayShow = true;
+					var formdata = new FormData();
+					formdata.append("file", file);
+
+					ajax({
+						type: "post",
+						url: "oss/upload/file",
+						contentType: "multipart/form-data",
+						data: formdata,
+						success: function(res) {
+							if (res.code == 0) {
+								_self.submitform.picUrl = res.data.url;
+								_self.submitFormDataSecond();
+							} else {
+								_self.overlayShow = false;
+								_self.$toast(res.msg);
+							}
+						},
+						error: function() {
+							console.log("error")
+						}
+					})
+				},
+				//提交表单数据
+				submitFormData() {
+					var _self = this;
+					if (_self.isClick) {
+						return;
+					}
+					if(!this.submitform.startTime||!this.submitform.endTime||!this.submitform.title){
+						return;
+					}
+					_self.isClick = true
+					this.isSubmit = true;
+					
+					localStorage.setItem('activityForm',JSON.stringify(this.submitform));
+					window.location.href='activitySetting2.html';
+					return;
+					this.submitform.creator = JSON.parse(localStorage.getItem("appInfo")).userId;
+					for (var key in this.submitform) {
+						if (this.submitform[key] === "") {
+							_self.isClick = false;
+							return;
+						}
+					}
+					if (_self.fileList.length > 0) {
+						_self.uploadPicReady(_self.fileList[0]);
+					} else {
+						_self.submitFormDataSecond();
+					}
+				},
+				submitFormDataSecond() {
+					var _self = this;
+					ajax({
+						type: "post",
+						url: "contentSecurity/aliyun/imageScan?userId="+JSON.parse(localStorage.getItem("appInfo")).userId,
+						data: {
+							content: this.submitform.picUrl
+						},
+						success: function(res) {
+							if (res.code == 0) {
+								ajax({
+									type: "post",
+									url: "club/activity/update/item",
+									data: _self.submitform,
+									success: function(res) {
+										_self.isClick = false;
+										if (res.code == 0) {
+											_self.$toast("活动修改成功！");
+											_self.overlayShow = false;
+											setTimeout(function() {
+												_self.successBack()
+											}, 500);
+										} else {
+											_self.overlayShow = false;
+											_self.$toast(res.msg);
+										}
+									},
+									error: function() {
+										_self.isClick = false;
+										console.log("error")
+									}
+								})
+							} else {
+								_self.isClick = false;
+								_self.overlayShow = false;
+								_self.fileList = []
+								_self.$toast("图片审核未通过，请重新上传！");
+							}
+						},
+						error: function() {
+							_self.isClick = false;
+							_self.overlayShow = false;
+							_self.fileList = []
+							console.log("error")
+						}
+					})
+				},
+				successBack() {
+					var _self = this;
+					if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) { //判断iPhone|iPad|iPod|iOS
+						try {
+							window.webkit.messageHandlers.lstNative.postMessage({
+								'method': 'clubAutomaticPopBack',
+							})
+						} catch (err) {
+							console.log(err)
+						}
+
+					} else if (/(Android)/i.test(navigator.userAgent)) { //判断Android
+						window.android.clubAutomaticPopBack();
+					}
+				},
+				titleChange() {
+					this.submitform.title = this.submitform.title.replace(
+						/[^\u4E00-\u9FA5|\d|\a-zA-Z|\r\n\s,.?!，。#￥$%\`~^？！@…—&$=()\-+/*{}【】\\（）[\]]|\s/g, '')
+				},
+				contentChange() {
+					this.submitform.info = this.submitform.info.replace(
+						/[^\u4E00-\u9FA5|\d|\a-zA-Z|\r\n\s,.?!，。#￥$%\`~^？！@…—&$=()\-+/*{}【】\\（）[\]]|\s/g, '')
+				}
+
+			}
+		})
+	</script>
+</html>

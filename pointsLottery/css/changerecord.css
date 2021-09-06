@@ -1,0 +1,73 @@
+#app {
+	min-height: 100vh;
+	background-color: #12121F!important;
+}
+
+.list_ul {
+	padding: 0;
+	margin: .3rem 0;
+}
+
+.list_ul li {
+	background-color: #12121f;
+	padding: .3rem;
+	border-bottom:2px solid #1e1e2a;
+}
+
+.list_ul .title {
+	font-size: .28rem;
+	color: #cfcfd2;
+	margin-bottom: .2rem;
+}
+
+.list_ul .detail {
+	font-size: .24rem;
+	color: #cfcfd2;
+}
+
+.swiper-container {
+	margin: 0;
+}
+
+.list_ul .imgbox {
+	width: 1.32rem!important;
+	height: 1.32rem!important;
+	border-radius: .2rem;
+	background-color: #1e1e2a;
+	position: relative;
+}
+
+.list_ul .imgbox img {
+	width: .82rem;
+	height: auto;
+}
+
+.list_ul .imgbox .picnum {
+	position: absolute;
+	width: .34rem;
+	height: .34rem;
+	background-color: rgba(202, 214, 221, .7);
+	font-size: .2rem;
+	color: #E60012;
+	bottom: 0;
+	right: 0;
+	border-radius: 0 0 50% 0;
+	text-align: center;
+}
+
+.list_ul .info {
+	color: #cfcfd2;
+	font-size: .24rem;
+	height: 1.32rem;
+	width: 30%;
+	position: absolute;
+	right: 0;
+	z-index: 999;
+	/* background: url(../img/changebg.png); */
+}
+
+.list_ul .adinfo {
+	font-size: .28rem;
+	margin-top: .2rem;
+	color: #cfcfd2;
+}

@@ -1,0 +1,19 @@
+.laberTitle {
+	text-align: left;
+	font-size: 0.32rem;
+	line-height: 1rem;
+	padding: 0 0.32rem;
+	padding-right: 0;
+	color: #cfcfd2;
+}
+.laberContent input{
+	font-size: 0.26rem;
+	color: #CFCFD2 ;
+	height: 0.5rem;
+	margin-top: 0.25rem;
+	line-height: 0.5rem;
+}
+.van-action-sheet__cancel, .van-action-sheet__item{
+	background-color:#12121f;
+	color:#cfcfd2;
+}

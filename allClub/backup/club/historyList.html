@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+		<title>参与历史</title>
+		<link rel="stylesheet" href="../../common/css/vant-rem.css">
+		<link rel="stylesheet" href="css/memberList.css">
+		<link rel="stylesheet" type="text/css" href="css/iosTop.css" />
+		<script type="text/javascript">
+			document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';
+		</script>
+		<!-- <script src="https://cdn.bootcss.com/vConsole/3.3.4/vconsole.min.js"></script>
+		<script>
+			// init vConsole
+			var vConsole = new VConsole();
+			console.log('Hello world');
+		</script> -->
+		<style>
+			#app{
+				min-height: 100vh;
+				background-color: #fff;
+			}
+			.van-cell{
+				text-align: left;
+				    font-size: 0.32rem;
+				    line-height: 1.4rem;
+				    padding: 0 0.32rem;
+			}
+			.van-cell__left-icon, .van-cell__right-icon {
+			    line-height: 1.4rem;
+			}
+			.van-cell:not(:last-child)::after {
+			    left: 0;
+			}
+			.noData-box .noData-img{
+				height: auto;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app" v-cloak class="page">
+			<div class="header">
+				<van-nav-bar title="参与历史" @click-left="OnclickLeft" left-arrow>
+				</van-nav-bar>
+			</div>
+
+			<div style="padding-top: .92rem;">
+				<van-pull-refresh v-model="isDownLoading" @refresh="Refresh" class="list-item-box">
+					<van-list v-model="isUpLoading" :finished="upFinished" finished-text="没有更多了" :offset="offset" @load="LoadList"
+					 :immediate-check=false v-if="historyList.length>0">
+						<van-cell v-for="item in historyList" :title="'['+(item.type=='00'?'任务':item.type=='01'?'比赛':item.type=='02'?'活动':'')+']'+item.name"
+						 is-link @click="gotoDetail(item)"></van-cell>
+					</van-list>
+					<div class="noData-box" v-else-if="upFinished">
+						<img class="noData-img" src="./../clubList_Detail/img/nulldata.png" />
+						<p class="noData-p">暂无数据</p>
+					</div>
+				</van-pull-refresh>
+			</div>
+		</div>
+	</body>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vant@2.9/lib/vant.min.js"></script>
+
+	<script src="js/DateTime.js"></script>
+	<script src="../../common/js/network.js"></script>
+	<script type="text/javascript">
+		new Vue({
+			el: '#app',
+			data() {
+				return {
+					clubId: "", //俱乐部id
+
+					historyList: [],
+					isDownLoading: false, // 下拉刷新
+					isUpLoading: false, // 上拉加载
+					upFinished: false, // 上拉加载完毕
+					page: 1,
+					pageSize: 10,
+					offset: 200, // 滚动条与底部距离小于 offset 时触发load事件
+				}
+			},
+			created() {
+				this.clubId = getQueryString("id");
+				this.getHistory();
+			},
+			methods: {
+				OnclickLeft() {
+					window.history.back(-1)
+					// if (isIOS) {
+					// 	Interaction.closePage()
+					// } else {
+					// 	window.history.back(-1)
+					// }
+				},
+				//成员管理
+				getHistory() {
+					var _self = this;
+					var index = this.page;
+					ajax({
+						type: "get",
+						url: "club/partInHistory",
+						data: {
+							clubId: _self.clubId,
+							memberId: JSON.parse(localStorage.getItem("appInfo")).userId,
+							page: _self.page,
+							pageSize: _self.pageSize
+						},
+						success: function(res) {
+							_self.isDownLoading = false;
+							_self.isUpLoading = false;
+							if (res.code == 0) {
+								var rows = res.data.historyList;
+								if (rows == null || rows.length === 0) {
+									_self.upFinished = true;
+									return;
+								}
+
+								if (index > Math.ceil(res.data.totalNum / _self.pageSize)) {
+									_self.upFinished = true;
+									return;
+								} else {
+									_self.upFinished = false;
+								}
+								if (rows.length < _self.pageSize) {
+									_self.upFinished = true;
+								}
+								// 处理数据
+								if (index == 1) {
+									_self.historyList = rows;
+								} else {
+									_self.historyList = _self.historyList.concat(rows);
+								}
+							} else if (index == 1 && res.code == 1000) {
+								_self.historyList = [];
+								_self.upFinished = true;
+							} else {
+								_self.historyList = _self.historyList.concat([])
+								_self.upFinished = true;
+							}
+
+						},
+						error: function() {
+							console.log("error")
+						}
+					})
+				},
+				//刷新成员管理
+				Refresh() {
+					this.page = 1;
+					this.upFinished = false; // 不写这句会导致你上拉到底过后在下拉刷新将不能触发下拉加载事件
+					this.getHistory(); // 加载数据
+				},
+				// 成员管理上拉加载请求方法
+				LoadList() {
+					this.page++;
+					this.getHistory();
+				},
+				//判断去什么详情 item.type=='00'?'任务':item.type=='01'?'比赛':item.type=='02'?'活动'
+				gotoDetail(item) {
+					if (item.type == "00") {
+						this.tasksDetail(item.id);
+					} else if (item.type == "01") {
+						this.competitionDetail(item.id)
+					} else if (item.type == "02") {
+						this.activityDetail(item.id)
+					}
+				},
+				//去任务详情
+				tasksDetail(taskId) {
+					var _self = this;
+					if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) { //判断iPhone|iPad|iPod|iOS
+						try {
+							//IOS 调用方法，H5去任务详情界面，拿到任务ID，任务设置做：发任务通知、结束任务、停止报名操作使用
+							window.webkit.messageHandlers.lstNative.postMessage({
+								'method': 'clubToTaskDetail',
+								'taskId': taskId,
+								"isHistory": 1,
+								"url": "/h5/h5V2/allClub/club/tasksDetail.html?id=" + taskId + '&userId=' + JSON.parse(localStorage.getItem(
+									"appInfo")).userId + '&clubId=' + _self.clubId
+							})
+							
+						} catch (err) {
+							console.log('window.webkit.messageHandlers 回传Id failed')
+						}
+
+					} else if (/(Android)/i.test(navigator.userAgent)) { //判断Android
+						var str = 'taskId=' + taskId + '&isHistory=1';
+						var str2 = 'h5/h5V2/allClub/club/tasksDetail.html?id=' + taskId + '&clubId=' + _self.clubId;
+						window.android.clubToTaskDetail(str)
+						var allstr = host + str2
+						Interaction.pushToNextVC(allstr)
+					}
+
+
+				},
+				//去活动详情
+				activityDetail(activityId) {
+					var _self = this;
+					if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) { //判断iPhone|iPad|iPod|iOS
+						try {
+							window.webkit.messageHandlers.lstNative.postMessage({
+								'method': 'clubToActivityDetail',
+								"activityId": activityId,
+								"isHistory": 1,
+								"url": "/h5/allClub/club/activityDetail.html?id=" + activityId + '&userId=' + JSON.parse(localStorage.getItem(
+									"appInfo")).userId + '&clubId=' + _self.clubId
+							})
+						} catch (err) {
+							console.log('window.webkit.messageHandlers 回传Id failed')
+						}
+
+					} else if (/(Android)/i.test(navigator.userAgent)) { //判断Android
+						var str = 'activityId=' + activityId + '&isHistory=1';
+						var str2 = 'h5/h5V2/allClub/club/activityDetail.html?id=' + activityId + '&clubId=' + _self.clubId;
+						window.android.clubToActivityDetail(str)
+						var allstr = host + str2
+						Interaction.pushToNextVC(allstr)
+						
+					}
+					//window.location.href = "activityDetail.html?id=" + activityId + '&clubId=' + _self.clubId + '&isAttend=1'
+
+				},
+				//去比赛详情
+				competitionDetail(matchId) {
+					var _self = this;
+					if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) { //判断iPhone|iPad|iPod|iOS
+						try {
+							window.webkit.messageHandlers.lstNative.postMessage({
+								'method': 'clubToCompetitionDetail',
+								"matchId": matchId,
+								"isHistory": 1,
+								"url": "/h5/allClub/club/clubCompetitionDetail.html?id=" + matchId + '&userId=' + JSON.parse(localStorage.getItem(
+									"appInfo")).userId + '&clubId=' + _self.clubId
+							})
+						} catch (err) {
+							console.log('window.webkit.messageHandlers failed')
+						}
+
+					} else if (/(Android)/i.test(navigator.userAgent)) { //判断Android
+						var str = 'matchId=' + matchId + '&isHistory=1';
+						var str2 = 'h5/h5V2/allClub/club/clubCompetitionDetail.html?id=' + matchId + '&clubId=' + _self.clubId;
+						window.android.clubToCompetitionDetail(str)
+						var allstr = host + str2
+						Interaction.pushToNextVC(allstr)
+					}
+					//window.location.href = "clubCompetitionDetail.html?id=" + matchId + "&clubId=" + _self.clubId;
+
+				}
+			}
+		})
+	</script>
+</html>

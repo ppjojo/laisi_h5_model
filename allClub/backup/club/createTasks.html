@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+		<title>创建任务(1/2)</title>
+		<!-- 引入样式文件 -->
+		<link rel="stylesheet" href="../../common/css/vant-rem.css">
+		<link rel="stylesheet" href="css/clubCreateCompetition.css">
+		<link rel="stylesheet" href="css/tasks.css">
+		<script type="text/javascript">
+			document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';
+		</script>
+		<style type="text/css">
+			.van-field--error .van-field__control,
+			.van-field--error .van-field__control::placeholder {
+				color: red;
+				-webkit-text-fill-color: red
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app" v-cloak>
+			<div>
+				<div style="">
+					<div class="laberDiv">
+						任务名称
+					</div>
+					<div style="padding:0 0.2rem 0.2rem 0.2rem;">
+						<van-field v-model="submitform.name" :input="titleChange()" class="club-input" style="min-height:1.3rem;" rows="2"
+						 autosize type="textarea" maxlength="20" placeholder="请输入任务名称" show-word-limit />
+					</div>
+				</div>
+				<div style="border-bottom: 1px solid #f8f8f8;">
+					<div class="laberDiv">任务说明</div>
+					<div style="padding:0 0.2rem 0.2rem 0.2rem;">
+						<van-field v-model="submitform.introduce" :input="contentChange()" class="tasks-input" rows="2" autosize type="textarea"
+						 maxlength="50" placeholder="请输入任务说明" show-word-limit />
+					</div>
+				</div>
+				<van-button round class="submit" block :color="submitform.introduce&&submitform.name?bgc:bgcgrey" @click="submitFormData">下一步</van-button>
+
+			</div>
+		</div>
+	</body>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vant@2.9/lib/vant.min.js"></script>
+	<script src="../../common/js/network.js"></script>
+	<script type="text/javascript">
+		new Vue({
+			el: '#app',
+			data() {
+				return {
+					bgc: "linear-gradient(to right, #FF6A88, #FF5136 )",
+					bgcgrey: '#999',
+					submitform: JSON.parse(localStorage.getItem('taskForm')) || {
+						"clubId": "",
+						"name": "",
+						"label": "00", //00跳绳
+						"period": "", //(00每天,01每周,02每月,03单次任务)
+						"target": "",
+						"assignType": "", //(00成员报名参加,01全员参加,02指定成员参加)
+						"introduce": "", //任务说明
+						"creator": "", //创建者
+
+					}
+				}
+			},
+			created() {
+				this.submitform.clubId = getQueryString("id") || 10000111;
+			},
+			methods: {
+				submitFormData() {
+					var _this = this;
+					if (!this.submitform.introduce || !this.submitform.name) {
+						return;
+					}
+					this.checkStr(this.submitform.name+this.submitform.introduce,function(){
+						_this.submitform.creator = JSON.parse(localStorage.getItem("appInfo")).userId;
+						localStorage.setItem("taskForm", JSON.stringify(_this.submitform));
+						window.location.href = './createTasks2.html';
+					})
+				},
+				
+				titleChange() {
+					if(this.submitform.name)this.submitform.name = this.submitform.name.replace(
+						/[^\u4E00-\u9FA5|\d|\a-zA-Z|\r\n\s,.?!，。#￥$%\`~^？！@…—&$=()\-+\/*{}【】\\（）[\]]|\s/g, '')
+				},
+				contentChange() {
+					if(this.submitform.introduce)this.submitform.introduce = this.submitform.introduce.replace(
+						/[^\u4E00-\u9FA5|\d|\a-zA-Z|\r\n\s,.?!，。#￥$%\`~^？！@…—&$=()\-+\/*{}【】\\（）[\]]|\s/g, '')
+				},
+				checkStr(param, cb) {
+					var that = this;
+					ajax({
+						type: "post",
+						url: "contentSecurity/aliyun/textScan",
+						data: {content:param},
+						success: function(res) {
+							if (res.code == 0) {
+								cb()
+							} else if (res.code == 4001) {
+								that.$toast("输入的内容不合法!");
+							}
+						},
+						error: function() {
+							console.log("error")
+						}
+					})
+				}
+			}
+		})
+	</script>
+</html>

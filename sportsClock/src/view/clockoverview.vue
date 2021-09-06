@@ -32,14 +32,16 @@
 			</div>
 			<!-- 打卡目标 -->
 			<div class="target">
-				亲爱的爽歪歪～</br>
+				亲爱的{{nickname}}～</br>
 				本月已经完成了 <span style="font-size: .3rem;">{{rate[0]}}</span> %的打卡目标，要继续加油哦！
 			</div>
 			<!-- 完成程度 -->
 			<div class="ub ub-ac ub-pj finishList">
-				<div class="listItem" v-for="(item,i) in monthObj">
-					<returnIcon :name="i" :taskNum="item"></returnIcon>
-				</div>
+				<template v-for="(item,i) in monthObj">
+					<div class="listItem" v-if="item!=0">
+						<returnIcon :name="i" :taskNum="item"></returnIcon>
+					</div>
+				</template>
 			</div>
 		</div>
 		<!-- 年度统计 -->
@@ -50,14 +52,16 @@
 			<!-- 打卡目标 -->
 			<div style="margin-top:.48rem;">
 				<div class="target">
-					亲爱的爽歪歪～</br>
+					亲爱的{{nickname}}～</br>
 					你本年度填满了<span style="font-size: .3rem;">{{yearDetail.yearCount||0}}</span>个方块，太棒啦！
 				</div>
 				<!-- 完成程度 -->
 				<div class="ub ub-ac ub-pj finishList">
-					<div class="listItem" v-for="(item,i) in yearObj">
-						<returnIcon :name="i" :taskNum="item"></returnIcon>
-					</div>
+					<template v-for="(item,i) in yearObj">
+						<div class="listItem" v-if="item!=0">
+							<returnIcon :name="i" :taskNum="item"></returnIcon>
+						</div>
+					</template>
 				</div>
 			</div>
 		</div>
@@ -77,8 +81,6 @@
 	import year from '@c/year';
 	import returnIcon from '@c/returnIcon';
 	import {
-	} from '@a/api'
-	import {
 		NavBar,
 		Icon,
 		Popup,
@@ -86,7 +88,9 @@
 		DatetimePicker,
 	} from 'vant';
 	import {
-		getMonthDeviceTotal,getYearDeviceTotal,getSportByYear
+		getMonthDeviceTotal,
+		getYearDeviceTotal,
+		getSportByYear
 	} from '@a/api'
 	export default {
 		components: {
@@ -105,15 +109,16 @@
 				minDate: new Date(2021, 0, 1),
 				maxDate: new Date(),
 				currentDate: new Date(),
-				checkTime:new Date().getTime(),
+				checkTime: new Date().getTime(),
 				YMshow: false,
 				tabIndex: 1, //1月度2年度
-				columns: [2021, 2022,2023],
+				columns: [2021, 2022, 2023],
 				sheetImageStatus: false,
-				monthObj:{},
-				yearObj:{},
-				rate:[0,0],//index0月1年
-				yearDetail:{},
+				monthObj: {},
+				yearObj: {},
+				rate: [0, 0], //index0月1年
+				yearDetail: {},
+				nickname:JSON.parse(localStorage.getItem("appInfo")).nickname||''
 			};
 		},
 		filters: {},
@@ -126,22 +131,28 @@
 		created() {},
 		methods: {
 			getList(flag) {
-				if(flag==1){
+				if (flag == 1) {
 					this.monthAPI();
-				}else{
+				} else {
 					this.yearAPI();
 				}
 			},
-			monthAPI(){
-				getMonthDeviceTotal({checkTime:this.checkTime}).then(res=>{
+			monthAPI() {
+				getMonthDeviceTotal({
+					checkTime: this.checkTime
+				}).then(res => {
 					this.monthObj = res.data;
 				})
 			},
-			yearAPI(){
-				getSportByYear({checkTime:this.checkTime}).then(res=>{
+			yearAPI() {
+				getSportByYear({
+					checkTime: this.checkTime
+				}).then(res => {
 					this.yearDetail = res.data;
 				})
-				getYearDeviceTotal({checkTime:this.checkTime}).then(res=>{
+				getYearDeviceTotal({
+					checkTime: this.checkTime
+				}).then(res => {
 					this.yearObj = res.data;
 				})
 			},
@@ -164,7 +175,7 @@
 				});
 
 			},
-			fatherSetMonthObj(obj,index){
+			fatherSetMonthObj(obj, index) {
 				this.rate[index] = obj.standardRate;
 			},
 			fatherPickYearMonth() { //子组件调用打开时间选择
@@ -179,12 +190,12 @@
 			},
 			onConfirmYear(value) { //选择年份确定
 				this.$refs.year.dateTitleStr2(value)
-				this.checkTime = new Date(value,0,1).getTime()
+				this.checkTime = new Date(value, 0, 1).getTime()
 				this.getList(2);
 				this.YMshow = false;
 			},
-			valRate(arr){//赋值进度
-				this.rate=arr;
+			valRate(arr) { //赋值进度
+				this.rate = arr;
 			},
 			formatter(type, val) {
 				if (type === 'year') {
