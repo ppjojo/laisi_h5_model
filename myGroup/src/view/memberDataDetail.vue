@@ -45,12 +45,12 @@
                             <div class="numDesc">双/三摇</div>
                         </div>
                         <div class="detailItem">
-                            <div class="numBox">{{recordData[key].totoalSection}}</div>
+                            <div class="numBox">{{recordData[key].totoalSection||0}}</div>
                             <div class="numDesc">绊绳</div>
                         </div>
                         <div class="detailItem"></div>
                         <div class="detailItem">
-                            <div class="numBox">{{recordData[key].mostFreq}}</div>
+                            <div class="numBox">{{recordData[key].mostFreq||0}}</div>
                             <div class="numDesc">最快频次(次/分)</div>
                         </div>
                     </div>

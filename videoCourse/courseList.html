@@ -475,6 +475,14 @@
 			},
 			//分享
 			sharePage() {
+				ajax({
+					type: "post",
+					url: "community/threeUserCollect/insertOne",
+					data: {
+						bigClassId: this.classDetail.bigClassId,
+						classDealType: 3
+					}
+				})
 				Interaction.sharePage({
 					title: this.classDetail.className,
 					description: this.classDetail.description,
@@ -787,6 +795,14 @@
 			},
 			//缓存视频
 			downButton() {
+				ajax({
+					type: "post",
+					url: "community/threeUserCollect/insertOne",
+					data: {
+						bigClassId: this.classDetail.bigClassId,
+						classDealType: 3
+					}
+				})
 				this.tabSelected = 1;
 				//如果是动作直接下载全部动作
 				if (this.classDetail.actionOrClass == 0) {
