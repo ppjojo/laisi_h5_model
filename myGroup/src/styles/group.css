@@ -674,21 +674,43 @@
 
 .groupSetting .cellbox {
   padding: .3rem;
-  height: 1.2rem;
+  min-height: 1.2rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  border-bottom: 1px solid #1e1e2a;
 }
 
 .groupSetting .cellbox .title {
   font-size: .32rem;
 }
 
-.groupSetting .cellbox .detail {
-  font-size: .28rem;
-  white-space: nowrap;
+.groupSetting .cellbox .iconfont {
+  font-size: .3rem;
   color: #595962;
 }
 
-.groupSetting .cellbox .iconfont {
-  font-size: .3rem;
+.groupSetting .cellbox .rightBox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.groupSetting .cellbox .detail {
+  font-size: .28rem;
+  white-space: nowrap;
   color: #595962;
 }
 
@@ -705,6 +727,15 @@
 }
 
 .groupSetting .cellbox .groupMember .imgbox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   border-radius: 100%;
   width: .92rem;
   height: .92rem;
@@ -738,16 +769,16 @@
   background-position: center center;
 }
 
-.groupSetting .cellbox .pgc {
-  width: 3.8rem;
-  text-align: right;
+.groupSetting .cellbox .labelBox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-pack: end;
       -ms-flex-pack: end;
           justify-content: flex-end;
-}
-
-.groupSetting .cellbox .pgc .detail {
-  width: 100%;
 }
 
 .groupSetting .cellbox .labelBox .labelItem {
@@ -769,10 +800,6 @@
   display: block;
 }
 
-.groupSetting .border-bottom {
-  border-bottom: 1px solid #1e1e2a;
-}
-
 .groupSetting .border-bottom2 {
   border-bottom: 0.08rem solid #1e1e2a;
 }
@@ -780,8 +807,10 @@
 .groupSetting .quit {
   color: #FF4E3E;
   font-size: .32rem;
-  text-align: center;
   line-height: .6rem;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .groupSetting .van-uploader__input-wrapper {

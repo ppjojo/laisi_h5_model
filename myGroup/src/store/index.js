@@ -4,6 +4,7 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
     state: {
+        searchTime:"",
         myGroupListRefresh: true,
         groupIndexRefresh: true,
         group: {

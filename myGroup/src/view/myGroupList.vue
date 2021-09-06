@@ -33,6 +33,7 @@
                     <p>正在刷新</p>
                 </div>
             </template>
+            
             <div class="myGroupList">
                 <div v-if="createList.length>0">
                     <div class="labelTitle">我创建的</div>
@@ -123,16 +124,7 @@
         },
         filters: {},
         mounted() {
-            // this.getList();
-        },
-        activated() {
-            if (this.$store.state.myGroupListRefresh) {
-                this.getList()
-                this.$store.commit("setData", {
-                    key: "myGroupListRefresh",
-                    value: false
-                })
-            }
+            this.getList();
         },
         created() {},
         methods: {
@@ -153,7 +145,6 @@
             },
             onclickLeft() {
                 this.$interaction.closePage();
-                this.$interaction.closePage();
             },
             onClickRight() { //跳转创建小组
                 this.isCancel = false
@@ -171,11 +162,14 @@
                     key: "groupIndexRefresh",
                     val: "true"
                 })
+                this.$store.commit("setData", {
+                    key: "searchTime",
+                    val: new Date().getTime()
+                })
                 this.$router.push({
                     path: '/groupIndex',
                     query: {
                         id: item.id,
-                        isFromList: 1
                     }
                 });
             }

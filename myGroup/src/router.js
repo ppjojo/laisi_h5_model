@@ -13,8 +13,7 @@ const routes = [
     component: () => import('./view/myGroupList'),
     meta: {
       title: '我的小组',
-      index:0,
-      keepAlive:true,
+      index:1,
     }
   },
   {
@@ -22,8 +21,7 @@ const routes = [
     component: () => import('./view/groupIndex'),
     meta: {
       title: '小组主页',
-      index:1,
-      keepAlive:true,
+      index:2,
     }
   },
   {
@@ -31,7 +29,7 @@ const routes = [
     component: () => import('./view/createGroup'),
     meta: {
       title: '创建小组',
-      index:3
+      index:4
     }
   },
  
@@ -40,7 +38,7 @@ const routes = [
     component: () => import('./view/groupSetting'),
     meta: {
       title: '小组设置',
-      index:2
+      index:3
     }
   },
   {
@@ -48,7 +46,7 @@ const routes = [
     component: () => import('./view/changeNickname'),
     meta: {
       title: '修改昵称',
-      index:3
+      index:4
     }
   },
   {
@@ -56,7 +54,7 @@ const routes = [
     component: () => import('./view/multChangePage'),
     meta: {
       title: '修改页面',
-      index:3
+      index:4
     }
   },
   {
@@ -64,7 +62,7 @@ const routes = [
     component: () => import('./view/groupMember'),
     meta: {
       title: '成员列表',
-      index:3
+      index:4
     }
   },
   {
@@ -72,7 +70,7 @@ const routes = [
     component: () => import('./view/inviteList'),
     meta: {
       title: '邀请好友',
-      index:3
+      index:4
     }
   },
   // {
@@ -88,7 +86,7 @@ const routes = [
     component: () => import('./view/memberDataDetail'),
     meta: {
       title: '  小组成员数据',
-      index:2
+      index:3
     }
   },
 ];

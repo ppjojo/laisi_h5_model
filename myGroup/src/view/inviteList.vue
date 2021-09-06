@@ -60,7 +60,7 @@
 			</van-cell-group>
 			<div v-show="!searchval.key||searchval.key==''">
 				<van-cell-group v-model="memberResult">
-					<van-index-bar>
+					<van-index-bar :index-list="indexList">
 						<template v-if="Object.keys(dataList).length>0" v-for="(bigitem,key,index) in dataList">
 							<van-index-anchor :index="key.toUpperCase()"></van-index-anchor>
 							<van-cell v-for="(memItem,index2) in bigitem" clickable :key="memItem.userId"
@@ -153,6 +153,7 @@
 				searchList: [],
 				dataList: [],
 				allList: [],
+				indexList: [],
 				inviteObj: {
 					huanxinGroupId: this.$route.query.huanxinGroupId,
 					groupId: this.$route.query.id+'',
@@ -176,11 +177,14 @@
 			getList() {
 				getMyFriend(this.searchval).then(res => {
 					this.dataList = res.data;
+					this.indexList=[]
 					for (let key in res.data) {
 						res.data[key].forEach(d => {
 							this.allList.push(d);
 						})
+						this.indexList.push(key.toUpperCase())
 					}
+					
 				}).catch(() => {})
 			},
 			search: debounce(function (e) {
@@ -293,5 +297,8 @@
 
 	.van-index-bar__sidebar {
 		top: 60%;
+	}
+	.van-cell::after{
+		border:1px solid #1e1e2a;
 	}
 </style>
