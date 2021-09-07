@@ -1,17 +1,17 @@
 <template>
     <div class="app-container">
-        <div class="container-search">
+        <!-- <div class="container-search">
             <el-form :inline="true" :model="searchForm">
-                <!-- <el-form-item label="语言设置：">
+                <el-form-item label="语言设置：">
                     <el-select v-model="searchForm.language">
                         <el-option v-for="(item, ind) in languageList" :key="ind" :label="item.languageType"
                             :value="item.languageType">{{item.languageType + '-' +item.description}}</el-option>
                     </el-select>
-                </el-form-item> -->
-                <el-form-item label="设备型号">
-                    <el-select v-model="searchForm.deviceType" placeholder="全部" clearable>
-                        <el-option v-for="item in deviceModelList" :key="item.deviceModel" :label="item.deviceName"
-                            :value="item.deviceModel">
+                </el-form-item>
+                <el-form-item label="问题大类">
+                    <el-select v-model="searchForm.questionType" placeholder="全部" clearable>
+                        <el-option v-for="item in deviceModelList" :key="item.id" :label="item.questionTypeTitle"
+                            :value="item.id">
                         </el-option>
                     </el-select>
                 </el-form-item>
@@ -20,7 +20,7 @@
                 </el-form-item>
             </el-form>
         </div>
-
+ -->
         <div class="container-edit">
             <el-button type="primary" size="mini" @click="btn_add()" v-if="checkPer('add')">添加</el-button>
         </div>
@@ -78,13 +78,14 @@
                 </el-form-item> -->
 
 
-                <el-form-item label="设备型号" prop="device_type">
-                    <el-select v-model="form.device_type" clearable>
-                        <el-option v-for="item in deviceModelList" :key="item.deviceModel" :label="item.deviceName"
-                            :value="item.deviceModel">
+                <el-form-item label="设备型号" prop="deviceType">
+                    <el-select v-model="form.deviceType" clearable>
+                        <el-option v-for="item in deviceModelList" :key="item.deviceType" :label="item.deviceTypeDetail"
+                            :value="item.deviceType">
                         </el-option>
                     </el-select>
                 </el-form-item>
+                
                 <el-upload class="avatar-uploader" name="img" action="" :http-request="requestFile"
                     :show-file-list="false" v-show="false">
                 </el-upload>
@@ -118,7 +119,7 @@
     import { listItem, addItem, updateItem, deleteItem } from '@/api/helpCenter/guideList'
     import { listItem as languageListItem } from '@/api/device/appLanguage'
     import { lanAddItem, lanUpdateItem, lanViewItem } from '@/api/helpCenter/problemList'
-    import { listItem as productListItem } from '@/api/device/productList'
+    import { listItem as questionListItem } from '@/api/helpCenter/devicetype'
     import { fileUpload } from '@/utils/fileUpload'
     import { checkPermission } from '@/api/checkPermission'
     import { getUInfo } from '@/utils/auth'
@@ -219,7 +220,7 @@
         },
         mounted() {
             this.getList()
-            this.getLanguageList()
+            // this.getLanguageList()
             this.getProductList()
         },
         methods: {
@@ -230,18 +231,18 @@
                     ...this.searchForm
                 }
                 listItem(data).then(res => {
-                    this.list = []
-                    for (let prop in res.data) {
-                        let item = {
-                            deviceType: prop,
-                            manual: res.data[prop][0].manual,
-                            id: res.data[prop][0].id,
-                            languageType: res.data[prop][0].languageType,
-                            device_type: res.data[prop][0].device_type,
-                            stepList: res.data[prop]
-                        }
-                        this.list.push(item)
-                    }
+                    this.list = res.data;
+                    // for (let prop in res.data) {
+                    //     let item = {
+                    //         deviceType: prop,
+                    //         manual: res.data[prop][0].manual,
+                    //         id: res.data[prop][0].id,
+                    //         languageType: res.data[prop][0].languageType,
+                    //         device_type: res.data[prop][0].device_type,
+                    //         stepList: res.data[prop]
+                    //     }
+                    //     this.list.push(item)
+                    // }
                     this.loading = false
                 })
             },
@@ -253,12 +254,9 @@
                 })
             },
             getProductList() {
-                productListItem({}).then(res => {
+                questionListItem({}).then(res => {
                     var obj = {};
-                    this.deviceModelList = res.data.reduce((arr, next) => {
-                        obj[next.deviceModel] ? '' : obj[next.deviceModel] = true && arr.push(next);
-                        return arr;
-                    }, []);
+                    this.deviceModelList = res.data;
                 })
             },
             // 上下分页
@@ -277,7 +275,7 @@
                     if (valid) {
                         this.dialogVisible = false
                         if (this.dialogTitle == "新增") {
-                            addItem([this.form]).then(response => {
+                            addItem(this.form).then(response => {
                                 this.getList()
                                 this.$notify({
                                     type: 'success',
@@ -304,13 +302,11 @@
                 this.dialogTitle = "新增"
                 this.form = {
                     manual: '',
-                    device_type: '',
-                    languageType: null, //语言类型
-
-                    pic_url: '',
-                    pic_size: '',
+                    deviceType: '',
+                    picUrl: '',
+                    picSize: '',
                     // environment: '',
-                    pic_order: null,
+                    picOrder: 1,
                 }
             },
             btn_edit(row) {
@@ -384,7 +380,7 @@
                 }
                 this.getLanDetail()
                 this.lanDialogVisible=true
-                
+
             },
             getLanDetail(){
                 lanViewItem({
