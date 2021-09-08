@@ -9,13 +9,13 @@
 			今日挑战目标
 		</div>
 		<div class="centerbox fts20">
-			{{returnTask(info.challengeType)}}
+			{{returnTask(info.challengeType||info.challengeDetail)}}
 		</div>
 		<div class="centerbox fts12 c1f ub ub-ad">
 			<div class="ub ub-ac" v-if="info.dateType==1">
 				<div class="reflesh"></div><span style="text-decoration: underline;">不休息</span>
 			</div>
-			<div class="ub ub-ac" v-else @click="getList()">
+			<div class="ub ub-ac" v-else @click="changeChallenge()">
 				<div class="reflesh"></div><span style="text-decoration: underline;">换一个</span>
 			</div>
 		</div>
@@ -44,7 +44,7 @@
 				<div class="ub ub-ac">
 					<returnIcon :type="flag"></returnIcon>
 					<div class="">
-						<div class="fts14">{{returnTask(item.challengeType)}}</div>
+						<div class="fts14">{{returnTask(item.challengeType||item.challengeGoal)}}</div>
 						<div class="fts14 c1f">{{timeStamp2String('ymd',item.dateTime)}}</div>
 					</div>
 				</div>
@@ -71,7 +71,7 @@
 	import {
 		HomeInfo,
 		typeCheck,
-		challengeHistory
+		challengeHistory,changeRopeChallage
 	} from '@a/api'
 	import {
 		NavBar,
@@ -109,7 +109,7 @@
 			this.getHistory();
 		},
 		created() {
-			let type = getQueryString('type') || "wheel";
+			let type = getQueryString('type') || "skipping";
 			type == 'skipping' ? this.flag = 2 : type == 'wristBall' ? this.flag = 1 : type == 'wheel' ? this.flag = 3 :
 				null;
 		},
@@ -128,9 +128,19 @@
 					}
 				})
 			},
+			changeChallenge(){
+				if(this.flag==2){
+					changeRopeChallage({}).then(res=>{
+						this.info.challengeDetail = res.data;
+					})
+				}else{
+					this.getList()
+				}
+			},
 			getHistory() {
 				challengeHistory(this.page, this.flag).then(res => {
-					this.historyList = res.data;
+					if(this.flag==2)this.historyList = res.data.content
+					else this.historyList = res.data;
 					this.isFinish = true;
 				}).catch(() => {
 					this.isFinish = true;
@@ -138,12 +148,22 @@
 			},
 			returnTask(obj) {
 				let str = '';
-				if (obj.conditionMode == 1 || obj.conditionMode == 3) {
-					str += ('单次运动' + obj.count + '次');
-					if (obj.conditionMode == 3) str += ('且达标率满' + obj.standardRate + '%')
-				} else {
-					str += ('运动满' + (obj.duration / 1000) + '秒');
-					if (obj.conditionMode == 4) str += ('且达标率满' + obj.standardRate + '%')
+				if(this.flag==2){
+					if(obj.conditionMode == 1 || obj.conditionMode == 5||obj.conditionMode == 6){
+						str += ('单次运动' + obj.number + '次');
+						if( obj.conditionMode == 5||obj.conditionMode == 6)str += ('且BPM达到' + obj.bpm)
+					}else{
+						str += ('运动满' + obj.time + '秒');
+						if( obj.conditionMode == 3||obj.conditionMode == 4)str += ('且BPM达到' + obj.bpm)
+					}
+				}else{
+					if (obj.conditionMode == 1 || obj.conditionMode == 3) {
+						str += ('单次运动' + obj.count + '次');
+						if (obj.conditionMode == 3) str += ('且达标率满' + obj.standardRate + '%')
+					} else {
+						str += ('运动满' + (obj.duration / 1000) + '秒');
+						if (obj.conditionMode == 4) str += ('且达标率满' + obj.standardRate + '%')
+					}
 				}
 				return str;
 			},
