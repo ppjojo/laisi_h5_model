@@ -12,7 +12,7 @@
 			{{returnTask(info.challengeType||info.challengeDetail)}}
 		</div>
 		<div class="centerbox fts12 c1f ub ub-ad">
-			<div class="ub ub-ac" v-if="info.dateType==1">
+			<div class="ub ub-ac" v-if="info.dateType==1" @click="goChallage">
 				<div class="reflesh"></div><span style="text-decoration: underline;">不休息</span>
 			</div>
 			<div class="ub ub-ac" v-else @click="changeChallenge()">
@@ -20,7 +20,7 @@
 			</div>
 		</div>
 		<!-- 打卡按钮 -->
-		<div class="clickBtn ub ub-ac ub-ad" :class="{greyBtn:info.dateType==1}">
+		<div class="clickBtn ub ub-ac ub-ad" @click="isChallage(info.type)" :class="{greyBtn:info.dateType==1}">
 			<div>{{info.dateType==1?'今日休息':info.type==3?'迎战':info.type==1?'完成':info.type==2?'再次挑战':'暂未触发'}}</div>
 		</div>
 		<!-- 战列表 -->
@@ -71,7 +71,9 @@
 	import {
 		HomeInfo,
 		typeCheck,
-		challengeHistory,changeRopeChallage
+		challengeHistory,
+		changeRopeChallage,
+		acceptChallage
 	} from '@a/api'
 	import {
 		NavBar,
@@ -115,9 +117,10 @@
 		},
 		methods: {
 			timeStamp2String: timeStamp2String,
-			getList() {
+			getList() { //加载首页
 				typeCheck({}, this.flag).then(res => {
-					if ((res.hasOwnProperty('data')&&res.data&&res.code==0)||(!res.hasOwnProperty('data')&&res.code==0)) {
+					if ((res.hasOwnProperty('data') && res.data && res.code == 0) || (!res.hasOwnProperty(
+							'data') && res.code == 0)) {
 						HomeInfo({}, this.flag).then(res2 => {
 							this.info = Object.assign({}, res2.data);
 						}).catch(() => {
@@ -128,18 +131,29 @@
 					}
 				})
 			},
-			changeChallenge(){
-				if(this.flag==2){
-					changeRopeChallage({}).then(res=>{
+			changeChallenge() { //换个目标
+				if (this.flag == 2) {
+					changeRopeChallage({}).then(res => {
 						this.info.challengeDetail = res.data;
 					})
-				}else{
+				} else {
 					this.getList()
 				}
 			},
+			isChallage(type) { //判断是否应占
+				if (type == 2 || type == 3) {
+					this.goChallage()
+				}
+			},
+			goChallage() {
+				//app迎战
+				acceptChallage(this.info.challengeType||this.info.challengeDetail,this.flag).then(res=>{
+					this.$interaction.appNative('goMotionInterface',{type:this.flag});
+				})
+			},
 			getHistory() {
 				challengeHistory(this.page, this.flag).then(res => {
-					if(this.flag==2)this.historyList = res.data.content
+					if (this.flag == 2) this.historyList = res.data.content
 					else this.historyList = res.data;
 					this.isFinish = true;
 				}).catch(() => {
@@ -148,15 +162,15 @@
 			},
 			returnTask(obj) {
 				let str = '';
-				if(this.flag==2){
-					if(obj.conditionMode == 1 || obj.conditionMode == 5||obj.conditionMode == 6){
+				if (this.flag == 2) {
+					if (obj.conditionMode == 1 || obj.conditionMode == 5 || obj.conditionMode == 6) {
 						str += ('单次运动' + obj.number + '次');
-						if( obj.conditionMode == 5||obj.conditionMode == 6)str += ('且BPM达到' + obj.bpm)
-					}else{
+						if (obj.conditionMode == 5 || obj.conditionMode == 6) str += ('且BPM达到' + obj.bpm)
+					} else {
 						str += ('运动满' + obj.time + '秒');
-						if( obj.conditionMode == 3||obj.conditionMode == 4)str += ('且BPM达到' + obj.bpm)
+						if (obj.conditionMode == 3 || obj.conditionMode == 4) str += ('且BPM达到' + obj.bpm)
 					}
-				}else{
+				} else {
 					if (obj.conditionMode == 1 || obj.conditionMode == 3) {
 						str += ('单次运动' + obj.count + '次');
 						if (obj.conditionMode == 3) str += ('且达标率满' + obj.standardRate + '%')

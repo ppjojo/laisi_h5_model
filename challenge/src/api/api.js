@@ -39,9 +39,19 @@ export function challengeHistory(params, flag) { //
 		params,
 	})
 }
-export function changeRopeChallage(data) {
+export function changeRopeChallage(data) {//更换挑战
 	return request({
 		url: 'ropeSkipping/dailychallenge/changeChallage',
+		method: 'post',
+		data,
+	})
+}
+export function acceptChallage(data,flag) {//迎战
+let url = 'ab-roller/dailyChallenge/acceptChallenge';
+	if (flag == 1) url = 'wristball/dailychallenge/acceptChallenge';
+	if (flag == 2) url = 'ropeSkipping/dailychallenge/acceptChallage';
+	return request({
+		url: url,
 		method: 'post',
 		data,
 	})
