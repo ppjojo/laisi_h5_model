@@ -2,13 +2,16 @@
 	<div id="app" v-cloak>
 		<div class="header">
 			<van-nav-bar title="今日挑战" @click-left="onClickLeft" left-arrow safe-area-inset-top fixed>
+				<template #left>
+					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.48rem;" />
+				</template>
 			</van-nav-bar>
 		</div>
 		<!-- 今日挑战目标 -->
 		<div class="centerbox fts14">
 			今日挑战目标
 		</div>
-		<div class="centerbox fts20">
+		<div class="centerbox fts20" >
 			{{returnTask(info.challengeType||info.challengeDetail)}}
 		</div>
 		<div class="centerbox fts12 c1f ub ub-ad">
@@ -44,7 +47,7 @@
 				<div class="ub ub-ac">
 					<returnIcon :type="flag"></returnIcon>
 					<div class="">
-						<div class="fts14">{{returnTask(item.challengeType||item.challengeGoal)}}</div>
+						<div class="fts14">{{returnTask(item.challengeType||{})}}</div>
 						<div class="fts14 c1f">{{timeStamp2String('ymd',item.dateTime)}}</div>
 					</div>
 				</div>
@@ -122,6 +125,7 @@
 					if ((res.hasOwnProperty('data') && res.data && res.code == 0) || (!res.hasOwnProperty(
 							'data') && res.code == 0)) {
 						HomeInfo({}, this.flag).then(res2 => {
+							
 							this.info = Object.assign({}, res2.data);
 						}).catch(() => {
 							console.log("error")
@@ -161,13 +165,14 @@
 				});
 			},
 			returnTask(obj) {
+				if(!obj.conditionMode)return '';
 				let str = '';
 				if (this.flag == 2) {
 					if (obj.conditionMode == 1 || obj.conditionMode == 5 || obj.conditionMode == 6) {
-						str += ('单次运动' + obj.number + '次');
+						str += ('单次运动' + obj.count + '次');
 						if (obj.conditionMode == 5 || obj.conditionMode == 6) str += ('且BPM达到' + obj.bpm)
 					} else {
-						str += ('运动满' + obj.time + '秒');
+						str += ('运动满' + obj.duration + '秒');
 						if (obj.conditionMode == 3 || obj.conditionMode == 4) str += ('且BPM达到' + obj.bpm)
 					}
 				} else {
@@ -175,7 +180,7 @@
 						str += ('单次运动' + obj.count + '次');
 						if (obj.conditionMode == 3) str += ('且达标率满' + obj.standardRate + '%')
 					} else {
-						str += ('运动满' + (obj.duration / 1000) + '秒');
+						str += ('运动满' + obj.duration + '秒');
 						if (obj.conditionMode == 4) str += ('且达标率满' + obj.standardRate + '%')
 					}
 				}
@@ -195,8 +200,10 @@
 					message: str,
 				}).then(() => {
 					// on close
+					this.$interaction.appNative('LSTH5APP_SelectDeviceAndPushToSport',{isPK:0,deviceType:getQueryString('type')});
 				}).catch(() => {
 					// on cancel
+					this.$interaction.closePage();
 				});
 			},
 			onClickLeft() {

@@ -6,6 +6,7 @@ import { interaction } from '@u/interaction';//app交互文件
 // import '@/icons'//icons
 Vue.prototype.$interaction = interaction
 import "./styles/flex_ub.css";
+import "./assets/font/iconfont.css";
 import "vant/lib/index.less"
 if(process.env.NODE_ENV != 'dev'){
   localStorage.removeItem("appInfo")

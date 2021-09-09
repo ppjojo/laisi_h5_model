@@ -206,10 +206,10 @@
 				return val;
 			},
 			sharePage() {
-				Interaction.LSTH5APP_UrlAndSheetImageShareModel({
-					title: "11",
-					description: "22",
-					url: "sportsClock/index.html",
+				this.$interaction.appNative('LSTH5APP_UrlAndSheetImageShareModel',{
+					title: "运动日历打卡",
+					description: "",
+					url: "sportsClock/index.html?isShare=1",
 				})
 			},
 			sheetImageHideHeader() {

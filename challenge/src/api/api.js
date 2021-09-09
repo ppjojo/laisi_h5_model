@@ -9,24 +9,24 @@ export function listItem(data) {
 		}
 	})
 }
-export function HomeInfo(data, flag) { //
+export function HomeInfo(params, flag) { //
 	let url = 'ab-roller/dailyChallenge/challengeHomeInfo';
 	if (flag == 1) url = 'wristball/dailychallenge/challengeHomeInfo';
 	if (flag == 2) url = 'ropeSkipping/dailychallenge/todayChallage';
 	return request({
 		url: url,
 		method: 'get',
-		data,
+		params,
 	})
 }
-export function typeCheck(data, flag) { //
+export function typeCheck(params, flag) { //
 	let url = 'ab-roller/dailyChallenge/challengeCheck';
 	if (flag == 1) url = 'wristball/dailychallenge/challengeCheck';
 	if (flag == 2) url = 'ropeSkipping/dailychallenge/canEnable';
 	return request({
 		url: url,
 		method: 'get',
-		data,
+		params,
 	})
 }
 export function challengeHistory(params, flag) { //
