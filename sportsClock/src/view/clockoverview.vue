@@ -128,7 +128,11 @@
 			this.getList(1);
 			this.getList(2);
 		},
-		created() {},
+		created() {
+			if(getQueryString('isShare')){
+				this.tabIndex = parseInt(getQueryString('tabIndex'));
+			}
+		},
 		methods: {
 			getList(flag) {
 				if (flag == 1) {
@@ -207,9 +211,9 @@
 			},
 			sharePage() {
 				this.$interaction.appNative('LSTH5APP_UrlAndSheetImageShareModel',{
-					title: "运动日历打卡",
-					description: "",
-					url: "sportsClock/index.html?isShare=1",
+					shareTitle: "运动日历打卡",
+					shareContent: "",
+					shareUrl: "sportsClock/clockoverview.html?isShare=1&tabIndex="+this.tabIndex,
 				})
 			},
 			sheetImageHideHeader() {
