@@ -74,7 +74,7 @@
                             </van-col>
                         </van-row>
                     </div>
-                    <div v-else-if="type=='wristBall'">
+                    <div v-else-if="type=='wristball'">
                         <van-row>
                             <van-col span="5" class="laberTitle">比赛模式<i></i></van-col>
                             <van-col span="1" class="laberTitle">：</van-col>

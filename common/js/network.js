@@ -440,23 +440,6 @@ var Interaction = {
       visitUserId: userId,
     });
   },
-  //获取连接中的所有蓝牙mac 然后app端会回调getConnectedMac方法
-  gotoGetConnectedMac: function () {
-    try {
-      if (isIOS) {
-        window.webkit.messageHandlers.lstNative.postMessage("getConnectedMac");
-      } else if (isAndroid) {
-        getConnectedMac(window.android.getConnectedMac());
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  },
-  //获取到连接中的mac地址的回调
-  // getConnectedMac: function(list) {
-  // 	/*{r10mac:1111,t20mac:222,t18mac:3333,q20:444}*/
-  // 	var linkList = JSON.parse(list);
-  // },
   VIDEO_flag: false,
   //app端h5页面出现后会主动调用这个方法 可用于刷新页面
   appWebviewOpen: function (param) {

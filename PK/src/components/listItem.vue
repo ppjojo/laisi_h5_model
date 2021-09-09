@@ -14,7 +14,7 @@
                 <span class="laberContent" >{{item.modeValue+"公里跑"}}</span>
                 
             </div>
-            <div v-else-if="type=='wristBall'">
+            <div v-else-if="type=='wristball'">
                 <span class="laberContent"
                     v-if="item.mode==2">{{item.modeValue==30?"30秒钟倒计时转":(parseInt((item.modeValue)/60))+"分钟倒计时转"}}</span>
                 <span class="laberContent" v-else>{{item.modeValue+"个倒计数转"}}</span>
