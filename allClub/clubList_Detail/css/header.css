@@ -1,0 +1,124 @@
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  font-family: "PingFangSC-Regular", sans-serif;
+}
+
+@font-face {
+  font-family: "BebasNeue";
+  src: url("../../../common/font/BebasNeue/BebasNeue.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  background-color: #12121f;
+  color: #CFCFD2;
+  height: 100vh;
+}
+
+.specialHeader .header {
+  position: relative;
+  z-index: 100;
+  background-color: transparent !important;
+}
+
+.specialHeader .header .van-nav-bar {
+  background-color: transparent;
+}
+
+.specialHeader .header .van-nav-bar .van-nav-bar__content {
+  color: #fff;
+}
+
+.specialHeader .header .van-nav-bar .van-nav-bar__title {
+  opacity: 0;
+  color: #fff;
+}
+
+.specialHeader .header .van-hairline--bottom::after {
+  border: none;
+}
+
+.normalHeader .header {
+  height: 0.92rem;
+  position: relative;
+  z-index: 100;
+}
+
+.normalHeader .header .van-nav-bar {
+  background-color: #12121f;
+}
+
+.normalHeader .header .van-nav-bar .van-nav-bar__content {
+  color: #CFCFD2;
+}
+
+.normalHeader .header .van-nav-bar .van-nav-bar__title {
+  color: #CFCFD2;
+}
+
+.normalHeader .header .van-nav-bar .van-nav-bar__text {
+  color: #CFCFD2;
+}
+
+.normalHeader .header .van-hairline--bottom::after {
+  border: none;
+}
+
+.van-cell--clickable:active {
+  background-color: transparent !important;
+}
+
+.van-uploader__upload:active {
+  background-color: transparent !important;
+}
+
+.van-action-sheet__cancel:active, .van-action-sheet__item:active {
+  background-color: transparent !important;
+}
+
+.van-cell-group {
+  background-color: #12121f;
+}
+
+.van-picker {
+  background-color: #12121f;
+}
+
+.van-picker .van-picker-column__item {
+  color: #CFCFD2;
+}
+
+.van-picker .van-picker__mask {
+  display: none;
+}
+
+.van-picker .van-hairline--top-bottom::after, .van-picker .van-hairline-unset--top-bottom::after {
+  border-top: 1px solid #1e1e2a;
+  border-bottom: 1px solid #1e1e2a;
+}
+
+.van-picker .van-picker__cancel, .van-picker .van-picker__confirm {
+  color: #CFCFD2;
+}
+
+.van-switch {
+  background-color: #12121f;
+  border: 0.02rem solid #595962;
+}
+
+.van-collapse-item--border::after {
+  border: 1px solid #1e1e2a;
+}
+
+@supports ((height: constant(safe-area-inset-top)) or (height: env(safe-area-inset-top))) and (-webkit-overflow-scrolling: touch) {
+  .normalHeader .header {
+    height: 0.92rem;
+    height: calc(0.92rem + constant(safe-area-inset-top));
+    height: calc(0.92rem + env(safe-area-inset-top));
+  }
+}
+/*# sourceMappingURL=header.css.map */

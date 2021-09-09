@@ -909,7 +909,7 @@
                         window.webkit.messageHandlers.lstNative.postMessage({
                             method: "LSTH5APP_SelectDeviceAndPushToSport", //H5调起原生选择设备，并跳转到对应设备类型的运动页，目前3.0后有：跳绳、健腹轮、腕力球
                             deviceType: this.type, //skipping、wristball、wheel 
-                            mode: this.competitionItem.mode, //倒计时、倒计数，按照原先跳绳PK类型定义的值",
+                            mode: this.competitionItem.mode, //倒计时2、倒计数3，按照原先跳绳PK类型定义的值",
                             modeValue: this.competitionItem.modeValue, //按照原先跳绳的类型传值
                             jumpCount: this.competitionItem.repeatTimes, //按照原先跳绳的类型传值
                             category: 1, //1：PK赛，2俱乐部比赛,

@@ -1,41 +1,48 @@
-body {
-  background-color: #f5f5f5;
-}
+
+//黑字
+$text_color:#595962;
+//白字
+$text_color_white:#cfcfd2;
+//黑色背景
+$bg_color:#12121f;
+//边框色
+$border_color:#1e1e2a;
+
 @font-face {
-  font-family: "DINCondensed-Bold";
-  src: url("../../../common/font/DINCondensed-Bold/DINCondensed-Bold.woff2")
-      format("woff2"),
-    url("../../../common/font/DINCondensed-Bold/DINCondensed-Bold.woff")
-      format("woff"),
-    url("../../../common/font/DINCondensed-Bold/DINCondensed-Bold.ttf")
-      format("truetype"),
-    url("../../../common/font/DINCondensed-Bold/DINCondensed-Bold.eot")
-      format("embedded-opentype"),
-    url("../../../common/font/DINCondensed-Bold/DINCondensed-Bold.svg")
-      format("svg");
+  font-family: "BebasNeue";
+  src: url("../../../common/font/BebasNeue/BebasNeue.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
-.van-tab__text{
-  color: #999;
+body {
+  background-color: $bg_color;
 }
-.van-tab--active{
-  .van-tab__text{
-    font-weight: bold;
-    color: #1F1F1F;
+.van-tab__text {
+  color: #999;
+  font-size: .32rem;
+}
+
+.van-tab--active {
+  .van-tab__text {
+    color: $text_color_white;
+    font-size: .36rem;
   }
 }
+
 .van-tabs__line {
   bottom: 0.4rem;
 }
-.header {
+
+.headerBox {
   position: relative;
+
   .bannerBg {
     height: 5.16rem;
     width: 100%;
     position: relative;
     filter: blur(4px);
   }
+
   .blackbg {
     width: 100%;
     height: 5.16rem;
@@ -43,6 +50,7 @@ body {
     background-color: rgba(0, 0, 0, 0.2);
     z-index: 9;
   }
+
   .infoBox {
     padding: 0 0.3rem;
     position: absolute;
@@ -51,6 +59,7 @@ body {
     z-index: 99;
     justify-content: start;
     align-items: center;
+
     .clubPic {
       background-size: cover;
       width: 1.8rem;
@@ -62,6 +71,7 @@ body {
       -ms-border-radius: 10px;
       -o-border-radius: 10px;
     }
+
     .clubDescript {
       .clubName {
         font-size: 0.28rem;
@@ -72,6 +82,7 @@ body {
         text-overflow: ellipsis;
         max-width: 4.7rem;
       }
+
       .clubId,
       .clubDate,
       .clubAddress {
@@ -80,14 +91,16 @@ body {
         line-height: 0.35rem;
         max-width: 4.7rem;
       }
-      .clubId{
-        img{
+
+      .clubId {
+        img {
           width: 0.28rem;
           height: 0.28rem;
           position: relative;
           top: 0.02rem;
         }
       }
+
       .clubLabel {
         border-radius: 2px;
         width: 0.55rem;
@@ -110,13 +123,14 @@ body {
 .containBox {
   position: relative;
   z-index: 99;
+
   .noticeBox {
-    border-bottom: 2px #f8f8f8 solid;
+    border-bottom: 2px $border_color solid;
     border-radius: 0.6rem 0.6rem 0 0;
     padding: 0 0.3rem;
     box-sizing: border-box;
     position: absolute;
-    background-color: #ffffff;
+    background-color: $bg_color;
     width: 100%;
     z-index: 2;
     display: flex;
@@ -124,22 +138,22 @@ body {
     align-items: center;
     height: 1.2rem;
     top: -1rem;
+
     .noticeBoxLeft {
       display: flex;
-      justify-content: start;
+      justify-content: flex-start;
       align-items: center;
-      .iconNotice {
-        width: 0.4rem;
-        height: 0.4rem;
-        margin-right: 0.2rem;
-      }
+      width: 90%;
+
+      
+
       .noticeContent {
+        margin-left: 0.2rem;
         font-size: 0.28rem;
-        color: #1f1f1f;
+        color: $text_color_white;
         overflow: hidden;
-          white-space: nowrap;
-          text-overflow: ellipsis;
-          width: 86%;
+        white-space: nowrap;
+        text-overflow: ellipsis;
       }
     }
 
@@ -150,22 +164,26 @@ body {
   }
 
   .memberBox {
-    background-color: #ffffff;
+    background-color: $bg_color;
     padding: 0.3rem 0.3rem;
+
     .title {
       height: 0.7rem;
       font-size: 0.32rem;
-      color: #1f1f1f;
+      color: $text_color_white;
     }
+
     .memberListDiv {
       height: 0.7rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
+
       .memberPersonPic {
         display: flex;
         align-items: center;
         position: relative;
+
         img {
           position: absolute;
           left: 0;
@@ -178,14 +196,17 @@ body {
           -o-border-radius: 50%;
         }
       }
+
       .memberPersonNum {
         display: flex;
         justify-content: end;
         align-items: center;
+
         .numP {
-          color: #1f1f1f;
+          color: #71717f;
           font-size: 0.28rem;
         }
+
         .iconRight {
           width: 0.25rem;
           height: 0.25rem;
@@ -193,32 +214,42 @@ body {
       }
     }
   }
-
+  .van-cell--clickable:active{
+    background-color: transparent;
+  }
+  .van-cell{
+    background-color: $bg_color;
+    color: $text_color_white;
+  }
   .tabBox {
-    margin-top: 0.2rem;
+    border-top: .08rem solid $border_color;
+
     .van-tabs__line {
       width: 0.4rem;
       height: 2px;
     }
+
     .nullDataBox {
       height: 3.6rem;
-      background-color: #fff;
+      background-color: $bg_color;
       text-align: center;
+
       img {
         width: 35%;
       }
-      p{
-        font-size: 0.25rem ;
+
+      p {
+        font-size: 0.25rem;
         color: #999;
         margin: 0;
         padding: 0;
       }
     }
+
     .todaySport {
       .todayBox {
         max-height: 3.6rem;
         overflow-y: scroll;
-        background-color: #fff;
       }
 
       .memberSport {
@@ -226,8 +257,9 @@ body {
         padding: 0 0.3rem;
         display: flex;
         align-items: center;
-        border-top: 1px #f8f8f8 solid;
-        color: #1f1f1f;
+        border-top: 1px $border_color solid;
+        color: $text_color_white;
+
         .flexBox {
           display: flex;
           align-items: center;
@@ -243,16 +275,19 @@ body {
           -ms-border-radius: 50%;
           -o-border-radius: 50%;
         }
+
         .nickName {
           overflow: hidden;
           white-space: nowrap;
           text-overflow: ellipsis;
           font-size: 0.28rem;
         }
+
         .boldNum {
           font-size: 0.48rem;
-          font-family: DINCondensed-Bold;
+          font-family: BebasNeue;
         }
+
         .descript {
           font-size: 0.2rem;
         }
@@ -260,12 +295,13 @@ body {
 
       .historyBox {
         .van-collapse-item {
-          margin-top: 0.15rem;
-          background-color: #fff;
-          // padding: 0.1rem 0;
+          border-top: .08rem $border_color solid;
+          background-color: $border_color;
         }
+
         .van-collapse-item__content {
           padding: 0;
+          background-color: $bg_color;
         }
       }
     }
@@ -273,47 +309,55 @@ body {
     .task {
       .taskBox {
         margin-bottom: 0.2rem;
-        background-color: #ffffff;
+        background-color: $bg_color;
+
         .title {
           height: 1.2rem;
-          color: #1f1f1f;
-          background-color: #ffffff;
+          color: $text_color_white;
+          background-color: $bg_color;
           font-size: 0.28rem;
           line-height: 1.2rem;
           text-align: center;
         }
+
         .taskDiv {
           max-height: 3.6rem;
           overflow-y: scroll;
+
         }
+
         .taskList {
           display: flex;
           justify-content: space-between;
           align-items: center;
           padding: 0 0.3rem;
           height: 1.2rem;
-          background-color: #ffffff;
-          border-top: 1px solid #f8f8f8;
+          background-color: $bg_color;
+          border-top: 1px solid $border_color;
+          color: $text_color_white;
 
           .taskName {
             display: flex;
             justify-content: center;
             align-items: center;
-            .label{
+
+            .label {
               border-radius: 2px;
               display: inline-block;
-             text-align: center;
+              text-align: center;
               width: 0.32rem;
               height: 0.32rem;
               font-size: 0.24rem;
-              color: #F4FCF5 ;
-              background-color: #6EC772 ;
+              color: #F4FCF5;
+              background-color: #6EC772;
               line-height: 0.32rem;
               margin-right: 0.05rem;
             }
+
             font-size: 0.28rem;
-            
+
           }
+
           .taskPeopleNum {
             .redcircle {
               position: absolute;
@@ -324,9 +368,11 @@ body {
               top: 0.7rem;
               right: 0.25rem;
             }
+
             p {
               margin-right: 0.15rem;
             }
+
             position: relative;
             display: flex;
             align-items: center;
@@ -345,6 +391,7 @@ body {
     .competition {
       @extend .task;
     }
+
     .activity {
       @extend .task;
     }
@@ -366,31 +413,35 @@ body {
 .containBox2 {
   position: relative;
   z-index: 99;
+
   .memberBox {
     padding: 0.3rem 0.3rem;
-    background-color: #ffffff;
+    background-color: $bg_color;
     border-radius: 0.6rem 0.6rem 0 0;
     box-sizing: border-box;
     position: absolute;
-    background-color: #ffffff;
     width: 100%;
     z-index: 2;
     height: 2rem;
     top: -1rem;
+
     .title {
       height: 0.7rem;
       font-size: 0.32rem;
-      color: #1f1f1f;
+      color: $text_color_white;
     }
+
     .memberListDiv {
       height: 0.7rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
+
       .memberPersonPic {
         display: flex;
         align-items: center;
         position: relative;
+
         img {
           position: absolute;
           left: 0;
@@ -403,14 +454,17 @@ body {
           -o-border-radius: 50%;
         }
       }
+
       .memberPersonNum {
         display: flex;
         justify-content: end;
         align-items: center;
+
         .numP {
-          color: #1f1f1f;
+          color: #71717f;
           font-size: 0.28rem;
         }
+
         .iconRight {
           width: 0.25rem;
           height: 0.25rem;
@@ -418,53 +472,61 @@ body {
       }
     }
   }
+
   .introduceBox {
-    background-color: #fff;
+    background-color: $bg_color;
     padding: 0 0.3rem 0.3rem;
-    margin-bottom: 0.2rem;
+    border-bottom: 0.08rem solid $border_color;
+
     .titleBox {
       font-family: " PingFangSC-Regular";
       font-size: 0.32rem;
-      color: #1f1f1f;
+      color: $text_color_white;
       line-height: 1rem;
     }
+
     .clubDescript {
       font-size: 0.28rem;
-      color: #999999;
+      color: #71717f;
       line-height: 0.4rem;
     }
   }
 
   .detailBox {
-    background-color: #fff;
+    background-color: $bg_color;
     padding: 0 0.3rem 0.3rem;
     padding-bottom: 2rem;
+
     .titleBox {
       font-size: 0.32rem;
       font-family: " PingFangSC-Regular";
-      color: #1f1f1f;
+      color: $text_color_white;
       line-height: 1rem;
     }
+
     .clubDataBox {
       display: flex;
       justify-content: space-between;
       padding: 0 0.5rem;
+
       .totalSkipBox {
         .num {
           height: 1.5rem;
           font-size: 0.84rem;
-          font-family: "DINCondensed-Bold";
-          color: #1f1f1f;
+          font-family: "BebasNeue";
+          color: $text_color_white;
           line-height: 1.5rem;
           text-align: center;
+
           .smallNum {
             font-size: 0.48rem;
           }
         }
+
         .txt {
           font-size: 0.28rem;
           font-family: " PingFangSC-Regular";
-          color: #999999;
+          color: #71717f;
           line-height: 0.8rem;
           text-align: center;
         }
@@ -482,12 +544,12 @@ body {
     display: -ms-flexbox;
     display: flex;
     -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.1)), color-stop(rgba(255, 255, 255, 0.8)), color-stop(rgba(255, 255, 255, 0.95)), to(white));
-    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.95), white);
+    -ms-flex-pack: center;
+    justify-content: center;
+    // background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.1)), color-stop(rgba(255, 255, 255, 0.8)), color-stop(rgba(255, 255, 255, 0.95)), to(white));
+    // background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.95), white);
   }
-  
+
   .btn_box .addClubBtn {
     color: #fff;
     width: 6.3rem;

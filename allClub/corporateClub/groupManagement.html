@@ -1,271 +1,290 @@
 <!DOCTYPE html>
 <html lang="zh-cmn-Hans">
 
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
-		<title></title>
-		<!-- 引入样式文件 -->
-		<link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
-		<link rel="stylesheet" href="../../common/css/basic.css">
-		<link rel="stylesheet" href="css/normal.css">
-		<link rel="stylesheet" href="css/groupList.css">
-		<!-- <script src="https://cdn.bootcss.com/vConsole/3.3.4/vconsole.min.js"></script>
-				<script>
-					// init vConsole
-				        var vConsole = new VConsole();
-				        console.log('Hello world');
-				    </script> -->
-		<style type="text/css">
-			.van-uploader__upload-icon{
-				font-size: .6rem;
-			}
-			.title,.headpic{
-				margin-right: .16rem;
-				background-size: cover;
-				background-position: center center;
-				background-repeat: no-repeat;
-			}
-			.van-icon-arrow{
-				color: #999;
-				
-				}
-		</style>
-	</head>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+	<title></title>
+	<!-- 引入样式文件 -->
+	<link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
+	<link rel="stylesheet" href="../../common/css/basic.css">
+	<link rel="stylesheet" href="css/normal.css">
+	<link rel="stylesheet" href="css/groupList.css">
+	<link rel="stylesheet" href="../font/iconfont.css">
+	<link href="../clubList_Detail/css/header.css" rel="stylesheet" type="text/css" />
+	<style type="text/css">
+		.van-uploader__upload-icon {
+			font-size: .6rem;
+		}
 
-	<body>
-		<div id="app" v-cloak>
-			<div class="header">
-				<van-nav-bar title="部门管理" @click-left="OnclickLeft" @click-right="onClickRight" left-arrow>
-					<template #right>
-						<van-icon v-if="editor==1" name="plus" size="26" />
-					</template>
-				</van-nav-bar>
-			</div>
-			<van-loading type="spinner" vertical v-show="overlayShow"></van-loading>
-			<van-dialog v-model="createshow" :before-close="beforeClose" @confirm="submitCreate" :confirm-button-color="createGroupObj.fileList.length==0||!createGroupObj.name?'#999':''"
-			 cancel-button-color="#999" :title="createGroupObj.id?'编辑分部':'创建分部'" :confirm-button-text="createGroupObj.id?'编辑':'创建'" show-cancel-button>
-				<div style="padding: .5rem;">
-					<div class="ub ub-ver ub-pc">
-						<van-uploader v-model="createGroupObj.fileList" upload-icon="plus" :deletable="false" :max-count="1" :after-read="afterRead2"></van-uploader>
-					</div>
-					<div style="color: #999;font-size: .24rem;text-align: center;">选择部门形象</div>
-					<van-field style="background-color: #f8f8f8;margin-top: .48rem;border-radius: .1rem;height: .64rem;padding: .1rem .32rem;"
-					 maxlength="16" v-model="createGroupObj.name" placeholder="请输入分部名称" />
-				</div>
-			</van-dialog>
-			<ul class="cardList">
-				<li v-for="(item,index) in dataList" >
-					<!-- 分组名称 -->
-					<div class="ub ub-ac ub-pj" @click="editGroup(item)">
-						<div>分部名称</div>
-						<div class="ub ub-ac">
-							<div class="van-ellipsis title">{{!item.id?'未分部部门':item.name}}</div>
-							<van-icon v-if="getIsTrue(item)&&item.id!=-1" name="arrow" size="16" />
-						</div>
-					</div>
-					<!-- 分部长 -->
-					<div class="ub ub-ac ub-pj" v-if="getIsTrue(item)&&item.id!=-1" @click="gotoMember(editor==1?2:9,item.id)">
-						<div>分部长</div>
-						<div class="ub ub-ac" >
-							<div class="van-ellipsis title">{{item.subMinisterId?item.subMinisterName:'未设置'}}</div>
-							<van-icon  name="arrow" size="16" />
-						</div>
-					</div>
-					<!-- 分组成员 -->
-					<div class="ub ub-ac ub-pj">
-						<div>分部成员</div>
-						<div class="ub ub-ac">
-							<div class="van-ellipsis title">{{item.totalNumber}}人</div>
-						</div>
-					</div>
-					<!-- 分组形象 -->
-					<div class="ub ub-ac ub-pj" >
-						<div>分部形象</div>
-						<div class="ub ub-ac" @click="groupIndex = index">
-							<van-uploader v-if="getIsTrue(item)&&item.id!=-1" :after-read="afterRead">
-								<div class="headpic" :style="{'background-image':'url('+item.image+')'}" ></div>
-								<!-- <img  :src="item.image" /> -->
-							</van-uploader>
-							<div v-else class="headpic" :style="{'background-image':'url('+(item.image?item.image:'img/notgroup.png')+')'}" ></div>
-							<!-- <img  class="headpic" :src="item.image?item.image:'img/notgroup.png'" /> -->
-							<van-icon v-if="getIsTrue(item)&&item.id!=-1" name="arrow" size="16" />
-						</div>
-					</div>
-				</li>
-			</ul>
+		.title,
+		.headpic {
+			margin-right: .16rem;
+			background-size: cover;
+			background-position: center center;
+			background-repeat: no-repeat;
+		}
+
+		.van-icon-arrow {
+			color: #999;
+
+		}
+	</style>
+</head>
+
+<body>
+	<div id="app" class="normalHeader" v-cloak>
+		<div class="header">
+			<van-nav-bar @click-left="onclickLeft" title="部门管理" left-arrow safe-area-inset-top fixed>
+				<template #left>
+					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.48rem;" />
+				</template>
+				<template #right>
+					<van-icon v-if="editor==1" name="plus" size="26" />
+				</template>
+
+			</van-nav-bar>
 		</div>
-	</body>
-	<script src="https://oss.laisitech.com/0bb12bf1-cb87-4d2c-a724-8a7c25b7ae04.js "></script>
-<script src="https://oss.laisitech.com/6172e6c1-f460-40ac-97ba-31c8526f2e16.js"></script>
-	<script src="../../common/js/network.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.9/cropper.min.js"></script>
-	<script src="../club/js/exif.js"></script>
-	<script src="../club/js/upload.js"></script>
-	<script src="js/tool.js"></script>
-	<script>
-		window.addEventListener('pageshow', function(event) {
-			console.log("PageShow Event  " + event.persisted);
-			console.log(event)
-			if (isIOS) {
 
+		<van-loading type="spinner" vertical v-show="overlayShow"></van-loading>
+		<van-dialog v-model="createshow" :before-close="beforeClose" @confirm="submitCreate"
+			:confirm-button-color="createGroupObj.fileList.length==0||!createGroupObj.name?'#999':''"
+			cancel-button-color="#999" :title="createGroupObj.id?'编辑分部':'创建分部'"
+			:confirm-button-text="createGroupObj.id?'编辑':'创建'" show-cancel-button>
+			<div style="padding: .5rem;">
+				<div class="ub ub-ver ub-pc">
+					<van-uploader v-model="createGroupObj.fileList" upload-icon="plus" :deletable="false" :max-count="1"
+						:after-read="afterRead2"></van-uploader>
+				</div>
+				<div style="color: #999;font-size: .24rem;text-align: center;">选择部门形象</div>
+				<van-field
+					style="background-color: #f8f8f8;margin-top: .48rem;border-radius: .1rem;height: .64rem;padding: .1rem .32rem;"
+					maxlength="16" v-model="createGroupObj.name" placeholder="请输入分部名称" />
+			</div>
+		</van-dialog>
+		<ul class="cardList">
+			<li v-for="(item,index) in dataList">
+				<!-- 分组名称 -->
+				<div class="ub ub-ac ub-pj" @click="editGroup(item)">
+					<div>分部名称</div>
+					<div class="ub ub-ac">
+						<div class="van-ellipsis title">{{!item.id?'未分部部门':item.name}}</div>
+						<van-icon v-if="getIsTrue(item)&&item.id!=-1" name="arrow" size="16" />
+					</div>
+				</div>
+				<!-- 分部长 -->
+				<div class="ub ub-ac ub-pj" v-if="getIsTrue(item)&&item.id!=-1"
+					@click="gotoMember(editor==1?2:9,item.id)">
+					<div>分部长</div>
+					<div class="ub ub-ac">
+						<div class="van-ellipsis title">{{item.subMinisterId?item.subMinisterName:'未设置'}}</div>
+						<van-icon name="arrow" size="16" />
+					</div>
+				</div>
+				<!-- 分组成员 -->
+				<div class="ub ub-ac ub-pj">
+					<div>分部成员</div>
+					<div class="ub ub-ac">
+						<div class="van-ellipsis title">{{item.totalNumber}}人</div>
+					</div>
+				</div>
+				<!-- 分组形象 -->
+				<div class="ub ub-ac ub-pj">
+					<div>分部形象</div>
+					<div class="ub ub-ac" @click="groupIndex = index">
+						<van-uploader v-if="getIsTrue(item)&&item.id!=-1" :after-read="afterRead">
+							<div class="headpic" :style="{'background-image':'url('+item.image+')'}"></div>
+							<!-- <img  :src="item.image" /> -->
+						</van-uploader>
+						<div v-else class="headpic"
+							:style="{'background-image':'url('+(item.image?item.image:'img/notgroup.png')+')'}"></div>
+						<!-- <img  class="headpic" :src="item.image?item.image:'img/notgroup.png'" /> -->
+						<van-icon v-if="getIsTrue(item)&&item.id!=-1" name="arrow" size="16" />
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
+<script src="../../common/js/network.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.9/cropper.min.js"></script>
+<script src="../club/js/exif.js"></script>
+<script src="../club/js/upload.js"></script>
+<script src="js/tool.js"></script>
+<script>
+	window.addEventListener('pageshow', function (event) {
+		console.log("PageShow Event  " + event.persisted);
+		console.log(event)
+		if (isIOS) {
+
+		}
+	})
+	new Vue({
+		el: '#app',
+		data() {
+			return {
+				editor: parseInt(getQueryString('editor')), //1部长，2，分部长
+				clubid: getQueryString('id'),
+				groupIndex: 0,
+				overlayShow: false,
+				createshow: false,
+				userId: JSON.parse(localStorage.getItem('appInfo')).userId,
+				createGroupObj: {
+					name: '',
+					fileList: [],
+					image: '',
+					clubId: getQueryString('id'),
+					creator: JSON.parse(localStorage.getItem('appInfo')).userId
+				},
+				dataList: []
 			}
-		})
-		new Vue({
-			el: '#app',
-			data() {
-				return {
-					editor: parseInt(getQueryString('editor')), //1部长，2，分部长
-					clubid: getQueryString('id'), 
-					groupIndex: 0,
-					overlayShow: false,
-					createshow: false,
-					userId:JSON.parse(localStorage.getItem('appInfo')).userId,
-					createGroupObj: {
-						name: '',
-						fileList: [],
-						image: '',
-						clubId:getQueryString('id'),
-						creator:JSON.parse(localStorage.getItem('appInfo')).userId
+		},
+		filters: {},
+		mounted() {},
+		created() {
+			this.initData();
+			window.popdone = null;
+		},
+		methods: {
+			initData() {
+				let _self = this;
+				ajax({
+					type: "get",
+					url: "club/queryClubGroup",
+					data: {
+						clubId: _self.clubid,
+						ts: new Date().getTime()
 					},
-					dataList: []
-				}
-			},
-			filters: {},
-			mounted() {},
-			created() {
-				this.initData();
-				window.popdone = null;
-			},
-			methods: {
-				initData(){
-					let _self = this;
-					ajax({
-						type: "get",
-						url: "club/queryClubGroup",
-						data: {clubId:_self.clubid,ts:new Date().getTime()},
-						success: function(res) {
-							if (res.code == 0) {
-								_self.dataList = res.data;
-							} else {
-								_self.$toast(res.msg);
-							}
-						},
-						error: function() {
-							console.log("error")
-						}
-					})
-				},
-				afterRead(file) {
-					console.log(file, this.groupIndex)
-					this.overlayShow = true;
-					uploadImg1(file, 'headpic', this.groupIndex, res => {
-						console.log(res);
-						this.overlayShow = false;
-						if (res.code != 0) {
-							this.$toast("图片审核未通过，请重新上传！");
+					success: function (res) {
+						if (res.code == 0) {
+							_self.dataList = res.data;
 						} else {
-							this.dataList[this.groupIndex].image = res.url;
-							this.createGroupObj = this.dataList[this.groupIndex];
-							this.submitCreate();
+							_self.$toast(res.msg);
 						}
-					})
-				},
-				afterRead2(file) {
-					this.overlayShow = true;
-					uploadImg1(file, 'headpic', null, res => {
-						this.overlayShow = false;
-						if (res.code != 0) {
-							this.$toast("图片审核未通过，请重新上传！");
-						} else {
-							this.createGroupObj.image = res.url;
-						}
-					})
-				},
-				editGroup(item){//编辑御前操作
-					if(!item.id||item.id==-1)return;
-					if(this.editor==2&&item.subMinisterId!=this.userId)return;
-					this.createGroupObj = item;
-					this.createGroupObj.fileList = [{url:item.image,isImage: true}];
-					this.createshow = true;
-				},
-				OnclickLeft() {
-					window.history.back(-1);
-				},
-				onClickRight() { //显示。。。
-					if (this.editor == 1) this.createshow = true;
-				},
-				beforeClose(action, done) {//提交前的判断
-					window.popdone = done;
-					if (action === 'confirm') {
-						if (!this.createGroupObj.image) {
-							// this.$toast("请选择组别形象");
-							done(false)
-						}
-						if (!this.createGroupObj.name) {
-							// this.$toast("请输入组别名称");
-							done(false)
-						}
+					},
+					error: function () {
+						console.log("error")
+					}
+				})
+			},
+			afterRead(file) {
+				console.log(file, this.groupIndex)
+				this.overlayShow = true;
+				uploadImg1(file, 'headpic', this.groupIndex, res => {
+					console.log(res);
+					this.overlayShow = false;
+					if (res.code != 0) {
+						this.$toast("图片审核未通过，请重新上传！");
 					} else {
-						done();
-						this.resetcreateGroupObj();
+						this.dataList[this.groupIndex].image = res.url;
+						this.createGroupObj = this.dataList[this.groupIndex];
+						this.submitCreate();
 					}
-
-				},
-				resetcreateGroupObj(){//重置分部编辑数据
-					this.createGroupObj = {
-						name: '',
-						fileList: [],
-						url: '',
-						clubId:getQueryString('id'),
-						creator:JSON.parse(localStorage.getItem('appInfo')).userId
+				})
+			},
+			afterRead2(file) {
+				this.overlayShow = true;
+				uploadImg1(file, 'headpic', null, res => {
+					this.overlayShow = false;
+					if (res.code != 0) {
+						this.$toast("图片审核未通过，请重新上传！");
+					} else {
+						this.createGroupObj.image = res.url;
 					}
-				},
-				getIsTrue(item){
-					if(!item.id)return false;
-					if(this.editor==1)return true;
-					if(this.editor==2&&item.subMinisterId==this.userId)return true;
-				},
-				submitCreate() {//编/创建分部
-					console.log(this.createGroupObj)
+				})
+			},
+			editGroup(item) { //编辑御前操作
+				if (!item.id || item.id == -1) return;
+				if (this.editor == 2 && item.subMinisterId != this.userId) return;
+				this.createGroupObj = item;
+				this.createGroupObj.fileList = [{
+					url: item.image,
+					isImage: true
+				}];
+				this.createshow = true;
+			},
+			onclickLeft() {
+				window.history.back(-1);
+			},
+			onClickRight() { //显示。。。
+				if (this.editor == 1) this.createshow = true;
+			},
+			beforeClose(action, done) { //提交前的判断
+				window.popdone = done;
+				if (action === 'confirm') {
 					if (!this.createGroupObj.image) {
-						this.$toast("请选择组别形象");
-						return;
+						// this.$toast("请选择组别形象");
+						done(false)
 					}
 					if (!this.createGroupObj.name) {
-						this.$toast("请输入组别名称");
-						return;
+						// this.$toast("请输入组别名称");
+						done(false)
 					}
-					if(!this.createGroupObj.clubId)this.createGroupObj.clubId = parseInt(this.clubid);
-					if(!this.createGroupObj.creator)this.createGroupObj.creator = JSON.parse(localStorage.getItem('appInfo')).userId;
-					if(this.createGroupObj.id==-1)this.createGroupObj.name ="未分部门";
-					let _self = this;
-					ajax({
-						type: "post",
-						url: !_self.createGroupObj.id?"club/saveClubGroup":"club/updateClubGroup",
-						data: _self.createGroupObj,
-						success: function(res) {
-							if (res.code == 0) {
-								_self.$toast(!_self.createGroupObj.id?"创建分部成功":"编辑分部成功");
-								_self.initData();
-								_self.resetcreateGroupObj();
-								_self.createshow = false;
-								window.popdone();
-							} else {
-								_self.$toast(res.msg);
-								window.popdone(false);
-							}
-						},
-						error: function() {
-							console.log("error")
+				} else {
+					done();
+					this.resetcreateGroupObj();
+				}
+
+			},
+			resetcreateGroupObj() { //重置分部编辑数据
+				this.createGroupObj = {
+					name: '',
+					fileList: [],
+					url: '',
+					clubId: getQueryString('id'),
+					creator: JSON.parse(localStorage.getItem('appInfo')).userId
+				}
+			},
+			getIsTrue(item) {
+				if (!item.id) return false;
+				if (this.editor == 1) return true;
+				if (this.editor == 2 && item.subMinisterId == this.userId) return true;
+			},
+			submitCreate() { //编/创建分部
+				console.log(this.createGroupObj)
+				if (!this.createGroupObj.image) {
+					this.$toast("请选择组别形象");
+					return;
+				}
+				if (!this.createGroupObj.name) {
+					this.$toast("请输入组别名称");
+					return;
+				}
+				if (!this.createGroupObj.clubId) this.createGroupObj.clubId = parseInt(this.clubid);
+				if (!this.createGroupObj.creator) this.createGroupObj.creator = JSON.parse(localStorage.getItem(
+					'appInfo')).userId;
+				if (this.createGroupObj.id == -1) this.createGroupObj.name = "未分部门";
+				let _self = this;
+				ajax({
+					type: "post",
+					url: !_self.createGroupObj.id ? "club/saveClubGroup" : "club/updateClubGroup",
+					data: _self.createGroupObj,
+					success: function (res) {
+						if (res.code == 0) {
+							_self.$toast(!_self.createGroupObj.id ? "创建分部成功" : "编辑分部成功");
+							_self.initData();
+							_self.resetcreateGroupObj();
+							_self.createshow = false;
+							window.popdone();
+						} else {
+							_self.$toast(res.msg);
+							window.popdone(false);
 						}
-					})
-				},
-				gotoMember(flag,id){
-					window.location.href = 'groupMember.html?fromchoose='+flag+'&clubId='+this.clubid+'&clubGroupId='+id;
-				},
-			}
-		})
-	</script>
+					},
+					error: function () {
+						console.log("error")
+					}
+				})
+			},
+			gotoMember(flag, id) {
+				window.location.href = 'groupMember.html?fromchoose=' + flag + '&clubId=' + this.clubid +
+					'&clubGroupId=' + id;
+			},
+		}
+	})
+</script>
 
 </html>

@@ -1,6 +1,6 @@
 .selectBox {
-  /* border-top: 0.2rem solid #1E1E2A; */
-  border-bottom: 0.08rem solid #1E1E2A;
+  border-top: 0.2rem solid whitesmoke;
+  border-bottom: 0.2rem solid whitesmoke;
 }
 
 .selectBox .selectDiv {
@@ -11,7 +11,8 @@
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  border-bottom: 1px solid #1E1E2A;
+  border-bottom: 1px solid whitesmoke;
+  padding: 0 0.3rem;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -33,32 +34,32 @@
 .selectBox .selectDiv .selectLeftBox img {
   width: 0.4rem;
   height: 0.4rem;
-  /* margin-right: 0.3rem; */
+  margin-right: 0.3rem;
 }
 
 .selectBox .selectDiv .selectLeftBox .lable {
   font-size: 0.32rem;
-  color: #CFCFD2;
+  color: #1f1f1f;
 }
 
 .selectBox .selectDiv .selectLeftBox .title {
   font-size: 0.28rem;
-  color: #CFCFD2;
+  color: #999999;
 }
 
 .selectBox .selectDiv .selectLeftBox .titleActive {
   font-size: 0.32rem;
-  color: #CFCFD2;
+  color: #1f1f1f;
 }
 
 .selectBox .selectDiv .selectLeftBox .titleActive2 {
   font-size: 0.32rem;
-  color: #CFCFD2;
+  color: #000000;
 }
 
 .selectBox .selectDiv .icon {
   font-size: 0.3rem;
-  color: #CFCFD2;
+  color: #999999;
 }
 
 .scoreDetailBox {
@@ -72,15 +73,13 @@
           align-items: center;
   color: #1F1F1F;
   font-size: 0.32rem;
-  border-bottom: 0.08rem solid #1E1E2A;
+  border-bottom: 0.2rem solid whitesmoke;
 }
 
 .echartBox {
   height: 5.04rem;
   width: 100%;
   padding: 0 0.3rem;
-  border-bottom: 0.08rem solid #1E1E2A;
-  position: relative;
-  z-index: 1;
+  border-bottom: 0.2rem solid whitesmoke;
 }
 /*# sourceMappingURL=clubEchart.css.map */

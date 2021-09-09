@@ -1,21 +1,18 @@
-* {
-    margin: 0;
-    padding: 0; 
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
+.searchBox .van-sticky--fixed {
+    top: 0.92rem;
 }
-body,html{
-    width:100%;
+@supports ((height: constant(safe-area-inset-top)) or (height: env(safe-area-inset-top))) and (-webkit-overflow-scrolling: touch) {
+    .searchBox .van-sticky--fixed {
+        top: 0.92rem;
+        top: calc(0.92rem + constant(safe-area-inset-top));
+        top: calc(0.92rem + env(safe-area-inset-top));
+    }
 
-    background-color: #12121f;
-    font-size: .3rem;
-    font-family:PingFang SC,Helvetica Neue,Arial,sans-serif;
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-
+    
 }
-/* 列表区域 */
-
+.van-icon-search {
+    color: #999;
+}
 .listDiv .listItem {
     width:100%;
     padding:0  4%;
@@ -37,6 +34,13 @@ body,html{
     border-radius: .2rem;
     /* background: #f8f8f8; */
 
+}
+.listItem .listItem-picImg div {
+    background-position: center center;
+    background-size: cover;
+    width: 1.8rem;
+    height: 1.8rem;
+    background-repeat: no-repeat;
 }
 .listItem-picImg img {
     width: 100%;

@@ -5,11 +5,10 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
 		<title>比赛设置</title>
 		<!-- 引入样式文件 -->
-		<link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
+		<link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
 		<link rel="stylesheet" href="css/clubCreateCompetition.css">
-		<script type="text/javascript">
-			document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';
-		</script>
+		<link rel="stylesheet" href="../font/iconfont.css">
+	<link href="../clubList_Detail/css/header.css" rel="stylesheet" type="text/css" />
 		<style>
 			.listBox {
 				height: 0.96rem;
@@ -31,7 +30,15 @@
 		</style>
 	</head>
 	<body>
-		<div id="app" v-cloak>
+		<div id="app" class="normalHeader" v-cloak>
+			<div class="header">
+				<van-nav-bar @click-left="onclickLeft" title="比赛设置" left-arrow safe-area-inset-top fixed>
+					<template #left>
+						<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.48rem;" />
+					</template>
+	
+				</van-nav-bar>
+			</div>
 			<div >
 				<van-collapse v-model="activeNames" accordion>
 					<div style="border-bottom: .02rem solid #1E1E2A">
@@ -110,22 +117,7 @@
 						<span>比赛奖励:</span>
 						<span v-if="form.jl">{{form.jl}}</span>
 					</div>
-					<!-- <van-collapse-item title="比赛奖励" name="7">
-						<div slot="title">
-							<span>比赛奖励:</span>
-							<span v-if="form.jl">{{form.jl}}</span>
-							<span v-else-if="isSubmit&&!jlinput" class="errorSpan">{{"请选择比赛奖励"}}</span>
-							<span v-else-if="isSubmit&&jlinput" class="errorSpan">{{"请输入比赛奖励"}}</span>
-						</div>
-						<div class="collapseListBox">
-							<div class="collapseList-item" :class="form.jl=='无奖励'?'chooseActive':''"  @click="form.jl='无奖励';jlinput=false;submitform.gameReward='无奖励';activeNames=0;">无奖励</div>
-							<div class="collapseList-item" :class="jlinput?'chooseActive':''" @click="form.jl='';jlinput=true">自定义奖励</div>
-							<div style="padding:0.2rem 0.3rem;" v-show="jlinput">
-								<van-field v-model="form.jl" :input="contentChange()" autosize class="matchName-input gameReward-input" type="textarea" placeholder="请输入自定义奖励"
-								 rows="2" show-word-limit maxlength="20"  />
-							</div>
-						</div>
-					</van-collapse-item> -->
+					
 				</van-collapse>
 				<van-button round class="submit" block
 				:color="!form.mc||!form.start||!form.end?bgcgrey:bgc" @click="submitFormData">修改</van-button>
@@ -142,8 +134,8 @@
 			</div>
 		</div>
 	</body>
-	<script src="https://oss.laisitech.com/0bb12bf1-cb87-4d2c-a724-8a7c25b7ae04.js "></script>
-<script src="https://oss.laisitech.com/6172e6c1-f460-40ac-97ba-31c8526f2e16.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
 	<script src="js/DateTime.js"></script>
 	 
 	<script src="../../common/js/network.js"></script>
@@ -225,7 +217,7 @@
 				}
 			},
 			created() {
-				this.competitionId = getQueryString("id")||365;
+				this.competitionId = getQueryString("id")
 				this.initData(); //初始化详情
 				var startTime = DateTime.initStart(2);
 				this.startTimeColumns = [{
@@ -241,6 +233,9 @@
 
 			},
 			methods: {
+				onclickLeft() {
+				window.history.back(-1)
+			},
 				initData() {
 					var _self = this;
 					ajax({

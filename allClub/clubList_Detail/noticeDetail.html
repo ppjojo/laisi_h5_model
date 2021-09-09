@@ -1,155 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
-		<link rel="icon" href="data:image/ico;base64,aWNv">
-		<title>通知详情</title>
-		<script type="text/javascript">
-			document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';
-		</script>
-		<link href="css/common.css?t=20191113" rel="stylesheet" type="text/css" />
-		<style type="text/css">
-			.main-container {
-				background: #fff;
-				padding: 0.3rem 0.3rem;
-				color: #333;
-			}
 
-			.main-container .title {
-				font-size: .32rem;
-				line-height: 0.5rem;
-				margin: 0;
-				padding: 0;
-			}
-
-			.main-container .time {
-				color: #727272;
-				font-size: .24rem;
-				line-height: 0.5rem;
-				margin: 0;
-				padding: 0;
-			}
-
-			.main-container .content {
-				word-wrap: break-word;
-				font-size: .28rem;
-				line-height: 0.5rem;
-				margin-top: 0.1rem;
-				padding: 0;
-			}
-		</style>
-
-
-
-	</head>
-	<body>
-		<div class='loading'>
-			<div class="spinner">
-				<div class="spinner-container container1">
-					<div class="circle1"></div>
-					<div class="circle2"></div>
-					<div class="circle3"></div>
-					<div class="circle4"></div>
-				</div>
-				<div class="spinner-container container2">
-					<div class="circle1"></div>
-					<div class="circle2"></div>
-					<div class="circle3"></div>
-					<div class="circle4"></div>
-				</div>
-				<div class="spinner-container container3">
-					<div class="circle1"></div>
-					<div class="circle2"></div>
-					<div class="circle3"></div>
-					<div class="circle4"></div>
-				</div>
-			</div>
-		</div>
-
-		<!-- 页面内容 -->
-		<div class="main-container" style="display: none;" >
-			<p class="title" id="title">---</p>
-			<p class="time" id="time">---</p>
-			<p class="content" id="content">---</p>
-		</div>
-
-	</body>
-
-	<script src="../../common/js/PhicJquery.js" type="text/javascript"></script>
-	<script src="../../common/js/network.js" type="text/javascript"></script>
-	<script type="text/javascript">
-		//获取通知详情数据
-		$(function getdata() {
-			var url = ''
-			var params = {}
-			//type: 默认为通知详情 ， 1-任务通知详情
-			if (getQueryString('type') == 1) {
-				url = 'club/taskNoticeDetail'
-				params.taskNoticeId=getQueryString('id');
-			} else {
-				url = 'club/noticeDetail'
-				params.noticeId=getQueryString('id');
-			}
-			
-			ajax({
-				type: "get",
-				url: url,
-				data: params,
-				success: function(res) {
-					if (parseInt(res.code) == 0) {
-						if (res.data) {
-							var data = res.data
-					
-							$('#title').html(data.title)
-							data.createTime = data.createTime.replace('T', " ").replace(/\-/g, "/").split('.000')[0]
-							data.createTime = data.createTime
-							$('#time').html(dealNoticeTime(data.createTime))
-							$('#content').html(data.content)
-							$(".main-container").fadeIn();
-							$(".loading").fadeOut();
-						} else {
-							$(".loading").fadeOut();
-							$(".main-container").fadeIn();
-						}
-					
-					
-					}
-				},
-				error: function() {
-					console.log("error")
-				}
-			})
-		})
-
-		//处理通知的时间显示
-		// 2019-11-26T03:03:27.000+0000   : - 替换为 / ，T去掉 ，小时加8
-		function dealNoticeTime(time) {
-			if (time) {
-				var dateTime = new Date(time)
-				console.log('time', time)
-
-				var year = dateTime.getFullYear();
-				var day = dateTime.getDate() < 10 ? '0' + dateTime.getDate() : dateTime.getDate();
-				var month = dateTime.getMonth() + 1 < 10 ? '0' + (dateTime.getMonth() + 1) : dateTime.getMonth() + 1;
-
-				var minutes = (Array(2).join(0) + dateTime.getMinutes()).slice(-2);
-				var hours = (Array(2).join(0) + (dateTime.getHours() + 8)).slice(-2);
-				// var hours = (Array(2).join(0) + dateTime.getHours()).slice(-2);
-				var secondes = (Array(2).join(0) + dateTime.getSeconds()).slice(-2);
-
-				if (year == (new Date()).getFullYear() && dateTime.getDate() == (new Date()).getDate() && dateTime.getMonth() == (
-						new Date()).getMonth()) {
-					return hours + ':' + minutes;
-				} else if (year == (new Date()).getFullYear()) {
-					return month + '/' + day + ' ' + hours + ':' + minutes;
-				} else {
-					return year + '/' + month + '/' + day;
-				}
-
-			}
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+	<link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
+	<link rel="stylesheet" href="../font/iconfont.css">
+	<link href="../clubList_Detail/css/header.css" rel="stylesheet" type="text/css" />
+	<title>通知详情</title>
+	<style type="text/css">
+		.main-container {
+			padding: 0.3rem 0.3rem;
+			color: #cfcfd2;
 		}
-	</script>
+
+		.main-container .title {
+			font-size: .32rem;
+			line-height: 0.5rem;
+			margin: 0;
+			padding: 0;
+		}
+
+		.main-container .time {
+			color: #71717f;
+			font-size: .24rem;
+			line-height: 0.5rem;
+			margin: 0;
+			padding: 0;
+		}
+
+		.main-container .content {
+			word-wrap: break-word;
+			font-size: .28rem;
+			line-height: 0.5rem;
+			margin-top: 0.1rem;
+			padding: 0;
+		}
+	</style>
+
+
+
+</head>
+
+<body>
+	<div id="app" class="normalHeader" v-cloak>
+		<div class="header">
+			<van-nav-bar @click-left="onclickLeft" title="通知详情" left-arrow safe-area-inset-top fixed>
+				<template #left>
+					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.48rem;" />
+				</template>
+
+			</van-nav-bar>
+		</div>
+		<div class="main-container" >
+			<div class="title">{{obj.title}}</div>
+			<p class="time">{{obj.createTime}}</p>
+			<p class="content">{{obj.content}}</p>
+		</div>
+	</div>
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
+<script src="../../common/js/network.js"></script>
+<script type="text/javascript">
+	new Vue({
+		el: '#app',
+		data() {
+			return {
+				obj: {}
+			}
+		},
+		created() {
+			this.initData();
+		},
+		methods: {
+			onclickLeft() {
+				window.history.back(-1)
+			},
+			initData() {
+				var url = ''
+				var params = {}
+				//type: 默认为通知详情 ， 1-任务通知详情
+				if (getQueryString('type') == 1) {
+					url = 'club/taskNoticeDetail'
+					params.taskNoticeId = getQueryString('id');
+				} else {
+					url = 'club/noticeDetail'
+					params.noticeId = getQueryString('id');
+				}
+
+				ajax({
+					url: url,
+					data: params,
+				}).then(res => {
+					if (res.code == 0) {
+						this.obj = res.data
+						this.obj.createTime = this.obj.createTime.replace('T', " ").replace(/\-/g, "/")
+							.split(
+								'.000')[0]
+						this.obj.createTime = this.dealNoticeTime(this.obj.createTime)
+					}
+				})
+			},
+			dealNoticeTime(time) {
+				if (time) {
+					var dateTime = new Date(time)
+
+					var year = dateTime.getFullYear();
+					var day = dateTime.getDate() < 10 ? '0' + dateTime.getDate() : dateTime.getDate();
+					var month = dateTime.getMonth() + 1 < 10 ? '0' + (dateTime.getMonth() + 1) : dateTime
+						.getMonth() + 1;
+
+					var minutes = (Array(2).join(0) + dateTime.getMinutes()).slice(-2);
+					var hours = (Array(2).join(0) + (dateTime.getHours() + 8)).slice(-2);
+					// var hours = (Array(2).join(0) + dateTime.getHours()).slice(-2);
+					var secondes = (Array(2).join(0) + dateTime.getSeconds()).slice(-2);
+
+					if (year == (new Date()).getFullYear() && dateTime.getDate() == (new Date()).getDate() &&
+						dateTime
+						.getMonth() == (
+							new Date()).getMonth()) {
+						return hours + ':' + minutes;
+					} else if (year == (new Date()).getFullYear()) {
+						return month + '/' + day + ' ' + hours + ':' + minutes;
+					} else {
+						return year + '/' + month + '/' + day;
+					}
+
+				}
+			}
+
+		}
+	})
+</script>
+
 
 </html>

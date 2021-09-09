@@ -329,12 +329,12 @@
 		data() {
 			return {
 				isShare: getQueryString("isShare") || 0,
-				startTime:localStorage.getItem("report_startTime")||getQueryString("startTime"),
-				endTime:localStorage.getItem("report_endTime")||getQueryString("endTime"),
+				startTime: localStorage.getItem("report_startTime") || getQueryString("startTime"),
+				endTime: localStorage.getItem("report_endTime") || getQueryString("endTime"),
 				sheetImageStatus: false,
 				reportData: {
-					headPictureUrl:"",
-					nickName:"",
+					headPictureUrl: "",
+					nickName: "",
 					takeMs: 0, //总时⻓
 					takeMsFlag: 0, //0 上升 1下降 2 持平 总时⻓的
 					lastDiff: 0, //相差时⻓
@@ -463,13 +463,13 @@
 				window.history.back()
 			},
 			gohistory() {
-				window.location.href="history.html?type=1"
+				window.location.href = "history.html?type=1"
 			},
 			sharePage() {
 				Interaction.LSTH5APP_UrlAndSheetImageShareModel({
-					title: "11",
-					description: "22",
-					url: "sportsReport/index.html",
+					shareTitle: "11",
+					shareContent: "22",
+					shareUrl: "sportsReport/index.html",
 				})
 			},
 			goAPP() {
@@ -517,8 +517,8 @@
 				return hour.padStart(2, "0") + ":" + minute.padStart(2, "0") + ":" + second.padStart(2, "0")
 			},
 			//传入时间戳获取日期
-			 sjc2time(id, sjc) {
-				 if(!sjc)return
+			sjc2time(id, sjc) {
+				if (!sjc) return
 				var datetime = new Date(parseInt(sjc));
 				var year = datetime.getFullYear();
 				var month = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() +
@@ -531,8 +531,8 @@
 				var second = datetime.getSeconds() < 10 ? "0" + datetime.getSeconds() : datetime.getSeconds();
 				if (id == "ymd") {
 					return year + "/" + month + "/" + date;
-				}else if(id == "md") {
-					return  month + "/" + date;
+				} else if (id == "md") {
+					return month + "/" + date;
 				}
 			},
 			//初始化获取数据
@@ -560,7 +560,7 @@
 			},
 			//运动时长
 			getTotalTimeEchart(list) {
-				if(!list)return
+				if (!list) return
 				var myChart = echarts.init(document.getElementById("totalTimeEchart"));
 
 				var option = {
@@ -579,7 +579,7 @@
 							},
 						},
 						formatter: (p) => {
-							let str = parseInt(p.data/1000/60) +"分"+ '</br>';
+							let str = parseInt(p.data / 1000 / 60) + "分" + '</br>';
 							str += p.name;
 							return str;
 						}
@@ -637,7 +637,7 @@
 			},
 			//运动总消耗
 			getTotalCalEchart(list) {
-				if(!list)return
+				if (!list) return
 				var myChart = echarts.init(document.getElementById("totalCalEchart"));
 				var option = {
 					grid: {
@@ -655,7 +655,7 @@
 							},
 						},
 						formatter: (p) => {
-							let str = parseInt(p.data/1000) +"kcal"+ '</br>';
+							let str = parseInt(p.data / 1000) + "kcal" + '</br>';
 							str += p.name;
 							return str;
 						}
@@ -713,13 +713,13 @@
 			},
 			//步数
 			getStepEchart(item) {
-				
-				var list=item.stepMaps
-				if(!list)return
+
+				var list = item.stepMaps
+				if (!list) return
 				var myChart = echarts.init(document.getElementById("stepEchart"));
 				var option = {
 					title: {
-						text: '目标('+item.stepMaps+')',
+						text: '目标(' + item.stepMaps + ')',
 						textStyle: {
 							color: '#CFCFD2',
 							fontSize: "10",
@@ -743,7 +743,7 @@
 							},
 						},
 						formatter: (p) => {
-							let str = parseInt(p.data) +"步"+ '</br>';
+							let str = parseInt(p.data) + "步" + '</br>';
 							str += p.name;
 							return str;
 						}
