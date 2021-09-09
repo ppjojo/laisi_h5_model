@@ -22,7 +22,7 @@
 			var language = ""
 			if (phoneLanguage.indexOf("zh") != -1) {
 				language = "zh"
-				document.title = '常见问题';
+				document.title =getQueryString('title');
 				getdata()
 			} else if (phoneLanguage.indexOf("en") != -1) {
 				language = "en"
@@ -32,24 +32,28 @@
 
 			// 获取问题列表
 			function getdata() {
-				ajax({
-					type: "post",
-					url: "helpCenter/faq/id",
-					data:{
-						id:getQueryString('id'),
-						language:language
-					},
-					success: function(res) {
-						if( parseInt(res.code) == 0) {
-						   var data = res.data
-						   appenddata(data)
-						}
-					},
-					error: function() {
-						console.log("error")
+				// ajax({
+				// 	type: "get",
+				// 	url: "helpCenter/faq/query",
+				// 	data:{
+				// 		questionType:getQueryString('id'),
+				// 	},
+				// 	success: function(res) {
+				// 		if( parseInt(res.code) == 0) {
+				// 		   var data = res.data
+				// 		   appenddata(data)
+				// 		}
+				// 	},
+				// 	error: function() {
+				// 		console.log("error")
 						
-					}
-				})
+				// 	}
+				// })
+				let data={
+					title:getQueryString('title'),
+					operation_manual:getQueryString('qa')
+				}
+				appenddata(data)
 			}
 
 			function appenddata(data) {

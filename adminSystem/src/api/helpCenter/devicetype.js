@@ -2,7 +2,7 @@ import request from "@/utils/request"
 //列表
 export function listItem(params) {
     return request({
-        url: '/helpCenter/manual/query/all',
+        url: '/helpCenter/device/get/all',
         method: 'get',
         params
     })
@@ -10,7 +10,7 @@ export function listItem(params) {
 //新增
 export function addItem(data) {
     return request({
-        url: '/helpCenter/manual/insert/item',
+        url: '/helpCenter/device/insert/item',
         method: 'post',
         data
     })
@@ -18,16 +18,16 @@ export function addItem(data) {
 //更新
 export function updateItem(data) {
     return request({
-        url: '/helpCenter/manual/update/item',
+        url: '/helpCenter/device/update/item',
         method: 'post',
         data
     })
 }
-//删除
-export function deleteItem(params) {
+//del
+export function deleteItem(data) {
     return request({
-        url: '/helpCenter/manual/delete/id',
+        url: '/helpCenter/device/delete/id',
         method: 'post',
-        params
+        data
     })
 }

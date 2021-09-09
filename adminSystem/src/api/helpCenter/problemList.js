@@ -3,7 +3,7 @@ import request from "@/utils/request"
 export function listItem(params) {
     return request({
         url: '/helpCenter/faq/query',
-        method: 'post',
+        method: 'get',
         params
     })
 }
@@ -18,7 +18,7 @@ export function addItem(data) {
 //更新
 export function updateItem(data) {
     return request({
-        url: '/helpCenter/faq/edit',
+        url: '/helpCenter/faq/update/item',
         method: 'post',
         data
     })
@@ -26,7 +26,7 @@ export function updateItem(data) {
 //删除
 export function deleteItem(params) {
     return request({
-        url: '/helpCenter/faq/delete',
+        url: '/helpCenter/faq/delete/id',
         method: 'post',
         params
     })

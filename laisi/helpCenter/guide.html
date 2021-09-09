@@ -11,17 +11,46 @@
     <script type="text/javascript">
 		document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';
 	</script>
-    <link rel="stylesheet" type="text/css" href="css/guide.css">
+	<link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
+    <!-- <link rel="stylesheet" type="text/css" href="css/guide.css"> -->
+    <style type="text/css">
+	#app{
+		background-color: #12121f;
+		min-height: 100vh;
+	}
+    	.answer {
+    		padding: 0;
+    	}
     
+    	.listItem {
+    		color: #cfcfd2;
+    		border-top: 1px solid #161623;
+    		border-bottom: 1px solid #161623;
+    		padding: .24rem;
+    		display: flex;
+    		justify-content:start;
+    		align-items: center;
+    		font-size: .24rem;
+    	}
+    
+    	.listItem img {
+    		width: 1.8rem;
+			border-radius: 4px;
+			margin-right: .2rem;
+    	}
+    </style>
 </head>
 <body>
-    <!-- Swiper -->
-    <div class="swiper-container guide02" style="position: absolute;">
-        <div class="swiper-wrapper">
-
-        </div>
+    <div id="app" class="answer">
+    	<div class="list">
+    		<div class="listItem " v-for="(item,index) in dataList" @click="clickQuestion(item)">
+				<div><img :src="item.picUrl" alt=""></div>
+    			<div>{{item.deviceTypeDetail}}</div>
+    		</div>
+    	</div>
     </div>
-    
+    <script src="https://oss.laisitech.com/0bb12bf1-cb87-4d2c-a724-8a7c25b7ae04.js "></script>
+    <script src="https://oss.laisitech.com/6172e6c1-f460-40ac-97ba-31c8526f2e16.js"></script>
     <script type="text/javascript" src="../common/js/swiper.min.js"></script>
 	<script src="../../common/js/network.js"></script>
     <script type="text/javascript">
@@ -30,13 +59,51 @@
        if (phoneLanguage.indexOf("zh") != -1) {
        	language = "zh"
         document.title = '操作指南';
-       	getdata()
+       	// getdata()
        } else if (phoneLanguage.indexOf("en") != -1) {
        	language = "en"
        	 document.title = 'Instructions';
-       	getdata()
+       	// getdata()
        }
-
+	new Vue({
+		el: '#app',
+		data() {
+			return {
+				dataList:[],
+				tenPlayer:null,
+				tenParser:null,
+			}
+		},
+		filters: {},
+		mounted() {
+		},
+		created() {
+			this.getList()
+		},
+		methods: {
+			clickQuestion(item){
+				window.location.href = "manul.html?id=" + item.deviceType + '&userId='+ getQueryString('userId')+'&title='+item.deviceTypeDetail;
+			},
+			getList(){
+				var _self = this;
+				ajax({
+					type: "get",
+					url: "helpCenter/device/get/all",
+					data: {
+					},
+					success: function(res) {
+						if (parseInt(res.code) == 0) {
+							_self.dataList = res.data
+						}
+					},
+					error: function() {
+						console.log("error")
+				
+					}
+				})
+			},
+		}
+	})
         
         
         // 获取问题列表

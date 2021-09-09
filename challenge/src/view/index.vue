@@ -2,25 +2,28 @@
 	<div id="app" v-cloak>
 		<div class="header">
 			<van-nav-bar title="今日挑战" @click-left="onClickLeft" left-arrow safe-area-inset-top fixed>
+				<template #left>
+					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.48rem;" />
+				</template>
 			</van-nav-bar>
 		</div>
 		<!-- 今日挑战目标 -->
 		<div class="centerbox fts14">
 			今日挑战目标
 		</div>
-		<div class="centerbox fts20">
-			{{returnTask(info.challengeType)}}
+		<div class="centerbox fts20" >
+			{{returnTask(info.challengeType||info.challengeDetail)}}
 		</div>
 		<div class="centerbox fts12 c1f ub ub-ad">
-			<div class="ub ub-ac" v-if="info.dateType==1">
+			<div class="ub ub-ac" v-if="info.dateType==1" @click="goChallage">
 				<div class="reflesh"></div><span style="text-decoration: underline;">不休息</span>
 			</div>
-			<div class="ub ub-ac" v-else @click="getList()">
+			<div class="ub ub-ac" v-else @click="changeChallenge()">
 				<div class="reflesh"></div><span style="text-decoration: underline;">换一个</span>
 			</div>
 		</div>
 		<!-- 打卡按钮 -->
-		<div class="clickBtn ub ub-ac ub-ad" :class="{greyBtn:info.dateType==1}">
+		<div class="clickBtn ub ub-ac ub-ad" @click="isChallage(info.type)" :class="{greyBtn:info.dateType==1}">
 			<div>{{info.dateType==1?'今日休息':info.type==3?'迎战':info.type==1?'完成':info.type==2?'再次挑战':'暂未触发'}}</div>
 		</div>
 		<!-- 战列表 -->
@@ -44,7 +47,7 @@
 				<div class="ub ub-ac">
 					<returnIcon :type="flag"></returnIcon>
 					<div class="">
-						<div class="fts14">{{returnTask(item.challengeType)}}</div>
+						<div class="fts14">{{returnTask(item.challengeType||{})}}</div>
 						<div class="fts14 c1f">{{timeStamp2String('ymd',item.dateTime)}}</div>
 					</div>
 				</div>
@@ -71,7 +74,9 @@
 	import {
 		HomeInfo,
 		typeCheck,
-		challengeHistory
+		challengeHistory,
+		changeRopeChallage,
+		acceptChallage
 	} from '@a/api'
 	import {
 		NavBar,
@@ -109,16 +114,18 @@
 			this.getHistory();
 		},
 		created() {
-			let type = getQueryString('type') || "wheel";
+			let type = getQueryString('type') || "skipping";
 			type == 'skipping' ? this.flag = 2 : type == 'wristBall' ? this.flag = 1 : type == 'wheel' ? this.flag = 3 :
 				null;
 		},
 		methods: {
 			timeStamp2String: timeStamp2String,
-			getList() {
+			getList() { //加载首页
 				typeCheck({}, this.flag).then(res => {
-					if ((res.hasOwnProperty('data')&&res.data&&res.code==0)||(!res.hasOwnProperty('data')&&res.code==0)) {
+					if ((res.hasOwnProperty('data') && res.data && res.code == 0) || (!res.hasOwnProperty(
+							'data') && res.code == 0)) {
 						HomeInfo({}, this.flag).then(res2 => {
+							
 							this.info = Object.assign({}, res2.data);
 						}).catch(() => {
 							console.log("error")
@@ -128,22 +135,54 @@
 					}
 				})
 			},
+			changeChallenge() { //换个目标
+				if (this.flag == 2) {
+					changeRopeChallage({}).then(res => {
+						this.info.challengeDetail = res.data;
+					})
+				} else {
+					this.getList()
+				}
+			},
+			isChallage(type) { //判断是否应占
+				if (type == 2 || type == 3) {
+					this.goChallage()
+				}
+			},
+			goChallage() {
+				//app迎战
+				acceptChallage(this.info.challengeType||this.info.challengeDetail,this.flag).then(res=>{
+					this.$interaction.appNative('goMotionInterface',{type:this.flag});
+				})
+			},
 			getHistory() {
 				challengeHistory(this.page, this.flag).then(res => {
-					this.historyList = res.data;
+					if (this.flag == 2) this.historyList = res.data.content
+					else this.historyList = res.data;
 					this.isFinish = true;
 				}).catch(() => {
 					this.isFinish = true;
 				});
 			},
 			returnTask(obj) {
+				if(!obj.conditionMode)return '';
 				let str = '';
-				if (obj.conditionMode == 1 || obj.conditionMode == 3) {
-					str += ('单次运动' + obj.count + '次');
-					if (obj.conditionMode == 3) str += ('且达标率满' + obj.standardRate + '%')
+				if (this.flag == 2) {
+					if (obj.conditionMode == 1 || obj.conditionMode == 5 || obj.conditionMode == 6) {
+						str += ('单次运动' + obj.count + '次');
+						if (obj.conditionMode == 5 || obj.conditionMode == 6) str += ('且BPM达到' + obj.bpm)
+					} else {
+						str += ('运动满' + obj.duration + '秒');
+						if (obj.conditionMode == 3 || obj.conditionMode == 4) str += ('且BPM达到' + obj.bpm)
+					}
 				} else {
-					str += ('运动满' + (obj.duration / 1000) + '秒');
-					if (obj.conditionMode == 4) str += ('且达标率满' + obj.standardRate + '%')
+					if (obj.conditionMode == 1 || obj.conditionMode == 3) {
+						str += ('单次运动' + obj.count + '次');
+						if (obj.conditionMode == 3) str += ('且达标率满' + obj.standardRate + '%')
+					} else {
+						str += ('运动满' + obj.duration + '秒');
+						if (obj.conditionMode == 4) str += ('且达标率满' + obj.standardRate + '%')
+					}
 				}
 				return str;
 			},
@@ -161,8 +200,10 @@
 					message: str,
 				}).then(() => {
 					// on close
+					this.$interaction.appNative('LSTH5APP_SelectDeviceAndPushToSport',{isPK:0,deviceType:getQueryString('type')});
 				}).catch(() => {
 					// on cancel
+					this.$interaction.closePage();
 				});
 			},
 			onClickLeft() {

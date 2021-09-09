@@ -2,19 +2,19 @@
     <div class="app-container">
         <div class="container-search">
             <el-form :inline="true" :model="searchForm">
-                <el-form-item label="语言设置：">
+                <!-- <el-form-item label="语言设置：">
                     <el-select v-model="searchForm.language">
                         <el-option v-for="(item, ind) in languageList" :key="ind" :label="item.languageType"
                             :value="item.languageType">{{item.languageType + '-' +item.description}}</el-option>
                     </el-select>
-                </el-form-item>
+                </el-form-item> -->
                 <el-form-item label="问题标题">
                     <el-input v-model="searchForm.title"></el-input>
                 </el-form-item>
-                <el-form-item label="设备型号">
-                    <el-select v-model="searchForm.deviceType" placeholder="全部" clearable>
-                        <el-option v-for="item in deviceModelList" :key="item.deviceModel" :label="item.deviceName"
-                            :value="item.deviceModel">
+                <el-form-item label="问题大类">
+                    <el-select v-model="searchForm.questionType" placeholder="全部" clearable>
+                        <el-option v-for="item in deviceModelList" :key="item.id" :label="item.questionTypeTitle"
+                            :value="item.id">
                         </el-option>
                     </el-select>
                 </el-form-item>
@@ -30,8 +30,8 @@
         <el-table v-loading="loading" :data="list" element-loading-text="Loading" border fit highlight-current-row
             size="small ">
             <el-table-column align="center" prop="id" label="ID" width="65"></el-table-column>
-            <el-table-column align="center" prop="device_type" label="设备类型"></el-table-column>
-            <el-table-column align="center" prop="device_type_detail" label="设备名称"></el-table-column>
+            <el-table-column align="center" prop="deviceType" label="设备类型"></el-table-column>
+            <!-- <el-table-column align="center" prop="device_type_detail" label="设备名称"></el-table-column> -->
             <el-table-column align="center" prop="title" label="问题标题" :show-overflow-tooltip="true"></el-table-column>
             <el-table-column align="center" label="操作" width="180">
                 <template scope="scope">
@@ -64,20 +64,20 @@
                     <el-input v-model="form.title"></el-input>
                 </el-form-item>
 
-                <el-form-item label="设备型号" prop="device_type">
-                    <el-select v-model="form.device_type" clearable @change='selectDeviceModelChange'>
-                        <el-option v-for="item in deviceModelList" :key="item.deviceModel" :label="item.deviceName"
-                            :value="item.deviceModel">
+                <el-form-item label="问题大类" prop="questionType">
+                    <el-select v-model="form.questionType" clearable @change='selectDeviceModelChange'>
+                        <el-option v-for="item in deviceModelList" :key="item.id" :label="item.questionTypeTitle"
+                            :value="item.id">
                         </el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item label="设备类型" prop="device_type_detail">
-                    <el-input v-model="form.device_type_detail" disabled></el-input>
+                <el-form-item label="设备类型" prop="deviceType">
+                    <el-input v-model="form.deviceType" disabled></el-input>
 
                 </el-form-item>
 
-                <el-form-item label="操作指南" prop="operation_manual">
-                    <el-input v-model="form.operation_manual" :autosize="{ minRows: 2}" type="textarea"></el-input>
+                <el-form-item label="操作指南" prop="operationManual">
+                    <el-input v-model="form.operationManual" :autosize="{ minRows: 2}" type="textarea"></el-input>
 
                 </el-form-item>
 
@@ -127,7 +127,7 @@
     import { listItem, addItem, updateItem, deleteItem, addHot } from '@/api/helpCenter/problemList'
     import { listItem as languageListItem } from '@/api/device/appLanguage'
     import { lanAddItem, lanUpdateItem, lanViewItem } from '@/api/helpCenter/problemList'
-    import { listItem as productListItem } from '@/api/device/productList'
+    import { listItem as questionListItem } from '@/api/helpCenter/bigQuestion'
     import Pagination from "@/components/pagination";
     import { checkPermission } from '@/api/checkPermission'
     import { getUInfo } from '@/utils/auth'
@@ -188,8 +188,8 @@
             }
         },
         mounted() {
-            this.getList()
-            this.getLanguageList()
+            // this.getList()
+            // this.getLanguageList()
             this.getProductList()
         },
         methods: {
@@ -200,7 +200,7 @@
                     ...this.searchForm
                 }
                 listItem(data).then(res => {
-                    this.list = res.data.content
+                    this.list = res.data
                     this.total = res.data.totalElements
                     this.loading = false
                 })
@@ -213,12 +213,9 @@
                 })
             },
             getProductList() {
-                productListItem({}).then(res => {
+                questionListItem({}).then(res => {
                     var obj = {};
-                    this.deviceModelList = res.data.reduce((arr, next) => {
-                        obj[next.deviceModel] ? '' : obj[next.deviceModel] = true && arr.push(next);
-                        return arr;
-                    }, []);
+                    this.deviceModelList = res.data;
                 })
             },
             // 上下分页

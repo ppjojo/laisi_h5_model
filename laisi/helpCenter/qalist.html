@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<link rel="icon" href="data:image/ico;base64,aWNv">
+		<title>常见问题</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+		<meta http-equiv="Expires" content="0">
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta http-equiv="Cache-control" content="no-cache">
+		<meta http-equiv="Cache" content="no-cache">
+		<link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
+		<link rel="stylesheet" type="text/css" href="css/problem.css">
+		<style type="text/css">
+			.answer {
+				padding: 0;
+			}
+
+			.listItem {
+				color: #cfcfd2;
+				border-top: 1px solid #161623;
+				border-bottom: 1px solid #161623;
+				padding: .24rem;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				font-size: .24rem;
+			}
+
+			.listItem img {
+				width: .1rem;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app" class="answer">
+			<div class="list">
+				<div class="listItem " v-for="(item,index) in dataList" @click="clickQuestion(item)">
+					<div>{{index+1}}.{{item.title}}</div>
+					<div><img src="img/icon_right.png" alt=""></div>
+				</div>
+			</div>
+		</div>
+		<script src="https://oss.laisitech.com/0bb12bf1-cb87-4d2c-a724-8a7c25b7ae04.js "></script>
+		<script src="https://oss.laisitech.com/6172e6c1-f460-40ac-97ba-31c8526f2e16.js"></script>
+		<script src="../../common/js/network.js"></script>
+		<script type="text/javascript">
+			var phoneLanguage = navigator.language;
+			var language = ""
+			if (phoneLanguage.indexOf("zh") != -1) {
+				language = "zh"
+				document.title = getQueryString('title');
+				// getdata()
+			} else if (phoneLanguage.indexOf("en") != -1) {
+				language = "en"
+				document.title = 'FAQ';
+				// getdata()
+			}
+			new Vue({
+				el: '#app',
+				data() {
+					return {
+						dataList:[],
+						tenPlayer:null,
+						tenParser:null,
+					}
+				},
+				filters: {},
+				mounted() {
+				},
+				created() {
+					this.getList()
+				},
+				methods: {
+					clickQuestion(item){
+						window.location.href = "answer.html?qa=" + item.operationManual + '&userId='+ getQueryString('userId')+'&title='+item.title;
+					},
+					getList(){
+						var _self = this;
+						ajax({
+							type: "get",
+							url: "helpCenter/faq/query",
+							data: {
+								questionType: getQueryString('id'),
+							},
+							success: function(res) {
+								if (parseInt(res.code) == 0) {
+									_self.dataList = res.data
+								}
+							},
+							error: function() {
+								console.log("error")
+						
+							}
+						})
+					},
+				}
+			})
+		</script>
+	</body>
+</html>
