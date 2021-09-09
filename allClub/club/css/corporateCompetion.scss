@@ -1,34 +1,29 @@
 /* 2021 1 7  新加企业俱乐部部门赛比赛详情*/
 @font-face {
-  font-family: "DINCondensed-Bold";
-  src: url("../../../common/font/DINCondensed-Bold/DINCondensed-Bold.woff2")
-      format("woff2"),
-    url("../../../common/font/DINCondensed-Bold/DINCondensed-Bold.woff")
-      format("woff"),
-    url("../../../common/font/DINCondensed-Bold/DINCondensed-Bold.ttf")
-      format("truetype"),
-    url("../../../common/font/DINCondensed-Bold/DINCondensed-Bold.eot")
-      format("embedded-opentype"),
-    url("../../../common/font/DINCondensed-Bold/DINCondensed-Bold.svg")
-      format("svg");
+  font-family: "BebasNeue";
+  src: url("../../../common/font/BebasNeue/BebasNeue.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
+
 .corporate {
-    margin-bottom: 2rem;
+  margin-bottom: 2rem;
+
   .deptList {
     display: flex;
     align-items: center;
     height: 1.2rem;
     box-sizing: border-box;
-    border-top: 1px solid #f8f8f8;
+    border-top: 1px solid #1e1e2a;
     padding: 0 0.3rem 0 0.15rem;
+
     .ranking {
       display: flex;
       align-content: center;
       justify-content: center;
       font-size: 0.36rem;
       color: #1f1f1f;
+
       img {
         width: 0.4rem;
         height: 0.46rem;
@@ -38,9 +33,11 @@
     .deptInfoBox {
       display: flex;
       align-content: center;
+
       .deptPic {
         display: flex;
         align-items: center;
+
         img {
           width: 0.6rem;
           height: 0.6rem;
@@ -51,14 +48,14 @@
           -o-border-radius: 50%;
         }
       }
+
       .deptD {
         margin-left: 0.1rem;
         padding: 0.1rem 0;
         width: 100%;
+
         .name {
           font-size: 0.28rem;
-          color: #1f1f1f;
-          // font-weight: bold;
           line-height: 0.55rem;
           height: 0.55rem;
           overflow: hidden;
@@ -66,9 +63,9 @@
           text-overflow: ellipsis;
           max-width: 3.5rem;
         }
+
         .userInfo {
           font-size: 0.2rem;
-          color: #999999;
           line-height: 0.35rem;
           display: flex;
           justify-content: space-between;
@@ -84,32 +81,31 @@
 
         .num {
           font-size: 0.48rem;
-          color: #1f1f1f;
-          font-weight: bold;
           line-height: 0.55rem;
-          font-family: "DINCondensed-Bold";
+          font-family: "BebasNeue";
         }
+
         .unit {
           font-size: 0.2rem;
-          color: #1f1f1f;
           line-height: 0.35rem;
         }
       }
+
       .numD {
-          text-align: right;
+        text-align: right;
         font-size: 0.2rem;
-        color: #999999;
         line-height: 0.4rem;
       }
     }
 
     .iconBox {
       display: flex;
-      i{
+
+      i {
         color: #999;
       }
     }
 
-    
+
   }
 }

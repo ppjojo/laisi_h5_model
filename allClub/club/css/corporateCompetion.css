@@ -1,8 +1,8 @@
 @charset "UTF-8";
 /* 2021 1 7  新加企业俱乐部部门赛比赛详情*/
 @font-face {
-  font-family: "DINCondensed-Bold";
-  src: url("../../../common/font/DINCondensed-Bold/DINCondensed-Bold.woff2") format("woff2"), url("../../../common/font/DINCondensed-Bold/DINCondensed-Bold.woff") format("woff"), url("../../../common/font/DINCondensed-Bold/DINCondensed-Bold.ttf") format("truetype"), url("../../../common/font/DINCondensed-Bold/DINCondensed-Bold.eot") format("embedded-opentype"), url("../../../common/font/DINCondensed-Bold/DINCondensed-Bold.svg") format("svg");
+  font-family: "BebasNeue";
+  src: url("../../../common/font/BebasNeue/BebasNeue.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
@@ -21,7 +21,7 @@
   height: 1.2rem;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  border-top: 1px solid #1E1E2A;
+  border-top: 1px solid #1e1e2a;
   padding: 0 0.3rem 0 0.15rem;
 }
 
@@ -78,7 +78,6 @@
 
 .corporate .deptList .deptInfoBox .deptD .name {
   font-size: 0.28rem;
-  color: #CFCFD2;
   line-height: 0.55rem;
   height: 0.55rem;
   overflow: hidden;
@@ -89,7 +88,6 @@
 
 .corporate .deptList .deptInfoBox .deptD .userInfo {
   font-size: 0.2rem;
-  color: #CFCFD2;
   line-height: 0.35rem;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -113,22 +111,18 @@
 
 .corporate .deptList .scoreBox .numBox .num {
   font-size: 0.48rem;
-  color: #CFCFD2;
-  font-weight: bold;
   line-height: 0.55rem;
-  font-family: "DINCondensed-Bold";
+  font-family: "BebasNeue";
 }
 
 .corporate .deptList .scoreBox .numBox .unit {
   font-size: 0.2rem;
-  color: #CFCFD2;
   line-height: 0.35rem;
 }
 
 .corporate .deptList .scoreBox .numD {
   text-align: right;
   font-size: 0.2rem;
-  color: #CFCFD2;
   line-height: 0.4rem;
 }
 
@@ -139,14 +133,6 @@
 }
 
 .corporate .deptList .iconBox i {
-  color: #71717f;
-}
-.van-cell{
-	background-color: #12121f;
-	color: #cfcfd2;
-}
-.van-collapse-item__content{
-	background-color: #12121f;
-	color: #cfcfd2;
+  color: #999;
 }
 /*# sourceMappingURL=corporateCompetion.css.map */

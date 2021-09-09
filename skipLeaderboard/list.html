@@ -66,11 +66,11 @@
 						<p :class="secondType=='count'?'selected':''" @click="secondTypeChange('count')">数量派</p>
 					</div>
 
-					<div class="tabDiv2" v-else-if="userType=='wheel'">
-						<p :class="secondType=='number'?'selected':''" @click="secondTypeChange('number')">总次数</p>
-						<p :class="secondType=='activeTime'?'selected':''" @click="secondTypeChange('activeTime')">达标率
+					<!-- <div class="tabDiv2" v-else-if="userType=='wheel'">
+						<p :class="secondType=='count'?'selected':''" @click="secondTypeChange('count')">总次数</p>
+						<p :class="secondType=='standardRate'?'selected':''" @click="secondTypeChange('standardRate')">达标率
 						</p>
-					</div>
+					</div> -->
 				</div>
 
 				<van-pull-refresh v-model="refreshing" :head-height="90" @refresh="onRefresh"
@@ -136,6 +136,7 @@
 				bottomTipMsg: "排名来源于所有跳绳数据",
 				apiUrl: "ropeSkipping/rank/number",
 				activeTime: "daily", //type： daily， week， month， total
+				checkTime: "",
 				activeTimeOption: [{
 						zh: "日榜",
 						en: "daily"
@@ -178,10 +179,11 @@
 					this.secondTypeChange('maxRate')
 					this.bottomTipMsg = "排名来源于所有腕力球数据"
 				} else if (this.userType == "running") {
-					this.secondTypeChange('maxRate')
+					this.apiUrl = `sportwatch/merge/steps/rank`
+					this.activeTimeChange("daily")
 					this.bottomTipMsg = "排名来源于所有步数数据"
 				} else if (this.userType == "wheel") {
-					this.secondTypeChange('maxRate')
+					this.secondTypeChange('count')
 					this.bottomTipMsg = "排名来源于所有健腹轮数据"
 				}
 
@@ -192,19 +194,48 @@
 			},
 			activeTimeChange(str) {
 				this.activeTime = str;
+				var now = new Date(); //当前日期
+				var nowDayOfWeek = now.getDay(); //今天本周的第几天
+				var nowDay = now.getDate(); //当前日
+				var nowMonth = now.getMonth(); //当前月
+				var nowYear = now.getYear(); //当前年
+				nowYear += (nowYear < 2000) ? 1900 : 0;
+				if (str == "daily") {
+					this.checkTime =new Date(nowYear,nowMonth,nowDay) 
+				} else if (str == "week") {
+					this.checkTime = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek + 1);
+				} else if (str == "month") {
+					this.checkTime =new Date(nowYear,nowMonth,1) 
+				} else {
+					this.checkTime = ""
+				}
+				if(this.checkTime){
+					this.checkTime=this.checkTime.getTime()
+				}
+				
 				this.getList()
+			},
+			formatDate(date) {
+				var myyear = date.getFullYear();
+				var mymonth = date.getMonth() + 1;
+				var myweekday = date.getDate();
+				if (mymonth < 10) {
+					mymonth = "0" + mymonth;
+				}
+				if (myweekday < 10) {
+					myweekday = "0" + myweekday;
+				}
+				return (myyear + "-" + mymonth + "-" + myweekday);
 			},
 
 			secondTypeChange(str) {
-				this.secondType = str;
+				this.secondType = str || "";
 				if (this.userType == "skipping") {
 					this.apiUrl = `ropeSkipping/rank/${str}` //个数
 				} else if (this.userType == "wristball") {
 					this.apiUrl = `wristball/rank/${str}`
-				} else if (this.userType == "running") {
-					this.apiUrl = `steps/rank/${str}`
 				} else if (this.userType == "wheel") {
-					this.apiUrl = `wheel/rank/${str}`
+					this.apiUrl = `ab-roller/rank/${str}`
 				}
 				this.getList()
 			},
@@ -213,6 +244,7 @@
 					url: this.apiUrl,
 					data: {
 						type: this.activeTime,
+						checkTime: this.checkTime
 					}
 				}).then(res => {
 					setTimeout(() => {
@@ -269,13 +301,13 @@
 							} else {
 								res.data.forEach(item => {
 									item.value = "<span class='bigNumberSpan'>" + item
-										.value + "</span>" + "个";
+										.value + "</span>" + "%";
 								})
 							}
 						} else {
 							res.data.forEach(item => {
 								item.value = "<span class='bigNumberSpan'>" + item
-									.value + "</span>" + "步";
+									.steps + "</span>" + "步";
 							})
 						}
 						this.listData = res.data;

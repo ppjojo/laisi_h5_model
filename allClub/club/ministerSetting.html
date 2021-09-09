@@ -1,595 +1,433 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
-		<title>部长设置</title>
-		<!-- 引入样式文件 -->
-		<link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
-		<link rel="stylesheet" href="css/clubCreateCompetition.css">
-		<link rel="stylesheet" type="text/css" href="css/iosTop.css" />
-		<script type="text/javascript">
-			document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';
-		</script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.min.js"></script>
-		<script src="js/exif.js"></script>
-		<script src="js/upload.js"></script>
-		<script src="../corporateClub/js/clipboard.min.js"></script>
-		<!-- <script src="https://cdn.bootcss.com/vConsole/3.3.4/vconsole.min.js"></script>
-		<script>
-			// init vConsole
-			var vConsole = new VConsole();
-			console.log('Hello world');
-		</script> -->
-		<style type="text/css">
-			.van-cell:not(:last-child)::after {
-				left: 0;
-			}
 
-			.van-cell::after {
-				border-bottom: none;
-			}
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+	<title>部长设置</title>
+	<!-- 引入样式文件 -->
+	<link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
 
-			.van-hairline--top-bottom::after,
-			.van-hairline-unset--top-bottom::after {
-				border-width: 0;
-			}
+	<link rel="stylesheet" href="../font/iconfont.css">
+	<link rel="stylesheet" type="text/css" href="../clubList_Detail/css/header.css" />
+	<link rel="stylesheet" type="text/css" href="css/memberSetting.css" />
+	<script src="../corporateClub/js/clipboard.min.js"></script>
+	<script src="js/upload.js"></script>
 
-			.cropper-container {
-				display: none;
-			}
 
-			.van-cell__value span {
-				font-size: .28rem;
-				color: #CFCFD2;
-			}
+	<style type="text/css">
+		.redPoint {
+			width: 0.08rem;
+			border-radius: 50%;
+			height: 0.08rem;
+			background-color: red;
+			display: inline-block;
+			position: relative;
+			top: -0.2rem;
+		}
 
-			.listBox {
-				height: 0.96rem;
-				line-height: 0.96rem;
-				font-size: 0.32rem;
-				padding: 0 0.3rem;
-				border-bottom: 1px solid #1E1E2A;
-				color: #CFCFD2;
-			}
+		.smallpic {
+			width: .72rem;
+			height: .72rem;
+			border-radius: .1rem;
+			vertical-align: middle;
+		}
 
-			.redPoint {
-				width: 0.08rem;
-				border-radius: 50%;
-				height: 0.08rem;
-				background-color: red;
-				display: inline-block;
-				position: relative;
-				top: -0.2rem;
-			}
+		.van-uploader__preview,
+		.van-uploader__preview-image {
+			width: .72rem;
+			height: .72rem;
+			border-radius: .1rem;
+			vertical-align: middle;
+			margin-top: .1rem;
+			/* display: none; */
+		}
+	</style>
+</head>
 
-			.smallpic {
-				width: .72rem;
-				height: .72rem;
-				border-radius: .1rem;
-				vertical-align: middle;
-			}
-
-			.van-uploader__preview,
-			.van-uploader__preview-image {
-				width: .72rem;
-				height: .72rem;
-				border-radius: .1rem;
-				vertical-align: middle;
-				margin-top: .1rem;
-				/* display: none; */
-			}
-
-			.van-cell__value span {
-				overflow: hidden;
-				white-space: nowrap;
-				text-overflow: ellipsis;
-			}
-
-			[class*=van-hairline]::after {
-				border: none;
-			}
-
-			#clubname .van-cell__title {
-				-webkit-box-flex: none !important;
-				-webkit-flex: none !important;
-				flex: none !important;
-				width: 1.7rem;
-			}
-			#app>.header,.van-nav-bar,.monkey-pull-refresh,.DBnotice{
-				background-color: #12121F;
-			}
-					.van-nav-bar .van-icon,.van-nav-bar__title,.van-list__error-text, .van-list__finished-text, .van-list__loading{
-						color:#CFCFD2;
-					}
-		</style>
-	</head>
-	<body>
-		<div id="app" class="page" v-cloak>
-			<div class="header">
-				<van-nav-bar title="俱乐部设置" @click-left="OnclickLeft" left-arrow>
-				</van-nav-bar>
+<body>
+	<div id="app" class="normalHeader" v-cloak>
+		<div class="header">
+			<van-nav-bar @click-left="onclickLeft" title="俱乐部设置" left-arrow safe-area-inset-top fixed>
+				<template #left>
+					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.48rem;" />
+				</template>
+			</van-nav-bar>
+		</div>
+		<div class="detailBox">
+			<div class="listBox">
+				<div>俱乐部名称</div>
+				<div class="rightBox" @click="goClubName">
+					{{submitform.name}}
+					<span v-if="submitform.self.isMinister=='Y'" class="icon iconfont icon-tongyong-gengduo"
+						style="font-size: 0.3rem;"></span>
+				</div>
 			</div>
-
-			<div>
-				<van-collapse v-model="activeNames" accordion>
-					<div id="clubname" @click="if(submitform.self.isMinister!='Y')return;localStorage.setItem('clubForm', JSON.stringify(submitform));window.location.href='ministerSettingSecond.html?flag=1'"
-					 style="border-bottom: .02rem solid #1e1e2a;">
-						<van-cell title="俱乐部名称" :is-link="submitform.self.isMinister=='Y'" :value="submitform.name"></van-cell>
-					</div>
-					<div style="border-bottom: .02rem solid #1e1e2a;">
-						<van-cell title="俱乐部形象" :is-link="submitform.self.isMinister=='Y'">
-							<template v-if="submitform.self.isMinister=='Y'">
-								<van-uploader  v-model="fileList" :max-count="1" :after-read="afterRead" :deletable=false>
-									<template #preview-cover="{ file }">
-									</template>
-									<van-uploader>
-										<img class="smallpic" :src="submitform.photo" />
+			<div class="listBox">
+				<div>俱乐部形象</div>
+				<div class="rightBox">
+					<template v-if="submitform.self.isMinister=='Y'">
+						<van-uploader v-model="fileList" :max-count="1" :after-read="afterRead" :deletable=false>
+							<template #preview-cover="{ file }">
 							</template>
-							<template v-else>
+							<van-uploader>
 								<img class="smallpic" :src="submitform.photo" />
-							</template>
-						</van-cell>
+					</template>
+					<template v-else>
+						<img class="smallpic" :src="submitform.photo" />
+					</template>
+					<span v-if="submitform.self.isMinister=='Y'" class="icon iconfont icon-tongyong-gengduo"
+						style="font-size: 0.3rem;"></span>
+				</div>
+			</div>
+			<div class="listBox">
+				<div>俱乐部简介</div>
+				<div class="rightBox" @click="goDesc">
+					<span v-if="submitform.self.isMinister=='Y'" class="icon iconfont icon-tongyong-gengduo"
+						style="font-size: 0.3rem;"></span>
+				</div>
+			</div>
+			<div class="listBox" v-if="submitform.self.isMinister=='Y'">
+				<div>是否需要申请加入</div>
+				<div class="rightBox">
+					<van-switch @change="ispublic" active-color="#07c160" v-model="publicFlag" size="20"></van-switch>
+				</div>
+			</div>
+			<div class="listBox" v-if="submitform.type=='05'&&!publicFlag">
+				<div>俱乐部邀请码</div>
+				<div class="rightBox" data-clipboard-target="#INcode" id="inviteBtn" style="cursor:pointer;"
+					@click="copyInvite()">
+					<div id="INcode" style="font-size: .28rem;margin-right: .1rem;">{{submitform.inviteCode}}</div>
+					<img style="width: .3rem;" src="../corporateClub/img/copyicon_white.png" alt="">
+				</div>
+			</div>
+			<div class="listBox " style="border-bottom: 4px solid #1e1e2a;">
+				<div>所在城市</div>
+				<div class="rightBox">
+					{{(submitform.province||"")+(submitform.city||"")+(submitform.county||"")}}
+				</div>
+			</div>
+			<div class="listBox" v-if="submitform.type=='05'">
+				<div>我在俱乐部的昵称</div>
+				<div class="rightBox" @click="gotoNickName">
+					{{submitform.nickname}}
+					<span class="icon iconfont icon-tongyong-gengduo" style="font-size: 0.3rem;"></span>
+				</div>
+			</div>
+			<div class="listBox" v-if="submitform.self.isMinister=='Y'" @click="gotoNotice">
+				<div>发通知</div>
+				<div class="rightBox">
+					<span class="icon iconfont icon-tongyong-gengduo" style="font-size: 0.3rem;"></span>
+				</div>
+			</div>
+			<div class="listBox" v-if="submitform.type=='05'" @click="gotoGroupManage">
+				<div>部门管理</div>
+				<div class="rightBox">
+					<span class="icon iconfont icon-tongyong-gengduo" style="font-size: 0.3rem;"></span>
+				</div>
+			</div>
+			<div class="listBox">
+				<div>成员管理</div>
+				<div class="rightBox" @click="gotoMemberList(1)">
+					<div>
+						{{submitform.memberNumber?submitform.memberNumber+'人':''}}
 					</div>
-					<div @click="if(submitform.self.isMinister!='Y')return;localStorage.setItem('clubForm', JSON.stringify(submitform));window.location.href='ministerSettingSecond.html?flag=2'"
-					 style="border-bottom: .02rem solid #1e1e2a;">
-						<van-cell title="俱乐部简介" :is-link="submitform.self.isMinister=='Y'" value=""></van-cell>
+					<span class="icon iconfont icon-tongyong-gengduo" style="font-size: 0.3rem;"></span>
+				</div>
+			</div>
+			<div class="listBox" @click="gotoMemberList(2)">
+				<div>{{submitform.self.isMinister=='Y'?'部长转让':'分部长转让'}}</div>
+				<div class="rightBox" >
+					<span class="icon iconfont icon-tongyong-gengduo" style="font-size: 0.3rem;"></span>
+				</div>
+			</div>
+			<div class="listBox" v-if="applyIsPublic=='N'&&submitform.self.isMinister=='Y'"
+				style="border-bottom: 4px solid #1e1e2a;">
+				<div>申请列表 <span v-if="applyMemberList.length>0" class="redPoint"></span></div>
+				<div class="rightBox" @click="gotoApplyList">
+					<div>
+						{{applyMemberList.length+'人'}}
 					</div>
-					<div class="ub ub-ac ub-pj" v-if="submitform.self.isMinister=='Y'" style="border-bottom: .02rem solid #1e1e2a;">
-						<div class="van-cell"><span>是否需要申请加入</span></div>
-						<van-switch style="margin-right: .3rem;" @change="ispublic" active-color="#07c160" v-model="publicFlag" size="20"></van-switch>
-					</div>
-					<div class="listBox ub ub-ac ub-pj" v-if="submitform.type=='05'&&!publicFlag" style="border-bottom: .02rem solid #1e1e2a;">
-						<span>俱乐部邀请码</span>
-						<div class="ub ub-ac" data-clipboard-target="#INcode" id="inviteBtn" style="cursor:pointer;" @click="copyInvite()">
-							<div id="INcode" style="font-size: .28rem;margin-right: .1rem;">{{submitform.inviteCode}}</div>
-							<img style="width: .3rem;" src="../corporateClub/img/copyicon.png" alt="">
-						</div>
-
-					</div>
-					<div class="listBox ub ub-pj" style="border-bottom: .08rem solid #1e1e2a;">
-						<span>所在城市</span><span id="" style="font-size: .28rem;">
-							{{(submitform.province||"")+(submitform.city||"")+(submitform.county||"")}}
-						</span>
-					</div>
-					<div class="listBox ub ub-ac ub-pj"  v-if="submitform.type=='05'" @click="gotoNickName" style="border-bottom: .08rem solid #1e1e2a;">
-						<span>我在俱乐部的昵称</span>
-						<div class="ub ub-ac">
-							<span id="" style="font-size: .28rem;">
-								{{submitform.nickname}}
-							</span>
-							<van-icon style="display: block;" color="#cfcfd2" name="arrow" />
-						</div>
-
-					</div>
-					<van-cell title="发通知" v-if="submitform.self.isMinister=='Y'" is-link @click="gotoNotice" style="border-bottom: .02rem solid #1e1e2a;"></van-cell>
-					<van-cell v-if="submitform.type=='05'" title="部门管理" is-link @click="gotoGroupManage()" style="border-bottom: .02rem solid #1e1e2a;"></van-cell>
-					<van-cell style="border-bottom: .02rem solid #1e1e2a;" title="成员管理" is-link :value="submitform.memberNumber?submitform.memberNumber+'人':''"
-					 @click="gotoMemberList(submitform.self.isMinister=='Y'?3:6)"></van-cell>
-					<van-cell style="border-bottom: .02rem solid #1e1e2a;" :title="submitform.self.isMinister=='Y'?'部长转让':'分部长转让'"
-					 is-link @click="gotoMemberList(submitform.self.isMinister=='Y'?4:9)"></van-cell>
-					<van-cell title="" is-link @click="gotoApplyList" v-if="applyIsPublic=='N'&&submitform.self.isMinister=='Y'">
-						<div slot="title">
-							申请列表
-							<span v-if="applyMemberList.length>0" class="redPoint"></span>
-						</div>
-					</van-cell>
-					<van-cell v-if="submitform.type=='05'" style="border-bottom: .08rem solid #1e1e2a;border-top: .08rem solid #1e1e2a;"
-					 title="下载数据" is-link @click="goToDownload"></van-cell>
-					<van-cell title="我的参与" is-link @click="historyList()"></van-cell>
-				</van-collapse>
-				<van-overlay :show="overlayShow" @click="show = false" style="align-items: center;display: flex;justify-content: center;">
-					<van-loading size="0.7rem" color="#fff" vertical>
-						<p style="color:#fff;font-size:0.24rem">正在上传图片...</p>
-					</van-loading>
-				</van-overlay>
+					<span class="icon iconfont icon-tongyong-gengduo" style="font-size: 0.3rem;"></span>
+				</div>
+			</div>
+			<div class="listBox" v-if="submitform.type=='05'" @click="goToDownload">
+				<div>下载数据 </div>
+				<div class="rightBox">
+					<span class="icon iconfont icon-tongyong-gengduo" style="font-size: 0.3rem;"></span>
+				</div>
+			</div>
+			<div class="listBox" @click="historyList()">
+				<div>我的参与 </div>
+				<div class="rightBox">
+					<span class="icon iconfont icon-tongyong-gengduo" style="font-size: 0.3rem;"></span>
+				</div>
 			</div>
 		</div>
-	</body>
-	<script src="https://oss.laisitech.com/0bb12bf1-cb87-4d2c-a724-8a7c25b7ae04.js "></script>
-<script src="https://oss.laisitech.com/6172e6c1-f460-40ac-97ba-31c8526f2e16.js"></script>
+		<van-overlay :show="overlayShow" @click="show = false"
+			style="align-items: center;display: flex;justify-content: center;">
+			<van-loading size="0.7rem" color="#fff" vertical>
+				<p style="color:#fff;font-size:0.24rem">正在上传图片...</p>
+			</van-loading>
+		</van-overlay>
+	</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
 
-	<script src="../../common/js/network.js"></script>
-	<script type="text/javascript">
-		window.addEventListener('pageshow', function(e) {
-			console.log("pageshow")
-			if(localStorage.getItem('transfered')){
-				localStorage.removeItem("transfered");
-				window.location.replace('memberSetting.html?id='+getQueryString("id"));
-				return;
-			}
-			if (localStorage.getItem('settingChange')) {
-				setTimeout(function() {
-					initData();
-				}, 500)
-				localStorage.removeItem("settingChange");
-			}
-		}, false)
-		new Vue({
-			el: '#app',
-			data() {
-				return {
-					isClick: false,
-					activeNames: 0,
-					matchName: '',
-					clubId: "",
-					overlayShow: false,
-					applyMemberList: [],
-					applyIsPublic: "",
-					publicFlag: false,
-					isSubmit: false,
-					fileList: [],
-					form: {
-						bq: "",
-						lx: "",
-						mc: "",
-						cs: "",
-						yqm: "",
-						jj: ""
+<script src="../../common/js/network.js"></script>
+<script type="text/javascript">
+	
+	new Vue({
+		el: '#app',
+		data() {
+			return {
+				isClick: false,
+				clubId: "",
+				overlayShow: false,
+				applyMemberList: [],
+				applyIsPublic: "",
+				publicFlag: false,
+				isSubmit: false,
+				fileList: [],
+				form: {
+					bq: "",
+					lx: "",
+					mc: "",
+					cs: "",
+					yqm: "",
+					jj: ""
+				},
+				submitform: {
+					"name": "",
+					"province": "",
+					"city": "",
+					"county": "",
+					"isPublic": "", // Y(官方比赛)，N(非官方比赛)
+					"isinvite": "",
+					"introduce": "", //简介
+					"photo": "",
+					self: {
+						isMinister: "N"
+					}
+				}
+
+			};
+		},
+		mounted() {
+			window.initData = this.initData;
+		},
+		created() {
+			this.clubId = getQueryString("id");
+			this.submitform=Object.assign({},localStorage.getItem("clubObj"))
+			this.initData();
+		},
+		methods: {
+			onclickLeft() {
+				window.history.back(-1)
+			},
+			goClubName() {
+				if (this.submitform.self.isMinister != 'Y') return;
+				localStorage.setItem('clubForm', JSON.stringify(this.submitform));
+				window.location.href = 'ministerSettingSecond.html?flag=1'
+			},
+			goDesc() {
+				if (this.submitform.self.isMinister != 'Y') return;
+				localStorage.setItem('clubForm', JSON.stringify(this.submitform));
+				window.location.href = `ministerSettingSecond.html?flag=2`
+			},
+			initData() {
+				this.applyList();
+				var _self = this;
+				
+				
+				ajax({
+					type: "get",
+					url: "club/clubDetail",
+					data: {
+						clubId: _self.clubId
 					},
-					submitform: {
-						"name": "",
-						"province": "",
-						"city": "",
-						"county": "",
-						"isPublic": "", // Y(官方比赛)，N(非官方比赛)
-						"isinvite": "",
-						"introduce": "", //简介
-						"photo": ""
-					}
-
-				};
-			},
-			mounted() {
-				window.initData = this.initData;
-				// window.ininPageData = this.initData;
-			},
-			created() {
-				this.clubId = getQueryString("id") || 10000219;
-				this.initData();
-			},
-			methods: {
-				OnclickLeft() {
-					Interaction.closePage();
-				},
-				initData() {
-					this.applyList();
-					var _self = this;
-					ajax({
-						type: "get",
-						url: "club/clubDetail",
-						data: {
-							clubId: _self.clubId
-						},
-						success: function(res) {
-							if (res.code == 0) {
-								_self.submitform = res.data;
-								if(_self.submitform.self.isMinister=="N"&&_self.submitform.self.isSubMinister=="N"){
-									// window.location.replace('memberSetting.html?id='+getQueryString("id"));
-									return;
-								}
-								_self.publicFlag = res.data.isPublic == "N" ? true : false;
-								_self.isInviteCode = res.data.isPublic == "N" ? "N" : "Y";
-								_self.applyIsPublic = res.data.isPublic;
-							} else {
-								_self.$toast(res.msg);
+					success: function (res) {
+						if (res.code == 0) {
+							_self.submitform = res.data;
+							if (_self.submitform.self.isMinister == "N" && _self.submitform.self
+								.isSubMinister == "N") {
+								return;
 							}
-						},
-						error: function() {
-							console.log("error")
+							_self.publicFlag = res.data.isPublic == "N" ? true : false;
+							_self.isInviteCode = res.data.isPublic == "N" ? "N" : "Y";
+							_self.applyIsPublic = res.data.isPublic;
+						} else {
+							_self.$toast(res.msg);
 						}
-					})
-				},
-				//获取申请列表
-				applyList() {
-					var _self = this;
-					ajax({
-						type: "post",
-						url: "club/applyList",
-						data: {
-							clubId: _self.clubId,
-						},
-						success: function(res) {
-							if (res.code == 0) {
-								_self.applyMemberList = res.data;
-							} else {
-								_self.$toast(res.msg);
-							}
-						},
-						error: function() {
-							console.log("error")
-						}
-					})
-				},
-				datachange() {
-					localStorage.setItem("dataChange", "tabDetailChange");
-				},
-				copyInvite() {
-					if(isAndroid){
-						const range = document.createRange();
-						range.selectNode(document.getElementById('INcode'));
-						const selection = window.getSelection();
-						if(selection.rangeCount > 0) selection.removeAllRanges();
-						selection.addRange(range);
-						document.execCommand('copy');
-					}else{
-						Interaction.appNative('clipboardCopy',{str:this.submitform.inviteCode});
+					},
+					error: function () {
+						console.log("error")
 					}
-					this.$toast('复制成功');
-					// var _self = this;
-					// clipboard.on("success", function(e) {
-					// 	_self.$toast('复制成功');
-					// 	e.clearSelection();
-					// 	clipboard.destroy(); // 如果不销毁，第一次以后的复制，会有重复的alert弹出
-					// });
-					// clipboard.on("error", function(e) {
-					// 	_self.$toast("复制失败，请手动复制!");
-					// 	clipboard.destroy(); // 如果不销毁，第一次以后的复制，会有重复的alert
-					// });
-				},
-				ispublic(val) {
-					var _self = this;
-					if (val) {
-						this.createCode()
+				})
+			},
+			//获取申请列表
+			applyList() {
+				ajax({
+					type: "post",
+					url: "club/applyList",
+					data: {
+						clubId: this.clubId,
+					}
+				}).then(res => {
+					if (res.code == 0) {
+						this.applyMemberList = res.data;
 					} else {
-						this.noCode()
+						this.$toast(res.msg);
 					}
-					ajax({
-						type: "post",
-						url: "club/updateClub",
-						data: _self.submitform,
-						success: function(res) {
-							_self.isClick = false;
-							if (res.code == 0) {
-								_self.overlayShow = false;
-								if (_self.submitform.isPublic == 'Y') {
-									_self.applyIsPublic = 'Y';
-								} else {
-									_self.applyIsPublic = 'N';
-								}
-								_self.datachange();
-								_self.$toast("俱乐部设置成功！");
-								_self.initData();
-								// _self.successBack();
-							} else {
-								_self.overlayShow = false;
-								_self.$toast(res.msg);
-							}
-						},
-						error: function() {
-							_self.isClick = false;
-							console.log("error")
-						}
-					})
-				},
-				//选择公开
-				noCode() {
-					this.form.yqm = "公开";
-					this.submitform.isPublic = "Y";
-					this.submitform.isInviteCode = "Y";
-					this.activeNames = 0;
-				},
-				//生成邀请码
-				createCode() {
+				})
+			},
+
+			copyInvite() {
+				if (isAndroid) {
+					const range = document.createRange();
+					range.selectNode(document.getElementById('INcode'));
+					const selection = window.getSelection();
+					if (selection.rangeCount > 0) selection.removeAllRanges();
+					selection.addRange(range);
+					document.execCommand('copy');
+				} else {
+					Interaction.appNative('clipboardCopy', {
+						str: this.submitform.inviteCode
+					});
+				}
+				this.$toast('复制成功');
+
+			},
+			ispublic(val) {
+				var _self = this;
+				if (val) {
 					this.submitform.isPublic = "N";
 					this.submitform.isInviteCode = "N";
 					this.form.yqm = "不公开";
-					this.activeNames = 0;
-				},
-				//进入成员管理传入不同的参数
-				gotoMemberList(flag) { //
-					if (this.submitform.type == '05') {
-						window.location.href = "../corporateClub/groupMember.html?clubId=" + this.clubId + "&fromchoose=" + flag+"&clubGroupId="+this.submitform.self.clubGroupId+"&memberNumber="+this.submitform.memberNumber;
-					} else {
-						window.location.href = "memberList.html?flag=1&id=" + this.clubId;
-					}
-				},
-				//进入发通知的页面
-				gotoNotice() { //
-					window.location.href = "notice.html?flag=1&id=" + this.clubId
-				},
-				//进入申请列表
-				gotoApplyList(flag) { //
-					window.location.href = "applyList.html?id=" + this.clubId + "&iscorporate=" + (this.submitform.type == '05' ? 1 :
-						0);
-				},
-				gotoNickName() { //修改昵称
-					window.location.href = "../corporateClub/changeNickname.html?name=" + this.submitform.nickname + "&id=" + this.clubId
-				},
-				gotoGroupManage() {
-					let editor = this.submitform.self.isMinister == "Y" ? 1 : 2;
-					window.location.href = "../corporateClub/groupManagement.html?id=" + this.clubId + "&editor=" + editor;
-				},
-				//参与历史
-				historyList() {
-					if (this.submitform.type == '05') {
-						window.location.href = "../corporateClub/myJoin.html?id=" + this.clubId + "&userId=" + JSON.parse(localStorage.getItem(
-							"appInfo")).userId;
-					} else {
-						window.location.href = "historyList.html?id=" + this.clubId + "&userId=" + JSON.parse(localStorage.getItem(
-							"appInfo")).userId;
-					}
-
-					// return;
-					// var str = "h5/h5V2/allClub/club/historyList.html?id=" + this.clubId + "&userId=" + JSON.parse(localStorage.getItem("appInfo")).userId;
-					// if (isIOS) {
-					// 	var allstr = "/" + str
-					// 	Interaction.pushToNextVC(allstr)
-					// } else {
-
-					// }
-				},
-				goToDownload() {
-					let editor = this.submitform.self.isMinister == "Y" ? 1 : 2;
-					window.location.href = "../corporateClub/myDownload.html?id=" + this.clubId + "&editor=" + editor +
-						'&clubGroupId=' + this.submitform.self.clubGroupId;
-				},
-				//文件选择之后的回调压缩裁剪处理
-				afterRead(file) {
-					var _self = this;
-					_self.overlayShow = true;
-					setTimeout(function() {
-						_self.uploadPicReady(_self.fileList[0])
-					}, 500)
-				},
-				uploadPicReady(file) {
-					console.log("原始的文件")
-					//console.log(file.file)
-					var _self = this;
-					try {
-						var cropper = new Cropper(document.getElementsByClassName("van-image__img")[0], {
-							aspectRatio: 16 / 16,
-							viewMode: 1,
-							dragMode: "move",
-							background: false,
-							autoCropArea: 1,
-							crop: function(e) {
-								var canvas = cropper.getCroppedCanvas();
-								dataURLtoFile(canvas.toDataURL('image/jpeg'), file.file.name, function(dataURLtoFileData) {
-									_self.fileList[0].file = dataURLtoFileData;
-									console.log("裁剪后的文件")
-									console.log(dataURLtoFileData)
-									UpladFile({
-										file: dataURLtoFileData
-									}, function(item) {
-										_self.fileList[0] = item;
-										console.log("压缩后的文件")
-										console.log(item.file)
-										_self.uploadPic(item.file)
-									})
-								})
-							}
-						})
-					} catch (e) {
-						console.log(e)
-						_self.isClick = false;
-						_self.overlayShow = false;
-					}
-				},
-				//上传图片
-				uploadPic(file) {
-					console.log("准备上传的文件")
-					console.log(file)
-					var _self = this;
-					var formdata = new FormData();
-					formdata.append("file", file);
-
-					ajax({
-						type: "post",
-						url: "oss/upload/file",
-						contentType: "multipart/form-data",
-						data: formdata,
-						success: function(res) {
-							if (res.code == 0) {
-								_self.submitform.photo = res.data.url;
-								_self.submitFormDataSecond();
-							} else {
-								_self.overlayShow = false;
-								_self.$toast(res.msg);
-							}
-						},
-						error: function() {
-							console.log("error")
-						}
-					})
-				},
-				//提交表单数据
-				submitFormData() {
-					var _self = this;
-					if (_self.isClick) {
-						return;
-					}
-					_self.isClick = true
-					this.isSubmit = true;
-					for (var key in _self.submitform) {
-						//console.log(key+"---------"+_self.submitform[key])
-						if (this.submitform[key] === "") {
-							_self.isClick = false;
-							return;
-						}
-					}
-					if (_self.fileList.length > 0) {
-						_self.uploadPicReady(_self.fileList[0]);
-					} else {
-						_self.submitFormDataSecond();
-					}
-
-				},
-				submitFormDataSecond() {
-					var _self = this;
-					var endForm = {};
-					ajax({
-						type: "post",
-						url: "contentSecurity/aliyun/imageScan?userId=" + JSON.parse(localStorage.getItem("appInfo")).userId,
-						data: {
-							content: this.submitform.photo
-						},
-						success: function(res) {
-							if (res.code == 0) {
-								ajax({
-									type: "post",
-									url: "club/updateClub",
-									data: _self.submitform,
-									success: function(res) {
-										_self.isClick = false;
-										if (res.code == 0) {
-											_self.overlayShow = false;
-											if (_self.submitform.isPublic == 'Y') {
-												_self.applyIsPublic = 'Y';
-											} else {
-												_self.applyIsPublic = 'N';
-											}
-											_self.datachange();
-											_self.$toast("俱乐部设置成功！");
-											// _self.successBack();
-										} else {
-											_self.overlayShow = false;
-											_self.$toast(res.msg);
-										}
-									},
-									error: function() {
-										_self.isClick = false;
-										console.log("error")
-									}
-								})
-							} else {
-								_self.isClick = false;
-								_self.overlayShow = false;
-								_self.fileList = []
-								_self.$toast("图片审核未通过，请重新上传！");
-							}
-						},
-						error: function() {
-							_self.isClick = false;
-							_self.overlayShow = false;
-							_self.fileList = []
-							console.log("error")
-						}
-					})
-				},
-				successBack() {
-					var _self = this;
-					if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) { //判断iPhone|iPad|iPod|iOS
-						try {
-							window.webkit.messageHandlers.lstNative.postMessage({
-								'method': 'clubAutomaticPopBack',
-							})
-						} catch (err) {
-							console.log(err)
-						}
-
-					} else if (/(Android)/i.test(navigator.userAgent)) { //判断Android
-						window.android.clubAutomaticPopBack();
-					}
-				},
-				titleChange() {
-					this.submitform.name = this.submitform.name.replace(
-						/[^\u4E00-\u9FA5|\d|\a-zA-Z|\r\n\s,.?!，。#￥$%\`~^？！@…—&$=()\-+/*{}【】\\（）[\]]|\s/g, '')
-				},
-				contentChange() {
-					this.submitform.introduce = this.submitform.introduce.replace(
-						/[^\u4E00-\u9FA5|\d|\a-zA-Z|\r\n\s,.?!，。#￥$%\`~^？！@…—&$=()\-+/*{}【】\\（）[\]]|\s/g, '')
+				} else {
+					this.form.yqm = "公开";
+					this.submitform.isPublic = "Y";
+					this.submitform.isInviteCode = "Y";
 				}
+				this.updateClub()
+			},
+
+			//进入成员管理传入不同的参数
+			gotoMemberList(type) {// 1成员管理 2转让
+				var flag
+				if(type==1){
+					flag=this.submitform.self.isMinister=='Y'?3:6
+				}else if(type==2){
+					flag=this.submitform.self.isMinister=='Y'?4:9
+				}
+				if (this.submitform.type == '05') {
+					window.location.href =
+						`../corporateClub/groupMember.html?clubId=${this.clubId}&fromchoose=${flag}&clubGroupId=${this.submitform.self.clubGroupId}&memberNumber=${this.submitform.memberNumber}`
+				} else {
+					if(type==1){
+						window.location.href = `memberList.html?flag=1&id=${this.clubId}`
+					}else{
+						window.location.href = `memberList.html?flag=2&id=${this.clubId}`
+					}
+					
+				}
+			},
+			//进入发通知的页面
+			gotoNotice() { //
+				window.location.href = "notice.html?flag=1&id=" + this.clubId
+			},
+			//进入申请列表
+			gotoApplyList(flag) { //
+				window.location.href = "applyList.html?id=" + this.clubId + "&isCorporate=" + (this.submitform
+					.type == '05' ? 1 :
+					0);
+			},
+			gotoNickName() { //修改昵称
+				window.location.href = "../corporateClub/changeNickname.html?name=" + this.submitform.nickname +
+					"&id=" + this.clubId
+			},
+			gotoGroupManage() {
+				let editor = this.submitform.self.isMinister == "Y" ? 1 : 2;
+				window.location.href = "../corporateClub/groupManagement.html?id=" + this.clubId + "&editor=" +
+					editor;
+			},
+			//参与历史
+			historyList() {
+				if (this.submitform.type == '05') {
+					window.location.href = "../corporateClub/myJoin.html?id=" + this.clubId
+				} else {
+					window.location.href = "historyList.html?id=" + this.clubId;
+				}
+			},
+			goToDownload() {
+				let editor = this.submitform.self.isMinister == "Y" ? 1 : 2;
+				window.location.href = "../corporateClub/myDownload.html?id=" + this.clubId + "&editor=" + editor +
+					'&clubGroupId=' + this.submitform.self.clubGroupId;
+			},
+			afterRead(file) {
+				this.overlayShow = true;
+				var formdata = new FormData();
+				formdata.append("file", file.file);
+				ajax({
+					type: "post",
+					url: "oss/upload/file",
+					contentType: "multipart/form-data",
+					data: {
+						formdata:formdata
+					}
+				}).then(res => {
+					if (res.code == 0) {
+						this.submitform.photo = res.data.url;
+						this.imageScan();
+					} else {
+						this.overlayShow = false;
+						this.$toast(res.msg);
+					}
+				})
+			},
+			imageScan() {
+				var endForm = {};
+				ajax({
+					type: "post",
+					url: "contentSecurity/aliyun/imageScan",
+					data: {
+						content: this.submitform.photo
+					}
+				}).then(res => {
+					if (res.code == 0) {
+						this.overlayShow = false;
+						this.updateClub()
+					} else {
+						this.isClick = false;
+						this.overlayShow = false;
+						this.fileList = []
+						this.$toast("图片审核未通过，请重新上传！");
+					}
+				})
+			},
+			updateClub() {
+				ajax({
+					type: "post",
+					url: "club/updateClub",
+					data: this.submitform,
+				}).then(res => {
+					this.isClick = false;
+					if (res.code == 0) {
+						if (this.submitform.isPublic == 'Y') {
+							this.applyIsPublic = 'Y';
+						} else {
+							this.applyIsPublic = 'N';
+						}
+						this.$toast("俱乐部设置成功！");
+					} else {
+						this.$toast(res.msg);
+					}
+				})
 			}
-		})
-	</script>
+
+
+		}
+	})
+</script>

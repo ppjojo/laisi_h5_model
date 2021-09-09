@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html style="background-color: #fff;">
+<html>
 
 <head>
 	<meta charset="utf-8">
@@ -7,27 +7,33 @@
 		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
 	<title>比赛详情</title>
 	<!-- 引入样式文件 -->
-	<link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
+	<link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
 	<link rel="stylesheet" href="css/clubCompetitionDetail.css">
 	<link rel="stylesheet" href="css/corporateCompetion.css">
+	<link rel="stylesheet" href="../font/iconfont.css">
+	<link href="../clubList_Detail/css/header.css" rel="stylesheet" type="text/css" />
 	<style type="text/css">
-		#app{
-			min-height: 100vh;
-			background-color: #12121F;
-		}
-		.van-button--default{
-		border: 1px solid #FF6A88;	
+	
+
+		.van-button--default {
+			border: 1px solid transparent;
 		}
 	</style>
-<!-- <script src="https://cdn.bootcss.com/vConsole/3.3.4/vconsole.min.js"></script>
-		<script>
-				        var vConsole = new VConsole();
-				    </script> -->
 
 </head>
 
 <body>
-	<div id="app" v-cloak>
+	<div id="app" class="normalHeader" v-cloak>
+		<div class="header">
+			<van-nav-bar @click-left="onclickLeft" title="比赛详情" left-arrow safe-area-inset-top fixed>
+				<template #left>
+					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.48rem;" />
+				</template>
+				<template #right v-if="competitionStatus!=3&&competitionItem.promoterId==userId">
+					<span class="icon iconfont icon-shezhi" @click="goSetting" style="font-size: 0.48rem;"></span>
+				</template>
+			</van-nav-bar>
+		</div>
 		<div>
 			<div class="detailBox">
 				<van-row>
@@ -120,7 +126,7 @@
 							v-if="!isSign&&(competitionStatus==1||competitionStatus==2)" @click="signSubmit(1)">去报名
 						</van-button>
 						<van-button class="creatMatch " size="large"
-							v-else-if="isSign&&competitionStatus==1&&timesRemain!=0" @click="gotoSkipReady">去跳绳
+							v-else-if="isSign&&competitionStatus==1&&timesRemain!=0" @click="gotoSkip">去跳绳
 						</van-button>
 						<van-button class="creatMatch creatMatch2" size="large"
 							v-else-if="isSign&&competitionStatus==2">去跳绳</van-button>
@@ -131,7 +137,7 @@
 					</div>
 				</div>
 				<!-- 团队 -->
-				<div class="team" v-else-if="competitionItem.type=='team'&&iscorporate!=1">
+				<div class="team" v-else-if="competitionItem.type=='team'&&isCorporate!=1">
 					<van-pull-refresh v-model="isDownLoading2" @refresh="team_Refresh" class="list-item-box">
 						<van-list v-model="isUpLoading2" :finished="upFinished2" finished-text="没有更多了" :offset="offset"
 							@load="team_LoadList" :immediate-check=false>
@@ -244,7 +250,7 @@
 							v-if="!isSign&&(competitionStatus==1||competitionStatus==2)" @click="chooseTeam">去报名
 						</van-button>
 						<van-button class="creatMatch " size="large"
-							v-else-if="isSign&&competitionStatus==1&&timesRemain!=0" @click="gotoSkipReady">去跳绳
+							v-else-if="isSign&&competitionStatus==1&&timesRemain!=0" @click="gotoSkip">去跳绳
 						</van-button>
 						<van-button class="creatMatch creatMatch2" size="large"
 							v-else-if="isSign&&competitionStatus==2">去跳绳</van-button>
@@ -255,7 +261,7 @@
 					</div>
 				</div>
 				<!-- 企业团队 -->
-				<div class="corporate" v-else-if="iscorporate==1">
+				<div class="corporate" v-else-if="isCorporate==1">
 					<van-row v-for="item in deptList" class="deptList" @click="gotoCompetitionDetail(item)">
 						<van-col span="2" class="ranking">
 							<img v-if="item.rank==1" src="./img/no1.png" />
@@ -281,7 +287,8 @@
 							<div class="numBox">
 								<span class="num">{{parseInt(item.totalBestValue/60)}}</span>
 								<span class="unit">分 </span>
-								<span class="num">{{(item.totalBestValue%60<10?('0'+item.totalBestValue%60):item.totalBestValue%60)}}</span>
+								<span
+									class="num">{{(item.totalBestValue%60<10?('0'+item.totalBestValue%60):item.totalBestValue%60)}}</span>
 								<span class="unit">秒</span>
 							</div>
 							<div class="numD">
@@ -303,9 +310,12 @@
 					</van-row>
 
 					<div class="btn_box">
-						<van-button class="creatMatch " size="large"v-if="competitionStatus==1&&timesRemain!=0" @click="gotoSkipReady">去跳绳</van-button>
-						<van-button class="creatMatch creatMatch2" size="large"v-else-if="competitionStatus==2">去跳绳</van-button>
-						<van-button class="creatMatch creatMatch2" size="large"v-else-if="competitionStatus==1&&timesRemain==0">去跳绳</van-button>
+						<van-button class="creatMatch " size="large" v-if="competitionStatus==1&&timesRemain!=0"
+							@click="gotoSkip">去跳绳</van-button>
+						<van-button class="creatMatch creatMatch2" size="large" v-else-if="competitionStatus==2">去跳绳
+						</van-button>
+						<van-button class="creatMatch creatMatch2" size="large"
+							v-else-if="competitionStatus==1&&timesRemain==0">去跳绳</van-button>
 						<van-button class="creatMatch creatMatch2" size="large" v-else-if="competitionStatus==3">已结束
 						</van-button>
 					</div>
@@ -335,22 +345,12 @@
 			</van-dialog>
 
 
-			<van-action-sheet v-model="macShow" :round=false description="请选择您的跳绳设备" cancel-text="取消">
-				<div class="button_box">
-					<button class="van-action-sheet__item van-hairline--top" v-for="item in macItem"
-						@click="macSelect(item)">
-						<span class="van-action-sheet__name active" v-if="item.bind">{{item.macName}} <img
-								class="blueboothPic" src="./img/bluebooth.png" /></span>
-						<span class="van-action-sheet__name" v-else>{{item.macName}}</span>
-					</button>
-				</div>
-			</van-action-sheet>
 
 		</div>
 	</div>
 </body>
-<script src="https://oss.laisitech.com/0bb12bf1-cb87-4d2c-a724-8a7c25b7ae04.js "></script>
-<script src="https://oss.laisitech.com/6172e6c1-f460-40ac-97ba-31c8526f2e16.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
 <script src="js/DateTime.js"></script>
 
 <script src="../../common/js/network.js"></script>
@@ -361,21 +361,18 @@
 			return {
 				activeClass: 0,
 				clubId: getQueryString("clubId"), //俱乐部id
+				userId: JSON.parse(localStorage.getItem("appInfo")).userId,
 				competitionId: getQueryString("id"), //当前比赛id
-				iscorporate: localStorage.getItem('isCorporate')?parseInt(localStorage.getItem('isCorporate')):0,
+				isCorporate: localStorage.getItem('isCorporate') ? parseInt(localStorage.getItem('isCorporate')) :
+					0,
 				competitionStatus: "", //1进行中 2即将开始 3已结束
 				isSign: false, //团队赛是否已经报名
 				timesRemain: -1, //跳绳剩余次数
 				countRemain: -1, //可加入人数
 				teamId_choose: -1,
 				teamdefault: 1,
-				macShow: false,
-				macItem: [
 
-				],
-				mac: "",
-				macName: "",
-				deviceModel: "",
+
 				teamList_choose: [{
 						name: "",
 					},
@@ -456,46 +453,29 @@
 			this.initData(); //初始化详情
 			this.joinStatus();
 			this.getTimesRemain();
-			this.getMac();
+
 		},
 		mounted() {
 			//将Vue方法传到全局对象window中
 			window.initCompetitionDetail = this.initCompetitionDetail;
-			window.getConnectedMac = this.getConnectedMac
 		},
 		computed: {},
 		methods: {
+			onclickLeft() {
+				window.history.back(-1)
+			},
+			goSetting() {
+				window.location.href = `clubCompetitionSetting.html?id=${this.competitionId}`
+			},
 			//退出比赛或者跳绳回来后调用
 			initCompetitionDetail() {
-				//this.activeClass="0";
-				var _self = this;
-				setTimeout(function () {
-					_self.initData();
-					_self.joinStatus();
-					_self.getTimesRemain();
+				setTimeout(() => {
+					this.initData();
+					this.joinStatus();
+					this.getTimesRemain();
 				}, 1000)
 			},
-			//获取俱乐部的详情
-			// initClubData(clubId) {
-			// 	var _self = this;
-			// 	ajax({
-			// 		type: "get",
-			// 		url: "club/clubDetail",
-			// 		data: {
-			// 			clubId: clubId
-			// 		},
-			// 		success: function (res) {
-			// 			if (res.code == 0) {
-			// 				_self.clubItem = res.data;
-			// 			} else {
-			// 				_self.$toast(res.msg);
-			// 			}
-			// 		},
-			// 		error: function () {
-			// 			console.log("error")
-			// 		}
-			// 	})
-			// },
+
 			initData() {
 				var _self = this;
 				ajax({
@@ -523,7 +503,7 @@
 								_self.competitionStatus = 3;
 							}
 							if (_self.competitionItem.type == "team") {
-								if (_self.iscorporate==1) {
+								if (_self.isCorporate == 1) {
 									_self.dept_initData();
 								} else {
 									_self.pageIndex2 = 0;
@@ -535,75 +515,6 @@
 								_self.person_initData();
 							}
 
-						}
-					},
-					error: function () {
-						console.log("error")
-					}
-				})
-			},
-			//mac地址的选取并进入跳绳页面
-			macSelect(item) {
-				this.mac = item.mac;
-				this.macName = item.macName;
-				this.deviceModel = item.deviceModel;
-				if (this.mac) {
-					this.gotoSkip2();
-				}
-				this.macShow = false;
-			},
-			//获取mac地址
-			getMac() {
-				var that = this;
-				that.macItem = [];
-				ajax({
-					type: "get",
-					url: "device/get/bound/device",
-					data: {},
-					success: function (res) {
-						if (res.code == 0) {
-							var items = [];
-							var unSupportItems = [];
-							var supportItems = [];
-							for (var i = 0; i < res.data.length; i++) {
-								if (res.data[i].deviceType == "skipping" ) {
-									var item = {
-										macName: res.data[i].deviceNickName,
-										mac: res.data[i].deviceId||res.data[i].btMac,
-										deviceModel: res.data[i].deviceModel,
-									}
-									items.push(item);
-								}
-							}
-							for (var i = 0; i < res.data.length; i++) {
-								if (res.data[i].deviceType == "skipping" && res.data[i].deviceModel !="rs-s3"&&res.data[i].deviceModel !="t30h") {
-									var item = {
-										macName: res.data[i].deviceNickName,
-										mac: res.data[i].deviceId||res.data[i].btMac,
-										deviceModel: res.data[i].deviceModel,
-									}
-									supportItems.push(item);
-								}
-							}
-							for (var i = 0; i < res.data.length; i++) {
-								if (res.data[i].deviceModel =="rs-s3"||res.data[i].deviceModel =="t30h") {
-									var item = {
-										macName: res.data[i].deviceNickName,
-										mac: res.data[i].deviceId||res.data[i].btMac,
-										deviceModel: res.data[i].deviceModel,
-									}
-									unSupportItems.push(item);
-								}
-							}
-
-							if (items.length ==unSupportItems.length) {
-								that.$toast("暂不支持第三方跳绳");
-								return
-							};
-
-							that.macItem = supportItems;
-						} else {
-							that.macItem = [];
 						}
 					},
 					error: function () {
@@ -624,7 +535,6 @@
 					success: function (res) {
 						if (res.code == 0) {
 							_self.isSign = res.data;
-							console.log("isSign" + _self.isSign)
 						}
 					},
 					error: function () {
@@ -826,7 +736,7 @@
 							}
 							var leftPage = Math.ceil(res.data.content[0].totalAttend / _self.pageSize);
 							var rightPage = Math.ceil(res.data.content[1].totalAttend / _self
-							.pageSize);
+								.pageSize);
 							var maxPage = leftPage;
 							if (leftPage <= rightPage) {
 								maxPage = rightPage
@@ -939,7 +849,7 @@
 				this.team_initData();
 			},
 			//企业俱乐部的比赛详情
-			dept_initData(){
+			dept_initData() {
 				var _self = this;
 				ajax({
 					type: "post",
@@ -949,7 +859,7 @@
 					},
 					success: function (res) {
 						if (res.code == 0) {
-							_self.deptList=res.data.content	
+							_self.deptList = res.data.content
 						}
 					},
 					error: function () {
@@ -959,20 +869,12 @@
 			},
 			//团队赛选择队伍
 			chooseTeam() {
-				if (this.macItem.length == 0) {
-					this.$toast("请先绑定设备");
-					return
-				};
+				
 				this.chooseTeamShow = true;
 			},
 			//最终报名
 			signSubmit(flag) {
 				var _self = this;
-				if (this.macItem.length == 0 && flag == 1) { //个人报名
-					this.$toast("请先绑定设备");
-					return
-				}
-
 				if (flag == 1) {
 					ajax({
 						type: "post",
@@ -989,7 +891,6 @@
 								_self.joinStatus();
 								_self.getTimesRemain();
 								_self.$toast("报名成功！")
-								_self.successfulRegistrationCallBack();
 							} else {
 								_self.isSign = false;
 							}
@@ -1013,8 +914,6 @@
 								_self.joinStatus();
 								_self.getTimesRemain();
 								_self.$toast("报名成功！");
-								_self.successfulRegistrationCallBack();
-								localStorage.setItem('dataChange','tabDetailChange');
 							} else {
 								_self.isSign = false;
 							}
@@ -1025,22 +924,7 @@
 					})
 				}
 			},
-			//报名成功后告诉原生的去刷新比赛列表
-			successfulRegistrationCallBack() {
-				var _self = this;
-				if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) { //判断iPhone|iPad|iPod|iOS
-					try {
-						window.webkit.messageHandlers.lstNative.postMessage({
-							'method': 'successfulRegistrationCallBack',
-						})
-					} catch (err) {
-						console.log(err)
-					}
 
-				} else if (/(Android)/i.test(navigator.userAgent)) { //判断Android
-					window.android.registrationSuccess();
-				}
-			},
 
 			//2019-11-20T02:22:58.000+0000 转换2019-11-20 11:11:59
 			renderTime(utc_datetime) {
@@ -1060,87 +944,32 @@
 				return beijing_datetime;
 
 			},
-			//获取绑定的设备以及当前连接的设备
-			gotoSkipReady() {
-				Interaction.gotoGetConnectedMac()
-			},
-			//获取到绑定的蓝牙地址后回调处理
-			getConnectedMac(list) {
-				console.log("连接中的mac地址的回调1")
-				console.log(list)
-				var that = this;
-				var linkList = JSON.parse(list);
-				var macBind = linkList.skipping || linkList.t18mac || linkList.t20mac || linkList.nkt30l ||
-					linkList.lst30l
-				var bindIndex = 0;
-				for (var i = 0; i < that.macItem.length; i++) {
-					if (macBind) {
-						if (that.macItem[i].mac.toLowerCase() == macBind.toLowerCase()) {
-							that.macItem[i].bind = true;
-							bindIndex = i;
-						}
-					}
-				}
-				if (macBind && that.macItem.length > 0) {
-					that.macItem.unshift(that.macItem[bindIndex]);
-					that.macItem.splice(bindIndex + 1, 1);
-				}
-				that.gotoSkip()
-			},
-			//去跳绳前先判断是否有设备
+
 			gotoSkip() {
-				if (this.macItem.length == 0) {
-					this.$toast("请先绑定设备");
-					return
-				};
-
-				if (this.macItem.length == 1) {
-					this.mac = this.macItem[0].mac;
-					this.macName = this.macItem[0].macName;
-					this.deviceModel = this.macItem[0].deviceModel;
-					this.gotoSkip2();
-					return;
+				var skipItem = {
+					method: "LSTH5APP_SelectDeviceAndPushToSport", //H5调起原生选择设备，并跳转到对应设备类型的运动页，目前3.0后有：跳绳、健腹轮、腕力球
+					deviceType: "skipping", //skipping、wristball、wheel 
+					mode: this.competitionItem.mode, //倒计时、倒计数，按照原先跳绳PK类型定义的值",
+					modeValue: this.competitionItem.modeValue, //按照原先跳绳的类型传值
+					jumpCount: this.competitionItem.repeatTimes, //按照原先跳绳的类型传值
+					category: 2, //1：PK赛，2俱乐部比赛,
+					isPK: 1, //0不是，1是，表示是否是PK类型的运动，是的话去pk运动页面，不是去普通运动页面
+					dataId: this.clubId
 				}
-				var _self = this;
-				_self.macShow = true;
-			},
-			//前去app跳绳的跳绳页面ios安卓自行加载
-			gotoSkip2() {
-				var _self = this;
-				if (isIOS) {
-					try {
-						window.webkit.messageHandlers.lstNative.postMessage({
-							'method': 'goToRopeSkipForPKGame',
-							"mode": _self.competitionItem.mode,
-							"modeValue": _self.competitionItem.modeValue,
-							"mac": _self.mac,
-							"jumpCount": _self.competitionItem.repeatTimes,
-							"macName": _self.macName,
-							"culbId": _self.clubId,
-							"category": 2,
-							"deviceModel": _self.deviceModel
-						})
-					} catch (e) {
-						console.log(e)
+				try {
+					if (isIOS) {
+						window.webkit.messageHandlers.lstNative.postMessage(skipItem);
+					} else {
+						window.android.LSTH5APP_SelectDeviceAndPushToSport(JSON.stringify(skipItem));
 					}
-				} else { //判断Android
-					window.location.href = 'rehealth://competition/para?action=skipping&mode=' + _self
-						.competitionItem.mode +
-						'&modeValue=' + _self.competitionItem.modeValue + '&matchId=' + _self.competitionItem.id +
-						'&mac=' + _self.mac +
-						'&jumpCount=' + _self.competitionItem.repeatTimes + '&macName=' + _self.macName +
-						'&culbId' + _self.clubId +
-						'&category=2&deviceModel=' + _self.deviceModel
+				} catch (e) {
+					console.log(e);
 				}
-				//去跳绳结束后要重新加载一些跳绳的条件
-				_self.initData();
-				_self.getTimesRemain();
 			},
-
-
 			//跳转部门详情
 			gotoCompetitionDetail(item) {
-				window.location.href = `deptCompetitionDetail.html?clubId=${this.clubId}&competitionId=${this.competitionId}&clubGroupId=${item.id}&mode=${this.competitionItem.mode}&deptName=${item.name}`
+				window.location.href =
+					`deptCompetitionDetail.html?clubId=${this.clubId}&competitionId=${this.competitionId}&clubGroupId=${item.id}&mode=${this.competitionItem.mode}&deptName=${item.name}`
 			}
 
 		}

@@ -59,20 +59,17 @@ body{
 	border-radius: 50%;
 }
 @font-face {
-  font-family: "DINCondensed-Bold";
-  src: url("../../../common/font/DINCondensed-Bold/DINCondensed-Bold.woff2") format("woff2"),
-       url("../../../common/font/DINCondensed-Bold/DINCondensed-Bold.woff") format("woff"),
-       url("../../../common/font/DINCondensed-Bold/DINCondensed-Bold.ttf") format("truetype"),
-       url("../../../common/font/DINCondensed-Bold/DINCondensed-Bold.eot") format("embedded-opentype"),
-       url("../../../common/font/DINCondensed-Bold/DINCondensed-Bold.svg") format("svg");
-  font-weight: normal;
-  font-style: normal;
-}
+	font-family: "BebasNeue";
+	src: url("../../../common/font/BebasNeue/BebasNeue.ttf") format("truetype");
+	font-weight: normal;
+	font-style: normal;
+  }
+
 
 .bigNumberSpan {
 	font-size: 0.48rem;
 	color: #71717f;
-	font-family: 'DINCondensed-Bold';
+	font-family: 'BebasNeue';
 }
 
 
@@ -154,7 +151,7 @@ body{
 }
 .leftTeam {
 	position: relative;
-	background-color: rgb(254, 246, 234);
+	background-color: #1e1e2a;
 	border-radius: 0.1rem;
 	width: 49.5%;
 	
@@ -162,11 +159,10 @@ body{
 .middleDiv{
 	width: 1%;
 	
-	background-color: #fff;
 }
 .rightTeam {
 	position: relative;
-	background-color: rgb(240, 250, 255);
+	background-color: #1e1e2a;
 	border-radius: 0.1rem;
 	width: 49.5%;
 }

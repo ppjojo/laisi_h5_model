@@ -1,0 +1,125 @@
+* {
+    margin: 0;
+    padding: 0;
+    // font-size: 0.24rem;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    font-family: "PingFangSC-Regular", sans-serif;
+}
+
+@font-face {
+    font-family: "BebasNeue";
+    src: url("../../../common/font/BebasNeue/BebasNeue.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+//黑字
+$text_color:#595962;
+//白字
+$text_color_white:#CFCFD2;
+//黑色背景
+$bg_color:#12121f;
+//边框色
+$border_color:#1e1e2a;
+
+
+body {
+    background-color: $bg_color;
+    color: $text_color_white;
+    height: 100vh;
+}
+
+.specialHeader .header {
+    position: relative;
+    z-index: 100;
+    background-color: transparent !important;
+
+
+    .van-nav-bar {
+        background-color: transparent ;
+        .van-nav-bar__content {
+            color: #fff;
+        }
+        .van-nav-bar__title{
+            opacity: 0;
+            color: #fff;
+        }
+    }
+    .van-hairline--bottom::after {
+        border: none;
+    }
+}
+
+.normalHeader {
+    .header {
+        height: 0.92rem;
+        position: relative;
+        z-index: 100;
+
+        .van-nav-bar {
+            background-color: $bg_color;
+
+            .van-nav-bar__content {
+                color: $text_color_white;
+            }
+
+            .van-nav-bar__title {
+                color: $text_color_white;
+            }
+            .van-nav-bar__text{
+                color: $text_color_white;
+            }
+        }
+
+        .van-hairline--bottom::after {
+            border: none;
+        }
+    }
+
+}
+.van-cell--clickable:active{
+    background-color: transparent!important;
+}
+.van-uploader__upload:active{
+    background-color: transparent!important;
+}
+.van-action-sheet__cancel:active, .van-action-sheet__item:active{
+    background-color: transparent!important;
+}
+.van-cell-group{
+    background-color: $bg_color;
+}
+.van-picker{
+    background-color: $bg_color;
+    .van-picker-column__item{
+        color: $text_color_white;
+    }
+    .van-picker__mask{
+        display: none;
+    }
+    .van-hairline--top-bottom::after, .van-hairline-unset--top-bottom::after{
+        border-top: 1px solid $border_color;
+        border-bottom: 1px solid $border_color;
+    }
+    .van-picker__cancel, .van-picker__confirm{
+        color: #CFCFD2;
+    }
+}
+.van-switch{
+    background-color: #12121f;
+    border: 0.02rem solid #595962;
+}
+.van-collapse-item--border::after{
+    border: 1px solid $border_color
+}
+@supports ((height: constant(safe-area-inset-top)) or (height: env(safe-area-inset-top))) and (-webkit-overflow-scrolling: touch) {
+    .normalHeader .header {
+        height: 0.92rem;
+        height: calc(0.92rem + constant(safe-area-inset-top));
+        height: calc(0.92rem + env(safe-area-inset-top));
+    }
+
+
+}

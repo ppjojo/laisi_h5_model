@@ -1,416 +1,383 @@
 <!DOCTYPE html>
 <html lang="zh-cmn-Hans">
 
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport"
-			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
-		<title></title>
-		<!-- 引入样式文件 -->
-		<link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
-		<link rel="stylesheet" href="../../common/css/basic.css">
-		<link rel="stylesheet" href="css/normal.css">
-		<!-- <script src="https://cdn.bootcss.com/vConsole/3.3.4/vconsole.min.js"></script>
-				<script>
-					// init vConsole
-				        var vConsole = new VConsole();
-				        console.log('Hello world');
-				    </script> -->
-		<style type="text/css">
-		.van-tabs__nav{
-			color:#71717f;
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+	<title></title>
+	<!-- 引入样式文件 -->
+	<link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
+	<link rel="stylesheet" href="../../common/css/basic.css">
+	<link rel="stylesheet" href="css/normal.css">
+	<link rel="stylesheet" href="../font/iconfont.css">
+	<link href="../clubList_Detail/css/header.css" rel="stylesheet" type="text/css" />
+
+	<style type="text/css">
+		.van-tabs__nav {
+			color: #71717f;
 			background-color: #12121f;
 		}
-			.van-hairline--top-bottom::after,
-			.van-hairline-unset--top-bottom::after ,[class*=van-hairline]::after{
-				border-color: #1e1e2a;
-			}
-			[class*=van-hairline]::after{
-				border-width: .08rem;
-			}
-			.van-tab{
-				color:#71717f;
-			}
-			.van-nav-bar .van-icon,.van-nav-bar__title,.van-list__error-text, .van-list__finished-text, .van-list__loading,.van-tab--active,.van-checkbox__label,.van-action-sheet{
-				color:#CFCFD2;
-			}
-			.van-tab--active {
-				font-size: .32rem;
-			}
-			.van-tab--active{
-				font-size: .36rem;
-				position: relative;
-			}
-			.van-tabs__line{
-				display: none;
-			}
-			.van-tab--active::after {
-				content: '';
-				position: absolute;
-				left: 50%;
-				bottom: 0;
-				transform: translate(-50%, -50%);
-				width: 0.4rem;
-				height: 0.14rem;
-				background-position: 100% 100%;
-				background: url(./img/tabselect.png) no-repeat;
-				background-size: 100%;
-			
-			}
-			.van-tabs--line .van-tabs__wrap{
-				border-bottom-color: #1E1E2A;
-				padding-bottom: .08rem;
-			}
-			.list_ul li {
-				padding: .3rem;
-			}
 
-			.list_ul li .detail {
-				font-size: .24rem;
-				color: #999;
-			}
+		.van-hairline--top-bottom::after,
+		.van-hairline-unset--top-bottom::after,
+		[class*=van-hairline]::after {
+			border-color: #1e1e2a;
+		}
 
-			.list_ul li .title {
-				font-size: .32rem;
-				color: #1F1F1F;
-				margin-bottom: .14rem;
-				max-width: 4.5rem;
-			}
+		[class*=van-hairline]::after {
+			border-width: .08rem;
+		}
 
-			.list_ul li .imgbox {
-				width: .72rem;
-				height: .72rem;
-				border-radius: 100%;
-				margin-right: .2rem;
-			}
+		.van-tab {
+			color: #71717f;
+		}
 
-			.list_ul li img {
-				width: .44rem;
-				height: .44rem;
-				/* border-radius: 100%; */
-			}
+		.van-nav-bar .van-icon,
+		.van-nav-bar__title,
+		.van-list__error-text,
+		.van-list__finished-text,
+		.van-list__loading,
+		.van-tab--active,
+		.van-checkbox__label,
+		.van-action-sheet {
+			color: #CFCFD2;
+		}
 
-			.list_ul li .gofinish {
-				height: .56rem;
-				line-height: .56rem;
-				color: #fff;
-				font-size: .24rem;
-				border-radius: .3rem;
-				width: 1.32rem;
-				text-align: center;
-				background: linear-gradient(to right, #FF6A88, #FF5136);
-			}
-		</style>
-	</head>
+		.van-tab--active {
+			font-size: .32rem;
+		}
 
-	<body>
-		<div id="app" v-cloak>
-			<div class="header">
-				<van-nav-bar title="我的参与" @click-left="OnclickLeft" @click-right="onClickRight" left-arrow>
-					<template #right>
-					</template>
-				</van-nav-bar>
-			</div>
-			<van-tabs v-model="menuactive" sticky swipeable @change="changeTab">
-				<van-tab v-for="menuTxt in menuList" :title="menuTxt">
-					<van-pull-refresh v-model="isLoading" :head-height="90" @refresh="initIndexData"
-						class="monkey-pull-refresh" style="min-height: 80vh;">
-						<template #pulling="props">
-							<div class="monkeyBox">
-								<img class="monkey" src="../../common/img/monkey.gif" />
-								<p>下拉刷新</p>
-							</div>
-						</template>
-						<!-- 释放提示 -->
-						<template #loosing>
-							<div class="monkeyBox">
-								<img class="monkey" src="../../common/img/monkey.gif" />
-								<p>释放刷新</p>
-							</div>
-						</template>
-						<!-- 加载提示 -->
-						<template #loading>
-							<div class="monkeyBox">
-								<img class="monkey" src="../../common/img/monkey.gif" />
-								<p>正在刷新</p>
-							</div>
-						</template>
-						<van-list v-model="loading" :loading-text="' '" offset="50" @load="onLoad" :finished="finished"
-							:immediate-check=false :finished-text="dataList[menuactive].length!=0?'已经到底啦~':''">
-							<ul class="list_ul">
-								<li class="ub ub-ac ub-pj" v-for="(item,index) in dataList[menuactive]"
-									@click="goToDetail(item)">
-									<div class="ub ub-ac">
-										<div class="ub ub-ac ub-pc imgbox"
-											:style="{background:returnbg(item.type,menuactive)}">
-											<img :src="returnImg(item.type,menuactive)" alt="">
-										</div>
-										<div>
-											<div class="title van-ellipsis">{{item.name}}</div>
-											<div class="detail">{{returnDetail(item,menuactive)}}
-												{{returnTimes(item,menuactive)}}
-											</div>
-										</div>
-									</div>
-									<div v-if="menuactive==0&&item.availableRepeatNumber==0&&item.type=='01'" style="background: #999;"
-										class="gofinish">已完成</div>
-									<div v-else-if="menuactive==0&&item.isDone!='Y'" class="gofinish">
-										{{item.type=='01'?'去比赛':'去完成'}}
-									</div>
-									<div v-else-if="menuactive==0&&item.isDone=='Y'" style="background: #999;"
-										class="gofinish">已完成</div>
-									<van-icon v-else name="arrow" size="15" />
-								</li>
-							</ul>
-							<div class="noData-box" v-if="dataList[menuactive].length==0&&!loading">
-								<img class="noData-img" src="../../common/img/noData.png" />
-								<p class="noData-p">还没有参与的活动哦！</p>
-							</div>
-						</van-list>
-					</van-pull-refresh>
-				</van-tab>
-			</van-tabs>
+		.van-tab--active {
+			font-size: .36rem;
+			position: relative;
+		}
+
+		.van-tabs__line {
+			display: none;
+		}
+
+		.van-tab--active::after {
+			content: '';
+			position: absolute;
+			left: 50%;
+			bottom: 0;
+			transform: translate(-50%, -50%);
+			width: 0.4rem;
+			height: 0.14rem;
+			background-position: 100% 100%;
+			background: url(./img/tabselect.png) no-repeat;
+			background-size: 100%;
+
+		}
+
+		.van-tabs--line .van-tabs__wrap {
+			border-bottom-color: #1E1E2A;
+			padding-bottom: .08rem;
+		}
+
+		.list_ul li {
+			padding: .3rem;
+		}
+
+		.list_ul li .detail {
+			font-size: .24rem;
+			color: #999;
+		}
+
+		.list_ul li .title {
+			font-size: .32rem;
+			color: #1F1F1F;
+			margin-bottom: .14rem;
+			max-width: 4.5rem;
+		}
+
+		.list_ul li .imgbox {
+			width: .72rem;
+			height: .72rem;
+			border-radius: 100%;
+			margin-right: .2rem;
+		}
+
+		.list_ul li img {
+			width: .44rem;
+			height: .44rem;
+			/* border-radius: 100%; */
+		}
+
+		.list_ul li .gofinish {
+			height: .56rem;
+			line-height: .56rem;
+			color: #fff;
+			font-size: .24rem;
+			border-radius: .3rem;
+			width: 1.32rem;
+			text-align: center;
+			background: linear-gradient(to right, #FF6A88, #FF5136);
+		}
+	</style>
+</head>
+
+<body>
+	<div id="app" class="normalHeader" v-cloak>
+		<div class="header">
+			<van-nav-bar @click-left="onclickLeft" title="我的参与" left-arrow safe-area-inset-top fixed>
+				<template #left>
+					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.48rem;" />
+				</template>
+
+			</van-nav-bar>
 		</div>
-	</body>
-	<script src="https://oss.laisitech.com/0bb12bf1-cb87-4d2c-a724-8a7c25b7ae04.js "></script>
-	<script src="https://oss.laisitech.com/6172e6c1-f460-40ac-97ba-31c8526f2e16.js"></script>
-	<script src="../../common/js/network.js"></script>
-	<script src="js/tool.js"></script>
-	<script>
-		window.addEventListener('pageshow', function(event) {
-			console.log("PageShow Event  " + event.persisted);
-			console.log(event)
-			if (isIOS) {
+		<van-tabs v-model="menuactive" sticky swipeable @change="changeTab">
+			<van-tab v-for="menuTxt in menuList" :title="menuTxt">
+				<van-pull-refresh v-model="isLoading" :head-height="90" @refresh="initIndexData"
+					class="monkey-pull-refresh" style="min-height: 80vh;">
+					<template #pulling="props">
+						<div class="monkeyBox">
+							<img class="monkey" src="../../common/img/monkey.gif" />
+							<p>下拉刷新</p>
+						</div>
+					</template>
+					<!-- 释放提示 -->
+					<template #loosing>
+						<div class="monkeyBox">
+							<img class="monkey" src="../../common/img/monkey.gif" />
+							<p>释放刷新</p>
+						</div>
+					</template>
+					<!-- 加载提示 -->
+					<template #loading>
+						<div class="monkeyBox">
+							<img class="monkey" src="../../common/img/monkey.gif" />
+							<p>正在刷新</p>
+						</div>
+					</template>
+					<van-list v-model="loading" :loading-text="' '" offset="50" @load="onLoad" :finished="finished"
+						:immediate-check=false :finished-text="dataList[menuactive].length!=0?'已经到底啦~':''">
+						<ul class="list_ul">
+							<li class="ub ub-ac ub-pj" v-for="(item,index) in dataList[menuactive]"
+								@click="goToDetail(item)">
+								<div class="ub ub-ac">
+									<div class="ub ub-ac ub-pc imgbox"
+										:style="{background:returnbg(item.type,menuactive)}">
+										<img :src="returnImg(item.type,menuactive)" alt="">
+									</div>
+									<div>
+										<div class="title van-ellipsis">{{item.name}}</div>
+										<div class="detail">{{returnDetail(item,menuactive)}}
+											{{returnTimes(item,menuactive)}}
+										</div>
+									</div>
+								</div>
+								<div v-if="menuactive==0&&item.availableRepeatNumber==0&&item.type=='01'"
+									style="background: #999;" class="gofinish">已完成</div>
+								<div v-else-if="menuactive==0&&item.isDone!='Y'" class="gofinish">
+									{{item.type=='01'?'去比赛':'去完成'}}
+								</div>
+								<div v-else-if="menuactive==0&&item.isDone=='Y'" style="background: #999;"
+									class="gofinish">已完成</div>
+								<van-icon v-else name="arrow" size="15" />
+							</li>
+						</ul>
+						<div class="noData-box" v-if="dataList[menuactive].length==0&&!loading">
+							<img class="noData-img" src="../../common/img/noData.png" />
+							<p class="noData-p">还没有参与的活动哦！</p>
+						</div>
+					</van-list>
+				</van-pull-refresh>
+			</van-tab>
+		</van-tabs>
+	</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
+<script src="../../common/js/network.js"></script>
+<script src="js/tool.js"></script>
+<script>
+	window.addEventListener('pageshow', function (event) {
+		console.log("PageShow Event  " + event.persisted);
+		console.log(event)
+		if (isIOS) {
 
+		}
+	})
+	new Vue({
+		el: '#app',
+		data() {
+			return {
+				isLoading: false,
+				loading: false,
+				finished: false,
+				clubId: getQueryString('id'),
+				page: 1,
+				pageSize: 15,
+				userId: getQueryString('userId'),
+				menuactive: 0, //
+				menuList: ['正在进行', '即将开始', '已经结束'],
+				dataList: {
+					0: [],
+					1: [],
+					2: []
+				},
+				nowTime: new Date().getTime(),
 			}
-		})
-		new Vue({
-			el: '#app',
-			data() {
-				return {
-					isLoading: false,
-					loading: false,
-					finished: false,
-					clubId: getQueryString('id'),
-					page: 1,
-					pageSize: 15,
-					userId: getQueryString('userId'),
-					menuactive: 0, //
-					menuList: ['正在进行', '即将开始', '已经结束'],
-					dataList: {
-						0: [],
-						1: [],
-						2: []
+		},
+		filters: {},
+		mounted() {},
+		created() {
+			this.initData();
+		},
+		methods: {
+			initData() {
+				var _self = this;
+				this.loading = true;
+				let pageNum = this.page;
+				let activeName = this.menuactive;
+				let url = activeName == 0 ? 'club/partNow' : activeName == 1 ? 'club/partFuture' : 'club/partEnd';
+				ajax({
+					type: "get",
+					url: url,
+					data: {
+						clubId: _self.clubId,
+						memberId: _self.userId,
+						pageSize: _self.pageSize,
+						page: pageNum
 					},
-					nowTime: new Date().getTime(),
-				}
+					success: function (res) {
+						_self.loading = false;
+						_self.isLoading = false;
+						if (res.code == 0) {
+							if (pageNum == 1) {
+								_self.dataList[activeName] = res.data.historyList;
+							} else {
+								_self.dataList[activeName] = _self.dataList[activeName].concat(res
+									.data.historyList);
+							}
+							if (pageNum * _self.pageSize >= res.data.totalNum) {
+								_self.finished = true;
+							}
+						} else {
+							_self.$toast(res.msg);
+						}
+					},
+					error: function () {
+						_self.loading = false;
+						console.log("error")
+					}
+				})
 			},
-			filters: {},
-			mounted() {},
-			created() {
+			initIndexData() {
+				// 清空列表数据
+				this.finished = false;
+				// 重新加载数据
+				// 将 loading 设置为 true，表示处于加载状态
+				this.loading = true;
+				this.isLoading = true;
 				this.initData();
 			},
-			methods: {
-				initData() {
-					var _self = this;
-					this.loading = true;
-					let pageNum = this.page;
-					let activeName = this.menuactive;
-					let url = activeName == 0 ? 'club/partNow' : activeName == 1 ? 'club/partFuture' : 'club/partEnd';
-					ajax({
-						type: "get",
-						url: url,
-						data: {
-							clubId: _self.clubId,
-							memberId: _self.userId,
-							pageSize: _self.pageSize,
-							page: pageNum
-						},
-						success: function(res) {
-							_self.loading = false;
-							_self.isLoading = false;
-							if (res.code == 0) {
-								if (pageNum == 1) {
-									_self.dataList[activeName] = res.data.historyList;
-								} else {
-									_self.dataList[activeName] = _self.dataList[activeName].concat(res
-										.data.historyList);
-								}
-								if (pageNum * _self.pageSize >= res.data.totalNum) {
-									_self.finished = true;
-								}
-							} else {
-								_self.$toast(res.msg);
-							}
-						},
-						error: function() {
-							_self.loading = false;
-							console.log("error")
-						}
-					})
-				},
-				initIndexData() {
-					// 清空列表数据
-					this.finished = false;
-					// 重新加载数据
-					// 将 loading 设置为 true，表示处于加载状态
-					this.loading = true;
-					this.isLoading = true;
-					this.initData();
-				},
-				onLoad() {
-					if (this.isLoading) {
-						this.isLoading = false;
-						this.page = 1;
+			onLoad() {
+				if (this.isLoading) {
+					this.isLoading = false;
+					this.page = 1;
+				} else {
+					this.page++;
+				}
+				this.initData()
+				this.loading = false;
+			},
+			changeTab(tab) {
+				this.activeName = tab;
+				this.isLoading = true;
+				this.onLoad();
+			},
+			goToDetail(item) {
+				let _self = this;
+				if (this.menuactive == 0 && item.isDone == 'Y' && item.type == '00') return;
+				if (item.type == "00") {
+					window.location.href = `../club/tasksDetail.html?id=${item.id}&clubId=${this.clubId}`
+				} else if (item.type == "01") {
+					window.location.href = `../club/clubCompetitionDetail.html?id=${item.id}&clubId=${this.clubId}`
+				}
+			},
+			returnDetail(item, active) {
+				let str = '';
+				if (item.type == '01') {
+					//比赛
+					if (item.mode == 2 && item.modeValue) {
+						str += item.modeValue == 30 ? "30秒钟倒计时跳" : (parseInt((item.modeValue) / 60)) + "分钟倒计时跳"
 					} else {
-						this.page++;
+						str += item.modeValue + "个倒计数跳"
 					}
-					this.initData()
-					this.loading = false;
-				},
-				changeTab(tab) {
-					this.activeName = tab;
-					this.isLoading = true;
-					this.onLoad();
-				},
-				goToDetail(item) {
-					let _self = this;
-					if (this.menuactive == 0 && item.isDone == 'Y' && item.type == '00') return;
-					if (item.type == '00') {
-						// var str = `id=${item.id}&userId=${JSON.parse(localStorage.getItem("appInfo")).userId}&clubId=${this.clubId}`
-						// str += `&iscorporate=1`;
-						if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) { //判断iPhone|iPad|iPod|iOS
-							try {
-								//IOS 调用方法，H5去任务详情界面，拿到任务ID，任务设置做：发任务通知、结束任务、停止报名操作使用
-								window.webkit.messageHandlers.lstNative.postMessage({
-									'method': 'clubToTaskDetail',
-									'taskId': item.id,
-									"isHistory": 1,
-									"url": "/h5/h5V2/allClub/club/tasksDetail.html?id=" + item.id +
-										'&userId=' + JSON.parse(localStorage.getItem(
-											"appInfo")).userId + '&clubId=' + _self.clubId + '&iscorporate=1'
-								})
 
-							} catch (err) {
-								console.log('window.webkit.messageHandlers 回传Id failed')
-							}
-
-						} else if (/(Android)/i.test(navigator.userAgent)) { //判断Android
-							var str = 'taskId=' + item.id + '&isHistory=1' + '&iscorporate=1';
-							var str2 = 'h5/h5V2/allClub/club/tasksDetail.html?id=' + item.id + '&clubId=' + _self
-								.clubId + '&iscorporate=1';
-							// console.log(str)
-							// window.android.clubToTaskDetail(str)
-							var allstr = host + str2
-							Interaction.pushToNextVC(allstr)
-						}
-						// window.location.href = '../club/tasksDetail.html?'+str;
-					} else {
-						var str =
-							`id=${item.id}&userId=${JSON.parse(localStorage.getItem("appInfo")).userId}&clubId=${this.clubId}`
-						str += `&iscorporate=1`
-						if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) { //判断iPhone|iPad|iPod|iOS
-							try {
-								window.webkit.messageHandlers.lstNative.postMessage({
-									'method': 'clubToCompetitionDetail',
-									"matchId": item.id,
-									"isHistory": 1,
-									"url": "/h5/h5V2/allClub/club/clubCompetitionDetail.html?id=" + item.id +
-										'&userId=' + JSON.parse(localStorage.getItem(
-											"appInfo")).userId + '&clubId=' + _self.clubId + '&iscorporate=1'
-								})
-							} catch (err) {
-								console.log('window.webkit.messageHandlers failed')
-							}
-
-						} else if (/(Android)/i.test(navigator.userAgent)) { //判断Android
-							var str = 'matchId=' + item.id + '&isHistory=1' + '&iscorporate=1';
-							console.log(str)
-							var str2 = 'h5/h5V2/allClub/club/clubCompetitionDetail.html?id=' + item.id + '&clubId=' +
-								_self.clubId + '&iscorporate=1';
-							// window.android.clubToCompetitionDetail(str)
-							var allstr = host + str2
-							Interaction.pushToNextVC(allstr)
-						}
-						// window.location.href = '../club/clubCompetitionDetail.html?'+str;
-					}
-				},
-				returnDetail(item, active) {
-					let str = '';
-					if (item.type == '01') {
-						//比赛
-						if (item.mode == 2 && item.modeValue) {
-							str += item.modeValue == 30 ? "30秒钟倒计时跳" : (parseInt((item.modeValue) / 60)) + "分钟倒计时跳"
+				} else {
+					str += item.period == "00" ? "每天" : item.period == "01" ? "每周" : item.period == "02" ? "每月" :
+						item.period ==
+						"03" ? "单次任务" : "";
+					str += '完成一次目标';
+				}
+				if (active == 1) { //有还有多久之说
+					let count = item.originTaskStartTime ? item.originTaskStartTime : item.startTime - this
+					.nowTime;
+					count = parseInt(count / 1000 / 60);
+					if (count <= 1) str += '即将开始  '
+					else str += count + '分钟后开始  '
+				}
+				return str;
+			},
+			returnTimes(item, active) {
+				let str = '';
+				if (active == 1) { //还有多久开始
+					// str = DateTime.timeFormat(item.startTime);
+				} else { //时间段
+					if (active === 0) {
+						if (item.period == '00' || item.type != '00') {
+							str = this.sjc2time(item.originTaskEndTime ? item.originTaskEndTime : item.endTime)
 						} else {
-							str += item.modeValue + "个倒计数跳"
+							str = this.sjc2time(item.originTaskStartTime ? item.originTaskStartTime : item
+								.startTime) + ' - ' + this.sjc2time(item.originTaskEndTime ? item
+								.originTaskEndTime : item.endTime)
 						}
-
 					} else {
-						str += item.period == "00" ? "每天" : item.period == "01" ? "每周" : item.period == "02" ? "每月" :
-							item.period ==
-							"03" ? "单次任务" : "";
-						str += '完成一次目标';
+						if (item.period == '01' || item.period == '02') {
+							str = this.sjc2time(item.startTime) + ' - ' + this.sjc2time(item.endTime)
+						} else {
+							str = this.sjc2time(item.endTime)
+						}
 					}
-					if (active == 1) { //有还有多久之说
-						let count = item.originTaskStartTime?item.originTaskStartTime:item.startTime - this.nowTime;
-						count = parseInt(count / 1000 / 60);
-						if (count <= 1) str += '即将开始  '
-						else str += count + '分钟后开始  '
-					}
-					return str;
-				},
-				returnTimes(item, active) {
-					let str = '';
-					if (active == 1) { //还有多久开始
-						// str = DateTime.timeFormat(item.startTime);
-					} else { //时间段
-						if (active === 0){
-							if(item.period=='00'||item.type!='00'){
-								str = this.sjc2time(item.originTaskEndTime?item.originTaskEndTime:item.endTime)
-							}else{
-								str = this.sjc2time(item.originTaskStartTime?item.originTaskStartTime:item.startTime) + ' - ' + this.sjc2time(item.originTaskEndTime?item.originTaskEndTime:item.endTime)
-							}
-						}else{
-							if(item.period=='01'||item.period=='02'){
-								str = this.sjc2time(item.startTime) + ' - ' + this.sjc2time(item.endTime)
-							}else{
-								str = this.sjc2time(item.endTime)
-							}
-						} 
-					}
-					return str;
-				},
-				returnImg(type, active) {
-					let pic = '';
-					if (type == '00') { //renwu
-						pic = 'img/dailyicon' + (active == 2 ? '2' : '') + '.png'
-					} else {
-						pic = 'img/competitionicon' + (active == 2 ? '2' : '') + '.png'
-					}
-					return pic
-				},
-				returnbg(type, active) {
-					if (active == 2) return '#f5f5f5';
-					if (type == '00') { //renwu
-						return '#EAF2FF';
-					} else {
-						return '#FEF5D1';
-					}
-				},
-				sjc2time(sjc) {
-					var datetime = new Date(sjc);
-					var month = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() +
-						1;
-					var date = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();
-					return month + "/" + date;
-				},
-				OnclickLeft() {
-					window.history.back(-1);
-				},
-				onClickRight() { //显示。。。
-				},
-			}
-		})
-	</script>
+				}
+				return str;
+			},
+			returnImg(type, active) {
+				let pic = '';
+				if (type == '00') { //renwu
+					pic = 'img/dailyicon' + (active == 2 ? '2' : '') + '.png'
+				} else {
+					pic = 'img/competitionicon' + (active == 2 ? '2' : '') + '.png'
+				}
+				return pic
+			},
+			returnbg(type, active) {
+				if (active == 2) return '#f5f5f5';
+				if (type == '00') { //renwu
+					return '#EAF2FF';
+				} else {
+					return '#FEF5D1';
+				}
+			},
+			sjc2time(sjc) {
+				var datetime = new Date(sjc);
+				var month = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() +
+					1;
+				var date = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();
+				return month + "/" + date;
+			},
+			onclickLeft() {
+				window.history.back(-1);
+			},
+			onClickRight() { //显示。。。
+			},
+		}
+	})
+</script>
 
 </html>

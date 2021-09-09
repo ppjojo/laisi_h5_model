@@ -72,7 +72,7 @@
 }
 
 .van-nav-bar__title {
-	font-size: .36rem;
+	/* font-size: .36rem; */
 	color: #cfcfd2;
 	font-weight: unset;
 }
