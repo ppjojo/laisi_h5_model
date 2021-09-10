@@ -1,0 +1,284 @@
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  font-family: "PingFangSC-Regular", sans-serif;
+}
+
+@font-face {
+  font-family: "BebasNeue";
+  src: url("../../common/font/BebasNeue/BebasNeue.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  background-color: #12121f;
+  color: #CFCFD2;
+  min-height: 100vh;
+  font-size: 0.28rem;
+}
+
+.topBox {
+  background-image: url("../img/topBg.png");
+  height: 5.5rem;
+  width: 100%;
+  background-size: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.topBox .personalInfo {
+  text-align: center;
+  padding-top: 0.7rem;
+  margin: 0 auto;
+}
+
+.topBox .personalInfo .headerPicBox {
+  background-image: url("../img/headerBg.png");
+  height: 2.1rem;
+  width: 4rem;
+  background-size: cover;
+  margin: 0 auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+
+.topBox .personalInfo .headerPicBox .headerPic {
+  width: 1.2rem;
+  height: 1.2rem;
+  border-radius: 50%;
+}
+
+.topBox .personalInfo .nickName {
+  margin-top: 0.1rem;
+}
+
+.topBox .personalInfo .time {
+  font-size: 0.24rem;
+  color: #71717f;
+  line-height: 0.4rem;
+}
+
+.totalBox {
+  padding: 0 0.3rem;
+  position: relative;
+  padding-top: 4.5rem;
+}
+
+.totalBox .itemBox, .totalBox .itemBox2, .totalBox .detailBox .detailDiv .itemBox2, .detailBox .detailDiv .totalBox .itemBox2 {
+  width: 100%;
+  height: 2.64rem;
+  background-size: 100% 100%;
+  position: relative;
+  margin-bottom: 0.24rem;
+}
+
+.totalBox .itemBox .labelBox, .totalBox .itemBox2 .labelBox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  position: relative;
+  padding-top: 0.4rem;
+  left: -4px;
+  width: 95%;
+}
+
+.totalBox .itemBox .labelBox .label, .totalBox .itemBox2 .labelBox .label {
+  height: 0.56rem;
+}
+
+.totalBox .itemBox .labelBox .txt, .totalBox .itemBox2 .labelBox .txt {
+  font-size: 0.2rem;
+  color: #71717f;
+}
+
+.totalBox .itemBox .dataBox, .totalBox .itemBox2 .dataBox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  padding: 0.2rem 0.3rem;
+}
+
+.totalBox .itemBox .dataBox .dataItem, .totalBox .itemBox2 .dataBox .dataItem {
+  width: 33%;
+  margin-bottom: 0.2rem;
+  text-align: center;
+}
+
+.totalBox .itemBox .dataBox .dataItem:nth-child(3n+1), .totalBox .itemBox2 .dataBox .dataItem:nth-child(3n+1) {
+  text-align: left;
+}
+
+.totalBox .itemBox .dataBox .dataItem:nth-child(3n), .totalBox .itemBox2 .dataBox .dataItem:nth-child(3n) {
+  text-align: right;
+}
+
+.totalBox .itemBox .dataBox .dataItem .num, .totalBox .itemBox2 .dataBox .dataItem .num {
+  font-size: 0.56rem;
+  font-family: "BebasNeue";
+  line-height: 0.8rem;
+}
+
+.totalBox .itemBox .dataBox .dataItem .info, .totalBox .itemBox2 .dataBox .dataItem .info {
+  font-size: 0.2rem;
+  color: #71717f;
+}
+
+.totalBox .itemBox2 {
+  height: 4.06rem;
+}
+
+.detailBox {
+  padding: 0 0.3rem;
+  padding-top: 4.5rem;
+  text-align: center;
+}
+
+.detailBox .detailDiv {
+  position: relative;
+  margin-bottom: 0.16rem;
+}
+
+.detailBox .detailDiv .titleImg {
+  width: 4rem;
+  position: absolute;
+  top: -1rem;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  z-index: 2;
+}
+
+.detailBox .detailDiv .itemBox, .detailBox .detailDiv .itemBox2 {
+  width: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  background-size: 100% 100%;
+  padding: 1.2rem 0.72rem 0 0.72rem;
+  border-radius: 0.24rem;
+}
+
+.detailBox .detailDiv .itemBox .title, .detailBox .detailDiv .itemBox2 .title {
+  font-size: 0.32rem;
+  text-align: center;
+  color: #fff;
+  line-height: 1.2rem;
+}
+
+.detailBox .detailDiv .itemBox .dataBox, .detailBox .detailDiv .itemBox2 .dataBox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.detailBox .detailDiv .itemBox .dataBox .dataItem, .detailBox .detailDiv .itemBox2 .dataBox .dataItem {
+  width: 50%;
+  margin-bottom: 0.2rem;
+  text-align: left;
+}
+
+.detailBox .detailDiv .itemBox .dataBox .dataItem:nth-child(2n), .detailBox .detailDiv .itemBox2 .dataBox .dataItem:nth-child(2n) {
+  text-align: right;
+}
+
+.detailBox .detailDiv .itemBox .dataBox .dataItem .info, .detailBox .detailDiv .itemBox2 .dataBox .dataItem .info {
+  font-size: 0.28rem;
+  color: #CFCFD2;
+}
+
+.detailBox .detailDiv .itemBox .dataBox .dataItem .time, .detailBox .detailDiv .itemBox2 .dataBox .dataItem .time {
+  font-size: 0.2rem;
+  color: #71717f;
+  line-height: 0.4rem;
+}
+
+.detailBox .detailDiv .itemBox .dataBox .dataItem .num, .detailBox .detailDiv .itemBox2 .dataBox .dataItem .num {
+  font-size: 0.56rem;
+  font-family: "BebasNeue";
+  line-height: 1.2rem;
+}
+
+.detailBox .detailDiv .linkBox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  position: absolute;
+  bottom: -0.28rem;
+  width: 100%;
+  padding: 0 0.8rem;
+  z-index: 3;
+}
+
+.detailBox .detailDiv .linkBox img {
+  height: 0.44rem;
+}
+
+.detailBox .detailDiv .itemBox2 {
+  padding-top: 0;
+}
+
+.qrBox {
+  padding: 0.6rem 0.3rem;
+}
+
+.qrBox img {
+  width: 100%;
+}
+
+.desc {
+  color: #71717f;
+  font-size: 0.24rem;
+  text-align: center;
+}
+
+.btn {
+  width: 6.7rem;
+  height: 0.88rem;
+  line-height: 0.88rem;
+  text-align: center;
+  border-radius: 0.44rem;
+  margin: 0.5rem auto;
+  color: #fff;
+  font-size: 0.4rem;
+  background-image: -webkit-gradient(linear, left top, right top, from(#FF4E3E), to(#FFAA88));
+  background-image: linear-gradient(to right, #FF4E3E, #FFAA88);
+}
+/*# sourceMappingURL=index.css.map */

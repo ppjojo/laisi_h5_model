@@ -14,8 +14,365 @@
 
 <body id="body">
 	<div id="app" v-cloak>
-		
-			
+		<div class="topBox">
+			<div class="personalInfo">
+				<div class="headerPicBox">
+					<img class="headerPic" src="./img/wheelLabel.png" alt="">
+				</div>
+				<div class="nickName">kkk</div>
+				<div class="time">2021/06/29</div>
+			</div>
+		</div>
+		<div class="totalBox" v-if="type=='all'">
+			<div class="itemBox" style="background-image: url(./img/runningBg.png);">
+				<div class="labelBox">
+					<img class="label" src="./img/runningLabel.png" alt="">
+					<div class="txt">
+						走路对脑力劳动着，特别是创造性的人来说，是一种生理活动的做好方式
+					</div>
+				</div>
+				<div class="dataBox">
+					<div class="dataItem">
+						<div class="num">11111</div>
+						<div class="info">最多步数(步)</div>
+					</div>
+					<div class="dataItem">
+						<div class="num">11111</div>
+						<div class="info">最远距离(公里)</div>
+					</div>
+				</div>
+			</div>
+			<div class="itemBox2" style="background-image: url(./img/skippingBg.png);">
+				<div class="labelBox">
+					<img class="label" src="./img/skippingLabel.png" alt="">
+					<div class="txt">
+						跳出新人生
+					</div>
+				</div>
+				<div class="dataBox">
+					<div class="dataItem">
+						<div class="num">11111</div>
+						<div class="info">最多个数(个)</div>
+					</div>
+					<div class="dataItem">
+						<div class="num">00:54:56</div>
+						<div class="info">最长时间</div>
+					</div>
+					<div class="dataItem">
+						<div class="num">11111</div>
+						<div class="info">最多连续跳绳(个)</div>
+					</div>
+					<div class="dataItem">
+						<div class="num">156</div>
+						<div class="info">最快频次(次/分)</div>
+					</div>
+					<div class="dataItem">
+					</div>
+					<div class="dataItem">
+						<div class="num">156</div>
+						<div class="info">双三摇最多个数(个)</div>
+					</div>
+
+				</div>
+			</div>
+
+			<div class="itemBox2" style="background-image: url(./img/wheelBg.png);">
+				<div class="labelBox">
+					<img class="label" src="./img/wheelLabel.png" alt="">
+					<div class="txt">
+						活水贵在流动，生命在于运动
+					</div>
+				</div>
+				<div class="dataBox">
+					<div class="dataItem">
+						<div class="num">11111</div>
+						<div class="info">最多次数(次)</div>
+					</div>
+					<div class="dataItem">
+					</div>
+					<div class="dataItem">
+						<div class="num">98%</div>
+						<div class="info">最高达标率</div>
+					</div>
+					<div class="dataItem">
+						<div class="num">00:46:09</div>
+						<div class="info">最长时间</div>
+					</div>
+					<div class="dataItem">
+					</div>
+					<div class="dataItem">
+						<div class="num">25</div>
+						<div class="info">最快频次(次/分)</div>
+					</div>
+
+				</div>
+			</div>
+
+			<div class="itemBox2" style="background-image: url(./img/wristballBg.png);">
+				<div class="labelBox">
+					<img class="label" src="./img/wristballLabel.png" alt="">
+					<div class="txt">
+						健身，让生活变得有声有色;健康，让日子过得有滋有味
+					</div>
+				</div>
+				<div class="dataBox">
+					<div class="dataItem">
+						<div class="num">11111</div>
+						<div class="info">最多圈数(圈)</div>
+					</div>
+					<div class="dataItem">
+
+					</div>
+					<div class="dataItem">
+						<div class="num">585</div>
+						<div class="info">最大转速(rpm)</div>
+					</div>
+					<div class="dataItem">
+						<div class="num">85</div>
+						<div class="info">最大力量(kg)</div>
+					</div>
+					<div class="dataItem">
+					</div>
+					<div class="dataItem">
+						<div class="num">00:56:52</div>
+						<div class="info">最长时间</div>
+					</div>
+
+				</div>
+			</div>
+
+
+		</div>
+		<div class="detailBox" v-else-if="type=='steps'">
+			<div class="detailDiv">
+				<img src="./img/title.png" class="titleImg" alt="">
+				<div class="itemBox" style="background-image: url(./img/detailBg.png);">
+					<div class="dataBox">
+						<div class="dataItem">
+							<div class="info">最多步数(步)</div>
+							<div class="time">2021/06/28</div>
+							<div class="num">11111</div>
+						</div>
+						<div class="dataItem">
+							<div class="info">最远距离(公里)</div>
+							<div class="time">2021/06/28</div>
+							<div class="num">11111</div>
+
+						</div>
+					</div>
+				</div>
+				<div class="linkBox">
+					<img src="./img/link.png" alt="">
+					<img src="./img/link.png" alt="">
+				</div>
+			</div>
+			<div class="detailDiv">
+				<div class="itemBox2" style="background-image: url(./img/detailBg.png);">
+					<div class="title">
+						步行累计数据
+					</div>
+					<div class="dataBox">
+						<div class="dataItem">
+							<div class="info">累计步数(步)</div>
+							<div class="time">2021/06/28</div>
+							<div class="num">11111</div>
+						</div>
+						<div class="dataItem">
+							<div class="info">累计距离(公里)</div>
+							<div class="time">2021/06/28</div>
+							<div class="num">11111</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="detailBox" v-else-if="type=='skipping'">
+			<div class="detailDiv">
+				<img src="./img/title.png" class="titleImg" alt="">
+				<div class="itemBox" style="background-image: url(./img/detailBg.png);">
+					<div class="dataBox">
+						<div class="dataItem">
+							<div class="info">最多个数(个)</div>
+							<div class="time">2021/06/28</div>
+							<div class="num">11111</div>
+						</div>
+						<div class="dataItem">
+							<div class="info">最多连续个数(个)</div>
+							<div class="time">2021/06/28</div>
+							<div class="num">11111</div>
+						</div>
+						<div class="dataItem">
+							<div class="info">最长时间</div>
+							<div class="time">2021/06/28</div>
+							<div class="num">11111</div>
+						</div>
+						<div class="dataItem">
+							<div class="info">最快频次(次/分)</div>
+							<div class="time">2021/06/28</div>
+							<div class="num">11111</div>
+						</div>
+						<div class="dataItem">
+							<div class="info">双三摇最多个数(个)</div>
+							<div class="time">2021/06/28</div>
+							<div class="num">11111</div>
+						</div>
+					</div>
+				</div>
+				<div class="linkBox">
+					<img src="./img/link.png" alt="">
+					<img src="./img/link.png" alt="">
+				</div>
+			</div>
+			<div class="detailDiv">
+				<div class="itemBox2" style="background-image: url(./img/detailBg.png);">
+					<div class="title">
+						跳绳累计数据
+					</div>
+					<div class="dataBox">
+						<div class="dataItem">
+							<div class="info">累计个数(个)</div>
+							<div class="time">2021/06/28</div>
+							<div class="num">11111</div>
+						</div>
+						<div class="dataItem">
+							<div class="info">累计时长</div>
+							<div class="time">2021/06/28</div>
+							<div class="num">11111</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="detailBox" v-else-if="type=='wheel'">
+			<div class="detailDiv">
+				<img src="./img/title.png" class="titleImg" alt="">
+				<div class="itemBox" style="background-image: url(./img/detailBg.png);">
+					<div class="dataBox">
+						<div class="dataItem">
+							<div class="info">最多次数(次)</div>
+							<div class="time">2021/06/28</div>
+							<div class="num">11111</div>
+						</div>
+						<div class="dataItem">
+							<div class="info">最长时间</div>
+							<div class="time">2021/06/28</div>
+							<div class="num">11111</div>
+						</div>
+						<div class="dataItem">
+							<div class="info">最高达标率</div>
+							<div class="time">2021/06/28</div>
+							<div class="num">11111</div>
+						</div>
+						<div class="dataItem">
+							<div class="info">最远距离(米)</div>
+							<div class="time">2021/06/28</div>
+							<div class="num">11111</div>
+						</div>
+						<div class="dataItem">
+							<div class="info">最快频次(次/分)</div>
+							<div class="time">2021/06/28</div>
+							<div class="num">11111</div>
+						</div>
+					</div>
+				</div>
+				<div class="linkBox">
+					<img src="./img/link.png" alt="">
+					<img src="./img/link.png" alt="">
+				</div>
+			</div>
+			<div class="detailDiv">
+				<div class="itemBox2" style="background-image: url(./img/detailBg.png);">
+					<div class="title">
+						健腹轮累计数据
+					</div>
+					<div class="dataBox">
+						<div class="dataItem">
+							<div class="info">累计次数(次)</div>
+							<div class="time">2021/06/28</div>
+							<div class="num">11111</div>
+						</div>
+						<div class="dataItem">
+							<div class="info">累计时长</div>
+							<div class="time">2021/06/28</div>
+							<div class="num">11111</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="detailBox" v-else-if="type=='wristball'">
+			<div class="detailDiv">
+				<img src="./img/title.png" class="titleImg" alt="">
+				<div class="itemBox" style="background-image: url(./img/detailBg.png);">
+					<div class="dataBox">
+						<div class="dataItem">
+							<div class="info">最多圈数(圈)</div>
+							<div class="time">2021/06/28</div>
+							<div class="num">11111</div>
+						</div>
+						<div class="dataItem">
+							<div class="info">最大转速(rpm)</div>
+							<div class="time">2021/06/28</div>
+							<div class="num">11111</div>
+						</div>
+						<div class="dataItem">
+							<div class="info">最长时间</div>
+							<div class="time">2021/06/28</div>
+							<div class="num">11111</div>
+						</div>
+						<div class="dataItem">
+							<div class="info">最大力量(kg)</div>
+							<div class="time">2021/06/28</div>
+							<div class="num">11111</div>
+						</div>
+					</div>
+				</div>
+				<div class="linkBox">
+					<img src="./img/link.png" alt="">
+					<img src="./img/link.png" alt="">
+				</div>
+			</div>
+			<div class="detailDiv">
+				<div class="itemBox2" style="background-image: url(./img/detailBg.png);">
+					<div class="title">
+						腕力球累计数据
+					</div>
+					<div class="dataBox">
+						<div class="dataItem">
+							<div class="info">累计圈数(圈)</div>
+							<div class="time">2021/06/28</div>
+							<div class="num">11111</div>
+						</div>
+						<div class="dataItem">
+							<div class="info">累计时长</div>
+							<div class="time">2021/06/28</div>
+							<div class="num">11111</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="qrBox">
+			<img src="./img/qrcode.png" alt="">
+		</div>
+		<div class="desc">
+			—学着改变自己，因为你还有未被发现的自己存在—
+		</div>
+		<div class="btn" @click="goInto">
+			加入派健康 一起创造最佳时刻吧
+		</div>
+
+		<img id="leadToBrowser" src="https://oss.laisitech.com/01c21e85-22db-4a2b-8f4f-500fca31b25d.png"
+			style="display: none; position: absolute;top: 0;left: 0;width: 100%;height: 100%;z-index: 99;" alt="">
+
 
 	</div>
 </body>
@@ -28,15 +385,89 @@
 		el: '#app',
 		data() {
 			return {
-
+				type: getQueryString("type") || "all",
+				
 			}
 		},
 		created() {
-			
+			if(this.type=="wristball"){
+				this.getWristball()
+			}else if(this.type=="skipping"){
+				this.getSkipping()
+			}else if(this.type=="wheel"){
+				this.getWheel()
+			}else if(this.type=="steps"){
+				this.getStep()
+			}else{
+				this.getTotal()
+			}
+
 		},
 		methods: {
-			
-			
+			goInto() {
+				let linkUrl = ""
+				if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+
+					linkUrl = "https://lstemp.laisitech.com?actionType=groupDetail&id=" + this.groupId
+
+				} else if (/(Android)/i.test(navigator.userAgent)) { //判断Android
+					if (navigator.userAgent.toLowerCase().indexOf('micromessenger') !== -1) { //微信
+						document.getElementById("leadToBrowser").style.display = "block";
+						setTimeout(function () {
+							document.getElementById("leadToBrowser").style.display = "none";
+						}, 2000)
+						return
+					} else {
+						linkUrl = "rehealth://groupdetail?id=" + this.groupId
+					}
+				}
+				var a = document.createElement('a');
+				a.setAttribute('href', linkUrl);
+				a.setAttribute('id', 'js_a');
+				//防止反复添加
+				if (document.getElementById('js_a')) {
+					document.body.removeChild(document.getElementById('js_a'));
+				}
+				document.body.appendChild(a);
+				a.click();
+			},
+			getTotal(){
+				ajax({
+					url:"newHomePage/v2/common/best/career/record",
+				}).then(res=>{
+
+				})
+				
+			},
+			getWristball(){
+				ajax({
+					url:"wristball/cloud/getCareerBest",
+				}).then(res=>{
+
+				})
+			},
+			getSkipping(){
+				ajax({
+					url:"ropeSkipping/getBestCareerRecord",
+				}).then(res=>{
+
+				})
+			},
+			getWheel(){
+				ajax({
+					url:"ab-roller/getWheelCareerBest",
+				}).then(res=>{
+
+				})
+			},
+			getStep(){
+				ajax({
+					url:"sportwatch/best/step/userId",
+				}).then(res=>{
+
+				})
+			},
+
 		}
 	})
 </script>
