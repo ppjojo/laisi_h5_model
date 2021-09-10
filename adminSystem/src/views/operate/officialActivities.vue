@@ -6,6 +6,9 @@
         <el-table v-loading="loading" :data="list" element-loading-text="Loading" border fit highlight-current-row
             size="small ">
             <el-table-column align="center" prop="id" label="ID" width="65"></el-table-column>
+             <el-table-column align="center" prop="label" label="标签">
+            </el-table-column>
+            
             <el-table-column align="center" prop="name" label="标题">
             </el-table-column>
             <el-table-column align="center" prop="subTitle" label="描述">
@@ -51,6 +54,11 @@
         <!--新增和编辑界面-->
         <el-dialog :title="dialogTitle+'官方活动'" :visible.sync="dialogVisible" width="50%">
             <el-form :model="form" label-width="100px" :rules="rules" ref="form">
+                
+                <el-form-item label="标签" prop="label">
+                    <el-input v-model="form.label"></el-input>
+                    <div style="padding:10px 0;">新增标签的话请联系后台人员</div>
+                </el-form-item>
                 <el-form-item label="标题" prop="name">
                     <el-input v-model="form.name"></el-input>
                 </el-form-item>
@@ -182,17 +190,18 @@
                 this.dialogVisible = true;
                 this.dialogTitle = "新增"
                 this.form = {
-                    "backgroundUrl": "",
-                    "createTime": "",
-                    "id": 0,
-                    "jumpTo": process.env.VUE_APP_BASE_API+"h5/h5V2/",
-                    "logoUrl": "",
-                    "name": "",
-                    "ordernum": 0,
-                    "status": 1,
-                    "subTitle": "",
-                    "androidVersion": "",
-                     "iosVersion": ""
+                    backgroundUrl: "",
+                    createTime: "",
+                    id: 0,
+                    jumpTo: process.env.VUE_APP_BASE_API+"h5/h5V3/",
+                    logoUrl: "",
+                    name: "",
+                    ordernum: 0,
+                    status: 1,
+                    subTitle: "",
+                    androidVersion: "",
+                     iosVersion: "",
+                     label:""
                 }
             },
             btn_edit(row) {
