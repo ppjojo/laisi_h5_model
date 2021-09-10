@@ -50,7 +50,7 @@
                         </div>
                         <div class="detailItem"></div>
                         <div class="detailItem">
-                            <div class="numBox">{{recordData[key].mostFreq||0}}</div>
+                            <div class="numBox">{{recordData[key].maxBpm||0}}</div>
                             <div class="numDesc">最快频次(次/分)</div>
                         </div>
                     </div>

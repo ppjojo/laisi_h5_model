@@ -11,8 +11,12 @@
 	<link href="css/index.css" rel="stylesheet" type="text/css" />
 	<script src="https://cdn.bootcdn.net/ajax/libs/vConsole/3.8.1/vconsole.min.js"></script>
 	<script>
-		var vConsole = new VConsole();
-	</script>
+		// init vConsole
+			var vConsole = new VConsole();
+			localStorage.setItem("202199",1)
+		  
+		</script>   
+
 
 </head>
 
@@ -130,7 +134,7 @@
 		el: '#app',
 		data() {
 			return {
-				userType: getQueryString("type") || "skipping", //skipping跳绳   running跑步  wristball腕力球 wheel健腹轮
+				userType: (getQueryString("type") || "skipping").toLowerCase(), //skipping跳绳   running跑步  wristball腕力球 wheel健腹轮
 				refreshing: false,
 				listData: [],
 				bottomTipMsg: "排名来源于所有跳绳数据",

@@ -168,7 +168,14 @@
 				Interaction.closePage();
 			},
 			onclickRight() {
-				alert("跳转我的俱乐部")
+				if (isIOS) {
+					window.webkit.messageHandlers.lstNative.postMessage({
+						method: "LSTH5APP_GoToMyClub",
+					});
+
+				} else if (isAndroid) {
+					window.android.LSTH5APP_GoToMyClub()
+				}
 			},
 			//获取俱乐部列表
 			getClubList() {
