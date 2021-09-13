@@ -292,19 +292,21 @@
                 <van-button class="btn" size="large" v-if="isSign==0&&(competitionStatus==1||competitionStatus==2)"
                     @click="getPowertoSign()">去报名
                 </van-button>
-                <van-button class="btn " size="large" v-else-if="isSign==1&&competitionStatus==1&&timesRemain!=0"
-                    @click="gotoSkip">{{type=="skipping"?"去跳绳":type=="steps"?"去跑步":type=="wheel"?"去运动":type=="wristball"?"去运动":""}}
+                <van-button class="btn btn2" size="large"
+                    v-else-if="isSign==2&&(competitionStatus==2||competitionStatus==1)">
+                    去报名
                 </van-button>
-                <van-button class="btn btn2" size="large" v-else-if="isSign==1&&competitionStatus==2">
+                <van-button class="btn " size="large" v-else-if="isSign==1&&competitionStatus==1&&timesRemain!=0"
+                    @click="gotoSkip">
                     {{type=="skipping"?"去跳绳":type=="steps"?"去跑步":type=="wheel"?"去运动":type=="wristball"?"去运动":""}}
                 </van-button>
-                <van-button class="btn btn2" size="large" v-else-if="isSign==2&&(competitionStatus==2||competitionStatus==1)">
+                <van-button class="btn btn2" size="large" v-else-if="isSign==1&&competitionStatus==2">
                     {{type=="skipping"?"去跳绳":type=="steps"?"去跑步":type=="wheel"?"去运动":type=="wristball"?"去运动":""}}
                 </van-button>
                 <van-button class="btn btn2" size="large" v-else-if="isSign==1&&competitionStatus==1&&timesRemain==0">
                     {{type=="skipping"?"去跳绳":type=="steps"?"去跑步":type=="wheel"?"去运动":type=="wristball"?"去运动":""}}
                 </van-button>
-                
+
                 <van-button class="btn btn2" size="large" v-else-if="competitionStatus==3">已结束
                 </van-button>
             </div>
@@ -892,28 +894,21 @@
                 })
             },
             gotoSkip() {
+                var skipItem = {
+                    method: "LSTH5APP_SelectDeviceAndPushToSport", //H5调起原生选择设备，并跳转到对应设备类型的运动页，目前3.0后有：跳绳、健腹轮、腕力球
+                    deviceType: this.type, //skipping、wristball、wheel 
+                    mode: this.competitionItem.mode, //倒计时2、倒计数3，按照原先跳绳PK类型定义的值",
+                    modeValue: this.competitionItem.modeValue, //按照原先跳绳的类型传值
+                    jumpCount: this.competitionItem.repeatTimes, //按照原先跳绳的类型传值
+                    category: 1, //1：PK赛，2俱乐部比赛,
+                    isPK: 1, //0不是，1是，表示是否是PK类型的运动，是的话去pk运动页面，不是去普通运动页面
+                    dataId: this.competitionItem.id
+                }
                 try {
                     if (isIOS) {
-                        window.webkit.messageHandlers.lstNative.postMessage({
-                            method: "LSTH5APP_SelectDeviceAndPushToSport", //H5调起原生选择设备，并跳转到对应设备类型的运动页，目前3.0后有：跳绳、健腹轮、腕力球
-                            deviceType: this.type, //skipping、wristball、wheel 
-                            mode: this.competitionItem.mode, //倒计时2、倒计数3，按照原先跳绳PK类型定义的值",
-                            modeValue: this.competitionItem.modeValue, //按照原先跳绳的类型传值
-                            jumpCount: this.competitionItem.repeatTimes, //按照原先跳绳的类型传值
-                            category: 1, //1：PK赛，2俱乐部比赛,
-                            isPK: 1, //0不是，1是，表示是否是PK类型的运动，是的话去pk运动页面，不是去普通运动页面
-                            dataId: this.competitionItem.id
-                        });
+                        window.webkit.messageHandlers.lstNative.postMessage(skipItem);
                     } else {
-                        window.android.LSTH5APP_SelectDeviceAndPushToSport(JSON.stringify({
-                            deviceType: this.type,
-                            mode: this.competitionItem.mode,
-                            modeValue: this.competitionItem.modeValue,
-                            jumpCount: this.competitionItem.repeatTimes,
-                            category: 1,
-                            isPK: 1,
-                            dataId: this.competitionItem.id
-                        }));
+                        window.android.LSTH5APP_SelectDeviceAndPushToSport(JSON.stringify(skipItem));
                     }
                 } catch (e) {
                     console.log(e);
@@ -926,5 +921,9 @@
     };
 </script>
 <style lang="scss">
-    @import '@/styles/detail.scss'
+    @import '@/styles/detail.scss';
+
+    .van-action-sheet__item {
+        border-bottom: 1px solid #1e1e2a;
+    }
 </style>
