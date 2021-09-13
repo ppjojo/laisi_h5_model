@@ -110,7 +110,7 @@
 
         data() {
             return {
-                type: this.$route.query.type, 
+                type: this.$route.query.type,
                 navBarTitle: "跳绳PK赛",
                 active: 0, //0 正在进行 1 即将开始 2 我的
                 all: [{
@@ -157,6 +157,11 @@
             // skipping跳绳   steps跑步  wristBall腕力球 wheel健腹轮
             this.navBarTitle = this.type == "steps" ? "跑步Pk赛" : this.type == "wristball" ? "腕力球PK赛" : this.type ==
                 "wheel" ? "健腹轮PK赛" : "跳绳PK赛"
+            if (localStorage.getItem("pkActive")) {
+                this.active=parseInt(localStorage.getItem("pkActive"))
+                this.all[localStorage.getItem("pkActive")].page = 0
+                this.getList();
+            }
         },
         methods: {
             onclickLeft() {
@@ -164,6 +169,7 @@
                 // this.$router.go(-1)
             },
             tabsClick() {
+                localStorage.setItem("pkActive", this.active)
                 this.all[this.active].page = 0
                 this.getList()
             },
@@ -256,7 +262,7 @@
                     path: '/competitionDetail',
                     query: {
                         id: this.itemDetail.id,
-                        type:this.type
+                        type: this.type
                     }
                 });
 
@@ -283,32 +289,11 @@
                 }
             },
             getOrderToCreate() {
-                // boundDeviceCount().then(res => {
-                //     if (res.code == 0) {
-                //         var items = [];
-                //         for (var i = 0; i < res.data.length; i++) {
-                //             if (res.data[i].deviceType == "skipping") {
-                //                 var item = {
-                //                     name: res.data[i].deviceNickName,
-                //                     mac: res.data[i].deviceId || res.data[i].btMac,
-                //                 }
-                //                 items.push(item);
-                //             }
-                //         }
-                //         if (items.length == 0) {
-                //             this.$toast("请先绑定设备");
-                //             return
-                //         } else {
-                //             //获取当天可以创建比赛的次数
-
-                //         }
-                //     }
-                // })
                 createTimes().then(res => {
                     if (res.data > 0) {
                         this.$router.push({
                             path: '/createCompetition',
-                            type:this.type
+                            type: this.type
 
                         });
                     } else {
