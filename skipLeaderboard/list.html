@@ -78,7 +78,7 @@
 				</div>
 
 				<van-pull-refresh v-model="refreshing" :head-height="90" @refresh="onRefresh"
-					:class="userType=='running'?'van-pull-refresh2':''"
+					:class="userType=='steps'?'van-pull-refresh2':''"
 					style="height:calc(100vh - 4.5rem) ;overflow: auto;" class="monkey-pull-refresh">
 					<template #pulling="props">
 						<div class="monkeyBox">
@@ -134,7 +134,7 @@
 		el: '#app',
 		data() {
 			return {
-				userType: (getQueryString("type") || "skipping").toLowerCase(), //skipping跳绳   running跑步  wristball腕力球 wheel健腹轮
+				userType: (getQueryString("type") || "skipping").toLowerCase(), //skipping跳绳   steps跑步  wristball腕力球 wheel健腹轮
 				refreshing: false,
 				listData: [],
 				bottomTipMsg: "排名来源于所有跳绳数据",
@@ -182,7 +182,7 @@
 				} else if (this.userType == "wristball") {
 					this.secondTypeChange('maxRate')
 					this.bottomTipMsg = "排名来源于所有腕力球数据"
-				} else if (this.userType == "running") {
+				} else if (this.userType == "steps") {
 					this.apiUrl = `sportwatch/merge/steps/rank`
 					this.activeTimeChange("daily")
 					this.bottomTipMsg = "排名来源于所有步数数据"

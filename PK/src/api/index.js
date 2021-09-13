@@ -1,12 +1,20 @@
 import request from "@u/request"
+import {getQueryString} from '@u/tool'
+
+var pkType=getQueryString("type");
+var prefix="ropeSkipping"
+if(pkType=="steps"){
+    prefix="sportwatch"
+}
+
 export function listItemApi(data,type) {
-    let api="ropeSkipping/competition/doing"
+    let api=prefix+"/competition/doing"
     if(type==0){
-        api="ropeSkipping/competition/doing"
+        api=prefix+"/competition/doing"
     }else if(type==1){
-        api="ropeSkipping/competition/todo"
+        api=prefix+"/competition/todo"
     }else{
-        api="ropeSkipping/competition//user/attended"
+        api=prefix+"/competition//user/attended"
     }
     return request({
         url: api,
@@ -18,7 +26,7 @@ export function listItemApi(data,type) {
 //邀请码确认
 export function checkCode(data) {
     return request({
-        url: "ropeSkipping/competition/check/code",
+        url: prefix+"/competition/check/code",
         method: 'post',
         data
     })
@@ -34,7 +42,7 @@ export function boundDeviceCount(data) {
 //今日的创建次数
 export function createTimes(data) {
     return request({
-        url: "ropeSkipping/competition/create/times/limit",
+        url: prefix+"/competition/create/times/limit",
         method: 'POST',
         data
     })
@@ -44,7 +52,7 @@ export function createTimes(data) {
 //创建比赛
 export function createCompetition(data) {
     return request({
-        url: "ropeSkipping/competition/create",
+        url: prefix+"/competition/create",
         method: 'post',
         data
     })

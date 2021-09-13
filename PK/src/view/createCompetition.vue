@@ -49,7 +49,7 @@
                 </div>
             </div>
 
-            <div v-else-if="type=='running'">
+            <div v-else-if="type=='steps'">
                 <div class="item_box">
                     <div>
                         <van-cell class="pk_cell2" :class="form.pkMode.indexOf('请选择')!=-1?'':'chosed'"
@@ -132,7 +132,7 @@
 
         <div class="creatBox" v-if="flag==2">
             <div class="item_box">
-                <div>
+                <div class="pkRepeatTimes">
                     <van-cell class="pk_cell2" :class="form.pkRepeatTimes.indexOf('请选择')!=-1?'':'chosed'"
                         @click="playTimesShow = true" title="比赛次数" is-link :value="form.pkRepeatTimes" />
                 </div>
@@ -160,7 +160,7 @@
                         @click="endTimeShow = true" title="结束时间" is-link :value="form.pkEnd" />
                 </div>
             </div>
-            <div class="item_box" v-if="type!='running'">
+            <div class="item_box" v-if="type!='steps'">
                 <div class="laber">
                     比赛奖励
                 </div>
@@ -267,7 +267,7 @@
         data() {
             return {
                 type: this.$route.query.type,
-                flag: 1,
+                flag: 2,
                 countTimeColumns: ['30秒'],
                 countTimeShow: false,
 
@@ -300,7 +300,9 @@
                 endTimeShow: false,
 
                 distanceShow: false,
-                distanceColumns: [],
+                distanceColumns: [
+                    "1公里","3公里","5公里","10公里","15公里","20公里","30公里","40公里","50公里","60公里"
+                ],
 
 
 
@@ -340,9 +342,9 @@
                 handler: function (val, oldval) {
                     if (this.type == "skipping"||this.type=="wheel") {
                         this.skippingCheckIsNull()
-                    } else if (this.type == "running") {
+                    } else if (this.type == "steps") {
                         this.runningCheckIsNull()
-                    } else if (this.type == "wristBall") {
+                    } else if (this.type == "wristball") {
                         this.wristBallCheckIsNull()
                     }
 
@@ -427,16 +429,15 @@
                 for (let i = 2; i <= 50; i++) {
                     this.teamColumns.push(i);
                 }
-            } else if (this.type == "running") {
-                this.form.pkMode = "请选择公里数"
-                for (let i = 1; i <= 60; i++) {
-                    this.distanceColumns.push(i + '公里');
-                }
-
-            }
+            } 
 
             if (this.type == "wristBall") {
                 this.form.pkMode = "请选择倒计时转时长"
+            }
+
+            if (this.type == "steps") {
+                this.form.pkMode = "请选择公里数"
+                this.submitform.mode=0
             }
 
 
@@ -566,7 +567,7 @@
             onDistanceConfirm(value, index) {
                 this.form.pkModeValue = value;
                 this.form.pkMode = value + "跑";
-                this.submitform.modeValue = index + 1;
+                this.submitform.modeValue = value.replace("公里","");
                 this.distanceShow = false;
             },
             //倒计数的回调
@@ -784,6 +785,7 @@
                         path: '/competitionDetail',
                         query: {
                             id: res.data[1].id,
+                            type:this.type
                         }
                     });
                 })

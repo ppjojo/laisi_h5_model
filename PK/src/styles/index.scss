@@ -198,6 +198,7 @@ $border_color:#1e1e2a;
                 font-size: 0.32rem;
             }
         }
+        
 
         .chosed .van-cell__value {
             color: $text_color_white;
@@ -205,7 +206,13 @@ $border_color:#1e1e2a;
             
             flex: 1;
         }
+        .pkRepeatTimes{
+            .van-cell__value{
+                flex: 2;
+            }
+        }
     }
+    
 
     .nextStep {
         width: 4rem;

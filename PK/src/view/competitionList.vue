@@ -154,8 +154,8 @@
             this.getList()
         },
         created() {
-            // skipping跳绳   running跑步  wristBall腕力球 wheel健腹轮
-            this.navBarTitle = this.type == "running" ? "跑步Pk赛" : this.type == "wristball" ? "腕力球PK赛" : this.type ==
+            // skipping跳绳   steps跑步  wristBall腕力球 wheel健腹轮
+            this.navBarTitle = this.type == "steps" ? "跑步Pk赛" : this.type == "wristball" ? "腕力球PK赛" : this.type ==
                 "wheel" ? "健腹轮PK赛" : "跳绳PK赛"
         },
         methods: {
@@ -256,6 +256,7 @@
                     path: '/competitionDetail',
                     query: {
                         id: this.itemDetail.id,
+                        type:this.type
                     }
                 });
 
@@ -307,6 +308,7 @@
                     if (res.data > 0) {
                         this.$router.push({
                             path: '/createCompetition',
+                            type:this.type
 
                         });
                     } else {

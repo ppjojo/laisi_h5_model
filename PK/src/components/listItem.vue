@@ -10,7 +10,7 @@
         <div class="pkDescript">
             <span>{{item.type=="personal"?"个人PK":"团队PK"}}</span>
 
-            <div v-if="type=='running'">
+            <div v-if="type=='steps'">
                 <span class="laberContent" >{{item.modeValue+"公里跑"}}</span>
                 
             </div>

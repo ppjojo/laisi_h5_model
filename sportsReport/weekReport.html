@@ -510,10 +510,10 @@
 			},
 			//传入毫秒数 返回相应的日时分秒
 			secondsFormat(s) {
+				s=s/1000
 				var hour = Math.floor(s / 3600).toString()
-				var minute = Math.floor((hour * 3600) / 60).toString()
-				var second = (hour * 3600 - minute * 60).toString()
-
+				var minute = Math.floor((s-(hour * 3600)) / 60).toString()
+				var second = (s-hour * 3600 - minute * 60).toString()
 				return hour.padStart(2, "0") + ":" + minute.padStart(2, "0") + ":" + second.padStart(2, "0")
 			},
 			//传入时间戳获取日期

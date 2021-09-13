@@ -13,8 +13,7 @@
             </van-nav-bar>
         </div>
         <div class="shareBox" v-if="isShare">
-            <div class="headPic"
-                :style="{'background-image': 'url(' + userItem.headPictureUrl + ')'}"></div>
+            <div class="headPic" :style="{'background-image': 'url(' + userItem.headPictureUrl + ')'}"></div>
             <div class="personalName">{{userItem.nickName}}</div>
             <div class="competitionName">我在派健康参与了比赛【{{competitionItem.name}}】,快来和我battle吧</div>
             <div class="codeTitle" v-if="competitionItem.invitationCode">邀请码</div>
@@ -65,7 +64,7 @@
                             </van-col>
                         </van-row>
                     </div>
-                    <div v-else-if="type=='running'">
+                    <div v-else-if="type=='steps'">
                         <van-row>
                             <van-col span="5" class="laberTitle">比赛模式<i></i></van-col>
                             <van-col span="1" class="laberTitle">：</van-col>
@@ -290,15 +289,22 @@
             </div>
 
             <div class="btn_box" v-if="!isShare">
-                <van-button class="btn" size="large" v-if="!isSign&&(competitionStatus==1||competitionStatus==2)"
+                <van-button class="btn" size="large" v-if="isSign==0&&(competitionStatus==1||competitionStatus==2)"
                     @click="getPowertoSign()">去报名
                 </van-button>
-                <van-button class="btn " size="large" v-else-if="isSign&&competitionStatus==1&&timesRemain!=0"
-                    @click="gotoSkip">去跳绳
+                <van-button class="btn " size="large" v-else-if="isSign==1&&competitionStatus==1&&timesRemain!=0"
+                    @click="gotoSkip">{{type=="skipping"?"去跳绳":type=="steps"?"去跑步":type=="wheel"?"去运动":type=="wristball"?"去运动":""}}
                 </van-button>
-                <van-button class="btn btn2" size="large" v-else-if="isSign&&competitionStatus==2">去跳绳</van-button>
-                <van-button class="btn btn2" size="large" v-else-if="isSign&&competitionStatus==1&&timesRemain==0">去跳绳
+                <van-button class="btn btn2" size="large" v-else-if="isSign==1&&competitionStatus==2">
+                    {{type=="skipping"?"去跳绳":type=="steps"?"去跑步":type=="wheel"?"去运动":type=="wristball"?"去运动":""}}
                 </van-button>
+                <van-button class="btn btn2" size="large" v-else-if="isSign==2&&(competitionStatus==2||competitionStatus==1)">
+                    {{type=="skipping"?"去跳绳":type=="steps"?"去跑步":type=="wheel"?"去运动":type=="wristball"?"去运动":""}}
+                </van-button>
+                <van-button class="btn btn2" size="large" v-else-if="isSign==1&&competitionStatus==1&&timesRemain==0">
+                    {{type=="skipping"?"去跳绳":type=="steps"?"去跑步":type=="wheel"?"去运动":type=="wristball"?"去运动":""}}
+                </van-button>
+                
                 <van-button class="btn btn2" size="large" v-else-if="competitionStatus==3">已结束
                 </van-button>
             </div>
@@ -458,7 +464,7 @@
                 userItem: {},
                 joinDetailItem: {},
                 competitionStatus: "", //1进行中 2即将开始 3已结束
-                isSign: false, //是否已经报名
+                isSign: 0, //是否已经报名
                 timesRemain: -1, //跳绳剩余次数
                 setting: false, //设置弹窗
                 settingActions: [{
@@ -518,7 +524,7 @@
                 if (!from.meta.index) {
                     vm.fromList = 0
                 }
-            }) 
+            })
         },
         beforeRouteLeave(to, from, next) {
             this.destroyed();
@@ -597,12 +603,12 @@
                     id: this.competitionId,
                 }).then(res => {
                     if (res.code == 0) {
-                        if(this.isShare){
-                             this.currentUserId = getQueryString("userId")
-                        }else{
-                            this.currentUserId=JSON.parse(localStorage.getItem('appInfo')).userId
+                        if (this.isShare) {
+                            this.currentUserId = getQueryString("userId")
+                        } else {
+                            this.currentUserId = JSON.parse(localStorage.getItem('appInfo')).userId
                         }
-                       
+
                         this.competitionItem = res.data[1];
                         if (this.competitionItem.isOfficial) {
                             //奖励的换行处理
@@ -654,6 +660,7 @@
                     this.destroyed();
                     this.$router.push({
                         path: '/rule',
+                        type: this.type
                     });
                 } else if (obj.type == 3) {
                     if (this.competitionStatus == 2) {
@@ -850,7 +857,8 @@
                     path: '/teamDetail',
                     query: {
                         id: this.competitionId,
-                        userId: this.currentUserId
+                        userId: this.currentUserId,
+                        type: this.type
                     }
                 });
             },
@@ -863,32 +871,12 @@
             },
             //判断有没有资格报名
             getPowertoSign() {
-                boundDeviceCount().then(res => {
-                    if (res.code == 0) {
-                        var items = [];
-                        for (var i = 0; i < res.data.length; i++) {
-                            if (res.data[i].deviceType == "skipping") {
-                                var item = {
-                                    name: res.data[i].deviceNickName,
-                                    mac: res.data[i].deviceId || res.data[i].btMac,
-                                }
-                                items.push(item);
-                            }
-                        }
-                        if (items.length == 0) {
-                            this.$toast("请先绑定设备");
-                            return
-                        } else {
-                            if (this.competitionItem.type == "team") {
-                                this.getTeamList()
-                                this.chooseTeamShow = true;
-                                return;
-                            }
-                            this.sign()
-
-                        }
-                    }
-                })
+                if (this.competitionItem.type == "team") {
+                    this.getTeamList()
+                    this.chooseTeamShow = true;
+                    return;
+                }
+                this.sign()
             },
             sign() {
                 participateCompetition({

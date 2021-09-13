@@ -1,10 +1,16 @@
 import request from "@u/request"
 import {getQueryString} from '@u/tool'
+
+var pkType=getQueryString("type");
+var prefix="ropeSkipping"
+if(pkType=="steps"){
+    prefix="sportwatch"
+}
 //比赛详情
 export function competitionDetail(data) {
-    let apiUrl="ropeSkipping/competition/get/item"
+    let apiUrl=prefix+"/competition/get/item"
     if(getQueryString("isShare")==1){
-        apiUrl="share/ropeSkipping/competition/get/item"
+        apiUrl=`share/${prefix}/competition/get/item`
     }
     return request({
         url: apiUrl,
@@ -14,9 +20,9 @@ export function competitionDetail(data) {
 }
 
 export function detailInfo(data) {
-    let apiUrl="ropeSkipping/competition/detail/play"
+    let apiUrl=prefix+"/competition/detail/play"
     if(getQueryString("isShare")==1){
-        apiUrl="share/ropeSkipping/competition/detail/play"
+        apiUrl=`share/${prefix}/competition/detail/play`
     }
     return request({
         url:apiUrl,
@@ -26,10 +32,10 @@ export function detailInfo(data) {
     })
 }
 //比赛的参与转态
-export function userAttendStatus(data) {
+export function userAttendStatus(data) {//1 已参加 0 未参加 2 跑步
     return request({
-        url: "ropeSkipping/competition/user/is/attended",
-        method: 'post',
+        url: prefix+"/competition/user/is/attended",
+        method: 'post', 
         // data,
         params:data
     })
@@ -37,7 +43,7 @@ export function userAttendStatus(data) {
 //用户的跳绳次数
 export function userTimesRemain(data) {
     return request({
-        url: "ropeSkipping/competition/user/times/remain",
+        url: prefix+"/competition/user/times/remain",
         method: 'get',
         // data,
         params:data
@@ -46,16 +52,16 @@ export function userTimesRemain(data) {
 //退出比赛
 export function userQuitCompetition(data) {
     return request({
-        url: "ropeSkipping/competition/user/quit",
+        url: prefix+"/competition/user/quit",
         method: 'post',
         params:data
     })
 }
 //参加比赛
 export function participateCompetition(data,type) {
-    let apiUrl="ropeSkipping/competition/user/participate"
+    let apiUrl=prefix+"/competition/user/participate"
     if(type!="personal"){
-        apiUrl="ropeSkipping/team/user/participate"
+        apiUrl=prefix+"/team/user/participate"
     }
     return request({
         url:apiUrl,
@@ -67,7 +73,7 @@ export function participateCompetition(data,type) {
 //团队赛的剩余报名人数
 export function teamPeopleRemain(data) {
     return request({
-        url: "ropeSkipping/team/count/remain",
+        url: prefix+"/team/count/remain",
         method: 'post',
         params:data
     })
@@ -76,7 +82,7 @@ export function teamPeopleRemain(data) {
 //团队赛的队伍
 export function teamListArr(data) {
     return request({
-        url: "ropeSkipping/team/list",
+        url: prefix+"/team/list",
         method: 'post',
         params:data
     })
