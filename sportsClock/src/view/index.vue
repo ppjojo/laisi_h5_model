@@ -106,6 +106,7 @@
 	import nCalendar from '@c/calendar';
 	import clockState from '@c/clockState';
 	import returnIcon from '@c/returnIcon';
+	import { getQueryString } from "@u/tool";
 	import {
 		insertSportData,
 		updateSportData,

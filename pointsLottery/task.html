@@ -147,7 +147,7 @@
 
 											<div class="task_unfinish ub ub-ac ub-pc"
 												v-if="item.isFinish==0&&nowIndex==menuactive"
-												@click="modifyRoute(item.modelType)">
+												@click="modifyRoute(item.modelType,item.actionType)">
 												+{{item.addIntegralCount||'?'}}
 											</div>
 											<div v-else class="task_finish"
@@ -320,11 +320,11 @@
 					//      "LSTH5APP_GoMyDeviceVC"//我的设备
 					// }
 					var actionType = "",
-						actionNum = type + "00";
+						actionNum = num;
 					var _self = this;
 					switch (type) {
 						case "02":
-							_self.Community();
+							// _self.Community();
 							actionType = "LSH5APP_BrowseCommunity";
 							break;
 						case "03":
@@ -357,7 +357,7 @@
 							actionType = false;
 							break;
 					}
-					console.log(actionType)
+					console.log(actionNum)
 					if (!actionType) return;
 					try {
 						//LSTH5APP_BrowseVideoAction

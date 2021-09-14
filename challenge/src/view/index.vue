@@ -24,7 +24,7 @@
 		</div>
 		<!-- 打卡按钮 -->
 		<div class="clickBtn ub ub-ac ub-ad" @click="isChallage(info.type)" :class="{greyBtn:info.dateType==1}">
-			<div>{{info.dateType==1?'今日休息':info.type==3?'迎战':info.type==1?'完成':info.type==2?'再次挑战':'暂未触发'}}</div>
+			<div>{{info.dateType==1?'今日休息':info.type==3?'迎战':info.type==1?'完成':info.type==2?'再次挑战':info.type==0?'迎战中':'暂未触发'}}</div>
 		</div>
 		<!-- 战列表 -->
 		<ul class="zhanlist">
@@ -103,7 +103,11 @@
 					page: 0,
 					pageSize: 200
 				},
-				info: {},
+				info: {
+					challengeType:{
+						
+					}
+				},
 				historyList: [],
 				isFinish: false
 			};
@@ -114,8 +118,8 @@
 			this.getHistory();
 		},
 		created() {
-			let type = getQueryString('type') || "skipping";
-			type == 'skipping' ? this.flag = 2 : type == 'wristBall' ? this.flag = 1 : type == 'wheel' ? this.flag = 3 :
+			let type = getQueryString('type') || "wristball";
+			type == 'skipping' ? this.flag = 2 : type == 'wristball' ? this.flag = 1 : type == 'wheel' ? this.flag = 3 :
 				null;
 		},
 		methods: {
@@ -138,21 +142,24 @@
 			changeChallenge() { //换个目标
 				if (this.flag == 2) {
 					changeRopeChallage({}).then(res => {
-						this.info.challengeDetail = res.data;
+						this.info.challengeType = res.data;
 					})
 				} else {
 					this.getList()
 				}
 			},
 			isChallage(type) { //判断是否应占
-				if (type == 2 || type == 3) {
+				if (type == 2 || type == 3||type==0) {
 					this.goChallage()
 				}
 			},
 			goChallage() {
 				//app迎战
+				this.info.challengeType.category = 6;
+				if(!this.info.challengeType.bpm)this.info.challengeType.bpm=0;
+				this.info.challengeType.deviceType = getQueryString('type')||'wristball';
 				acceptChallage(this.info.challengeType||this.info.challengeDetail,this.flag).then(res=>{
-					this.$interaction.appNative('goMotionInterface',{type:this.flag});
+					this.$interaction.appNative('LSTH5APP_SelectedDeviceForChallenge',this.info.challengeType);
 				})
 			},
 			getHistory() {
@@ -167,7 +174,7 @@
 			returnTask(obj) {
 				if(!obj.conditionMode)return '';
 				let str = '';
-				if (this.flag == 2) {
+				if (this.flag == 2) {//跳绳
 					if (obj.conditionMode == 1 || obj.conditionMode == 5 || obj.conditionMode == 6) {
 						str += ('单次运动' + obj.count + '次');
 						if (obj.conditionMode == 5 || obj.conditionMode == 6) str += ('且BPM达到' + obj.bpm)
@@ -200,6 +207,7 @@
 					message: str,
 				}).then(() => {
 					// on close
+					this.info.type=3;
 					this.$interaction.appNative('LSTH5APP_SelectDeviceAndPushToSport',{isPK:0,deviceType:getQueryString('type')});
 				}).catch(() => {
 					// on cancel

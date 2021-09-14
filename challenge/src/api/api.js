@@ -52,7 +52,8 @@ let url = 'ab-roller/dailyChallenge/acceptChallenge';
 	if (flag == 2) url = 'ropeSkipping/dailychallenge/acceptChallage';
 	return request({
 		url: url,
-		method: 'post',
+		method:'post',
 		data,
+		params:data
 	})
 }
