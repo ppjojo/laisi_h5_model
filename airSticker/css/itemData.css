@@ -336,6 +336,7 @@
 
 .header .van-nav-bar .van-nav-bar__title {
   color: #fff;
+  font-size: 0.36rem;
 }
 
 .header .van-hairline--bottom::after {

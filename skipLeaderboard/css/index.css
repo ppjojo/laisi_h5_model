@@ -11,9 +11,30 @@
 }
 
 .header {
-  height: 1rem;
+  height: 0.92rem;
   position: relative;
   z-index: 100;
+}
+
+.header .van-nav-bar {
+  background-color: #12121f;
+}
+
+.header .van-nav-bar .van-nav-bar__content {
+  color: #CFCFD2;
+}
+
+.header .van-nav-bar .van-nav-bar__title {
+  color: #CFCFD2;
+  font-size: 0.36rem;
+}
+
+.header .van-nav-bar .van-nav-bar__text {
+  color: #CFCFD2;
+}
+
+.header .van-hairline--bottom::after {
+  border: none;
 }
 
 @supports ((height: constant(safe-area-inset-top)) or (height: env(safe-area-inset-top))) and (-webkit-overflow-scrolling: touch) {
@@ -60,7 +81,6 @@
 body {
   background-color: #12121f;
   color: #CFCFD2;
-  padding: 0.24rem;
   min-height: 100vh;
 }
 
@@ -187,6 +207,7 @@ body {
 
 .main-container {
   position: relative;
+  padding: 0.24rem;
 }
 
 .content-container {
@@ -433,12 +454,12 @@ body {
 
 .bottomTip {
   width: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   text-align: center;
   color: #CFCFD2;
   font-size: .2rem;
   line-height: 0.8rem;
   text-align: center;
-  position: absolute;
-  bottom: -0.9rem;
 }
 /*# sourceMappingURL=index.css.map */

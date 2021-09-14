@@ -3,7 +3,7 @@
         <div class="header" v-if="!isShare" style="height:auto;">
             <van-nav-bar @click-left="onclickLeft" title="比赛详情" left-arrow safe-area-inset-top fixed>
                 <template #left>
-                    <span class="icon iconfont icon-fanhuianniu" style="font-size: 0.48rem;" />
+                    <span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
                 </template>
                 <template #right v-if="competitionStatus!=3">
                     <div @click="goSetting()">

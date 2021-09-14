@@ -23,6 +23,7 @@
 
 .detailBox .van-nav-bar .van-nav-bar__title {
   color: #fff;
+  font-size: 0.36rem;
 }
 
 .detailBox .van-hairline--bottom::after {

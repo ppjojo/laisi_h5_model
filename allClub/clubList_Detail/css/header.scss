@@ -45,6 +45,7 @@ body {
         .van-nav-bar__title{
             opacity: 0;
             color: #fff;
+            font-size: 0.36rem;
         }
     }
     .van-hairline--bottom::after {
@@ -67,6 +68,7 @@ body {
 
             .van-nav-bar__title {
                 color: $text_color_white;
+                font-size: 0.36rem;
             }
             .van-nav-bar__text{
                 color: $text_color_white;

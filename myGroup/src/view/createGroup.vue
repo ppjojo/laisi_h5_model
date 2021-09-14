@@ -4,7 +4,7 @@
 			<van-nav-bar :title="titleText" @click-left="onclickLeft" @click-right="onClickRight" left-arrow
 				safe-area-inset-top fixed>
 				<template #left>
-					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.48rem;" />
+					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
 				</template>
 				<template #right>
 					<div v-if="edit&&labelArray.length>0" :style="{color:'#595962',fontSize:'.32rem'}">完成</div>

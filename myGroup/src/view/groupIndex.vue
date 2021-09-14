@@ -3,7 +3,7 @@
 		<div class="header" v-if="isShare!=1">
 			<van-nav-bar @click-left="onclickLeft" :title="groupItem.name" left-arrow safe-area-inset-top fixed>
 				<template #left>
-					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.48rem;" />
+					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
 				</template>
 				<template #right>
 					<div style="margin-right: 0.25rem;" @click="shareGroup()">
