@@ -171,7 +171,7 @@
                         { required: true, message: '请输入产品名称', trigger: 'blur' },
                     ],
                     deviceType: [
-                        { required: true, message: '请输入产品类型', trigger: 'blur' },
+                        { required: false, message: '请输入产品类型', trigger: 'blur' },
                     ],
                     deviceModel: [
                         { required: true, message: '请输入产品型号', trigger: 'blur' },

@@ -1,6 +1,6 @@
 <template>
 	<div id="app" v-cloak>
-		<div class="header" v-show="!sheetImageStatus">
+		<div class="header" v-show="!sheetImageStatus&&isShare!=1">
 			<van-nav-bar title="打卡总览" @click-left="onClickLeft" @click-right="onClickRight" left-arrow
 				safe-area-inset-top fixed>
 				<template #right>
@@ -80,6 +80,7 @@
 	import nCalendar from '@c/calendar';
 	import year from '@c/year';
 	import returnIcon from '@c/returnIcon';
+	import { getQueryString } from "@u/tool";
 	import {
 		NavBar,
 		Icon,
@@ -106,6 +107,7 @@
 
 		data() {
 			return {
+				isShare:getQueryString('isShare'),
 				minDate: new Date(2021, 0, 1),
 				maxDate: new Date(),
 				currentDate: new Date(),
@@ -118,7 +120,7 @@
 				yearObj: {},
 				rate: [0, 0], //index0月1年
 				yearDetail: {},
-				nickname:JSON.parse(localStorage.getItem("appInfo")).nickname||''
+				nickname:localStorage.getItem("appInfo")?JSON.parse(localStorage.getItem("appInfo")).nickname:''
 			};
 		},
 		filters: {},
@@ -213,7 +215,7 @@
 				this.$interaction.appNative('LSTH5APP_UrlAndSheetImageShareModel',{
 					shareTitle: "运动日历打卡",
 					shareContent: "",
-					shareUrl: "sportsClock/clockoverview.html?isShare=1&tabIndex="+this.tabIndex,
+					shareUrl: "sportsClock/#/clockoverview.html?isShare=1&tabIndex="+this.tabIndex+'&userId='+JSON.parse(localStorage.getItem("appInfo")).userId,
 				})
 			},
 			sheetImageHideHeader() {

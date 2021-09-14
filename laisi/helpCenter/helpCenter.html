@@ -47,7 +47,7 @@
 					<div class="listItem ">
 						<span class="blodTitle">常见问题</span>
 					</div>
-					<div class="listItem " v-for="(item,index) in dataList.faqs">
+					<div class="listItem " v-for="(item,index) in dataList.faqs" @click="clickQuestion2(item)">
 						{{index+1}}.{{item.title}}？
 					</div>
 				</div>
@@ -111,6 +111,13 @@
 					return;
 				}
 				window.location.href = "qalist.html?id=" + item.id + '&userId='+ getQueryString('userId')+'&title='+item.questionTypeTitle;
+			},
+			clickQuestion2(item){
+				let title = '';
+				this.dataList.questionTypes.forEach(d=>{
+					if(d.id==item.questionType)title = d.questionTypeTitle;
+				})
+				window.location.href = "qalist.html?id=" + item.questionType + '&userId='+ getQueryString('userId')+'&title='+title;
 			},
 			getList(){
 				var _self = this;
