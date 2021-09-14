@@ -446,7 +446,7 @@ $border_color:#1e1e2a;
         height: calc(1rem + env(safe-area-inset-top));
     }
 
-    .listBox .van-sticky--fixed {
+    .comListBox .van-sticky--fixed {
         top: 1rem;
         top: calc(1rem + constant(safe-area-inset-top));
         top: calc(1rem + env(safe-area-inset-top));

@@ -204,7 +204,6 @@
             },
             onLoad() {
                 if (this.all[this.active].refreshing) {
-                    this.all[this.active].list = [];
                     this.all[this.active].refreshing = false;
                     this.all[this.active].page = 0;
                 } else {
