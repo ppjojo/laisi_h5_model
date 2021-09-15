@@ -129,7 +129,7 @@ input::-webkit-input-placeholder {
   /* 无数据区域 */
   .nulldataDiv {
 	position: fixed;
-	top: 1.96rem;
+	top: 3.96rem;
 	/* top: -webkit-calc(50% - 2rem);
     top: -moz-calc(50% - 2rem); */
     
