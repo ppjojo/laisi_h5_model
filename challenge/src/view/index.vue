@@ -118,14 +118,18 @@
 		mounted() {
 			this.getList();
 			this.getHistory();
+			window.RefreshFunction = this.RefreshFunction;
 		},
 		created() {
-			let type = getQueryString('type') || "wristball";
+			let type = getQueryString('type') || "wheel";
 			type == 'skipping' ? this.flag = 2 : type == 'wristball' ? this.flag = 1 : type == 'wheel' ? this.flag = 3 :
 				null;
 		},
 		methods: {
 			timeStamp2String: timeStamp2String,
+			RefreshFunction(){
+				this.getList();
+			},
 			getList() { //加载首页
 				typeCheck({}, this.flag).then(res => {
 					if ((res.hasOwnProperty('data') && res.data && res.code == 0) || (!res.hasOwnProperty(
@@ -147,7 +151,7 @@
 				})
 			},
 			isChallage(type) { //判断是否应占
-				if (type == 2 || type == 3 || type == 0) {
+				if (type == 2  || type == 0) {
 					this.goChallage()
 				}
 			},

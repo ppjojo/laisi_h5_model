@@ -1,6 +1,6 @@
 .selectBox {
-  border-top: 0.2rem solid whitesmoke;
-  border-bottom: 0.2rem solid whitesmoke;
+ border-top: 0.1rem solid #1e1e2a;
+ border-bottom: 0.1rem solid #1e1e2a;
 }
 
 .selectBox .selectDiv {
@@ -11,7 +11,7 @@
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  border-bottom: 1px solid whitesmoke;
+  border-bottom: 1px solid #1e1e2a;
   padding: 0 0.3rem;
   -webkit-box-align: center;
       -ms-flex-align: center;
@@ -39,7 +39,7 @@
 
 .selectBox .selectDiv .selectLeftBox .lable {
   font-size: 0.32rem;
-  color: #1f1f1f;
+  color: #cfcfd2;
 }
 
 .selectBox .selectDiv .selectLeftBox .title {
@@ -49,7 +49,7 @@
 
 .selectBox .selectDiv .selectLeftBox .titleActive {
   font-size: 0.32rem;
-  color: #1f1f1f;
+  color: #cfcfd2;
 }
 
 .selectBox .selectDiv .selectLeftBox .titleActive2 {
@@ -71,15 +71,15 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  color: #1F1F1F;
+  color: #cfcfd2;
   font-size: 0.32rem;
-  border-bottom: 0.2rem solid whitesmoke;
+  border-bottom: 0.1rem solid #1e1e2a;
 }
 
 .echartBox {
   height: 5.04rem;
   width: 100%;
   padding: 0 0.3rem;
-  border-bottom: 0.2rem solid whitesmoke;
+  border-bottom: 0.1rem solid #1e1e2a;
 }
 /*# sourceMappingURL=clubEchart.css.map */
