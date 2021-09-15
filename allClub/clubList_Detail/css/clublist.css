@@ -3,9 +3,9 @@
 }
 @supports ((height: constant(safe-area-inset-top)) or (height: env(safe-area-inset-top))) and (-webkit-overflow-scrolling: touch) {
     .searchBox .van-sticky--fixed {
-        top: 0.92rem;
-        top: calc(0.92rem + constant(safe-area-inset-top));
-        top: calc(0.92rem + env(safe-area-inset-top));
+        top: 0.91rem;
+        top: calc(0.91rem + constant(safe-area-inset-top));
+        top: calc(0.91rem + env(safe-area-inset-top));
     }
 
     
