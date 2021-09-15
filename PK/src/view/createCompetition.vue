@@ -64,7 +64,7 @@
 
             </div>
 
-            <div v-else-if="type=='wristBall'">
+            <div v-else-if="type=='wristball'">
                 <div class="item_box">
                     <div>
                         <van-cell class="pk_cell2" :class="form.pkMode.indexOf('请选择')!=-1?'':'chosed'"
@@ -345,7 +345,7 @@
                     } else if (this.type == "steps") {
                         this.runningCheckIsNull()
                     } else if (this.type == "wristball") {
-                        this.wristBallCheckIsNull()
+                        this.wristballCheckIsNull()
                     }
 
                 },
@@ -422,7 +422,7 @@
         },
 
         mounted() {
-            if (this.type == "skipping" || this.type == "wristBall") {
+            if (this.type == "skipping" || this.type == "wristball") {
                 for (let i = 1; i <= 60; i++) {
                     this.countTimeColumns.push(i + '分');
                 }
@@ -431,7 +431,7 @@
                 }
             } 
 
-            if (this.type == "wristBall") {
+            if (this.type == "wristball") {
                 this.form.pkMode = "请选择倒计时转时长"
             }
 
@@ -504,7 +504,7 @@
                 }
 
             },
-            wristBallCheckIsNull() {
+            wristballCheckIsNull() {
                 let submitform = this.submitform;
                 if (submitform.type && submitform.modeValue) { //submitform.name &&
                     this.canNext1 = true;

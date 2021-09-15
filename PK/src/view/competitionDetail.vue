@@ -454,7 +454,7 @@
 
         data() {
             return {
-                type: this.$route.query.type,
+                type: getQueryString("type"),
                 currentUserId: "",
                 DateTime: DateTime,
                 competitionId: getQueryString("id"),
@@ -675,8 +675,8 @@
                             }).then(res => {
                                 if (res.data == 1) {
                                     this.$toast("成功退出比赛！")
-                                    // this.initData();
-                                    this.joinStatusAndTimesRemain()
+                                    this.onclickLeft()
+                                    
                                 }
                             })
                         }).catch(() => {

@@ -5,6 +5,10 @@ var pkType=getQueryString("type");
 var prefix="ropeSkipping"
 if(pkType=="steps"){
     prefix="sportwatch"
+}else if(pkType=="wristball"){
+    prefix="wristball"
+}else if(pkType=="wheel"){
+    prefix="wheel"
 }
 //比赛详情
 export function competitionDetail(data) {

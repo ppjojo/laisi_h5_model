@@ -110,7 +110,7 @@
 
         data() {
             return {
-                type: this.$route.query.type,
+                type:getQueryString("type"),
                 navBarTitle: "跳绳PK赛",
                 active: 0, //0 正在进行 1 即将开始 2 我的
                 all: [{
@@ -293,8 +293,9 @@
                     if (res.data > 0) {
                         this.$router.push({
                             path: '/createCompetition',
-                            type: this.type
-
+                            query:{
+                                type: this.type
+                            }
                         });
                     } else {
                         this.$toast("您今天创建的次数已达上限，请明天再来吧");

@@ -5,6 +5,10 @@ var pkType=getQueryString("type");
 var prefix="ropeSkipping"
 if(pkType=="steps"){
     prefix="sportwatch"
+}else if(pkType=="wristball"){
+    prefix="wristball"
+}else if(pkType=="wheel"){
+    prefix="wheel"
 }
 
 export function listItemApi(data,type) {
@@ -28,7 +32,7 @@ export function checkCode(data) {
     return request({
         url: prefix+"/competition/check/code",
         method: 'post',
-        data
+        params:data
     })
 }
 //账号绑定的设备

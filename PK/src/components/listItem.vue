@@ -62,7 +62,7 @@
         data() {
             return {
                 DateTime: DateTime,
-                type: this.$route.query.type
+                type: getQueryString("type")
             }
         },
         mounted() {},
