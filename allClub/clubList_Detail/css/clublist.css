@@ -10,6 +10,9 @@
 
     
 }
+input::-webkit-input-placeholder {
+        color: #71717f!important;
+      }
 .van-icon-search {
     color: #999;
 }

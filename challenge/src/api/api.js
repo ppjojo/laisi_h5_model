@@ -39,10 +39,13 @@ export function challengeHistory(params, flag) { //
 		params,
 	})
 }
-export function changeRopeChallage(data) {//更换挑战
+export function changeRopeChallage(data,flag) {//更换挑战
+	let url = 'ab-roller/dailyChallenge/changeModeValue';
+	if (flag == 1) url = 'wristball/dailychallenge/changeModeValue';
+	if (flag == 2) url = 'ropeSkipping/dailychallenge/changeChallage';
 	return request({
-		url: 'ropeSkipping/dailychallenge/changeChallage',
-		method: 'post',
+		url: url,
+		method: flag == 1?'get':'post',
 		data,
 	})
 }

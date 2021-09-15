@@ -11,7 +11,7 @@
 		<div class="centerbox fts14">
 			今日挑战目标
 		</div>
-		<div class="centerbox fts20" >
+		<div class="centerbox befont fts20">
 			{{returnTask(info.challengeType||info.challengeDetail)}}
 		</div>
 		<div class="centerbox fts12 c1f ub ub-ad">
@@ -24,7 +24,9 @@
 		</div>
 		<!-- 打卡按钮 -->
 		<div class="clickBtn ub ub-ac ub-ad" @click="isChallage(info.type)" :class="{greyBtn:info.dateType==1}">
-			<div>{{info.dateType==1?'今日休息':info.type==3?'迎战':info.type==1?'完成':info.type==2?'再次挑战':info.type==0?'迎战中':'暂未触发'}}</div>
+			<div>
+				{{info.dateType==1?'今日休息':info.type==3?'迎战':info.type==1?'完成':info.type==2?'再次挑战':info.type==0?'迎战中':'暂未触发'}}
+			</div>
 		</div>
 		<!-- 战列表 -->
 		<ul class="zhanlist">
@@ -48,7 +50,7 @@
 					<returnIcon :type="flag"></returnIcon>
 					<div class="">
 						<div class="fts14">{{returnTask(item.challengeType||{})}}</div>
-						<div class="fts14 c1f">{{timeStamp2String('ymd',item.dateTime)}}</div>
+						<div class="fts12 c1f">{{timeStamp2String('ymd',item.dateTime)}}</div>
 					</div>
 				</div>
 				<img v-if="item.type==1" class="state" :src="require('@i/finish.png')" alt="">
@@ -104,8 +106,8 @@
 					pageSize: 200
 				},
 				info: {
-					challengeType:{
-						
+					challengeType: {
+
 					}
 				},
 				historyList: [],
@@ -116,20 +118,24 @@
 		mounted() {
 			this.getList();
 			this.getHistory();
+			window.RefreshFunction = this.RefreshFunction;
 		},
 		created() {
-			let type = getQueryString('type') || "wristball";
+			let type = getQueryString('type') || "wheel";
 			type == 'skipping' ? this.flag = 2 : type == 'wristball' ? this.flag = 1 : type == 'wheel' ? this.flag = 3 :
 				null;
 		},
 		methods: {
 			timeStamp2String: timeStamp2String,
+			RefreshFunction(){
+				this.getList();
+			},
 			getList() { //加载首页
 				typeCheck({}, this.flag).then(res => {
 					if ((res.hasOwnProperty('data') && res.data && res.code == 0) || (!res.hasOwnProperty(
 							'data') && res.code == 0)) {
 						HomeInfo({}, this.flag).then(res2 => {
-							
+
 							this.info = Object.assign({}, res2.data);
 						}).catch(() => {
 							console.log("error")
@@ -140,26 +146,23 @@
 				})
 			},
 			changeChallenge() { //换个目标
-				if (this.flag == 2) {
-					changeRopeChallage({}).then(res => {
-						this.info.challengeType = res.data;
-					})
-				} else {
-					this.getList()
-				}
+				changeRopeChallage({}, this.flag).then(res => {
+					this.info.challengeType = res.data;
+				})
 			},
 			isChallage(type) { //判断是否应占
-				if (type == 2 || type == 3||type==0) {
+				if (type == 2  || type == 0) {
 					this.goChallage()
 				}
 			},
 			goChallage() {
 				//app迎战
 				this.info.challengeType.category = 6;
-				if(!this.info.challengeType.bpm)this.info.challengeType.bpm=0;
-				this.info.challengeType.deviceType = getQueryString('type')||'wristball';
-				acceptChallage(this.info.challengeType||this.info.challengeDetail,this.flag).then(res=>{
-					this.$interaction.appNative('LSTH5APP_SelectedDeviceForChallenge',this.info.challengeType);
+				if (!this.info.challengeType.bpm) this.info.challengeType.bpm = 0;
+				this.info.challengeType.deviceType = getQueryString('type') || 'wristball';
+				this.info.challengeType.title = this.returnTask(this.info.challengeType);
+				acceptChallage(this.info.challengeType || this.info.challengeDetail, this.flag).then(res => {
+					this.$interaction.appNative('LSTH5APP_SelectedDeviceForChallenge', this.info.challengeType);
 				})
 			},
 			getHistory() {
@@ -172,9 +175,9 @@
 				});
 			},
 			returnTask(obj) {
-				if(!obj.conditionMode)return '';
+				if (!obj.conditionMode) return '';
 				let str = '';
-				if (this.flag == 2) {//跳绳
+				if (this.flag == 2) { //跳绳
 					if (obj.conditionMode == 1 || obj.conditionMode == 5 || obj.conditionMode == 6) {
 						str += ('单次运动' + obj.count + '次');
 						if (obj.conditionMode == 5 || obj.conditionMode == 6) str += ('且BPM达到' + obj.bpm)
@@ -207,8 +210,11 @@
 					message: str,
 				}).then(() => {
 					// on close
-					this.info.type=3;
-					this.$interaction.appNative('LSTH5APP_SelectDeviceAndPushToSport',{isPK:0,deviceType:getQueryString('type')});
+					this.info.type = 3;
+					this.$interaction.appNative('LSTH5APP_SelectDeviceAndPushToSport', {
+						isPK: 0,
+						deviceType: getQueryString('type')
+					});
 				}).catch(() => {
 					// on cancel
 					this.$interaction.closePage();
@@ -234,7 +240,9 @@
 	.fts14 {
 		font-size: .28rem;
 	}
-
+	.befont{
+		font-family: "BebasNeue";
+	}
 	.fts20 {
 		font-size: .4rem;
 	}
