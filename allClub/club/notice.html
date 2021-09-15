@@ -56,7 +56,7 @@
 <body>
 	<div id="app" v-cloak class="normalHeader">
 		<div class="header">
-			<van-nav-bar title="发通知" left-text="取消" @click-left="onclickLeft" @click-right="onclickRight">
+			<van-nav-bar title="发通知" left-text="取消" @click-left="onclickLeft" @click-right="onclickRight" safe-area-inset-top fixed>
 				<template #right>
 					<div :style="{color:(title.length>0&&content.length>0)?'#e60012':'#999'}">发送</div>
 				</template>
