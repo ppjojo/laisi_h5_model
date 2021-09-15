@@ -3,7 +3,7 @@
 		<div class="header">
 			<van-nav-bar title="小组设置" @click-left="onclickLeft" left-arrow safe-area-inset-top fixed>
 				<template #left>
-					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.48rem;" />
+					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
 				</template>
 				<template #right>
 				</template>

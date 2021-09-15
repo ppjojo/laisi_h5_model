@@ -4,7 +4,7 @@
 			<van-nav-bar :title="title" @click-left="onclickLeft" @click-right="onClickRight" left-arrow
 				safe-area-inset-top fixed>
 				<template #left>
-					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.48rem;" />
+					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
 				</template>
 				<template #right>
 					<div v-if="flag==3">移除({{memberResult.length}})</div>

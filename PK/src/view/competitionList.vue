@@ -3,7 +3,7 @@
         <div class="header">
             <van-nav-bar :title="navBarTitle" @click-left="onclickLeft" left-arrow safe-area-inset-top fixed>
                 <template #left>
-                    <span class="icon iconfont icon-fanhuianniu" style="font-size: 0.48rem;" />
+                    <span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
                 </template>
             </van-nav-bar>
         </div>
@@ -166,6 +166,7 @@
         methods: {
             onclickLeft() {
                 this.$interaction.closePage();
+                localStorage.removeItem("pkActive")
                 // this.$router.go(-1)
             },
             tabsClick() {
@@ -203,7 +204,6 @@
             },
             onLoad() {
                 if (this.all[this.active].refreshing) {
-                    this.all[this.active].list = [];
                     this.all[this.active].refreshing = false;
                     this.all[this.active].page = 0;
                 } else {

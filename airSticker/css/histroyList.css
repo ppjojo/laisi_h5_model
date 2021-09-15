@@ -392,6 +392,7 @@ body {
 
 .header .van-nav-bar .van-nav-bar__title {
   color: #CFCFD2;
+  font-size: 0.36rem;
 }
 
 .header .van-hairline--bottom::after {

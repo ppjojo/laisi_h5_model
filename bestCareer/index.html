@@ -567,11 +567,14 @@
 			},
 			getSkipping() {
 				ajax({
-					url: "ropeSkipping/getBestCareerRecord",
+					url: "share/ropeSkipping/shareBestCareerRecord",
 				}).then(res => {
 					if (res.code == 0) {
 						this.skippingObj = res.data
-						// this.userInfo = res.data.accountData
+						this.userInfo ={
+							headPictureUrl:res.data.headerPicUrl,
+							nickName:res.data.nickName,
+						} 
 					}
 				})
 			},

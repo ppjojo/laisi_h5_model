@@ -4,7 +4,7 @@
 			<van-nav-bar :title="title"  @click-left="OnclickLeft" @click-right="OnclickRight" safe-area-inset-top fixed>
 				<template  #left>
 					<!-- <div v-if="isCurrentUser">取消</div> -->
-					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.48rem;" />
+					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
 				</template>
 				<template v-if="isCurrentUser" #right>
 					<div :style="{color:text.length>0?'#CFCFD2':'#595962'}">{{righttxt}}</div>

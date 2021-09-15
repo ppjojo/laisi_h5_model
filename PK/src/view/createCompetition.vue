@@ -267,7 +267,7 @@
         data() {
             return {
                 type: this.$route.query.type,
-                flag: 2,
+                flag: 1,
                 countTimeColumns: ['30秒'],
                 countTimeShow: false,
 
