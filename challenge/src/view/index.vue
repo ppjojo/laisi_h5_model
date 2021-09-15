@@ -11,7 +11,7 @@
 		<div class="centerbox fts14">
 			今日挑战目标
 		</div>
-		<div class="centerbox fts20">
+		<div class="centerbox befont fts20">
 			{{returnTask(info.challengeType||info.challengeDetail)}}
 		</div>
 		<div class="centerbox fts12 c1f ub ub-ad">
@@ -50,7 +50,7 @@
 					<returnIcon :type="flag"></returnIcon>
 					<div class="">
 						<div class="fts14">{{returnTask(item.challengeType||{})}}</div>
-						<div class="fts14 c1f">{{timeStamp2String('ymd',item.dateTime)}}</div>
+						<div class="fts12 c1f">{{timeStamp2String('ymd',item.dateTime)}}</div>
 					</div>
 				</div>
 				<img v-if="item.type==1" class="state" :src="require('@i/finish.png')" alt="">
@@ -236,7 +236,9 @@
 	.fts14 {
 		font-size: .28rem;
 	}
-
+	.befont{
+		font-family: "BebasNeue";
+	}
 	.fts20 {
 		font-size: .4rem;
 	}
