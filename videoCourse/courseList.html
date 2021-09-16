@@ -22,22 +22,22 @@
 <body>
 	<div id="app" class="courseList" v-cloak>
 		<div class="header" v-if="isShare!=1">
-			<van-nav-bar @click-left="onclickLeft" left-arrow safe-area-inset-top fixed>
+			<van-nav-bar @click-left="onclickLeft" :title="classDetail.className" left-arrow safe-area-inset-top fixed>
 				<template #left>
 					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
 				</template>
 				<template #right>
-					<div @click="downButton" style="margin-right: 0.25rem;">
+					<div @click="downButton" style="margin-right: 0.4rem;">
 						<span class="icon iconfont icon-huancun" style="font-size: 0.54rem;" />
 					</div>
-					<div @click="goCollect()" style="margin-right: 0.25rem;">
+					<div @click="goCollect()" style="margin-right: 0.4rem;">
 						<span class="icon iconfont icon-shoucangdongtai" v-if="classDetail.isNotCollect"
-							style="font-size: 0.48rem;"></span>
+							style="font-size: 0.4rem;"></span>
 						<span class="icon iconfont icon-shoucangxing2" v-else
-							style="font-size: 0.48rem;color:#FF4E3E;"></span>
+							style="font-size: 0.4rem;color:#FF4E3E;"></span>
 					</div>
 					<div @click="sharePage()">
-						<span class="icon iconfont icon-fenxianganniu" style="font-size: 0.48rem;" />
+						<span class="icon iconfont icon-fenxianganniu" style="font-size: 0.4rem;" />
 					</div>
 				</template>
 			</van-nav-bar>

@@ -300,6 +300,14 @@ body {
   color: #fff;
 }
 
+.courseList .header .van-nav-bar .van-nav-bar__title {
+  opacity: 0;
+  color: #fff;
+  font-size: 0.36rem;
+  margin-left: 15%;
+  max-width: 50%;
+}
+
 .courseList .header .van-hairline--bottom::after {
   border: none;
 }
