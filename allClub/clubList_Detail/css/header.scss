@@ -38,16 +38,19 @@ body {
 
 
     .van-nav-bar {
-        background-color: transparent ;
+        background-color: transparent;
+
         .van-nav-bar__content {
             color: #fff;
         }
-        .van-nav-bar__title{
+
+        .van-nav-bar__title {
             opacity: 0;
             color: #fff;
             font-size: 0.36rem;
         }
     }
+
     .van-hairline--bottom::after {
         border: none;
     }
@@ -70,7 +73,8 @@ body {
                 color: $text_color_white;
                 font-size: 0.36rem;
             }
-            .van-nav-bar__text{
+
+            .van-nav-bar__text {
                 color: $text_color_white;
             }
         }
@@ -81,44 +85,62 @@ body {
     }
 
 }
-.van-cell--clickable:active{
-    background-color: transparent!important;
+
+.van-cell--clickable:active {
+    background-color: transparent !important;
 }
-.van-uploader__upload:active{
-    background-color: transparent!important;
+
+.van-uploader__upload:active {
+    background-color: transparent !important;
 }
-.van-action-sheet__cancel:active, .van-action-sheet__item:active{
-    background-color: transparent!important;
+
+.van-action-sheet__cancel:active,
+.van-action-sheet__item:active {
+    background-color: transparent !important;
 }
-.van-cell-group{
+
+.van-cell-group {
     background-color: $bg_color;
 }
-.van-cell{
-    background-color: $bg_color;
+
+.van-dialog {
+    .van-cell {
+        background-color: $bg_color;
+    }
 }
-.van-picker{
+
+.van-picker {
     background-color: $bg_color;
-    .van-picker-column__item{
+
+    .van-picker-column__item {
         color: $text_color_white;
     }
-    .van-picker__mask{
+
+    .van-picker__mask {
         display: none;
     }
-    .van-hairline--top-bottom::after, .van-hairline-unset--top-bottom::after{
+
+    .van-hairline--top-bottom::after,
+    .van-hairline-unset--top-bottom::after {
         border-top: 1px solid $border_color;
         border-bottom: 1px solid $border_color;
     }
-    .van-picker__cancel, .van-picker__confirm{
+
+    .van-picker__cancel,
+    .van-picker__confirm {
         color: #CFCFD2;
     }
 }
-.van-switch{
+
+.van-switch {
     background-color: #12121f;
     border: 0.02rem solid #595962;
 }
-.van-collapse-item--border::after{
+
+.van-collapse-item--border::after {
     border: 1px solid $border_color
 }
+
 @supports ((height: constant(safe-area-inset-top)) or (height: env(safe-area-inset-top))) and (-webkit-overflow-scrolling: touch) {
     .normalHeader .header {
         height: 0.92rem;

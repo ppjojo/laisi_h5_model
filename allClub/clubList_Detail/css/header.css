@@ -78,7 +78,8 @@ body {
   background-color: transparent !important;
 }
 
-.van-action-sheet__cancel:active, .van-action-sheet__item:active {
+.van-action-sheet__cancel:active,
+.van-action-sheet__item:active {
   background-color: transparent !important;
 }
 
@@ -86,7 +87,7 @@ body {
   background-color: #12121f;
 }
 
-.van-cell {
+.van-dialog .van-cell {
   background-color: #12121f;
 }
 
@@ -102,12 +103,14 @@ body {
   display: none;
 }
 
-.van-picker .van-hairline--top-bottom::after, .van-picker .van-hairline-unset--top-bottom::after {
+.van-picker .van-hairline--top-bottom::after,
+.van-picker .van-hairline-unset--top-bottom::after {
   border-top: 1px solid #1e1e2a;
   border-bottom: 1px solid #1e1e2a;
 }
 
-.van-picker .van-picker__cancel, .van-picker .van-picker__confirm {
+.van-picker .van-picker__cancel,
+.van-picker .van-picker__confirm {
   color: #CFCFD2;
 }
 
