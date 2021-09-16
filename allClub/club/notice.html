@@ -58,7 +58,7 @@
 		<div class="header">
 			<van-nav-bar title="发通知" left-text="取消" @click-left="onclickLeft" @click-right="onclickRight" safe-area-inset-top fixed>
 				<template #right>
-					<div :style="{color:(title.length>0&&content.length>0)?'#e60012':'#999'}">发送</div>
+					<div :style="{color:(title.length>0&&content.length>0)?'#cfcfd2':'#999'}">发送</div>
 				</template>
 			</van-nav-bar>
 		</div>
@@ -70,14 +70,14 @@
 			</div>
 			<div style="padding:0 0.2rem 0.2rem 0.2rem;">
 				<van-field v-model="title"  class="club-input" style="min-height:1.7rem;" rows="2"
-					autosize type="textarea" maxlength="16" placeholder="请输入通知标题" show-word-limit />
+					autosize type="textarea" maxlength="16" placeholder="请输入通知标题~" show-word-limit />
 			</div>
 			<div class="laberDiv">
 				通知内容
 			</div>
 			<div style="padding:0 0.2rem 0.2rem 0.2rem;">
 				<van-field v-model="content"  class="club-input" style="min-height:2.7rem;"
-					rows="4" autosize type="textarea" maxlength="100" placeholder="请输入通知内容" show-word-limit />
+					rows="4" autosize type="textarea" maxlength="100" placeholder="请输入通知内容~" show-word-limit />
 			</div>
 		
 

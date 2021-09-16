@@ -13,7 +13,12 @@
 	<link rel="stylesheet" href="css/groupList.css">
 	<link rel="stylesheet" href="../font/iconfont.css">
 	<link href="../clubList_Detail/css/header.css" rel="stylesheet" type="text/css" />
-
+	<script src="https://cdn.bootcss.com/vConsole/3.3.4/vconsole.min.js"></script>
+	<script>
+		// init vConsole
+		var vConsole = new VConsole();
+		console.log('Hello world');
+	</script>
 	<style type="text/css">
 		#app {}
 
@@ -273,14 +278,14 @@
 				for (var i = 0; i < memberIdsArr.length; i++) {
 					var arrObj = {
 						clubGroupId: obj.clubGroupId,
-						clubId: obj.clubId,
+						clubId: parseInt(obj.clubId),
 						clubName: obj.clubName,
 						invitee: ""
 					}
-					arrObj.invitee = memberIdsArr[i]
+					arrObj.invitee = parseInt(memberIdsArr[i])
 					sendArr.push(arrObj)
 				}
-				console.log(obj)
+				console.log(sendArr)
 				ajax({
 					type: "post",
 					url: "club/sendInvitation",

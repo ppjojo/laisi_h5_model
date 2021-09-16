@@ -118,7 +118,7 @@
 		mounted() {
 			this.getList();
 			this.getHistory();
-			window.RefreshFunction = this.RefreshFunction;
+			window.initData = this.RefreshFunction;
 		},
 		created() {
 			let type = getQueryString('type') || "wheel";
@@ -151,7 +151,7 @@
 				})
 			},
 			isChallage(type) { //判断是否应占
-				if (type == 2  || type == 0) {
+				if (type == 2  || type == 0|| type == 3) {
 					this.goChallage()
 				}
 			},

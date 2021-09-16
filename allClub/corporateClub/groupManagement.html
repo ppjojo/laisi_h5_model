@@ -30,13 +30,28 @@
 			color: #999;
 
 		}
+		.van-uploader__upload{
+			background-color: #1e1e2a;
+		}
+		.van-dialog,.van-button--default{
+			background-color: #292934;
+		}
+		.van-dialog__header,.van-field__control{
+			color: #cfcfd2;
+		}
+		.van-uploader__upload-icon{
+			color: #71717f;
+		}
+		[class*=van-hairline]::after{
+			border-color: #1e1e2a;
+		}
 	</style>
 </head>
 
 <body>
 	<div id="app" class="normalHeader" v-cloak>
 		<div class="header">
-			<van-nav-bar @click-left="onclickLeft" title="部门管理" left-arrow safe-area-inset-top fixed>
+			<van-nav-bar @click-left="onclickLeft" title="部门管理" @click-right="onClickRight" left-arrow safe-area-inset-top fixed>
 				<template #left>
 					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
 				</template>
@@ -49,17 +64,17 @@
 
 		<van-loading type="spinner" vertical v-show="overlayShow"></van-loading>
 		<van-dialog v-model="createshow" :before-close="beforeClose" @confirm="submitCreate"
-			:confirm-button-color="createGroupObj.fileList.length==0||!createGroupObj.name?'#999':''"
-			cancel-button-color="#999" :title="createGroupObj.id?'编辑分部':'创建分部'"
+			:confirm-button-color="createGroupObj.fileList.length==0||!createGroupObj.name?'#71717f':'#cfcfd2'"
+			cancel-button-color="#71717f" :title="createGroupObj.id?'编辑分部':'创建分部'"
 			:confirm-button-text="createGroupObj.id?'编辑':'创建'" show-cancel-button>
 			<div style="padding: .5rem;">
 				<div class="ub ub-ver ub-pc">
 					<van-uploader v-model="createGroupObj.fileList" upload-icon="plus" :deletable="false" :max-count="1"
 						:after-read="afterRead2"></van-uploader>
 				</div>
-				<div style="color: #999;font-size: .24rem;text-align: center;">选择部门形象</div>
+				<div style="color: #71717f;font-size: .24rem;text-align: center;">选择分部形象</div>
 				<van-field
-					style="background-color: #f8f8f8;margin-top: .48rem;border-radius: .1rem;height: .64rem;padding: .1rem .32rem;"
+					style="background-color: #1e1e2a;margin-top: .48rem;border-radius: .1rem;height: .64rem;padding: .1rem .32rem;"
 					maxlength="16" v-model="createGroupObj.name" placeholder="请输入分部名称" />
 			</div>
 		</van-dialog>

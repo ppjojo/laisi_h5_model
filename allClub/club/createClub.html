@@ -168,6 +168,21 @@
 					<span class="icon iconfont icon-tongyong-gengduo" style="font-size: 0.3rem;"></span>
 				</div>
 			</div>
+			<div class="listBox">
+				<div>是否需要申请加入</div>
+				<div class="rightBox">
+					<van-switch @change="isclubpublic" active-color="#07c160" v-model="form.yqm" size="20"></van-switch>
+					</van-switch>
+				</div>
+			</div>
+			<div class="listBox">
+				<div>是否需要邀请码</div>
+				<div class="rightBox">
+					<van-switch @change="isclubinviteCode" active-color="#07c160" v-model="form.invitecode" size="20">
+					</van-switch>
+					</van-switch>
+				</div>
+			</div>
 			<div class="ctype" style="border-bottom: .02rem solid #1E1E2A;padding:0 0 .4rem 0;">
 				<div class="van-cell"><span>俱乐部类型</span></div>
 				<div class="ub ub-ad ub-ac">
@@ -196,21 +211,6 @@
 						</div>
 						<div>爱好者</div>
 					</div>
-				</div>
-			</div>
-			<div class="listBox">
-				<div>是否需要申请加入</div>
-				<div class="rightBox">
-					<van-switch @change="isclubpublic" active-color="#07c160" v-model="form.yqm" size="20"></van-switch>
-					</van-switch>
-				</div>
-			</div>
-			<div class="listBox">
-				<div>是否需要邀请码</div>
-				<div class="rightBox">
-					<van-switch @change="isclubinviteCode" active-color="#07c160" v-model="form.invitecode" size="20">
-					</van-switch>
-					</van-switch>
 				</div>
 			</div>
 			<div>
@@ -394,13 +394,14 @@
 				this.activeNames = 0;
 			},
 			isclubpublic(val) {
-				console.log(val)
+				// console.log(this.submitform)
 				if (val) this.submitform.isPublic = "N"
 				else this.submitform.isPublic = "Y";
-				if (this.submitform.type == '05') {
+				// if (this.submitform.type == '05') {
 					this.form.invitecode = !val;
+					// console.log(this.form.invitecode)
 					this.submitform.isInviteCode = val ? "N" : "Y";
-				}
+				// }
 			},
 			isclubinviteCode(val) {
 				if (val) {
@@ -451,12 +452,12 @@
 											str: res.data.invite_code
 										});
 									}
-									setTimeout(function () {
+									setTimeout( ()=> {
 										this.gotoDetail(res.data.clubId);
 									}, 500);
 								})
 								.catch(() => {
-									setTimeout(function () {
+									setTimeout(()=> {
 										this.gotoDetail(res.data.clubId);
 									}, 500);
 								});

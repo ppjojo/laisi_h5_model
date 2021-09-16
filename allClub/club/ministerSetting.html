@@ -108,7 +108,7 @@
 					{{(submitform.province||"")+(submitform.city||"")+(submitform.county||"")}}
 				</div>
 			</div>
-			<div class="listBox" v-if="submitform.type=='05'">
+			<div class="listBox" style="border-bottom: 4px solid #1e1e2a;" v-if="submitform.type=='05'">
 				<div>我在俱乐部的昵称</div>
 				<div class="rightBox" @click="gotoNickName">
 					{{submitform.nickname}}
@@ -128,7 +128,7 @@
 				</div>
 			</div>
 			<div class="listBox">
-				<div>成员管理</div>
+				<div>成员列表</div>
 				<div class="rightBox" @click="gotoMemberList(1)">
 					<div>
 						{{submitform.memberNumber?submitform.memberNumber+'人':''}}
@@ -152,7 +152,7 @@
 					<span class="icon iconfont icon-tongyong-gengduo" style="font-size: 0.3rem;"></span>
 				</div>
 			</div>
-			<div class="listBox" v-if="submitform.type=='05'" @click="goToDownload">
+			<div class="listBox" v-if="submitform.type!='05'" style="border-bottom: 4px solid #1e1e2a;" @click="goToDownload">
 				<div>下载数据 </div>
 				<div class="rightBox">
 					<span class="icon iconfont icon-tongyong-gengduo" style="font-size: 0.3rem;"></span>
@@ -220,7 +220,7 @@
 		},
 		created() {
 			this.clubId = getQueryString("id");
-			this.submitform=Object.assign({},localStorage.getItem("clubObj"))
+			this.submitform=Object.assign(this.submitform,localStorage.getItem("clubObj"))
 			this.initData();
 		},
 		methods: {
