@@ -110,7 +110,7 @@
 
         data() {
             return {
-                type:getQueryString("type"),
+                type:getQueryString("type")||"skipping",
                 navBarTitle: "跳绳PK赛",
                 active: 0, //0 正在进行 1 即将开始 2 我的
                 all: [{

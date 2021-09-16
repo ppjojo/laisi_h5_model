@@ -62,7 +62,7 @@
         data() {
             return {
                 DateTime: DateTime,
-                type: getQueryString("type")
+                type: getQueryString("type")||"skipping"
             }
         },
         mounted() {},

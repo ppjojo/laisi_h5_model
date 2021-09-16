@@ -107,19 +107,8 @@
                     </div>
                 </div>
                 <div class="item_box">
-                    <div class="laber">
-                        比赛类型
-                    </div>
-                    <div class="border">
-                        <van-radio-group @change="typeChange" v-model="submitform.type" direction="horizontal">
-                            <van-radio name="personal">个人赛</van-radio>
-                            <van-radio name="team">团体赛</van-radio>
-                        </van-radio-group>
-                    </div>
-
-                    <div v-if="submitform.type=='team'" class="borderTop">
-                        <van-cell class="pk_cell" :class="form.pkType.toString().indexOf('请选择')!=-1?'':'chosed'"
-                            @click="typeChange(submitform.type)" title="团队赛人数" is-link :value="form.pkType" />
+                    <div>
+                        <van-cell class="pk_cell2 chosed" title="比赛类型" value="个人赛" />
                     </div>
                 </div>
             </div>
@@ -422,7 +411,7 @@
         },
 
         mounted() {
-            if (this.type == "skipping" || this.type == "wristball") {
+            if (this.type == "skipping" || this.type == "wristball"|| this.type == "wheel") {
                 for (let i = 1; i <= 60; i++) {
                     this.countTimeColumns.push(i + '分');
                 }

@@ -8,7 +8,7 @@ if(pkType=="steps"){
 }else if(pkType=="wristball"){
     prefix="wristball"
 }else if(pkType=="wheel"){
-    prefix="wheel"
+    prefix="ab-roller"
 }
 
 export function listItemApi(data,type) {
