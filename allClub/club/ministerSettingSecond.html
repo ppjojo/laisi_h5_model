@@ -18,7 +18,7 @@
 		<div class="header">
 			<van-nav-bar :title="title" @click-left="onclickLeft" @click-right="onclickRight" left-text="取消" safe-area-inset-top fixed>
 				<template #right>
-					<div :style="{color:!submitform.name||!submitform.introduce?'#999':'#e60012'}">保存</div>
+					<div :style="{color:!submitform.name||!submitform.introduce?'#999':'#cfcfd2'}">保存</div>
 				</template>
 			</van-nav-bar>
 		</div>
@@ -28,7 +28,7 @@
 			</div>
 			<div style="padding:0 0.2rem 0.2rem 0.2rem;">
 				<van-field v-model="submitform.name" class="club-input" style="min-height:1.7rem;" rows="2" autosize
-					type="textarea" maxlength="16" placeholder="请输入俱乐部名称" show-word-limit />
+					type="textarea" maxlength="16" placeholder="请输入俱乐部名称~" show-word-limit />
 			</div>
 		</div>
 		<div v-if="flag==2">
@@ -38,7 +38,7 @@
 			</div>
 			<div style="padding:0 0.2rem 0.2rem 0.2rem;">
 				<van-field v-model="submitform.introduce" class="club-input" rows="5" autosize type="textarea"
-					maxlength="100" placeholder="请输入俱乐部简介" show-word-limit />
+					maxlength="100" placeholder="请输入俱乐部简介~" show-word-limit />
 			</div>
 		</div>
 	</div>
