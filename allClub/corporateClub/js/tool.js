@@ -386,7 +386,9 @@ function uploadImg2(file,cb){
 		type: "post",
 		url: "oss/upload/file",
 		contentType: "multipart/form-data",
-		data: formdata,
+		data: {
+			formdata: formdata
+		},
 		success: function(res) {
 			if (res.code == 0) {
 				console.log(res.data)

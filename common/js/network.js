@@ -25,7 +25,7 @@ function ajax1(config) {
 let ajax = (config) => {
   return new Promise(function (resolve, reject) {
     Interaction.getAppInfoAndUserInfo();
-    config.data = Object.assign({}, config.data)
+    if(!config.data)config.data = Object.assign({}, config.data)
     if (getQueryString("isShare")) {
       config.data.userId = getQueryString("userId") || "10000";
       resolve(config);
@@ -45,7 +45,7 @@ let ajax = (config) => {
 };
 
 let ajaxResolve = (config) => {
-  console.log(config)
+  
   return new Promise(function (resolve, reject) {
     let token = "";
     let userId = "0";

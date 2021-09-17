@@ -348,10 +348,18 @@
 						case "09":
 							actionType = "LSTH5APP_GoMyDeviceVC";
 							break;
-						case "50":
-							actionType = "LSTH5APP_BrowseVideoAction";
-							actionNum = "5001";
-							// localStorage.setItem('videoflag',1)
+						case "09":
+							actionType = "LSTH5APP_GoMyDeviceVC";
+							break;
+						case "11":
+							if(actionNum=='1100')actionType = "LSTH5APP_SportsCalendarSignIn";
+							if(actionNum=='1101')actionType = "LSTH5APP_SportsCalendarShareAction";
+							break;
+						case "13":
+							actionType = "LSTH5APP_BestSharingOfCareer";
+							break;
+						case "14":
+							actionType = "LSTH5APP_WeekReportMonthlyReportShare";
 							break;
 						default:
 							actionType = false;

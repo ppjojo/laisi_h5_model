@@ -196,7 +196,7 @@
                                 </van-col>
                             </van-row>
                         </div>
-                        <div v-else class="nullDataBox">
+                        <div v-else-if="today.list.length==0&&today.loading" class="nullDataBox">
                             <img src="../../common/img/noData.png" alt="">
                             <p>今日运动暂无数据</p>
                         </div>

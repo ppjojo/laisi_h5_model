@@ -121,7 +121,7 @@
 			window.initData = this.RefreshFunction;
 		},
 		created() {
-			let type = getQueryString('type') || "wheel";
+			let type = getQueryString('type') || "wristball";
 			type == 'skipping' ? this.flag = 2 : type == 'wristball' ? this.flag = 1 : type == 'wheel' ? this.flag = 3 :
 				null;
 		},
@@ -160,7 +160,7 @@
 				this.info.challengeType.category = 6;
 				if (!this.info.challengeType.bpm) this.info.challengeType.bpm = 0;
 				this.info.challengeType.deviceType = getQueryString('type') || 'wristball';
-				this.info.challengeType.title = this.returnTask(this.info.challengeType);
+				this.info.challengeType.title = this.returnTask(this.info.challengeType).split(",")[0];
 				acceptChallage(this.info.challengeType || this.info.challengeDetail, this.flag).then(res => {
 					this.$interaction.appNative('LSTH5APP_SelectedDeviceForChallenge', this.info.challengeType);
 				})
@@ -180,18 +180,26 @@
 				if (this.flag == 2) { //跳绳
 					if (obj.conditionMode == 1 || obj.conditionMode == 5 || obj.conditionMode == 6) {
 						str += ('单次运动' + obj.count + '次');
-						if (obj.conditionMode == 5 || obj.conditionMode == 6) str += ('且BPM达到' + obj.bpm)
+						if (obj.conditionMode == 5 || obj.conditionMode == 6) str += (',且BPM≥' + obj.bpm)
 					} else {
 						str += ('运动满' + obj.duration + '秒');
-						if (obj.conditionMode == 3 || obj.conditionMode == 4) str += ('且BPM达到' + obj.bpm)
+						if (obj.conditionMode == 3 || obj.conditionMode == 4) str += (',且BPM≥' + obj.bpm)
 					}
 				} else {
-					if (obj.conditionMode == 1 || obj.conditionMode == 3) {
-						str += ('单次运动' + obj.count + '次');
-						if (obj.conditionMode == 3) str += ('且达标率满' + obj.standardRate + '%')
-					} else {
-						str += ('运动满' + obj.duration + '秒');
-						if (obj.conditionMode == 4) str += ('且达标率满' + obj.standardRate + '%')
+					if(this.flag==3){
+						//健腹轮
+						if (obj.conditionMode == 1 || obj.conditionMode == 3) {
+							str += ('单次运动' + obj.count + '次');
+							if (obj.conditionMode == 3) str += (',且达标率≥' + obj.standardRate + '%')
+						} else {
+							str += ('运动满' + obj.duration + '秒');
+							if (obj.conditionMode == 4) str += (',且达标率≥' + obj.standardRate + '%')
+						}
+					}else{
+						let min = 0;
+						if(obj.duration<60)min=1
+						else min = parseInt(obj.duration/60);
+						str += ('运动满' + min + '分钟');
 					}
 				}
 				return str;

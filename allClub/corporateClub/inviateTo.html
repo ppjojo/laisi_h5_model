@@ -206,8 +206,8 @@
 						//全员部员
 						this.memberResult.forEach(d => {
 							let obj = {
-								clubId: this.clubid,
-								clubGroupId: item.id == 'wfb' ? '' : item.id,
+								clubId: parseInt(this.clubid),
+								clubGroupId: item.id == 'wfb' ? '' : item.id+'',
 								memberId: d,
 								isSubMinister: "N"
 							}
@@ -218,8 +218,8 @@
 						let hasSub = false;
 						this.memberResult.forEach(d => {
 							let obj = {
-								clubId: this.clubid,
-								clubGroupId: item.id,
+								clubId: parseInt(this.clubid),
+								clubGroupId: item.id+'',
 								memberId: d,
 								isSubMinister: "N"
 							}
@@ -241,7 +241,7 @@
 					let _self = this;
 					let obj = {
 						clubId: this.clubid,
-						clubGroupId: item.id == 'wfb' ? '' : item.id,
+						clubGroupId: item.id == 'wfb' ? '' : item.id+'',
 						memberId: this.memberId,
 					}
 					ajax({
@@ -285,11 +285,10 @@
 					arrObj.invitee = parseInt(memberIdsArr[i])
 					sendArr.push(arrObj)
 				}
-				console.log(sendArr)
 				ajax({
 					type: "post",
 					url: "club/sendInvitation",
-					data: sendArr,
+					data: {clubInvitationList:sendArr},
 					success: function (res) {
 						if (res.code == 0) {
 
@@ -301,8 +300,6 @@
 								obj.clubInvitationIds = clubInvitationIds.join(",")
 								Interaction.appNative('inviteToClub', obj);
 							}
-
-
 							_self.$toast('已发送邀请通知');
 						} else {
 							_self.$toast(res.msg);
@@ -314,11 +311,12 @@
 				})
 			},
 			changeMember(arr) {
+				console.log(arr)
 				let _self = this;
 				ajax({
 					type: "post",
 					url: "club/updateClubGroupMember",
-					data: arr,
+					data: {clubMemberList:arr},
 					success: function (res) {
 						if (res.code == 0) {
 							_self.$toast("变更部员成功！");
