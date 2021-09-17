@@ -47,14 +47,14 @@
 			</div>
 			<div class="memberBox">
 				<div class="title">成员</div>
-				<div class="memberListDiv">
+				<div class="memberListDiv"  @click="goMemberlist()">
 					<div class="memberPersonPic">
 						<template v-for="(item ,index) in memberIcon">
 							<img :src="item.headPictureUrl" v-if="index<=5" :style="{left:''+index*0.5+'rem'}">
 						</template>
 
 					</div>
-					<div class="memberPersonNum" @click="goMemberlist()">
+					<div class="memberPersonNum">
 						<div class="numP">{{groupItem.count}}人</div>
 						<span class="icon iconfont icon-tongyong-gengduo" style="font-size: 0.25rem;" />
 					</div>

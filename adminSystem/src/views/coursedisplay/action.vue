@@ -119,6 +119,12 @@
           </el-input>
         </el-form-item>
         
+        <el-form-item label="动作排序" prop="smallClassDay">
+          <el-input v-model.trim="form.smallClassDay">
+          </el-input>
+        </el-form-item>
+        
+        
 
       </el-form>
 

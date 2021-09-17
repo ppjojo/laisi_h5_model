@@ -308,7 +308,7 @@
 			delChatRecord() {
 				Dialog.confirm({
 					confirmButtonText: '删除',
-					message: '确定要删除聊天记录吗？'
+					message: '删除后，将清空小组聊天的消息记录!'
 				}).then(() => {
 					this.$interaction.appNative('LSTH5APP_DeletChatContent', {
 						huanxinGroupId: this.huanxinGroupId

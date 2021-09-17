@@ -280,7 +280,7 @@
 			onClickRight() { //移除
 				if (this.flag != 3) return;
 				if (this.memberResult.length == 0) return;
-				let str = "确定要移除 ",
+				let str = "确定将",
 					namestr = [];
 				this.memberResult.forEach(d => {
 					this.dataList.forEach(e => {
@@ -289,8 +289,8 @@
 						}
 					})
 				});
-				str += namestr.length <= 3 ? (namestr.toString() + '吗?') : (namestr.slice(0, 2).toString() +
-					`等${namestr.length}人吗?`);
+				str += namestr.length <= 3 ? (namestr.toString() + '移除小组吗？') : (namestr.slice(0, 2).toString() +
+					`等${namestr.length}人移除小组吗？`);
 				// str += "移出小组吗?";
 				Dialog.confirm({
 					confirmButtonText: '移除',
@@ -314,13 +314,7 @@
 <style scoped lang="scss">
 	@import '@s/group.scss';
 
-	// .van-collapse-item__wrapper .van-cell {
-	// 	padding: 0;
-	// }
-
-	// .van-popover--dark .van-popover__arrow {
-	// 	color: #1f1f1f;
-	// }
+	
 
 	.van-cell::after {
 		border-bottom: none;
@@ -331,19 +325,15 @@
 		border: none;
 	}
 
-	// .van-icon-arrow-down,
-	// .van-icon-arrow-up {
-	// 	color: #999;
-	// }
+	
 
 	.van-checkbox {
 		margin-right: .2rem;
 	}
+	.van-index-anchor--sticky{
+		background-color: transparent;
+	}
 
 
-
-	// .van-collapse-item__title--disabled,
-	// .van-collapse-item__title--disabled .van-cell__right-icon {
-	// 	color: #1F1F1F;
-	// }
+	
 </style>
