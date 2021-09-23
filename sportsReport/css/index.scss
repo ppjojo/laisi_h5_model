@@ -10,11 +10,7 @@
 }
 
 
-.header {
-    height: 1rem;
-    position: relative;
-    z-index: 100;
-}
+
 
 
 
@@ -38,44 +34,64 @@ body {
     color: $text_color_white;
 }
 
-.header {
-    display: flex;
-    align-items: center;
-    color: $text_color;
-    position: fixed;
-    justify-content: space-between;
-    width: 100%;
-    top: 0;
-    left: 0;
-    box-sizing: border-box;
-    color: #fff;
+.specialHeader .header {
+    position: relative;
+    z-index: 100;
+    background-color: transparent !important;
 
-    .icon {
-        z-index: 3;
-        padding: 0 0.24rem;
+
+    .van-nav-bar {
+        background-color: transparent;
+
+        .van-nav-bar__content {
+            color: #fff;
+        }
+
+        .van-nav-bar__title {
+            opacity: 0;
+            color: #fff;
+            font-size: 0.36rem;
+        }
     }
 
-    .headerTitle {
-        font-size: 0.36rem;
+    .van-hairline--bottom::after {
+        border: none;
+    }
+}
+
+.normalHeader {
+    .header {
+        height: 0.92rem;
+        position: relative;
+        z-index: 100;
+
+        .van-nav-bar {
+            background-color: $bg_color;
+
+            .van-nav-bar__content {
+                color: $text_color_white;
+            }
+
+            .van-nav-bar__title {
+                color: $text_color_white;
+                font-size: 0.36rem;
+            }
+
+            .van-nav-bar__text {
+                color: $text_color_white;
+            }
+        }
+
+        .van-hairline--bottom::after {
+            border: none;
+        }
     }
 
-    .headerLeftBox {
-        width: 2rem;
-        display: flex;
-        align-items: center;
-        justify-content: flex-start
-    }
-
-    .headerRightBox {
-        @extend .headerLeftBox;
-        justify-content: flex-end;
-    }
 }
 
 // 主页列表
 .listBox {
     padding: 0.24rem;
-    margin-top: 1rem;
 
     .weekItem {
         width: 100%;
@@ -176,7 +192,7 @@ body {
             line-height: 0.48rem;
             height: 0.48rem;
             background-image: linear-gradient(to right, rgba(255, 78, 62, 0.2), rgba(255, 170, 136, 0));
-            width: 1.3rem;
+            width: 1.5rem;
             margin-bottom: 0.4rem;
             position: relative;
 
@@ -355,7 +371,6 @@ body {
 
 //历史数据
 .historyListBox {
-    margin-top: 1rem;
     padding: 0.24rem;
 
     .historyListDiv {
@@ -389,12 +404,10 @@ body {
 
 
 @supports ((height: constant(safe-area-inset-top)) or (height: env(safe-area-inset-top))) and (-webkit-overflow-scrolling: touch) {
-    .header {
-        height: 1rem;
-        height: calc(1rem + constant(safe-area-inset-top));
-        height: calc(1rem + env(safe-area-inset-top));
-        padding-top: constant(safe-area-inset-top);
-        padding-top: env(safe-area-inset-top);
+    .normalHeader .header {
+        height: 0.92rem;
+        height: calc(0.92rem + constant(safe-area-inset-top));
+        height: calc(0.92rem + env(safe-area-inset-top));
     }
 
     .infoBox {

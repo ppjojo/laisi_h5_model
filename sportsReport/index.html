@@ -6,6 +6,7 @@
 	<meta name="viewport"
 		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
 	<title>周报月报</title>
+	<link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
 	<link rel="stylesheet" href="font/iconfont.css">
 	<link rel="stylesheet" href="css/index.css">
 	<script src="https://cdn.bootcdn.net/ajax/libs/vConsole/3.8.1/vconsole.min.js"></script>
@@ -19,13 +20,14 @@
 </head>
 
 <body>
-	<div id="app" v-cloak>
+	<div id="app" class="normalHeader" v-cloak>
 		<div class="header">
-			<div class="headerLeftBox" @click="goback">
-				<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.48rem;"></span>
-			</div>
-			<div class="headerTitle">周报月报</div>
-			<div class="headerRightBox"></div>
+			<van-nav-bar @click-left="onclickLeft" title="日报周报" left-arrow safe-area-inset-top fixed>
+				<template #left>
+					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
+				</template>
+
+			</van-nav-bar>
 		</div>
 		<div class="listBox main-contain">
 			<div class="weekItem" @click="goReport(1)">
@@ -40,7 +42,8 @@
 
 	</div>
 </body>
-<script src="https://oss.laisitech.com/0bb12bf1-cb87-4d2c-a724-8a7c25b7ae04.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
 <script src="../common/js/network.js"></script>
 <script>
 	new Vue({
@@ -63,7 +66,7 @@
 			this.lastMonth = this.getLastMonth(new Date())
 		},
 		methods: {
-			goback() {
+			onclickLeft() {
 				Interaction.closePage()
 				localStorage.removeItem("report_startTime")
 				localStorage.removeItem("report_endTime")

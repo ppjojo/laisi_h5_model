@@ -9,12 +9,6 @@
   font-style: normal;
 }
 
-.header {
-  height: 1rem;
-  position: relative;
-  z-index: 100;
-}
-
 * {
   margin: 0;
   padding: 0;
@@ -25,57 +19,59 @@ body {
   color: #CFCFD2;
 }
 
-.header {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  color: #595962;
-  position: fixed;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  width: 100%;
-  top: 0;
-  left: 0;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+.specialHeader .header {
+  position: relative;
+  z-index: 100;
+  background-color: transparent !important;
+}
+
+.specialHeader .header .van-nav-bar {
+  background-color: transparent;
+}
+
+.specialHeader .header .van-nav-bar .van-nav-bar__content {
   color: #fff;
 }
 
-.header .icon {
-  z-index: 3;
-  padding: 0 0.24rem;
-}
-
-.header .headerTitle {
+.specialHeader .header .van-nav-bar .van-nav-bar__title {
+  opacity: 0;
+  color: #fff;
   font-size: 0.36rem;
 }
 
-.header .headerLeftBox, .header .headerRightBox {
-  width: 2rem;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
+.specialHeader .header .van-hairline--bottom::after {
+  border: none;
 }
 
-.header .headerRightBox {
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
+.normalHeader .header {
+  height: 0.92rem;
+  position: relative;
+  z-index: 100;
+}
+
+.normalHeader .header .van-nav-bar {
+  background-color: #12121f;
+}
+
+.normalHeader .header .van-nav-bar .van-nav-bar__content {
+  color: #CFCFD2;
+}
+
+.normalHeader .header .van-nav-bar .van-nav-bar__title {
+  color: #CFCFD2;
+  font-size: 0.36rem;
+}
+
+.normalHeader .header .van-nav-bar .van-nav-bar__text {
+  color: #CFCFD2;
+}
+
+.normalHeader .header .van-hairline--bottom::after {
+  border: none;
 }
 
 .listBox {
   padding: 0.24rem;
-  margin-top: 1rem;
 }
 
 .listBox .weekItem, .listBox .monthItem {
@@ -182,7 +178,7 @@ body {
   height: 0.48rem;
   background-image: -webkit-gradient(linear, left top, right top, from(rgba(255, 78, 62, 0.2)), to(rgba(255, 170, 136, 0)));
   background-image: linear-gradient(to right, rgba(255, 78, 62, 0.2), rgba(255, 170, 136, 0));
-  width: 1.3rem;
+  width: 1.5rem;
   margin-bottom: 0.4rem;
   position: relative;
 }
@@ -373,7 +369,6 @@ body {
 }
 
 .historyListBox {
-  margin-top: 1rem;
   padding: 0.24rem;
 }
 
@@ -410,12 +405,10 @@ body {
 }
 
 @supports ((height: constant(safe-area-inset-top)) or (height: env(safe-area-inset-top))) and (-webkit-overflow-scrolling: touch) {
-  .header {
-    height: 1rem;
-    height: calc(1rem + constant(safe-area-inset-top));
-    height: calc(1rem + env(safe-area-inset-top));
-    padding-top: constant(safe-area-inset-top);
-    padding-top: env(safe-area-inset-top);
+  .normalHeader .header {
+    height: 0.92rem;
+    height: calc(0.92rem + constant(safe-area-inset-top));
+    height: calc(0.92rem + env(safe-area-inset-top));
   }
   .infoBox {
     margin-top: calc(1.2rem + constant(safe-area-inset-top));

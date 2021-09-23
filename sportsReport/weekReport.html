@@ -6,6 +6,7 @@
 	<meta name="viewport"
 		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
 	<title>派健康运动周报</title>
+	<link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
 	<link rel="stylesheet" href="font/iconfont.css">
 	<link rel="stylesheet" href="css/index.css">
 
@@ -13,23 +14,27 @@
 </head>
 
 <body>
-	<div id="app" v-cloak>
-		<div class="header" style="color: #595962" v-if="!sheetImageStatus">
-			<div class="headerLeftBox" @click="goback()">
-				<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.48rem;"></span>
-			</div>
-			<!-- <div class="headerTitle">周报月报</div> -->
-			<div class="headerRightBox">
-				<span class="icon iconfont icon-fenxianganniu" @click="sharePage" style="font-size: 0.48rem;"></span>
-				<span class="icon iconfont icon-tongyong-rili" @click="gohistory" style="font-size: 0.44rem;"></span>
-			</div>
+	<div id="app" class="specialHeader" v-cloak>
+		<div class="header" v-if="!sheetImageStatus">
+			<van-nav-bar @click-left="onclickLeft" title="运动周报" left-arrow safe-area-inset-top fixed>
+				<template #left>
+					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
+				</template>
+				<template #right>
+					<span class="icon iconfont icon-fenxianganniu" @click="sharePage"
+						style="font-size: 0.5rem;margin-right: 0.25rem;"></span>
+					<span class="icon iconfont icon-tongyong-rili" @click="gohistory"
+						style="font-size: 0.48rem;"></span>
+
+				</template>
+			</van-nav-bar>
 		</div>
 		<!-- 周报 -->
 		<div class="weekBox">
 			<div class="topPic">
 				<img class="bg" src="./img/week_topPic.png" alt="">
 			</div>
-			<div class="infoBox">
+			<div class="infoBox" v-if="reportData.headPictureUrl">
 				<img class="headerpic" :src="reportData.headPictureUrl" alt="">
 				<div>
 					<p class="name">{{reportData.nickName}}</p>
@@ -313,7 +318,8 @@
 		</div>
 	</div>
 </body>
-<script src="https://oss.laisitech.com/0bb12bf1-cb87-4d2c-a724-8a7c25b7ae04.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
 <script src="../common/js/network.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/echarts@5.0.0/dist/echarts.min.js"></script>
 <script>
@@ -451,15 +457,35 @@
 			this.initData()
 			window.sheetImageHideHeader = this.sheetImageHideHeader;
 			window.sheetImageshowHeader = this.sheetImageshowHeader;
+			if (!this.isShare) {
+				window.addEventListener('scroll', this.scrollFn);
+			}
 		},
 		methods: {
+			scrollFn() {
+				var t = document.documentElement.scrollTop || document.body.scrollTop;
+				var rate = t / 100
+				if (rate > 1) {
+					rate = 1
+				}
+				var colorValue = `rgba(18,18,31,${rate})`
+				document.getElementsByClassName("van-nav-bar")[0].style.background = colorValue
+				document.getElementsByClassName("van-nav-bar__title")[0].style.opacity = rate;
+				document.getElementsByClassName("van-nav-bar")[0].style.color =
+					`rgb(${255-48*rate},${255-48*rate},${255-45*rate})`
+
+			},
+			destroyed() {
+				window.removeEventListener('scroll', this.scrollFn); // 销毁监听
+			},
 			sheetImageHideHeader() {
 				this.sheetImageStatus = true
 			},
 			sheetImageshowHeader() {
 				this.sheetImageStatus = false
 			},
-			goback() {
+			onclickLeft() {
+				this.destroyed()
 				window.history.back()
 			},
 			gohistory() {
@@ -510,10 +536,10 @@
 			},
 			//传入毫秒数 返回相应的日时分秒
 			secondsFormat(s) {
-				s=s/1000
+				s = s / 1000
 				var hour = Math.floor(s / 3600).toString()
-				var minute = Math.floor((s-(hour * 3600)) / 60).toString()
-				var second = (s-hour * 3600 - minute * 60).toString()
+				var minute = Math.floor((s - (hour * 3600)) / 60).toString()
+				var second = (s - hour * 3600 - minute * 60).toString()
 				return hour.padStart(2, "0") + ":" + minute.padStart(2, "0") + ":" + second.padStart(2, "0")
 			},
 			//传入时间戳获取日期

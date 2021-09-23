@@ -8,7 +8,7 @@
             <img class="lock_img" v-if="item.isVerify" src="../img/is_public.png" />
         </div>
         <div class="pkDescript">
-            <span>{{item.type=="personal"?"个人PK":"团队PK"}}</span>
+            <span>{{item.type=="personal"?"个人PK赛":"团队PK赛"}}</span>
 
             <div v-if="type=='steps'">
                 <span class="laberContent" >{{item.modeValue+"公里跑"}}</span>
@@ -22,7 +22,7 @@
             <div v-else-if="type=='wheel'">
                 <span class="laberContent"
                     v-if="item.mode==2">{{item.modeValue==30?"30秒钟倒计时":(parseInt((item.modeValue)/60))+"分钟倒计时"}}</span>
-                <span class="laberContent" v-else>{{item.modeValue+"个倒计次"}}</span>
+                <span class="laberContent" v-else>{{item.modeValue+"次倒计数"}}</span>
             </div>
             <div v-else>
                 <span class="laberContent"

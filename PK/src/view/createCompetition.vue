@@ -71,7 +71,7 @@
                             @click="countTimeShow = true" title="比赛模式(倒计时转)" is-link :value="form.pkMode" />
                     </div>
                 </div>
-                <div class="item_box">
+                <!-- <div class="item_box">
                     <div class="laber">
                         比赛类型
                     </div>
@@ -85,6 +85,11 @@
                     <div v-if="submitform.type=='team'" class="borderTop">
                         <van-cell class="pk_cell" :class="form.pkType.toString().indexOf('请选择')!=-1?'':'chosed'"
                             @click="typeChange(submitform.type)" title="团队赛人数" is-link :value="form.pkType" />
+                    </div>
+                </div> -->
+                <div class="item_box">
+                    <div>
+                        <van-cell class="pk_cell2 chosed" title="比赛类型" value="个人赛" />
                     </div>
                 </div>
             </div>
@@ -425,6 +430,7 @@
 
             if (this.type == "wristball") {
                 this.submitform.mode=2
+                 this.submitform.type="personal"
                 this.form.pkMode = "请选择倒计时转时长"
             }
 
