@@ -42,33 +42,37 @@
 
             </div>
         </div>
-        <van-pull-refresh v-model="isLoading" :head-height="90" @refresh="getNormalClass" class="monkey-pull-refresh">
-            <template #pulling="props">
-                <div class="monkeyBox">
-                    <img class="monkey" src="../common/img/monkey.gif" />
-                    <p>下拉刷新</p>
-                </div>
-            </template>
-            <!-- 释放提示 -->
-            <template #loosing>
-                <div class="monkeyBox">
-                    <img class="monkey" src="../common/img/monkey.gif" />
-                    <p>释放刷新</p>
-                </div>
-            </template>
+        
+        <div class="contain" style="height: 8.2rem;overflow-y: auto;">
+            <van-pull-refresh v-model="isLoading" :head-height="90" @refresh="getNormalClass"
+                class="monkey-pull-refresh">
+                <template #pulling="props">
+                    <div class="monkeyBox"  >
+                        <img class="monkey"  src="../common/img/monkey.gif" />
+                        <p>下拉刷新</p>
+                    </div>
+                    
+                </template>
+                <!-- 释放提示 -->
+                <template #loosing>
+                    <div class="monkeyBox">
+                        <img class="monkey" src="../common/img/monkey.gif" />
+                        <p>释放刷新</p>
+                    </div>
+                </template>
 
-            <!-- 加载提示 -->
-            <template #loading>
-                <div class="monkeyBox">
-                    <img class="monkey" src="../common/img/monkey.gif" />
-                    <p>正在刷新</p>
-                </div>
-            </template>
-            <div class="contain" style="height: 7.2rem;overflow-y: auto;">
+                <!-- 加载提示 -->
+                <template #loading>
+                    <div class="monkeyBox">
+                        <img class="monkey" src="../common/img/monkey.gif" />
+                        <p>正在刷新</p>
+                    </div>
+                </template>
                 <div class="courseBox" v-if="classList.length>0">
                     <ul>
-                        <li class="courseDiv" v-for="item in classList"  @click="courseList(item)">
-                            <img v-if="item.classLableList.length>0" :src="'./img/'+item.classLableList[0].classLabel+'.png'" class="iconlabel" alt="">
+                        <li class="courseDiv" v-for="item in classList" @click="courseList(item)">
+                            <img v-if="item.classLableList.length>0"
+                                :src="'./img/'+item.classLableList[0].classLabel+'.png'" class="iconlabel" alt="">
                             <div class="cover" :style="{'backgroundImage':'url('+item.classCover+')'}">
                             </div>
                             <div class="content">
@@ -92,15 +96,17 @@
                     <img class="noData-img" src="../common/img/noData.png" />
                     <p class="noData-p">暂无符合条件的训练课程，换个条件试试吧~</p>
                 </div>
-            </div>
+            </van-pull-refresh>
+        </div>
 
     </div>
-    </van-pull-refresh>
+
     </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
 <script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
 <script src="../common/js/network.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.13/lottie.min.js"></script> -->
 <script>
     new Vue({
         el: '#app',
@@ -119,6 +125,17 @@
 
         },
         mounted() {
+            // lottie.loadAnimation({
+
+            //     container: document.getElementById('lottie'), //dom元素的容器
+
+            //     loop: true, //循环播放
+
+            //     autoplay: true, //自动播放
+
+            //     path: 'monkey.json' // AE 导出JSON文件
+
+            // });
 
         },
         created() {
@@ -175,23 +192,23 @@
             },
             //选择标签
             laberChoose(item, items) {
-                if(item.choose){
+                if (item.choose) {
                     return
                 }
                 items.forEach(ele => {
                     ele.choose = false
                 })
-                if(!item.choose){
-                    item.choose=true
+                if (!item.choose) {
+                    item.choose = true
                     this.initCondition()
                 }
-               
+
             },
             //筛选条件处理
-            initCondition(flag) {//0 清空筛选条件
+            initCondition(flag) { //0 清空筛选条件
                 let obj = this.laberList;
                 let form = {};
-                this.chooseLength=0;
+                this.chooseLength = 0;
                 for (const key in obj) {
                     let submitKey = ""
                     if (key == "目标") {
@@ -221,16 +238,16 @@
                     form[submitKey] = form[submitKey].join()
                 }
 
-                if(flag==0){
+                if (flag == 0) {
                     this.getNormalClass()
-                }else{
+                } else {
                     this.getClassByConditions()
                 }
             },
             //跳转课程详情
-			courseList(item) {
-				window.location.href=`courseList.html?id=${item.bigClassId}&back=1`
-			},
+            courseList(item) {
+                window.location.href = `courseList.html?id=${item.bigClassId}&back=1`
+            },
 
 
 
