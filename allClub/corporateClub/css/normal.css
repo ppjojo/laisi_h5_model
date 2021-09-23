@@ -136,6 +136,7 @@ body {
 	border-color: #FF6A88; */
 	background: #E60012;
 	border-color: #E60012;
+	border: none;
 }
 .van-checkbox__icon .van-icon{
 	/* border: .02rem solid #fff; */
