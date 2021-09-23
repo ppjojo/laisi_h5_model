@@ -513,7 +513,7 @@
                     <p id="joinBtn" class="addClubBtn" v-if="clubObject.isInviteCode=='Y'" @click="reqShow=true">立即加入
                     </p>
 
-                    <p id="applyJoinBtn" class="addClubBtn" v-if="clubObject.isInviteCode=='N'" @click="joinClubReq(1)">
+                    <p id="applyJoinBtn" class="addClubBtn" v-if="clubObject.isInviteCode=='N'||clubObject.isPublic=='Y'" @click="joinClubReq(clubObject.isPublic=='Y'?4:1)">
                         申请加入</p>
                 </div>
 
@@ -845,6 +845,7 @@
             getTodaySport() {
                 var that = this
                 var currentPage = that.today.page - 1
+				that.today.loading = false;
                 ajax({
                     type: "get",
                     url: "club/todaySport",
@@ -855,11 +856,12 @@
                         date: timestampTodate(new Date(), '-'),
                     },
                     success: function (res) {
-                        that.today.loading = false;
+                        that.today.loading = true;
                         if (res.code == 0) {
                             if (currentPage == 0) {
                                 that.today.list = res.data.sportList || res.data.clubGroupVoList ||
                                     []
+								// console.log(that.today.list)
                             } else {
                                 if (that.clubObject.type == "05") return
                                 that.today.list = that.today.list.concat(res.data.sportList || res

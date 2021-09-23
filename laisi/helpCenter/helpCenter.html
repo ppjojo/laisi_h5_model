@@ -28,7 +28,7 @@
             <!-- 顶部背景 -->
             <div class='topBanner'>
                 <div class='toptxt'>
-                    <p>Hi～<span id='username'>---</span></p>
+                    <p>Hi～<span id='username'>{{userName}}</span></p>
                     <p id="toptxtp">派小俊为您答疑解惑</p>
                 </div>
             </div>
@@ -48,7 +48,8 @@
 						<span class="blodTitle">常见问题</span>
 					</div>
 					<div class="listItem " v-for="(item,index) in dataList.faqs" @click="clickQuestion2(item)">
-						{{index+1}}.{{item.title}}？
+						<span>{{index+1}}.{{item.title}}？</span>
+						<van-icon name="arrow" color="#71717f" size=".2rem" />
 					</div>
 				</div>
 			</div>
@@ -96,6 +97,7 @@
 				},
 				tenPlayer:null,
 				tenParser:null,
+				userName:JSON.parse(localStorage.getItem("appInfo")).nickname||'---',
 			}
 		},
 		filters: {},
