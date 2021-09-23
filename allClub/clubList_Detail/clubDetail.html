@@ -54,7 +54,7 @@
 
         .van-dialog__header,
         .van-button--default,
-        .van-field__control {
+        .van-field__control ,.headerBox .infoBox .clubDescript .clubId, .headerBox .infoBox .clubDescript .clubDate, .headerBox .infoBox .clubDescript .clubAddress{
             color: #cfcfd2;
         }
 
@@ -77,6 +77,12 @@
         [class*=van-hairline]::after {
             border-color: #1E1E2A;
         }
+		.headerBox .infoBox .clubDescript .clubName{
+			font-weight: bold;
+		}
+		.corporate .deptList .deptInfoBox .deptD .userInfo,.corporate .deptList .scoreBox .numD{
+			color:#71717f;
+		}
     </style>
 </head>
 
@@ -115,7 +121,8 @@
         <div class="containBox" v-if="clubObject.self">
             <div class="noticeBox" @click="goNotice(clubObject.notice)">
                 <div class="noticeBoxLeft">
-                    <van-icon color="#cfcfd2" size=".4rem" name="volume-o"></van-icon>
+                    <!-- <van-icon color="#cfcfd2" size=".4rem" name="volume-o"></van-icon> -->
+					<img style="width: .48rem;height: .48rem;" src="./img/volume.png" alt="">
                     <span class="noticeContent">{{clubObject.notice.title||""}}</span>
                 </div>
                 <span class="icon iconfont icon-tongyong-gengduo" style="font-size: 0.3rem;"></span>
@@ -130,7 +137,7 @@
                     </div>
                     <div class="memberPersonNum" @click="goMemberlist()">
                         <div class="numP">{{clubObject.memberNumber||0}}人</div>
-                        <span class="icon iconfont icon-tongyong-gengduo" style="font-size: 0.3rem;"></span>
+                        <span class="icon iconfont icon-tongyong-gengduo" style="font-size: 0.3rem;color: #71717f;"></span>
                     </div>
                 </div>
             </div>
@@ -451,7 +458,7 @@
         </div>
         <div class="containBox2" v-else>
             <div style="height: 1rem;border-bottom: 0.08rem solid #1e1e2a;">
-                <div class="memberBox">
+                <div class="memberBox" style="border-bottom: 0.08rem solid #1e1e2a;">
                     <div class="title">成员</div>
                     <div class="memberListDiv" @click="goMemberlist()">
                         <div class="memberPersonPic">
@@ -461,7 +468,7 @@
                         </div>
                         <div class="memberPersonNum">
                             <div class="numP">{{clubObject.memberNumber||0}}人</div>
-                            <van-icon name="arrow" color="#999" size="0.3rem" />
+                            <van-icon name="arrow" color="#71717f" size="0.3rem" />
                             <!-- <img class="iconRight" src="img/iconRight.png" alt=""> -->
                         </div>
                     </div>
@@ -672,7 +679,7 @@
             }
             this.clubObject = Object.assign({}, localStorage.getItem("clubObject"))
             this.getClubDetail()
-
+			console.log(localStorage.getItem("clubTab"))
             if (localStorage.getItem("clubTab")) {
                 this.activeTab = parseInt(localStorage.getItem("clubTab"))
                 this.refreshDetailData()
@@ -741,7 +748,7 @@
             refreshDetailData() {
                 if (this.activeTab == 0) {
                     this.today.page = 1;
-                    //this.getTodaySport()
+                    // this.getTodaySport()
 
                 } else if (this.activeTab == 1) {
                     //任务
@@ -779,8 +786,10 @@
                     if (res.code == 0) {
                         this.clubObject = res.data
                         if (res.data.self) {
-                            this.getTodaySport()
-                            this.getPastSportData()
+                            if (this.activeTab == 0){
+								this.getTodaySport()
+								this.getPastSportData()
+							}
                             this.isMinister = res.data.self.isMinister
                         }
                         localStorage.setItem("clubObject", JSON.stringify(res.data))
@@ -953,7 +962,6 @@
             },
             //tab的切换
             tabChange(tabName) {
-                localStorage.setItem("clubTab", tabName)
                 if (tabName == 1) {
                     //任务
                     this.taskObject.join.page = 1
@@ -967,7 +975,14 @@
                     this.competitionObject.unJoin.page = 1
                     this.getCompetition()
                     this.getnotJoinCompetition()
-                }
+                }else if(tabName == 0){
+					console.log('clubTab'+localStorage.getItem("clubTab"))
+					if (localStorage.getItem("clubTab") != 0&&this.today.list.length==0){
+						this.getTodaySport()
+						this.getPastSportData()
+					}
+				}
+				localStorage.setItem("clubTab", tabName)
 
             },
             //获取已参加的任务

@@ -8,7 +8,7 @@
 				</template>
 			</van-nav-bar>
 		</div>
-		<div class="ub ub-ac tab" v-show="!sheetImageStatus">
+		<div class="ub ub-ac tab" v-show="!sheetImageStatus&&isShare!=1">
 			<div class="subtab" @click="changeTab(1)">
 				<div class="title" :class="{active:tabIndex==1}">月度统计</div>
 				<img class="activeImg" v-show="tabIndex==1" :src="require('@i/tabselect.png')" alt="">
@@ -214,6 +214,7 @@
 			sharePage() {
 				this.$interaction.appNative('LSTH5APP_UrlAndSheetImageShareModel',{
 					shareTitle: "运动日历打卡",
+					isShareUrl:false,
 					shareContent: "",
 					shareUrl: "sportsClock/#/clockoverview.html?isShare=1&tabIndex="+this.tabIndex+'&userId='+JSON.parse(localStorage.getItem("appInfo")).userId,
 				})

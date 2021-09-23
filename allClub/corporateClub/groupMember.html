@@ -22,7 +22,9 @@
 		.van-popover--dark .van-popover__arrow {
 			color: #1f1f1f;
 		}
-
+		.van-field__control{
+			color: #cfcfd2;
+		}
 		.van-cell::after {
 			border-bottom: none;
 		}
@@ -53,7 +55,7 @@
 			font-weight: bold;
 		}
 		.van-dialog,.van-button--default{
-			background-color: #12121f;
+			background-color: #292934;
 			color: #cfcfd2;
 		}
 		[class*=van-hairline]::after{
@@ -493,7 +495,8 @@
 					namestr = arr.length > 3 ? (namestr.toString() + '等人') : namestr.toString()
 					this.$dialog.confirm({
 						// title: '标题',
-						message: '您确定要将' + namestr + '移除出俱乐部吗？'
+						confirmButtonText:"移除",
+						message: '确定将' + namestr + '移除俱乐部吗？'
 					}).then(() => {
 						this.deleteMember(arr);
 					}).catch(() => {
@@ -519,7 +522,7 @@
 				ajax({
 					type: "post",
 					url: "club/deleteMember",
-					data: arr,
+					data: {clubMemberList:arr},
 					success: function (res) {
 						if (res.code == 0) {
 							_self.$toast("成员删除成功");

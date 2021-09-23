@@ -120,7 +120,7 @@
 					
 				</van-collapse>
 				<van-button round class="submit" block
-				:color="!form.mc||!form.start||!form.end?bgcgrey:bgc" @click="submitFormData">修改</van-button>
+				:color="!form.mc||form.mc==oldname?bgcgrey:bgc" @click="submitFormData">修改</van-button>
 				
 				<van-popup v-model="startTimeShow" position="bottom">
 					<van-picker show-toolbar :columns="startTimeColumns" @cancel="startTimeShow = false" @confirm="onstartTimeConfirm"
@@ -152,7 +152,7 @@
 					isClick:false,
 					activeNames: 0,
 					matchName: '',
-
+					oldname:'',
 					isSubmit: false,
 					jlinput: false,
 					startTimeColumns: [],
@@ -256,7 +256,7 @@
 									_self.jlinput=true;
 								}
 								_self.form.jl=_self.submitform.gameReward;
-								_self.form.mc=_self.submitform.name;
+								_self.oldname=_self.form.mc=_self.submitform.name;
 								_self.initEndTime(DateTime.sjc2time('ymdhms',_self.submitform.startTime+3600000));
 							}
 						},

@@ -29,7 +29,7 @@
 <body>
     <div id="app" class="normalHeader" v-cloak>
 		<div class="header">
-			<van-nav-bar @click-left="onclickLeft" title="部门运动详情" left-arrow safe-area-inset-top fixed>
+			<van-nav-bar @click-left="onclickLeft" :title="headTitle" left-arrow safe-area-inset-top fixed>
 				<template #left>
 					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
 				</template>
@@ -97,7 +97,8 @@
                 },
                 competitionItem: {
                     mode: 2
-                }
+                },
+				headTitle:'',
             }
         },
         filters: {
@@ -112,7 +113,7 @@
         mounted() {},
         created() {
             this.getList()
-            document.title=(getQueryString("deptName")=="null"?"未分部部门":getQueryString("deptName"))+"运动详情"
+            this.headTitle=document.title=(getQueryString("deptName")=="null"?"未分部部门":getQueryString("deptName"))+"运动详情"
         },
 		computed: {
 		    timestamp2HMS: function () {

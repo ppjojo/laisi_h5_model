@@ -49,7 +49,7 @@
 			font-size: .24rem;
 			vertical-align: middle;
 			text-align: center;
-			color: #999;
+			color: #71717f;
 		}
 
 		.clubtype .clubtypeicon {
@@ -92,7 +92,7 @@
 
 
 		.clubtag .clubtypeicon img {
-			width: .32rem !important;
+			/* width: .32rem !important; */
 			height: .48rem !important;
 		}
 
@@ -104,6 +104,12 @@
 
 		.van-switch {
 			width: 1.2rem;
+		}
+		.van-cell__value span,.van-field__word-limit{
+			color: #71717f;
+		}
+		textarea::placeholder {
+			color: #71717f!important;
 		}
 	</style>
 </head>
@@ -165,7 +171,7 @@
 				<div>所在城市</div>
 				<div class="rightBox">
 					{{form.cs}}
-					<span class="icon iconfont icon-tongyong-gengduo" style="font-size: 0.3rem;"></span>
+					<span class="icon iconfont icon-tongyong-gengduo" style="font-size: 0.3rem;color: #71717f;"></span>
 				</div>
 			</div>
 			<div class="listBox">
@@ -220,7 +226,7 @@
 						<div class="clubtype clubtag">
 							<div class="clubtypeicon ub ub-ac ub-pc" style="margin:0 auto .2rem;"
 								:class="submitform.label=='00'?'active':''">
-								<img src="img/jumpskip.png" alt="">
+								<img src="img/jumpskip2.png" alt="">
 							</div>
 							<div>跳绳</div>
 						</div>

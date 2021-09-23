@@ -38,7 +38,9 @@
 		.van-cell::after {
 			border-bottom-color: #1E1E2A;
 		}
-
+		.color999{
+			color: #999;
+		}
 		.submit {
 			position: fixed;
 			bottom: 0;
@@ -46,6 +48,12 @@
 			opacity: 1;
 			margin: .2rem 0;
 		}
+		.van-field__control{
+			color: #cfcfd2;
+		}
+		input::-webkit-input-placeholder {
+		        color: #71717f!important;
+		      }
 	</style>
 </head>
 
@@ -75,10 +83,10 @@
 						<template #title>
 							<ul class="ul_class">
 								<li class="ub ub-ac ub-pj">
-									<div>
+									<div style="color: #cfcfd2;">
 										{{item.id=='wfb'?'未分部部门':item.name}}
 									</div>
-									<div style="font-size: .24rem;color: #999;">({{item.totalNumber}}人)</div>
+									<div style="font-size: .24rem;color: #71717f;">({{item.totalNumber}}人)</div>
 								</li>
 							</ul>
 						</template>

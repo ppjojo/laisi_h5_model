@@ -61,7 +61,7 @@
 		<van-cell-group>
 			<van-field v-model="nickname" maxlength="8" clearable placeholder="请输入昵称"></van-field>
 		</van-cell-group>
-		<van-button round class="submit" block @click="changeName(nickname)" :color="nickname?bgc:bgcgrey">完成
+		<van-button round class="submit" block @click="changeName(nickname)" :color="nickname&&oldname!=nickname?bgc:bgcgrey">完成
 		</van-button>
 	</div>
 </body>
@@ -76,6 +76,7 @@
 				bgc: "linear-gradient(to right, #FF6A88, #FF5136 )",
 				bgcgrey: '#999',
 				nickname: getQueryString('name'),
+				oldname:getQueryString('name'),
 				clubid: getQueryString('id')
 			};
 		},

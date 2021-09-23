@@ -16,9 +16,9 @@
 <body>
 	<div id="app" v-cloak class="normalHeader">
 		<div class="header">
-			<van-nav-bar :title="title" @click-left="onclickLeft" @click-right="onclickRight" left-text="取消" safe-area-inset-top fixed>
-				<template #right>
-					<div :style="{color:!submitform.name||!submitform.introduce?'#999':'#cfcfd2'}">保存</div>
+			<van-nav-bar :title="title" @click-left="onclickLeft" @click-right="onclickRight" left-arrow safe-area-inset-top fixed>
+				<template #left>
+					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
 				</template>
 			</van-nav-bar>
 		</div>
@@ -41,6 +41,7 @@
 					maxlength="100" placeholder="请输入俱乐部简介~" show-word-limit />
 			</div>
 		</div>
+		<van-button round class="submit" block :color="!submitform.name||!submitform.introduce?bgcgrey:bgc" @click="onclickRight">修改</van-button>
 	</div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
@@ -51,6 +52,8 @@
 		el: '#app',
 		data() {
 			return {
+				bgc: "linear-gradient(to right, #FF6A88, #FF5136 )",
+				bgcgrey: '#999',
 				flag: getQueryString("flag"), //1俱乐部名称2//俱乐部简介
 				title: getQueryString("flag") == 1 ? '俱乐部名称' : '俱乐部简介',
 				submitform: JSON.parse(localStorage.getItem('clubForm')) || {},

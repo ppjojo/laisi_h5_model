@@ -141,6 +141,7 @@
 
 .van-field__control {
 	color: #CFCFD2;
+	font-size: .28rem;
 }
 
 .matchName-input .van-field__word-limit {
@@ -220,7 +221,7 @@
 
 textarea::placeholder {
 	font-size: .24rem;
-	color: #999;
+	color: #71717f!important;
 }
 
 .tasks-input .van-field__word-limit {
@@ -308,7 +309,7 @@ textarea::placeholder {
 
 .chosed .van-cell__value span {
 	font-size: 0.28rem;
-	color: #71717f;
+	color: #cfcfd2;
 }
 
 .van-switch {

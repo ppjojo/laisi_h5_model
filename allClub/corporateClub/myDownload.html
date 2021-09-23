@@ -44,6 +44,13 @@
 			.submit {
 				width: 100%;
 			}
+			.van-dialog,.van-dialog .van-button--default{
+				color: #cfcfd2;
+				background-color: #292934;
+			}
+			[class*=van-hairline]::after{
+				border-color: #1E1E2A;
+			}
 		</style>
 	</head>
 
@@ -65,7 +72,7 @@
 						<div>{{date[0]}}</div>
 						<van-icon name="arrow-down" size="16" />
 					</div>
-					<div style="font-weight: bolder;">——</div>
+					<div style="font-weight: bolder;">─</div>
 					<div class="ub ub-ac">
 						<div>{{date[1]}}</div>
 						<van-icon name="arrow-down" size="16" />

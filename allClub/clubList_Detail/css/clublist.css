@@ -75,17 +75,18 @@ input::-webkit-input-placeholder {
     display: block;
     color: #fff;
     font-size: .2rem;
-    background:#e60012;
+    background:#FF4E3E;
     border-radius: 5px;
     text-align: center;
     /* width: .5rem; */
     margin-left: 2%;
-	padding: 0 .08rem;
+	line-height: 1.5;
+	padding: 0 .04rem;
 
 }
 .listItem-content  .content span {
     display: inline-block;
-	color: #727272;
+	color: #71717f;
 	font-size: .28rem;
     margin-right: 2%;
 }
@@ -93,7 +94,7 @@ input::-webkit-input-placeholder {
    width: 100%;
    line-height: 2.5;
    font-size: .28rem;
-   color: #999;
+   color: #71717f;
 }
  .addClubBtn {
     
@@ -108,7 +109,9 @@ input::-webkit-input-placeholder {
 	right: 0.3rem;
 	z-index: 999;
 }
-
+.van-icon-clear{
+				color: #71717f;
+			}
 
 /* 超出省略显示 */
 .ellipsis {
