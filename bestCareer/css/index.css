@@ -178,7 +178,7 @@ body {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   background-size: 100% 100%;
-  padding: 1.2rem 0.72rem 0 0.72rem;
+  padding: 1.2rem 0.72rem 0.2rem 0.72rem;
   border-radius: 0.24rem;
 }
 
@@ -205,7 +205,7 @@ body {
 
 .detailBox .detailDiv .itemBox .dataBox .dataItem, .detailBox .detailDiv .itemBox2 .dataBox .dataItem {
   width: 50%;
-  margin-bottom: 0.2rem;
+  margin-bottom: 0.3rem;
   text-align: left;
 }
 
@@ -221,13 +221,14 @@ body {
 .detailBox .detailDiv .itemBox .dataBox .dataItem .time, .detailBox .detailDiv .itemBox2 .dataBox .dataItem .time {
   font-size: 0.2rem;
   color: #71717f;
+  height: 0.4rem;
   line-height: 0.4rem;
 }
 
 .detailBox .detailDiv .itemBox .dataBox .dataItem .num, .detailBox .detailDiv .itemBox2 .dataBox .dataItem .num {
   font-size: 0.56rem;
   font-family: "BebasNeue";
-  line-height: 1.2rem;
+  line-height: 0.8rem;
 }
 
 .detailBox .detailDiv .linkBox {

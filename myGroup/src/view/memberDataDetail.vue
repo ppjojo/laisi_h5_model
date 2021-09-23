@@ -159,13 +159,17 @@
                     <div id="fat" style="width:100%; height:200px"></div>
                 </div> -->
                 </div>
+
+
             </div>
         </div>
 
-        <!-- <div v-if="userIdData.length==0" class="nullDataBox">
-            <img style="width:2rem" :src="require('../img/noData.png')" alt="">
-            <p>今日无运动</p>
-        </div> -->
+        <div v-if="!recordData.skipRecord&&!recordData.balanceRecord&&!recordData.stepRecord&&!recordData.abrollerRecord&&!recordData.wristBallRecord" class="nullDataBox" style="padding-top:2rem;">
+            <img style="width:4rem" :src="require('../img/noData.png')" alt="">
+            <p>暂无相关数据</p>
+        </div>
+
+
 
         <van-popup v-model="dateshow" position="bottom" style="z-index: 9999;">
             <van-datetime-picker v-model="currentDate" type="date" :min-date="minDate" :max-date="maxDate"
@@ -268,7 +272,7 @@
                 this.$router.go(-1)
             },
             initData() {
-                this.currentDate = new Date(parseInt(this.$store.state.searchTime, ))
+                this.currentDate = new Date(parseInt(this.$store.state.searchTime))
                 var year = this.currentDate.getFullYear(),
                     month = new Date(this.currentDate).getMonth() + 1,
                     dates = new Date(this.currentDate).getDate();

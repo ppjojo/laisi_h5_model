@@ -173,12 +173,12 @@
 
 
 
-        <van-popup v-model="countTimeShow" position="bottom">
+        <van-popup v-model="countTimeShow" position="bottom" round>
             <van-picker :title="type=='skipping'?'倒计时跳时长':'倒计时转时长'" show-toolbar :columns="countTimeColumns"
                 :default-index="1" @cancel="countTimeShow = false" @confirm="onCountTimeConfirm" />
         </van-popup>
 
-        <van-popup v-model="distanceShow" position="bottom">
+        <van-popup v-model="distanceShow" position="bottom" round>
             <van-picker title="公里数" show-toolbar :columns="distanceColumns" :default-index="1"
                 @cancel="distanceShow = false" @confirm="onDistanceConfirm" />
         </van-popup>
@@ -187,28 +187,28 @@
             <van-picker title="倒计数跳个数" show-toolbar :columns="countNumberColumns" @cancel="countNumberShow = false"
                 @confirm="onCountNumberConfirm" />
         </van-popup> -->
-        <van-popup v-model="teamShow" position="bottom">
+        <van-popup v-model="teamShow" position="bottom" round>
             <van-picker title="团体赛人数" show-toolbar :columns="teamColumns" @cancel="teamShow = false"
                 @confirm="onteamConfirm" />
         </van-popup>
-        <van-popup v-model="playTimesShow" position="bottom">
+        <van-popup v-model="playTimesShow" position="bottom" round>
             <van-picker show-toolbar title="比赛次数" :columns="playTimesColumns" :default-index="2"
                 @cancel="playTimesShow = false" @confirm="onplayTimesConfirm" />
         </van-popup>
-        <van-popup v-model="startTimeShow" position="bottom">
+        <van-popup v-model="startTimeShow" position="bottom" round>
             <van-picker show-toolbar title="开始时间" :columns="startTimeColumns" @cancel="startTimeShow = false"
                 @confirm="onstartTimeConfirm" @change="onstartTimeChange" />
         </van-popup>
 
-        <van-popup v-model="endTimeShow" position="bottom">
+        <van-popup v-model="endTimeShow" position="bottom" round>
             <van-picker show-toolbar title="结束时间" :columns="endTimeColumns" @cancel="endTimeShow = false"
                 @confirm="onendTimeConfirm" @change="onendTimeChange" />
         </van-popup>
 
-        <van-dialog v-model="countNumberShow" width="80%" :title="type=='skipping'?'倒计数跳个数':'倒计数次数'" show-cancel-button
+        <van-dialog v-model="countNumberShow" width="80%" :title="type=='skipping'?'倒计数跳个数':'倒计次次数'" show-cancel-button
             @confirm="onCountNumberConfirm">
             <div>
-                <van-field type="number" v-model="inputValue" :placeholder="type=='skipping'?'请输入倒计数跳个数':'请输入倒计数次数'" />
+                <van-field type="number" v-model="inputValue" :placeholder="type=='skipping'?'请输入倒计数跳个数':'请输入倒计次次数'" />
             </div>
         </van-dialog>
     </div>
@@ -310,8 +310,8 @@
                     startTime: "",
                     endTime: "",
                     name: "",
-                    mode: "2", //比赛模式: 2(倒计时)/3(倒计数)
-                    type: "personal", //比赛类型: team(团队赛)/personal(个人赛)
+                    mode: "", //比赛模式: 2(倒计时)/3(倒计数)
+                    type: "", //比赛类型: team(团队赛)/personal(个人赛)
                     isOfficial: false, // true(官方比赛)，false(非官方比赛)
                     modeValue: "", //倒计时/秒, 倒计数/个
                     repeatTimes: "", //比赛  -1:表示不限制比赛次数
@@ -419,8 +419,12 @@
                     this.teamColumns.push(i);
                 }
             } 
+            if(this.type == "wheel"){
+               this.submitform.type="personal"
+            }
 
             if (this.type == "wristball") {
+                this.submitform.mode=2
                 this.form.pkMode = "请选择倒计时转时长"
             }
 
@@ -523,7 +527,7 @@
                     this.form.pkMode = "请选择倒计时跳时长";
                 } else {
                     this.countNumberShow = true
-                    this.form.pkMode =this.type=="skipping"?"请选择倒计数跳个数":"请选择倒计数次数";
+                    this.form.pkMode =this.type=="skipping"?"请选择倒计数跳个数":"请选择倒计次次数";
                 }
             },
             typeChange(name) { //比赛类型切换回调

@@ -148,7 +148,7 @@
 
 
 
-		</div> 
+		</div>
 
 		<div class="detailBox" v-else-if="type=='steps'">
 			<div class="detailDiv">
@@ -156,16 +156,17 @@
 				<div class="itemBox" style="background-image: url(./img/detailBg.png);">
 					<div class="dataBox">
 						<div class="dataItem">
-							<div class="info">最多步数(步)</div>
-							<div class="time">{{sjc2time("ymd",stepsObj.bestStep.checkTime)}}</div>
 							<div class="num">
 								{{stepsObj.bestStep.steps>1000000?((stepsObj.bestStep.steps/10000).toFixed(2)+"w"):stepsObj.bestStep.steps}}
 							</div>
+							<div class="time">{{sjc2time("ymd",stepsObj.bestStep.checkTime)}}</div>
+							<div class="info">最多步数(步)</div>
+
 						</div>
 						<div class="dataItem">
-							<div class="info">最远距离(公里)</div>
-							<div class="time">{{sjc2time("ymd",stepsObj.bestDistance.checkTime)}}</div>
 							<div class="num">{{(stepsObj.bestDistance.distance/1000).toFixed(2)||0}}</div>
+							<div class="time">{{sjc2time("ymd",stepsObj.bestDistance.checkTime)}}</div>
+							<div class="info">最远距离(公里)</div>
 
 						</div>
 					</div>
@@ -182,15 +183,14 @@
 					</div>
 					<div class="dataBox">
 						<div class="dataItem">
-							<div class="info">累计步数(步)</div>
-							<div class="time">{{sjc2time("ymd",stepsObj.updateTime)}}</div>
 							<div class="num">{{stepsObj.totalStep||0}}</div>
+							<div class="time">{{sjc2time("ymd",stepsObj.updateTime)}}</div>
+							<div class="info">累计步数(步)</div>
 						</div>
 						<div class="dataItem">
-							<div class="info">累计距离(公里)</div>
-							<div class="time">{{sjc2time("ymd",stepsObj.updateTime)}}</div>
 							<div class="num">{{(stepsObj.totalDistance/1000).toFixed(2)||0}}</div>
-
+							<div class="time">{{sjc2time("ymd",stepsObj.updateTime)}}</div>
+							<div class="info">累计距离(公里)</div>
 						</div>
 					</div>
 				</div>
@@ -203,29 +203,29 @@
 				<div class="itemBox" style="background-image: url(./img/detailBg.png);">
 					<div class="dataBox">
 						<div class="dataItem">
-							<div class="info">最多个数(个)</div>
-							<div class="time">{{sjc2time("ymd",skippingObj.mostSkip.updateTime)}}</div>
 							<div class="num">{{skippingObj.mostSkip.value}}</div>
+							<div class="time">{{sjc2time("ymd",skippingObj.mostSkip.updateTime)}}</div>
+							<div class="info">最多个数(个)</div>
 						</div>
 						<div class="dataItem">
-							<div class="info">最多连续个数(个)</div>
-							<div class="time">{{sjc2time("ymd",skippingObj.mostHolding.updateTime)}}</div>
 							<div class="num">{{skippingObj.mostHolding.value}}</div>
+							<div class="time">{{sjc2time("ymd",skippingObj.mostHolding.updateTime)}}</div>
+							<div class="info">最多连续个数(个)</div>
 						</div>
 						<div class="dataItem">
-							<div class="info">最长时间</div>
-							<div class="time">{{sjc2time("ymd",skippingObj.longestDuration.updateTime)}}</div>
 							<div class="num">{{secondsFormat(skippingObj.longestDuration.value)}}</div>
+							<div class="time">{{sjc2time("ymd",skippingObj.longestDuration.updateTime)}}</div>
+							<div class="info">最长时间</div>
 						</div>
 						<div class="dataItem">
-							<div class="info">最快频次(次/分)</div>
-							<div class="time">{{sjc2time("ymd",skippingObj.mostAvg.updateTime)}}</div>
 							<div class="num">{{skippingObj.mostAvg.value}}</div>
+							<div class="time">{{sjc2time("ymd",skippingObj.mostAvg.updateTime)}}</div>
+							<div class="info">最快频次(次/分)</div>
 						</div>
 						<div class="dataItem">
-							<div class="info">双三摇最多个数(个)</div>
-							<div class="time">{{sjc2time("ymd",skippingObj.mostDoubleTriple.updateTime)}}</div>
 							<div class="num">{{skippingObj.mostDoubleTriple.value||"--"}}</div>
+							<div class="time">{{sjc2time("ymd",skippingObj.mostDoubleTriple.updateTime)}}</div>
+							<div class="info">双三摇最多个数(个)</div>
 						</div>
 					</div>
 				</div>
@@ -241,17 +241,16 @@
 					</div>
 					<div class="dataBox">
 						<div class="dataItem">
-							<div class="info">累计个数(个)</div>
-							<div class="time">{{sjc2time("ymd",skippingObj.serverTime)}}</div>
 							<div class="num">
 								{{skippingObj.totalNumber>1000000?((skippingObj.totalNumber/10000).toFixed(2)+"w"):skippingObj.totalNumber}}
 							</div>
+							<div class="time">{{sjc2time("ymd",skippingObj.serverTime)}}</div>
+							<div class="info">累计个数(个)</div>
 						</div>
 						<div class="dataItem">
-							<div class="info">累计时长</div>
+							<div class="num"> {{secondsFormat(skippingObj.totalTime)}}</div>
 							<div class="time">{{sjc2time("ymd",skippingObj.serverTime)}}</div>
-							<div class="num">{{skippingObj.totalTime}}</div>
-
+							<div class="info">累计时长</div>
 						</div>
 					</div>
 				</div>
@@ -264,29 +263,29 @@
 				<div class="itemBox" style="background-image: url(./img/detailBg.png);">
 					<div class="dataBox">
 						<div class="dataItem">
-							<div class="info">最多次数(次)</div>
-							<div class="time">{{sjc2time("ymd",wheelObj.bestCountToTal.startTime)}}</div>
 							<div class="num">{{wheelObj.bestCountToTal.countToTal||0}}</div>
+							<div class="time">{{sjc2time("ymd",wheelObj.bestCountToTal.startTime)}}</div>
+							<div class="info">最多次数(次)</div>
 						</div>
 						<div class="dataItem">
-							<div class="info">最长时间</div>
-							<div class="time">{{sjc2time("ymd",wheelObj.bestMaxMs.startTime)}}</div>
 							<div class="num">{{secondsFormat(wheelObj.bestMaxMs.maxMs)}}</div>
+							<div class="time">{{sjc2time("ymd",wheelObj.bestMaxMs.startTime)}}</div>
+							<div class="info">最长时间</div>
 						</div>
 						<div class="dataItem">
-							<div class="info">最高达标率</div>
-							<div class="time">{{sjc2time("ymd",wheelObj.bestMaxStandardRate.startTime)}}</div>
 							<div class="num">{{wheelObj.bestMaxStandardRate.maxStandardRate}}%</div>
+							<div class="time">{{sjc2time("ymd",wheelObj.bestMaxStandardRate.startTime)}}</div>
+							<div class="info">最高达标率</div>
 						</div>
 						<div class="dataItem">
-							<div class="info">最远距离(米)</div>
-							<div class="time">{{sjc2time("ymd",wheelObj.bestMaxDistant.startTime)}}</div>
 							<div class="num">{{wheelObj.bestMaxDistant.maxDistant||0}}</div>
+							<div class="time">{{sjc2time("ymd",wheelObj.bestMaxDistant.startTime)}}</div>
+							<div class="info">最远距离(米)</div>
 						</div>
 						<div class="dataItem">
-							<div class="info">最快频次(次/分)</div>
-							<div class="time">{{sjc2time("ymd",wheelObj.bestMaxFreq.startTime)}}</div>
 							<div class="num">{{wheelObj.bestMaxFreq.maxFreq||0}}</div>
+							<div class="time">{{sjc2time("ymd",wheelObj.bestMaxFreq.startTime)}}</div>
+							<div class="info">最快频次(次/分)</div>
 						</div>
 					</div>
 				</div>
@@ -302,16 +301,16 @@
 					</div>
 					<div class="dataBox">
 						<div class="dataItem">
-							<div class="info">累计次数(次)</div>
-							<div class="time">{{sjc2time("ymd",wheelObj.bestCountToTal.startTime)}}</div>
 							<div class="num">
 								{{wheelObj.bestCountToTal.countToTal>1000000?((wheelObj.bestCountToTal.countToTal/10000).toFixed(2)+"w"):wheelObj.bestCountToTal.countToTal}}
 							</div>
+							<div class="time">{{sjc2time("ymd",wheelObj.bestCountToTal.startTime)}}</div>
+							<div class="info">累计次数(次)</div>
 						</div>
 						<div class="dataItem">
-							<div class="info">累计时长</div>
-							<div class="time">{{sjc2time("ymd",wheelObj.bestTakeMs.startTime)}}</div>
 							<div class="num">{{secondsFormat(wheelObj.bestTakeMs.takeMs)}}</div>
+							<div class="time">{{sjc2time("ymd",wheelObj.bestTakeMs.startTime)}}</div>
+							<div class="info">累计时长</div>
 						</div>
 					</div>
 				</div>
@@ -323,24 +322,24 @@
 				<div class="itemBox" style="background-image: url(./img/detailBg.png);">
 					<div class="dataBox">
 						<div class="dataItem">
-							<div class="info">最多圈数(圈)</div>
-							<div class="time">{{sjc2time("ymd",wristballObj.bestMaxCount.startTime)}}</div>
 							<div class="num">{{wristballObj.bestMaxCount.maxCount}}</div>
+							<div class="time">{{sjc2time("ymd",wristballObj.bestMaxCount.startTime)}}</div>
+							<div class="info">最多圈数(圈)</div>
 						</div>
 						<div class="dataItem">
-							<div class="info">最大转速(rpm)</div>
-							<div class="time">{{sjc2time("ymd",wristballObj.bestMaxRate.startTime)}}</div>
 							<div class="num">{{wristballObj.bestMaxRate.maxRate}}</div>
+							<div class="time">{{sjc2time("ymd",wristballObj.bestMaxRate.startTime)}}</div>
+							<div class="info">最大转速(rpm)</div>
 						</div>
 						<div class="dataItem">
-							<div class="info">最长时间</div>
-							<div class="time">{{sjc2time("ymd",wristballObj.bestMaxMs.startTime)}}</div>
 							<div class="num">{{secondsFormat(wristballObj.bestMaxMs.maxMs)}}</div>
+							<div class="time">{{sjc2time("ymd",wristballObj.bestMaxMs.startTime)}}</div>
+							<div class="info">最长时间</div>
 						</div>
 						<div class="dataItem">
-							<div class="info">最大力量(kg)</div>
-							<div class="time">{{sjc2time("ymd",wristballObj.bestMaxStrength.startTime)}}</div>
 							<div class="num">{{(wristballObj.bestMaxStrength.maxStrength/1000).toFixed(2)}}</div>
+							<div class="time">{{sjc2time("ymd",wristballObj.bestMaxStrength.startTime)}}</div>
+							<div class="info">最大力量(kg)</div>
 						</div>
 					</div>
 				</div>
@@ -356,16 +355,16 @@
 					</div>
 					<div class="dataBox">
 						<div class="dataItem">
-							<div class="info">累计圈数(圈)</div>
-							<div class="time">{{sjc2time("ymd",wristballObj.bestTotalCount.startTime)}}</div>
 							<div class="num">
 								{{wristballObj.bestTotalCount.totalCount>1000000?((wristballObj.bestTotalCount.totalCount/10000).toFixed(2)+"w"):wristballObj.bestTotalCount.totalCount}}
 							</div>
+							<div class="time">{{sjc2time("ymd",wristballObj.bestTotalCount.startTime)}}</div>
+							<div class="info">累计圈数(圈)</div>
 						</div>
 						<div class="dataItem">
-							<div class="info">累计时长</div>
-							<div class="time">{{sjc2time("ymd",wristballObj.bestTakeMs.startTime)}}</div>
 							<div class="num">{{secondsFormat(wristballObj.bestTakeMs.takeMs)}}</div>
+							<div class="time">{{sjc2time("ymd",wristballObj.bestTakeMs.startTime)}}</div>
+							<div class="info">累计时长</div>
 
 						</div>
 					</div>
@@ -453,25 +452,25 @@
 				},
 				skippingObj: {
 					longestDuration: {
-						updateTime:"",
-						value:0
+						updateTime: "",
+						value: 0
 					},
 					mostSkip: {
-						updateTime:"",
-						value:0
+						updateTime: "",
+						value: 0
 					},
 					mostHolding: {
-						updateTime:"",
-						value:0
+						updateTime: "",
+						value: 0
 					},
 					mostAvg: {
-						updateTime:"",
-						value:0
+						updateTime: "",
+						value: 0
 					},
 					mostDoubleTriple: {
-						
+
 					}
-					
+
 				},
 			}
 		},
@@ -527,7 +526,7 @@
 			},
 			//传入时间戳获取日期
 			sjc2time(id, sjc) {
-				if(!sjc)return
+				if (!sjc) return
 				var datetime = new Date(parseInt(sjc));
 				var year = datetime.getFullYear();
 				var month = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() +
@@ -571,10 +570,10 @@
 				}).then(res => {
 					if (res.code == 0) {
 						this.skippingObj = res.data
-						this.userInfo ={
-							headPictureUrl:res.data.headerPicUrl,
-							nickName:res.data.nickName,
-						} 
+						this.userInfo = {
+							headPictureUrl: res.data.headerPicUrl,
+							nickName: res.data.nickName,
+						}
 					}
 				})
 			},

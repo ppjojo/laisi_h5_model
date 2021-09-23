@@ -452,3 +452,6 @@ $border_color:#1e1e2a;
         top: calc(1rem + env(safe-area-inset-top));
     }
 }
+.van-picker__toolbar{
+    border-bottom: 1px solid #1e1e2a;
+}

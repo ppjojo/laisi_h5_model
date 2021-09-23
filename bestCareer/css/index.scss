@@ -169,7 +169,7 @@ body {
             width: 100%;
             box-sizing: border-box;
             background-size: 100% 100%;
-            padding: 1.2rem 0.72rem 0 0.72rem;
+            padding: 1.2rem 0.72rem 0.2rem 0.72rem;
             border-radius: 0.24rem;
             .title{
                 font-size: 0.32rem;
@@ -186,7 +186,7 @@ body {
 
                 .dataItem {
                     width: 50%;
-                    margin-bottom: 0.2rem;
+                    margin-bottom: 0.3rem;
                     text-align: left;
 
                     &:nth-child(2n) {
@@ -201,13 +201,14 @@ body {
                     .time {
                         font-size: 0.2rem;
                         color: #71717f;
+                        height: 0.4rem;
                         line-height: 0.4rem;
                     }
 
                     .num {
                         font-size: 0.56rem;
                         font-family: "BebasNeue";
-                        line-height: 1.2rem;
+                        line-height: 0.8rem;
                     }
                 }
             }
