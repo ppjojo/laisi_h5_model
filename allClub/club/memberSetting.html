@@ -61,6 +61,13 @@
 		.van-list__loading {
 			color: #CFCFD2;
 		}
+		.van-dialog,.van-button--default{
+			background-color: #292934;
+			color: #cfcfd2;
+		}
+		.van-dialog [class*=van-hairline]::after{
+			border: 1px solid #1e1e2a;
+		}
 	</style>
 
 </head>
@@ -68,7 +75,7 @@
 <body>
 	<div id="app" class="normalHeader" v-cloak>
 		<div class="header">
-			<van-nav-bar @click-left="onclickLeft" title="成员设置" left-arrow safe-area-inset-top fixed>
+			<van-nav-bar @click-left="onclickLeft" title="俱乐部设置" left-arrow safe-area-inset-top fixed>
 				<template #left>
 					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
 				</template>
@@ -101,7 +108,7 @@
 					style="border-bottom: .08rem solid #1E1E2A;">
 					<span>我在俱乐部的昵称</span>
 					<div class="ub ub-ac">
-						<div style="font-size: 0.28rem;color: #000;">{{submitform.nickname}}</div>
+						<div style="font-size: 0.28rem;color: #cfcfd2;">{{submitform.nickname}}</div>
 						<van-icon style="display: block;" color="#969799" name="arrow" />
 					</div>
 				</div>
