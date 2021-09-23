@@ -404,7 +404,7 @@
 
                     </van-tab>
                     <van-tab title="线上赛" class="competition">
-                        <div class="taskBox">
+                        <div class="taskBox" style="border-bottom: .2rem solid #1E1E2A;">
                             <div class="title">已报名</div>
                             <div class="taskDiv" v-if="competitionObject.join.list.length>0">
                                 <van-list v-model:loading="competitionObject.join.loading"
@@ -423,7 +423,7 @@
                                     </div>
                                 </van-list>
                             </div>
-                            <div v-else class="nullDataBox" style="border-bottom: .2rem solid #1E1E2A;">
+                            <div v-else class="nullDataBox" >
                                 <img src="../../common/img/noData.png" alt="">
                             </div>
                         </div>

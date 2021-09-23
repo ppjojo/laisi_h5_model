@@ -225,7 +225,8 @@
 		},
 		methods: {
 			onclickLeft() {
-				window.history.back(-1)
+				window.history.back(-1);
+				Interaction.closePage();
 			},
 			goClubName() {
 				if (this.submitform.self.isMinister != 'Y') return;
