@@ -25,7 +25,7 @@ function ajax1(config) {
 let ajax = (config) => {
   return new Promise(function (resolve, reject) {
     Interaction.getAppInfoAndUserInfo();
-    if(!config.data)config.data = Object.assign({}, config.data)
+    if (!config.data) config.data = Object.assign({}, config.data)
     if (getQueryString("isShare")) {
       config.data.userId = getQueryString("userId") || "10000";
       resolve(config);
@@ -45,21 +45,7 @@ let ajax = (config) => {
 };
 
 let ajaxResolve = (config) => {
-  
   return new Promise(function (resolve, reject) {
-    let token = "";
-    let userId = "0";
-    if (localStorage.getItem("appInfo")) {
-      var appInfo = JSON.parse(localStorage.getItem("appInfo"));
-      config.data.appId = appInfo.appId;
-      config.data.appVersion = appInfo.appVersion;
-      config.data.platform = appInfo.platform;
-      config.data.userId = appInfo.userId;
-      config.data.timeZone = appInfo.timeZone;
-      token = appInfo.token;
-      userId = appInfo.userId;
-    }
-
     var ajaxData = {
       type: (config.type || "GET").toUpperCase(),
       url: host + config.url || "",
@@ -87,15 +73,42 @@ let ajaxResolve = (config) => {
     } else {
       xhr.open(ajaxData.type, ajaxData.url + "?" + sendData, ajaxData.async);
     }
+
     //设置请求头
-    var random = Math.floor(Math.random() * 999999);
-    var timestamp = new Date().getTime();
-    var requestId = md5(timestamp + token + random);
-    xhr.setRequestHeader("token", token);
-    xhr.setRequestHeader("userId", userId);
-    xhr.setRequestHeader("random", random);
-    xhr.setRequestHeader("timestamp", timestamp);
-    xhr.setRequestHeader("requestId", requestId);
+    var timestamp = new Date().getTime()
+    if (localStorage.getItem("appInfo")) {
+      var appInfo = JSON.parse(localStorage.getItem("appInfo"));
+      var unorderedHeaderObj = {
+        appId: appInfo.appId || "",
+        timestamp: timestamp,
+        version: "v1",
+        token: appInfo.token || "",
+        platform: appInfo.platform || "",
+        appVersion: appInfo.appVersion || "",
+        timeZone: appInfo.timeZone || "",
+        userId:appInfo.userId,
+      }
+      const orderedHeaderObj = {};
+      Object.keys(unorderedHeaderObj).sort().forEach(function (key) {
+        orderedHeaderObj[key] = unorderedHeaderObj[key];
+      });
+      let sign = [];
+      for (var key in orderedHeaderObj) {
+        xhr.setRequestHeader(key, orderedHeaderObj[key]);
+        sign.push(key + "=" + orderedHeaderObj[key]);
+      }
+      sign.push("APP_SECRET=pOsgYHfmYNQzTbnTJXGpfYhvkRSsByBw")
+      sign=sign.join("&");
+      xhr.setRequestHeader("LAISIH5", "LAISIH5");
+      xhr.setRequestHeader("sign", md5(sign).toLocaleUpperCase());
+    }else{
+      xhr.setRequestHeader("userId", config.data.userId);
+    }
+
+
+
+
+
     if (ajaxData.type.toUpperCase() == "GET") {
       xhr.send(null);
     } else {

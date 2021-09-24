@@ -151,7 +151,7 @@
         },
         filters: {},
         mounted() {
-            this.getList()
+           
         },
         created() {
             // skipping跳绳   steps跑步  wristBall腕力球 wheel健腹轮
@@ -161,6 +161,8 @@
                 this.active=parseInt(localStorage.getItem("pkActive"))
                 this.all[localStorage.getItem("pkActive")].page = 0
                 this.getList();
+            }else{
+                 this.getList()
             }
         },
         methods: {

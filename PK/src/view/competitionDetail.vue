@@ -296,14 +296,14 @@
                     v-else-if="isSign==2&&(competitionStatus==2||competitionStatus==1)">
                     去报名
                 </van-button>
-                <van-button class="btn " size="large" v-else-if="isSign==1&&competitionStatus==1&&timesRemain!=0"
+                <van-button class="btn " size="large" v-else-if="isSign==1&&competitionStatus==1&&timesRemain!=0&&type!='steps'"
                     @click="gotoSkip">
                     {{type=="skipping"?"去跳绳":type=="steps"?"去跑步":type=="wheel"?"去运动":type=="wristball"?"去运动":""}}
                 </van-button>
-                <van-button class="btn btn2" size="large" v-else-if="isSign==1&&competitionStatus==2">
+                <van-button class="btn btn2" size="large" v-else-if="isSign==1&&competitionStatus==2&&type!='steps'">
                     {{type=="skipping"?"去跳绳":type=="steps"?"去跑步":type=="wheel"?"去运动":type=="wristball"?"去运动":""}}
                 </van-button>
-                <van-button class="btn btn2" size="large" v-else-if="isSign==1&&competitionStatus==1&&timesRemain==0">
+                <van-button class="btn btn2" size="large" v-else-if="isSign==1&&competitionStatus==1&&timesRemain==0&&type!='steps'">
                     {{type=="skipping"?"去跳绳":type=="steps"?"去跑步":type=="wheel"?"去运动":type=="wristball"?"去运动":""}}
                 </van-button>
 
@@ -896,7 +896,7 @@
             gotoSkip() {
                 var skipItem = {
                     method: "LSTH5APP_SelectDeviceAndPushToSport", //H5调起原生选择设备，并跳转到对应设备类型的运动页，目前3.0后有：跳绳、健腹轮、腕力球
-                    deviceType: this.type, //skipping、wristball、wheel 
+                    deviceType: this.type, //skipping、wristball、wheel 、steps
                     mode: this.competitionItem.mode, //倒计时2、倒计数3，按照原先跳绳PK类型定义的值",
                     modeValue: this.competitionItem.modeValue, //按照原先跳绳的类型传值
                     jumpCount: this.competitionItem.repeatTimes, //按照原先跳绳的类型传值
