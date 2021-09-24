@@ -97,7 +97,7 @@ let ajaxResolve = (config) => {
         xhr.setRequestHeader(key, orderedHeaderObj[key]);
         sign.push(key + "=" + orderedHeaderObj[key]);
       }
-      sign.push("APP_SECRET=pOsgYHfmYNQzTbnTJXGpfYhvkRSsByBw")
+      sign.push("APP_SECRET="+appInfo.appSecret)
       sign=sign.join("&");
       xhr.setRequestHeader("LAISIH5", "LAISIH5");
       xhr.setRequestHeader("sign", md5(sign).toLocaleUpperCase());
