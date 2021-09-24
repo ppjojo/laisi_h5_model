@@ -15,35 +15,43 @@ const service = axios.create({
 
 // request interceptor
 service.interceptors.request.use((config) => {
-  let appInfo={}
-  if(getQueryString('isShare')){
-    appInfo={
+  let appInfo = {}
+  if (getQueryString('isShare')) {
+    appInfo = {
       token: "SHARE",
-      userId: getQueryString("userId")||"",
+      userId: getQueryString("userId") || "",
     }
-  }else{
-    appInfo=JSON.parse(localStorage.getItem("appInfo"))
+  } else {
+    appInfo = JSON.parse(localStorage.getItem("appInfo"))
   }
-  let token = appInfo.token;
-  let random = Math.floor(Math.random() * 999999);
+  //设置请求头
   let timestamp = new Date().getTime();
-  config.headers.userId = appInfo.userId;
-  config.headers.random = random;
-  config.headers.timestamp = timestamp;
-  let requestId = md5(timestamp + token + random);
-  config.headers.requestId = requestId;
-  config.headers.token = token;
-
-  if (!config.params) config.params = {};
-  config.params.appId = appInfo.appId;
-  config.params.appVersion = appInfo.appVersion;
-  config.params.platform = appInfo.platform;
-  config.params.userId = appInfo.userId;
-  config.params.timeZone = appInfo.timeZone;
-  if (!config.data) config.data = {};
-  config.data.userId= appInfo.userId;
-  return config;
-    
+  var unorderedHeaderObj = {
+    appId: appInfo.appId || "",
+    timestamp: timestamp,
+    version: "v1",
+    token: appInfo.token || "",
+    platform: appInfo.platform || "",
+    appVersion: appInfo.appVersion || "",
+    timeZone: appInfo.timeZone || "",
+    userId: appInfo.userId,
+  }
+  //unorderedHeaderObj = Object.assign(unorderedHeaderObj, config.data)
+  const orderedHeaderObj = {};
+  Object.keys(unorderedHeaderObj).sort().forEach(function (key) {
+    orderedHeaderObj[key] = unorderedHeaderObj[key];
+  });
+  let sign = [];
+  for (var key in orderedHeaderObj) {
+    config.headers[key] = orderedHeaderObj[key];
+    sign.push(key + "=" + orderedHeaderObj[key]);
+  }
+  sign.push("APP_SECRET="+appInfo.appSecret)
+  sign = sign.join("&");
+  config.headers.LAISIH5= "LAISIH5";
+  config.headers.sign= md5(sign).toLocaleUpperCase();
+ 
+   return config;
 });
 
 // response interceptor

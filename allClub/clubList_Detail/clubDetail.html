@@ -513,7 +513,7 @@
                     <p id="joinBtn" class="addClubBtn" v-if="clubObject.isInviteCode=='Y'" @click="reqShow=true">立即加入
                     </p>
 
-                    <p id="applyJoinBtn" class="addClubBtn" v-if="clubObject.isInviteCode=='N'||clubObject.isPublic=='Y'" @click="joinClubReq(clubObject.isPublic=='Y'?4:1)">
+                    <p id="applyJoinBtn" class="addClubBtn" v-else-if="clubObject.isInviteCode=='N'||clubObject.isPublic=='Y'" @click="joinClubReq(clubObject.isPublic=='Y'?4:1)">
                         申请加入</p>
                 </div>
 

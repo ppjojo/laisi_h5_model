@@ -219,8 +219,9 @@
 					success: function (res) {
 						if (res.code == 0) {
 							_self.$toast("成功退出俱乐部!");
-							_self.onclickLeft();
-							
+							setTimeout(function(){
+								_self.onclickLeft();
+							},1000)
 						} else {
 							_self.$toast(res.msg);
 						}

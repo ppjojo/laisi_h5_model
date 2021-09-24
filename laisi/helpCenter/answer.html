@@ -10,6 +10,17 @@
 		<meta http-equiv="Cache-control" content="no-cache">
 		<meta http-equiv="Cache" content="no-cache">
 		<link rel="stylesheet" type="text/css" href="css/problem.css">
+		<style type="text/css">
+			.answer .container{
+				background-color: #1E1E2A;
+				padding: .24rem;
+				padding-bottom: 0;
+				border-radius: 12px;
+			}
+			.borderbtm{
+				border-bottom: .02rem solid #12121f;
+			}
+		</style>
 	</head>
 	<body>
 		<div class="answer">
@@ -62,8 +73,8 @@
 				pdata = pdata.replace(/\n/g, '<br>')
 				phtml += '<p>' + pdata + '</p>'
 
-				var html = '<div class="container"> <span class="icon bgBlue">Q</span> <h3>' + data.title +
-					'</h3><br> <span class="icon bgGreen">A</span><div class="text">' + phtml + '</div> </div>';
+				var html = '<div class="container"><div class="borderbtm"> <span class="icon bgBlue">Q</span> <h3>' + data.title +
+					'</h3></div><br> <span class="icon bgGreen">A</span><div class="text">' + phtml + '</div> </div>';
 				document.getElementsByClassName('answer')[0].innerHTML = html
 			}
 		</script>

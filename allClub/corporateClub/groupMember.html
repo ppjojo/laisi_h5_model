@@ -61,6 +61,9 @@
 		[class*=van-hairline]::after{
 			border-color: #1E1E2A;
 		}
+		.searchval{
+			padding: 0 .32rem;
+		}
 	</style>
 </head>
 
@@ -93,10 +96,10 @@
 		</div>
 		<van-search v-model="searchval.searchKey" @input="search" v-if="fromwhere!=5" placeholder="请输入成员昵称或ID">
 		</van-search>
-		<van-checkbox-group v-model="memberResult" ref="checkboxGroup">
+		<van-checkbox-group  v-model="memberResult" ref="checkboxGroup">
 			<van-cell-group v-show="searchval.searchKey&&searchList.length>0">
-				<template v-if="searchList.length>0">
-					<van-cell v-for="(memItem,index) in searchList" clickable :key="memItem.memberId"
+				<template  v-if="searchList.length>0">
+					<van-cell class="searchval" v-for="(memItem,index) in searchList" clickable :key="memItem.memberId"
 						@click="toggle(index,null,memItem)">
 						<template #icon v-if="showEXP(memItem)">
 							<van-checkbox :name="memItem.memberId" ref="checkboxes"></van-checkbox>
