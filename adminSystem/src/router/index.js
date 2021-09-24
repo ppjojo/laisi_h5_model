@@ -1365,6 +1365,48 @@ const constantRoutes = [{
     ]
   },
   {
+    path: '/intelligent',
+    component: Layout,
+    redirect: '/intelligent/course',
+    permission: 'intelligent',
+    hidden: true,
+    meta: {
+      title: '智能训练',
+      icon: 'menu_upgrade'
+    },
+    children: [{
+        path: 'course',
+        permission: 'intelligent:course',
+        hidden: true,
+        component: () => import('@/views/intelligent/course'),
+        meta: {
+          title: '查看课程',
+          icon: 'upgrade_firmware'
+        }
+      },
+      {
+        path: 'action',
+        permission: 'intelligent:action',
+        hidden: true,
+        component: () => import('@/views/intelligent/action'),
+        meta: {
+          title: '查看动作',
+          icon: 'upgrade_resource'
+        }
+      },
+      {
+        path: 'attribute',
+        permission: 'intelligent:attribute',
+        hidden: true,
+        component: () => import('@/views/intelligent/attribute'),
+        meta: {
+          title: '导入分类',
+          icon: 'upgrade_resource'
+        }
+      }
+    ]
+  },
+  {
     path: '/officialWebsite',
     component: Layout,
     redirect: '/officialWebsite/index/index',

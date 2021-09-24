@@ -8,6 +8,9 @@
 	box-sizing: border-box;
 	font-family: "BebasNeue";
 }
+body{
+	background-color:#12121f;
+}
 .ub {
 	display: -webkit-flex !important;
 	display: flex !important;

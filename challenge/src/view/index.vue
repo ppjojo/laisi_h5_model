@@ -56,11 +56,12 @@
 				<img v-if="item.type==1" class="state" :src="require('@i/finish.png')" alt="">
 				<img v-else class="state" :src="require('@i/unfinsh.png')" alt="">
 			</li>
-			<div v-if="historyList.length==0&&isFinish" class="nullDataBox">
-				<img :src="require('@i/noData.png')" alt="">
-				<p>还没有挑战的记录哟！快去挑战吧！</p>
-			</div>
+			<div v-if="historyList.length>0" class="finishtxt">全部成绩都在这里了</div>
 		</ul>
+		<div v-if="historyList.length==0&&isFinish" class="nullDataBox">
+			<img :src="require('@i/noData.png')" alt="">
+			<p>还没有挑战的记录哟！快去挑战吧！</p>
+		</div>
 	</div>
 </template>
 
@@ -121,7 +122,7 @@
 			window.initData = this.RefreshFunction;
 		},
 		created() {
-			let type = getQueryString('type') || "wristball";
+			let type = getQueryString('type') || "wheel";
 			type == 'skipping' ? this.flag = 2 : type == 'wristball' ? this.flag = 1 : type == 'wheel' ? this.flag = 3 :
 				null;
 		},
@@ -168,7 +169,7 @@
 			getHistory() {
 				challengeHistory(this.page, this.flag).then(res => {
 					if (this.flag == 2) this.historyList = res.data.content
-					else this.historyList = res.data;
+					else this.historyList =  res.data;
 					this.isFinish = true;
 				}).catch(() => {
 					this.isFinish = true;
@@ -339,7 +340,11 @@
 
 	.historylist {
 		padding: 0 .4rem;
-
+		.finishtxt{
+			text-align: center;
+			color: #71717f;
+			font-size: .24rem;
+		}
 		li {
 			background-color: #1E1E2A;
 			padding: .36rem .24rem;
