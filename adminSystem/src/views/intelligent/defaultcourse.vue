@@ -40,34 +40,21 @@
     <el-table v-loading="loading" :data="list" element-loading-text="Loading" border fit highlight-current-row
       size="small ">
       <el-table-column align="center" prop="id" label="课程id"></el-table-column>
-      <el-table-column align="center" prop="smartClassName" label="课程名称">
+      <el-table-column align="center" prop="defaultName" label="默认课程名称">
       </el-table-column>
-      <el-table-column align="center" prop="smartClassCover" label="课程封面">
+      <el-table-column align="center" prop="defaultCover" label="默认课程封面">
         <template scope="scope">
-          <img :src="scope.row.smartClassCover" style="width: 50px;height: 50px;" alt="">
+          <img :src="scope.row.defaultCover" style="width: 50px;height: 50px;" alt="">
         </template>
       </el-table-column>
-      <el-table-column align="center"  label="类型">
+      <el-table-column align="center" prop="defaultDays" label="默认课程天数">
+      </el-table-column>
+      <el-table-column align="center" prop="deviceType" label="类型">
         <template scope="scope">
-          {{scope.row.isDefaultClass==1?'默认':'智能训练'}}
+          {{scope.row.isDefault==1?'默认':'智能训练'}}
         </template>
       </el-table-column>
-      <el-table-column align="center"  label="课程目标">
-        <template scope="scope">
-          {{scope.row.smartClassTarget==1?'减脂':scope.row.smartClassTarget==2?'增肌':'塑型'}}
-        </template>
-      </el-table-column>
-      <el-table-column align="center"  label="课程部位">
-        <template scope="scope">
-          {{scope.row.smallClassBody==1?'全身':scope.row.smallClassBody==2?'上半身':'下半身'}}
-        </template>
-      </el-table-column>
-      <el-table-column align="center"  label="课程等级">
-        <template scope="scope">
-          {{scope.row.smartClassLevel==1?'入门':scope.row.smartClassLevel==2?'初级':scope.row.smartClassLevel==3?'进阶':'强化'}}
-        </template>
-      </el-table-column>
-      <el-table-column align="center" prop="smartClassDes" label="课程详情">
+      <el-table-column align="center" prop="defaultLossWeight" label="目标减重">
       </el-table-column>
       <el-table-column align="center" label="操作" width="180">
         <template scope="scope">
@@ -81,47 +68,28 @@
     <!--新增和编辑界面-->
     <el-dialog :title="dialogTitle" :visible.sync="dialogVisible" width="50%">
       <el-form :model="form" label-width="100px" :rules="rules" ref="form">
-        <el-form-item label="课程名称" prop="smartClassName">
-          <el-input v-model="form.smartClassName"></el-input>
+        <el-form-item label="默认课程名称" prop="defaultName">
+          <el-input v-model="form.defaultName"></el-input>
         </el-form-item>
-        <el-form-item label="课程封面图" prop="classCover">
-          <el-input v-model="form.smartClassCover"></el-input>
+        <el-form-item label="默认课程封面图" prop="classCover">
+          <el-input v-model="form.defaultCover"></el-input>
           <el-upload ref='upload' action="" :http-request="requestFile" :show-file-list="false" class="avatar-uploader">
-            <img v-if="form.smartClassCover" :src="form.smartClassCover" class="avatar">
+            <img v-if="form.defaultCover" :src="form.defaultCover" class="avatar">
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           </el-upload>
         </el-form-item>
-        <el-form-item label="课程目标" prop="smartClassTarget">
-          <el-radio-group v-model="form.smartClassTarget" >
-            <el-radio class="radio" :label="1">减脂</el-radio>
-            <el-radio class="radio" :label="2">增肌</el-radio>
-             <el-radio class="radio" :label="3">塑型</el-radio>
-          </el-radio-group>
-        </el-form-item>
-        <el-form-item label="课程部位" prop="smallClassBody">
-          <el-radio-group v-model="form.smallClassBody" >
-            <el-radio class="radio" :label="1">全身</el-radio>
-            <el-radio class="radio" :label="2">上半身</el-radio>
-             <el-radio class="radio" :label="3">下半身</el-radio>
-          </el-radio-group>
-        </el-form-item>
-        <el-form-item label="训练等级" prop="smartClassLevel">
-          <el-radio-group v-model="form.smartClassLevel" >
-            <el-radio class="radio" :label="1">入门</el-radio>
-            <el-radio class="radio" :label="2">初级</el-radio>
-             <el-radio class="radio" :label="3">进阶</el-radio>
-             <el-radio class="radio" :label="4">强化</el-radio>
-          </el-radio-group>
-        </el-form-item>
-         <el-form-item label="类型" prop="isDefaultClass">
-          <el-radio-group v-model="form.isDefaultClass" >
+         <el-form-item label="类型" prop="classSex">
+          <el-radio-group v-model="form.isDefault" >
             <el-radio class="radio" :label="0">智能训练</el-radio>
             <el-radio class="radio" :label="1">默认</el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="课程简介" prop="smartClassDes">
-          <el-input type="textarea" :rows="2" placeholder="请输入内容" v-model="form.smartClassDes"></el-input>
+        <el-form-item label="目标减重" prop="defaultLossWeight">
+          <el-input v-model.number="form.defaultLossWeight"></el-input>
         </el-form-item>
+        <el-form-item label="训练天数" prop="defaultDays">
+            <el-input v-model.number="form.defaultDays"></el-input>
+          </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button size="mini" @click="dialogVisible = false">取 消</el-button>
@@ -133,9 +101,9 @@
 
 <script>
   import {
-    allCourse,
-    addCourse,
-    updateCourse
+    allDefaultCourse,
+    addDefaultCourse,
+    updateDefaultCourse
   } from '@/api/intelligent/intelligent'
   import {
     checkPermission
@@ -175,19 +143,24 @@
         dialogTitle:"",
         form: {},
         rules: {
-          smartClassCover: [{
+          defaultCover: [{
             required: true,
             message: '请上传图片',
             trigger: 'blur,change'
           }, ],
-          smartClassName: [{
+          defaultLossWeight: [{
+            required: true,
+            message: '请输入目标减重',
+            trigger: 'blur,change'
+          }, ],
+          defaultName: [{
             required: true,
             message: '请输入课程名称',
             trigger: 'blur,change'
           }, ],
-          smartClassDes: [{
+          defaultDays: [{
             required: true,
-            message: '请填写课程详情',
+            message: '请填写训练天数',
             trigger: 'blur,change'
           }, ],
         },
@@ -198,7 +171,7 @@
     },
     methods: {
       getList() {
-        allCourse(this.searchForm).then(res => {
+        allDefaultCourse(this.searchForm).then(res => {
           this.list = res.data;
           this.loading = false
         })
@@ -209,7 +182,7 @@
       		if (valid) {
       			this.dialogVisible = false
       			if (this.dialogTitle == "新增") {
-      				allCourse(this.form).then(response => {
+      				allDefaultCourse(this.form).then(response => {
       					this.getList()
       					this.$notify({
       						type: 'success',
@@ -217,7 +190,7 @@
       					});
       				})
       			} else {
-      				updateCourse(this.form).then(response => {
+      				updateDefaultCourse(this.form).then(response => {
       					this.getList()
       					this.$notify({
       						type: 'success',
@@ -235,13 +208,11 @@
         this.dialogVisible = true;
         this.dialogTitle = "新增";
         this.form = {
-          smartClassName: "",
-          smartClassCover: null,
-          smartClassTarget: 1, //图片url
-          smartClassDes: null,
-          isDefaultClass: 0,
-          smartClassLevel:1,
-          smallClassBody:1
+          defaultName: "",
+          defaultCover: null,
+          defaultDays: null, //图片url
+          defaultLossWeight: null,
+          isDefault: 1,
         }
       },
       btn_edit(row) {
@@ -254,7 +225,7 @@
         fileForm.append('file', param.file)
         fileUpload(fileForm).then(res => {
           if (res.code == 0) {
-            this.form.smartClassCover = res.data.url;
+            this.form.defaultCover = res.data.url;
           }
         })
       },

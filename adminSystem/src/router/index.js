@@ -1385,6 +1385,16 @@ const constantRoutes = [{
         }
       },
       {
+          path: 'defaultcourse',
+          permission: 'intelligent:defaultcourse',
+          hidden: true,
+          component: () => import('@/views/intelligent/defaultcourse'),
+          meta: {
+            title: '默认课程',
+            icon: 'upgrade_firmware'
+          }
+        },
+      {
         path: 'action',
         permission: 'intelligent:action',
         hidden: true,
@@ -1394,16 +1404,6 @@ const constantRoutes = [{
           icon: 'upgrade_resource'
         }
       },
-      {
-        path: 'attribute',
-        permission: 'intelligent:attribute',
-        hidden: true,
-        component: () => import('@/views/intelligent/attribute'),
-        meta: {
-          title: '导入分类',
-          icon: 'upgrade_resource'
-        }
-      }
     ]
   },
   {
