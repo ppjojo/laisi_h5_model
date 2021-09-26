@@ -486,10 +486,10 @@ const constantRoutes = [{
         }
       },
       {
-        path: 'deviceType',
-        permission: 'helpCenter:deviceType',
+        path: 'devicetype',
+        permission: 'helpCenter:devicetype',
         hidden: true,
-        component: () => import('@/views/helpCenter/deviceType'),
+        component: () => import('@/views/helpCenter/devicetype'),
         meta: {
           title: '设备分类',
           icon: 'helpCenter_guideList'
