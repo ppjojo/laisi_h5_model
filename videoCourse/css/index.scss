@@ -246,6 +246,11 @@ body {
 
 
 //全部课程的分类选择
+.allContain{
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 1rem);
+}
 .classificationBox {
     padding: 0 0.24rem;
     // margin-bottom: 0.4rem;
