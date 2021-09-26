@@ -31,12 +31,13 @@
 }
 .detail{
 	font-family: PingFangSC-Medium;
-	color: #CFCFD2;
+	color: #fff;
 	font-size: .32rem;
 }
 .detail2{
 	font-size: 1.12rem;
 	font-family: DINCondensed-Bold;
+	color: #fff;
 }
 .detail3{
 	font-size:.24rem;

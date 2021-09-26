@@ -20,7 +20,7 @@
 		<style type="text/css">
 			.wallet .detail span{
 				font-size: .2rem;
-				color: #CFCFD2;
+				color: #fff;
 			}
 			#recordbox .detail{
 				font-size: .36rem;
@@ -36,6 +36,11 @@
 			}
 			.van-list__finished-text{
 				color:#71717f;
+			}
+			.pinkBtn{
+				background: transparent;
+				border: 1px solid rgba(255, 255, 255, 1);
+				line-height: .45rem;
 			}
 		</style>
 	</head>
@@ -53,9 +58,9 @@
 			<div class="wallet ub ub-ac ub-pj">
 				<div>
 					<div class="detail">我的余额 <span class="">注:我的余额为全部活动余额</span> </div>
-					<div class="detail2 cfF24023">{{allPrice}}</div>
+					<div class="detail2">{{allPrice}}</div>
 				</div>
-				<div class="pinkBtn" :style="{background:dataList.length>0?'':'#999'}" @click="withdrawal">提现</div>
+				<div class="pinkBtn" @click="withdrawal">提现</div>
 			</div>
 			<!-- 记录 -->
 			<div id="recordbox">
