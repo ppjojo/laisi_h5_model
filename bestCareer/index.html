@@ -157,7 +157,7 @@
 					<div class="dataBox">
 						<div class="dataItem">
 							<div class="num">
-								{{stepsObj.bestStep.steps>1000000?((stepsObj.bestStep.steps/10000).toFixed(2)+"w"):stepsObj.bestStep.steps}}
+								{{stepsObj.bestStep.steps>1000000?((stepsObj.bestStep.steps/10000).toFixed(2)+"万"):stepsObj.bestStep.steps}}
 							</div>
 							<div class="time">{{sjc2time("ymd",stepsObj.bestStep.checkTime)}}</div>
 							<div class="info">最多步数(步)</div>
@@ -242,7 +242,7 @@
 					<div class="dataBox">
 						<div class="dataItem">
 							<div class="num">
-								{{skippingObj.totalNumber>1000000?((skippingObj.totalNumber/10000).toFixed(2)+"w"):skippingObj.totalNumber}}
+								{{skippingObj.totalNumber>1000000?((skippingObj.totalNumber/10000).toFixed(2)+"万"):skippingObj.totalNumber}}
 							</div>
 							<div class="time">{{sjc2time("ymd",skippingObj.serverTime)}}</div>
 							<div class="info">累计个数(个)</div>
@@ -302,7 +302,7 @@
 					<div class="dataBox">
 						<div class="dataItem">
 							<div class="num">
-								{{wheelObj.bestCountToTal.countToTal>1000000?((wheelObj.bestCountToTal.countToTal/10000).toFixed(2)+"w"):wheelObj.bestCountToTal.countToTal}}
+								{{wheelObj.bestCountToTal.countToTal>1000000?((wheelObj.bestCountToTal.countToTal/10000).toFixed(2)+"万"):wheelObj.bestCountToTal.countToTal}}
 							</div>
 							<div class="time">{{sjc2time("ymd",wheelObj.bestCountToTal.startTime)}}</div>
 							<div class="info">累计次数(次)</div>
@@ -356,7 +356,7 @@
 					<div class="dataBox">
 						<div class="dataItem">
 							<div class="num">
-								{{wristballObj.bestTotalCount.totalCount>1000000?((wristballObj.bestTotalCount.totalCount/10000).toFixed(2)+"w"):wristballObj.bestTotalCount.totalCount}}
+								{{wristballObj.bestTotalCount.totalCount>1000000?((wristballObj.bestTotalCount.totalCount/10000).toFixed(2)+"万"):wristballObj.bestTotalCount.totalCount}}
 							</div>
 							<div class="time">{{sjc2time("ymd",wristballObj.bestTotalCount.startTime)}}</div>
 							<div class="info">累计圈数(圈)</div>

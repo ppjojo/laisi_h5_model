@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+    <title>社区邀请</title>
+    <!-- 引入样式文件 -->
+    <link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
+    <link rel="stylesheet" href="css/invitationShare.css">
+    <script src="js/community.js"></script>
+    
+
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <div>
+            <div class="header">
+                <img src="../common/img/logo.png" class="logo" alt="">
+                <div class="content">
+                    <div class="appInfo">
+                        <p class="appName">派健康</p>
+                        <p class="appD">运动·健康</p>
+                    </div>
+                    <div class="btn"><a class="buttonA" v-bind:href=linkUrl>立即下载</a></div>
+                </div>
+            </div>
+            <div class="personBox"  :style="{'backgroundImage':'url('+(info.bgPictureUrl?info.bgPictureUrl:'img/bg.png')+')'}"> 
+                <div class="info">
+                    <div class="picBox">
+                        <img :src="info.headPictureUrl" class="pic" alt="">
+                        <img src="img/girl.png" class="sexIcon" v-if="info.gender=='0'" alt="">
+                        <img src="img/boy.png" class="sexIcon" v-else alt="">
+                    </div>
+
+                    <div class="content">
+                        <div class="personInfo">
+                            <div class="nameBox">
+                                <div class="nickName">{{info.nickName}}</div>
+                                <div class="level">{{info.level}}</div>
+                            </div>
+                            <div class="detail">ID:{{getQueryString("userId")}}</div>
+                            <div class="address">{{info.country}} {{info.province}} {{info.city}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="countBox">
+                    <div class="numbox">
+                        <div class="num">{{info.interestCount}}</div>
+                        <div class="descript">关 注</div>
+                    </div>
+                    <div class="numbox">
+                        <div class="num">{{info.fansCount}}</div>
+                        <div class="descript">粉 丝</div>
+                    </div>
+                    <div class="numbox">
+                        <div class="num">{{info.likesCount}}</div>
+                        <div class="descript">获 赞</div>
+                    </div>
+                </div>
+            </div>
+            <div class="dynamicBox">
+                <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
+                    <van-list v-model="loading" :finished="finished"  @load="onLoad" >
+                        <ul class="dynamicUl" v-if="list.length>0">
+                            <li v-for="item in list">
+                                <div class="info">
+                                    <img :src="item.headerUrl" class="pic" alt="">
+                                    <div class="content">
+                                        <div class="personInfo">
+                                            <div class="nickNameBox">
+                                                <p class="nickName">{{item.nickName}} </p>
+                                                <div class="viewNum"><img src="img/viewIcon.png"
+                                                        alt="">{{item.readCount}}</div>
+                                            </div>
+
+                                            <p class="detail">
+                                               
+                                                <span>{{renderTime(item.createTime||"")}}</span>
+                                                <span>{{item.location}}</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="contentBox">
+                                    {{item.content}}
+                                </div> 
+                                <div class="imgBox" v-if="item.mediaUrl">                           
+                                    <div v-for="pic in item.mediaUrl.split(',')" :style="{'backgroundImage':'url('+pic+')'}"></div>
+                                </div>
+                                <div class="statisticsBox">
+                                    <div> <img src="img/liked.png" alt="">{{item.likesCount}}</div>
+                                    <div> <img src="img/comment.png" alt="">{{item.commentCount}}</div>
+                                    <div> <img src="img/collected.png" alt="">{{item.marksCount}}</div>
+                                </div>
+                                <div class="commentBox" v-if="item.commentDetails&&item.commentDetails.length>0">
+                                    <div v-for="commentItem in item.commentDetails">
+                                        <span class="commentNickName">{{commentItem.authorName}}：</span>
+                                        <span class="commentContent">{{commentItem.content}}</span>
+                                    </div>
+                                    
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="noData-box" v-else-if="ok">
+                            <img class="noData-img" src="../common/img/noData.png" />
+                            <p class="noData-p">暂无动态和运动记录</p>
+                        </div>
+                    </van-list>
+                </van-pull-refresh>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="https://oss.laisitech.com/0bb12bf1-cb87-4d2c-a724-8a7c25b7ae04.js "></script>
+<script src="https://oss.laisitech.com/6172e6c1-f460-40ac-97ba-31c8526f2e16.js"></script>
+<script src="../common/js/network.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                info: "",
+                error: false,
+                pageNum: 0,
+                pageSize:2,
+                total: 0,
+                refreshing: false,
+                finished: false,
+                loading: false,
+                list: [],
+                linkUrl: "",
+                ok:false,
+
+            }
+        },
+        filters: {
+            filtersDevice: function (value) {
+                return value == 1 ? '手表' : '跳绳'
+            },
+        },
+        mounted() {
+            window.initIndexData = this.initIndexData;
+        },
+        created() {
+            var that = this;
+            this.getInfo()//获取个人资料
+            this.getList()//获取个人动态详情
+            if (navigator.userAgent.toLowerCase().indexOf('micromessenger') !== -1) {//微信
+                that.linkUrl = "https://a.app.qq.com/o/simple.jsp?pkgname=com.lstech.rehealth"
+            } else if (navigator.userAgent.toLowerCase().indexOf('qq') !== -1) {//qq
+                that.linkUrl = "https://a.app.qq.com/o/simple.jsp?pkgname=com.lstech.rehealth"
+            } else {//浏览器打开
+                if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) { //判断iPhone|iPad|iPod|iOS
+                    that.linkUrl = "lsthealth://communityHomepage?userId=" + getQueryString("userId")
+                } else if (/(Android)/i.test(navigator.userAgent)) { //判断Android
+                    that.linkUrl = "rehealth://communityHomepage?userId=" + getQueryString("userId")
+                }
+            }
+        },
+        methods: {
+            getInfo() {
+                var that = this;
+                ajax({
+                    type: "get",
+                    url: "community-core-share/home/info",
+                    shareStatus: true,
+                    data: {
+                        authorId: getQueryString("userId"),
+                        //userId: getQueryString("userId"),
+                    },
+                    success: function (res) {
+                        this.loading = false;
+                        if (res.code == 0) {
+                            that.info = res.data
+                        } else {
+                            that.$toast(res.msg)
+                        }
+                    },
+                    error: function () {
+                        console.log("error")
+                    }
+                })
+            },
+            getList() {
+                var that = this;
+                var nowPageNum = that.pageNum;
+                ajax({
+                    type: "get",
+                    url: "community-core-share/story/detail/list",
+                    shareStatus: true,
+                    data: {
+                        authorId: getQueryString("userId"),
+                        //userId: getQueryString("userId"),
+                        page: that.pageNum,
+                        pageSize: that.pageSize,
+                    },
+                    success: function (res) {
+                       
+                        if (res.code == 0) {
+                            that.total = res.data.total;
+                            if (nowPageNum > Math.ceil(that.total / that.pageSize)-1) {
+                                that.finished = true;
+                            } else  if(nowPageNum==0){
+                                that.list = res.data.content;
+                            }else {
+                                that.list = that.list.concat(res.data.content);
+                            }
+                            that.loading = false;
+                        } else {
+                            that.$toast(res.msg)
+                            that.loading = false;
+                        }
+                        that.ok=true;
+                    },
+                    error: function () {
+                        console.log("error")
+                    }
+                })
+            },
+
+            onRefresh() {
+                // 清空列表数据
+                this.finished = false;
+                // 重新加载数据
+                // 将 loading 设置为 true，表示处于加载状态
+                this.loading = true;
+                this.onLoad();
+            },
+            onLoad() {
+                if (this.refreshing) {
+                    this.list = [];
+                    this.refreshing = false;
+                    this.pageNum = 0;
+                } else {
+                    this.pageNum++;
+                }
+                this.getList()
+                
+
+            },
+
+
+
+
+        }
+    })
+</script>
+
+</html>
