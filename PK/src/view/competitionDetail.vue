@@ -93,7 +93,7 @@
                                 {{competitionItem.modeValue==30?"30秒钟倒计时":(parseInt((competitionItem.modeValue)/60))+"分钟倒计时"}}
                             </van-col>
                             <van-col span="18" class="laberContent" v-else>
-                                {{competitionItem.modeValue+"个倒计次"}}</van-col>
+                                {{competitionItem.modeValue+"次倒计数"}}</van-col>
                         </van-row>
                     </div>
 

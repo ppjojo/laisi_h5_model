@@ -179,12 +179,12 @@
 
 
         <van-popup v-model="countTimeShow" position="bottom" round>
-            <van-picker :title="type=='skipping'?'倒计时跳时长':'倒计时转时长'" show-toolbar :columns="countTimeColumns"
+            <van-picker confirm-button-text="确定" :title="type=='skipping'?'倒计时跳时长':type=='wristball'?'倒计时转时长':'倒计时时长'" show-toolbar :columns="countTimeColumns"
                 :default-index="1" @cancel="countTimeShow = false" @confirm="onCountTimeConfirm" />
         </van-popup>
 
         <van-popup v-model="distanceShow" position="bottom" round>
-            <van-picker title="公里数" show-toolbar :columns="distanceColumns" :default-index="1"
+            <van-picker title="公里数" confirm-button-text="确定" show-toolbar :columns="distanceColumns" :default-index="1"
                 @cancel="distanceShow = false" @confirm="onDistanceConfirm" />
         </van-popup>
 
@@ -193,24 +193,24 @@
                 @confirm="onCountNumberConfirm" />
         </van-popup> -->
         <van-popup v-model="teamShow" position="bottom" round>
-            <van-picker title="团体赛人数" show-toolbar :columns="teamColumns" @cancel="teamShow = false"
+            <van-picker confirm-button-text="确定" title="团体赛人数" show-toolbar :columns="teamColumns" @cancel="teamShow = false"
                 @confirm="onteamConfirm" />
         </van-popup>
         <van-popup v-model="playTimesShow" position="bottom" round>
-            <van-picker show-toolbar title="比赛次数" :columns="playTimesColumns" :default-index="2"
+            <van-picker confirm-button-text="确定" show-toolbar title="比赛次数" :columns="playTimesColumns" :default-index="2"
                 @cancel="playTimesShow = false" @confirm="onplayTimesConfirm" />
         </van-popup>
         <van-popup v-model="startTimeShow" position="bottom" round>
-            <van-picker show-toolbar title="开始时间" :columns="startTimeColumns" @cancel="startTimeShow = false"
+            <van-picker  confirm-button-text="确定" show-toolbar title="开始时间" :columns="startTimeColumns" @cancel="startTimeShow = false"
                 @confirm="onstartTimeConfirm" @change="onstartTimeChange" />
         </van-popup>
 
         <van-popup v-model="endTimeShow" position="bottom" round>
-            <van-picker show-toolbar title="结束时间" :columns="endTimeColumns" @cancel="endTimeShow = false"
+            <van-picker  confirm-button-text="确定" show-toolbar title="结束时间" :columns="endTimeColumns" @cancel="endTimeShow = false"
                 @confirm="onendTimeConfirm" @change="onendTimeChange" />
         </van-popup>
 
-        <van-dialog v-model="countNumberShow" width="80%" :title="type=='skipping'?'倒计数跳个数':'倒计次次数'" show-cancel-button
+        <van-dialog v-model="countNumberShow" confirmButtonText="确定"  width="80%" :title="type=='skipping'?'倒计数跳个数':'倒计次次数'" show-cancel-button
             @confirm="onCountNumberConfirm">
             <div>
                 <van-field type="number" v-model="inputValue" :placeholder="type=='skipping'?'请输入倒计数跳个数':'请输入倒计次次数'" />
@@ -285,7 +285,7 @@
                 countNumberShow: false,
 
                 playTimesShow: false,
-                playTimesColumns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, "不限次数，比赛期间取最好成绩"],
+                playTimesColumns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, "不限次数(取最好成绩)"],
                 startTimeColumns: [],
                 startTimeShow: false,
                 startTime: [],
@@ -418,7 +418,7 @@
         mounted() {
             if (this.type == "skipping" || this.type == "wristball"|| this.type == "wheel") {
                 for (let i = 1; i <= 60; i++) {
-                    this.countTimeColumns.push(i + '分');
+                    this.countTimeColumns.push(i + '分钟');
                 }
                 for (let i = 2; i <= 50; i++) {
                     this.teamColumns.push(i);

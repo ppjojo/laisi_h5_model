@@ -16,13 +16,20 @@
 		// init vConsole
 		var vConsole = new VConsole();
 	</script>
+	<style>
+		::-webkit-scrollbar {
+			width: 0;
+			display: none;
+
+		}
+	</style>
 
 </head>
 
 <body>
 	<div id="app" v-cloak class="normalHeader" style="padding-bottom: 1rem;">
 		<div class="header">
-			<van-nav-bar   left-arrow @click-right="onClickRight" safe-area-inset-top fixed>
+			<van-nav-bar left-arrow @click-right="onClickRight" safe-area-inset-top fixed>
 				<template #left>
 					<div style="font-size: 0.4rem;">课程</div>
 				</template>
@@ -336,14 +343,15 @@
 			//跳转课程详情
 			courseList(item) {
 				try {
-					Interaction.pushToNextVC(host+`h5/h5V3/videoCourse/courseList.html?id=${item.bigClassId}&hideTitle=1`)
+					Interaction.pushToNextVC(host +
+						`h5/h5V3/videoCourse/courseList.html?id=${item.bigClassId}&hideTitle=1`)
 				} catch (e) {
 					console.log(e)
 				}
 			},
-			onClickRight(){
+			onClickRight() {
 				try {
-					Interaction.pushToNextVC(host+"h5/h5V3/videoCourse/allCourse.html?hideTitle=1")
+					Interaction.pushToNextVC(host + "h5/h5V3/videoCourse/allCourse.html?hideTitle=1")
 				} catch (e) {
 					console.log(e)
 				}
@@ -351,7 +359,7 @@
 			//跳转所有的课程分类
 			allCourse(index, item) {
 				try {
-					Interaction.pushToNextVC(host+"h5/h5V3/videoCourse/allCourse.html?hideTitle=1")
+					Interaction.pushToNextVC(host + "h5/h5V3/videoCourse/allCourse.html?hideTitle=1")
 				} catch (e) {
 					console.log(e)
 				}

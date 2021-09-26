@@ -23,80 +23,82 @@
 
             </van-nav-bar>
         </div>
-        <div class="classificationBox">
-            <div class="title">课程筛选
-                <span class="titleInfo">已选{{chooseLength}}项</span>
-                <span class="icon iconfont icon-shurukuang-chahao" @click="initCondition(0)"
-                    style="font-size: 0.2rem;color: #595962;" />
+        <div class="allContain">
+            <div class="classificationBox">
+                <div class="title">课程筛选
+                    <span class="titleInfo">已选{{chooseLength}}项</span>
+                    <span class="icon iconfont icon-shurukuang-chahao" @click="initCondition(0)"
+                        style="font-size: 0.2rem;color: #595962;" />
+                </div>
+                <div class="classificationDiv">
+                    <div class="classificationList" v-for="(items, key) in laberList">
+                        <div class="name">
+                            {{key}}
+                        </div>
+                        <div class="typeList">
+                            <div class="typeItem" v-for="item in items" @click="laberChoose(item,items)"
+                                :class="item.choose?'selected':''">{{item.attribute}}</div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
-            <div class="classificationDiv">
-                <div class="classificationList" v-for="(items, key) in laberList">
-                    <div class="name">
-                        {{key}}
-                    </div>
-                    <div class="typeList">
-                        <div class="typeItem" v-for="item in items" @click="laberChoose(item,items)"
-                            :class="item.choose?'selected':''">{{item.attribute}}</div>
-                    </div>
-                </div>
 
+            <div class="contain" style="overflow-y: auto;">
+                <van-pull-refresh v-model="isLoading" :head-height="90" @refresh="getNormalClass"
+                    class="monkey-pull-refresh">
+                    <template #pulling="props">
+                        <div class="monkeyBox">
+                            <img class="monkey" src="../common/img/monkey.gif" />
+                            <p>下拉刷新</p>
+                        </div>
+
+                    </template>
+                    <!-- 释放提示 -->
+                    <template #loosing>
+                        <div class="monkeyBox">
+                            <img class="monkey" src="../common/img/monkey.gif" />
+                            <p>释放刷新</p>
+                        </div>
+                    </template>
+
+                    <!-- 加载提示 -->
+                    <template #loading>
+                        <div class="monkeyBox">
+                            <img class="monkey" src="../common/img/monkey.gif" />
+                            <p>正在刷新</p>
+                        </div>
+                    </template>
+                    <div class="courseBox" v-if="classList.length>0">
+                        <ul>
+                            <li class="courseDiv" v-for="item in classList" @click="courseList(item)">
+                                <img v-if="item.classLableList.length>0"
+                                    :src="'./img/'+item.classLableList[0].classLabel+'.png'" class="iconlabel" alt="">
+                                <div class="cover" :style="{'backgroundImage':'url('+item.classCover+')'}">
+                                </div>
+                                <div class="content">
+                                    <div>
+                                        <p class="stitle">{{item.className}}</p>
+                                        <p class="detail">
+                                            {{Math.round(item.classDuration/60)}}分钟 · {{item.calory}}千卡 ·
+                                            {{item.classLevelName}}
+                                        </p>
+                                    </div>
+                                    <div class="progress">
+                                        已锻炼{{item.pageFinish||0}}%
+                                    </div>
+                                </div>
+
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="noData-box" style="padding-top: 0;" v-else-if="!isLoading">
+                        <img class="noData-img" src="../common/img/noData.png" />
+                        <p class="noData-p">暂无符合条件的训练课程，换个条件试试吧~</p>
+                    </div>
+                </van-pull-refresh>
             </div>
-        </div>
-        
-        <div class="contain" style="height: 8.2rem;overflow-y: auto;">
-            <van-pull-refresh v-model="isLoading" :head-height="90" @refresh="getNormalClass"
-                class="monkey-pull-refresh">
-                <template #pulling="props">
-                    <div class="monkeyBox"  >
-                        <img class="monkey"  src="../common/img/monkey.gif" />
-                        <p>下拉刷新</p>
-                    </div>
-                    
-                </template>
-                <!-- 释放提示 -->
-                <template #loosing>
-                    <div class="monkeyBox">
-                        <img class="monkey" src="../common/img/monkey.gif" />
-                        <p>释放刷新</p>
-                    </div>
-                </template>
-
-                <!-- 加载提示 -->
-                <template #loading>
-                    <div class="monkeyBox">
-                        <img class="monkey" src="../common/img/monkey.gif" />
-                        <p>正在刷新</p>
-                    </div>
-                </template>
-                <div class="courseBox" v-if="classList.length>0">
-                    <ul>
-                        <li class="courseDiv" v-for="item in classList" @click="courseList(item)">
-                            <img v-if="item.classLableList.length>0"
-                                :src="'./img/'+item.classLableList[0].classLabel+'.png'" class="iconlabel" alt="">
-                            <div class="cover" :style="{'backgroundImage':'url('+item.classCover+')'}">
-                            </div>
-                            <div class="content">
-                                <div>
-                                    <p class="stitle">{{item.className}}</p>
-                                    <p class="detail">
-                                        {{Math.round(item.classDuration/60)}}分钟 · {{item.calory}}千卡 ·
-                                        {{item.classLevelName}}
-                                    </p>
-                                </div>
-                                <div class="progress">
-                                    已锻炼{{item.pageFinish||0}}%
-                                </div>
-                            </div>
-
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="noData-box" style="padding-top: 0;" v-else-if="!isLoading">
-                    <img class="noData-img" src="../common/img/noData.png" />
-                    <p class="noData-p">暂无符合条件的训练课程，换个条件试试吧~</p>
-                </div>
-            </van-pull-refresh>
         </div>
 
     </div>
