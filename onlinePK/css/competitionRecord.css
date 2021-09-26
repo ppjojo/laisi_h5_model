@@ -1,0 +1,125 @@
+@font-face {
+  font-family: "BebasNeue";
+  src: url("../common/font/BebasNeue/BebasNeue.tff") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  background-color: #12121f;
+  color: #cfcfd2;
+}
+
+.personInfo {
+  margin-top: 1rem;
+  padding: 0 0.3rem;
+}
+
+.personInfo .infoBox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.personInfo .infoBox .pic img {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  margin-right: 0.2rem;
+}
+
+.personInfo .infoBox .nameBox .name {
+  color: #cfcfd2;
+  font-size: 0.32rem;
+  line-height: 0.6rem;
+}
+
+.personInfo .infoBox .nameBox .idBox {
+  color: #71717f;
+  font-size: 0.24rem;
+  line-height: 0.3rem;
+}
+
+.personInfo .scoreBox {
+  padding: 0.3rem 20%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.personInfo .scoreBox .num {
+  color: #E60012;
+  font-family: "BebasNeue";
+  font-size: 0.8rem;
+  line-height: 1rem;
+  height: 1rem;
+}
+
+.personInfo .scoreBox .desc {
+  color: #cfcfd2;
+  text-align: center;
+  font-size: 0.24rem;
+}
+
+.detailBox {
+  border-top: 0.2rem solid #1e1e2a;
+}
+
+.detailBox ul li {
+  border-bottom: 1px solid #1e1e2a;
+  padding: 0.25rem 0.3rem;
+}
+
+.detailBox ul li .box1 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.detailBox ul li .box1 .namebox {
+  color: #cfcfd2;
+  font-size: 0.32rem;
+  line-height: 0.6rem;
+}
+
+.detailBox ul li .box1 .namebox .mode {
+  font-size: 0.24rem;
+}
+
+.detailBox ul li .box1 .score {
+  color: #E60012;
+  font-size: 0.32rem;
+}
+
+.detailBox ul li .box2 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.detailBox ul li .box2 .date {
+  color: #71717f;
+  font-size: 0.24rem;
+}
+
+.detailBox ul li .box2 .useTime {
+  color: #71717f;
+  font-size: 0.24rem;
+}
+/*# sourceMappingURL=competitionRecord.css.map */

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+    <title>个人战绩</title>
+    <!-- 引入样式文件 -->
+    <link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
+    <link rel="stylesheet" href="../common/css/basic.css">
+    <link rel="stylesheet" href="css/normal.css">
+    <link rel="stylesheet" href="css/competitionRecord.css">
+    <style type="text/css">
+        #logobox {
+            background-color: #12121f;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            padding: .32rem .6rem;
+        }
+
+        #logobox .logo {
+            width: .8rem;
+            height: .8rem;
+            margin-right: .14rem;
+        }
+
+        .title {
+            color: #cfcfd2;
+            font-size: .36rem;
+        }
+
+        .detail {
+            font-size: .24rem;
+            color: #cfcfd2;
+        }
+
+        #download {
+            height: .5rem;
+            border-radius: .46rem;
+            border: 1px solid rgba(230, 0, 18, 1);
+            font-size: .32rem;
+            color: #E60012;
+            text-align: center;
+            padding: 0 .16rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <div class="ub ub-ac ub-pj" id="logobox">
+            <div class="ub ub-ac">
+                <img class="logo" src="../common/img/logo.png" alt="">
+                <div class="">
+                    <div class="title">派健康</div>
+                </div>
+            </div>
+            <div id="download" class="ub ub-ac ub-ad" @click="goInto">
+                立即下载
+            </div>
+        </div>
+        <div class="personInfo">
+            <div class="infoBox">
+                <div class="pic">
+                    <img :src="info.accountUserMangerInfoBean.headPictureUrl" alt="">
+                </div>
+                <div class="nameBox">
+                    <div class="name">{{info.accountUserMangerInfoBean.nickName}}</div>
+                    <div class="idBox">ID:{{info.accountUserMangerInfoBean.uid}}</div>
+                </div>
+            </div>
+            <div class="scoreBox">
+                <div style="height: 1.5rem;">
+                    <div class="num">{{info.rateNum}}</div>
+                    <div class="desc">局数</div>
+                </div>
+                <div style="height: 1.5rem;">
+                    <div class="num">{{info.ratePercent}}<span style="font-size: 0.5rem;">%</span> </div>
+                    <div class="desc">胜率</div>
+                </div>
+            </div>
+        </div>
+        <div class="detailBox">
+            <ul v-if="list.length>0">
+                <van-list v-model="loading" :finished="finished" @load="onLoad">
+                    <li v-for="item in list">
+                        <div class="box1">
+                            <div class="namebox">
+                                {{item.rateName}}
+                                <span class="mode">
+                                    ({{item.rateModel==0?(item.rateLimit/60)+'mins':item.rateLimit}}{{item.rateModel==0?'倒计时':'倒计数'}})
+                                </span>
+                            </div>
+                            <div class="score">排名：{{item.rateRanking}}/{{item.rateUserNum}}</div>
+                        </div>
+                        <div class="box2">
+                            <div class="date">{{item.rateTime}}</div>
+                            <div class="useTime" v-if="item.rateModel==0">{{item.rateScore}}个</div>
+                            {{item.rateModel==0?'个':'秒'}}
+                            <div class="useTime" v-else>用时 {{formateSeconds(item.rateScore)}}</div>
+                        </div>
+                    </li>
+                </van-list>
+            </ul>
+            <div v-else style="text-align: center;">
+                <img style="width: 3rem; margin-top: 1rem;" src="../common/img/noData.png" alt="">
+                <p style="color: #71717f;font-size: 0.28rem;">还没有任何的战绩记录哦~</p>
+            </div>
+            <img id="leadToBrowser" src="https://oss.laisitech.com/01c21e85-22db-4a2b-8f4f-500fca31b25d.png"
+                style="display: none; position: absolute;top: 0;left: 0;width: 100%;height: 100%;z-index: 99;" alt="">
+        </div>
+
+    </div>
+</body>
+<script src="https://oss.laisitech.com/0bb12bf1-cb87-4d2c-a724-8a7c25b7ae04.js "></script>
+<script src="https://oss.laisitech.com/6172e6c1-f460-40ac-97ba-31c8526f2e16.js"></script>
+<script src="../common/js/network.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                nickName: getQueryString('nickName') || '派小俊',
+                loading: false,
+                finished: false,
+                pageNum: 1,
+                pageSize: 10,
+                info: {
+                    accountUserMangerInfoBean: {}
+                },
+                list: []
+            }
+        },
+        filters: {},
+        mounted() {
+
+        },
+        created() {
+            this.getOwnerRate()
+            this.getAllByPage()
+        },
+        methods: {
+            formateSeconds(endTime) {
+                let secondTime = parseInt(endTime / 100) //将传入的秒的值转化为Number
+                let min = 0 // 初始化分
+                let h = 0 // 初始化小时
+                let result = ''
+                if (secondTime > 60) { //如果秒数大于60，将秒数转换成整数
+                    min = parseInt(secondTime / 60) //获取分钟，除以60取整数，得到整数分钟
+                    secondTime = parseInt(secondTime % 60) //获取秒数，秒数取佘，得到整数秒数
+                    if (min > 60) { //如果分钟大于60，将分钟转换成小时
+                        h = parseInt(min / 60) //获取小时，获取分钟除以60，得到整数小时
+                        min = parseInt(min % 60) //获取小时后取佘的分，获取分钟除以60取佘的分
+                    }
+                }
+                result =
+                    `${h>0?h.toString().padStart(2,'0')+':':''}${min.toString().padStart(2,'0')}:${secondTime.toString().padStart(2,'0')}.${(endTime%100).toString().padStart(2,'0')}`
+                return result
+            },
+            getOwnerRate() {
+                var that = this
+                ajax({
+                    type: "post",
+                    url: "shareRate/getOwnerRate",
+                    data: {},
+                    contentType: "application/json",
+                    success: function (res) {
+                        if (res.code == 0) {
+                            that.info = res.data
+                        }
+                    },
+                })
+            },
+            onLoad() {
+                this.pageNum++
+                this.getAllByPage()
+            },
+            getAllByPage() {
+                var that = this
+                ajax({
+                    type: "post",
+                    url: "shareRate/getAllByPage",
+                    data: {
+                        pageNum: that.pageNum,
+                        pageSize: that.pageSize
+                    },
+                    success: function (res) {
+                        that.loading = false;
+                        if (res.data.pageNum == 1) {
+                            that.list = res.data.list
+                        } else {
+                            that.list = that.list.concat(res.data.list);
+                        }
+
+                        if (!res.data.hasNextPage) {
+                            that.finished = true
+                        }
+                    },
+                })
+            },
+            OnclickLeft() {
+                window.history.back(-1);
+            },
+            onClickRight() { //显示。。。
+            },
+            goInto() {
+                let linkUrl = ""
+                if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) { //判断iPhone|iPad|iPod|iOS
+                    linkUrl = "https://lstemp.laisitech.com?actionType=ropeskippingLiveCompetion"
+                } else if (/(Android)/i.test(navigator.userAgent)) { //判断Android
+                    if (navigator.userAgent.toLowerCase().indexOf('micromessenger') !== -1) { //微信
+                        document.getElementById("leadToBrowser").style.display = "block";
+                        setTimeout(function () {
+                            document.getElementById("leadToBrowser").style.display = "none";
+                        }, 2000)
+                        return
+                    } else {
+                        linkUrl = "rehealth://ropeskippingLiveCompetion"
+                    }
+                }
+                var a = document.createElement('a');
+                a.setAttribute('href', linkUrl);
+                a.setAttribute('id', 'js_a');
+                //防止反复添加
+                if (document.getElementById('js_a')) {
+                    document.body.removeChild(document.getElementById('js_a'));
+                }
+                document.body.appendChild(a);
+                a.click();
+            }
+        }
+    
+    })
+</script>
+
+</html>

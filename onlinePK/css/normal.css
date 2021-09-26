@@ -1,0 +1,212 @@
+* {
+	box-sizing: border-box;
+}
+
+body {
+	font-family: 'PingFangSC-Regular';
+}
+@font-face {
+  font-family: "OPPOSans-B";
+   src: url("OPPOSans-B.woff2") format("woff2"),
+         url("OPPOSans-B.woff") format("woff"),
+         url("OPPOSans-B.ttf") format("truetype"),
+         url("OPPOSans-B.eot") format("embedded-opentype"),
+         url("OPPOSans-B.svg") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "BebasNeue";
+  src:url("../common/font/BebasNeue/BebasNeue.tff") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+#app {
+	padding-top: .92rem;
+	min-height: 100vh;
+	/* background-color:#fff; */
+}
+
+
+
+.ub {
+	display: -webkit-flex !important;
+	display: flex !important;
+	position: relative;
+}
+
+.ub-rev {
+	-webkit-flex-direction: row;
+	flex-direction: row
+}
+
+.ub-f1 {
+	flex: 1;
+}
+
+.ub-fh {
+	width: 100%;
+}
+
+.ub-fv {
+	height: 100%;
+}
+
+.ub-con {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
+
+.ub-ac {
+	-webkit-align-items: center;
+	align-items: center;
+}
+
+.ub-aend {
+	-webkit-align-items: flex-end;
+	align-items: flex-end;
+}
+
+.ub-ae {
+	-webkit-justify-content: end;
+	justify-content: end;
+}
+
+.ub-pc {
+	-webkit-justify-content: center;
+	justify-content: center;
+}
+
+.ub-pe {
+	-webkit-justify-content: flex-start;
+	justify-content: flex-start;
+}
+.ub-pend {
+	-webkit-justify-content: flex-end;
+	justify-content: flex-end;
+}
+.ub-pj {
+	-webkit-justify-content: space-between;
+	justify-content: space-between;
+}
+
+.ub-ad {
+	-webkit-justify-content: space-around;
+	justify-content: space-around;
+}
+
+
+[v-cloak] {
+	display: none!important;
+}
+.van-checkbox__icon--checked .van-icon,
+.van-address-item .van-radio__icon--checked .van-icon {
+	/* background: linear-gradient(to right, #FF6A88, #FF5136);
+	border-color: #FF6A88; */
+	background: #E60012;
+	border-color: #E60012;
+}
+.van-checkbox__icon .van-icon{
+	/* border: .02rem solid #fff; */
+}
+.pinkBtn{
+	background: linear-gradient(to right, #FF6A88, #FF5136 );
+	height: .52rem;
+	text-align: center;
+	color: #fff;
+	padding: 0 .32rem;
+	line-height: .52rem;
+	border-radius: .26rem;
+	font-size: .32rem;
+}
+.van-count-down{
+	color: #fff;
+	padding-right: .02rem;
+	font-size: .24rem;
+}
+.van-dialog__confirm, .van-dialog__confirm:active{
+	/* color: #E60012; */
+}
+.van-overlay {
+	background:rgba(0, 0, 0, .5);
+}
+.cfF24023{
+	color: #F24023!important;
+}
+.ftmDON{
+	font-family: "BebasNeue";
+}
+.submit,
+.submit2 {
+	background: linear-gradient(to right, #FF6A88, #FF5136);
+	border: none;
+	font-size: .36rem;
+	color: #fff;
+	height: .88rem;
+	line-height: .88rem;
+	width: 6.3rem;
+}
+
+.submit2 {
+	background: #999;
+	color: #fff;
+}
+.van-loading {
+    position: absolute;
+    color: #c8c9cc;
+    font-size: 0;
+    vertical-align: middle;
+    top: calc( 50% - .15rem );
+    z-index: 9;
+    left: calc( 50% - .15rem );
+}
+.van-tabs--line .van-tabs__wrap {
+	height: 1.08rem;
+}
+
+.van-tabs__nav--line {
+	padding-bottom: .1rem;
+}
+
+.van-tab {
+	color: #999;
+	font-size: .32rem;
+	font-family: "PingFangSC-Medium";
+}
+
+.van-tab--active {
+	color: #1f1f1f;
+	font-size: .36rem;
+}
+
+.van-tabs__line {
+	width: .48rem !important;
+	background-color: #1F1F1F;
+}
+.van-sticky--fixed{
+	top: .92rem;
+}
+/*# sourceMappingURL=PersonalRanking.css.map */
+@supports ((height: constant(safe-area-inset-top)) or (height: env(safe-area-inset-top))) and (-webkit-overflow-scrolling: touch) {
+  #app {
+    padding-top: 0.92rem;
+    padding-top: calc(0.92rem + constant(safe-area-inset-top));
+    padding-top: calc(0.92rem + env(safe-area-inset-top));
+  }
+  /* .page {
+  	padding-top: 15;
+  	padding-top: calc(0.92rem + constant(safe-area-inset-top));
+  	padding-top: calc(0.92rem + env(safe-area-inset-top));
+  } */
+  .header {
+    padding-top: 0;
+    padding-top: constant(safe-area-inset-top);
+    padding-top: env(safe-area-inset-top);
+  }
+  .van-sticky--fixed{
+	top: 0.92rem;
+	top: calc(0.92rem + constant(safe-area-inset-top));
+	top: calc(0.92rem + env(safe-area-inset-top));
+  }
+}
