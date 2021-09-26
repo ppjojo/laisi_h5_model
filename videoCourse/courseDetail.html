@@ -30,7 +30,7 @@
 
 <body>
     <div id="app" class="normalHeader" v-cloak>
-        <div class="header">
+        <div class="header" >
             <van-nav-bar @click-left="onclickLeft" title="课程介绍" left-arrow safe-area-inset-top fixed>
                 <template #left>
                     <span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
@@ -38,7 +38,6 @@
 
             </van-nav-bar>
         </div>
-        <div style="height:1rem" v-else></div>
         <div class="contain">
             <div id="title">{{classDetail.className}}</div>
             <div id="discript">{{classDetail.classDes}}</div>

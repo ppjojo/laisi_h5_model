@@ -550,10 +550,10 @@
             //倒计时的回调
             onCountTimeConfirm(value, index) {
                 var afterText = this.type == "skipping" ? "倒计时跳" : "倒计时转"
-                if (value == "60分") {
+                if (value == "60分钟") {
                     this.form.pkMode = "1小时" + afterText;
                 } else {
-                    this.form.pkMode = value + "钟" + afterText;
+                    this.form.pkMode = value + afterText;
                 }
                 if (index == 0) {
                     this.submitform.modeValue = 30;

@@ -9,20 +9,12 @@
 	<link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
 	<link rel="stylesheet" href="font/iconfont.css">
 	<link rel="stylesheet" href="css/index.css">
-	<script src="https://cdn.bootcdn.net/ajax/libs/vConsole/3.8.1/vconsole.min.js"></script>
-		<script>
-			// init vConsole
-		        var vConsole = new VConsole();
-				localStorage.setItem("202199",1)
-		      
-		    </script>
-
 </head>
 
 <body>
 	<div id="app" class="normalHeader" v-cloak>
 		<div class="header">
-			<van-nav-bar @click-left="onclickLeft" title="日报周报" left-arrow safe-area-inset-top fixed>
+			<van-nav-bar @click-left="onclickLeft" title="周报月报" left-arrow safe-area-inset-top fixed>
 				<template #left>
 					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
 				</template>
@@ -67,9 +59,9 @@
 		},
 		methods: {
 			onclickLeft() {
-				Interaction.closePage()
 				localStorage.removeItem("report_startTime")
 				localStorage.removeItem("report_endTime")
+				Interaction.closePage()
 			},
 			goReport(flag) {
 				let times={}
