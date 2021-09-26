@@ -88,6 +88,7 @@ let ajaxResolve = (config) => {
         timeZone: appInfo.timeZone || "",
         userId:appInfo.userId,
       }
+      //unorderedHeaderObj = Object.assign(unorderedHeaderObj, config.data)
       const orderedHeaderObj = {};
       Object.keys(unorderedHeaderObj).sort().forEach(function (key) {
         orderedHeaderObj[key] = unorderedHeaderObj[key];
@@ -99,6 +100,7 @@ let ajaxResolve = (config) => {
       }
       sign.push("APP_SECRET="+appInfo.appSecret)
       sign=sign.join("&");
+      console.log(sign)
       xhr.setRequestHeader("LAISIH5", "LAISIH5");
       xhr.setRequestHeader("sign", md5(sign).toLocaleUpperCase());
     }else{
