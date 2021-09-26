@@ -64,54 +64,10 @@ export function addAction(data) {
     data,
   })
 }
-export function allAttribute(data) {
+export function getActionMovie(data) {
   return request({
-    url: '/community/threeAttribute/see/all/attribute',
+    url: '/community/smartAction/see/all',
     method: 'post',
     data,
-  })
-}
-export function allGAttribute(params) {
-  return request({
-    url: '/community/threeAttribute/group/see/all/attribute',
-    method: 'get',
-    params,
-  })
-}
-export function addAttribute(data) {
-  return request({
-    url: '/community/threeAttribute/insertOne',
-    method: 'post',
-    data,
-  })
-}
-export function updateAttribute(data) {
-  return request({
-    url: '/community/threeAttribute/updateOne',
-    method: 'post',
-    data,
-  })
-}
-export function todayYesterdayData(params) {
-  return request({
-    url: '/report/umeng/getTodayYesterdayData',
-    method: 'get',
-    params
-  })
-}
-// 获取用户统计数据
-export function userDataDay(params) {
-  return request({
-    url: '/report/umeng/userReport',
-    method: 'get',
-    params
-  })
-}
-// 获取用户统计数据
-export function userReportCount(params) {
-  return request({
-    url: '/report/umeng/userReportCount',
-    method: 'get',
-    params
   })
 }

@@ -62,25 +62,33 @@
           </el-button>
         </el-form-item>
 
-        <el-form-item label="视频名称" prop="className">
-          <el-input v-model="form.className"></el-input>
+        <el-form-item label="智能训练动作名" prop="smartActionName">
+          <el-input v-model="form.smartActionName"></el-input>
         </el-form-item>
 
-        <el-form-item label="视频封面图" prop="classCover">
-          <el-input v-model="form.classCover"></el-input>
+        <el-form-item label="视频封面图" prop="smartActionCover">
+          <el-input v-model="form.smartActionCover"></el-input>
           <el-upload ref='upload' action="" :http-request="requestFile" :show-file-list="false" class="avatar-uploader">
-            <img v-if="form.classCover" :src="form.classCover" class="avatar">
+            <img v-if="form.smartActionCover" :src="form.smartActionCover" class="avatar">
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           </el-upload>
         </el-form-item>
 
-        <el-form-item label="视频类型" prop="bigAttributeId">
-          <el-radio-group v-model="form.actionSmallClass">
-            <el-radio class="radio" :label="0">动作</el-radio>
-            <el-radio class="radio" :label="1">内容</el-radio>
+        <el-form-item label="智能训练动作难度" prop="smartActionDifficulty">
+          <el-radio-group v-model="form.smartActionDifficulty">
+            <el-radio class="radio" :label="1">1</el-radio>
+            <el-radio class="radio" :label="2">2</el-radio>
+            <el-radio class="radio" :label="3">3</el-radio>
+            <el-radio class="radio" :label="4">4</el-radio>
           </el-radio-group>
         </el-form-item>
-
+        <el-form-item label="动作身体部位" prop="smartActionBody">
+          <el-radio-group v-model="form.smartActionBody">
+            <el-radio class="radio" :label="1">全身</el-radio>
+            <el-radio class="radio" :label="2">上半身</el-radio>
+            <el-radio class="radio" :label="3">下半身</el-radio>
+          </el-radio-group>
+        </el-form-item>
         <el-form-item v-if="form.actionSmallClass==0" label="训练次数" prop="actionNum">
           <el-input v-model.number="form.actionNum"></el-input>
         </el-form-item>
@@ -101,7 +109,7 @@
           </el-select>
         </el-form-item>
 
-        
+
 
         <el-form-item label="时长" prop="duration">
           <el-input v-model.number="form.duration"></el-input>
@@ -118,13 +126,13 @@
           <el-input v-model.trim="form.stopDuration">
           </el-input>
         </el-form-item>
-        
+
         <el-form-item label="动作排序" prop="smallClassDay">
           <el-input v-model.trim="form.smallClassDay">
           </el-input>
         </el-form-item>
-        
-        
+
+
 
       </el-form>
 
@@ -146,8 +154,8 @@
     allAction,
     updateAction,
     addAction,
-    allCourse
-  } from '@/api/coursedisplay/coursedisplay'
+    allCourse,getActionMovie
+  } from '@/api/intelligent/intelligent'
   import {
     getPlayAuth
   } from '@/api/videoCourse/course'
@@ -227,7 +235,7 @@
     },
     mounted() {
       this.getList();
-      allCourse({}).then(res => {
+      getActionMovie({}).then(res => {
         this.courseList = res.data;
       })
     },
@@ -291,7 +299,7 @@
         fileForm.append('file', param.file)
         fileUpload(fileForm).then(res => {
           if (res.code == 0) {
-            this.form.classCover = res.data.url;
+            this.form.smartActionCover = res.data.url;
           }
         })
       },

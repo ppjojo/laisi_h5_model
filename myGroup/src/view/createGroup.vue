@@ -38,7 +38,7 @@
 			<div class="labelTitle" style="margin-top: 0.5rem;">小组口号</div>
 			<div>
 				<van-field v-model="groupItem.slogon" rows="5" autosize style="background-color: #1E1E2A;"
-					type="textarea" maxlength="100" placeholder="简单介绍一下您的小组～" show-word-limit />
+					type="textarea" maxlength="100" placeholder="为你的小组取一个响亮的口号吧~" show-word-limit />
 			</div>
 
 
