@@ -18,28 +18,17 @@
     </div>
     <el-table v-loading="loading" :data="list" element-loading-text="Loading" border fit highlight-current-row
       size="small ">
-      <el-table-column align="center" prop="className" label="视频名称"></el-table-column>
-      <el-table-column align="center" prop="pictureUrl" label="视频封面">
+      <el-table-column align="center" prop="smartActionName" label="动作名称"></el-table-column>
+      <el-table-column align="center" prop="smartActionCover" label="动作封面">
         <template scope="scope">
-          <img :src="scope.row.classCover" style="width: 50px;height: 50px;" alt="">
+          <img :src="scope.row.smartActionCover" style="width: 50px;height: 50px;" alt="">
         </template>
       </el-table-column>
-      <el-table-column align="center" label="视频类型">
-        <template scope="scope">
-          {{scope.row.actionSmallClass==0?'动作':'内容'}}
-        </template>
-      </el-table-column>
-
-      <el-table-column align="center" label="视频归属">
-        <template scope="scope">
-          {{scope.row.actionBelong==0?'训练':scope.row.actionBelong==1?'热身':'拉伸'}}
-        </template>
-      </el-table-column>
-      <el-table-column align="center" prop="bigClassName" label="关联课程">
+      <el-table-column align="center" prop="smartActionDifficulty" label="动作难度">
       </el-table-column>
       <el-table-column align="center" label="时长">
         <template slot-scope="scope">
-          {{scope.row.duration+'s'}}
+          {{scope.row.smartActionDuration+'s'}}
         </template>
       </el-table-column>
       <el-table-column align="center" label="操作" width="180">
@@ -52,29 +41,43 @@
       </el-table-column>
     </el-table>
     <!--新增和编辑界面-->
-    <el-dialog :title="dialogTitle" :visible.sync="dialogVisible" width="50%">
+    <el-dialog :title="dialogTitle" :modal="false" :visible="dialogVisible" width="70%">
 
 
       <el-form :model="form" label-width="100px" :rules="rules" ref="form">
-        <el-form-item label="视频地址" prop="classVod">
-          <el-input v-model="form.classVod" @change="classVodChange"></el-input>
-          <el-button size="small" type="primary" v-if="form.classVod" @click="goPlayer()">查看视频
-          </el-button>
+        <el-form-item label="选择动作视频" prop="smartActionName">
+          <el-select @change="choosesmartActionName" v-model="form.action" filterable placeholder="可查询">
+              <el-option
+                v-for="(item,index) in courseList"
+                :key="index"
+                :label="item.videoName"
+                :value="index">
+              </el-option>
+            </el-select>
         </el-form-item>
 
-        <el-form-item label="智能训练动作名" prop="smartActionName">
-          <el-input v-model="form.smartActionName"></el-input>
+        <el-form-item label="训练动作名" prop="smartActionName">
+          <el-input :readonly="true" v-model="form.smartActionName"></el-input>
         </el-form-item>
-
+        <el-form-item label="动作播放地址" prop="smartActionVod">
+          <el-input :readonly="true" v-model="form.smartActionVod"></el-input>
+        </el-form-item>
+        <el-form-item label="动作播放时长" prop="smartActionDuration">
+          <el-input :readonly="true" v-model="form.smartActionDuration"></el-input>
+        </el-form-item>
+        <el-form-item label="动作视频大小" prop="actionSize">
+          <el-input :readonly="true" v-model="form.actionSize"></el-input>
+        </el-form-item>
         <el-form-item label="视频封面图" prop="smartActionCover">
           <el-input v-model="form.smartActionCover"></el-input>
-          <el-upload ref='upload' action="" :http-request="requestFile" :show-file-list="false" class="avatar-uploader">
+          <img v-if="form.smartActionCover" :src="form.smartActionCover" class="avatar">
+          <!-- <el-upload ref='upload' action="" :http-request="requestFile" :show-file-list="false" class="avatar-uploader">
             <img v-if="form.smartActionCover" :src="form.smartActionCover" class="avatar">
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-          </el-upload>
+          </el-upload> -->
         </el-form-item>
 
-        <el-form-item label="智能训练动作难度" prop="smartActionDifficulty">
+        <el-form-item label="动作难度" prop="smartActionDifficulty">
           <el-radio-group v-model="form.smartActionDifficulty">
             <el-radio class="radio" :label="1">1</el-radio>
             <el-radio class="radio" :label="2">2</el-radio>
@@ -89,49 +92,74 @@
             <el-radio class="radio" :label="3">下半身</el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item v-if="form.actionSmallClass==0" label="训练次数" prop="actionNum">
-          <el-input v-model.number="form.actionNum"></el-input>
+        <el-form-item label="动作讲解音频" prop="actionExplainAudio">
+          <el-input :readonly="true" v-model="form.actionExplainAudio"></el-input>
+          <el-upload ref='upload' action="" :http-request="requestFile" :show-file-list="false" class="avatar-uploader">
+            <i class="el-icon-plus avatar-uploader-icon"></i>
+          </el-upload>
         </el-form-item>
-
-        <el-form-item label="所属课程选择">
-          <el-select v-model="form.bigClassId" placeholder="" filterable clearable>
-            <el-option v-for="item in courseList" :key="item.bigClassId" :label="item.className"
-              :value="item.bigClassId">
-            </el-option>
-          </el-select>
+        <el-form-item label="动作旁白音频" prop="actionAsideAudio">
+          <el-input :readonly="true" v-model="form.actionAsideAudio"></el-input>
+          <el-upload ref='upload' action="" :http-request="requestFile2" :show-file-list="false" class="avatar-uploader">
+            <i class="el-icon-plus avatar-uploader-icon"></i>
+          </el-upload>
         </el-form-item>
+        <el-button type="primary" size="mini" @click="dialogVisible2 = true">添加属性</el-button>
+        <template v-for="(item,index) in form.smartActionAttributeList">
+          <div style="padding: 20px;display: inline-block;">
+              <span>{{item.actionBigAttribute=='part'?'动作部位':item.actionBigAttribute=='belong'?'动作归属':'动作目标'}}:
+              <span v-if="item.actionBigAttribute=='part'">
+                {{item.actionSmallAttribute==1?'腰腹':item.actionSmallAttribute==2?'背部':item.actionSmallAttribute==3?'肩部':item.actionSmallAttribute==4?'手臂':item.actionSmallAttribute==5?'胸部':item.actionSmallAttribute==6?'腿部':'臀部'}}
+              </span>
+              <span v-if="item.actionBigAttribute=='belong'">
+                {{item.actionSmallAttribute==1?'训练':item.actionSmallAttribute==2?'热身':"拉伸"}}
+              </span>
+              <span v-if="item.actionBigAttribute=='target'">
+                {{item.actionSmallAttribute==1?'减脂':item.actionSmallAttribute==2?'增肌':"塑型"}}
+              </span>
+              </span>
+              <el-button type="danger" size="mini" @click="delattr(index)">删除</el-button>
+          </div>
+        </template>
+        <el-dialog :title="'属性集合'" :modal="false" :visible="dialogVisible2" width="50%">
+          <el-form-item label="动作属性分类" prop="actionBigAttribute">
+            <el-radio-group v-model="form.actionBigAttribute">
+              <el-radio class="radio" :label="'part'">动作部位</el-radio>
+              <el-radio class="radio" :label="'belong'">动作归属</el-radio>
+              <el-radio class="radio" :label="'target'">动作目标</el-radio>
+            </el-radio-group>
+          </el-form-item>
+          <el-form-item label="动作属性分类" prop="actionSmallAttribute">
+            <el-radio-group v-model="form.actionSmallAttribute">
+              <template v-if="form.actionBigAttribute=='part'">
+                <el-radio class="radio" :label="1">腰腹</el-radio>
+                <el-radio class="radio" :label="2">背部</el-radio>
+                <el-radio class="radio" :label="3">肩部</el-radio>
+                <el-radio class="radio" :label="4">手臂</el-radio>
+                <el-radio class="radio" :label="5">胸部</el-radio>
+                <el-radio class="radio" :label="6">腿部</el-radio>
+                <el-radio class="radio" :label="7">臀部</el-radio>
+              </template>
+              <template v-if="form.actionBigAttribute=='belong'">
+                <el-radio class="radio" :label="1">训练</el-radio>
+                <el-radio class="radio" :label="2">热身</el-radio>
+                <el-radio class="radio" :label="3">拉伸</el-radio>
+              </template>
+              <template v-if="form.actionBigAttribute=='target'">
+                <el-radio class="radio" :label="1">减脂</el-radio>
+                <el-radio class="radio" :label="2">增肌</el-radio>
+                <el-radio class="radio" :label="3">塑型</el-radio>
+              </template>
+            </el-radio-group>
+          </el-form-item>
 
-        <el-form-item label="视频归属">
-          <el-select v-model="form.actionBelong" placeholder="" clearable>
-            <el-option :key="0" label="训练" :value="0"></el-option>
-             <el-option :key="1" label="热身" :value="1"></el-option>
-              <el-option :key="2" label="拉伸" :value="2"></el-option>
-          </el-select>
-        </el-form-item>
 
 
-
-        <el-form-item label="时长" prop="duration">
-          <el-input v-model.number="form.duration"></el-input>
-        </el-form-item>
-
-
-        <el-form-item label="视频大小" prop="classSize">
-          <el-input v-model.trim="form.classSize">
-          </el-input>
-        </el-form-item>
-
-
-         <el-form-item label="休息时长" prop="stopDuration">
-          <el-input v-model.trim="form.stopDuration">
-          </el-input>
-        </el-form-item>
-
-        <el-form-item label="动作排序" prop="smallClassDay">
-          <el-input v-model.trim="form.smallClassDay">
-          </el-input>
-        </el-form-item>
-
+          <div slot="footer" class="dialog-footer">
+            <el-button size="mini" @click="dialogVisible2 = false">取 消</el-button>
+            <el-button type="primary" size="mini" @click="addAttributeList">确 定</el-button>
+          </div>
+        </el-dialog>
 
 
       </el-form>
@@ -194,6 +222,7 @@
         },
         dialogTitle: "",
         dialogVisible: false,
+        dialogVisible2:false,
         playShow: false,
         rules: {
           classCover: [{
@@ -278,15 +307,15 @@
         this.dialogVisible = true;
         this.dialogTitle = "新增";
         this.form = {
-          className: "",
-          classCover: null,
-          actionBelong: null, //图片url
-          classVod: "",
-          bigClassId: null,
-          duration: null,
-          smallClassDay: null,
-          classPart: [],
-          classLabel: [],
+          smartActionName: "",
+          smartActionCover: null,
+          smartActionVod: null, //图片url
+          smartActionDifficulty: 1,
+          smartActionDuration: null,
+          smartActionBody: 1,
+          actionExplainAudio:'',
+          actionAsideAudio:'',
+          smartActionAttributeList: [],
         }
       },
       btn_edit(row) {
@@ -294,12 +323,27 @@
         this.dialogTitle = "编辑"
         this.form = Object.assign({}, row)
       },
+      choosesmartActionName(index){//下拉选择视频
+        this.form.smartActionName = this.courseList[index].videoName;
+        this.form.actionSize = this.courseList[index].videoSize||0;
+        this.form.smartActionCover = this.courseList[index].videoCover;
+        this.form.smartActionVod = this.courseList[index].videoId;
+        this.form.smartActionDuration = this.courseList[index].duration||0;
+      },
+      addAttributeList(){
+        //属性集合
+        this.form.smartActionAttributeList.push({actionBigAttribute:this.form.actionBigAttribute,actionSmallAttribute:this.form.actionSmallAttribute});
+        this.dialogVisible2 = false;
+      },
+      delattr(index){//删除属性
+        this.form.smartActionAttributeList.splice(index, 1);
+      },
       requestFile(param) { //
         var fileForm = new FormData()
         fileForm.append('file', param.file)
         fileUpload(fileForm).then(res => {
           if (res.code == 0) {
-            this.form.smartActionCover = res.data.url;
+            this.form.actionExplainAudio = res.data.url;
           }
         })
       },
@@ -308,7 +352,7 @@
         fileForm.append('file', param.file)
         fileUpload(fileForm).then(res => {
           if (res.code == 0) {
-            this.form.classVod = res.data.url;
+            this.form.actionAsideAudio = res.data.url;
           }
         })
       },

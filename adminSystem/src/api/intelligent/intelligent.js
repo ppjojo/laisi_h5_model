@@ -45,29 +45,29 @@ export function updateCourse(data) {
 
 export function allAction(data) {
   return request({
-    url: '/community/cSmallClass/see/all/action',
+    url: '/community/smartAction/see/all',
     method: 'post',
     data,
   })
 }
 export function updateAction(data) {
   return request({
-    url: '/community/cSmallClass/update',
+    url: '/community/smartAction/updateOne',
     method: 'post',
     data,
   })
 }
 export function addAction(data) {
   return request({
-    url: '/community/cSmallClass/save',
+    url: '/community/smartAction/insertOne',
     method: 'post',
     data,
   })
 }
 export function getActionMovie(data) {
   return request({
-    url: '/community/smartAction/see/all',
-    method: 'post',
+    url: '/community/smartAction/get/ali/all/action',
+    method: 'get',
     data,
   })
 }

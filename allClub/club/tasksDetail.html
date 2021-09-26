@@ -37,6 +37,10 @@
 			-webkit-justify-content: space-between;
 			justify-content: space-between;
 		}
+		.van-icon__image{
+			width: 1.5em;
+			height: 1.5em;
+		}
 	</style>
 </head>
 
@@ -54,7 +58,7 @@
 			<div>
 				<van-notice-bar :scrollable="false" :text="taskItem.taskNotice?taskItem.taskNotice.title:'暂无任务通知!'"
 					@click="noticeDetail(taskItem.taskNotice.taskNoticeId)" mode="link"
-					left-icon="img/iconNotice.png" />
+					left-icon="img/volume.png" />
 			</div>
 			<div class="deatilBox">
 				<van-row>
