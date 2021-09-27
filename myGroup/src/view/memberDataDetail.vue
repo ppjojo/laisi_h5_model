@@ -40,15 +40,15 @@
                             <div class="numBox">{{(recordData[key].burn/1000).toFixed(1)}}</div>
                             <div class="numDesc">消耗(kcal)</div>
                         </div>
-                        <div class="detailItem" v-if="recordData[key].doubleJump||recordData[key].tripleJump">
-                            <div class="numBox">{{recordData[key].doubleJump/recordData[key].tripleJump}}</div>
+                        <div class="detailItem" >
+                            <div class="numBox">{{recordData[key].doubleJump||"--"/recordData[key].tripleJump||"--"}}</div>
                             <div class="numDesc">双/三摇</div>
                         </div>
                         <div class="detailItem">
                             <div class="numBox">{{recordData[key].totoalSection||0}}</div>
-                            <div class="numDesc">绊绳</div>
+                            <div class="numDesc">绊绳(次)</div>
                         </div>
-                        <div class="detailItem"></div>
+                        <!-- <div class="detailItem"></div> -->
                         <div class="detailItem">
                             <div class="numBox">{{recordData[key].maxBpm||0}}</div>
                             <div class="numDesc">最快频次(次/分)</div>

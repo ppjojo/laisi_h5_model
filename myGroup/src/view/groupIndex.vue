@@ -487,7 +487,7 @@
 		}
 	};
 </script>
-<style lang="scss" scoped>
+<style lang="scss" >
 	@import '@s/group.scss';
 </style>
 <style scoped>
