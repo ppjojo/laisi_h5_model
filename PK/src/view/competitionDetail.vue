@@ -296,14 +296,14 @@
                     v-else-if="isSign==2&&(competitionStatus==2||competitionStatus==1)">
                     去报名
                 </van-button>
-                <van-button class="btn " size="large" v-else-if="isSign==1&&competitionStatus==1&&timesRemain!=0&&type!='steps'"
+                <van-button class="btn " size="large" v-else-if="isSign==1&&competitionStatus==1&&timesRemain!=0"
                     @click="gotoSkip">
                     {{type=="skipping"?"去跳绳":type=="steps"?"去跑步":type=="wheel"?"去运动":type=="wristball"?"去运动":""}}
                 </van-button>
-                <van-button class="btn btn2" size="large" v-else-if="isSign==1&&competitionStatus==2&&type!='steps'">
+                <van-button class="btn btn2" size="large" v-else-if="isSign==1&&competitionStatus==2">
                     {{type=="skipping"?"去跳绳":type=="steps"?"去跑步":type=="wheel"?"去运动":type=="wristball"?"去运动":""}}
                 </van-button>
-                <van-button class="btn btn2" size="large" v-else-if="isSign==1&&competitionStatus==1&&timesRemain==0&&type!='steps'">
+                <van-button class="btn btn2" size="large" v-else-if="isSign==1&&competitionStatus==1&&timesRemain==0">
                     {{type=="skipping"?"去跳绳":type=="steps"?"去跑步":type=="wheel"?"去运动":type=="wristball"?"去运动":""}}
                 </van-button>
 

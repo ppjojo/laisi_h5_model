@@ -104,6 +104,7 @@ let ajaxResolve = (config) => {
       xhr.setRequestHeader("LAISIH5", "LAISIH5");
       xhr.setRequestHeader("sign", md5(sign).toLocaleUpperCase());
     }else{
+      xhr.setRequestHeader("timestamp",timestamp);
       xhr.setRequestHeader("userId", config.data.userId);
     }
 
