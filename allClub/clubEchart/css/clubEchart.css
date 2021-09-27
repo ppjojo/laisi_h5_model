@@ -1,6 +1,6 @@
 .selectBox {
- border-top: 0.1rem solid #1e1e2a;
- border-bottom: 0.1rem solid #1e1e2a;
+  border-top: 0.1rem solid #1e1e2a;
+  border-bottom: 0.1rem solid #1e1e2a;
 }
 
 .selectBox .selectDiv {
@@ -11,7 +11,7 @@
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  border-bottom: 1px solid #1e1e2a;
+  border-bottom: 1px solid  #1e1e2a;
   padding: 0 0.3rem;
   -webkit-box-align: center;
       -ms-flex-align: center;
@@ -49,7 +49,7 @@
 
 .selectBox .selectDiv .selectLeftBox .titleActive {
   font-size: 0.32rem;
-  color: #cfcfd2;
+  color: #CFCFD2;
 }
 
 .selectBox .selectDiv .selectLeftBox .titleActive2 {
