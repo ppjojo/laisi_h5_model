@@ -22,7 +22,7 @@
                    if(from.meta.index==1){
                      this.transitionName = 'slide-left';
                    }
-                   if(from.meta.index){//如果是分享的页面直接打开不需要效果
+                   if(from.meta.index){//如果是分享的页面直接打开不需要效果test
                      if( to.meta.index < from.meta.index){
                         this.transitionName = 'slide-right';
                     }else{
