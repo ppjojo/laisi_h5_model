@@ -41,19 +41,47 @@
 			width: 1.5em;
 			height: 1.5em;
 		}
+		.van-nav-bar__right{
+			font-size: .6rem;
+		}
+		.van-notice-bar .van-notice-bar__right-icon{
+			color: #71717f;
+		}
+		.van-action-sheet{
+			
+		}
+		.van-action-sheet__cancel,
+		.van-action-sheet__item {
+			font-size: .32rem;
+		}
+		.van-action-sheet__gap{
+			background-color: #1e1e2a;
+		}
+		.van-action-sheet__item,.van-action-sheet__cancel {
+			border-bottom: 1px solid #1e1e2a;
+			background-color: #12121F;
+			color: #CFCFD2;
+		}
+		
+		.van-picker-column__item--selected {
+			font-size: .4rem;
+		}
 	</style>
 </head>
 
 <body>
 	<div id="app" class="normalHeader" v-cloak>
 		<div class="header">
-			<van-nav-bar @click-left="onclickLeft" title="任务详情" left-arrow safe-area-inset-top fixed>
+			<van-nav-bar @click-left="onclickLeft" @click-right="menushow = true" right-text="···" title="任务详情" left-arrow safe-area-inset-top fixed>
 				<template #left>
 					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
 				</template>
 
 			</van-nav-bar>
 		</div>
+		<van-action-sheet cancel-text="取消" close-on-click-action v-model="menushow" :round="false"
+			:actions="menuaction" @select="onSelectMember"></van-action-sheet>
+		<div>
 		<div class="bgf8">
 			<div>
 				<van-notice-bar :scrollable="false" :text="taskItem.taskNotice?taskItem.taskNotice.title:'暂无任务通知!'"
@@ -128,7 +156,7 @@
 			<div style="font-size: .28rem;padding: .4rem .3rem;" class="memberList ub ub-ac ub-pj"
 				@click="gotoMemberGroup(taskItem.clubGroupVoList)" v-else-if="taskItem.task.assignType=='03'">
 				<div>参与部门</div>
-				<div class="ub ub-ac"><span>{{taskItem.clubGroupCount}}个部门参加任务</span>
+				<div class="ub ub-ac" style="color: #71717f;"><span>{{taskItem.clubGroupCount}}个部门参加任务</span>
 					<van-icon name="arrow" />
 				</div>
 			</div>
@@ -178,8 +206,8 @@
 								<div class="name">
 									{{item.name?item.name:'未分部部门'}}
 								</div>
-								<div class="userInfo">
-									<span>成员：{{item.totalNumber}}人</span>
+								<div class="userInfo" style="color: #71717f;">
+									<span>分部长:<span class="van-ellipsis" style="width: 1.5rem;display: inline-flex;">{{item.subMinisterName||'--'}}</span> 成员:{{item.totalNumber}}人</span>
 								</div>
 							</div>
 						</van-col>
@@ -188,7 +216,7 @@
 								<span class="num">{{item.completionRate}}</span>
 								<span class="unit">%</span>
 							</div>
-							<div class="numD">
+							<div class="numD" style="color: #71717f;">
 								完成率
 							</div>
 						</van-col>
@@ -243,6 +271,17 @@
 					0,
 				taskId: "",
 				clubId: "",
+				menuaction:[{
+						name: '发任务通知',
+						val: '00'
+					}, {
+						name: '停止报名',
+						val: '01'
+					}, {
+						name: '结束任务',
+						val: '02'
+					}],
+				menushow:false,
 				macShow: false,
 				ifios: false,
 				macItem: [
@@ -308,6 +347,33 @@
 				localStorage.setItem('groupList', JSON.stringify(list));
 				window.location.href = "../corporateClub/groupMember.html?clubId=" + this.clubId +
 					"&fromchoose=5&hiddenTitle=1";
+			},
+			onSelectMember(obj){//点击菜单
+				var _self = this;
+				if(obj.val=='00'){
+					//通知
+					window.location.href="./notice.html?id="+this.taskId
+				}else{//停止报名
+					ajax({
+						type: "post",
+						url: obj.val=='01'?"club/stopSignUp":"club/stopTask",
+						data: {
+							id: this.taskId,
+							clubId: this.clubId,
+							memberId: JSON.parse(localStorage.getItem("appInfo")).userId
+						},
+						success: function (res) {
+							if (res.code == 0) {
+								_self.taskDetail();
+							} else {
+								_self.$toast(res.msg);
+							}
+						},
+						error: function () {
+							console.log("error")
+						}
+					})
+				}
 			},
 			taskDetail() {
 				var _self = this;
