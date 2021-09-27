@@ -276,8 +276,14 @@
 								})
 							} else {
 								res.data.forEach(item => {
-									item.value = "<span class='bigNumberSpan'>" + item
-										.value + "</span>" + "个";
+									if (item.value > 1000000) {
+										item.value = "<span class='bigNumberSpan'>" + (item
+										.value/10000).toFixed(2) + "</span>" + "万个";
+									} else{
+										item.value = "<span class='bigNumberSpan'>" + item
+										.value + "</span>" + "个";	
+									}
+									
 								})
 							}
 						} else if (this.userType == 'wristball') {
