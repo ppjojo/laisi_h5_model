@@ -6,7 +6,7 @@
 		</div>
 		<div v-if="state">
 			<div class="" style="width: 2.8rem;color: #959598;font-size: .24rem;margin: .34rem auto;">
-				你已累计运动打卡8天啦～
+				你已累计运动打卡{{maxday}}天啦～
 				继续加油呀！
 			</div>
 			<div>
@@ -28,8 +28,8 @@
 				<img class="" style="width: 1.9rem;" :src="require('@i/none.png')" alt="">
 			</div>
 		</div>
-		<div class="bottomBtn">
-			{{state?'分享到朋友圈+50逗币':'去运动'}}
+		<div class="bottomBtn" @click="bottomBTN">
+			{{state?'分享到朋友圈+5逗币':'去运动'}}
 		</div>
 	</div>
 </template>
@@ -57,6 +57,10 @@
 				type: Boolean,
 				default: () => true
 			},
+			maxday:{
+				type:Number,
+				default: () => 0
+			}
 		},
 		data() {
 			return {
@@ -70,6 +74,19 @@
 		created() {},
 		methods: {
 			getList() {},
+			bottomBTN(){
+				if(this.state){
+					//打卡
+					this.$interaction.appNative('LSTH5APP_UrlAndSheetImageShareModel',{
+						shareTitle: "运动日历打卡",
+						isShareUrl:true,
+						shareContent: "",
+						shareUrl: 'sportsClock/#/index.html?isShare=1&userId='+JSON.parse(localStorage.getItem("appInfo")).userId,
+					})
+				}else{
+					this.$interaction.closePage();
+				}
+			},
 			onClickLeft() {
 				this.$interaction.closePage();
 				// this.$router.go(-1)
@@ -112,7 +129,7 @@
 			color: #fff;
 			font-size: .32rem;
 			text-align: center;
-			background: linear-gradient(to right, #FF6A88, #FF5136 );
+			background: linear-gradient(to right, #FF4E3E, #FFAA88 );
 			border-radius: .4rem;
 		}
 	}

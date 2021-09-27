@@ -95,7 +95,7 @@
 						})
 					})
 					this.list = arr;
-					console.log(arr);
+					// console.log(arr);
 				})
 			},
 			openFatherPickYearMonth() {//打开父组件选择年月调用
@@ -125,7 +125,7 @@
 	#calendarBox {
 		.dateTitle {
 			padding: .4rem .48rem 0 .48rem;
-			color: #595962;
+			color: #cfcfd2;
 			font-size: .48rem;
 		}
 

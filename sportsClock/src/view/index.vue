@@ -22,7 +22,7 @@
 		<div class="infobox" v-else-if="flag==2||flag==5">
 			<!-- 打卡失败 一点都没有运动-->
 			<div v-if="flag==2" class="normaltxt" style="width: 4rem;text-align: center;margin: .4rem auto .8rem;">
-				本月最大连续签到打卡<span>{{monthObj.sportClockMax||0}}</span>天！
+				本月累计打卡<span>{{monthObj.sportClockSum||0}}</span>天！
 				继续加油哦～
 			</div>
 			<div v-else class="ub ub-ac sportfinish">
@@ -56,7 +56,7 @@
 						运动消耗
 					</div>
 					<div>
-						{{sportObj.burn||0}}<span>kcal</span>
+						{{(sportObj.burn/1000).toFixed(2)||0}}<span>kcal</span>
 					</div>
 				</div>
 			</div>
@@ -76,7 +76,7 @@
 					<img v-else-if="item.isFinish===0" class="iconselect" :src="require('@i/icon_unselect.png')" alt="">
 				</div>
 				<!-- 查看我的运动目标 -->
-				<div class="ub ub-ac ub-ad target">
+				<div class="ub ub-ac ub-ad target" @click="goTarget">
 					<div>查看我的运动目标
 						<van-icon size="10" name="arrow" />
 					</div>
@@ -84,7 +84,7 @@
 			</div>
 		</div>
 		<!-- 更新打卡 -->
-		<div class="updateclock" v-if="(flag==3||flag==4)&&(currentZero==sportObj.checkTime)">
+		<div class="updateclock" v-show="(isToday(sportObj.checkTime)&&(flag==3||flag==4))">
 			<div class="btn" @click="reClick">
 				更新打卡
 			</div>
@@ -97,7 +97,7 @@
 		</van-popup>
 		<!-- 打卡状态 -->
 		<van-popup round :style="{height: '6.1rem'}" v-model="clockShow">
-			<clockState :state="clockState"></clockState>
+			<clockState :state="clockState" :maxday="monthObj.sportClockSum"></clockState>
 		</van-popup>
 	</div>
 </template>
@@ -142,6 +142,7 @@
 				minDate: new Date(2021, 0, 1),
 				maxDate: new Date(),
 				currentDate: new Date(),
+				checkTime:new Date(new Date().toLocaleDateString()).getTime(),
 				currentZero: new Date(new Date().toLocaleDateString()).getTime(),
 				YMshow: false,
 				clockShow: false,
@@ -162,19 +163,13 @@
 		methods: {
 			getList() {
 				getDayData({
-					checkTime: this.currentZero
+					checkTime: this.checkTime
 				}).then(res => { //获取当天设备信息
 					if (res.code == "0") {
 						this.sportObj = Object.assign(this.sportObj, res.data);
-						// if (this.sportObj.isFinishDays == null) {
-						// 	if(this.sportObj.checkTime == null||this.sportObj.checkTime<this.currentZero){
-						// 		this.flag = 5;
-						// 		return;
-						// 	}
-						// 	this.flag = 1;
-						// 	return;
-						// }
 						this.flag = this.sportObj.isFinishDays == 1 ? 4 : 3;
+						this.$forceUpdate();
+						
 					} else if(res.code == "1") {
 						//打卡失败 相当于未打卡
 						this.flag = 1;
@@ -201,13 +196,19 @@
 			reClick() {
 				//更新打卡
 				updateSportData({}).then(res => {
+					if(res.code=='2'){
+						this.$toast('你还没有新的运动数据');
+						return;
+					}
 					this.getList()
-					this.$refs.calendar.calindarList()
+					this.$refs.calendar.calindarList();
+					this.$toast('更新打卡成功')
 					// this.calindarList()
 				})
 			},
 			clickBeforeDay(stamp){//点击了过去的某个时间
-				this.currentZero = stamp;
+				console.log(this.currentZero,stamp)
+				this.checkTime = stamp;
 				this.getList();
 			},
 			onClickLeft() {
@@ -219,11 +220,15 @@
 					path: '/clockoverview',
 				});
 			},
+			goTarget(){
+				//LSH5APP_GoToMyTarget
+				this.$interaction.appNative('LSH5APP_GoToMyTarget',{});
+			},
 			formatSeconds: timeUtil.formatSeconds,
 			fatherSetMonthObj(obj) {
 				this.$nextTick(()=>{
 					this.monthObj = Object.assign(this.monthObj, obj);
-					console.log(this.monthObj)
+					// console.log(this.monthObj)
 				})
 			},
 			fatherPickYearMonth() { //子组件调用打开时间选择
@@ -246,6 +251,9 @@
 				}
 				return val;
 			},
+			isToday(str){
+				return (new Date(str).toDateString() === new Date().toDateString());
+			}
 		}
 	};
 </script>
@@ -356,7 +364,7 @@
 			height: .88rem;
 			width: 6.7rem;
 			margin: 0 auto;
-			background: linear-gradient(to left, #ffaa88, #ff4e3e);
+			background: linear-gradient(to left, #FF4E3E, #FFAA88);
 			font-size: .4rem;
 			color: #fff;
 			line-height: .88rem;
