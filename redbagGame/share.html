@@ -297,7 +297,7 @@
 				    this.linkUrl = "https://a.app.qq.com/o/simple.jsp?pkgname=com.lstech.rehealth"
 				} else {//浏览器打开
 				    if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) { //判断iPhone|iPad|iPod|iOS
-				        this.linkUrl = "lsthealth://ropeSkippingRedPacket?url=/h5/h5V2/redbagGame/index.html"
+				        this.linkUrl = "lsthealth://ropeSkippingRedPacket?url=/h5/h5V3/redbagGame/index.html"
 				    } else if (/(Android)/i.test(navigator.userAgent)) { //判断Android
 				        this.linkUrl = "rehealth://ropeSkippingRedPacket"
 				    }
@@ -740,7 +740,7 @@
 					Interaction.sharePage({
 						title: '红包赛测试分享',
 						description: "红包赛测试分享描述",
-						url: "https://lsprod.laisitech.com/h5/h5V2/skipPK/competitionShare.html?id=4764&userId=10008515"
+						url: "https://lsprod.laisitech.com/h5/h5V3/skipPK/competitionShare.html?id=4764&userId=10008515"
 					})
 				},
 				OnclickLeft() {
@@ -783,7 +783,7 @@
 				},
 				gotoWallet() {
 					if (isAndroid) {
-						Interaction.pushToNextVC(host + "h5/h5V2/redbagGame/myrecord.html");
+						Interaction.pushToNextVC(host + "h5/h5V3/redbagGame/myrecord.html");
 					} else {
 						window.location.href = './myrecord.html'
 					}
