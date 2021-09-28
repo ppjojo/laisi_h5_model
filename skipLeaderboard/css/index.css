@@ -211,6 +211,7 @@ body {
 }
 
 .content-container {
+  margin-top: 0.1rem;
   overflow: hidden;
   border-radius: 0.24rem;
   position: relative;
@@ -319,6 +320,7 @@ body {
   width: 25%;
   font-size: .32rem;
   text-align: center;
+  color: #71717f;
 }
 
 .content-container .headerBox .tabDiv .selected {
@@ -361,6 +363,7 @@ body {
   line-height: 0.96rem;
   text-align: center;
   border-radius: 0.2rem;
+  color: #71717f;
 }
 
 .content-container .headerBox .tabDiv2 .selected {
@@ -431,7 +434,7 @@ body {
 }
 
 .content-container .listDiv .isself {
-  border-bottom: 0.2rem solid #12121f;
+  border-bottom: 0.16rem solid #12121f;
   margin: 0;
   padding: 0 0.24rem;
   border-top: 1px solid #12121f;

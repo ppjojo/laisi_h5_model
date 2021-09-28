@@ -298,9 +298,9 @@ $border_color:#1e1e2a;
 .groupIndex {
     .header {
         background-color: transparent !important;
-
         .van-nav-bar__title {
             color: #fff;
+            opacity: 0;
             font-size: 0.36rem;
         }
 

@@ -10,7 +10,11 @@
 	<link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
 	<link href="css/index.css" rel="stylesheet" type="text/css" />
 	<link rel="stylesheet" href="./font/iconfont.css">
-
+	<script src="https://cdn.bootcdn.net/ajax/libs/vConsole/3.8.1/vconsole.min.js"></script>
+	<script>
+		// init vConsole
+		var vConsole = new VConsole();
+	</script>
 
 </head>
 
@@ -82,7 +86,7 @@
 
 				<van-pull-refresh v-model="refreshing" :head-height="90" @refresh="onRefresh"
 					:class="userType=='steps'?'van-pull-refresh2':''"
-					style="height:calc(100vh - 5.5rem) ;overflow: auto;" class="monkey-pull-refresh">
+					style="min-height:calc(100vh - 5.5rem) ;overflow: auto;" class="monkey-pull-refresh">
 					<template #pulling="props">
 						<div class="monkeyBox">
 							<img class="monkey" src="../common/img/monkey.gif" />
@@ -272,8 +276,14 @@
 								})
 							} else {
 								res.data.forEach(item => {
-									item.value = "<span class='bigNumberSpan'>" + item
-										.value + "</span>" + "个";
+									if (item.value > 1000000) {
+										item.value = "<span class='bigNumberSpan'>" + (item
+										.value/10000).toFixed(2) + "</span>" + "万个";
+									} else{
+										item.value = "<span class='bigNumberSpan'>" + item
+										.value + "</span>" + "个";	
+									}
+									
 								})
 							}
 						} else if (this.userType == 'wristball') {
