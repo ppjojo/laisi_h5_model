@@ -348,8 +348,7 @@
 			//跳转课程详情
 			courseList(item) {
 				try {
-					Interaction.pushToNextVC(host +
-						`h5/h5V3/videoCourse/courseList.html?id=${item.bigClassId}&hideTitle=1`)
+					Interaction.pushToNextVC(host +`h5/h5V3/videoCourse/courseList.html?id=${item.bigClassId}&hideTitle=1`)
 				} catch (e) {
 					console.log(e)
 				}

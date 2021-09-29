@@ -292,6 +292,7 @@
             },
             getOrderToCreate() {
                 createTimes().then(res => {
+                    
                     if (res.data > 0) {
                         this.$router.push({
                             path: '/createCompetition',
@@ -299,8 +300,10 @@
                                 type: this.type
                             }
                         });
-                    } else {
+                    } else if(res.data==0){
                         this.$toast("您今天创建的次数已达上限，请明天再来吧");
+                    }else if(res.data==-1){
+                        this.$toast("您有正在参与的跑步pk赛，请完成后再来吧！");
                     }
                 })
 

@@ -35,6 +35,8 @@ let ajax = (config) => {
     let tokenInterval = setInterval(() => {
       if (localStorage.getItem("appInfo")) {
         console.log("gettoken success")
+        var appInfo = JSON.parse(localStorage.getItem("appInfo"));
+        config.data.userId = appInfo.userId
         resolve(config);
         clearInterval(tokenInterval);
       }
@@ -86,7 +88,7 @@ let ajaxResolve = (config) => {
         platform: appInfo.platform || "",
         appVersion: appInfo.appVersion || "",
         timeZone: appInfo.timeZone || "",
-        userId:appInfo.userId,
+        userId: appInfo.userId,
       }
       //unorderedHeaderObj = Object.assign(unorderedHeaderObj, config.data)
       const orderedHeaderObj = {};
@@ -98,13 +100,13 @@ let ajaxResolve = (config) => {
         xhr.setRequestHeader(key, orderedHeaderObj[key]);
         sign.push(key + "=" + orderedHeaderObj[key]);
       }
-      sign.push("APP_SECRET="+appInfo.appSecret)
-      sign=sign.join("&");
-      console.log(sign)
+      sign.push("APP_SECRET=" + appInfo.appSecret)
+      sign = sign.join("&");
+      // console.log(sign)
       xhr.setRequestHeader("LAISIH5", "LAISIH5");
       xhr.setRequestHeader("sign", md5(sign).toLocaleUpperCase());
-    }else{
-      xhr.setRequestHeader("timestamp",timestamp);
+    } else {
+      xhr.setRequestHeader("timestamp", timestamp);
       xhr.setRequestHeader("userId", config.data.userId);
     }
 

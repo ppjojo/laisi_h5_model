@@ -279,7 +279,7 @@
 
 				getGroupInfo({
 					groupId: this.groupId,
-					searchTime: this.$store.state.searchTime
+					searchTime: this.$store.state.searchTime||new Date().getTime()
 				}).then(res => {
 					this.groupItem = res.data.groupInfo;
 					this.memberIcon = res.data.memberIcon;
@@ -329,7 +329,7 @@
 				this.$interaction.sharePage({
 					title: this.groupItem.name,
 					description: this.groupItem.slogon,
-					url: defaultSettings.host + 'h5/h5V2/myGroup/#/groupIndex?id=' + this.groupId + '&isShare=1'
+					url: defaultSettings.host + 'h5/h5V3/myGroup/#/groupIndex?id=' + this.groupId + '&isShare=1'
 				})
 			},
 			goInto() {

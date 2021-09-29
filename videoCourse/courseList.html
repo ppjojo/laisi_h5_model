@@ -1,317 +1,346 @@
 <!DOCTYPE html>
 <html lang="zh-cmn-Hans">
 
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport"
-		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
-	<title>课程主页</title>
-	<!-- 引入样式文件 -->
-	<link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
-	<link rel="stylesheet" href="font/iconfont.css">
-	<link rel="stylesheet" href="css/index.css">
-	<script src="https://cdn.bootcdn.net/ajax/libs/vConsole/3.8.1/vconsole.min.js"></script>
-	<script>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport"
+			content="width=device-width, initial-scale=1.0, maximum-scale=1.0,
+			minimum-scale=1.0, viewport-fit=cover">
+		<title>课程主页</title>
+		<!-- 引入样式文件 -->
+		<link rel="stylesheet"
+			href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
+		<link rel="stylesheet" href="font/iconfont.css">
+		<link rel="stylesheet" href="css/index.css">
+		<script
+			src="https://cdn.bootcdn.net/ajax/libs/vConsole/3.8.1/vconsole.min.js"></script>
+		<script>
 		// init vConsole
 		var vConsole = new VConsole();
 	</script>
+	</head>
 
-
-</head>
-
-<body>
-	<div id="app" class="courseList" v-cloak>
-		<div class="header" v-if="isShare!=1">
-			<van-nav-bar @click-left="onclickLeft" :title="classDetail.className" left-arrow safe-area-inset-top fixed>
-				<template #left>
-					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
-				</template>
-				<template #right>
-					<div @click="downButton" style="margin-right: 0.4rem;">
-						<span class="icon iconfont icon-huancun" style="font-size: 0.54rem;" />
-					</div>
-					<div @click="goCollect()" style="margin-right: 0.4rem;">
-						<span class="icon iconfont icon-shoucangdongtai" v-if="classDetail.isNotCollect"
-							style="font-size: 0.4rem;"></span>
-						<span class="icon iconfont icon-shoucangxing2" v-else
-							style="font-size: 0.4rem;color:#FF4E3E;"></span>
-					</div>
-					<div @click="sharePage()">
-						<span class="icon iconfont icon-fenxianganniu" style="font-size: 0.4rem;" />
-					</div>
-				</template>
-			</van-nav-bar>
-		</div>
-		<div style="height:1rem" v-else></div>
-
-		<div>
-			<div class="topBox">
-				<div class="bg" :style="{'background-image': 'url('+classDetail.classCover+')'}">
-					<div class="opacity">
-						<div class="title">{{classDetail.className}}</div>
-						<div class="discript" @click="goCourseDetail(classDetail.bigClassId)">
-							{{classDetail.classDes}}</div>
-						<div class="classifyBox">
-							<div class="classifyDiv">
-								<div class="classifyItem">
-									{{classDetail.actionSize}}个{{classDetail.actionOrClass?'内容':'动作'}}</div>
-								<div class="classifyItem">不限训练频次</div>
-								<div class="classifyItem">{{classDetail.classKitName}}</div>
-							</div>
-							<div class="transPeopleCount">
-								{{classDetail.sumExercise>100000?(classDetail.sumExercise/100000).toFixed(2):classDetail.sumExercise}}人练过
-							</div>
-						</div>
-						<div class="information">
-							<van-row>
-								<van-col span="8">
-									<div class="need1">{{ Math.round(classDetail.classDuration/60)}}</div>
-									<div class="needTitle1">时长(分钟)</div>
-								</van-col>
-								<van-col span="8">
-									<div class="need2">{{Math.round(classDetail.calory)}}</div>
-									<div class="needTitle2">消耗(kcal)</div>
-								</van-col>
-								<van-col span="8">
-									<div class="needBox3">
-										<div class="need3">{{classDetail.classLevelName}}</div>
-										<div class="needTitle3">等级</div>
-									</div>
-								</van-col>
-							</van-row>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="tabBox">
-				<van-sticky>
-					<div class="tabTitle">
-						<div class="tabName " :class="tabSelected==1?'selected':''" @click="tabSelected=1">
-							{{classDetail.actionOrClass?'内容':'动作'}}<span>({{classDetail.actionSize||0}}个)</span></div>
-						<div class="tabName" :class="tabSelected==2?'selected':''"
-							@click="tabSelected=2;getCommentList()">评论
-							<span>({{classDetail.commendCount||0}}条)</span> </div>
-					</div>
-				</van-sticky>
-				<div class="tabContain">
-					<div v-if="tabSelected==1">
-						<div class=" listBox">
-							<div class="courseList">
-								<ul>
-									<li v-for="(item,index) in classDetail.smallClassList" class=""
-										@click="playVideo(item,index)">
-										<div class="chooseBox" @click.stop="chooseClass(item,index)"
-											v-if="downlaodStatus">
-											<img src="./img/unable.png" v-if="item.isDownload==-1" alt="">
-											<img src="./img/choose.png" v-else-if="item.isDownload==1" alt="">
-											<img src="./img/unchoose.png" v-else alt="">
-										</div>
-										<div class="rightBox">
-											<div class="itemImg"><img :src="item.classCover" alt=""></div>
-											<div class="itemDiscript">
-												<div class="smallTile">{{item.className}}</div>
-												<div class="need">
-													时长:{{secondsFormat(item.duration)}}
-												</div>
-											</div>
-										</div>
-									</li>
-								</ul>
-								<div class="info">全部内容都在这里了，快去锻炼吧！</div>
-								<div class="btn_box" v-if="!downlaodStatus">
-									<div class="btn" @click="playVideo(classDetail.smallClassList[0],0)">开始训练</div>
-								</div>
-								<div v-if="downlaodStatus" class="chooseDiv">
-									<div class="box" @click="chooseAll()">
-										<img src="./img/unable.png" v-if="isChooseAll==-1" alt="">
-										<img src="./img/choose.png" v-else-if="isChooseAll==1" alt="">
-										<img src="./img/unchoose.png" v-else alt="">
-										全选
-									</div>
-									<div class="box" @click="downAll">
-										下载
-									</div>
-								</div>
-
-							</div>
-						</div>
-					</div>
-					<div v-if="tabSelected==2">
-						<div class="commentBox">
-							<van-pull-refresh v-model="refreshing" @refresh="onRefresh">
-								<van-list v-model="loading" :finished="finished" finished-text="全部评论都在这里了，快去锻炼吧！"
-									@load="onLoad" :immediate-check=false>
-									<ul v-if="commmentList.length>0">
-										<li v-for="(item,index) in commmentList">
-											<div class="basicBox">
-												<div class="infoBox"
-													@click="Interaction.visitPersonalHomepage(item.dadUserId)">
-													<div class="userImg">
-														<img :src="item.dadCommendHeadPictureUrl" alt="">
-													</div>
-													<div class="detail">
-														<p class="nickname">
-															{{item.dadCommendNickName}}</p>
-														<p class="time">{{formatMsgTime(item.dadSendTime)}}</p>
-													</div>
-												</div>
-												<div class="likeBox " :class="item.likeStatus?'liked':''"
-													@click="goLikeComment(item)">
-													<span class="icon iconfont icon-dianzan-gaoliang"
-														style="font-size: 0.28rem;" />
-													{{item.dadCommendLikeCount}}
-												</div>
-											</div>
-											<div class="commentDiv">
-												<div class="comment" @click="getCommentDetail(item)">
-													{{item.dadContent}}
-													<span v-for="r in item.dadAtResultList"
-														@click.stop="Interaction.visitPersonalHomepage(r.atUserId)"
-														style="color:steelblue">@{{r.atNickName}}</span>
-												</div>
-												<div class="commentBck" v-if="item.dadBelongCommendCount>0">
-													<div v-for="ccitem in item.sonCommendResultList"
-														class="commentBckItem">
-
-														<span class="name">{{ccitem.sonSendAuthorName}} </span>
-														<span>回复</span>
-														<span class="name">{{ccitem.sonReplyAuthorName}} </span>
-														<span> : {{ccitem.sonContent}}</span>
-														<span v-for="r in ccitem.sonAtList"
-															style="color:steelblue">@{{r.atNickName}}</span>
-													</div>
-													<div class="more" @click="getCommentDetail(item)">
-														查看全部{{item.dadBelongCommendCount}}条回复>></div>
-												</div>
-											</div>
-										</li>
-									</ul>
-									<div class="noData-box" v-else>
-										<img class="noData-img" src="../common/img/noData.png" />
-										<p class="noData-p">还没有评论，快来抢沙发</p>
-									</div>
-								</van-list>
-							</van-pull-refresh>
-							<div class="sendBox" v-if="this.tabSelected==2">
-								<van-field v-model="comment_message" rows="1" @blur="initSendBox" type="textarea" autosize
-									maxlength="50" placeholder="说点什么">
-									<template #right-icon>
-										<span class="icon iconfont icon-a-shequ-" @click="noticeSomePeople"
-											style="font-size: 0.3rem;" />
-									</template>
-								</van-field>
-								<span class="icon iconfont icon-duihua-fasong" @click="submitCommentFirst"
-									style="font-size: 0.48rem;padding-left: 0.24rem;" />
-							</div>
-
-						</div>
-					</div>
-				</div>
-			</div>
-			
-			<van-popup v-model="moreCommentShow" round position="bottom" :style="{ height: '70%' }">
-				<div class="popupHeader">
-					<span class="icon iconfont icon-fanhuianniu" @click="moreCommentShow=false"
-						style="font-size: 0.48rem;"></span>
-					<div class="title">评论</div>
-					<div style="width: 0.48rem;"></div>
-				</div>
-				<div class="commentBox ">
-					<div class="mainComment">
-						<div>
-							<div class="basicBox">
-								<div class="infoBox"
-									@click="Interaction.visitPersonalHomepage(commentDetail.dadCommendResult.dadUserId)">
-									<div class="userImg">
-										<img :src="commentDetail.dadCommendResult.dadCommendHeadPictureUrl">
-									</div>
-									<div class="detail">
-										<p class="nickname">
-											{{commentDetail.dadCommendResult.dadCommendNickName}}</p>
-										<p class="time">
-											{{formatMsgTime(commentDetail.dadCommendResult.dadSendTime)}}</p>
-									</div>
-								</div>
-								<div class="likeBox " :class="commentDetail.dadCommendResult.likeStatus?'liked':''"
-									@click="goLikeComment(commentDetail.dadCommendResult)">
-									<span class="icon iconfont icon-dianzan-gaoliang" style="font-size: 0.28rem;" />
-									{{commentDetail.dadCommendResult.dadCommendLikeCount}}
-								</div>
-							</div>
-							<div class="commentDiv">
-								<div class="comment" @click="commentAction(commentDetail.dadCommendResult)">
-									{{commentDetail.dadCommendResult.dadContent}}
-									<span v-for="r in commentDetail.dadCommendResult.dadAtResultList"
-										@click="Interaction.visitPersonalHomepage(r.atUserId)"
-										style="color:steelblue">@{{r.atNickName}}</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="allCommentTitle">全部回复</div>
-					<div class="childComment" v-for="(item,index) in commentDetail.sonCommendResult">
-						<div class="basicBox">
-							<div class="infoBox" @click="Interaction.visitPersonalHomepage(item.sonSendAuthorId)">
-								<div class="userImg">
-									<img :src="item.sonSendHeadPictureUrl">
-								</div>
-								<div class="detail">
-									<p class="nickname">
-										{{item.sonSendAuthorName}}</p>
-									<p class="time">{{formatMsgTime(item.sonSendTime)}}</p>
-								</div>
-							</div>
-							<div class="likeBox" :class="item.likeStatus?'liked':''" @click="goLikeComment(item)">
-								<span class="icon iconfont icon-dianzan-gaoliang" style="font-size: 0.28rem;" />
-								{{item.sonLikeCount}}
-							</div>
-						</div>
-						<div class="commentDiv">
-							<div class="comment" @click="commentAction(item)">
-								<span>
-									回复{{item.sonReplyAuthorName}}:
-								</span>
-								{{item.sonContent}}
-								<span v-for="r in item.sonAtList"
-									@click.stop="Interaction.visitPersonalHomepage(r.atUserId)"
-									style="color:steelblue">@{{r.atNickName}}</span>
-							</div>
-						</div>
-					</div>
-					<div class="noData-box" v-if="commentDetail.sonCommendResult==0">
-						<img class="noData-img" src="../common/img/noData.png" />
-						<p class="noData-p">还没有回复，快来抢沙发</p>
-					</div>
-				</div>
-				<div class="sendBox" v-if="this.tabSelected==2">
-					<van-field v-model="comment_message" rows="1" @blur="initSendBox" type="textarea" autosize
-						maxlength="50" :placeholder="placeholder">
-						<template #right-icon>
-							<span class="icon iconfont icon-a-shequ-" @click="noticeSomePeople"
-								style="font-size: 0.3rem;" />
+	<body>
+		<div id="app" class="courseList" v-cloak>
+			<div class="header" v-if="isShare!=1">
+				<van-nav-bar @click-left="onclickLeft" :title="classDetail.className"
+					left-arrow safe-area-inset-top fixed>
+					<template #left>
+						<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
 						</template>
-					</van-field>
-					<span class="icon iconfont icon-duihua-fasong" @click="submitCommentFirst"
-						style="font-size: 0.48rem;padding-left: 0.24rem;" />
-				</div>
+						<template #right>
+							<div @click="downButton" style="margin-right: 0.4rem;">
+								<span class="icon iconfont icon-huancun" style="font-size: 0.54rem;" />
+								</div>
+								<div @click="goCollect()" style="margin-right: 0.4rem;">
+									<span class="icon iconfont icon-shoucangdongtai"
+										v-if="classDetail.isNotCollect"
+										style="font-size: 0.4rem;"></span>
+									<span class="icon iconfont icon-shoucangxing2" v-else
+										style="font-size: 0.4rem;color:#FF4E3E;"></span>
+								</div>
+								<div @click="sharePage()">
+									<span class="icon iconfont icon-fenxianganniu" style="font-size:
+										0.4rem;" />
+									</div>
+								</template>
+							</van-nav-bar>
+						</div>
+						<div style="height:1rem" v-else></div>
 
-			</van-popup>
+						<div>
+							<div class="topBox">
+								<div class="bg" :style="{'background-image':
+									'url('+classDetail.classCover+')'}">
+									<div class="opacity">
+										<div class="title">{{classDetail.className}}</div>
+										<div class="discript" @click="goCourseDetail(classDetail.bigClassId)">
+											{{classDetail.classDes}}</div>
+										<div class="classifyBox">
+											<div class="classifyDiv">
+												<div class="classifyItem">
+													{{classDetail.actionSize}}个{{classDetail.actionOrClass?'内容':'动作'}}</div>
+												<div class="classifyItem">不限训练频次</div>
+												<div class="classifyItem">{{classDetail.classKitName}}</div>
+											</div>
+											<div class="transPeopleCount">
+												{{classDetail.sumExercise>100000?(classDetail.sumExercise/100000).toFixed(2):classDetail.sumExercise}}人练过
+											</div>
+										</div>
+										<div class="information">
+											<van-row>
+												<van-col span="8">
+													<div class="need1">{{ Math.round(classDetail.classDuration/60)}}</div>
+													<div class="needTitle1">时长(分钟)</div>
+												</van-col>
+												<van-col span="8">
+													<div class="need2">{{Math.round(classDetail.calory)}}</div>
+													<div class="needTitle2">消耗(kcal)</div>
+												</van-col>
+												<van-col span="8">
+													<div class="needBox3">
+														<div class="need3">{{classDetail.classLevelName}}</div>
+														<div class="needTitle3">等级</div>
+													</div>
+												</van-col>
+											</van-row>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="tabBox">
+								<van-sticky>
+									<div class="tabTitle">
+										<div class="tabName":class="tabSelected==1?'selected':''"
+											@click="tabSelected=1">
+											{{classDetail.actionOrClass?'内容':'动作'}}<span>({{classDetail.actionSize||0}}个)</span></div>
+										<div class="tabName" :class="tabSelected==2?'selected':''"
+											@click="tabSelected=2;getCommentList()">评论
+											<span>({{classDetail.commendCount||0}}条)</span> </div>
+									</div>
+								</van-sticky>
+								<div class="tabContain">
+									<div v-if="tabSelected==1">
+										<div class="listBox">
+											<div class="courseList">
+												<ul>
+													<li v-for="(item,index) in classDetail.smallClassList" class=""
+														@click="playVideo(item,index)">
+														<div class="chooseBox" @click.stop="chooseClass(item,index)"
+															v-if="downlaodStatus">
+															<img src="./img/unable.png" v-if="item.isDownload==-1" alt="">
+															<img src="./img/choose.png" v-else-if="item.isDownload==1"
+																alt="">
+															<img src="./img/unchoose.png" v-else alt="">
+														</div>
+														<div class="rightBox">
+															<div class="itemImg"><img :src="item.classCover" alt=""></div>
+															<div class="itemDiscript">
+																<div class="smallTile">{{item.className}}</div>
+																<div class="need">
+																	时长:{{secondsFormat(item.duration)}}
+																</div>
+															</div>
+														</div>
+													</li>
+												</ul>
+												<div class="info">全部内容都在这里了，快去锻炼吧！</div>
+												<div class="btn_box" v-if="!downlaodStatus">
+													<div class="btn"
+														@click="playVideo(classDetail.smallClassList[0],0)">开始训练</div>
+												</div>
+												<div v-if="downlaodStatus" class="chooseDiv">
+													<div class="box" @click="chooseAll()">
+														<img src="./img/unable.png" v-if="isChooseAll==-1" alt="">
+														<img src="./img/choose.png" v-else-if="isChooseAll==1" alt="">
+														<img src="./img/unchoose.png" v-else alt="">
+														全选
+													</div>
+													<div class="box" @click="downAll">
+														下载
+													</div>
+												</div>
 
-			<van-popup v-model="friendListShow" round position="right" :style="{ height: '100%' ,width:'100%'}">
-				<iframe src="./friendList.html" width="100%" height="100%" frameborder="0"></iframe>
-			</van-popup>
+											</div>
+										</div>
+									</div>
+									<div v-if="tabSelected==2">
+										<div class="commentBox">
+											<van-pull-refresh v-model="refreshing" @refresh="onRefresh">
+												<van-list v-model="loading" :finished="finished"
+													finished-text="全部评论都在这里了，快去锻炼吧！"
+													@load="onLoad" :immediate-check=false>
+													<ul v-if="commmentList.length>0">
+														<li v-for="(item,index) in commmentList">
+															<div class="basicBox">
+																<div class="infoBox"
+																	@click="Interaction.visitPersonalHomepage(item.dadUserId)">
+																	<div class="userImg">
+																		<img :src="item.dadCommendHeadPictureUrl" alt="">
+																	</div>
+																	<div class="detail">
+																		<p class="nickname">
+																			{{item.dadCommendNickName}}</p>
+																		<p class="time">{{formatMsgTime(item.dadSendTime)}}</p>
+																	</div>
+																</div>
+																<div class="likeBox":class="item.likeStatus?'liked':''"
+																	@click="goLikeComment(item)">
+																	<span class="icon iconfont icon-dianzan-gaoliang"
+																		style="font-size: 0.28rem;" />
+																		{{item.dadCommendLikeCount}}
+																	</div>
+																</div>
+																<div class="commentDiv">
+																	<div class="comment" @click="getCommentDetail(item)">
+																		{{item.dadContent}}
+																		<span v-for="r in item.dadAtResultList"
+																			@click.stop="Interaction.visitPersonalHomepage(r.atUserId)"
+																			style="color:steelblue">@{{r.atNickName}}</span>
+																	</div>
+																	<div class="commentBck" v-if="item.dadBelongCommendCount>0">
+																		<div v-for="ccitem in item.sonCommendResultList"
+																			class="commentBckItem">
 
-			<van-action-sheet v-model="actionSheetShow" @select="actionSheetSelect" :actions="actions" cancel-text="取消"
-				close-on-click-action @cancel="actionSheetCancel" />
-		</div>
+																			<span class="name">{{ccitem.sonSendAuthorName}} </span>
+																			<span>回复</span>
+																			<span class="name">{{ccitem.sonReplyAuthorName}} </span>
+																			<span> : {{ccitem.sonContent}}</span>
+																			<span v-for="r in ccitem.sonAtList"
+																				style="color:steelblue">@{{r.atNickName}}</span>
+																		</div>
+																		<div class="more" @click="getCommentDetail(item)">
+																			查看全部{{item.dadBelongCommendCount}}条回复>></div>
+																	</div>
+																</div>
+															</li>
+														</ul>
+														<div class="noData-box" v-else>
+															<img class="noData-img" src="../common/img/noData.png" />
+															<p class="noData-p">还没有评论，快来抢沙发</p>
+														</div>
+													</van-list>
+												</van-pull-refresh>
+												<div class="sendBox" v-if="this.tabSelected==2">
+													<van-field v-model="comment_message" rows="1" @blur="initSendBox"
+														type="textarea" autosize
+														maxlength="50" placeholder="说点什么">
+														<template #right-icon>
+															<span class="icon iconfont icon-a-shequ-"
+																@click="noticeSomePeople"
+																style="font-size: 0.3rem;" />
+															</template>
+														</van-field>
+														<span class="icon iconfont icon-duihua-fasong"
+															@click="submitCommentFirst"
+															style="font-size: 0.48rem;padding-left: 0.24rem;" />
+														</div>
 
-	</div>
-</body>
-<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
-<script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
-<script src="../common/js/network.js"></script>
-<script src="js/videoCourse.js"></script>
-<script>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<van-popup v-model="moreCommentShow" round position="bottom" :style="{
+											height: '70%' }">
+											<div class="popupHeader">
+												<span class="icon iconfont icon-fanhuianniu"
+													@click="moreCommentShow=false"
+													style="font-size: 0.48rem;"></span>
+												<div class="title">评论</div>
+												<div style="width: 0.48rem;"></div>
+											</div>
+											<div class="commentBox">
+												<div class="mainComment">
+													<div>
+														<div class="basicBox">
+															<div class="infoBox"
+																@click="Interaction.visitPersonalHomepage(commentDetail.dadCommendResult.dadUserId)">
+																<div class="userImg">
+																	<img
+																		:src="commentDetail.dadCommendResult.dadCommendHeadPictureUrl">
+																</div>
+																<div class="detail">
+																	<p class="nickname">
+																		{{commentDetail.dadCommendResult.dadCommendNickName}}</p>
+																	<p class="time">
+																		{{formatMsgTime(commentDetail.dadCommendResult.dadSendTime)}}</p>
+																</div>
+															</div>
+															<div class="likeBox":class="commentDetail.dadCommendResult.likeStatus?'liked':''"
+																@click="goLikeComment(commentDetail.dadCommendResult)">
+																<span class="icon iconfont icon-dianzan-gaoliang"
+																	style="font-size: 0.28rem;" />
+																	{{commentDetail.dadCommendResult.dadCommendLikeCount}}
+																</div>
+															</div>
+															<div class="commentDiv">
+																<div class="comment"
+																	@click="commentAction(commentDetail.dadCommendResult)">
+																	{{commentDetail.dadCommendResult.dadContent}}
+																	<span v-for="r in
+																		commentDetail.dadCommendResult.dadAtResultList"
+																		@click="Interaction.visitPersonalHomepage(r.atUserId)"
+																		style="color:steelblue">@{{r.atNickName}}</span>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="allCommentTitle">全部回复</div>
+													<div class="childComment" v-for="(item,index) in
+														commentDetail.sonCommendResult">
+														<div class="basicBox">
+															<div class="infoBox"
+																@click="Interaction.visitPersonalHomepage(item.sonSendAuthorId)">
+																<div class="userImg">
+																	<img :src="item.sonSendHeadPictureUrl">
+																</div>
+																<div class="detail">
+																	<p class="nickname">
+																		{{item.sonSendAuthorName}}</p>
+																	<p class="time">{{formatMsgTime(item.sonSendTime)}}</p>
+																</div>
+															</div>
+															<div class="likeBox" :class="item.likeStatus?'liked':''"
+																@click="goLikeComment(item)">
+																<span class="icon iconfont icon-dianzan-gaoliang"
+																	style="font-size: 0.28rem;" />
+																	{{item.sonLikeCount}}
+																</div>
+															</div>
+															<div class="commentDiv">
+																<div class="comment" @click="commentAction(item)">
+																	<span>
+																		回复{{item.sonReplyAuthorName}}:
+																	</span>
+																	{{item.sonContent}}
+																	<span v-for="r in item.sonAtList"
+																		@click.stop="Interaction.visitPersonalHomepage(r.atUserId)"
+																		style="color:steelblue">@{{r.atNickName}}</span>
+																</div>
+															</div>
+														</div>
+														<div class="noData-box" v-if="commentDetail.sonCommendResult==0">
+															<img class="noData-img" src="../common/img/noData.png" />
+															<p class="noData-p">还没有回复，快来抢沙发</p>
+														</div>
+													</div>
+													<div class="sendBox" v-if="this.tabSelected==2">
+														<van-field v-model="comment_message" rows="1" @blur="initSendBox"
+															type="textarea" autosize
+															maxlength="50" :placeholder="placeholder">
+															<template #right-icon>
+																<span class="icon iconfont icon-a-shequ-"
+																	@click="noticeSomePeople"
+																	style="font-size: 0.3rem;" />
+																</template>
+															</van-field>
+															<span class="icon iconfont icon-duihua-fasong"
+																@click="submitCommentFirst"
+																style="font-size: 0.48rem;padding-left: 0.24rem;" />
+															</div>
+
+														</van-popup>
+
+														<van-popup v-model="friendListShow" round position="right"
+															:style="{ height: '100%' ,width:'100%'}">
+															<iframe src="./friendList.html" width="100%" height="100%"
+																frameborder="0"></iframe>
+														</van-popup>
+
+														<van-action-sheet v-model="actionSheetShow"
+															@select="actionSheetSelect" :actions="actions" cancel-text="取消"
+															close-on-click-action @cancel="actionSheetCancel" />
+														</div>
+
+													</div>
+												</body>
+												<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+												<script
+													src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
+												<script src="../common/js/network.js"></script>
+												<script src="js/videoCourse.js"></script>
+												<script>
 	var vm = null
 	new Vue({
 		el: '#app',
@@ -901,13 +930,7 @@
 					return
 				}
 
-				this.$dialog.alert({
-					message: '已加入下载列表，缓存完成的视频请至”我的-我的课程-右上角我的缓存”目录查看',
-					confirmButtonText: "知道了"
-				}).then(() => {
-
-
-					if (isIOS) {
+				if (isIOS) {
 						window.webkit.messageHandlers.lstNative.postMessage({
 							method: "LSTH5APP_downloadCourseList",
 							bigClass: this.classDetail,
@@ -923,8 +946,6 @@
 					this.downlaodStatus = false;
 					this.isChooseAll = 0;
 					this.classArray = [];
-
-				});
 			}
 		}
 	})
