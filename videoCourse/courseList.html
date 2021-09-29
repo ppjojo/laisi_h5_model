@@ -91,7 +91,7 @@
 							<div class="tabBox">
 								<van-sticky>
 									<div class="tabTitle">
-										<div class="tabName":class="tabSelected==1?'selected':''"
+										<div class="tabName" :class="tabSelected==1?'selected':''"
 											@click="tabSelected=1">
 											{{classDetail.actionOrClass?'内容':'动作'}}<span>({{classDetail.actionSize||0}}个)</span></div>
 										<div class="tabName" :class="tabSelected==2?'selected':''"
@@ -164,7 +164,7 @@
 																		<p class="time">{{formatMsgTime(item.dadSendTime)}}</p>
 																	</div>
 																</div>
-																<div class="likeBox":class="item.likeStatus?'liked':''"
+																<div class="likeBox" :class="item.likeStatus?'liked':''"
 																	@click="goLikeComment(item)">
 																	<span class="icon iconfont icon-dianzan-gaoliang"
 																		style="font-size: 0.28rem;" />
@@ -247,7 +247,8 @@
 																		{{formatMsgTime(commentDetail.dadCommendResult.dadSendTime)}}</p>
 																</div>
 															</div>
-															<div class="likeBox":class="commentDetail.dadCommendResult.likeStatus?'liked':''"
+															<div class="likeBox"
+																:class="commentDetail.dadCommendResult.likeStatus?'liked':''"
 																@click="goLikeComment(commentDetail.dadCommendResult)">
 																<span class="icon iconfont icon-dianzan-gaoliang"
 																	style="font-size: 0.28rem;" />
