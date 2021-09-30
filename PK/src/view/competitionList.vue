@@ -299,12 +299,6 @@ export default {
     },
     getOrderToCreate() {
       createTimes().then((res) => {
-        this.$router.push({
-          path: "/createCompetition",
-          query: {
-            type: this.type,
-          },
-        });
         if (res.data > 0) {
           this.$router.push({
             path: "/createCompetition",
