@@ -32,7 +32,7 @@
 		<div class="main-container">
 			<div class="threeDiv">
 				<div class="no1">
-					<div class="noDiv">
+					<div class="noDiv" @click="Interaction.visitPersonalHomepage(listData[1].userId)">
 						<div class="headerPic"></div>
 						<img v-if="listData.length>1" :src="listData[1].headerPicUrl" alt="">
 					</div>
@@ -40,7 +40,7 @@
 					<p class="num" v-if="listData.length>1" v-html="listData[1].value"></p>
 				</div>
 				<div class="no2">
-					<div class="noDiv">
+					<div class="noDiv" @click="Interaction.visitPersonalHomepage(listData[2].userId)">
 						<div class="headerPic"></div>
 						<img v-if="listData.length>2" :src="listData[2].headerPicUrl" alt="">
 					</div>
@@ -49,7 +49,7 @@
 
 				</div>
 				<div class="no3">
-					<div class="noDiv">
+					<div class="noDiv" @click="Interaction.visitPersonalHomepage(listData[3].userId)">
 						<div class="headerPic"></div>
 						<img v-if="listData.length>3" :src="listData[3].headerPicUrl" alt="">
 					</div>
