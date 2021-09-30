@@ -3,6 +3,9 @@
 		<div class="header" v-show="!sheetImageStatus&&isShare!=1">
 			<van-nav-bar title="打卡总览" @click-left="onClickLeft" @click-right="onClickRight" left-arrow
 				safe-area-inset-top fixed>
+				<template #left>
+					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
+				</template>
 				<template #right>
 					<img style="width: .48rem;" :src="require('@i/navshare.png')" alt="">
 				</template>
@@ -120,7 +123,8 @@
 				yearObj: {},
 				rate: [0, 0], //index0月1年
 				yearDetail: {},
-				nickname:localStorage.getItem("appInfo")?JSON.parse(localStorage.getItem("appInfo")).nickname:''
+				nickname:localStorage.getItem("appInfo")?JSON.parse(localStorage.getItem("appInfo")).nickname:'',
+				userId:localStorage.getItem("appInfo")?JSON.parse(localStorage.getItem("appInfo")).userId:''
 			};
 		},
 		filters: {},
@@ -216,7 +220,7 @@
 					shareTitle: "运动日历打卡",
 					isShareUrl:false,
 					shareContent: "",
-					shareUrl: "sportsClock/#/clockoverview.html?isShare=1&tabIndex="+this.tabIndex+'&userId='+JSON.parse(localStorage.getItem("appInfo")).userId,
+					shareUrl: "sportsClock/#/clockoverview.html?isShare=1&tabIndex="+this.tabIndex+'&userId='+this.userId,
 				})
 			},
 			sheetImageHideHeader() {

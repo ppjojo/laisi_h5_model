@@ -109,8 +109,11 @@
 	#calendarBox {
 		.dateTitle {
 			padding: .4rem .48rem 0.4rem .48rem;
-			color: #595962;
+			color: #cfcfd2;
 			font-size: .48rem;
+			.van-icon{
+				color:#71717f;
+			}
 		}
 
 		.dateList {
