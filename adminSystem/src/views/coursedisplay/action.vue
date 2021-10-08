@@ -16,8 +16,7 @@
     <div class="container-edit">
       <el-button type="primary" size="mini" @click="btn_add()">添加视频</el-button>
     </div>
-    <el-table v-loading="loading" :data="list" element-loading-text="Loading" border fit highlight-current-row
-      size="small ">
+    <el-table v-loading="loading" :data="list" element-loading-text="Loading" border fit highlight-current-row size="small ">
       <el-table-column align="center" prop="className" label="视频名称"></el-table-column>
       <el-table-column align="center" prop="pictureUrl" label="视频封面">
         <template scope="scope">
@@ -26,7 +25,7 @@
       </el-table-column>
       <el-table-column align="center" label="视频类型">
         <template scope="scope">
-          {{scope.row.actionSmallClass==0?'动作':'内容'}}
+          {{scope.row.actionSmallClass==1?'动作':'内容'}}
         </template>
       </el-table-column>
 
@@ -54,7 +53,6 @@
     <!--新增和编辑界面-->
     <el-dialog :title="dialogTitle" :visible.sync="dialogVisible" width="50%">
 
-
       <el-form :model="form" label-width="100px" :rules="rules" ref="form">
         <el-form-item label="视频地址" prop="classVod">
           <el-input v-model="form.classVod" @change="classVodChange"></el-input>
@@ -76,19 +74,18 @@
 
         <el-form-item label="视频类型" prop="bigAttributeId">
           <el-radio-group v-model="form.actionSmallClass">
-            <el-radio class="radio" :label="0">动作</el-radio>
-            <el-radio class="radio" :label="1">内容</el-radio>
+            <el-radio class="radio" :label="1">动作</el-radio>
+            <el-radio class="radio" :label="0">内容</el-radio>
           </el-radio-group>
         </el-form-item>
 
-        <el-form-item v-if="form.actionSmallClass==0" label="训练次数" prop="actionNum">
+        <el-form-item v-if="form.actionSmallClass==1" label="训练次数" prop="actionNum">
           <el-input v-model.number="form.actionNum"></el-input>
         </el-form-item>
 
         <el-form-item label="所属课程选择">
           <el-select v-model="form.bigClassId" placeholder="" filterable clearable>
-            <el-option v-for="item in courseList" :key="item.bigClassId" :label="item.className"
-              :value="item.bigClassId">
+            <el-option v-for="item in courseList" :key="item.bigClassId" :label="item.className" :value="item.bigClassId">
             </el-option>
           </el-select>
         </el-form-item>
@@ -96,38 +93,31 @@
         <el-form-item label="视频归属">
           <el-select v-model="form.actionBelong" placeholder="" clearable>
             <el-option :key="0" label="训练" :value="0"></el-option>
-             <el-option :key="1" label="热身" :value="1"></el-option>
-              <el-option :key="2" label="拉伸" :value="2"></el-option>
+            <el-option :key="1" label="热身" :value="1"></el-option>
+            <el-option :key="2" label="拉伸" :value="2"></el-option>
           </el-select>
         </el-form-item>
-
-        
 
         <el-form-item label="时长" prop="duration">
           <el-input v-model.number="form.duration"></el-input>
         </el-form-item>
-
 
         <el-form-item label="视频大小" prop="classSize">
           <el-input v-model.trim="form.classSize">
           </el-input>
         </el-form-item>
 
-
-         <el-form-item label="休息时长" prop="stopDuration">
+        <el-form-item label="休息时长" prop="stopDuration">
           <el-input v-model.trim="form.stopDuration">
           </el-input>
         </el-form-item>
-        
+
         <el-form-item label="动作排序" prop="smallClassDay">
           <el-input v-model.trim="form.smallClassDay">
           </el-input>
         </el-form-item>
-        
-        
 
       </el-form>
-
 
       <div slot="footer" class="dialog-footer">
         <el-button size="mini" @click="dialogVisible = false">取 消</el-button>
@@ -142,258 +132,273 @@
 </template>
 
 <script>
-  import {
-    allAction,
-    updateAction,
-    addAction,
-    allCourse
-  } from '@/api/coursedisplay/coursedisplay'
-  import {
-    getPlayAuth
-  } from '@/api/videoCourse/course'
-  import {
-    checkPermission
-  } from '@/api/checkPermission'
-  import {
-    formatDate
-  } from '@/utils/date'
-  import {
-    fileUpload
-  } from '@/utils/fileUpload'
-  export default {
-    filters: {
-      formatDate(time) {
-        let date = new Date(time)
-        return formatDate(date, 'yyyy-MM-dd hh:mm')
-      }
+import {
+  allAction,
+  updateAction,
+  addAction,
+  allCourse,
+} from "@/api/coursedisplay/coursedisplay";
+import { getPlayAuth } from "@/api/videoCourse/course";
+import { checkPermission } from "@/api/checkPermission";
+import { formatDate } from "@/utils/date";
+import { fileUpload } from "@/utils/fileUpload";
+export default {
+  filters: {
+    formatDate(time) {
+      let date = new Date(time);
+      return formatDate(date, "yyyy-MM-dd hh:mm");
     },
-    computed: {
-      checkPer() {
-        return function (btn) {
-          return (checkPermission(this.$route.path + '/' + btn))
-        }
-      }
+  },
+  computed: {
+    checkPer() {
+      return function (btn) {
+        return checkPermission(this.$route.path + "/" + btn);
+      };
     },
-    data() {
-      return {
-        list: [],
-        loading: false,
-        courseList: [],
-        form: {},
-        searchForm: {
-          className: "",
-          duration: null,
-        },
-        dialogTitle: "",
-        dialogVisible: false,
-        playShow: false,
-        rules: {
-          classCover: [{
+  },
+  data() {
+    return {
+      list: [],
+      loading: false,
+      courseList: [],
+      form: {},
+      searchForm: {
+        className: "",
+        duration: null,
+      },
+      dialogTitle: "",
+      dialogVisible: false,
+      playShow: false,
+      rules: {
+        classCover: [
+          {
             required: true,
-            message: '请上传图片',
-            trigger: 'blur,change'
-          }, ],
-          classVod: [{
+            message: "请上传图片",
+            trigger: "blur,change",
+          },
+        ],
+        classVod: [
+          {
             required: true,
-            message: '请上传地址',
-            trigger: 'blur,change'
-          }, ],
-          className: [{
+            message: "请上传地址",
+            trigger: "blur,change",
+          },
+        ],
+        className: [
+          {
             required: true,
-            message: '请输入动作名称',
-            trigger: 'blur,change'
-          }, ],
-          bigClassId: [{
+            message: "请输入动作名称",
+            trigger: "blur,change",
+          },
+        ],
+        bigClassId: [
+          {
             required: true,
-            message: '请选择关联课程',
-            trigger: 'blur,change'
-          }, ],
-          actionBelong: [{
+            message: "请选择关联课程",
+            trigger: "blur,change",
+          },
+        ],
+        actionBelong: [
+          {
             required: true,
-            message: '请选择动作归属',
-            trigger: 'blur,change'
-          }, ],
-          duration: [{
+            message: "请选择动作归属",
+            trigger: "blur,change",
+          },
+        ],
+        duration: [
+          {
             required: true,
-            message: '请填写时长',
-            trigger: 'blur,change'
-          }, {
+            message: "请填写时长",
+            trigger: "blur,change",
+          },
+          {
             pattern: /^\+?[0-9]\d*$/,
             message: "请输入大于等于0的正整数",
-            trigger: "blur"
-          }, ],
-        },
-      }
-    },
-    mounted() {
-      this.getList();
-      allCourse({}).then(res => {
-        this.courseList = res.data;
-      })
-    },
-    methods: {
-      getList() {
-        allAction(this.searchForm).then(res => {
-          this.list = res.data;
-          this.loading = false
-        })
+            trigger: "blur",
+          },
+        ],
       },
-      //保存
-      submitForm(formName) {
-        this.$refs[formName].validate((valid) => {
-          if (valid) {
-            this.dialogVisible = false
-            if (this.dialogTitle == "新增") {
-              addAction(this.form).then(response => {
-                this.getList()
-                this.$notify({
-                  type: 'success',
-                  message: '成功新增'
-                });
-              })
-            } else {
-              updateAction(this.form).then(response => {
-                this.getList()
-                this.$notify({
-                  type: 'success',
-                  message: '成功修改'
-                });
-              })
-            }
+    };
+  },
+  mounted() {
+    this.getList();
+    allCourse({}).then((res) => {
+      this.courseList = res.data;
+    });
+  },
+  methods: {
+    getList() {
+      allAction(this.searchForm).then((res) => {
+        this.list = res.data;
+        this.loading = false;
+      });
+    },
+    //保存
+    submitForm(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.dialogVisible = false;
+          if (this.dialogTitle == "新增") {
+            addAction(this.form).then((response) => {
+              this.getList();
+              this.$notify({
+                type: "success",
+                message: "成功新增",
+              });
+            });
           } else {
-            console.log('error submit!!');
-            return false;
+            updateAction(this.form).then((response) => {
+              this.getList();
+              this.$notify({
+                type: "success",
+                message: "成功修改",
+              });
+            });
           }
-        });
-      },
-      btn_add() {
-        this.dialogVisible = true;
-        this.dialogTitle = "新增";
-        this.form = {
-          className: "",
-          classCover: null,
-          actionBelong: null, //图片url
-          classVod: "",
-          bigClassId: null,
-          duration: null,
-          smallClassDay: null,
-          classPart: [],
-          classLabel: [],
+        } else {
+          console.log("error submit!!");
+          return false;
         }
-      },
-      btn_edit(row) {
-        this.dialogVisible = true;
-        this.dialogTitle = "编辑"
-        this.form = Object.assign({}, row)
-      },
-      requestFile(param) { //
-        var fileForm = new FormData()
-        fileForm.append('file', param.file)
-        fileUpload(fileForm).then(res => {
+      });
+    },
+    btn_add() {
+      this.dialogVisible = true;
+      this.dialogTitle = "新增";
+      this.form = {
+        className: "",
+        classCover: null,
+        actionBelong: null, //图片url
+        classVod: "",
+        bigClassId: null,
+        duration: null,
+        smallClassDay: null,
+        classPart: [],
+        classLabel: [],
+      };
+    },
+    btn_edit(row) {
+      this.dialogVisible = true;
+      this.dialogTitle = "编辑";
+      this.form = Object.assign({}, row);
+    },
+    requestFile(param) {
+      //
+      var fileForm = new FormData();
+      fileForm.append("file", param.file);
+      fileUpload(fileForm).then((res) => {
+        if (res.code == 0) {
+          this.form.classCover = res.data.url;
+        }
+      });
+    },
+    requestFile2(param) {
+      //
+      var fileForm = new FormData();
+      fileForm.append("file", param.file);
+      fileUpload(fileForm).then((res) => {
+        if (res.code == 0) {
+          this.form.classVod = res.data.url;
+        }
+      });
+    },
+    //视频id添加进来需要去获取视频图片
+    classVodChange(str) {
+      getPlayAuth({
+        videoId: str,
+      })
+        .then((res) => {
           if (res.code == 0) {
-            this.form.classCover = res.data.url;
-          }
-        })
-      },
-      requestFile2(param) { //
-        var fileForm = new FormData()
-        fileForm.append('file', param.file)
-        fileUpload(fileForm).then(res => {
-          if (res.code == 0) {
-            this.form.classVod = res.data.url;
-          }
-        })
-      },
-      //视频id添加进来需要去获取视频图片
-      classVodChange(str) {
-        getPlayAuth({
-          videoId: str
-        }).then(res => {
-          if (res.code == 0) {
-            this.$set(this.form, 'classCover', res.data.videoMeta.coverURL)
-            this.$set(this.form, 'duration', Math.round(res.data.videoMeta.duration))
-            this.$set(this.form, 'className', res.data.videoMeta.title.split('.')[0])
-            this.$set(this.form, 'classSize', res.data.videoMeta.classSize)
+            this.$set(this.form, "classCover", res.data.videoMeta.coverURL);
+            this.$set(
+              this.form,
+              "duration",
+              Math.round(res.data.videoMeta.duration)
+            );
+            this.$set(
+              this.form,
+              "className",
+              res.data.videoMeta.title.split(".")[0]
+            );
+            this.$set(this.form, "classSize", res.data.videoMeta.classSize);
           } else {
             this.$message({
               showClose: true,
-              message: '视频ID不正确',
-              type: 'error'
+              message: "视频ID不正确",
+              type: "error",
             });
           }
-
-        }).catch(e=>{
-          this.$message({
-              showClose: true,
-              message: '视频ID不正确',
-              type: 'error'
-            });
         })
-      },
-      //获取视频播放凭证
-      goPlayer() {
-        this.playShow = true
-        getPlayAuth({
-          videoId: this.form.classVod,
-        }).then(res => {
-          if (res.code == 0) {
-            this.playShow = true
-            this.player = new Aliplayer({
-              id: 'J_prismPlayer',
-              width: '100%',
+        .catch((e) => {
+          this.$message({
+            showClose: true,
+            message: "视频ID不正确",
+            type: "error",
+          });
+        });
+    },
+    //获取视频播放凭证
+    goPlayer() {
+      this.playShow = true;
+      getPlayAuth({
+        videoId: this.form.classVod,
+      }).then((res) => {
+        if (res.code == 0) {
+          this.playShow = true;
+          this.player = new Aliplayer(
+            {
+              id: "J_prismPlayer",
+              width: "100%",
               autoplay: true,
               vid: this.form.classVod,
               playauth: res.data.playAuth,
               cover: res.data.videoMeta.coverURL,
               encryptType: 1,
-            }, function (player) {
-              console.log('播放器创建好了。')
-            });
-          } else {
-            this.$message({
-              showClose: true,
-              message: res.msg,
-              type: 'error'
-            });
-          }
-
-        })
-
-      },
-      //视频关闭
-      closeDialog() {
-        this.player.dispose()
-      },
-    }
-  }
-
+            },
+            function (player) {
+              console.log("播放器创建好了。");
+            }
+          );
+        } else {
+          this.$message({
+            showClose: true,
+            message: res.msg,
+            type: "error",
+          });
+        }
+      });
+    },
+    //视频关闭
+    closeDialog() {
+      this.player.dispose();
+    },
+  },
+};
 </script>
 <style type="text/css">
-  .avatar-uploader .el-upload {
-    border: 1px dashed #d9d9d9;
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-  }
+.avatar-uploader .el-upload {
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
 
-  .avatar-uploader .el-upload:hover {
-    border-color: #409EFF;
-  }
+.avatar-uploader .el-upload:hover {
+  border-color: #409eff;
+}
 
-  .avatar-uploader-icon {
-    font-size: 28px;
-    color: #8c939d;
-    width: 80px;
-    height: 80px;
-    line-height: 80px;
-    text-align: center;
-  }
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 80px;
+  height: 80px;
+  line-height: 80px;
+  text-align: center;
+}
 
-  .avatar {
-    width: 80px;
-    height: 80px;
-    display: block;
-  }
-
+.avatar {
+  width: 80px;
+  height: 80px;
+  display: block;
+}
 </style>

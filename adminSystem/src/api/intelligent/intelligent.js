@@ -71,3 +71,46 @@ export function getActionMovie(data) {
     data,
   })
 }
+export function allFood(data) {
+  return request({
+    url: '/community/smartFood/see/all',
+    method: 'post',
+    data,
+  })
+}
+export function addFood(data) {
+  return request({
+    url: '/community/smartFood/insertOne',
+    method: 'post',
+    data,
+  })
+}
+export function updateFood(data) {
+  return request({
+    url: '/community/smartFood/updateOne',
+    method: 'post',
+    data,
+  })
+}
+
+export function allFoodType(data) {
+  return request({
+    url: '/community/smartFoodType/see/all',
+    method: 'post',
+    data,
+  })
+}
+export function addFoodType(data) {
+  return request({
+    url: '/community/smartFoodType/insertOne',
+    method: 'post',
+    data,
+  })
+}
+export function updateFoodType(data) {
+  return request({
+    url: '/community/smartFoodType/updateOne',
+    method: 'post',
+    data,
+  })
+}

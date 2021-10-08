@@ -137,6 +137,25 @@
 			color: #CFCFD2 !important;
 			font-size: .36rem;
 		}
+		.van-checkbox__icon .van-icon{
+			border: 1px solid #71717f;
+		}
+		.van-checkbox__icon--checked .van-icon,
+		.van-address-item .van-radio__icon--checked .van-icon {
+			/* background: linear-gradient(to right, #FF6A88, #FF5136);
+			border-color: #FF6A88; */
+			background: #ff4e3e;
+			border-color: #71717f;
+			border: none;
+		}
+		.van-action-sheet__gap{
+			background-color: #1e1e2a;
+		}
+		.van-action-sheet__item,.van-action-sheet__cancel {
+			border-bottom: 1px solid #1e1e2a;
+			background-color: #12121F;
+			color: #CFCFD2;
+		}
 	</style>
 </head>
 
@@ -952,7 +971,7 @@
 						},
 						axisLabel: {
 							fontSize: 10,
-							color: "#cfcfd2",
+							color: "#71717f",
 							formatter: val => {
 								let txt = val
 								if (val.length > 2) {
@@ -968,14 +987,25 @@
 						axisLine: {
 							show: false,
 						},
+						splitLine: {
+						        show: true,
+						        lineStyle:{
+						           color: ['#71717f'],
+						           width: 1,
+						           type: 'solid'
+						      }
+						　　},
 						axisLabel: {
 							fontSize: 12,
-							color: "#cfcfd2",
+							color: "#71717f",
 							formatter: '{value}%'
 						}
 					},
 					tooltip: {
 						trigger: "item",
+						backgroundColor: "#1e1e2a",
+						color:'#cfcfd2',
+						borderWidth:0,
 						axisPointer: {
 							label: {
 								lineHeight: 20,
@@ -984,9 +1014,11 @@
 							},
 						},
 						formatter: (p) => {
+							let str = '<span style="color:#cfcfd2">';
 							console.log(p)
-							let str = p.data.toFixed(2) + '%' + '</br>';
+							 str += p.data.toFixed(2) + '%' + '</br>';
 							str += p.name;
+							str += '</span>'
 							return str;
 						}
 						// trigger: 'item',
@@ -1047,7 +1079,7 @@
 						},
 						axisLabel: {
 							fontSize: 10,
-							color: "#cfcfd2",
+							color: "#71717f",
 							formatter: val => {
 								let txt = val
 								if (val.length > 3) {
@@ -1062,9 +1094,17 @@
 						axisLine: {
 							show: false,
 						},
+						splitLine: {
+						        show: true,
+						        lineStyle:{
+						           color: ['#71717f'],
+						           width: 1,
+						           type: 'solid'
+						      }
+						　　},
 						axisLabel: {
 							fontSize: 12,
-							color: "#cfcfd2",
+							color: "#71717f",
 							formatter: val => {
 								let txt = val
 								if (val.length > 6) {
@@ -1076,6 +1116,9 @@
 					},
 					tooltip: {
 						trigger: "axis",
+						backgroundColor: "#1e1e2a",
+						color:'#cfcfd2',
+						borderWidth:0,
 						axisPointer: {
 							type: 'shadow',
 							label: {
@@ -1168,7 +1211,7 @@
 						},
 						axisLabel: {
 							fontSize: 10,
-							color: "#cfcfd2",
+							color: "#71717f",
 							formatter: val => {
 								let txt = val
 								if (val.length > 2) {
@@ -1184,9 +1227,17 @@
 						axisLine: {
 							show: false,
 						},
+						splitLine: {
+						        show: true,
+						        lineStyle:{
+						           color: ['#71717f'],
+						           width: 1,
+						           type: 'solid'
+						      }
+						　　},
 						axisLabel: {
 							fontSize: 12,
-							color: "#cfcfd2",
+							color: "#71717f",
 							formatter: function (value, index) {
 								if ((value + "").length <= 5) return value;
 								return value.toFixed(3);
@@ -1195,16 +1246,20 @@
 					},
 					tooltip: {
 						trigger: "item",
+						backgroundColor: "#1e1e2a",
+						color:'#cfcfd2',
+						borderWidth:0,
 						axisPointer: {
 							type: 'shadow',
 							label: {
 								lineHeight: 20,
-								backgroundColor: "#ffffff",
+								backgroundColor: "#12121f",
+								color:'#cfcfd2',
 								padding: [0, 0, 0, 0]
 							},
 						},
 						formatter: (p) => {
-							let str = '';
+							let str = '<span style="color:#cfcfd2">';
 							console.log(p)
 							let name = p.name;
 							if (name.length > 4) {
@@ -1235,6 +1290,7 @@
 								str += name + '<br/>';
 								str += _self.resetNum(p.data) + '万个<br/>';
 							}
+							str +='</span>'
 							return str;
 						}
 					},
@@ -1309,7 +1365,7 @@
 						},
 						axisLabel: {
 							fontSize: 10,
-							color: "#cfcfd2",
+							color: "#71717f",
 							formatter: val => {
 								let txt = val
 								if (val.length > 2) {
@@ -1324,13 +1380,24 @@
 						axisLine: {
 							show: false,
 						},
+						splitLine: {
+						        show: true,
+						        lineStyle:{
+						           color: ['#71717f'],
+						           width: 1,
+						           type: 'solid'
+						      }
+						　　},
 						axisLabel: {
 							fontSize: 12,
-							color: "#cfcfd2"
+							color: "#71717f"
 						}
 					},
 					tooltip: {
 						trigger: "axis",
+						backgroundColor: "#1e1e2a",
+						color:'#cfcfd2',
+						borderWidth:0,
 						axisPointer: {
 							label: {
 								lineHeight: 20,
@@ -1405,12 +1472,15 @@
 					color: ['#609CFF', '#70E1AB', '#657798'],
 					tooltip: {
 						trigger: 'item',
+						backgroundColor: "#1e1e2a",
+						color:'#cfcfd2',
+						borderWidth:0,
 						axisPointer: {
 							type: 'shadow'
 						},
 						formatter: (p) => {
-							let color = ['#609CFF', '#70E1AB', '#657798'],
-								str = '';
+							
+							let color = ['#609CFF', '#70E1AB', '#657798'],str = '<span style="color:#cfcfd2">';
 							item.dataList[p.dataIndex].forEach((d, i) => {
 								let namestr = d.nickname;
 								if (namestr.length > 4) {
@@ -1422,6 +1492,7 @@
 									color[i] + ';"></span>' + namestr + ":" + d.ropeNum + "</br>";
 							})
 							console.log(p);
+							str+='</span>'
 							return str;
 						}
 					},
@@ -1434,7 +1505,7 @@
 						data: item.Xline,
 						axisLabel: {
 							fontSize: 10,
-							color: "#cfcfd2",
+							color: "#71717f",
 							formatter: val => {
 								let txt = val
 								if (val.length > 2) {
@@ -1445,7 +1516,15 @@
 						}
 					}],
 					yAxis: [{
-						type: 'value'
+						type: 'value',
+						splitLine: {
+						        show: true,
+						        lineStyle:{
+						           color: ['#71717f'],
+						           width: 1,
+						           type: 'solid'
+						      }
+						　　},
 					}],
 					series: item.series
 				};

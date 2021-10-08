@@ -15,7 +15,7 @@
 				<div class="wh_item_date" :class="{greystate:item.otherMonth!='nowMonth',isToday:(item.isToday||clickIndex==index),isToday2:(item.isToday&&clickIndex!=null)}">
 					<span>{{item.id}}</span>
 					<!--这里是控制异常、正常的那个小圆点-->
-					<div class="spot" :class="{successdot:item.finished}"></div>	
+					<div class="spot" v-if="item.timeStamp<=nowZero" :class="{successdot:item.finished}"></div>	
 				</div>
 			</div>
 		</div>
@@ -52,6 +52,7 @@
 				dateTitle: '',
 				list: [],
 				nowDate:new Date().getTime(),
+				nowZero:new Date(new Date().toLocaleDateString()).getTime(),
 				clickIndex:null,
 			};
 		},
@@ -95,7 +96,7 @@
 						})
 					})
 					this.list = arr;
-					// console.log(arr);
+					console.log(arr);
 				})
 			},
 			openFatherPickYearMonth() {//打开父组件选择年月调用
@@ -127,6 +128,7 @@
 			padding: .4rem .48rem 0 .48rem;
 			color: #cfcfd2;
 			font-size: .48rem;
+			font-family: "BebasNeue";
 		}
 
 		.dateList {
@@ -145,6 +147,7 @@
 				color: #fff;
 				position: relative;
 				height: .8rem;
+				font-family: "BebasNeue";
 			}
 
 			.wh_content_item {

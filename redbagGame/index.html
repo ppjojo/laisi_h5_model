@@ -969,7 +969,7 @@
 				// })
 				console.log(1)
 				if (shareType == 1) {
-					let url = host + "h5/h5V2/redbagGame/share.html?shareType=" + shareType + "&isShare=1"
+					let url = host + "h5/h5V3/redbagGame/share.html?shareType=" + shareType + "&isShare=1"
 					
 					Interaction.sharePage({
 						title: shareType == 1 ? '快来加入派健康跳绳红包赛，一起来瓜分奖池' : '我在派健康跳绳红包赛瓜分到了大红包，你也来试试吧',
@@ -978,7 +978,7 @@
 					})
 
 				} else if (shareType == 2) {
-					let url = host + "h5/h5V2/redbagGame/share.html?shareType=" + shareType + "&getMoney=" + this
+					let url = host + "h5/h5V3/redbagGame/share.html?shareType=" + shareType + "&getMoney=" + this
 						.popparam.count +
 						"&isShare=1"
 					Interaction.appNative("shareRedbagGamePic", {
@@ -992,7 +992,7 @@
 
 			},
 			shareGameTest(shareType) {
-				let url = host + "h5/h5V2/redbagGame/share.html?shareType=" + shareType + "&getMoney=" + this
+				let url = host + "h5/h5V3/redbagGame/share.html?shareType=" + shareType + "&getMoney=" + this
 					.popparam.count +
 					"&isShare=1"
 

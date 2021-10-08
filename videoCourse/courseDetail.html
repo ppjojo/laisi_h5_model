@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-cmn-Hans">
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta name="viewport"
-        content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
     <title>课程介绍</title>
     <link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
     <link rel="stylesheet" href="font/iconfont.css">
     <link rel="stylesheet" href="css/index.css">
-
+</head>
     <style>
         #title {
             font-size: 0.36rem;
@@ -30,14 +30,15 @@
 
 <body>
     <div id="app" class="normalHeader" v-cloak>
-        <div class="header" >
-            <van-nav-bar @click-left="onclickLeft" title="课程介绍" left-arrow  safe-area-inset-top  fixed>
+        <div class="header">
+            <van-nav-bar @click-left="onclickLeft" title="课程介绍" left-arrow safe-area-inset-top fixed>
                 <template #left>
                     <span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
                 </template>
 
             </van-nav-bar>
         </div>
+        
         <div class="contain">
             <div id="title">{{classDetail.className}}</div>
             <div id="discript">{{classDetail.classDes}}</div>

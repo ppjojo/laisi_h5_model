@@ -48,7 +48,7 @@
 							<div class="numInfo">BMI</div>
 							<div class="numStatus" :class="textFormart(bodyData.bmiType,1)">{{bodyData.bmiType}}</div>
 						</div>
-						<div class="detailDiv" @click="gotoDetail('bodyFat')">
+						<div class="detailDiv" @click="gotoDetail('bodyfat')">
 							<div class="num">{{bodyData.bodyFat.replace("%","")||'--'}}</div>
 							<div class="numInfo">体脂(%)</div>
 							<div class="numStatus " :class="textFormart(bodyData.bodyFatType,1)">
@@ -59,7 +59,7 @@
 			</div>
 
 			<div class="listContain" v-if="!isShare">
-				<div class="itemBox" @click="gotoDetail('bodyAge')">
+				<div class="itemBox" @click="gotoDetail('bodyage')">
 					<div class="itemName">
 						身体年龄
 					</div>

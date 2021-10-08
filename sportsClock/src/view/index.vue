@@ -1,8 +1,11 @@
 <template>
 	<div id="app" v-cloak>
 		<div class="header">
-			<van-nav-bar title="运动日历" right-text="打卡总览" @click-left="onClickLeft" @click-right="onClickRight" left-arrow
+			<van-nav-bar title="运动日历" right-text="打卡总览" @click-left="onClickLeft" @click-right="onClickRight" 
 				safe-area-inset-top fixed>
+				<template #left>
+					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
+				</template>
 			</van-nav-bar>
 		</div>
 		<div class="calendaroutbox">
@@ -11,8 +14,12 @@
 		<!-- 打卡 -->
 		<div class="" v-if="flag==1">
 			<!-- 今日尚未打卡有打卡按钮 -->
-			<div class="normaltxt" style="width: 4rem;text-align: center;margin: .4rem auto 1.2rem;">
-				本月最大连续签到打卡<span>{{monthObj.sportClockMax||0}}</span>天！
+			<div v-if="monthObj.sportClockMax>1" class="normaltxt" style="width: 4rem;text-align: center;margin: .4rem auto 1.2rem;">
+				本月最大连续签到打卡<span>{{monthObj.sportClockMax||0}}</span>天！</br>
+				继续加油哦～
+			</div>
+			<div v-else class="normaltxt" style="width: 4rem;text-align: center;margin: .4rem auto 1.2rem;">
+				本月累计打卡<span>{{monthObj.sportClockSum||0}}</span>天！</br>
 				继续加油哦～
 			</div>
 			<div class="clockBtn" @click="firstClick">
@@ -22,7 +29,7 @@
 		<div class="infobox" v-else-if="flag==2||flag==5">
 			<!-- 打卡失败 一点都没有运动-->
 			<div v-if="flag==2" class="normaltxt" style="width: 4rem;text-align: center;margin: .4rem auto .8rem;">
-				本月累计打卡<span>{{monthObj.sportClockSum||0}}</span>天！
+				本月累计打卡<span>{{monthObj.sportClockSum||0}}</span>天！</br>
 				继续加油哦～
 			</div>
 			<div v-else class="ub ub-ac sportfinish">
@@ -91,7 +98,7 @@
 		</div>
 		<!-- 时间选择 -->
 		<van-popup position="bottom" round :style="{height: '45%'}" v-model="YMshow">
-			<van-datetime-picker v-model="currentDate" type="year-month" title="选择年月" :min-date="minDate"
+			<van-datetime-picker v-model="currentDate" type="year-month" title="" :min-date="minDate"
 				@confirm="pickConfirm" :max-date="maxDate" :formatter="formatter">
 			</van-datetime-picker>
 		</van-popup>
@@ -140,6 +147,7 @@
 		data() {
 			return {
 				minDate: new Date(2021, 0, 1),
+				isClick:false,
 				maxDate: new Date(),
 				currentDate: new Date(),
 				checkTime:new Date(new Date().toLocaleDateString()).getTime(),
@@ -180,12 +188,15 @@
 				})
 			},
 			firstClick() {
+				if(this.isClick)return;
+				this.isClick = true;
 				//首次打卡
 				insertSportData({}).then(res => {
+					this.isClick = false;
 					this.clockState = (res.code == "0");
 					this.clockShow = true;
 					if (!this.clockState) {
-						this.flag = 2
+						this.flag = 2;
 					} else {
 						this.getList()
 						this.$refs.calendar.calindarList()
@@ -194,8 +205,11 @@
 				})
 			},
 			reClick() {
+				if(this.isClick)return;
+				this.isClick = true;
 				//更新打卡
 				updateSportData({}).then(res => {
+					this.isClick = false;
 					if(res.code=='2'){
 						this.$toast('你还没有新的运动数据');
 						return;
@@ -383,4 +397,13 @@
 		background: linear-gradient(to bottom, #ffaa88, #ff4e3e);
 		margin: 0 auto;
 	}
+	.van-picker__toolbar{
+		border-bottom: 1px solid #1e1e2a;
+	}
+	.van-picker-column__item{
+		color: #cfcfd2;
+	}
+	// .van-hairline--top-bottom::after, .van-hairline-unset--top-bottom::after{
+	// 	border-color: #595962;
+	// }
 </style>

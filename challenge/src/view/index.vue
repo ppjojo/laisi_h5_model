@@ -122,7 +122,7 @@
 			window.initData = this.RefreshFunction;
 		},
 		created() {
-			let type = getQueryString('type') || "wheel";
+			let type = getQueryString('type') || "wristball";
 			type == 'skipping' ? this.flag = 2 : type == 'wristball' ? this.flag = 1 : type == 'wheel' ? this.flag = 3 :
 				null;
 		},
@@ -364,5 +364,11 @@
 		height: .26rem;
 		background-size: cover;
 		margin-right: .08rem;
+	}
+	.van-dialog,.van-button--default{
+		background-color: #292934;
+	}
+	[class*='van-hairline']::after{
+		border-color: #1E1E2A;
 	}
 </style>

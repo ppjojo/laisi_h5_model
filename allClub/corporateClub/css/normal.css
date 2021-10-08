@@ -130,12 +130,15 @@ body {
 [v-cloak] {
 	display: none!important;
 }
+.van-checkbox__icon .van-icon{
+	border: 1px solid #71717f;
+}
 .van-checkbox__icon--checked .van-icon,
 .van-address-item .van-radio__icon--checked .van-icon {
 	/* background: linear-gradient(to right, #FF6A88, #FF5136);
 	border-color: #FF6A88; */
-	background: #E60012;
-	border-color: #E60012;
+	background: #ff4e3e;
+	border-color: #71717f;
 	border: none;
 }
 .van-checkbox__icon .van-icon{
@@ -170,7 +173,7 @@ body {
 }
 .submit,
 .submit2 {
-	background: linear-gradient(to right, #FF6A88, #FF5136);
+	background: linear-gradient(to right, #FF4E3E, #FFAA88);
 	border: none;
 	font-size: .36rem;
 	color: #fff;

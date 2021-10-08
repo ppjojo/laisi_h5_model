@@ -47,13 +47,9 @@
       <el-form :model="form" label-width="100px" :rules="rules" ref="form">
         <el-form-item label="选择动作视频" prop="smartActionName">
           <el-select @change="choosesmartActionName" v-model="form.action" filterable placeholder="可查询">
-              <el-option
-                v-for="(item,index) in courseList"
-                :key="index"
-                :label="item.videoName"
-                :value="index">
-              </el-option>
-            </el-select>
+            <el-option v-for="(item,index) in courseList" :key="index" :label="item.videoName" :value="index">
+            </el-option>
+          </el-select>
         </el-form-item>
 
         <el-form-item label="训练动作名" prop="smartActionName">
@@ -100,16 +96,17 @@
         </el-form-item>
         <el-form-item label="动作旁白音频" prop="actionAsideAudio">
           <el-input :readonly="true" v-model="form.actionAsideAudio"></el-input>
-          <el-upload ref='upload' action="" :http-request="requestFile2" :show-file-list="false" class="avatar-uploader">
+          <el-upload ref='upload' action="" :http-request="requestFile2" :show-file-list="false"
+            class="avatar-uploader">
             <i class="el-icon-plus avatar-uploader-icon"></i>
           </el-upload>
         </el-form-item>
         <el-button type="primary" size="mini" @click="dialogVisible2 = true">添加属性</el-button>
         <template v-for="(item,index) in form.smartActionAttributeList">
-          <div style="padding: 20px;display: inline-block;">
-              <span>{{item.actionBigAttribute=='part'?'动作部位':item.actionBigAttribute=='belong'?'动作归属':'动作目标'}}:
+          <div v-if="item" style="padding: 20px;display: inline-block;">
+            <span>{{item.actionBigAttribute=='part'?'动作部位':item.actionBigAttribute=='belong'?'动作归属':'动作目标'}}:
               <span v-if="item.actionBigAttribute=='part'">
-                {{item.actionSmallAttribute==1?'腰腹':item.actionSmallAttribute==2?'背部':item.actionSmallAttribute==3?'肩部':item.actionSmallAttribute==4?'手臂':item.actionSmallAttribute==5?'胸部':item.actionSmallAttribute==6?'腿部':'臀部'}}
+                {{item.actionSmallAttribute==1?'腰腹':item.actionSmallAttribute==2?'背部':item.actionSmallAttribute==3?'肩部':item.actionSmallAttribute==4?'手臂':item.actionSmallAttribute==5?'胸部':item.actionSmallAttribute==6?'腿部':item.actionSmallAttribute==7?'臀部':'心肺'}}
               </span>
               <span v-if="item.actionBigAttribute=='belong'">
                 {{item.actionSmallAttribute==1?'训练':item.actionSmallAttribute==2?'热身':"拉伸"}}
@@ -117,40 +114,51 @@
               <span v-if="item.actionBigAttribute=='target'">
                 {{item.actionSmallAttribute==1?'减脂':item.actionSmallAttribute==2?'增肌':"塑型"}}
               </span>
+              <span v-if="item.actionBigAttribute=='kit'">
+                {{item.actionSmallAttribute==1?'跳绳':item.actionSmallAttribute==2?'健腹轮':item.actionSmallAttribute==3?'哑铃':"弹力带"}}
               </span>
-              <el-button type="danger" size="mini" @click="delattr(index)">删除</el-button>
+            </span>
+            <el-button type="danger" size="mini" @click="delattr(index)">删除</el-button>
           </div>
         </template>
         <el-dialog :title="'属性集合'" :modal="false" :visible="dialogVisible2" width="50%">
           <el-form-item label="动作属性分类" prop="actionBigAttribute">
-            <el-radio-group v-model="form.actionBigAttribute">
+            <el-radio-group v-model="form.actionBigAttribute" @change="editAttr">
               <el-radio class="radio" :label="'part'">动作部位</el-radio>
               <el-radio class="radio" :label="'belong'">动作归属</el-radio>
               <el-radio class="radio" :label="'target'">动作目标</el-radio>
+              <el-radio class="radio" :label="'kit'">动作器械</el-radio>
             </el-radio-group>
           </el-form-item>
           <el-form-item label="动作属性分类" prop="actionSmallAttribute">
-            <el-radio-group v-model="form.actionSmallAttribute">
+            <el-checkbox-group v-model="form.actionSmallAttribute">
               <template v-if="form.actionBigAttribute=='part'">
-                <el-radio class="radio" :label="1">腰腹</el-radio>
-                <el-radio class="radio" :label="2">背部</el-radio>
-                <el-radio class="radio" :label="3">肩部</el-radio>
-                <el-radio class="radio" :label="4">手臂</el-radio>
-                <el-radio class="radio" :label="5">胸部</el-radio>
-                <el-radio class="radio" :label="6">腿部</el-radio>
-                <el-radio class="radio" :label="7">臀部</el-radio>
+                <el-checkbox :label="1" :key="1">腰腹</el-checkbox>
+                <el-checkbox :label="2" :key="2">背部</el-checkbox>
+                <el-checkbox :label="3" :key="3">肩部</el-checkbox>
+                <el-checkbox :label="4" :key="4">手臂</el-checkbox>
+                <el-checkbox :label="5" :key="5">胸部</el-checkbox>
+                <el-checkbox :label="6" :key="6">腿部</el-checkbox>
+                <el-checkbox :label="7" :key="7">臀部</el-checkbox>
+                <el-checkbox :label="8" :key="8">心肺</el-checkbox>
               </template>
               <template v-if="form.actionBigAttribute=='belong'">
-                <el-radio class="radio" :label="1">训练</el-radio>
-                <el-radio class="radio" :label="2">热身</el-radio>
-                <el-radio class="radio" :label="3">拉伸</el-radio>
+                <el-checkbox :label="1" :key="1">训练</el-checkbox>
+                <el-checkbox :label="2" :key="2">热身</el-checkbox>
+                <el-checkbox :label="3" :key="3">拉伸</el-checkbox>
               </template>
               <template v-if="form.actionBigAttribute=='target'">
-                <el-radio class="radio" :label="1">减脂</el-radio>
-                <el-radio class="radio" :label="2">增肌</el-radio>
-                <el-radio class="radio" :label="3">塑型</el-radio>
+                <el-checkbox :label="1" :key="1">减脂</el-checkbox>
+                <el-checkbox :label="2" :key="2">增肌</el-checkbox>
+                <el-checkbox :label="3" :key="3">塑型</el-checkbox>
               </template>
-            </el-radio-group>
+              <template v-if="form.actionBigAttribute=='kit'">
+                <el-checkbox :label="1" :key="1">跳绳</el-checkbox>
+                <el-checkbox :label="2" :key="2">健腹轮</el-checkbox>
+                <el-checkbox :label="3" :key="3">哑铃</el-checkbox>
+                <el-checkbox :label="4" :key="4">弹力带</el-checkbox>
+              </template>
+            </el-checkbox-group>
           </el-form-item>
 
 
@@ -182,7 +190,8 @@
     allAction,
     updateAction,
     addAction,
-    allCourse,getActionMovie
+    allCourse,
+    getActionMovie
   } from '@/api/intelligent/intelligent'
   import {
     getPlayAuth
@@ -205,7 +214,7 @@
     },
     computed: {
       checkPer() {
-        return function (btn) {
+        return function(btn) {
           return (checkPermission(this.$route.path + '/' + btn))
         }
       }
@@ -220,9 +229,10 @@
           className: "",
           duration: null,
         },
+        attrstr: '',
         dialogTitle: "",
         dialogVisible: false,
-        dialogVisible2:false,
+        dialogVisible2: false,
         playShow: false,
         rules: {
           classCover: [{
@@ -313,29 +323,73 @@
           smartActionDifficulty: 1,
           smartActionDuration: null,
           smartActionBody: 1,
-          actionExplainAudio:'',
-          actionAsideAudio:'',
+          actionExplainAudio: '',
+          actionAsideAudio: '',
           smartActionAttributeList: [],
+          actionSmallAttribute: []
         }
       },
       btn_edit(row) {
         this.dialogVisible = true;
-        this.dialogTitle = "编辑"
-        this.form = Object.assign({}, row)
+        this.dialogTitle = "编辑";
+        let arr = [];
+        row.smartActionAttributeList.forEach(d => {
+          if (d.actionBigAttribute == 'part') arr.push(d.actionSmallAttribute)
+        })
+        this.form = Object.assign({
+          actionBigAttribute: null,
+          actionSmallAttribute: arr
+        }, row)
       },
-      choosesmartActionName(index){//下拉选择视频
+      choosesmartActionName(index) { //下拉选择视频
         this.form.smartActionName = this.courseList[index].videoName;
-        this.form.actionSize = this.courseList[index].videoSize||0;
+        this.form.actionSize = this.courseList[index].videoSize || 0;
         this.form.smartActionCover = this.courseList[index].videoCover;
         this.form.smartActionVod = this.courseList[index].videoId;
-        this.form.smartActionDuration = this.courseList[index].duration||0;
+        this.form.smartActionDuration = this.courseList[index].duration || 0;
       },
-      addAttributeList(){
+      editAttr(val) {
+        // if (this.dialogTitle == "编辑") {
+          this.attrstr = val;
+          this.form.actionSmallAttribute = []
+          this.form.smartActionAttributeList.forEach(d => {
+            if (d.actionBigAttribute == val) this.form.actionSmallAttribute.push(d.actionSmallAttribute)
+          })
+        // }
+      },
+      addAttributeList() {
         //属性集合
-        this.form.smartActionAttributeList.push({actionBigAttribute:this.form.actionBigAttribute,actionSmallAttribute:this.form.actionSmallAttribute});
+        if (this.dialogTitle == "编辑") {
+          this.form.smartActionAttributeList.forEach((d,index)=>{
+            if(d.actionBigAttribute==this.attrstr)delete this.form.smartActionAttributeList[index];
+          })
+          this.form.actionSmallAttribute.forEach(d => {
+            this.form.smartActionAttributeList.push({
+              actionBigAttribute: this.form.actionBigAttribute,
+              actionSmallAttribute: d
+            });
+          })
+        } else {
+          this.form.smartActionAttributeList.forEach((d,index)=>{
+            if(d.actionBigAttribute==this.attrstr)delete this.form.smartActionAttributeList[index];
+          })
+          this.form.actionSmallAttribute.forEach(d => {
+            this.form.smartActionAttributeList.push({
+              actionBigAttribute: this.form.actionBigAttribute,
+              actionSmallAttribute: d
+            });
+          })
+        }
+        let arr = [];
+        this.form.smartActionAttributeList.forEach((d,index)=>{
+          if(d)arr.push(d)
+        })
+        this.form.smartActionAttributeList = arr;
+        console.log(this.form.smartActionAttributeList)
+        // return
         this.dialogVisible2 = false;
       },
-      delattr(index){//删除属性
+      delattr(index) { //删除属性
         this.form.smartActionAttributeList.splice(index, 1);
       },
       requestFile(param) { //
@@ -374,12 +428,12 @@
             });
           }
 
-        }).catch(e=>{
+        }).catch(e => {
           this.$message({
-              showClose: true,
-              message: '视频ID不正确',
-              type: 'error'
-            });
+            showClose: true,
+            message: '视频ID不正确',
+            type: 'error'
+          });
         })
       },
       //获取视频播放凭证
@@ -398,7 +452,7 @@
               playauth: res.data.playAuth,
               cover: res.data.videoMeta.coverURL,
               encryptType: 1,
-            }, function (player) {
+            }, function(player) {
               console.log('播放器创建好了。')
             });
           } else {
@@ -418,7 +472,6 @@
       },
     }
   }
-
 </script>
 <style type="text/css">
   .avatar-uploader .el-upload {
@@ -447,5 +500,4 @@
     height: 80px;
     display: block;
   }
-
 </style>

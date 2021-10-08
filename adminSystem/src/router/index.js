@@ -1404,6 +1404,26 @@ const constantRoutes = [{
           icon: 'upgrade_resource'
         }
       },
+      {
+        path: 'food',
+        permission: 'intelligent:food',
+        hidden: true,
+        component: () => import('@/views/intelligent/food'),
+        meta: {
+          title: '添加食物',
+          icon: 'upgrade_resource'
+        }
+      },
+      {
+        path: 'foodType',
+        permission: 'intelligent:foodType',
+        hidden: true,
+        component: () => import('@/views/intelligent/foodType'),
+        meta: {
+          title: '食物分类',
+          icon: 'upgrade_resource'
+        }
+      },
     ]
   },
   {

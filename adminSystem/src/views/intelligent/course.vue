@@ -209,7 +209,7 @@
       		if (valid) {
       			this.dialogVisible = false
       			if (this.dialogTitle == "新增") {
-      				allCourse(this.form).then(response => {
+      				addCourse(this.form).then(response => {
       					this.getList()
       					this.$notify({
       						type: 'success',

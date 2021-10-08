@@ -18,7 +18,7 @@
 				<span class="icon iconfont icon-tongyong-gengduo" />
 			</div>
 		</div>
-		<div class="cellbox  border-bottom2">
+		<div class="cellbox   border-bottom2" style="justify-content:flex-start">
 			<template v-for="(item,index) in memberIcon">
 				<div class="groupMember " v-if="index<=(isCurrentUser?(groupItem.count==10?3:2):3)">
 					<div class="imgbox ">
@@ -96,17 +96,17 @@
 			<span class="icon iconfont icon-tongyong-gengduo" />
 		</div>
 		<!-- 设为置顶 -->
-		<div class="cellbox  ">
+		<!-- <div class="cellbox  ">
 			<div class="title">设为置顶</div>
 			<van-switch active-color="#07c160" @change="switchChange(1)" :active-value="1" :inactive-value="0"
 				v-model="groupItem.isTop" size="20"></van-switch>
-		</div>
+		</div> -->
 		<!-- 消息免打扰 -->
-		<div class="cellbox ">
+		<!-- <div class="cellbox ">
 			<div class="title">消息免打扰</div>
 			<van-switch active-color="#07c160" @change="switchChange(2)" :active-value="1" :inactive-value="0"
 				v-model="groupItem.isSilent" size="20"></van-switch>
-		</div>
+		</div> -->
 		<!-- 小组邀请确认 -->
 		<div class="cellbox  " v-if="isCurrentUser">
 			<div class="title">小组邀请确认</div>

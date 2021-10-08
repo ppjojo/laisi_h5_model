@@ -14,7 +14,7 @@
 		<div id="changeName">
 			<van-field v-model="nickname" maxlength="8" clearable placeholder="请输入昵称"></van-field>
 		</div>
-		<van-button round class="submit" block @click="changeName(nickname)" :color="nickname!=oldNickName?bgc:bgcgrey">完成
+		<van-button round class="submit" block @click="changeName(nickname)" :color="nickname!=oldNickName&&nickname!=''?bgc:bgcgrey">完成
 		</van-button>
 	</div>
 </template>
@@ -59,7 +59,7 @@
 		methods: {
 			changeName(nickname) {
 				if(nickname==this.oldNickName)return;
-				if (!nickname) return Toast('昵称不为空！');
+				if (!nickname) return 
 				textReview(this.nickname, res => {
 					if (res.code == 0) {
 						changeNickname({
