@@ -12,7 +12,15 @@
     </script>
 	<link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
     <link href="css/helpCenter.css" rel="stylesheet" type="text/css" />
-    
+	<link rel="stylesheet" href="font/iconfont.css">
+    <style type="text/css">
+    	.van-nav-bar{
+			background-color: transparent;
+		}
+		.van-nav-bar__title,.iconfont{
+			color: #fff;
+		}
+    </style>
     <script src="https://cdn.bootcdn.net/ajax/libs/vConsole/3.8.1/vconsole.min.js"></script>
     <script>
         var vConsole = new VConsole();
@@ -24,9 +32,16 @@
 <body>
     <div id='app' v-cloak>
         <div class="main_container">
-
             <!-- 顶部背景 -->
             <div class='topBanner'>
+				<div class="header">
+					<van-nav-bar @click-left="onclickLeft" title="帮助中心" left-arrow safe-area-inset-top fixed>
+						<template #left>
+							<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
+						</template>
+				
+					</van-nav-bar>
+				</div>
                 <div class='toptxt'>
                     <p>Hi～<span id='username'>{{userName}}</span></p>
                     <p id="toptxtp">派小俊为您答疑解惑</p>
@@ -140,6 +155,9 @@
 						console.log("error")
 					}
 				})
+			},
+			onclickLeft(){
+				Interaction.closePage();
 			},
 		}
 	})

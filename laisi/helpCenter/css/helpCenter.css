@@ -9,6 +9,20 @@
 html,body{
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
+.header{
+	height: 0.92rem;
+	    position: relative;
+	    z-index: 100;
+}
+.van-nav-bar--fixed{
+	background-color:#12121f;
+}
+.van-nav-bar__title,.icon-fanhuianniu{
+	color:#cfcfd2;
+}
+.van-hairline--bottom::after{
+	border-bottom-width:0;
+}
 #app{
 	min-height: 100vh;
 	background: #12121F;

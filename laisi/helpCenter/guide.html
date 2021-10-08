@@ -12,7 +12,8 @@
 		document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';
 	</script>
 	<link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
-    <!-- <link rel="stylesheet" type="text/css" href="css/guide.css"> -->
+	<link rel="stylesheet" href="font/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="css/helpCenter.css">
     <style type="text/css">
 	#app{
 		background-color: #12121f;
@@ -42,6 +43,14 @@
 </head>
 <body>
     <div id="app" class="answer">
+		<div class="header">
+			<van-nav-bar @click-left="onclickLeft" :title="title" left-arrow safe-area-inset-top fixed>
+				<template #left>
+					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
+				</template>
+		
+			</van-nav-bar>
+		</div>
     	<div class="list">
     		<div class="listItem " v-for="(item,index) in dataList" @click="clickQuestion(item)">
 				<div><img :src="item.picUrl" alt=""></div>
@@ -72,6 +81,7 @@
 				dataList:[],
 				tenPlayer:null,
 				tenParser:null,
+				title:"设备绑定流程"
 			}
 		},
 		filters: {},
@@ -101,6 +111,9 @@
 				
 					}
 				})
+			},
+			onclickLeft(){
+				window.history.back(-1);
 			},
 		}
 	})
