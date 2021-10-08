@@ -18,6 +18,7 @@ $text_color_white:#CFCFD2;
 $bg_color:#12121f;
 //边框色
 $border_color:#1e1e2a;
+
 .header {
     height: 0.92rem;
     position: relative;
@@ -229,13 +230,7 @@ body {
     width: 100%;
     background-color: $border_color;
 
-    .van-pull-refresh {
-        padding-top: 1.96rem;
-    }
 
-    .van-pull-refresh2 {
-        padding-top: 1.08rem;
-    }
 
     .allHeader {
         position: absolute;
@@ -324,7 +319,7 @@ body {
                 width: 25%;
                 font-size: .32rem;
                 text-align: center;
-                color:#71717f;
+                color: #71717f;
             }
 
             .selected {
@@ -374,6 +369,8 @@ body {
 
 
     .listDiv {
+
+
         .listItem {
             box-sizing: border-box;
             margin: 0 .24rem;
@@ -435,12 +432,20 @@ body {
 
     }
 
+    .dataBox {
+        padding-top: 1.96rem;
+    }
+
+    .dataBox2 {
+        padding-top: 1.08rem;
+    }
+
 
 }
 
 .noData-box {
     text-align: center;
-    padding-top: 1rem;
+    padding: 0.5rem 0;
 
     .noData-img {
         width: 4rem;

@@ -219,14 +219,6 @@ body {
   background-color: #1e1e2a;
 }
 
-.content-container .van-pull-refresh {
-  padding-top: 1.96rem;
-}
-
-.content-container .van-pull-refresh2 {
-  padding-top: 1.08rem;
-}
-
 .content-container .allHeader {
   position: absolute;
   top: 0;
@@ -440,9 +432,17 @@ body {
   border-top: 1px solid #12121f;
 }
 
+.content-container .dataBox {
+  padding-top: 1.96rem;
+}
+
+.content-container .dataBox2 {
+  padding-top: 1.08rem;
+}
+
 .noData-box {
   text-align: center;
-  padding-top: 1rem;
+  padding: 0.5rem 0;
 }
 
 .noData-box .noData-img {

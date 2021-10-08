@@ -83,32 +83,8 @@
 						</p>
 					</div> -->
 				</div>
-
-				<van-pull-refresh v-model="refreshing" :head-height="90" @refresh="onRefresh"
-					:class="userType=='steps'?'van-pull-refresh2':''"
-					style="min-height:calc(100vh - 5.6rem) ;overflow: auto;" class="monkey-pull-refresh">
-					<template #pulling="props">
-						<div class="monkeyBox">
-							<img class="monkey" src="../common/img/monkey.gif" />
-							<p>下拉刷新</p>
-						</div>
-					</template>
-					<!-- 释放提示 -->
-					<template #loosing>
-						<div class="monkeyBox">
-							<img class="monkey" src="../common/img/monkey.gif" />
-							<p>释放刷新</p>
-						</div>
-					</template>
-
-					<!-- 加载提示 -->
-					<template #loading>
-						<div class="monkeyBox">
-							<img class="monkey" src="../common/img/monkey.gif" />
-							<p>正在刷新</p>
-						</div>
-					</template>
-					<div class="listDiv" id='list' v-if="listData.length>0">
+				<div class="dataBox" class="userType=='steps'?'dataBox2':''">
+					<div class="listDiv"  id='list' v-if="listData.length>0">
 						<div class="listItem" v-for="(item , index) in listData" :class="index==0?'isself':''"
 							v-if="item.rank>3&&item.value!=0">
 							<div class="rank">{{item.rank}}</div>
@@ -125,7 +101,8 @@
 					<div class="noData-box" v-else-if="!refreshing">
 						<img class="noData-img" src="../common/img/noData.png" />
 					</div>
-				</van-pull-refresh>
+				</div>
+				
 			</div>
 			<p class="bottomTip">{{bottomTipMsg}}</p>
 
