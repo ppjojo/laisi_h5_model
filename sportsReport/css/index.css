@@ -27,14 +27,10 @@ body {
 
 .specialHeader .header .van-nav-bar {
   background-color: transparent;
-}
-
-.specialHeader .header .van-nav-bar .van-nav-bar__content {
-  color: #fff;
+  color: #12121f;
 }
 
 .specialHeader .header .van-nav-bar .van-nav-bar__title {
-  color: #fff;
   font-size: 0.36rem;
 }
 

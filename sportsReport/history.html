@@ -122,9 +122,9 @@
                         '月' +
                         startTime.getDate() +
                         '日'
-                    let startDateTime2 = (startTime.getFullYear()) + "-" + (startTime.getMonth() + 1) + '-' +
+                    let startDateTime2 = (startTime.getFullYear()) + "-" + (startTime.getMonth() + 1).toString().padStart(2,"00") + '-' +
                         startTime
-                        .getDate()
+                        .getDate().toString().padStart(2,"00")
 
                     let endTime = new Date(new Date(value - 7 * 24 * 3600 * 1000).setDate(time + 6))
                     let endDateTime =
@@ -134,8 +134,8 @@
                         '月' +
                         endTime.getDate() +
                         '日'
-                    let endDateTime2 = (endTime.getFullYear()) + "-" + (endTime.getMonth() + 1) + '-' + endTime
-                        .getDate()
+                    let endDateTime2 = (endTime.getFullYear()) + "-" + (endTime.getMonth() + 1).toString().padStart(2,"00") + '-' + endTime
+                        .getDate().toString().padStart(2,"00")
 
                     weekItem.startDateTime = startDateTime;
                     weekItem.endDateTime = endDateTime;
@@ -222,8 +222,8 @@
                     monthItem.endDateTime = endDateTime;
                     monthItem.year = year;
                     
-                    monthItem.startTime= new Date(year + '-' + month + '-' + 1).getTime(),
-                    monthItem.endTime= new Date(year + '-' + month + '-' + yDate.getDate()).getTime(),
+                    monthItem.startTime= new Date(year + '-' + month + '-' + "01").getTime(),
+                    monthItem.endTime= new Date(year + '-' + month + '-' + yDate.getDate().toString().padStart(2,"00")).getTime(),
 
                     monthList.push(monthItem);
 
@@ -232,7 +232,6 @@
                     }
                 }
                 this.monthList = this.groupByType(monthList, "year")
-                console.log(this.monthList)
             },
 
         }

@@ -9,7 +9,7 @@
 	<link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
 	<link rel="stylesheet" href="font/iconfont.css">
 	<link rel="stylesheet" href="css/index.css">
-
+	
 
 </head>
 
@@ -24,7 +24,7 @@
 					<span class="icon iconfont icon-fenxianganniu" @click="sharePage"
 						style="font-size: 0.5rem;margin-right: 0.25rem;"></span>
 					<span class="icon iconfont icon-tongyong-rili" @click="gohistory"
-						style="font-size: 0.48rem;"></span>
+						style="font-size: 0.45rem;"></span>
 
 				</template>
 			</van-nav-bar>
@@ -470,9 +470,9 @@
 				}
 				var colorValue = `rgba(18,18,31,${rate})`
 				document.getElementsByClassName("van-nav-bar")[0].style.background = colorValue
-				// document.getElementsByClassName("van-nav-bar__title")[0].style.opacity = rate;
+				document.getElementsByClassName("van-nav-bar__title")[0].style.color = `rgb(${18+237*rate},${18+237*rate},${31+224*rate})`
 				document.getElementsByClassName("van-nav-bar")[0].style.color =
-					`rgb(${255-48*rate},${255-48*rate},${255-45*rate})`
+				`rgb(${18+237*rate},${18+237*rate},${31+224*rate})`
 
 			},
 			destroyed() {

@@ -9,6 +9,11 @@
 	<link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
 	<link rel="stylesheet" href="font/iconfont.css">
 	<link rel="stylesheet" href="css/index.css">
+	<script src="https://cdn.bootcdn.net/ajax/libs/vConsole/3.8.1/vconsole.min.js"></script>
+	<script>
+		// init vConsole
+		var vConsole = new VConsole();
+	</script>
 </head>
 
 <body>
@@ -72,22 +77,21 @@
 					times=this.lastMonth
 					window.location.href =`monthReport.html`
 				}
-				
 				localStorage.setItem("report_startTime", times.startTime)
 				localStorage.setItem("report_endTime", times.endTime)
 			},
-			getTime(time) {
-				var myDate = new Date(time);
-				var u = navigator.userAgent;
-				var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
-				var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
-				if (isiOS) {
-					var t = new Date(time.replace(/-/g, '/')).getTime();
-				} else {
-					var t = myDate.getTime();
-				}
-				return t;
-			},
+			// getTime(time) {
+			// 	var myDate = new Date(time);
+			// 	var u = navigator.userAgent;
+			// 	var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+			// 	var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+			// 	if (isiOS) {
+			// 		var t = new Date(time.replace(/-/g, '/')).getTime();
+			// 	} else {
+			// 		var t = myDate.getTime();
+			// 	}
+			// 	return t;
+			// },
 			getLastWeek(value) {
 				if (value == '' || value == undefined) {
 					return value
@@ -110,8 +114,8 @@
 					'月' +
 					startTime.getDate() +
 					'日'
-				let startDateTime2 = (startTime.getFullYear()) + "-" + (startTime.getMonth() + 1) + '-' + startTime
-					.getDate()
+				let startDateTime2 = (startTime.getFullYear()) + "-" + (startTime.getMonth() + 1).toString().padStart(2,"00") + '-' + startTime
+					.getDate().toString().padStart(2,"00")
 
 
 				let endTime = new Date(new Date(value - 7 * 24 * 3600 * 1000).setDate(time + 6))
@@ -119,8 +123,8 @@
 					'月' +
 					endTime.getDate() +
 					'日'
-				let endDateTime2 = (endTime.getFullYear()) + "-" + (endTime.getMonth() + 1) + '-' + endTime
-					.getDate()
+				let endDateTime2 = (endTime.getFullYear()) + "-" + (endTime.getMonth() + 1).toString().padStart(2,"00") + '-' + endTime
+					.getDate().toString().padStart(2,"00")
 				return {
 					startDateTime: startDateTime,
 					endDateTime: endDateTime,
@@ -150,9 +154,8 @@
 				let yDate = new Date(year, month, 0)
 
 				startDateTime = year + '年' + month + '月' //上个月第一天
-				startDateTime2 = year + '-' + month + '-' + 1
+				startDateTime2 = year + '-' + month + '-' + "01"
 				endDateTime = year + '-' + month + '-' + yDate.getDate() //上个月最后一天
-
 				return {
 					startDateTime: startDateTime,
 					endDateTime: endDateTime,
