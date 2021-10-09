@@ -16,7 +16,7 @@
 <body>
 	<div id="app" class="specialHeader" v-cloak>
 		<div class="header" v-if="!sheetImageStatus">
-			<van-nav-bar @click-left="onclickLeft" title="运动周报" left-arrow safe-area-inset-top fixed>
+			<van-nav-bar @click-left="onclickLeft" title="周报" left-arrow safe-area-inset-top fixed>
 				<template #left>
 					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
 				</template>
@@ -470,7 +470,7 @@
 				}
 				var colorValue = `rgba(18,18,31,${rate})`
 				document.getElementsByClassName("van-nav-bar")[0].style.background = colorValue
-				document.getElementsByClassName("van-nav-bar__title")[0].style.opacity = rate;
+				// document.getElementsByClassName("van-nav-bar__title")[0].style.opacity = rate;
 				document.getElementsByClassName("van-nav-bar")[0].style.color =
 					`rgb(${255-48*rate},${255-48*rate},${255-45*rate})`
 

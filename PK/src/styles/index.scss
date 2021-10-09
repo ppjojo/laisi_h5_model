@@ -20,13 +20,16 @@ $border_color:#1e1e2a;
 .van-hairline--bottom::after {
     border: none;
 }
-.van-hairline--left::after{
+
+.van-hairline--left::after {
     border: none;
 }
-.van-hairline--top::after{
+
+.van-hairline--top::after {
     border: none;
 }
-.van-hairline--right::after{
+
+.van-hairline--right::after {
     border: none;
 }
 
@@ -139,6 +142,7 @@ $border_color:#1e1e2a;
             .van-field {
                 background-color: $border_color;
                 padding: 0.2rem;
+                font-size: 0.24rem;
                 -webkit-box-sizing: border-box;
                 box-sizing: border-box;
                 border-radius: 4px;
@@ -198,21 +202,22 @@ $border_color:#1e1e2a;
                 font-size: 0.32rem;
             }
         }
-        
+
 
         .chosed .van-cell__value {
             color: $text_color_white;
             font-size: 0.28rem;
-            
+
             flex: 1;
         }
-        .pkRepeatTimes{
-            .van-cell__value{
+
+        .pkRepeatTimes {
+            .van-cell__value {
                 flex: 2;
             }
         }
     }
-    
+
 
     .nextStep {
         width: 4rem;
@@ -452,6 +457,7 @@ $border_color:#1e1e2a;
         top: calc(1rem + env(safe-area-inset-top));
     }
 }
-.van-picker__toolbar{
+
+.van-picker__toolbar {
     border-bottom: 1px solid #1e1e2a;
 }

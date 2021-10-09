@@ -292,6 +292,7 @@ $border_color:#1e1e2a;
 .groupIndex {
     .header {
         background-color: transparent !important;
+
         .van-nav-bar__title {
             color: #fff;
             opacity: 0;
@@ -1014,6 +1015,7 @@ $border_color:#1e1e2a;
         }
     }
 }
+
 @supports ((height: constant(safe-area-inset-top)) or (height: env(safe-area-inset-top))) and (-webkit-overflow-scrolling: touch) {
     .header {
         height: 1rem;
@@ -1021,10 +1023,15 @@ $border_color:#1e1e2a;
         height: calc(1rem + env(safe-area-inset-top));
     }
 }
+
 @supports ((height: constant(safe-area-inset-bottom)) or (height: env(safe-area-inset-bottom))) and (-webkit-overflow-scrolling: touch) {
     .peopleListBox {
         padding-bottom: 0.3rem;
         padding-bottom: calc(0.3rem + constant(safe-area-inset-bottom));
         padding-bottom: calc(0.3rem + env(safe-area-inset-bottom));
     }
+}
+
+.van-picker__toolbar {
+    border-bottom: 1px solid #1e1e2a;
 }

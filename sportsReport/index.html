@@ -21,7 +21,7 @@
 
 			</van-nav-bar>
 		</div>
-		<div class="listBox main-contain">
+		<div class="listBox ">
 			<div class="weekItem" @click="goReport(1)">
 				<div class="title">运动周报</div>
 				<div class="date">{{lastWeek.startDateTime+'-'+lastWeek.endDateTime}}</div>
@@ -54,8 +54,8 @@
 
 		},
 		mounted() {
-			this.lastWeek = this.getLastWeek(new Date())
-			this.lastMonth = this.getLastMonth(new Date())
+			this.lastWeek = this.getLastWeek(new Date().getTime())
+			this.lastMonth = this.getLastMonth(new Date().getTime())
 		},
 		methods: {
 			onclickLeft() {
@@ -98,10 +98,13 @@
 
 
 				let myDate = new Date(value - 7 * 24 * 3600 * 1000)
+				
 				let day = myDate.getDay() // 回退7天后是星期几？
 
 				let time = myDate.getDate() - day + (day === 0 ? -6 : 1)
-				let startTime = new Date(myDate.setDate(time))
+				
+				let startTime = new Date(new Date(value - 7 * 24 * 3600 * 1000).setDate(time))
+				
 				let startDateTime =
 					(startTime.getMonth() + 1) +
 					'月' +
@@ -111,7 +114,7 @@
 					.getDate()
 
 
-				let endTime = new Date(myDate.setDate(time + 6))
+				let endTime = new Date(new Date(value - 7 * 24 * 3600 * 1000).setDate(time + 6))
 				let endDateTime = (endTime.getMonth() + 1) +
 					'月' +
 					endTime.getDate() +

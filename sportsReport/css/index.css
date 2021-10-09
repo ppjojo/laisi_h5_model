@@ -34,7 +34,6 @@ body {
 }
 
 .specialHeader .header .van-nav-bar .van-nav-bar__title {
-  opacity: 0;
   color: #fff;
   font-size: 0.36rem;
 }
@@ -413,10 +412,6 @@ body {
   .infoBox {
     margin-top: calc(1.2rem + constant(safe-area-inset-top));
     margin-top: calc(1.2rem + env(safe-area-inset-top));
-  }
-  .main-contain {
-    margin-top: calc(1rem + constant(safe-area-inset-top));
-    margin-top: calc(1rem + env(safe-area-inset-top));
   }
 }
 /*# sourceMappingURL=index.css.map */

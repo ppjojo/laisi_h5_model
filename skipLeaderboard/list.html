@@ -83,7 +83,7 @@
 						</p>
 					</div> -->
 				</div>
-				<div class="dataBox" class="userType=='steps'?'dataBox2':''">
+				<div class="dataBox" :class="userType=='steps'?'dataBox2':''">
 					<div class="listDiv"  id='list' v-if="listData.length>0">
 						<div class="listItem" v-for="(item , index) in listData" :class="index==0?'isself':''"
 							v-if="item.rank>3&&item.value!=0">

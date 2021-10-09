@@ -24,7 +24,7 @@
     
                 </van-nav-bar>
             </div>
-        <div class="main-contain historyListBox" v-if="type==1">
+        <div class=" historyListBox" v-if="type==1">
             <div class="historyListDiv" v-for="item in weekList">
                 <div v-for="item2 in item.data">
                     <div class="title">{{item.name+'年'+item2.name+'月'}}</div>
@@ -114,7 +114,7 @@
                     let day = myDate.getDay() // 回退7天后是星期几？
 
                     let time = myDate.getDate() - day + (day === 0 ? -6 : 1)
-                    let startTime = new Date(myDate.setDate(time))
+                    let startTime = new Date(new Date(value - 7 * 24 * 3600 * 1000).setDate(time))
                     let startDateTime =
                         // startTime.getFullYear() +
                         // '-' +
@@ -126,7 +126,7 @@
                         startTime
                         .getDate()
 
-                    let endTime = new Date(myDate.setDate(time + 6))
+                    let endTime = new Date(new Date(value - 7 * 24 * 3600 * 1000).setDate(time + 6))
                     let endDateTime =
                         // endTime.getFullYear() +
                         // '-' +
