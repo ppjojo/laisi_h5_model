@@ -9,6 +9,9 @@
 		<meta http-equiv="Pragma" content="no-cache">
 		<meta http-equiv="Cache-control" content="no-cache">
 		<meta http-equiv="Cache" content="no-cache">
+		<link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
+		<link href="css/helpCenter.css" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" href="font/iconfont.css">
 		<link rel="stylesheet" type="text/css" href="css/problem.css">
 		<style type="text/css">
 			.answer .container{
@@ -23,10 +26,22 @@
 		</style>
 	</head>
 	<body>
+		<div id="app">
+		<div class="header">
+			<van-nav-bar @click-left="onclickLeft" :title="title" left-arrow safe-area-inset-top fixed>
+				<template #left>
+					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
+				</template>
+		
+			</van-nav-bar>
+		</div>
 		<div class="answer">
 
 		</div>
 		</div>
+		</div>
+		<script src="https://oss.laisitech.com/0bb12bf1-cb87-4d2c-a724-8a7c25b7ae04.js "></script>
+		<script src="https://oss.laisitech.com/6172e6c1-f460-40ac-97ba-31c8526f2e16.js"></script>
 		<script src="../../common/js/network.js"></script>
 		<script type="text/javascript">
 			var phoneLanguage = navigator.language;
@@ -40,7 +55,29 @@
 				document.title = 'FAQ';
 				getdata()
 			}
-
+			new Vue({
+				el: '#app',
+				data() {
+					return {
+						dataList:[],
+						tenPlayer:null,
+						tenParser:null,
+						title:""
+					}
+				},
+				filters: {},
+				mounted() {
+				},
+				created() {
+					this.title = getQueryString('title');
+					this.getList()
+				},
+				methods: {
+					onclickLeft(){
+						window.history.back(-1);
+					},
+				}
+			})
 			// 获取问题列表
 			function getdata() {
 				// ajax({
