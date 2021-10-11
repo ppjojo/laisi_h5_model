@@ -1,5 +1,5 @@
 import request from "@/utils/request"
-import { getUInfo} from "@/utils/auth"
+import { getUInfo } from "@/utils/auth"
 //列表
 export function listItem(data) {
     return request({
@@ -14,10 +14,10 @@ export function updateItem(data) {
         url: '/uiconfig/floatbutton/update',
         method: 'post',
         data,
-        params:{
-            userId:JSON.parse(getUInfo()).id
+        params: {
+            userId: JSON.parse(getUInfo()).id
         }
-        
+
     })
 }
 export function admindisplay(data) {
@@ -25,10 +25,10 @@ export function admindisplay(data) {
         url: '/uiconfig/floatbutton/display',
         method: 'post',
         data,
-        params:{
-            userId:JSON.parse(getUInfo()).id
+        params: {
+            userId: JSON.parse(getUInfo()).id
         }
-        
+
     })
 }
 export function adminnotDisplay(data) {
@@ -36,14 +36,20 @@ export function adminnotDisplay(data) {
         url: '/uiconfig/floatbutton/notDisplay',
         method: 'post',
         data,
-        params:{
-            userId:JSON.parse(getUInfo()).id
+        params: {
+            userId: JSON.parse(getUInfo()).id
         }
-        
+
     })
 }
+export function privacyAgreement(data) {
+    return request({
+        url: '/uiconfig/privacy/addPrivacyAgreement',
+        method: 'get',
+        data,
+        params: {
+            userId: JSON.parse(getUInfo()).id
+        }
 
-
-
-
-
+    })
+}

@@ -198,11 +198,13 @@ body {
 
 .threeDiv .num {
   font-size: 0.24rem;
+  color: #71717f;
 }
 
 .threeDiv .bigNumberSpan {
   font-size: 0.48rem;
   font-family: 'BebasNeue';
+  color: #CFCFD2;
 }
 
 .main-container {
@@ -217,6 +219,7 @@ body {
   position: relative;
   width: 100%;
   background-color: #1e1e2a;
+  min-height: 7.8rem;
 }
 
 .content-container .allHeader {
@@ -347,6 +350,7 @@ body {
   -ms-flex-line-pack: center;
       align-content: center;
   z-index: 2;
+  border-bottom: 1px solid #12121f;
 }
 
 .content-container .headerBox .tabDiv2 p {
@@ -418,18 +422,19 @@ body {
   width: 40%;
   white-space: nowrap;
   font-size: 0.24rem;
+  color: #71717f;
 }
 
 .content-container .listDiv .listItem .bigNumberSpan {
   font-size: 0.48rem;
   font-family: 'BebasNeue';
+  color: #CFCFD2;
 }
 
 .content-container .listDiv .isself {
   border-bottom: 0.16rem solid #12121f;
   margin: 0;
   padding: 0 0.24rem;
-  border-top: 1px solid #12121f;
 }
 
 .content-container .dataBox {

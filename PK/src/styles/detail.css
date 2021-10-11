@@ -52,14 +52,14 @@
 .detailBox .detailContain .detailDiv {
   background-color: #1e1e2a;
   border-radius: 0.2rem;
-  padding: 0.4rem 0.4rem;
+  padding: 0.3rem 0.48rem;
 }
 
 .detailBox .detailContain .laberTitle {
   font-size: 0.28rem;
   text-align: justify;
-  line-height: 0.6rem;
-  height: 0.6rem;
+  line-height: 0.55rem;
+  height: 0.55rem;
   color: #CFCFD2;
   padding-right: 0.1rem;
 }
@@ -73,7 +73,7 @@
   font-size: 0.28rem;
   color: #71717f;
   text-align: left;
-  line-height: 0.6rem;
+  line-height: 0.55rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -86,7 +86,10 @@
 }
 
 .detailBox .detailContain .laberContent .lock_img {
-  width: 0.3rem;
+  width: 0.25rem;
+  position: relative;
+  top: 0.02rem;
+  left: 0.1rem;
 }
 
 .detailBox .detailContain .van-tag-official {

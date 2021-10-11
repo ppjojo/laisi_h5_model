@@ -36,7 +36,7 @@
             <van-col span="18" class="laberContent">
               {{competitionItem.name}}
               <div v-if="competitionItem.isOfficial" class="van-tag-official">官方</div>
-              <img class="lock_img" v-if="competitionItem.isVerify" src="../img/is_public.png" />
+              <img class="lock_img" v-if="competitionItem.isVerify" src="../img/is_public2.png" />
             </van-col>
           </van-row>
 
@@ -172,7 +172,7 @@
                 <div class="num" v-if="competitionItem.mode==2">
                   <span class="bigNumberSpan">{{item.bestValue||'--'}}</span>个
                 </div>
-                <div class="num" v-else v-html="countTimeAll(item.bestValue)">
+                <div class="num" v-else v-html="countTimeAll(item.bestValue||item.competitorRunTime)">
                 </div>
               </div>
             </van-list>

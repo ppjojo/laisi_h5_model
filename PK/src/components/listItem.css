@@ -41,9 +41,10 @@
 }
 
 .pkTitle .lock_img {
-  width: 0.3rem;
+  width: 0.28rem;
   position: relative;
   top: 0.02rem;
+  left: 0.1rem;
 }
 
 .pkDescript {
@@ -75,7 +76,6 @@
   left: 0;
   top: 0.2rem;
   padding: 0 0.1rem;
-  height: 0.36rem;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   text-align: center;
@@ -87,18 +87,18 @@
 .pkTime_ing {
   min-width: 1.44rem;
   background-color: transparent;
-  border: 1px solid #fff;
-  color: #fff;
+  border: 1px solid #cfcfd2;
+  color: #cfcfd2;
   border-left: none;
 }
 
 .pkTime_todo {
   min-width: 1.44rem;
-  background-color: #fff;
+  background-color: #cfcfd2;
   color: #E60012;
 }
 
 .pkTime_done {
-  background-color: #999;
+  background-color: #71717f;
 }
 /*# sourceMappingURL=listItem.css.map */

@@ -61,14 +61,14 @@ $border_color:#1e1e2a;
         .detailDiv {
             background-color: $border_color;
             border-radius: 0.2rem;
-            padding: 0.4rem 0.4rem;
+            padding: 0.3rem 0.48rem;
         }
 
         .laberTitle {
             font-size: 0.28rem;
             text-align: justify;
-            line-height: 0.6rem;
-            height: 0.6rem;
+            line-height: 0.55rem;
+            height: 0.55rem;
             color: $text_color_white;
             padding-right: 0.1rem;
         }
@@ -82,13 +82,16 @@ $border_color:#1e1e2a;
             font-size: 0.28rem;
             color: #71717f;
             text-align: left;
-            line-height: 0.6rem;
+            line-height: 0.55rem;
             display: flex;
             align-items: center;
             justify-content: flex-start;
 
             .lock_img {
-                width: 0.3rem;
+                width: 0.25rem;
+                position: relative;
+                top: 0.02rem;
+                left: 0.1rem;
             }
         }
 

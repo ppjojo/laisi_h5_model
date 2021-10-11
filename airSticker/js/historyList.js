@@ -165,6 +165,7 @@ new Vue({
         // 点击月份，请求某一时间段数据接口
         selectMonth(item, index) {
             if (this.openMonthid == index) {
+                this.openMonthid = -1
                 return
             } else {
                 //请求每月时，page 也要恢复原始数据
@@ -214,6 +215,7 @@ new Vue({
         // 点击日期，请求某一时间段数据接口
         selectDay(data, index) {
             if (this.openDayid == index) {
+                this.openDayid = -1
                 return
             } else {
                 this.day_time_list = []

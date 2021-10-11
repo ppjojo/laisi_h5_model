@@ -556,7 +556,7 @@
 			},
 			getWristball() {
 				ajax({
-					url: "wristball/shareCareerBest",
+					url: "wristball/share/shareCareerBest ",
 				}).then(res => {
 					if (res.code == 0) {
 						this.wristballObj = res.data.rankBestCareer;
@@ -579,7 +579,7 @@
 			},
 			getWheel() {
 				ajax({
-					url: "ab-roller/shareCareerBest",
+					url: "ab-roller/share/shareCareerBest",
 				}).then(res => {
 					if (res.code == 0) {
 						this.wheelObj = res.data.sourceCareerBest
