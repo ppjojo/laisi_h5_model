@@ -80,8 +80,10 @@ input::-webkit-input-placeholder {
     text-align: center;
     /* width: .5rem; */
     margin-left: 2%;
-	line-height: 1.5;
+	height: .26rem;
+	line-height: .28rem;
 	padding: 0 .04rem;
+	/* padding-top: .04rem; */
 
 }
 .listItem-content  .content span {

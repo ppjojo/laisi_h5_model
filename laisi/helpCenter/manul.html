@@ -12,13 +12,31 @@
     </script>
 	<link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
     <link href="css/helpCenter.css" rel="stylesheet" type="text/css" />
-    
+    <style type="text/css">
+    	.van-nav-bar--fixed{
+    		background-color:#12121f!important;
+    	}
+    	.van-nav-bar__title,.icon-fanhuianniu{
+    		color:#cfcfd2!important;
+    	}
+    	.van-hairline--bottom::after{
+    		border-bottom-width:0;
+    	}
+    </style>
 
 
 </head>
 
 <body>
     <div id='app'>
+		<div class="header">
+			<van-nav-bar @click-left="onclickLeft" :title="title" left-arrow safe-area-inset-top fixed>
+				<template #left>
+					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
+				</template>
+		
+			</van-nav-bar>
+		</div>
         <div class="main_container">
 			<!-- 常见问题 -->
 			<div class="outcommonBox">
@@ -50,13 +68,14 @@
 				},
 				tenPlayer:null,
 				tenParser:null,
+				title:''
 			}
 		},
 		filters: {},
 		mounted() {
 		},
 		created() {
-			document.title = getQueryString('title');
+			this.title = getQueryString('title');
 			this.getList()
 		},
 		methods: {
@@ -82,6 +101,9 @@
 						console.log("error")
 					}
 				})
+			},
+			onclickLeft(){
+				window.history.back(-1);
 			},
 		}
 	})

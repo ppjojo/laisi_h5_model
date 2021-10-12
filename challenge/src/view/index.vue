@@ -301,7 +301,7 @@
 		margin: .48rem auto;
 
 		div {
-			width: .88rem;
+			width: 1rem;
 		}
 	}
 

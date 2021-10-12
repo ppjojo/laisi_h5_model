@@ -1,7 +1,7 @@
 <template>
 	<div id="app" v-cloak>
 		<div class="header">
-			<van-nav-bar title="运动日历" right-text="打卡总览" @click-left="onClickLeft" @click-right="onClickRight" 
+			<van-nav-bar title="运动日历" right-text="打卡总览" @click-left="onClickLeft" @click-right="onClickRight"
 				safe-area-inset-top fixed>
 				<template #left>
 					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
@@ -14,7 +14,8 @@
 		<!-- 打卡 -->
 		<div class="" v-if="flag==1">
 			<!-- 今日尚未打卡有打卡按钮 -->
-			<div v-if="monthObj.sportClockMax>1" class="normaltxt" style="width: 4rem;text-align: center;margin: .4rem auto 1.2rem;">
+			<div v-if="monthObj.sportClockMax>1" class="normaltxt"
+				style="width: 4rem;text-align: center;margin: .4rem auto 1.2rem;">
 				本月最大连续签到打卡<span>{{monthObj.sportClockMax||0}}</span>天！</br>
 				继续加油哦～
 			</div>
@@ -75,7 +76,18 @@
 						<returnIcon :bgw="true" :name="i"></returnIcon>
 						<!-- <img class="sporticon" :src="require('@i/sporticon/icon_skipping.png')" alt=""> -->
 						<div class="iteminfo">
-							<div>{{typeUtilStr(item,i,'name')}}</div>
+							<div>{{typeUtilStr(item,i,'name')}}
+								<van-popover v-if="i=='steps'" theme="dark" v-model="showPopover" trigger="click"
+								placement="right"
+									>
+									<div class="attentiontxt">
+										步数不满2000步，不作为运动打卡数据；步数消耗不计入总消耗
+									</div>
+									<template #reference>
+										<img class="attention" :src="require('@i/attention.png')">
+									</template>
+								</van-popover>
+							</div>
 							<div>{{typeUtilStr(item,i,'unit')}}</div>
 						</div>
 					</div>
@@ -113,7 +125,9 @@
 	import nCalendar from '@c/calendar';
 	import clockState from '@c/clockState';
 	import returnIcon from '@c/returnIcon';
-	import { getQueryString } from "@u/tool";
+	import {
+		getQueryString
+	} from "@u/tool";
 	import {
 		insertSportData,
 		updateSportData,
@@ -124,7 +138,7 @@
 		NavBar,
 		Icon,
 		Popup,
-		DatetimePicker
+		DatetimePicker,Popover
 	} from 'vant';
 	import timeUtil from "@u/calendar";
 	import typeUtil from "@u/type";
@@ -137,7 +151,7 @@
 			clockState,
 			[Popup.name]: Popup,
 			[DatetimePicker.name]: DatetimePicker,
-			// [Swipe.name]: Swipe,
+			[Popover.name]: Popover,
 			// [SwipeItem.name]: SwipeItem,
 			// [GoodsAction.name]: GoodsAction,
 			// [GoodsActionIcon.name]: GoodsActionIcon,
@@ -147,18 +161,24 @@
 		data() {
 			return {
 				minDate: new Date(2021, 0, 1),
-				isClick:false,
+				isClick: false,
 				maxDate: new Date(),
 				currentDate: new Date(),
-				checkTime:new Date(new Date().toLocaleDateString()).getTime(),
+				checkTime: new Date(new Date().toLocaleDateString()).getTime(),
 				currentZero: new Date(new Date().toLocaleDateString()).getTime(),
 				YMshow: false,
 				clockShow: false,
 				clockState: true,
+				showPopover: false,
+				actions: [{
+					text: '连接手表状态下“步数不满2000步，不作为运动打卡数据”；未连接手表状态下“步数不满2000步时，不作为运动打卡数据，步数消耗不计入'
+				}],
 				flag: null, //1未打卡2打卡失败3打卡成功未达标4打卡成功已达标5当天无打卡记录
 				sportObj: { //当日运动详情
 				},
-				monthObj: {sportClockMax:0} //打卡详情
+				monthObj: {
+					sportClockMax: 0
+				} //打卡详情
 			};
 		},
 		filters: {},
@@ -177,18 +197,18 @@
 						this.sportObj = Object.assign(this.sportObj, res.data);
 						this.flag = this.sportObj.isFinishDays == 1 ? 4 : 3;
 						this.$forceUpdate();
-						
-					} else if(res.code == "1") {
+
+					} else if (res.code == "1") {
 						//打卡失败 相当于未打卡
 						this.flag = 1;
-					}else if(res.code == "2") {
+					} else if (res.code == "2") {
 						//过去未打卡
 						this.flag = 5;
 					}
 				})
 			},
 			firstClick() {
-				if(this.isClick)return;
+				if (this.isClick) return;
 				this.isClick = true;
 				//首次打卡
 				insertSportData({}).then(res => {
@@ -205,12 +225,12 @@
 				})
 			},
 			reClick() {
-				if(this.isClick)return;
+				if (this.isClick) return;
 				this.isClick = true;
 				//更新打卡
 				updateSportData({}).then(res => {
 					this.isClick = false;
-					if(res.code=='2'){
+					if (res.code == '2') {
 						this.$toast('你还没有新的运动数据');
 						return;
 					}
@@ -220,8 +240,8 @@
 					// this.calindarList()
 				})
 			},
-			clickBeforeDay(stamp){//点击了过去的某个时间
-				console.log(this.currentZero,stamp)
+			clickBeforeDay(stamp) { //点击了过去的某个时间
+				console.log(this.currentZero, stamp)
 				this.checkTime = stamp;
 				this.getList();
 			},
@@ -234,13 +254,13 @@
 					path: '/clockoverview',
 				});
 			},
-			goTarget(){
+			goTarget() {
 				//LSH5APP_GoToMyTarget
-				this.$interaction.appNative('LSH5APP_GoToMyTarget',{});
+				this.$interaction.appNative('LSH5APP_GoToMyTarget', {});
 			},
 			formatSeconds: timeUtil.formatSeconds,
 			fatherSetMonthObj(obj) {
-				this.$nextTick(()=>{
+				this.$nextTick(() => {
 					this.monthObj = Object.assign(this.monthObj, obj);
 					// console.log(this.monthObj)
 				})
@@ -255,7 +275,7 @@
 			},
 			typeUtilStr(val, key, type) { //返回运动名称
 				if (type == 'name') return typeUtil.formatStr(val, key);
-				if(type=='unit')return typeUtil.formatStrUnit(val, key);
+				if (type == 'unit') return typeUtil.formatStrUnit(val, key);
 			},
 			formatter(type, val) {
 				if (type === 'year') {
@@ -265,13 +285,30 @@
 				}
 				return val;
 			},
-			isToday(str){
+			isToday(str) {
 				return (new Date(str).toDateString() === new Date().toDateString());
 			}
 		}
 	};
 </script>
 <style lang="scss">
+	.attention {
+		width: .24rem;
+		height: .24rem;
+		margin-left: .1rem;
+	}
+	.van-popover--dark .van-popover__content{
+		background-color: #292934;
+		color: #71717f;
+	}
+	.van-popover--dark .van-popover__arrow{
+		color:#292934;
+	}
+	.attentiontxt{
+		font-size: .18rem;
+		width: 3.7rem;
+		padding:.05rem .1rem;
+	}
 	.infobox {
 		padding: .48rem;
 
@@ -397,12 +434,15 @@
 		background: linear-gradient(to bottom, #ffaa88, #ff4e3e);
 		margin: 0 auto;
 	}
-	.van-picker__toolbar{
+
+	.van-picker__toolbar {
 		border-bottom: 1px solid #1e1e2a;
 	}
-	.van-picker-column__item{
+
+	.van-picker-column__item {
 		color: #cfcfd2;
 	}
+
 	// .van-hairline--top-bottom::after, .van-hairline-unset--top-bottom::after{
 	// 	border-color: #595962;
 	// }
