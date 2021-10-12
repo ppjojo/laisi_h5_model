@@ -34,6 +34,7 @@ body {
 //课程主页
 .contain {
     padding: 0.24rem;
+    min-height: 10rem;
 
     /* 视频课程的轮播图 */
     .course-swipe {
@@ -270,17 +271,19 @@ body {
 
     .classificationDiv {
         .classificationList {
-            display: flex;
-            justify-content: flex-start;
-            align-items: flex-start;
+            // display: flex;
+            // justify-content: flex-start;
+            // align-items: flex-start;
 
             .name {
                 font-size: 0.32rem;
-                margin-right: 0.24rem;
-                width: 0.8rem;
+                width: 0.9rem;
+                box-sizing: border-box;
+                float: left;
             }
 
             .typeList {
+                margin-left: 1rem;
                 display: flex;
                 justify-content: flex-start;
                 align-items: center;

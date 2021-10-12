@@ -72,7 +72,7 @@ body {
 
 
 .topContain {
-    height: 6.22rem;
+    height: 5rem;
     background-image: url(../img/mainBg.png);
     background-size: cover;
     color: #fff;
@@ -98,7 +98,7 @@ body {
 
     .scoreBox {
         position: absolute;
-        top: 2rem;
+        top: 0.5rem;
         left: 1.02rem;
 
         .scoreDiv {
@@ -110,7 +110,6 @@ body {
         .scoreInfo {
             background-color: #75CAD2;
             width: 1.26rem;
-            height: 0.56rem;
             line-height: 0.56rem;
             border-radius: 4px;
             font-size: 0.24rem;
@@ -120,6 +119,7 @@ body {
         .scoreTime {
             font-size: 0.24rem;
             line-height: 0.6rem;
+            color: #fff;
         }
     }
 
@@ -189,7 +189,6 @@ body {
                     .numStatus {
                         color: #fff;
                         width: 1.16rem;
-                        height: 0.48rem;
                         text-align: center;
                         line-height: 0.48rem;
                         border-radius: 0.24rem;
@@ -198,7 +197,8 @@ body {
             }
         }
     }
-    .shareBox{
+
+    .shareBox {
         border-radius: 0.24rem;
         margin-top: 0.24rem;
         background-color: #1e1e2a;
@@ -209,18 +209,22 @@ body {
         justify-content: space-between;
         flex-wrap: wrap;
         text-align: center;
-        .item{
+
+        .item {
             padding: 0.36rem 0;
             width: 30%;
-            .num{
+
+            .num {
                 line-height: 0.6rem;
             }
-            .info{
+
+            .info {
                 color: #71717f;
                 font-size: 0.24rem;
             }
         }
     }
+
     .listContain {
         border-radius: 0.24rem;
         margin-top: 0.24rem;
@@ -396,9 +400,11 @@ body {
         padding: 0.2rem 0.5rem;
         color: #71717f;
     }
-    .iconBox{
+
+    .iconBox {
         text-align: center;
-        img{
+
+        img {
             width: 2.4rem;
             margin-top: 0.5rem;
         }

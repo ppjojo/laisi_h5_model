@@ -77,7 +77,7 @@ body {
 }
 
 .topContain {
-  height: 6.22rem;
+  height: 5rem;
   background-image: url(../img/mainBg.png);
   background-size: cover;
   color: #fff;
@@ -109,7 +109,7 @@ body {
 
 .topContain .scoreBox {
   position: absolute;
-  top: 2rem;
+  top: 0.5rem;
   left: 1.02rem;
 }
 
@@ -122,7 +122,6 @@ body {
 .topContain .scoreBox .scoreInfo {
   background-color: #75CAD2;
   width: 1.26rem;
-  height: 0.56rem;
   line-height: 0.56rem;
   border-radius: 4px;
   font-size: 0.24rem;
@@ -132,6 +131,7 @@ body {
 .topContain .scoreBox .scoreTime {
   font-size: 0.24rem;
   line-height: 0.6rem;
+  color: #fff;
 }
 
 .contain {
@@ -211,7 +211,6 @@ body {
 .contain .basicContain .basicBox .detailBox .detailDiv .numStatus {
   color: #fff;
   width: 1.16rem;
-  height: 0.48rem;
   text-align: center;
   line-height: 0.48rem;
   border-radius: 0.24rem;
