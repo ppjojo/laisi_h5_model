@@ -11,6 +11,7 @@
 		<link rel="stylesheet" href="css/pointsLottery.css">
 		<link rel="stylesheet" href="css/swiper.css">
 		<link rel="stylesheet" href="css/changerecord.css">
+		<link rel="stylesheet" href="css/font/iconfont.css">
 		<style type="text/css">
 			.list_ul>li{
 				margin-bottom: .2rem;
@@ -37,6 +38,9 @@
 		<div id="app" :style="{backgroundColor:dataList.length>0?'#f5f5f5':'#fff'}" v-cloak>
 			<div class="header">
 				<van-nav-bar title="兑换记录" @click-left="OnclickLeft" left-arrow>
+					<template #left>
+						<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
+					</template>
 				</van-nav-bar>
 			</div>
 			<van-pull-refresh v-model="isLoading" :head-height="90" @refresh="initIndexData" class="monkey-pull-refresh" style="min-height: 80vh;">

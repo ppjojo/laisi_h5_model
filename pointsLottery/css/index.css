@@ -10,6 +10,8 @@
 .list_ul li {
 	width: 3.3rem;
 	margin-bottom: .4rem;
+	background-color: #1e1e2a;
+	border-radius: .6rem .2rem .2rem .2rem;
 }
 
 .list_ul li:nth-child(odd) {
@@ -59,10 +61,10 @@
 }
 
 .list_ul li .detail2 {
-	color: #999;
+	color: #71717f;
 	font-size: .2rem;
 	margin: .14rem 0;
-
+	padding-left: .1rem;
 }
 
 .list_ul .waitfornew .adimg {

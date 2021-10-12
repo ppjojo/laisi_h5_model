@@ -10,6 +10,7 @@
 		<link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
 		<link rel="stylesheet" href="../common/css/basic.css">
 		<link rel="stylesheet" href="css/pointsLottery.css?t=5">
+		<link rel="stylesheet" href="css/font/iconfont.css">
 		<link rel="stylesheet" href="css/index.css">
 		<link rel="stylesheet" href="css/swiper.css">
 		<style type="text/css">
@@ -74,6 +75,9 @@
 		<div id="app" ref="DOM" class="page" v-cloak>
 			<div class="header">
 				<van-nav-bar title="我的逗币" @click-left="OnclickLeft" @click-right="onClickRight" left-arrow>
+					<template #left>
+						<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
+					</template>
 					<template #right>
 						<van-icon name="ellipsis" size="30" />
 					</template>
@@ -149,14 +153,6 @@
 									已兑换{{item.exchangedCount||0}}份
 								</div>
 							</li>
-							<li class="waitfornew">
-								<div class="adimg">
-									<img src="img/waitfornew.png" alt="">
-								</div>
-								<div class="van-ellipsis title">
-									即将上新
-								</div>
-							</li>
 						</ul>
 					</van-tab>
 					<van-tab title="兑换">
@@ -175,14 +171,6 @@
 								</div>
 								<div class="detail2">
 									已兑换{{item.exchangedCount||0}}份
-								</div>
-							</li>
-							<li class="waitfornew">
-								<div class="adimg">
-									<img src="img/waitfornew.png" alt="">
-								</div>
-								<div class="van-ellipsis title">
-									即将上新
 								</div>
 							</li>
 						</ul>
@@ -244,16 +232,16 @@
 						name: "逗币攻略"
 					}], //右上角菜单
 					blindbg: {
-						0: '#F7E6E1',
-						1: '#EFE1F7',
-						2: '#F7F6E1'
+						0: '#1e1e2a',
+						1: '#1e1e2a',
+						2: '#1e1e2a'
 					},
 					pricebg: {
-						0: '#F7E6E1',
-						1: '#F7F6E1',
-						2: '#F7E1F0',
-						3: '#E1EFF7',
-						4: '#EFE1F7',
+						0: '#1e1e2a',
+						1: '#1e1e2a',
+						2: '#1e1e2a',
+						3: '#1e1e2a',
+						4: '#1e1e2a',
 					},
 					showbox: [],
 					isnormal: true, //猴子正常

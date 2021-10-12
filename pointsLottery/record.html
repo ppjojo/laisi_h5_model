@@ -9,12 +9,16 @@
 		<link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
 		<link rel="stylesheet" href="../common/css/basic.css">
 		<link rel="stylesheet" href="css/pointsLottery.css">
+		<link rel="stylesheet" href="css/font/iconfont.css">
 		<style type="text/css">
 		#app>.header,.van-nav-bar,.monkey-pull-refresh,.DBnotice{
 			background-color: #12121F;
 		}
 				.van-nav-bar .van-icon,.van-nav-bar__title,.van-list__error-text, .van-list__finished-text, .van-list__loading{
 					color:#CFCFD2;
+				}
+				.van-list__finished-text{
+					color:#71717f;
 				}
 		</style>
 		<!-- <script src="https://cdn.bootcss.com/vConsole/3.3.4/vconsole.min.js"></script>
@@ -32,6 +36,9 @@
 			 @click-left="OnclickLeft"
 			 left-arrow
 			 >
+			 <template #left>
+			 	<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
+			 </template>
 			</van-nav-bar>
 			</div>
 			<div class="DBnotice" v-if="ifDB" >本月有<span>{{DBcount}}</span>枚逗币即将过期，赶快使用哟~</div>

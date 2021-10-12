@@ -10,6 +10,7 @@
 		<link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
 		<link rel="stylesheet" href="../common/css/basic.css">
 		<link rel="stylesheet" href="css/pointsLottery.css">
+		<link rel="stylesheet" href="css/font/iconfont.css">
 		<style type="text/css">
 			body {
 				font-family: 'PingFangSC-Medium';
@@ -17,7 +18,7 @@
 
 			.task_unfinish,
 			.task_finish {
-				background: linear-gradient(to right, #FF6A88, #FF5136);
+				background: linear-gradient(to right, #ff4e3e, #ffaa88);
 				border-radius: .26rem;
 				height: .52rem;
 				line-height: .52rem;
@@ -104,6 +105,9 @@
 		<div id="app" v-cloak>
 			<div class="header">
 				<van-nav-bar title="逗币任务" @click-left="OnclickLeft" left-arrow>
+					<template #left>
+						<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
+					</template>
 				</van-nav-bar>
 			</div>
 			<van-tabs v-model="menuactive" sticky swipeable @change="changeTab">

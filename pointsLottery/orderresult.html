@@ -9,6 +9,7 @@
 		<link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
 		<link rel="stylesheet" href="../common/css/basic.css">
 		<link rel="stylesheet" href="css/pointsLottery.css">
+		<link rel="stylesheet" href="css/font/iconfont.css">
 		<style type="text/css">
 			#app img {
 				width: 3.6rem;
@@ -43,6 +44,9 @@
 		<div id="app" v-cloak>
 			<div class="header">
 				<van-nav-bar :title="isSuccess==1?'兑换成功':'兑换失败'" @click-left="OnclickLeft" left-arrow>
+					<template #left>
+						<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
+					</template>
 				</van-nav-bar>
 			</div>
 			<div id="demoCanvas" style=""></div>
