@@ -797,6 +797,8 @@ body {
         z-index: 99;
         padding: 0.16rem 0.24rem;
         background-color: $bg_color;
+        padding-bottom: calc(constant(safe-area-inset-bottom));
+        padding-bottom: calc(env(safe-area-inset-bottom));
 
         .van-cell {
             background-color: $border_color;
@@ -963,18 +965,12 @@ body {
 
     .courseList .tabBox .van-sticky--fixed {
         top: 0.92rem;
-        top: calc(0.92rem + constant(safe-area-inset-top));
-        top: calc(0.92rem + env(safe-area-inset-top));
+        top: calc(0.915rem + constant(safe-area-inset-top));
+        top: calc(0.915rem + env(safe-area-inset-top));
     }
 }
 
-@supports ((height: constant(safe-area-inset-bottom)) or (height: env(safe-area-inset-bottom))) and (-webkit-overflow-scrolling: touch) {
-    .sendBox {
-        padding-bottom: 0.16rem;
-        padding-bottom: calc(0.16rem + constant(safe-area-inset-bottom));
-        padding-bottom: calc(0.16rem + env(safe-area-inset-bottom));
-    }
-}
+
 
 
 

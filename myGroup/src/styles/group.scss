@@ -227,7 +227,8 @@ $border_color:#1e1e2a;
 
     .nextStep {
         width: 4rem;
-        margin: 1.5rem auto;
+        margin: 0 auto;
+        margin-top: 1.5rem;
         height: 0.8rem;
         line-height: 0.8rem;
         background-color: #74747E;
@@ -297,6 +298,8 @@ $border_color:#1e1e2a;
             color: #fff;
             opacity: 0;
             font-size: 0.36rem;
+            margin-left: 15%;
+            max-width: 50%;
         }
 
         .van-nav-bar__text {
@@ -991,6 +994,8 @@ $border_color:#1e1e2a;
         padding: 0.3rem;
         display: flex;
         flex-wrap: wrap;
+        padding-bottom: calc(0.1rem + constant(safe-area-inset-bottom));
+        padding-bottom: calc(0.1rem + env(safe-area-inset-bottom));
 
         .peopleBox {
             display: flex;
@@ -1024,13 +1029,7 @@ $border_color:#1e1e2a;
     }
 }
 
-@supports ((height: constant(safe-area-inset-bottom)) or (height: env(safe-area-inset-bottom))) and (-webkit-overflow-scrolling: touch) {
-    .peopleListBox {
-        padding-bottom: 0.3rem;
-        padding-bottom: calc(0.3rem + constant(safe-area-inset-bottom));
-        padding-bottom: calc(0.3rem + env(safe-area-inset-bottom));
-    }
-}
+
 
 .van-picker__toolbar {
     border-bottom: 1px solid #1e1e2a;

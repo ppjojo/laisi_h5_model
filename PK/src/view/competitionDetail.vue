@@ -696,6 +696,7 @@ export default {
       } else if (obj.type == 3) {
         Dialog.confirm({
           message: "确定退出比赛吗？",
+          confirmButtonText: "确定",
         })
           .then(() => {
             if (this.competitionStatus == 2) {

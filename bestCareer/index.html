@@ -38,6 +38,9 @@
 							<div class="info">最多步数(步)</div>
 						</div>
 						<div class="dataItem">
+							
+						</div>
+						<div class="dataItem">
 							<div class="num">{{(item.maxDistance/1000).toFixed(2)}}</div>
 							<div class="info">最远距离(公里)</div>
 						</div>
@@ -556,7 +559,7 @@
 			},
 			getWristball() {
 				ajax({
-					url: "wristball/share/shareCareerBest ",
+					url: "wristball/share/shareCareerBest",
 				}).then(res => {
 					if (res.code == 0) {
 						this.wristballObj = res.data.rankBestCareer;

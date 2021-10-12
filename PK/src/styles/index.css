@@ -134,6 +134,10 @@
 }
 
 .creatBox .item_box .pkName_box .van-field .van-field__control {
+  font-size: 0.24rem;
+}
+
+.creatBox .item_box .pkName_box .van-field .van-field__control {
   height: 0.5rem;
   min-height: 0.5rem !important;
 }

@@ -613,7 +613,12 @@
 							},
 						},
 						formatter: (p) => {
-							let str = parseInt(p.data/1000/60) +"分"+ '</br>';
+							let str
+							if(parseInt(p.data/1000/60)>0){
+								str= parseInt(p.data/1000/60) +"分"+ '</br>';
+							}else{
+								str= parseInt(p.data/1000) +"秒"+ '</br>';
+							}
 							str += p.name;
 							return str;
 						}
@@ -677,6 +682,8 @@
 					keys.push(key);
 					vals.push(list[key])
 				}
+				console.log(keys)
+				console.log(vals)
 				var myChart = echarts.init(document.getElementById("totalCalEchart"));
 				var option = {
 					grid: {

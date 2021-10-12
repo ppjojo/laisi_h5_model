@@ -2,79 +2,87 @@
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    margin:0;
+    margin: 0;
     padding: 0;
 }
 
-body,html{
+body,
+html {
     background-color: #fff;
     font-family: "Microsoft YaHei" ! important;
 }
-.loading{
-	display: block;
-	position: fixed;
-	left: calc(50% - 0.195rem);
-	left: -webkit-calc(50% - 0.195rem);
-	left: -moz-calc(50% - 0.195rem);
-	top: calc(50% - 0.195rem);
-	top: -webkit-calc(50% - 0.195rem);
-	top: -moz-calc(50% - 0.195rem);
-	width: .39rem;
-	height: .39rem;
+
+.loading {
+    display: block;
+    position: fixed;
+    left: calc(50% - 0.195rem);
+    left: -webkit-calc(50% - 0.195rem);
+    left: -moz-calc(50% - 0.195rem);
+    top: calc(50% - 0.195rem);
+    top: -webkit-calc(50% - 0.195rem);
+    top: -moz-calc(50% - 0.195rem);
+    width: .39rem;
+    height: .39rem;
 }
-.contain{
+
+.contain {
     font-size: .3rem;
     background-image: url("../img/Bg.png");
     background-size: 100% 100%;
-    background-repeat:no-repeat;
-    width:100%;
+    background-repeat: no-repeat;
+    width: 100%;
     min-height: 12rem;
-	height: 100vh;
-	padding-top: 0.4rem;
-	overflow: hidden;
+    height: 100vh;
+    padding-top: 0.4rem;
+    overflow: hidden;
 }
 
-.contain .datacontain{
+.contain .datacontain {
     position: relative;
-	background-image: url(../img/containBg.png);
-	background-size: 100% 100%;
-	height: 9.5rem;
-	width: 6.7rem;
-	margin: 0 0.4rem;
+    background-image: url(../img/containBg.png);
+    background-size: 100% 100%;
+    height: 9.5rem;
+    width: 6.7rem;
+    margin: 0 0.4rem;
 }
 
-.datacontain .userinfo{
-	padding-top: 0.4rem;
-	padding-left: 0.4rem;
+.datacontain .userinfo {
+    padding-top: 0.4rem;
+    padding-left: 0.4rem;
     height: 1rem;
 }
+
 .userinfo .imgcontainer {
     /* border:1px #fff solid; */
     width: 1rem;
     height: 1rem;
     border-radius: 50%;
     overflow: hidden;
-	float: left;
-	margin-right: .2rem;
+    float: left;
+    margin-right: .2rem;
 }
+
 .userinfo .imgcontainer img.userimg {
     width: 100%;
     height: 100%;
 }
-.userinfo .infos{
-	float: left;
-	margin-top: .1rem;
+
+.userinfo .infos {
+    float: left;
+    margin-top: .1rem;
 }
-.userinfo p{
-    width:70%;
-    color:#fff;
+
+.userinfo p {
+    width: 70%;
+    color: #fff;
     font-size: .24rem;
     text-align: left;
     white-space: nowrap;
-    
+
 }
+
 .userinfo p.name {
-    width:70%;
+    width: 70%;
     font-size: .28rem;
     line-height: .4rem;
     white-space: nowrap;
@@ -86,11 +94,12 @@ body,html{
     white-space: nowrap;
     text-overflow: ellipsis;
 }
+
 /* 各项数据信息 */
 .datacontain .datalist {
     width: 100%;
     padding: 0 0.4rem;
-	padding-top: 0.4rem;
+    padding-top: 0.4rem;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -99,36 +108,46 @@ body,html{
 
 .datalist .sumdata {
     color: #fff;
-    width:4.4rem;
+    width: 4.4rem;
     height: 4.3rem;
     position: relative;
-	background-image: url(../img/numBg.png);
-	background-size: cover;
+    background-image: url(../img/numBg.png);
+    background-size: cover;
 }
+
 .sumdata .numdiv {
-	margin-top: 30%;
+    margin-top: 30%;
     width: 100%;
     text-align: center;
 
 }
+
 @font-face {
-  font-family: "DINCondensed-Bold";
-  src:url("../../../common/font/DINCondensed-Bold/DINCondensed-Bold.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
+    font-family: "DINCondensed-Bold";
+    src: url("../../../common/font/DINCondensed-Bold/DINCondensed-Bold.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "BebasNeue";
+    src: url("../../../common/font/BebasNeue/BebasNeue.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
 }
 
 .numdiv .num {
     font-size: 1rem;
-    font-family: 'DINCondensed-Bold';
+    font-family: 'BebasNeue';
 }
+
 .numdiv .typetxt {
     font-size: .24rem;
 }
 
 
 .datalist .alldataitems {
-	width: 100%;
+    width: 100%;
     color: #fff;
     /* display: flex;
     flex-wrap: wrap;
@@ -137,59 +156,67 @@ body,html{
 }
 
 .alldataitems .dataitem {
-    width:33%;
+    width: 33%;
     margin-top: 0.4rem;
 }
+
 .alldataitems .txt-right {
     text-align: right;
 }
+
 .alldataitems .txt-center {
     text-align: center;
 }
-.alldataitems .txt-left { 
+
+.alldataitems .txt-left {
     text-align: left;
 }
+
 .dataitem .num .data {
-    color:#fff;
-    font-size:.6rem;
-    font-family: 'DINCondensed-Bold';
-}
-.dataitem .unit {
-    color:#fff;
+    color: #fff;
     font-size: .6rem;
-    font-family: 'DINCondensed-Bold';
-}
-.dataitem .title {
-    color:#fff;
-    font-size:.2rem;
-    font-family: 'DINCondensed-Bold';
-    margin:0;
-	font-weight: lighter;
-	white-space: nowrap;
+    font-family: 'BebasNeue';
 }
 
-.footer{
-	    display: flex;
-	    justify-content: space-between;
-	    align-items: flex-start;
-	    margin-top: 0.5rem;
-	    position: relative;
-		padding:0 0.4rem;
-		
+.dataitem .unit {
+    color: #fff;
+    font-size: .6rem;
 }
+
+.dataitem .title {
+    color: #fff;
+    font-size: .2rem;
+    margin: 0;
+    font-weight: lighter;
+    white-space: nowrap;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 0.5rem;
+    position: relative;
+    padding: 0 0.4rem;
+
+}
+
 /* 二维码区域 */
-#codeimg{
-    width:2.6rem;
-    height:2.6rem;
-	position: absolute;
-	right: -1.05rem;
+#codeimg {
+    width: 2.6rem;
+    height: 2.6rem;
+    position: absolute;
+    right: -1.05rem;
 }
-#Winfo{
-	color: #fff;
+
+#Winfo {
+    color: #fff;
 }
-#Winfo p:first-child{
-	font-size: .4rem;
+
+#Winfo p:first-child {
+    font-size: .4rem;
 }
-.ftDin{
-	 font-family: 'DINCondensed-Bold';
+
+.ftDin {
+    font-family: 'BebasNeue';
 }

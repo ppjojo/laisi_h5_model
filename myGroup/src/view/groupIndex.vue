@@ -132,16 +132,17 @@
                       <span class="num">{{returnTime(item2.takeMs)}}</span>
                     </div>
                   </div>
-                  <div class="deviceItem" v-else-if="item2.deviceType=='watch'">
+                  <div class="deviceItem" v-else-if="item2.deviceType=='steps'">
                     <img class="deviceImg" :src="require('../img/group_step.png')" alt="">
                     <div class="deviceData">
                       <span>步数:</span>
                       <span class="num">{{item2.steps}}</span>
-                      <span>个</span>
+                      <span>步</span>
                     </div>
                     <div class="deviceData">
                       <span>距离:</span>
-                      <span class="num">{{returnTime(item2.distance)}}</span>
+                      <span class="num">{{item2.distance||0}}</span>
+                      <span>米</span>
                     </div>
                   </div>
                 </div>
