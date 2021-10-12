@@ -10,6 +10,7 @@
 		<link rel="stylesheet" href="../common/css/basic.css">
 		<link rel="stylesheet" href="css/pointsLottery.css">
 		<link rel="stylesheet" href="css/package.css">
+		<link rel="stylesheet" href="css/font/iconfont.css">
 		<!-- <script src="https://cdn.bootcss.com/vConsole/3.3.4/vconsole.min.js"></script>
 				<script>
 					// init vConsole
@@ -117,6 +118,9 @@
 		<div id="app" v-cloak>
 			<div class="header">
 				<van-nav-bar title="我的背包" @click-left="OnclickLeft" @click-right="onClickRight" left-arrow>
+					<template #left>
+						<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
+					</template>
 					<template #right>
 						<van-icon name="ellipsis" size="30" />
 					</template>
@@ -272,7 +276,7 @@
 					</div>
 				</van-tab>
 			</van-tabs>
-			<div id="pricechange" class="ub ub-ac ub-pj" v-if="menuactive==1||pricelist.length>0">
+			<div id="pricechange" class="ub ub-ac ub-pj" v-if="menuactive==1&&pricelist.length>0">
 				<van-checkbox v-model="chooseall" @change="toggleAll">全选</van-checkbox>
 				<div id="gochange" @click="toChange(priceresult.length>0)" :class="{canchange:priceresult.length>0?true:false}">去兑换</div>
 			</div>

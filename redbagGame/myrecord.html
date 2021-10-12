@@ -48,7 +48,7 @@
 	<body>
 		<div id="app" :style="{paddingTop:isIOS?'.15rem':'.92rem'}" v-cloak>
 			<div class="header">
-				<van-nav-bar title="我的钱包" @click-left="OnclickLeft" @click-right="onClickRight" left-arrow>
+				<van-nav-bar title="我的钱包" @click-left="OnclickLeft"  left-arrow>
 					<template #right>
 						<!-- <div>余额明细</div> -->
 					</template>
@@ -230,7 +230,7 @@
 					}
 				},
 				onClickRight() { //余额明细
-					window.location.href = './balancedetail.html'
+					// window.location.href = './balancedetail.html'
 				},
 				withdrawal() {
 					window.location.href = './withdrawal.html'

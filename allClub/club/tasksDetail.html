@@ -42,7 +42,7 @@
 			height: 1.5em;
 		}
 		.van-nav-bar__right{
-			font-size: .6rem;
+			font-size: .5rem;
 		}
 		.van-notice-bar .van-notice-bar__right-icon{
 			color: #71717f;
@@ -146,9 +146,9 @@
 							</div>
 
 						</van-col>
-						<van-col span="7" class="finishNumber">{{taskItem.doneMemberList.length}}人完成任务</van-col>
+						<van-col span="7" class="finishNumber" style="color: #71717f;">{{taskItem.doneMemberList.length}}人完成任务</van-col>
 						<van-col span="2" class="finishIcon">
-							<van-icon name="arrow" />
+							<van-icon color="#71717f" name="arrow" />
 						</van-col>
 					</van-row>
 				</div>
@@ -157,7 +157,7 @@
 				@click="gotoMemberGroup(taskItem.clubGroupVoList)" v-else-if="taskItem.task.assignType=='03'">
 				<div>参与部门</div>
 				<div class="ub ub-ac" style="color: #71717f;"><span>{{taskItem.clubGroupCount}}个部门参加任务</span>
-					<van-icon name="arrow" />
+					<van-icon color="#71717f" name="arrow" />
 				</div>
 			</div>
 			<div class="memberDetailList" style="margin-bottom:1rem;">
@@ -207,7 +207,7 @@
 									{{item.name?item.name:'未分部部门'}}
 								</div>
 								<div class="userInfo" style="color: #71717f;">
-									<span>分部长:<span class="van-ellipsis" style="width: 1.5rem;display: inline-flex;">{{item.subMinisterName||'--'}}</span> 成员:{{item.totalNumber}}人</span>
+									<span>分部长:<span class="van-ellipsis" style="width: 1.5rem;display: inline-flex;"><div class="van-ellipsis">{{item.subMinisterName||'--'}}</div></span> 成员:{{item.totalNumber}}人</span>
 								</div>
 							</div>
 						</van-col>
@@ -221,7 +221,7 @@
 							</div>
 						</van-col>
 						<van-col span="1" class="iconBox">
-							<van-icon name="arrow" color="#999" size="0.3rem" />
+							<van-icon name="arrow" color="#71717f" size="0.3rem" />
 						</van-col>
 					</van-row>
 
@@ -315,6 +315,15 @@
 			}
 		},
 		mounted() {
+			if(this.isCorporate!=0){
+				this.menuaction = [{
+						name: '发任务通知',
+						val: '00'
+					}, {
+						name: '结束任务',
+						val: '02'
+					}]
+			}
 			window.taskDetail = this.initDetail;
 			window.initCompetitionDetail = this.initDetail;
 			window.getConnectedMac = this.getConnectedMac

@@ -12,8 +12,8 @@
 		document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';
 	</script>
 	<link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
-	<link rel="stylesheet" href="font/iconfont.css">
-    <link rel="stylesheet" type="text/css" href="css/helpCenter.css">
+	<link rel="stylesheet" href="./font/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="./css/helpCenter.css">
     <style type="text/css">
 	#app{
 		background-color: #12121f;
@@ -33,7 +33,15 @@
     		align-items: center;
     		font-size: .24rem;
     	}
-    
+		.van-nav-bar--fixed{
+			background-color:#12121f!important;
+		}
+		.van-nav-bar__title,.icon-fanhuianniu{
+			color:#cfcfd2!important;
+		}
+		.van-hairline--bottom::after{
+			border-bottom-width:0;
+		}
     	.listItem img {
     		width: 1.8rem;
 			border-radius: 4px;

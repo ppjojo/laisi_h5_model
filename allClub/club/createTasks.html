@@ -147,7 +147,7 @@
 				height: .1rem;
 			}
 
-			input::-webkit-input-placeholder {
+			input::-webkit-input-placeholder,.van-cell__right-icon {
 				color: #71717f !important;
 			}
 		</style>
@@ -192,7 +192,7 @@
 						</van-col>
 						<van-col span="17" class="laberContent">
 							<van-field v-model="submitform.target" :error="isSubmit&&!submitform.target?true:false"
-								style="padding-left: 0;" placeholder="请输入跳绳目标个数" />
+								style="padding-left: 0;" placeholder="请输入跳绳目标个数" is-link />
 						</van-col>
 					</van-row>
 				</div>
@@ -317,8 +317,8 @@
 			el: '#app',
 			data() {
 				return {
-					flag: 2,
-					bgc: "linear-gradient(to right, #FF6A88, #FF5136 )",
+					flag: 1,
+					bgc: "linear-gradient(to right, #FF4e3e, #FFaa88 )",
 					bgcgrey: '#999',
 					isCorporate: localStorage.getItem('isCorporate') ? parseInt(localStorage.getItem('isCorporate')) :
 						0,

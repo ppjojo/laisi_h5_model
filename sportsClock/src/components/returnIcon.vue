@@ -72,7 +72,7 @@
 		div {
 			color: #cfcfd2;
 			font-size: .48rem;
-
+			white-space: nowrap;
 			span {
 				font-size: .24rem;
 			}

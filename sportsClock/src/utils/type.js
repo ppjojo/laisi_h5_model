@@ -7,8 +7,8 @@ export default {
 			d == 'rideIndoor'|| d == 'steps'|| d == 'walk') {
 			return (this.toThousands((item.number)||item.distance) +'      '+ this.returnUnit(item, d))
 		} else if (d == 'skipping' || d == 'wristball' || d == 'wheel' || d ==
-			'ropeSkipping') {
-			return (this.toThousands(item.number||item.distance) + this.returnUnit(item, d) + '       ' + this.formatSeconds(item.takeMs ||
+			'ropeSkipping') { 
+			return (this.toThousands(item.number||item.distance) + this.returnUnit(item, d) + '\xa0\xa0\xa0'  + this.formatSeconds(item.takeMs ||
 				item.timeSpend||0))
 		} else {
 			return this.returnUnit(item, d)

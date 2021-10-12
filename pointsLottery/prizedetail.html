@@ -10,6 +10,7 @@
 		<link rel="stylesheet" href="../common/css/basic.css">
 		<link rel="stylesheet" href="css/pointsLottery.css">
 		<link rel="stylesheet" href="css/prizedetail.css">
+		<link rel="stylesheet" href="css/font/iconfont.css">
 		<style type="text/css">
 		#app>.header,.van-nav-bar,.monkey-pull-refresh,.DBnotice{
 			background-color: #12121F;
@@ -31,6 +32,9 @@
 			<van-loading type="spinner" vertical v-show="submitflag"></van-loading>
 			<div class="header">
 				<van-nav-bar :title="datalist.name" @click-left="OnclickLeft" left-arrow>
+					<template #left>
+						<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
+					</template>
 				</van-nav-bar>
 			</div>
 			<div class="bigpic ub ub-ac ub-pc" :style="{backgroundColor:bgc}">
