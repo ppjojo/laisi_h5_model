@@ -230,6 +230,10 @@
 				//更新打卡
 				updateSportData({}).then(res => {
 					this.isClick = false;
+					if (res.code == '1') {
+						this.$toast('更新打卡失败');
+						return;
+					}
 					if (res.code == '2') {
 						this.$toast('你还没有新的运动数据');
 						return;
