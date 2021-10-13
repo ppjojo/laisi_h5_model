@@ -38,6 +38,10 @@
 		.tx-c {
 			text-align: center;
 		}
+		.typename{
+			color:#71717f;
+			font-size:0.2rem;
+		}
 
 		.van-index-bar__sidebar {
 			top: 60%;
@@ -67,20 +71,20 @@
 		<van-search v-model="searchval.searchKey" @input="search" placeholder="请输入成员昵称或ID"></van-search>
 		<div class="ub ub-ac ub-ad invitebox">
 			<div class="tx-c" @click="shareClub('wechat')">
-				<img src="img/weixin-4.png" alt="">
-				<div class="">微信好友</div>
+				<img style="width:0.64rem" src="img/weixin.png" alt="">
+				<div class="typename">微信好友</div>
 			</div>
 			<div class="tx-c" @click="shareClub('wxcircle')">
-				<img src="img/pyq.png" alt="">
-				<div>朋友圈</div>
+				<img  style="width:0.64rem" src="img/pyq.png" alt="">
+				<div class="typename">朋友圈</div>
 			</div>
 			<div class="tx-c">
-				<img src="img/qq.png" alt="" @click="shareClub('qq')">
-				<div>QQ好友</div>
+				<img style="width:0.64rem"  src="img/qq.png" alt="" @click="shareClub('qq')">
+				<div class="typename">QQ好友</div>
 			</div>
 			<div class="tx-c">
-				<img src="img/qqzone.png" alt="" @click="shareClub('qzone')">
-				<div>QQ空间</div>
+				<img style="width:0.64rem" src="img/qqzone.png" alt="" @click="shareClub('qzone')">
+				<div class="typename">QQ空间</div>
 			</div>
 		</div>
 		<van-checkbox-group v-model="memberResult" ref="checkboxGroup">

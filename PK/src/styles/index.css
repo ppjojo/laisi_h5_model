@@ -208,8 +208,8 @@
 }
 
 .creatBox .canNextStep {
-  background-image: -webkit-gradient(linear, right top, left top, from(#FF6A88), to(#FF4E3E));
-  background-image: linear-gradient(to left, #FF6A88, #FF4E3E);
+  background-image: -webkit-gradient(linear, right top, left top, from(#FFAA88), to(#FF4E3E));
+  background-image: linear-gradient(to left, #FFAA88, #FF4E3E);
 }
 
 .teamDetailContain {

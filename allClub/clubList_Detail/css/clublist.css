@@ -1,6 +1,7 @@
 .searchBox .van-sticky--fixed {
     top: 0.92rem;
 }
+
 @supports ((height: constant(safe-area-inset-top)) or (height: env(safe-area-inset-top))) and (-webkit-overflow-scrolling: touch) {
     .searchBox .van-sticky--fixed {
         top: 0.91rem;
@@ -8,19 +9,22 @@
         top: calc(0.91rem + env(safe-area-inset-top));
     }
 
-    
+
 }
+
 input::-webkit-input-placeholder {
-        color: #71717f!important;
-      }
+    color: #71717f !important;
+}
+
 .van-icon-search {
     color: #999;
 }
+
 .listDiv .listItem {
-    width:100%;
-    padding:0  4%;
+    width: 100%;
+    padding: 0 4%;
     height: 2.4rem;
-    color:#333;
+    color: #333;
     font-size: .25rem;
 
     display: flex;
@@ -30,7 +34,7 @@ input::-webkit-input-placeholder {
 
 }
 
-.listItem .listItem-picImg{
+.listItem .listItem-picImg {
     width: 1.8rem;
     height: 1.8rem;
     overflow: hidden;
@@ -38,6 +42,7 @@ input::-webkit-input-placeholder {
     /* background: #f8f8f8; */
 
 }
+
 .listItem .listItem-picImg div {
     background-position: center center;
     background-size: cover;
@@ -45,75 +50,82 @@ input::-webkit-input-placeholder {
     height: 1.8rem;
     background-repeat: no-repeat;
 }
+
 .listItem-picImg img {
     width: 100%;
-	border-radius: .2rem;
+    border-radius: .2rem;
 }
-.listItem .listItem-content{
-	padding: .3rem 0;
+
+.listItem .listItem-content {
+    padding: .3rem 0;
     width: 75%;
     margin-left: 3%;
     color: #727272;
     font-size: .2rem;
     line-height: 1.5;
-	border-bottom: 1px solid #1e1e2a;
+    border-bottom: 1px solid #1e1e2a;
 }
-.listItem-content .name{
+
+.listItem-content .name {
     color: #CFCFD2;
     font-size: .32rem;
     line-height: 2;
     display: flex;
     align-items: center;
 }
-.listItem-content .van-ellipsis{
-	max-width: 4.8rem;
+
+.listItem-content .van-ellipsis {
+    max-width: 4.8rem;
 }
-.listItem-content .name .van-ellipsis{
-	max-width: 4.32rem;
+
+.listItem-content .name .van-ellipsis {
+    max-width: 4.32rem;
 }
-.listItem-content .ministerIcon{
+
+.listItem-content .ministerIcon {
     display: block;
     color: #fff;
     font-size: .2rem;
-    background:#FF4E3E;
-    border-radius: 5px;
+    background: #FF4E3E;
+    border-radius: 2px;
     text-align: center;
     /* width: .5rem; */
     margin-left: 2%;
-	height: .26rem;
-	line-height: .28rem;
-	padding: 0 .04rem;
-	/* padding-top: .04rem; */
+    line-height: .28rem;
+    padding: 0 .04rem;
+
 
 }
-.listItem-content  .content span {
+
+.listItem-content .content span {
     display: inline-block;
-	color: #71717f;
-	font-size: .28rem;
+    color: #71717f;
+    font-size: .28rem;
     margin-right: 2%;
 }
-.listItem-content .desc{
-   width: 100%;
-   line-height: 2.5;
-   font-size: .28rem;
-   color: #71717f;
+
+.listItem-content .desc {
+    width: 100%;
+    line-height: 2.5;
+    font-size: .28rem;
+    color: #71717f;
 }
- .addClubBtn {
-    
-    
-}
+
+.addClubBtn {}
+
 .addClubBtn img {
     /* width:100%; */
     width: 0.94rem;
-    height:0.94rem;
-	position: fixed;
-	bottom: 2.5rem;
-	right: 0.3rem;
-	z-index: 999;
+    height: 0.94rem;
+    position: fixed;
+    bottom: 2.5rem;
+    right: 0.3rem;
+    z-index: 999;
 }
-.van-icon-clear{
-				color: #71717f;
-			}
+
+.van-icon-clear {
+    color: #71717f;
+}
 
 /* 超出省略显示 */
 .ellipsis {
@@ -122,36 +134,36 @@ input::-webkit-input-placeholder {
     text-overflow: ellipsis;
 }
 
-.van-search__content{
-	background-color:#1E1E2A;
-}
-.van-field__control{
-	color: #71717f;
+.van-search__content {
+    background-color: #1E1E2A;
 }
 
+.van-field__control {
+    color: #71717f;
+}
 
 
-  /* 无数据区域 */
-  .nulldataDiv {
-	position: fixed;
-	top: 3.96rem;
-	/* top: -webkit-calc(50% - 2rem);
+
+/* 无数据区域 */
+.nulldataDiv {
+    position: fixed;
+    top: 3.96rem;
+    /* top: -webkit-calc(50% - 2rem);
     top: -moz-calc(50% - 2rem); */
-    
-    font-size:.28rem;
+
+    font-size: .28rem;
     line-height: 1rem;
     color: #71717f;
 
-    width:100%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    
+
 
 }
-.nulldataDiv img{
+
+.nulldataDiv img {
     width: 50%;
 }
-
-

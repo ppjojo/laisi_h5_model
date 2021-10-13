@@ -108,7 +108,7 @@
 							<ul class="ul_class">
 								<li class="ub ub-ac ub-pj">
 									<div class="ub ub-ac">
-										<img class="headpic" :src="memItem.headPictureUrl" alt="">
+										<img class="headpic" v-if="memItem.headPictureUrl" :src="memItem.headPictureUrl" alt="">
 										<div>
 											<div class="ub ub-ac">
 												<div class="nickname van-ellipsis">
@@ -136,7 +136,7 @@
 					<li class="ub ub-ac ub-pj">
 						<div class="ub ub-ac">
 							<img class="headpic" @click.stop="gotoUserIndex(ministerInfo.memberId)"
-								:src="ministerInfo.headPictureUrl" alt="">
+								v-if="ministerInfo.headPictureUrl" :src="ministerInfo.headPictureUrl" alt="">
 							<div>
 								<div class="ub ub-ac">
 									<div class="nickname van-ellipsis">

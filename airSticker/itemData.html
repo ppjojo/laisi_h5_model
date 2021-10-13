@@ -192,10 +192,15 @@
 
 
             onclickLeft() {
-                Interaction.closePage();
+                if(getQueryString("fromh5")){
+                    window.history.back(-1)
+                }else{
+                  Interaction.closePage();  
+                }
+                
             },
             onClickRight(){
-                window.location.href=`historyList.html?macAddress=${this.detail.macAddress}`
+                window.location.href=`historyList.html?fromh5=1&macAddress=${this.detail.macAddress}`
             },
 
             dateFormat(date, format) {

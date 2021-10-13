@@ -44,10 +44,13 @@ new Vue({
 
     methods: {
         onclickLeft() {
-            window.history.back()
+            if (getQueryString("fromh5")) {
+                window.history.back(-1)
+            } else {
+                Interaction.closePage();
+            }
         },
         sharePage() {
-            alert("分享")
             Interaction.sharePage({
                 title: this.classDetail.className,
                 description: this.classDetail.description,
@@ -262,7 +265,7 @@ new Vue({
 
         //跳转
         skip(item) {
-            window.location.href = `itemData.html?dataId=${item.id}&bottomBtnShow=' + 0;`;
+            window.location.href = `itemData.html?fromh5=1&dataId=${item.id}&bottomBtnShow=' + 0;`;
         },
 
         //时间记录删除
@@ -277,7 +280,8 @@ new Vue({
                 if (res.code == 0) {
                     this.$refs.daySwipecell[index].close()
                     this.day_time_list.splice(index, 1);
-                    //this.getHistoryData()
+                    this.getHistoryData()
+                    this.drawColumnChart()
                 }
             })
 
@@ -297,7 +301,8 @@ new Vue({
                 this.$refs.monthSwipecell[index].close()
                 this.monthlist.splice(index, 1);
 
-                //this.getHistoryData()
+                this.getHistoryData()
+                this.drawColumnChart()
             })
 
         },

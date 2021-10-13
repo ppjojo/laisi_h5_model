@@ -123,6 +123,38 @@ body {
   border: 1px solid #1e1e2a;
 }
 
+textarea::-webkit-input-placeholder {
+  color: #71717f !important;
+}
+
+textarea:-ms-input-placeholder {
+  color: #71717f !important;
+}
+
+textarea::-ms-input-placeholder {
+  color: #71717f !important;
+}
+
+textarea::placeholder {
+  color: #71717f !important;
+}
+
+input::-webkit-input-placeholder {
+  color: #71717f !important;
+}
+
+input:-ms-input-placeholder {
+  color: #71717f !important;
+}
+
+input::-ms-input-placeholder {
+  color: #71717f !important;
+}
+
+input::placeholder {
+  color: #71717f !important;
+}
+
 @supports ((height: constant(safe-area-inset-top)) or (height: env(safe-area-inset-top))) and (-webkit-overflow-scrolling: touch) {
   .normalHeader .header {
     height: 0.92rem;

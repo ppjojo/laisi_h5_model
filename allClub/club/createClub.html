@@ -72,17 +72,16 @@
 
 		.ctype img:nth-child(3) {
 			width: .48rem;
-			height: .32rem;
 		}
 
 		.ctype img:nth-child(4) {
 			width: .40rem;
-			height: .36rem;
+			
 		}
 
 		.ctype img:nth-child(1) {
 			width: .48rem;
-			height: .36rem;
+			
 		}
 
 		.ctype img:nth-child(2) {
@@ -194,26 +193,26 @@
 				<div class="ub ub-ad ub-ac">
 					<div class="clubtype" @click="submitform.type = '01'">
 						<div class="clubtypeicon ub ub-ac ub-pc" :class="submitform.type=='01'?'active':''">
-							<img src="img/clubtype_school.png" alt="">
+							<img  :src="submitform.type=='01'?'img/clubtype_school.png':'img/clubtype_school2.png'"  alt="">
 						</div>
 						<div>学校</div>
 					</div>
 					<div class="clubtype"
 						@click="submitform.type = '05';if(!form.yqm&&!form.invitecode)noCode();if(form.yqm)form.invitecode=false">
 						<div class="clubtypeicon ub ub-ac ub-pc" :class="submitform.type=='05'?'active':''">
-							<img style="width: .4rem;height: .4rem;" src="img/clubtype_company.png" alt="">
+							<img :src="submitform.type=='05'?'img/clubtype_company.png':'img/clubtype_company2.png'"  alt="">
 						</div>
 						<div>企事业单位</div>
 					</div>
 					<div class="clubtype" @click="submitform.type = '03'">
 						<div class="clubtypeicon ub ub-ac ub-pc" :class="submitform.type=='03'?'active':''">
-							<img src="img/clubtype_gym.png" alt="">
+							<img  :src="submitform.type=='03'?'img/clubtype_gym.png':'img/clubtype_gym2.png'"  alt="">
 						</div>
 						<div>健身房</div>
 					</div>
 					<div class="clubtype" @click="submitform.type = '04'">
 						<div class="clubtypeicon ub ub-ac ub-pc" :class="submitform.type=='04'?'active':''">
-							<img src="img/clubtype_hobby.png" alt="">
+							<img :src="submitform.type=='04'?'img/clubtype_hobby.png':'img/clubtype_hobby2.png'" alt="">
 						</div>
 						<div>爱好者</div>
 					</div>
@@ -223,10 +222,10 @@
 				<div class="van-cell"><span>俱乐部标签</span></div>
 				<van-row type="flex" justify="space-around">
 					<van-col span="6">
-						<div class="clubtype clubtag">
+						<div class="clubtype clubtag" @click="submitform.label = '00'">
 							<div class="clubtypeicon ub ub-ac ub-pc" style="margin:0 auto .2rem;"
 								:class="submitform.label=='00'?'active':''">
-								<img src="img/jumpskip2.png" alt="">
+								<img :src="submitform.label=='00'?'img/jumpskip.png':'img/jumpskip2.png'" alt="">
 							</div>
 							<div>跳绳</div>
 						</div>
@@ -259,15 +258,15 @@
 		data() {
 			return {
 				flag: 1,
-				bgc: "linear-gradient(to right, #FF6A88, #FF5136 )",
-				bgcgrey: '#999',
+				bgc: "linear-gradient(to left, #FFAA88, #FF4E3E )",
+				bgcgrey: '#71717F',
 				submitform: {
 					name: "",
 					province: "",
 					city: "",
 					county: "",
 					type: "", //00学校,01公司,02健身房,03爱好者
-					label: "00", //00跳绳
+					label: "", //00跳绳
 					isPublic: "N", // Y(官方比赛)，N(非官方比赛)
 					introduce: "", //简介
 					creator: "", //创建者

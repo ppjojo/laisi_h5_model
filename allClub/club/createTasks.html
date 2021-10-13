@@ -9,7 +9,7 @@
 		<!-- 引入样式文件 -->
 		<link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
 		<link rel="stylesheet" href="css/clubCreateCompetition.css">
-		<link rel="stylesheet" href="css/tasks.css">
+		
 		<link rel="stylesheet" href="../font/iconfont.css">
 		<link href="../clubList_Detail/css/header.css" rel="stylesheet" type="text/css" />
 		<style type="text/css">
@@ -22,12 +22,24 @@
 			.van-field__control {
 				color: #CFCFD2;
 			}
+			.laberTitle {
+	text-align: left;
+	font-size: 0.32rem;
+	line-height: 1.28rem;
+	padding: 0 0.32rem;
+	padding-right: 0;
+	color: #cfcfd2;
+}
+.laberContent input{
+	font-size: 0.26rem;
+	color: #CFCFD2 ;
+	height: 0.5rem;
+	margin-top: 0.39rem;
+	line-height: 0.5rem;
+}
+
 		</style>
 		<style type="text/css">
-			.van-hairline--top-bottom::after,
-			.van-hairline-unset--top-bottom::after {
-				border-width: 0;
-			}
 
 			.van-cell::after {
 				border-bottom: 0;
@@ -45,6 +57,7 @@
 				height: .72rem;
 				border-radius: 100%;
 				margin-bottom: .2rem;
+				background-color:#1e1e2a;
 			}
 
 			.clubtype .active {
@@ -56,29 +69,10 @@
 			}
 
 			.clubtype .clubtypeicon img {
-				width: .4rem;
-				height: .4rem;
-			}
-
-			.clubtype .clubtypeicon img:nth-child(1) {
 				width: .48rem;
-				height: .36rem;
 			}
 
-			.clubtype .clubtypeicon img:nth-child(3) {
-				width: .48rem;
-				height: .32rem;
-			}
-
-			.clubtype .clubtypeicon img:nth-child(4) {
-				width: .40rem;
-				height: .36rem;
-			}
-
-			.clubtag .clubtypeicon img:nth-child(1) {
-				/* width: .32rem; */
-				height: .48rem;
-			}
+			
 
 			.chosed .van-cell__value {
 				color: #1F1F1F;
@@ -132,7 +126,7 @@
 
 			#zq2 .van-cell__value span {
 				font-size: .28rem;
-				color: #71717f;
+				color: #cfcfd2;
 			}
 
 			.tasks .laberContent input {
@@ -220,6 +214,7 @@
 				</div>
 				<van-action-sheet cancel-text="取消" close-on-click-action v-model="timeshow" :round="false"
 					:actions="timeaction" @select="onSelectTime"></van-action-sheet>
+
 				<div @click="membershow = true" style="border-bottom:1px solid #1e1e2a">
 					<van-cell title="参与成员" :class="form.cy.indexOf('选择')!=-1?'':'chosed'" is-link :value="form.cy">
 					</van-cell>
@@ -233,7 +228,7 @@
 							<div class="clubtype clubtag" @click="clubtag = 1">
 								<div class="clubtypeicon ub ub-ac ub-pc" style="margin:0 auto .2rem;"
 									:class="clubtag==1?'active':''">
-									<img :src="clubtag==1?'img/jumpskip2.png':'img/jumpskip.png'" alt="">
+									<img :src="clubtag==1?'img/jumpskip.png':'img/jumpskip2.png'" alt="">
 								</div>
 								<div>跳绳</div>
 							</div>
@@ -319,7 +314,7 @@
 				return {
 					flag: 1,
 					bgc: "linear-gradient(to right, #FF4e3e, #FFaa88 )",
-					bgcgrey: '#999',
+					bgcgrey: '#71717F',
 					isCorporate: localStorage.getItem('isCorporate') ? parseInt(localStorage.getItem('isCorporate')) :
 						0,
 					submitform: {
@@ -360,7 +355,7 @@
 					endTimeColumns: [],
 					form: {
 						zq: "选择任务周期",
-						cy: "选择指定成员",
+						cy: "选择参与成员",
 						zq2: '',
 						zq2title: ''
 					},

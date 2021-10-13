@@ -74,7 +74,7 @@
 							<van-uploader>
 								<img class="smallpic" :src="submitform.photo" />
 					</template>
-					<template v-else>
+					<template v-else-if="submitform.photo">
 						<img class="smallpic" :src="submitform.photo" />
 					</template>
 					<span v-if="submitform.self.isMinister=='Y'" class="icon iconfont icon-tongyong-gengduo"

@@ -84,6 +84,7 @@
   white-space: nowrap;
   text-overflow: ellipsis;
   max-width: 3.5rem;
+  color: #cfcfd2;
 }
 
 .corporate .deptList .deptInfoBox .deptD .userInfo {
@@ -113,6 +114,7 @@
   font-size: 0.48rem;
   line-height: 0.55rem;
   font-family: "BebasNeue";
+  color: #cfcfd2;
 }
 
 .corporate .deptList .scoreBox .numBox .unit {

@@ -141,6 +141,14 @@ body {
     border: 1px solid $border_color
 }
 
+textarea::placeholder {
+    color: #71717f !important;
+}
+
+input::placeholder {
+    color: #71717f !important;
+}
+
 @supports ((height: constant(safe-area-inset-top)) or (height: env(safe-area-inset-top))) and (-webkit-overflow-scrolling: touch) {
     .normalHeader .header {
         height: 0.92rem;

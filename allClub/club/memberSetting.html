@@ -220,7 +220,8 @@
 						if (res.code == 0) {
 							_self.$toast("成功退出俱乐部!");
 							setTimeout(function(){
-								_self.onclickLeft();
+								_self.refreshClubList();
+								window.history.go(-2)
 							},1000)
 						} else {
 							_self.$toast(res.msg);
@@ -231,6 +232,16 @@
 					}
 				})
 			},
+			//退出俱乐部成功之后告诉原生刷新列表页面 
+			refreshClubList() {
+					if (isIOS) { //判断iPhone|iPad|iPod|iOS
+						window.webkit.messageHandlers.lstNative.postMessage({
+								'method': 'quitClubSuccess'
+							})
+					} else{ //判断Android
+						window.android.quitClubSuccess();
+					}
+				}
 			
 		}
 	})

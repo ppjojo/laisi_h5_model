@@ -71,7 +71,7 @@
         .van-tabs__nav,
         .van-dialog,
         .van-button--default {
-            background-color: #12121f;
+            background-color: #12121f!important;
         }
 
         [class*=van-hairline]::after {
@@ -97,10 +97,10 @@
                     <template #right v-if="clubObject.self">
                         <span class="icon iconfont icon-exe-sale-primary" @click="goEchart"
                             v-if="clubObject.type==5&&(clubObject.self.isMinister=='Y'||clubObject.self.isSubMinister=='Y')"
-                            style="font-size: 0.43rem;margin-right: 0.4rem;"></span>
+                            style="font-size: 0.4rem;margin-right: 0.4rem;"></span>
                         <span class="icon iconfont icon-fenxianganniu" @click="sharePage"
                             style="font-size: 0.43rem;margin-right: 0.4rem;"></span>
-                        <span class="icon iconfont icon-shezhi" @click="goSetting" style="font-size: 0.43rem;"></span>
+                        <span class="icon iconfont icon-shezhi" @click="goSetting" style="font-size: 0.48rem;"></span>
                     </template>
                 </van-nav-bar>
             </div>
@@ -180,15 +180,14 @@
                                         <div
                                             :style="{'background-image':'url('+(item.image||'../corporateClub/img/notgroup.png')+')'}">
                                         </div>
-                                        <!-- <img :src="item.image||'../corporateClub/img/notgroup.png'" alt=""> -->
+                                        
                                     </div>
                                     <div class="deptD">
                                         <div class="name">
                                             {{item.name||"未分部部门"}}
                                         </div>
                                         <div class="userInfo">
-                                            <span><span
-                                                    v-if="item.id!='-1'">分部长：<span>{{item.subMinisterName | ellipsis4}}</span></span></span>
+                                            <span><span>分部长：<span>{{(item.subMinisterName||"--") | ellipsis4}}</span></span></span>
                                             <span>成员：{{item.totalNumber||0}}人</span>
                                         </div>
                                     </div>
@@ -207,7 +206,7 @@
                                 </van-col>
                             </van-row>
                         </div>
-                        <div v-else-if="today.list.length==0&&today.loading" class="nullDataBox">
+                        <div v-else-if="today.list.length==0&&today.done" class="nullDataBox">
                             <img src="../../common/img/noData.png" alt="">
                             <p>今日运动暂无数据</p>
                         </div>
@@ -260,8 +259,7 @@
                                                         {{sitem.name||"未分部部门"}}
                                                     </div>
                                                     <div class="userInfo">
-                                                        <span><span
-                                                                v-if="sitem.id!='-1'">分部长：<span>{{sitem.subMinisterName | ellipsis4}}</span></span></span>
+                                                        <span><span>分部长：<span>{{(sitem.subMinisterName||"--") | ellipsis4}}</span></span></span>
                                                         <span>成员：{{sitem.totalNumber||0}}人</span>
                                                     </div>
                                                 </div>
@@ -280,7 +278,7 @@
                                             </van-col>
                                         </van-row>
                                     </div>
-                                    <div v-else class="nullDataBox">
+                                    <div v-else-if="item.list.length==0&&item.done" class="nullDataBox">
                                         <img src="../../common/img/noData.png" alt="">
                                     </div>
 
@@ -592,6 +590,7 @@
                 today: {
                     loading: false,
                     finished: false,
+                    done:false,
                     list: [],
                     page: 1,
                     pageSize: 20,
@@ -603,6 +602,7 @@
                     join: {
                         loading: false,
                         finished: false,
+                        
                         list: [],
                         page: 1,
                         pageSize: 20,
@@ -824,7 +824,7 @@
                     return
                 }
                 if (this.clubObject.type == '05') {
-                    var str = `../corporateClub/groupMember.html?clubId=${this.clubId}`
+                    var str = `../corporateClub/groupMember.html?clubId=${this.clubId}&memberNumber=${this.clubObject.memberNumber}`
                     if (this.clubObject.self && this.clubObject.self.isMinister == "Y") {
                         str += '&fromchoose=8'
                     } else if (this.clubObject.self && this.clubObject.self.isSubMinister == "Y") {
@@ -845,7 +845,7 @@
             getTodaySport() {
                 var that = this
                 var currentPage = that.today.page - 1
-				that.today.loading = false;
+				that.today.done = false;
                 ajax({
                     type: "get",
                     url: "club/todaySport",
@@ -856,7 +856,7 @@
                         date: timestampTodate(new Date(), '-'),
                     },
                     success: function (res) {
-                        that.today.loading = true;
+                        
                         if (res.code == 0) {
                             if (currentPage == 0) {
                                 that.today.list = res.data.sportList || res.data.clubGroupVoList ||
@@ -880,6 +880,7 @@
 
                             that.today.page++
                         }
+                        that.today.done = true;
                     }
                 })
             },
@@ -893,6 +894,7 @@
             getHistorySport(historyObject) {
                 var that = this
                 var currentPage = historyObject.page - 1
+                historyObject.done=false
                 ajax({
                     type: "get",
                     url: "club/todaySport",
@@ -903,7 +905,6 @@
                         date: historyObject.date,
                     },
                     success: function (res) {
-                        historyObject.loading = false;
                         if (res.code == 0) {
                             if (currentPage == 0) {
                                 historyObject.list = res.data.sportList || res.data
@@ -922,6 +923,7 @@
                             // })
                             historyObject.page++
                         }
+                        historyObject.done=true
                     }
                 })
             },
@@ -938,7 +940,8 @@
                         this.pastSportData = res.data
                         this.pastSportData.forEach(obj => { //对tabs数据预处理
                             this.$set(obj, 'finished', false);
-                            this.$set(obj, 'loading', true);
+                            this.$set(obj, 'loading', false);
+                            this.$set(obj, 'done', false);
                             this.$set(obj, 'page', 1);
                             this.$set(obj, 'pageSize', 20);
                             this.$set(obj, 'list', []);
