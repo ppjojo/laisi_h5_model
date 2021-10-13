@@ -6,7 +6,7 @@
 		</div>
 		<div v-if="state">
 			<div class="" style="width: 2.8rem;color: #959598;font-size: .24rem;margin: .34rem auto;">
-				你已累计运动打卡{{maxday}}天啦～
+				你已累计运动打卡{{maxday+1}}天啦～
 				继续加油呀！
 			</div>
 			<div>
@@ -73,7 +73,11 @@
 		},
 		created() {},
 		methods: {
-			getList() {},
+			getList() {
+				if(this.state){//告诉原生打卡成功
+					this.$interaction.appNative('LSTH5APP_SportClockSuccess',{})
+				}
+			},
 			bottomBTN(){
 				if(this.state){
 					//打卡

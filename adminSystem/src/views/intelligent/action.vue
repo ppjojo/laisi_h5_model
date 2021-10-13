@@ -274,7 +274,7 @@
     },
     mounted() {
       this.getList();
-      getActionMovie({}).then(res => {
+      getActionMovie({cateId:1000341984}).then(res => {
         this.courseList = res.data;
       })
     },

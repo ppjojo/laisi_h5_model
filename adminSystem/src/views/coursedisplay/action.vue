@@ -54,6 +54,12 @@
     <el-dialog :title="dialogTitle" :visible.sync="dialogVisible" width="50%">
 
       <el-form :model="form" label-width="100px" :rules="rules" ref="form">
+        <el-form-item label="选择动作视频" prop="smartActionName">
+          <el-select @change="choosesmartActionName" v-model="form.action" filterable placeholder="可查询">
+            <el-option v-for="(item,index) in movieList" :key="index" :label="item.videoName" :value="index">
+            </el-option>
+          </el-select>
+        </el-form-item>
         <el-form-item label="视频地址" prop="classVod">
           <el-input v-model="form.classVod" @change="classVodChange"></el-input>
           <el-button size="small" type="primary" v-if="form.classVod" @click="goPlayer()">查看视频
@@ -138,6 +144,9 @@ import {
   addAction,
   allCourse,
 } from "@/api/coursedisplay/coursedisplay";
+import {
+    getActionMovie
+  } from '@/api/intelligent/intelligent'
 import { getPlayAuth } from "@/api/videoCourse/course";
 import { checkPermission } from "@/api/checkPermission";
 import { formatDate } from "@/utils/date";
@@ -161,6 +170,7 @@ export default {
       list: [],
       loading: false,
       courseList: [],
+      movieList:[],
       form: {},
       searchForm: {
         className: "",
@@ -225,6 +235,9 @@ export default {
     allCourse({}).then((res) => {
       this.courseList = res.data;
     });
+    getActionMovie({cateId:1000344712}).then(res => {
+      this.movieList = res.data;
+    })
   },
   methods: {
     getList() {
@@ -290,6 +303,13 @@ export default {
           this.form.classCover = res.data.url;
         }
       });
+    },
+    choosesmartActionName(index) { //下拉选择视频
+      this.form.className = this.movieList[index].videoName;
+      this.form.classSize = this.movieList[index].videoSize || 0;
+      this.form.classCover = this.movieList[index].videoCover;
+      this.form.classVod = this.movieList[index].videoId;
+      this.form.duration = this.movieList[index].duration || 0;
     },
     requestFile2(param) {
       //

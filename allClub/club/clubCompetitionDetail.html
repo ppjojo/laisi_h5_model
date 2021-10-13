@@ -978,6 +978,7 @@
 						isPK: 1, //0不是，1是，表示是否是PK类型的运动，是的话去pk运动页面，不是去普通运动页面
 						dataId: this.competitionItem.id
 					}
+					localStorage.setItem('goSkipping',1);
 					try {
 						if (isIOS) {
 							window.webkit.messageHandlers.lstNative.postMessage(skipItem);

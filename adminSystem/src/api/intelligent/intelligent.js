@@ -69,6 +69,7 @@ export function getActionMovie(data) {
     url: '/community/smartAction/get/ali/all/action',
     method: 'get',
     data,
+    params:data
   })
 }
 export function allFood(data) {
