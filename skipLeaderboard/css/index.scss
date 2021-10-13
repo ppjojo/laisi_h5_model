@@ -222,6 +222,7 @@ body {
 .main-container {
     position: relative;
     padding: 0.24rem;
+    padding-bottom: 0;
 }
 
 .content-container {
@@ -232,6 +233,7 @@ body {
     width: 100%;
     background-color: $border_color;
     min-height: 7.8rem;
+    height: calc(100vh - 5.5rem);
 
 
 

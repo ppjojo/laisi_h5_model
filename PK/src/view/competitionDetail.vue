@@ -190,7 +190,7 @@
               <div class="line lineLeft" v-if="competitionItem.mode==2">
                 <span>{{teamList[0].average||'--'}}</span>
               </div>
-              <div class="line lineLeft" v-else v-html="countTimeAll(teamList[0].average*1000)"></div>
+              <div class="line lineLeft" v-else v-html="countTimeAll(teamList[0].average)"></div>
             </div>
             <div class="pkImg" :style="{'left':teamList[0].lineWidth+'%'}">
               <img class="centerimg" src="../img/team_center_pk.png">
@@ -199,7 +199,7 @@
               <div class="line lineRight" v-if="competitionItem.mode==2">
                 <span>{{teamList[1].average||'--'}}</span>
               </div>
-              <div class="line lineRight" v-else v-html="countTimeAll(teamList[1].average*1000)"></div>
+              <div class="line lineRight" v-else v-html="countTimeAll(teamList[1].average)"></div>
               <div class="skipImg"><img src="../img/skipimg.png"></div>
             </div>
           </div>
@@ -214,7 +214,7 @@
               <p class="teamName">{{teamList[0].name}} <img src="../img/teaMore.png"></p>
               <p v-if="competitionItem.mode==2"> 总个数：<span class="bigNumberSpan">{{teamList[0].totalBestValue||'--'}}</span>个</p>
               <p v-else> 总时长：
-                <span v-html="countTimeAll(teamList[0].totalBestValue*1000)"></span>
+                <span v-html="countTimeAll(teamList[0].totalBestValue)"></span>
               </p>
             </van-col>
             <van-col span="11" class="powerTeam" :class="competitionStatus==3&&teamList[1].rank>teamList[0].rank?'loserTeam':''" @click="gotoTeamDetail">
@@ -226,7 +226,7 @@
               <p class="teamName">{{teamList[1].name}} <img src="../img/teaMore.png"></p>
               <p v-if="competitionItem.mode==2"> 总个数：<span class="bigNumberSpan">{{teamList[1].totalBestValue||'--'}}</span>个</p>
               <p v-else> 总时长：
-                <span v-html="countTimeAll(teamList[1].totalBestValue*1000)"></span>
+                <span v-html="countTimeAll(teamList[1].totalBestValue)"></span>
               </p>
             </van-col>
           </van-row>
@@ -805,8 +805,9 @@ export default {
       });
     },
     countTimeAll(time) {
+      //秒
       if (!time) return "<span class='bigNumberSpan'>--</span>";
-      time = parseInt(time / 1000);
+      time = parseInt(time);
       var h = Math.floor(time / 60 / 60);
       var m = (Array(2).join(0) + Math.floor((time - h * 60 * 60) / 60)).slice(
         -2
