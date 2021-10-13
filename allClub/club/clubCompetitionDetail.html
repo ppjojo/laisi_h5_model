@@ -672,7 +672,8 @@
 						data: {
 							competitionId: _self.competitionId,
 							page: _self.pageIndex1,
-							pageSize: _self.pageSize
+							pageSize: _self.pageSize,
+							dsd:new Date().getTime()
 						},
 						success: function(res) {
 							_self.isDownLoading1 = false;
@@ -732,7 +733,8 @@
 						data: {
 							competitionId: _self.competitionId,
 							page: _self.pageIndex2,
-							pageSize: _self.pageSize
+							pageSize: _self.pageSize,
+							dsd:new Date().getTime()
 						},
 						success: function(res) {
 							_self.isDownLoading2 = false;
@@ -878,6 +880,7 @@
 						url: "club/competition/detail/play",
 						data: {
 							competitionId: _self.competitionId,
+							dsd:new Date().getTime()
 						},
 						success: function(res) {
 							if (res.code == 0) {
