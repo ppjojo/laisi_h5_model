@@ -5,6 +5,9 @@
         <el-form-item label="动作名称">
           <el-input v-model="searchForm.className" clearable placeholder="动作名称"></el-input>
         </el-form-item>
+        <el-form-item label="关联课程">
+          <el-input v-model.number="searchForm.bigClassName" clearable placeholder=""></el-input>
+        </el-form-item>
         <el-form-item label="时长">
           <el-input v-model.number="searchForm.duration" clearable placeholder=""></el-input>
         </el-form-item>
@@ -46,8 +49,8 @@
         <template scope="scope">
           <el-button @click="btn_edit(scope.row)" type="text" size="mini">编辑
           </el-button>
-          <el-button @click=" btn_delete(scope.row)" type="text" style="color:#f78989;" size="mini">删除
-          </el-button>
+          <!-- <el-button @click=" btn_delete(scope.row)" type="text" style="color:#f78989;" size="mini">删除
+          </el-button> -->
         </template>
       </el-table-column>
     </el-table>
@@ -91,7 +94,11 @@
         </el-form-item>
 
         <el-form-item label="所属课程选择">
-          <el-select v-model="form.bigClassId" placeholder="" filterable clearable>
+          <el-select v-if="dialogTitle=='新增'" v-model="form.bigClassId" placeholder="" filterable clearable>
+            <el-option v-for="item in courseList" :key="item.bigClassId" :label="item.className" :value="item.bigClassId">
+            </el-option>
+          </el-select>
+          <el-select v-else v-model="form.newBigClassIdByUpdate" placeholder="" filterable clearable>
             <el-option v-for="item in courseList" :key="item.bigClassId" :label="item.className" :value="item.bigClassId">
             </el-option>
           </el-select>
@@ -175,6 +182,7 @@ export default {
       form: {},
       searchForm: {
         className: "",
+        bigClassName:'',
         duration: null,
       },
       dialogTitle: "",
@@ -293,6 +301,7 @@ export default {
     btn_edit(row) {
       this.dialogVisible = true;
       this.dialogTitle = "编辑";
+      row.newBigClassIdByUpdate = row.bigClassId;
       this.form = Object.assign({}, row);
     },
     requestFile(param) {

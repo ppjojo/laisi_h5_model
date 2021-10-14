@@ -111,7 +111,7 @@
 
 		data() {
 			return {
-				isShare:getQueryString('isShare'),
+				isShare:getQueryString('isShare2'),
 				minDate: new Date(2021, 0, 1),
 				maxDate: new Date(),
 				currentDate: new Date(),
@@ -136,7 +136,7 @@
 			this.getList(2);
 		},
 		created() {
-			if(getQueryString('isShare')){
+			if(getQueryString('isShare2')){
 				this.tabIndex = parseInt(getQueryString('tabIndex'));
 			}
 		},
@@ -221,7 +221,7 @@
 					shareTitle: "运动日历打卡",
 					isShareUrl:false,
 					shareContent: "",
-					shareUrl: "sportsClock/#/clockoverview.html?isShare=1&tabIndex="+this.tabIndex+'&userId='+this.userId,
+					shareUrl: "sportsClock/#/clockoverview.html?isShare2=1&tabIndex="+this.tabIndex+'&userId='+this.userId,
 				})
 			},
 			sheetImageHideHeader() {
