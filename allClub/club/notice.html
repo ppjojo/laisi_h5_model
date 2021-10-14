@@ -141,11 +141,9 @@
 						if (res.code == 0) {
 							_self.$toast("通知创建成功！");
 							setTimeout(function () {
-								if (_self.flag == 1) {
+								
 									window.history.back(-1);
-								} else {
-									_self.successBack();
-								}
+								
 
 							}, 500)
 						} else {
