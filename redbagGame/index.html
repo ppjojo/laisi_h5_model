@@ -40,7 +40,7 @@
 
 <body>
 	<div id="app" v-cloak :style="{paddingBottom:stateFlag==3||(stateFlag==4&&!nextPool.startTime)?'0':'.8rem'}">
-		<div class="header">
+		<div class="header" v-if="isShare!=1">
 			<van-nav-bar title="跳绳红包赛" @click-left="OnclickLeft" @click-right="onClickRight" left-arrow>
 				<template #right>
 					<div v-if="stateFlag!=2">{{stateFlag==1?'分享':'规则'}}</div>
@@ -361,7 +361,8 @@
 				needCount: 0, //需要条漫的数量
 				isNewUser: false,
 				newUserRule: true,
-				ruleShow: localStorage.getItem("ruleShow")
+				ruleShow: localStorage.getItem("ruleShow"),
+				isShare:getQueryString("isShare"),
 			}
 		},
 		filters: {},
@@ -488,11 +489,11 @@
 					success: function (res) {
 						if (res.code == 0) {
 							_self.isNewUser = res.data;
-							if (!_self.isNewUser) {
-								_self.priceIndex = 1
-							} else {
-								_self.priceIndex = 0
-							}
+							// if (!_self.isNewUser) {
+							// 	_self.priceIndex = 1
+							// } else {
+							// 	_self.priceIndex = 0
+							// }
 
 						} else {
 							_self.$toast(res.msg);

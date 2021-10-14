@@ -77,7 +77,7 @@
 								<p>正在刷新</p>
 							</div>
 						</template>
-						<van-list v-model="loading" :finished="finished" @load="onLoad" :immediate-check=false :finished-text="''">
+						<van-list v-model="loading" :finished="finished" @load="onLoad" :immediate-check=false :finished-text="'已加载全部战况'">
 							<ul class="">
 								<li class="ub ub-ac self" v-if="selfdata.status==activeName">
 									<div class="ub ub-ac ub-pc">

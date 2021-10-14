@@ -96,3 +96,6 @@
 	text-align: right;
 	padding-left: .1rem;
 }
+.van-list__error-text, .van-list__finished-text, .van-list__loading{
+	color:#fff;
+}
