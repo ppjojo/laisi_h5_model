@@ -502,17 +502,17 @@
                         <p id="joinBtn" class="addClubBtn" @click="joinClubReq(0)">立即加入</p>
                     </a>
                 </div>
-                <!-- <div v-else-if="clubObject.type!='05'">
-                    <p id="joinBtn" class="addClubBtn" v-if="clubObject.isPublic=='Y'" @click="joinClubReq(0)">立即加入</p>
-
-                    <p id="applyJoinBtn" class="addClubBtn" v-else @click="joinClubReq(1)">申请加入</p>
-                </div> -->
                 <div v-else>
                     <p id="joinBtn" class="addClubBtn" v-if="clubObject.isInviteCode=='Y'" @click="reqShow=true">立即加入
                     </p>
+                    <div v-else>
+                        <p id="applyJoinBtn" class="addClubBtn" v-if="clubObject.isPublic=='Y'" @click="joinClubReq(4)">立即加入</p>
 
-                    <p id="applyJoinBtn" class="addClubBtn" v-else-if="clubObject.isInviteCode=='N'||clubObject.isPublic=='Y'" @click="joinClubReq(clubObject.isPublic=='Y'?4:1)">
-                        申请加入</p>
+                        <p id="applyJoinBtn" class="addClubBtn" v-else-if="clubObject.isPublic=='N'"  @click="joinClubReq(1)">申请加入</p>
+                    </div>
+                    
+
+                    
                 </div>
 
             </div>

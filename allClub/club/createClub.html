@@ -70,24 +70,13 @@
 
 
 
-		.ctype img:nth-child(3) {
-			width: .48rem;
-		}
+		
 
-		.ctype img:nth-child(4) {
-			width: .40rem;
+		.ctype img {
+			width: .4rem;
 			
 		}
 
-		.ctype img:nth-child(1) {
-			width: .48rem;
-			
-		}
-
-		.ctype img:nth-child(2) {
-			width: .48rem;
-			height: .48rem;
-		}
 
 
 		.clubtag .clubtypeicon img {
@@ -173,32 +162,17 @@
 					<span class="icon iconfont icon-tongyong-gengduo" style="font-size: 0.3rem;color: #71717f;"></span>
 				</div>
 			</div>
-			<div class="listBox">
-				<div>是否需要申请加入</div>
-				<div class="rightBox">
-					<van-switch @change="isclubpublic" active-color="#07c160" v-model="form.yqm" size="20"></van-switch>
-					</van-switch>
-				</div>
-			</div>
-			<div class="listBox">
-				<div>是否需要邀请码</div>
-				<div class="rightBox">
-					<van-switch @change="isclubinviteCode" active-color="#07c160" v-model="form.invitecode" size="20">
-					</van-switch>
-					</van-switch>
-				</div>
-			</div>
 			<div class="ctype" style="border-bottom: .02rem solid #1E1E2A;padding:0 0 .4rem 0;">
 				<div class="van-cell"><span>俱乐部类型</span></div>
 				<div class="ub ub-ad ub-ac">
 					<div class="clubtype" @click="submitform.type = '01'">
 						<div class="clubtypeicon ub ub-ac ub-pc" :class="submitform.type=='01'?'active':''">
-							<img  :src="submitform.type=='01'?'img/clubtype_school.png':'img/clubtype_school2.png'"  alt="">
+							<img  style="width:0.48rem" :src="submitform.type=='01'?'img/clubtype_school.png':'img/clubtype_school2.png'"  alt="">
 						</div>
 						<div>学校</div>
 					</div>
 					<div class="clubtype"
-						@click="submitform.type = '05';if(!form.yqm&&!form.invitecode)noCode();if(form.yqm)form.invitecode=false">
+						@click="submitform.type = '05';">
 						<div class="clubtypeicon ub ub-ac ub-pc" :class="submitform.type=='05'?'active':''">
 							<img :src="submitform.type=='05'?'img/clubtype_company.png':'img/clubtype_company2.png'"  alt="">
 						</div>
@@ -216,6 +190,21 @@
 						</div>
 						<div>爱好者</div>
 					</div>
+				</div>
+			</div>
+			<div class="listBox">
+				<div>是否需要申请加入</div>
+				<div class="rightBox">
+					<van-switch @change="isclubpublic" active-color="#07c160" v-model="form.yqm" size="20"></van-switch>
+					</van-switch>
+				</div>
+			</div>
+			<div class="listBox" v-if="submitform.type == '05'">
+				<div>是否需要邀请码</div>
+				<div class="rightBox">
+					<van-switch @change="isclubinviteCode" active-color="#07c160" v-model="form.invitecode" size="20">
+					</van-switch>
+					</van-switch>
 				</div>
 			</div>
 			<div>
@@ -284,6 +273,7 @@
 			};
 		},
 		created() {
+			
 
 		},
 		methods: {
@@ -386,37 +376,25 @@
 				this.form.cs = this.submitform.province + this.submitform.city + this.submitform.county;
 				this.areaShow = false;
 			},
-			//选择公开
-			noCode() {
-				this.form.yqm = false;
-				this.submitform.isPublic = "Y";
-				this.activeNames = 0;
-			},
-			//生成邀请码
-			createCode() {
-				this.submitform.isPublic = "N";
-				this.form.yqm = true;
-				this.activeNames = 0;
-			},
+			
 			isclubpublic(val) {
-				// console.log(this.submitform)
+				
 				if (val) this.submitform.isPublic = "N"
 				else this.submitform.isPublic = "Y";
-				// if (this.submitform.type == '05') {
 					this.form.invitecode = !val;
-					// console.log(this.form.invitecode)
 					this.submitform.isInviteCode = val ? "N" : "Y";
-				// }
+				
 			},
 			isclubinviteCode(val) {
 				if (val) {
-					this.noCode();
 					this.submitform.isInviteCode = "Y"
 				} else {
-					this.createCode()
 					this.submitform.isInviteCode = "N"
 				}
+				this.form.yqm = !val;
+				this.submitform.isPublic = val ? "N" : "Y";
 			},
+
 			submitFormData() {
 				if (!this.form.cs || !this.submitform.type) return;
 				if (this.isClick) {
@@ -427,6 +405,9 @@
 				this.submitFormDataSecond();
 			},
 			submitFormDataSecond() {
+				if(this.submitform.type!='05'){
+					this.submitform.isInviteCode='N';
+				}
 				ajax({
 					type: "post",
 					url: "club/saveClub",
@@ -437,10 +418,9 @@
 						if (res.data.invite_code) {
 							this.$dialog.confirm({
 									title: '邀请码',
-									showCancelButton: true,
+									showCancelButton: false,
 									message: res.data.invite_code,
 									confirmButtonText: '复制',
-									cancelButtonText: '我知道了'
 								})
 								.then(() => {
 									if (isAndroid) {

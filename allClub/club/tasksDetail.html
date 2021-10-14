@@ -66,15 +66,21 @@
 		.van-picker-column__item--selected {
 			font-size: .4rem;
 		}
+		.van-popup{
+			background-color: #12121F;
+		}
 	</style>
 </head>
 
 <body>
 	<div id="app" class="normalHeader" v-cloak>
 		<div class="header">
-			<van-nav-bar @click-left="onclickLeft" @click-right="menushow = true" right-text="···" title="任务详情" left-arrow safe-area-inset-top fixed>
+			<van-nav-bar @click-left="onclickLeft" @click-right="menushow = true"  title="任务详情" left-arrow safe-area-inset-top fixed>
 				<template #left>
 					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
+				</template>
+				<template #right>
+					<span class="icon iconfont icon-gengduo" style="font-size: 0.5rem;" />
 				</template>
 
 			</van-nav-bar>

@@ -109,6 +109,16 @@ body {
     }
 }
 
+.van-dialog,
+.van-button--default {
+    background-color: #292934;
+    color: #cfcfd2;
+}
+
+.van-dialog [class*=van-hairline]::after {
+    border: 1px solid #1e1e2a;
+}
+
 .van-picker {
     background-color: $bg_color;
 
