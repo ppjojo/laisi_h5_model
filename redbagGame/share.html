@@ -30,7 +30,7 @@
 				</van-nav-bar>
 			</div>
 			<van-popup v-model="popshow" @opened="setNumberTransform('popparam',returnPopNum(popparam.count),returnPopNum(popparam.count).length<4?3:4)"
-			 close-icon="img/popclose.png" close-icon-position="bottom" id="popbg">
+			 close-icon="img/popclose.png" close-icon-position="bottom" :close-on-click-overlay="false" id="popbg">
 				<div :class="{popgetshare:true,popmiss:popparam.winStatus!=1}">
 					<div v-if="popparam.winStatus==1" class="title"></div>
 					<div v-else class="title">每期比赛需在当天<br />24:00前达到目标数</br>量，并成功提交，否则</br>无法瓜分红包哦~<br />你还有机会哦~</div>
