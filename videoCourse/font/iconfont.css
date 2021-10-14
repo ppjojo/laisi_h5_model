@@ -1,6 +1,6 @@
 @font-face {
   font-family: "iconfont"; /* Project id  */
-  src: url('iconfont.ttf?t=1631758273597') format('truetype');
+  src: url('iconfont.ttf?t=1634207173909') format('truetype');
 }
 
 .iconfont {
@@ -47,6 +47,10 @@
   content: "\e805";
 }
 
+.icon-dongtaidianzan:before {
+  content: "\e681";
+}
+
 .icon-dianzan-gaoliang:before {
   content: "\e80f";
 }
@@ -85,10 +89,6 @@
 
 .icon-gengduo:before {
   content: "\e639";
-}
-
-.icon-exe-sale-primary:before {
-  content: "\eacb";
 }
 
 .icon-quanbu:before {
