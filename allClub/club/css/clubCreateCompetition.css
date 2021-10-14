@@ -108,34 +108,6 @@
     padding: 0 0.3rem;
 }
 
-.collapseList-item {
-    font-size: 0.28rem;
-    color: #727272;
-    line-height: 1rem;
-    text-align: center;
-    border-bottom: 1px solid #1E1E2A;
-}
-
-.collapseList-item-done {
-    text-align: left;
-}
-
-.collapseListBox .collapseList-item:last-child {
-    border: none;
-}
-
-.matchName-box .van-collapse-item__wrapper {
-    padding-bottom: 0.2rem;
-}
-
-.matchName-input {
-    background-color: #f8f8f8;
-    font-size: 0.32rem;
-    line-height: 0.6rem;
-    position: relative;
-    padding: 0 0.2rem;
-    height: 1.32rem;
-}
 
 .gameReward-input {
     height: auto;
@@ -146,41 +118,7 @@
     font-size: .28rem;
 }
 
-.matchName-input .van-field__word-limit {
-    position: absolute;
-    bottom: 0.1rem;
-    right: 0.1rem;
-}
 
-.matchName-input .van-cell__value {
-    overflow: auto;
-    position: relative;
-}
-
-.matchName-box .van-cell:not(:last-child)::after {
-    border-bottom: none;
-}
-
-.matchTime-box .van-cell:not(:last-child)::after {
-    border-bottom: none;
-}
-
-.matchTime-box .matchTime-box-discript {
-    padding-bottom: 0.2rem;
-}
-
-.matchTime-box .matchTime-box-discript::after {
-    position: absolute;
-    box-sizing: border-box;
-    content: ' ';
-    pointer-events: none;
-    right: 0;
-    top: 1.6rem;
-    left: 0.32rem;
-    border-bottom: 0.02rem solid #1E1E2A;
-    -webkit-transform: scaleY(.5);
-    transform: scaleY(.5);
-}
 
 .laberDiv {
     text-align: left;
@@ -193,7 +131,6 @@
 
 /* 活动说明 */
 .content-input {
-    min-height: 4.8rem;
     background-color: #f8f8f8;
     font-size: 0.32rem;
     line-height: 0.6rem;
@@ -204,7 +141,6 @@
 
 /* 任务说明 */
 .tasks-input {
-    height: 1.9rem;
     background-color: #1e1e2a;
     font-size: 0.32rem;
     line-height: 0.6rem;
@@ -235,7 +171,6 @@ textarea::placeholder {
 
 /* 俱乐部简介 */
 .club-input {
-    min-height: 3.5rem;
     background-color: #1E1E2A;
     font-size: 0.32rem;
     line-height: 0.6rem;

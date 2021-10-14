@@ -11,15 +11,18 @@
 	<link href="../clubList_Detail/css/header.css" rel="stylesheet" type="text/css" />
 		<style>
 			.listBox {
-				height: 0.96rem;
-				line-height: 0.96rem;
+				height:1.24rem;
+				line-height: 1.24rem;
 				font-size: 0.32rem;
 				padding: 0 0.3rem;
 				border-bottom: .02rem solid #1E1E2A;
 				color: #CFCFD2;
+				display:flex;
+				justify-content:space-between;
+				align-items:center;
 			}
 			[class*=van-hairline]::after{
-				border-color: #1E1E2A;
+				border: none;
 			}
 			.van-cell{
 				color: #CFCFD2;
@@ -27,6 +30,10 @@
 			.van-cell__value{
 				color: #1f1f1f;
 			}	
+			.van-cell__value span{
+				font-size:0.28rem;
+				color: #CFCFD2;
+			}
 		</style>
 	</head>
 	<body>
@@ -46,7 +53,7 @@
 							比赛名称
 						</div>
 						<div style="padding:0 0.2rem 0.2rem 0.2rem;">
-							<van-field v-model="form.mc" :input="titleChange()" class="club-input" style="min-height:1.2rem;" rows="2" autosize type="textarea"
+							<van-field v-model="form.mc" :input="titleChange()" class="club-input" style="min-height:1.2rem;" rows="1" autosize type="textarea"
 							 maxlength="16" placeholder="请输入比赛名称吧～" show-word-limit />
 						</div>
 					</div>
@@ -65,54 +72,7 @@
 					<div class=""  style="border-bottom: .02rem solid #1E1E2A">
 						<van-cell title="结束时间"  :value="form.end"></van-cell>
 					</div>
-					<!-- <van-collapse-item name="3" class="matchName-box hasInput">
-						<div slot="title">
-							<span>比赛名称:</span>
-							<span v-if="form.mc">{{form.mc}}</span>
-						</div>
-						<div>
-							<van-field class="matchName-input" v-model="form.mc" :input="titleChange()" show-word-limit maxlength="16" placeholder="请输入比赛名称" />
-						</div>
-					</van-collapse-item> -->
-					<!-- <van-collapse-item title="比赛时间" name="6" class="matchTime-box hasInput">
-						<div slot="title" v-if="(form.start==''||form.end=='')&&activeNames=='6'">
-							<span>比赛时间</span>
-							<span v-if="isSubmit&&(form.start==''||form.end=='')" class="errorSpan">{{"请选择比赛时间"}}</span>
-						</div>
-						<div slot="title" v-else-if="(form.start==''||form.end=='')">
-							<span>比赛时间</span>
-							<span v-if="isSubmit&&(form.start==''||form.end=='')" class="errorSpan">{{"请选择比赛时间"}}</span>
-						</div>
-						<div slot="title" v-else-if="(form.start!=''&&form.end!='')&&activeNames!='6'">
-							<div><span>开始时间:</span><span>{{ form.start}}</span></div>
-							<div><span>结束时间:</span><span>{{ form.end}}</span></div>
-						</div>
-						<div>
-							<div v-if="activeNames=='6'">
-								<div class="matchTime-box-discript" >必须在7天之内开始，时间间隔为1小时～3天</div>
-							</div>	
-						</div>
-						<div class="collapseListBox">
-							<div >
-								<div class="collapseList-item" v-if="form.start==''" @click="startTimeShow = true">
-									<span>开始时间</span>
-									<span v-if="isSubmit" class="errorSpan">{{"请选择开始时间"}}</span>
-								</div>
-								<div class="collapseList-item collapseList-item-done" v-else @click="startTimeShow = true">
-									<span>开始时间</span>
-									<span>{{form.start}}</span>
-								</div>
-								<div class="collapseList-item" v-if="form.end==''" @click="endTimeShow = true">
-									<span>结束时间</span>
-									<span v-if="isSubmit" class="errorSpan">{{"请选择结束时间"}}</span>
-								</div>
-								<div class="collapseList-item collapseList-item-done" v-else @click="endTimeShow = true">
-									<span>结束时间</span>
-									<span>{{form.end}}</span>
-								</div>
-							</div>
-						</div>
-					</van-collapse-item> -->
+					
 					<div class="listBox">
 						<span>比赛奖励:</span>
 						<span v-if="form.jl">{{form.jl}}</span>
@@ -147,8 +107,8 @@
 			el: '#app',
 			data() {
 				return {
-					bgc: "linear-gradient(to right, #FF6A88, #FF5136 )",
-					bgcgrey: '#999',
+					bgc: "linear-gradient(to right, #FF4e3e, #FFaa88 )",
+					bgcgrey: '#71717f',
 					isClick:false,
 					activeNames: 0,
 					matchName: '',

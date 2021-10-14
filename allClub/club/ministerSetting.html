@@ -68,9 +68,9 @@
 				<div>俱乐部形象</div>
 				<div class="rightBox">
 					<template v-if="submitform.self.isMinister=='Y'">
-						<van-uploader v-model="fileList" :max-count="1" :after-read="afterRead" :deletable=false>
-							<template #preview-cover="{ file }">
-							</template>
+						<van-uploader  :max-count="1" :after-read="afterRead" :deletable=false>
+							<!-- <template #preview-cover="{ file }">
+							</template> -->
 							<van-uploader>
 								<img class="smallpic" :src="submitform.photo" />
 					</template>
@@ -226,7 +226,6 @@
 		methods: {
 			onclickLeft() {
 				window.history.back(-1);
-				Interaction.closePage();
 			},
 			goClubName() {
 				if (this.submitform.self.isMinister != 'Y') return;
