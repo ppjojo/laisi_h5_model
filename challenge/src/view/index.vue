@@ -246,6 +246,10 @@
 	};
 </script>
 <style lang="scss">
+	.van-dialog__message{
+		padding: .62rem .48rem;
+		line-height: 0.5rem;
+	}
 	.fts14 {
 		font-size: .28rem;
 	}

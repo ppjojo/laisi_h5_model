@@ -30,6 +30,7 @@
             <el-radio class="radio" :label="3">等级</el-radio>
             <el-radio class="radio" :label="4">器械</el-radio>
             <el-radio class="radio" :label="5">标签</el-radio>
+            <el-radio class="radio" :label="6">时长</el-radio>
           </el-radio-group>
         </el-form-item>
         <el-form-item label="属性名称" prop="attribute">

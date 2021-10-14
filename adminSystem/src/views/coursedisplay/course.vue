@@ -48,6 +48,9 @@
         </template>
       </el-table-column>
       <el-table-column align="center" prop="classTargetName" label="课程目标">
+        <template scope="scope">
+          {{returnClassPart(scope.row.classTargetAttributes,2)}}
+        </template>
       </el-table-column>
       <el-table-column align="center" prop="deviceType" label="课程部位">
         <template scope="scope">
@@ -57,6 +60,9 @@
       <el-table-column align="center" prop="classLevelName" label="课程等级">
       </el-table-column>
       <el-table-column align="center" prop="classKitName" label="器械">
+        <template scope="scope">
+          {{returnClassPart(scope.row.classKitAttributes,3)}}
+        </template>
       </el-table-column>
       <el-table-column align="center" prop="actionSize" label="动作个数">
       </el-table-column>
@@ -101,7 +107,7 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item label="目标">
-          <el-select v-model="form.classTarget" placeholder="" clearable>
+          <el-select v-model="form.classTarget2" placeholder="" multiple clearable>
             <el-option v-for="item in attribute['目标']" :key="item.id" :label="item.attribute" :value="item.id">
             </el-option>
           </el-select>
@@ -119,7 +125,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="器械">
-          <el-select v-model="form.classKit" placeholder="" clearable>
+          <el-select v-model="form.classKit2" placeholder="" multiple clearable>
             <el-option v-for="item in attribute['器械']" :key="item.id" :label="item.attribute" :value="item.id">
             </el-option>
           </el-select>
@@ -228,6 +234,18 @@
           this.form.classPart.push({classPart:d})
         })
       },
+      'form.classTarget2'(val,old){
+        this.form.classTargetAttributes=[];
+        val.forEach(d=>{
+          this.form.classTargetAttributes.push({classTarget:d})
+        })
+      },
+      'form.classKit2'(val,old){
+        this.form.classKitAttributes=[];
+        val.forEach(d=>{
+          this.form.classKitAttributes.push({classKit:d})
+        })
+      },
     },
     mounted() {
       this.getList()
@@ -248,8 +266,15 @@
       returnClassPart(arr, flag) { //返回课程部位
         let str = [];
         arr.forEach(d => {
-          if (flag == 1) str.push(d.classPartName)
-          else str.push(d.classLabelName)
+          if (flag == 1){
+            str.push(d.classPartName)
+          }else if(flag==2){
+            str.push(d.classTargetName)
+          }else if(flag==3){
+            str.push(d.classKitName)
+          }else{
+            str.push(d.classLabelName)
+          } 
         });
         return str.toString();
       },
@@ -299,11 +324,19 @@
       btn_edit(row) {
         row.classPart2=[];
         row.classLabel2 = [];
+        row.classTarget2=[];
+        row.classKit2 = [];
         row.classPart.forEach(d=>{
-          row.classPart2.push(d.id)
+          row.classPart2.push(d.classPart)
         })
         row.classLabel.forEach(d=>{
           row.classLabel2.push(d.classLabel)
+        })
+        row.classTargetAttributes.forEach(d=>{
+          row.classTarget2.push(d.classTarget)
+        })
+        row.classKitAttributes.forEach(d=>{
+          row.classKit2.push(d.classKit)
         })
         this.dialogVisible = true;
         this.dialogTitle = "编辑"
