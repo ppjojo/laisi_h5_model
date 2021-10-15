@@ -164,6 +164,8 @@
 				getYearDeviceTotal({
 					checkTime: this.checkTime
 				}).then(res => {
+					res.data.steps=10000000
+					res.data.skipping=100
 					this.yearObj = res.data;
 				})
 			},
@@ -263,8 +265,8 @@
 		flex-wrap: wrap;
 
 		>.listItem {
-			width: 45%;
-			padding: .28rem .48rem;
+			width: 48%;
+			padding: .28rem .3rem;
 		}
 	}
 

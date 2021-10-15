@@ -6,7 +6,7 @@
           <el-input v-model="searchForm.className" clearable placeholder="动作名称"></el-input>
         </el-form-item>
         <el-form-item label="关联课程">
-          <el-input v-model.number="searchForm.bigClassName" clearable placeholder=""></el-input>
+          <el-input v-model="searchForm.bigClassName" clearable placeholder=""></el-input>
         </el-form-item>
         <el-form-item label="时长">
           <el-input v-model.number="searchForm.duration" clearable placeholder=""></el-input>
