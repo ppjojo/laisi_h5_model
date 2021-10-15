@@ -10,12 +10,6 @@
 	<link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
 	<link href="css/index.css" rel="stylesheet" type="text/css" />
 	<link rel="stylesheet" href="./font/iconfont.css">
-	<script src="https://cdn.bootcdn.net/ajax/libs/vConsole/3.8.1/vconsole.min.js"></script>
-	<script>
-		// init vConsole
-		var vConsole = new VConsole();
-	</script>
-
 </head>
 
 <body id="body">
@@ -37,7 +31,7 @@
 						<img v-if="listData.length>1" :src="listData[1].headerPicUrl" alt="">
 					</div>
 					<p class="name" v-if="listData.length>1">{{listData[1].nickName}}</p>
-					<p class="num" v-if="listData.length>1" v-html="listData[1].value"></p>
+					<p class="num" v-if="listData.length>1" v-html="listData[1].valueHtml"></p>
 				</div>
 				<div class="no2">
 					<div class="noDiv" @click="Interaction.visitPersonalHomepage(listData[2].userId)">
@@ -45,7 +39,7 @@
 						<img v-if="listData.length>2" :src="listData[2].headerPicUrl" alt="">
 					</div>
 					<p class="name" v-if="listData.length>2">{{listData[2].nickName}}</p>
-					<p class="num" v-if="listData.length>2" v-html="listData[2].value"></p>
+					<p class="num" v-if="listData.length>2" v-html="listData[2].valueHtml"></p>
 
 				</div>
 				<div class="no3">
@@ -54,7 +48,7 @@
 						<img v-if="listData.length>3" :src="listData[3].headerPicUrl" alt="">
 					</div>
 					<p class="name" v-if="listData.length>3">{{listData[3].nickName}}</p>
-					<p class="num" v-if="listData.length>3" v-html="listData[3].value"></p>
+					<p class="num" v-if="listData.length>3" v-html="listData[3].valueHtml"></p>
 				</div>
 			</div>
 			<div class="content-container">
@@ -92,7 +86,7 @@
 								<img class="headpic" :src="item.headerPicUrl" alt="">
 								<p class="name">{{item.nickName}}</p>
 							</div>
-							<div class="num" v-html="item.value">
+							<div class="num" v-html="item.valueHtml">
 							</div>
 						</div>
 
@@ -249,15 +243,15 @@
 						if (this.userType == 'skipping') {
 							if (this.secondType == 'activeTime') {
 								res.data.forEach(item => {
-									item.value = this.countTimeAll(item.value);
+									item.valueHtml = this.countTimeAll(item.value);
 								})
 							} else {
 								res.data.forEach(item => {
 									if (item.value > 1000000) {
-										item.value = "<span class='bigNumberSpan'>" + (item
+										item.valueHtml = "<span class='bigNumberSpan'>" + (item
 										.value/10000).toFixed(2) + "</span>" + "万个";
 									} else{
-										item.value = "<span class='bigNumberSpan'>" + item
+										item.valueHtml = "<span class='bigNumberSpan'>" + item
 										.value + "</span>" + "个";	
 									}
 									
@@ -266,12 +260,12 @@
 						} else if (this.userType == 'wristball') {
 							if (this.secondType == 'maxRate') {
 								res.data.forEach(item => {
-									item.value = "<span class='bigNumberSpan'>" + item
+									item.valueHtml = "<span class='bigNumberSpan'>" + item
 										.value + "</span>" + "rpm";
 								})
 							} else if (this.secondType == 'maxStrength') {
 								res.data.forEach(item => {
-									item.value = "<span class='bigNumberSpan'>" + (item
+									item.valueHtml = "<span class='bigNumberSpan'>" + (item
 											.value / 1000).toFixed(1) + "</span>" +
 										"KG";
 								})
@@ -285,25 +279,25 @@
 										count = num2.substring(0, num2.lastIndexOf('.') +
 											4);
 									}
-									item.value = "<span class='bigNumberSpan'>" + count +
+									item.valueHtml = "<span class='bigNumberSpan'>" + count +
 										"</span>" + "万圈";
 								})
 							}
 						} else if (this.userType == 'wheel') {
 							if (this.secondType == 'count') {
 								res.data.forEach(item => {
-									item.value = "<span class='bigNumberSpan'>" + item
+									item.valueHtml = "<span class='bigNumberSpan'>" + item
 										.value + "</span>" + "次";
 								})
 							} else {
 								res.data.forEach(item => {
-									item.value = "<span class='bigNumberSpan'>" + item
+									item.valueHtml = "<span class='bigNumberSpan'>" + item
 										.value + "</span>" + "%";
 								})
 							}
 						} else {
 							res.data.forEach(item => {
-								item.value = "<span class='bigNumberSpan'>" + item
+								item.valueHtml = "<span class='bigNumberSpan'>" + item
 									.steps + "</span>" + "步";
 							})
 						}
