@@ -363,7 +363,7 @@
 			//跳转所有的课程分类
 			allCourse(index, item) {
 				try {
-					Interaction.pushToNextVC(host + "h5/h5V3/videoCourse/allCourse.html?hideTitle=1")
+					Interaction.pushToNextVC(host + "h5/h5V3/videoCourse/allCourse.html?hideTitle=1&classifyName="+item.name)
 				} catch (e) {
 					console.log(e)
 				}

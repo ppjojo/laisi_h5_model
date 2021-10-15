@@ -214,9 +214,12 @@
 						if (res.code == 0) {
 							_self.$toast("成功退出俱乐部!");
 							setTimeout(function(){
-								_self.refreshClubList();
-								window.history.go(-2)
-							},1000)
+								if(getQueryString('fromH5')){
+									window.history.go(-2)
+								}else{
+									Interaction.closePage();
+								}
+							},500)
 						} else {
 							_self.$toast(res.msg);
 						}

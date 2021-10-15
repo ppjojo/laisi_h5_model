@@ -719,7 +719,7 @@
                 window.removeEventListener('scroll', this.scrollFn); // 销毁监听
             },
             onclickLeft() {
-                if (getQueryString('back')) {
+                if (getQueryString('fromH5')) {
                     window.history.back();
                 } else {
                     Interaction.closePage();
@@ -728,9 +728,9 @@
             //设置页面
             goSetting() {
                 if (this.clubObject.self.isMinister == 'N' && this.clubObject.self.isSubMinister == 'N') {
-                    window.location.href = `../club/memberSetting.html?id=${this.clubId}`
+                    window.location.href = `../club/memberSetting.html?id=${this.clubId}&fromH5=${getQueryString('fromH5')}`
                 } else {
-                    window.location.href = `../club/ministerSetting.html?id=${this.clubId}`
+                    window.location.href = `../club/ministerSetting.html?id=${this.clubId}&fromH5=${getQueryString('fromH5')}`
                 }
             },
             goEchart() {

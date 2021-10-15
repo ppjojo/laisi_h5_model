@@ -1,97 +1,99 @@
 @font-face {
-  font-family: "iconfont"; /* Project id  */
-  src: url('iconfont.ttf?t=1634207173909') format('truetype');
+    font-family: "iconfont";
+    /* Project id  */
+    src: url('iconfont.ttf?t=1634207173909') format('truetype');
 }
 
 .iconfont {
-  font-family: "iconfont" !important;
-  font-size: 16px;
-  font-style: normal;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    font-family: "iconfont" !important;
+    font-size: 16px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .icon-tongyong-gengduo:before {
-  content: "\e79f";
+    content: "\e79f";
 }
 
 .icon-xialaxuanxiang:before {
-  content: "\e740";
+    content: "\e740";
 }
 
 .icon-H10-lishi:before {
-  content: "\e757";
+    content: "\e757";
 }
 
 .icon-shurukuang-chahao:before {
-  content: "\e69d";
+    content: "\e69d";
 }
 
 .icon-wodexiaozu-jianzhi:before {
-  content: "\e801";
+    content: "\e801";
 }
 
 .icon-wodexiaozu-jianfei:before {
-  content: "\e802";
+    content: "\e802";
 }
 
 .icon-wodexiaozu-tiaosheng:before {
-  content: "\e803";
+    content: "\e803";
 }
 
 .icon-wodexiaozu-jianshen:before {
-  content: "\e804";
+    content: "\e804";
 }
 
 .icon-wodexiaozu-wanliqiu:before {
-  content: "\e805";
+    content: "\e805";
+}
+
+
+
+.icon-dianzan-gaoliang:before {
+    content: "\e80f";
 }
 
 .icon-dongtaidianzan:before {
-  content: "\e681";
-}
-
-.icon-dianzan-gaoliang:before {
-  content: "\e80f";
+    content: "\e681";
 }
 
 .icon-shoucangdongtai:before {
-  content: "\e641";
+    content: "\e641";
 }
 
 .icon-huancun:before {
-  content: "\e643";
+    content: "\e643";
 }
 
 .icon-fenxianganniu:before {
-  content: "\e689";
+    content: "\e689";
 }
 
 .icon-shezhi:before {
-  content: "\e690";
+    content: "\e690";
 }
 
 .icon-fanhuianniu:before {
-  content: "\e691";
+    content: "\e691";
 }
 
 .icon-duihua-fasong:before {
-  content: "\e64b";
+    content: "\e64b";
 }
 
 .icon-a-shequ-:before {
-  content: "\e64e";
+    content: "\e64e";
 }
 
 .icon-shoucangxing2:before {
-  content: "\e812";
+    content: "\e812";
 }
 
 .icon-gengduo:before {
-  content: "\e639";
+    content: "\e639";
 }
 
 .icon-quanbu:before {
-  content: "\e6b8";
+    content: "\e6b8";
 }
-

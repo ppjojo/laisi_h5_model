@@ -1,115 +1,135 @@
 <!DOCTYPE html>
 <html lang="zh-cmn-Hans">
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
-    <title>全部课程</title>
-    <link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
-    <link rel="stylesheet" href="font/iconfont.css">
-    <link rel="stylesheet" href="../common/css/basic.css">
-    <link rel="stylesheet" href="css/index.css">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0,
+            minimum-scale=1.0, viewport-fit=cover">
+        <title>全部课程</title>
+        <link rel="stylesheet"
+            href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
+        <link rel="stylesheet" href="font/iconfont.css">
+        <link rel="stylesheet" href="../common/css/basic.css">
+        <link rel="stylesheet" href="css/index.css">
 
-</head>
+    </head>
 
-<body>
-    <div id="app" class="normalHeader" v-cloak>
-        <div class="header">
-            <van-nav-bar @click-left="onclickLeft" title="全部课程" left-arrow safe-area-inset-top fixed>
-                <template #left>
-                    <span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
-                </template>
+    <body>
+        <div id="app" class="normalHeader" v-cloak>
+            <div class="header">
+                <van-nav-bar @click-left="onclickLeft" title="全部课程" left-arrow
+                    safe-area-inset-top fixed>
+                    <template #left>
+                        <span class="icon iconfont icon-fanhuianniu"
+                            style="font-size: 0.5rem;" />
+                        </template>
 
-            </van-nav-bar>
-        </div>
-        <div class="allContain">
-            <div class="classificationBox">
-                <div class="title">课程筛选
-                    <span class="titleInfo">已选{{chooseLength}}项</span>
-                    <span class="icon iconfont icon-shurukuang-chahao" @click="initCondition(0)"
-                        style="font-size: 0.2rem;color: #595962;" />
+                    </van-nav-bar>
                 </div>
-                <div class="classificationDiv">
-                    <div class="classificationList" v-for="(items, key) in laberList">
-                        <div class="name">
-                            {{key}}
-                        </div>
-                        <div class="typeList">
-                            <div class="typeItem" v-for="item in items" @click="laberChoose(item,items)"
-                                :class="item.choose?'selected':''">{{item.attribute}}</div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="contain" style="overflow-y: auto;">
-                <van-pull-refresh v-model="isLoading" :head-height="90" @refresh="getNormalClass"
-                    class="monkey-pull-refresh">
-                    <template #pulling="props">
-                        <div class="monkeyBox">
-                            <img class="monkey" src="../common/img/monkey.gif" />
-                            <p>下拉刷新</p>
-                        </div>
-
-                    </template>
-                    <!-- 释放提示 -->
-                    <template #loosing>
-                        <div class="monkeyBox">
-                            <img class="monkey" src="../common/img/monkey.gif" />
-                            <p>释放刷新</p>
-                        </div>
-                    </template>
-
-                    <!-- 加载提示 -->
-                    <template #loading>
-                        <div class="monkeyBox">
-                            <img class="monkey" src="../common/img/monkey.gif" />
-                            <p>正在刷新</p>
-                        </div>
-                    </template>
-                    <div class="courseBox" v-if="classList.length>0">
-                        <ul>
-                            <li class="courseDiv" v-for="item in classList" @click="courseList(item)">
-                                <img v-if="item.classLableList.length>0"
-                                    :src="'./img/'+item.classLableList[0].classLabel+'.png'" class="iconlabel" alt="">
-                                <div class="cover" :style="{'backgroundImage':'url('+item.classCover+')'}">
-                                </div>
-                                <div class="content">
-                                    <div>
-                                        <p class="stitle">{{item.className}}</p>
-                                        <p class="detail">
-                                            {{Math.round(item.classDuration/60)}}分钟 · {{item.calory}}千卡 ·
-                                            {{item.classLevelName}}
-                                        </p>
+                <div class="allContain">
+                    <div class="classificationBox">
+                        <div class="title">课程筛选
+                            <span class="titleInfo">已选{{chooseLength}}项</span>
+                            <span class="icon iconfont icon-shurukuang-chahao"
+                                @click="initCondition(0)"
+                                style="font-size: 0.2rem;color: #595962;" />
+                            </div>
+                            <div class="classificationDiv">
+                                <div class="classificationList" v-for="(items,
+                                    key) in laberList">
+                                    <div class="name">
+                                        {{key}}
                                     </div>
-                                    <div class="progress">
-                                        已锻炼{{item.pageFinish||0}}%
+                                    <div class="typeList">
+                                        <div class="typeItem" v-for="item in
+                                            items"
+                                            @click="laberChoose(item,items)"
+                                            :class="item.choose?'selected':''">{{item.attribute}}</div>
                                     </div>
                                 </div>
 
-                            </li>
-                        </ul>
+                            </div>
+                        </div>
+
+                        <div class="contain" style="overflow-y: auto;">
+                            <van-pull-refresh v-model="isLoading"
+                                :head-height="90" @refresh="getNormalClass"
+                                class="monkey-pull-refresh">
+                                <template #pulling="props">
+                                    <div class="monkeyBox">
+                                        <img class="monkey"
+                                            src="../common/img/monkey.gif" />
+                                        <p>下拉刷新</p>
+                                    </div>
+
+                                </template>
+                                <!-- 释放提示 -->
+                                <template #loosing>
+                                    <div class="monkeyBox">
+                                        <img class="monkey"
+                                            src="../common/img/monkey.gif" />
+                                        <p>释放刷新</p>
+                                    </div>
+                                </template>
+
+                                <!-- 加载提示 -->
+                                <template #loading>
+                                    <div class="monkeyBox">
+                                        <img class="monkey"
+                                            src="../common/img/monkey.gif" />
+                                        <p>正在刷新</p>
+                                    </div>
+                                </template>
+                                <div class="courseBox" v-if="classList.length>0">
+                                    <ul>
+                                        <li class="courseDiv" v-for="item in
+                                            classList"
+                                            @click="courseList(item)">
+                                            <img
+                                                v-if="item.classLableList.length>0"
+                                            :src="'./img/'+item.classLableList[0].classLabel+'.png'"
+                                            class="iconlabel" alt="">
+                                            <div class="cover"
+                                                :style="{'backgroundImage':'url('+item.classCover+')'}">
+                                            </div>
+                                            <div class="content">
+                                                <div>
+                                                    <p class="stitle">{{item.className}}</p>
+                                                    <p class="detail">
+                                                        {{Math.round(item.classDuration/60)}}分钟
+                                                        · {{item.calory}}千卡 ·
+                                                        {{item.classLevelName}}
+                                                    </p>
+                                                </div>
+                                                <div class="progress">
+                                                    已锻炼{{item.pageFinish||0}}%
+                                                </div>
+                                            </div>
+
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="noData-box" style="padding-top: 0;"
+                                    v-else-if="!isLoading">
+                                    <img class="noData-img"
+                                        src="../common/img/noData.png" />
+                                    <p class="noData-p">暂无符合条件的训练课程，换个条件试试吧~</p>
+                                </div>
+                            </van-pull-refresh>
+                        </div>
                     </div>
 
-                    <div class="noData-box" style="padding-top: 0;" v-else-if="!isLoading">
-                        <img class="noData-img" src="../common/img/noData.png" />
-                        <p class="noData-p">暂无符合条件的训练课程，换个条件试试吧~</p>
-                    </div>
-                </van-pull-refresh>
+                </div>
+
             </div>
-        </div>
+        </body>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
+        <script src="../common/js/network.js"></script>
 
-    </div>
-
-    </div>
-</body>
-<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
-<script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
-<script src="../common/js/network.js"></script>
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.13/lottie.min.js"></script> -->
-<script>
+        <script>
     new Vue({
         el: '#app',
         data() {
@@ -118,7 +138,8 @@
                 laberList: [],
                 userId: "",
                 classList: [],
-                chooseLength: 0
+                chooseLength: 0,
+                classifyName:getQueryString("classifyName")||"",
 
             }
         },
@@ -127,17 +148,7 @@
 
         },
         mounted() {
-            // lottie.loadAnimation({
-
-            //     container: document.getElementById('lottie'), //dom元素的容器
-
-            //     loop: true, //循环播放
-
-            //     autoplay: true, //自动播放
-
-            //     path: 'monkey.json' // AE 导出JSON文件
-
-            // });
+            
 
         },
         created() {
@@ -158,6 +169,15 @@
                     url: "community/threeAttribute/group/see/all/attribute",
                 }).then(res => {
                     this.laberList = res.data;
+                    if(this.classifyName){
+                        for (const key in this.laberList) {
+                            this.laberList[key].forEach(item => {
+                                if(item.attribute==this.classifyName)
+                                this.laberChoose(item,this.laberList[key])
+                                return
+                            });
+                        }
+                    }
                     this.isLoading = false;
                 }).catch((err) => {
                     console.log(err)
@@ -243,7 +263,7 @@
                 if (flag == 0) {
                     this.getNormalClass()
                 } else {
-                    this.getClassByConditions()
+                    this.getClassByConditions(form)
                 }
             },
             //跳转课程详情
@@ -257,4 +277,4 @@
     })
 </script>
 
-</html>
+    </html>

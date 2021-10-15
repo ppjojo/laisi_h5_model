@@ -163,8 +163,7 @@ body {
   border-radius: 8px;
   width: 2.72rem;
   height: 2.04rem;
-  background-position: 75% 0;
-  background-size: 100% 100%;
+  background-size: cover;
   margin-right: 0.24rem;
 }
 
@@ -200,8 +199,7 @@ body {
 
 .courseBox-bg .courseDiv {
   height: 3.3rem;
-  background-position: 75% 0;
-  background-size: 100% 100%;
+  background-size: cover;
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
@@ -297,6 +295,7 @@ body {
 
 .courseList .header .van-nav-bar {
   background-color: rgba(255, 255, 255, 0);
+  z-index: 10;
 }
 
 .courseList .header .van-nav-bar .van-nav-bar__content {
@@ -315,22 +314,34 @@ body {
   border: none;
 }
 
-.courseList .topBox .bg {
+.courseList .topBox {
+  position: relative;
+}
+
+.courseList .topBox .bannerBg {
   height: 6.7rem;
   width: 100%;
-  background-size: auto 102%;
-  background-position: 90%;
-  background-repeat: no-repeat;
+  position: relative;
+  -webkit-filter: blur(4px);
+          filter: blur(4px);
 }
 
-.courseList .topBox .bg .opacity {
-  background: rgba(0, 0, 0, 0.6);
-  padding: 0 0.3rem;
-  padding-top: 1.6rem;
+.courseList .topBox .blackbg {
+  width: 100%;
   height: 6.7rem;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2;
 }
 
-.courseList .topBox .bg .opacity .title {
+.courseList .topBox .infoBox {
+  padding: 0 0.3rem;
+  position: absolute;
+  bottom: 1.5rem;
+  z-index: 3;
+}
+
+.courseList .topBox .infoBox .title {
   font-size: 0.48rem;
   line-height: 0.8rem;
   color: #ffffff;
@@ -343,7 +354,7 @@ body {
   -webkit-box-orient: vertical;
 }
 
-.courseList .topBox .bg .opacity .discript {
+.courseList .topBox .infoBox .discript {
   font-size: 0.24rem;
   line-height: 0.4rem;
   color: #CFCFD2;
@@ -357,7 +368,7 @@ body {
   min-height: 0.8rem;
 }
 
-.courseList .topBox .bg .opacity .classifyBox {
+.courseList .topBox .infoBox .classifyBox {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -370,7 +381,7 @@ body {
   padding: 0.2rem 0;
 }
 
-.courseList .topBox .bg .opacity .classifyBox .classifyDiv {
+.courseList .topBox .infoBox .classifyBox .classifyDiv {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -379,7 +390,7 @@ body {
           justify-content: flex-start;
 }
 
-.courseList .topBox .bg .opacity .classifyBox .classifyDiv .classifyItem {
+.courseList .topBox .infoBox .classifyBox .classifyDiv .classifyItem {
   margin-right: 0.2rem;
   height: 0.48rem;
   line-height: 0.48rem;
@@ -393,16 +404,16 @@ body {
   -o-border-radius: 0.24rem;
 }
 
-.courseList .topBox .bg .opacity .classifyBox .transPeopleCount {
+.courseList .topBox .infoBox .classifyBox .transPeopleCount {
   font-size: 0.24rem;
 }
 
-.courseList .topBox .bg .opacity .information {
+.courseList .topBox .infoBox .information {
   padding: 0.15rem 0.52rem;
   text-align: center;
 }
 
-.courseList .topBox .bg .opacity .information .need1 {
+.courseList .topBox .infoBox .information .need1 {
   font-size: 0.56rem;
   line-height: 0.6rem;
   color: #ffffff;
@@ -410,38 +421,38 @@ body {
   font-family: "BebasNeue";
 }
 
-.courseList .topBox .bg .opacity .information .needTitle1 {
+.courseList .topBox .infoBox .information .needTitle1 {
   font-size: 0.24rem;
   line-height: 0.4rem;
   color: #CFCFD2;
   display: table-row;
 }
 
-.courseList .topBox .bg .opacity .information .need2 {
+.courseList .topBox .infoBox .information .need2 {
   font-size: 0.56rem;
   line-height: 0.6rem;
   color: #ffffff;
   font-family: "BebasNeue";
 }
 
-.courseList .topBox .bg .opacity .information .needTitle2 {
+.courseList .topBox .infoBox .information .needTitle2 {
   font-size: 0.24rem;
   line-height: 0.4rem;
   color: #CFCFD2;
 }
 
-.courseList .topBox .bg .opacity .information .needBox3 {
+.courseList .topBox .infoBox .information .needBox3 {
   float: right;
 }
 
-.courseList .topBox .bg .opacity .information .need3 {
+.courseList .topBox .infoBox .information .need3 {
   font-size: 0.48rem;
   line-height: 0.6rem;
   color: #ffffff;
   display: table-row;
 }
 
-.courseList .topBox .bg .opacity .information .needTitle3 {
+.courseList .topBox .infoBox .information .needTitle3 {
   font-size: 0.24rem;
   line-height: 0.4rem;
   color: #CFCFD2;
@@ -455,6 +466,7 @@ body {
   border-top-right-radius: 0.5rem;
   position: relative;
   top: -0.88rem;
+  z-index: 3;
 }
 
 .courseList .tabBox .van-sticky--fixed {
@@ -519,7 +531,7 @@ body {
   -o-border-radius: 0.25rem;
 }
 
-.courseList .listBox .courseList ul li {
+.courseList .listBox .courseList ul .liBox {
   height: 1.5rem;
   padding: 0.15rem 0.3rem;
   display: -webkit-box;
@@ -533,7 +545,7 @@ body {
           justify-content: flex-start;
 }
 
-.courseList .listBox .courseList ul li .chooseBox {
+.courseList .listBox .courseList ul .liBox .chooseBox {
   width: 0.5rem;
   height: 100%;
   display: -webkit-box;
@@ -544,16 +556,16 @@ body {
           align-items: center;
 }
 
-.courseList .listBox .courseList ul li .chooseBox img {
+.courseList .listBox .courseList ul .liBox .chooseBox img {
   width: 0.36rem;
   height: 0.36rem;
 }
 
-.courseList .listBox .courseList ul li .itemImg {
+.courseList .listBox .courseList ul .liBox .itemImg {
   margin-right: 0.2rem;
 }
 
-.courseList .listBox .courseList ul li .itemImg img {
+.courseList .listBox .courseList ul .liBox .itemImg img {
   width: 1.8rem;
   height: 1.2rem;
   border-radius: 5px;
@@ -563,14 +575,14 @@ body {
   -o-border-radius: 5px;
 }
 
-.courseList .listBox .courseList ul li .rightBox {
+.courseList .listBox .courseList ul .liBox .rightBox {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   width: 6.5rem;
 }
 
-.courseList .listBox .courseList ul li .rightBox .itemDiscript .smallTile {
+.courseList .listBox .courseList ul .liBox .rightBox .itemDiscript .smallTile {
   font-size: 0.28rem;
   color: #CFCFD2;
   line-height: 0.6rem;
@@ -583,10 +595,15 @@ body {
   -webkit-box-orient: vertical;
 }
 
-.courseList .listBox .courseList ul li .rightBox .itemDiscript .need {
+.courseList .listBox .courseList ul .liBox .rightBox .itemDiscript .need {
   font-size: 0.24rem;
   color: #71717f;
   line-height: 0.6rem;
+}
+
+.courseList .listBox .courseList ul .stopDurationBox {
+  padding: 0.15rem 0.3rem;
+  font-size: 0.32rem;
 }
 
 .courseList .listBox .courseList .info {
@@ -662,6 +679,13 @@ body {
 .courseList .commentBox {
   position: relative;
   padding: 0 0.3rem;
+}
+
+.courseList .commentBox .info {
+  color: #71717f;
+  font-size: 0.2rem;
+  text-align: center;
+  padding: 0.2rem 0;
 }
 
 .courseList .commentBox ul li {
@@ -815,8 +839,8 @@ body {
   z-index: 99;
   padding: 0.16rem 0.24rem;
   background-color: #12121f;
-  padding-bottom: calc(constant(safe-area-inset-bottom));
-  padding-bottom: calc(env(safe-area-inset-bottom));
+  padding-bottom: calc(0.16rem + constant(safe-area-inset-bottom));
+  padding-bottom: calc(0.16rem + env(safe-area-inset-bottom));
 }
 
 .courseList .sendBox .van-cell {
