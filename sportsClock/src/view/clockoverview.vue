@@ -164,8 +164,6 @@
 				getYearDeviceTotal({
 					checkTime: this.checkTime
 				}).then(res => {
-					res.data.steps=10000000
-					res.data.skipping=100
 					this.yearObj = res.data;
 				})
 			},
