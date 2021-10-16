@@ -134,7 +134,7 @@
         el: '#app',
         data() {
             return {
-                isLoading: false,
+                isLoading: true,
                 laberList: [],
                 userId: "",
                 classList: [],
@@ -169,6 +169,13 @@
                     url: "community/threeAttribute/group/see/all/attribute",
                 }).then(res => {
                     this.laberList = res.data;
+                    this.laberList['时间']=[{
+                        id: 10, attribute: "2-10分钟"
+                    },{
+                        id: 20, attribute: "11-20分钟"
+                    },{
+                        id: 30, attribute: "21-40分钟"
+                    }]
                     if(this.classifyName){
                         for (const key in this.laberList) {
                             this.laberList[key].forEach(item => {
@@ -178,7 +185,6 @@
                             });
                         }
                     }
-                    this.isLoading = false;
                 }).catch((err) => {
                     console.log(err)
                 })
@@ -189,7 +195,9 @@
                     url: "community/threeUserCollect/see/all/bigClass/orderBy",
                 }).then(res => {
                     this.classList = res.data;
-                    this.isLoading = false;
+                    setTimeout(() => {
+                        this.isLoading = false;
+                    }, 300);
                 }).catch((err) => {
                     console.log(e)
                 })
@@ -206,7 +214,9 @@
                     } else {
                         this.classList = [];
                     }
-                    this.isLoading = false;
+                    setTimeout(() => {
+                        this.isLoading = false;
+                    }, 300);
                 }).catch((err) => {
                     console.log(err)
                 })
@@ -215,8 +225,11 @@
             //选择标签
             laberChoose(item, items) {
                 if (item.choose) {
+                    item.choose=false
+                    this.initCondition()
                     return
                 }
+                
                 items.forEach(ele => {
                     ele.choose = false
                 })
@@ -228,19 +241,20 @@
             },
             //筛选条件处理
             initCondition(flag) { //0 清空筛选条件
+
                 let obj = this.laberList;
                 let form = {};
                 this.chooseLength = 0;
                 for (const key in obj) {
                     let submitKey = ""
                     if (key == "目标") {
-                        submitKey = "classTarget"
+                        submitKey = "oneClassTarget"
                     } else if (key == "部位") {
-                        submitKey = "classOnePart"
+                        submitKey = "oneClassPart"
                     } else if (key == "等级") {
                         submitKey = "classLevel"
                     } else if (key == "器械") {
-                        submitKey = "classKit"
+                        submitKey = "oneClassKit"
                     } else if (key == "时间") {
                         submitKey = "durationRangeId"
                     } else {
@@ -259,8 +273,10 @@
                     });
                     form[submitKey] = form[submitKey].join()
                 }
+                
+               
 
-                if (flag == 0) {
+                if (this.chooseLength == 0) {
                     this.getNormalClass()
                 } else {
                     this.getClassByConditions(form)

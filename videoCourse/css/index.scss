@@ -341,6 +341,7 @@ body {
 
     .topBox {
         position: relative;
+        z-index: 1;
 
         .bannerBg {
             height: 6.7rem;
@@ -481,13 +482,13 @@ body {
     }
 
     .tabBox {
-        overflow: hidden;
+        // overflow: hidden;
         background-color: $bg_color;
         border-top-left-radius: 0.5rem;
         border-top-right-radius: 0.5rem;
         position: relative;
         top: -0.88rem;
-        z-index: 3;
+        z-index: 4;
 
         .van-sticky--fixed {
             top: 0.92rem;
@@ -680,6 +681,7 @@ body {
     .commentBox {
         position: relative;
         padding: 0 0.3rem;
+        z-index: 4;
 
         .info {
             color: #71717f;

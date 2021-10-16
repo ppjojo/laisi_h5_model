@@ -189,15 +189,15 @@
 					<van-index-bar :index-list="indexList">
 						<template v-if="Object.keys(dataList).length>0" v-for="(item,key,index) in dataList">
 							<van-index-anchor :index="key.toUpperCase()"></van-index-anchor>
-							<van-cell v-for="(item2,index2) in item" clickable :key="item2.userId"
+							<van-cell v-for="(item2,index2) in item" clickable :key="item2.memberId"
 								@click="toggle(index2,item2)">
 								<template #icon>
-									<van-checkbox :name="item2.userId" ref="checkboxes"></van-checkbox>
+									<van-checkbox :name="item2.memberId" ref="checkboxes"></van-checkbox>
 								</template>
 								<template #title>
 									<div class="itemBox">
 										<img class="headpic" :src="item2.headPictureUrl" alt="">
-										<div class="nickname van-ellipsis">{{item2.nickName}}</div>
+										<div class="nickname van-ellipsis">{{item2.nickname}}</div>
 									</div>
 								</template>
 							</van-cell>
@@ -250,7 +250,7 @@
 			},
 			toggle(index, mid) {
 				this.$refs.checkboxes.forEach((d, f) => {
-					if (d.name == mid.userId) {
+					if (d.name == mid.memberId) {
 						this.$refs.checkboxes[f].toggle();
 					}
 				})

@@ -25,32 +25,15 @@
 		</div>
 		<div class="main-container">
 			<div class="threeDiv">
-				<div class="no1">
-					<div class="noDiv" @click="Interaction.visitPersonalHomepage(listData[1].userId)">
-						<div class="headerPic"></div>
-						<img v-if="listData.length>1" :src="listData[1].headerPicUrl" alt="">
+				<div :class="'no'+index" v-for="(item,index) in listData" v-if="index>0&&index<4"> 
+					<div class="noDiv" @click="Interaction.visitPersonalHomepage(item.userId)">
+						<div class="headerPic" :style="{'backgroundImage':'url(./img/no'+item.rank+'.png)'}"></div>
+						<img  :src="item.headerPicUrl" alt="">
 					</div>
-					<p class="name" v-if="listData.length>1">{{listData[1].nickName}}</p>
-					<p class="num" v-if="listData.length>1" v-html="listData[1].valueHtml"></p>
+					<p class="name" >{{item.nickName}}</p>
+					<p class="num"  v-html="item.valueHtml"></p>
 				</div>
-				<div class="no2">
-					<div class="noDiv" @click="Interaction.visitPersonalHomepage(listData[2].userId)">
-						<div class="headerPic"></div>
-						<img v-if="listData.length>2" :src="listData[2].headerPicUrl" alt="">
-					</div>
-					<p class="name" v-if="listData.length>2">{{listData[2].nickName}}</p>
-					<p class="num" v-if="listData.length>2" v-html="listData[2].valueHtml"></p>
-
-				</div>
-				<div class="no3">
-					<div class="noDiv" @click="Interaction.visitPersonalHomepage(listData[3].userId)">
-						<div class="headerPic"></div>
-						<img v-if="listData.length>3" :src="listData[3].headerPicUrl" alt="">
-					</div>
-					<p class="name" v-if="listData.length>3">{{listData[3].nickName}}</p>
-					<p class="num" v-if="listData.length>3" v-html="listData[3].valueHtml"></p>
-				</div>
-			</div>
+			</div>	
 			<div class="content-container">
 				<div class="headerBox">
 					<div class="tabDiv">
@@ -297,8 +280,15 @@
 							}
 						} else {
 							res.data.forEach(item => {
-								item.valueHtml = "<span class='bigNumberSpan'>" + item
+								var count = item.steps;
+									if (count > 1000000) {
+										count = (count/10000).toFixed(2)
+										item.valueHtml = "<span class='bigNumberSpan'>" + count + "</span>" + "万步";
+									}else{
+										item.valueHtml = "<span class='bigNumberSpan'>" + item
 									.steps + "</span>" + "步";
+									} 
+								
 							})
 						}
 						this.listData = res.data;

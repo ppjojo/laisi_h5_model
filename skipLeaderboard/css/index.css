@@ -194,6 +194,7 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  padding: 0 0.15rem;
 }
 
 .threeDiv .num {
