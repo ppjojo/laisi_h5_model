@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
     <link rel="icon" href="data:image/ico;base64,aWNv">
     <title></title>
     <script type="text/javascript">
@@ -12,6 +13,7 @@
     </script>
 	<link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
     <link href="css/helpCenter.css" rel="stylesheet" type="text/css" />
+	<link href="font/iconfont.css" rel="stylesheet" type="text/css" />
     <style type="text/css">
     	.van-nav-bar--fixed{
     		background-color:#12121f!important;
@@ -42,9 +44,11 @@
 			<div class="outcommonBox">
 				<div class="commonQA">
 					<div class="listItem ">
-						<span class="blodTitle">操作指南</span>
+						<span class="blodTitle">{{bigTitle=='设备绑定流程'?'操作指南':'设备其他说明'}}</span>
 					</div>
-					<div class="listItem " v-html="dataList.manual">
+					<div class="listItem" v-if="bigTitle=='设备绑定流程'" v-html="dataList.manual">
+					</div>
+					<div class="listItem" v-else v-html="dataList.picSize">
 					</div>
 				</div>
 			</div>
@@ -68,7 +72,8 @@
 				},
 				tenPlayer:null,
 				tenParser:null,
-				title:''
+				title:'',
+				bigTitle:getQueryString('bigTitle')
 			}
 		},
 		filters: {},
@@ -91,6 +96,7 @@
 						if (res.code == 0) {
 							if(res.data){
 								res.data[0].manual = res.data[0].manual.replace(/\n/g, '<br>');
+								res.data[0].picSize = res.data[0].picSize.replace(/\n/g, '<br>');
 								_self.dataList = res.data[0];
 							}
 						} else {

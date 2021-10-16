@@ -184,7 +184,7 @@
             },
             getDetail() {
                 viewItem({
-                    userId: this.form.uid,
+                    bgUid: this.form.uid,
                     pageNum: this.page2,
                     pageSize: this.limit2
                 }).then(res => {

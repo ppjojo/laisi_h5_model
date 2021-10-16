@@ -4,7 +4,8 @@
 		<meta charset="utf-8">
 		<link rel="icon" href="data:image/ico;base64,aWNv">
 		<title>常见问题</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+		<meta name="viewport"
+		  content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
 		<meta http-equiv="Expires" content="0">
 		<meta http-equiv="Pragma" content="no-cache">
 		<meta http-equiv="Cache-control" content="no-cache">
@@ -78,7 +79,7 @@
 				mounted() {
 				},
 				created() {
-					this.title = getQueryString('title');
+					this.title = getQueryString('topTitle');
 					this.getList()
 				},
 				methods: {

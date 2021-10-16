@@ -73,10 +73,11 @@
                 </el-form-item>
                 <el-form-item label="设备类型" prop="deviceType">
                     <el-input v-model="form.deviceType" disabled></el-input>
-
                 </el-form-item>
-
-                <el-form-item label="操作指南" prop="operationManual">
+                <el-form-item label="优先等级" prop="orderNumber">
+                    <el-input v-model.number="form.orderNumber"></el-input>
+                </el-form-item>
+                <el-form-item label="问题解答" prop="operationManual">
                     <el-input v-model="form.operationManual" :autosize="{ minRows: 2}" type="textarea"></el-input>
 
                 </el-form-item>
@@ -164,7 +165,11 @@
                 dialogVisible: false,
                 form: {},
                 searchForm: {
-                    language: "zh"
+                    // language: "zh"
+                    title:null,
+                    questionType:null,
+                    pageSize:10,
+                    pageNumber:0
                 },
                 rules: {
                     deviceTitle: [
@@ -194,12 +199,7 @@
         },
         methods: {
             getList() {
-                var data = {
-                    pageNumber: this.page,
-                    pageSize: this.limit,
-                    ...this.searchForm
-                }
-                listItem(data).then(res => {
+                listItem(this.searchForm).then(res => {
                     this.list = res.data
                     this.total = res.data.totalElements
                     this.loading = false
@@ -220,12 +220,12 @@
             },
             // 上下分页
             handleCurrentChange(val) {
-                this.page = val - 1;
+                this.searchForm.pageNumber = val - 1;
                 this.getList()
             },
             // 每页显示多少条
             handleSizeChange(val) {
-                this.limit = val;
+                this.searchForm.pageSize = val;
                 this.getList()
             },
             //保存

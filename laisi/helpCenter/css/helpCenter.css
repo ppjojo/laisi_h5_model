@@ -14,6 +14,14 @@ html,body{
 	    position: relative;
 	    z-index: 100;
 }
+@supports ((height: constant(safe-area-inset-top)) or (height: env(safe-area-inset-top))) and (-webkit-overflow-scrolling: touch) {
+    .header {
+        height: 1rem;
+        height: calc(1rem + constant(safe-area-inset-top));
+        height: calc(1rem + env(safe-area-inset-top));
+    }
+	
+}
 .van-nav-bar--fixed{
 	background-color:#12121f;
 }

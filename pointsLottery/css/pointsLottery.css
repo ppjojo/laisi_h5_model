@@ -18,7 +18,10 @@ body {
 	top: 0;
 	background-color: #12121F;
 }
-
+.van-cell--clickable:active{background-color:#12121f }
+.van-cell::after{
+	border-bottom: 0.02rem solid #1e1e2a;
+}
 .van-nav-bar__text,.van-nav-bar__title,.van-nav-bar__left {
 	color: #cfcfd2;
 }

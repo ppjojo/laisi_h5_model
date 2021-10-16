@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+	<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
     <link rel="icon" href="data:image/ico;base64,aWNv">
     <title>帮助中心</title>
     <script type="text/javascript">
@@ -123,7 +124,7 @@
 		},
 		methods: {
 			clickQuestion(item){
-				if(item.questionTypeTitle=='设备绑定流程'){
+				if(item.questionTypeTitle=='设备绑定流程'||item.questionTypeTitle=='设备其他说明'){
 					window.location.href = "guide.html?id=" + item.id + '&userId='+ getQueryString('userId')+'&title='+item.questionTypeTitle;
 					return;
 				}

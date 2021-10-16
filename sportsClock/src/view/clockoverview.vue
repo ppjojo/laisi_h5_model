@@ -263,8 +263,8 @@
 		flex-wrap: wrap;
 
 		>.listItem {
-			width: 45%;
-			padding: .28rem .48rem;
+			width: 48%;
+			padding: .28rem .3rem;
 		}
 	}
 

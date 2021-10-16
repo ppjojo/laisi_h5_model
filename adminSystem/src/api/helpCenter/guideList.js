@@ -27,7 +27,7 @@ export function updateItem(data) {
 export function deleteItem(params) {
     return request({
         url: '/helpCenter/manual/delete/id',
-        method: 'post',
+        method: 'get',
         params
     })
 }

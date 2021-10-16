@@ -47,14 +47,19 @@
             </el-table-column>
             <el-table-column prop="manual" label="指南描述" :show-overflow-tooltip="true">
             </el-table-column>
+            <el-table-column prop="picSize" label="设备其他" :show-overflow-tooltip="true">
+            </el-table-column>
             <el-table-column label="操作" width="180">
                 <template scope="scope">
                     <el-button @click="btn_edit(scope.row)" type="text" size="mini" v-if="checkPer('edit')">
                         编辑
                     </el-button>
                     <el-button @click=" btn_lan(scope.row)" type="text" style="color:#67c23a;" size="mini"
-                        v-if="checkPer('edit')">语言配置
+                        v-if="checkPer('edit')">设备描述
                     </el-button>
+                   <!-- <el-button @click=" btn_lan(scope.row)" type="text" style="color:#67c23a;" size="mini"
+                        v-if="checkPer('edit')">语言配置
+                    </el-button> -->
                     <el-button @click=" btn_delete(scope.row.id)" type="text" style="color:#f78989;" size="mini"
                         v-if="checkPer('delete')">删除
                     </el-button>
@@ -85,7 +90,7 @@
                         </el-option>
                     </el-select>
                 </el-form-item>
-                
+
                 <el-upload class="avatar-uploader" name="img" action="" :http-request="requestFile"
                     :show-file-list="false" v-show="false">
                 </el-upload>
@@ -100,15 +105,21 @@
         </el-dialog>
 
         <el-dialog title="语言配置" :visible.sync="lanDialogVisible" width="70%">
-            <el-form :model="lanForm" label-width="120px" ref="lanForm">
-                <el-form-item :label="item.description+'-'+item.languageType" v-for="item in languageList">
+            <el-form :model="form" label-width="120px" ref="form">
+              <el-upload class="avatar-uploader" name="img" action="" :http-request="requestFile"
+                  :show-file-list="false" v-show="false">
+              </el-upload>
+              <quill-editor class="myQuillEditor" ref="myQuillEditor" :content="form.picSize"
+                  :options="editorOptiondetails" @change="onEditordetailChange($event)">
+              </quill-editor>
+                <!-- <el-form-item :label="item.description+'-'+item.languageType" v-for="item in languageList">
                     <el-input type="textarea" :autosize="{ minRows: 2}" v-model="lanForm[item.languageType]"></el-input>
-                </el-form-item>
+                </el-form-item> -->
             </el-form>
 
             <div slot="footer" class="dialog-footer">
                 <el-button size="mini" @click="lanDialogVisible = false">取 消</el-button>
-                <el-button type="primary" size="mini" @click="submitLanForm('lanForm')">确 定</el-button>
+                <el-button type="primary" size="mini" @click="submitForm('form',true)">确 定</el-button>
             </div>
         </el-dialog>
 
@@ -182,7 +193,7 @@
                 searchForm: {},
                 rules: {
                     languageType: [
-                        { required: true, message: '请选择所属语言类型', trigger: 'change' }
+                        { required: false, message: '请选择所属语言类型', trigger: 'change' }
                     ],
                     manual: [
                         { required: true, message: '请输入操作指南描述', trigger: 'blur' },
@@ -270,11 +281,12 @@
                 this.getList()
             },
             //保存
-            submitForm(formName) {
+            submitForm(formName,isedit) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         this.dialogVisible = false
-                        if (this.dialogTitle == "新增") {
+                        this.lanDialogVisible=false
+                        if (this.dialogTitle == "新增"&&!isedit) {
                             addItem(this.form).then(response => {
                                 this.getList()
                                 this.$notify({
@@ -322,7 +334,7 @@
                     type: 'warning'
                 }).then(() => {
                     deleteItem({
-                        ids: id,
+                        id: id,
                     }).then(response => {
                         this.getList()
                         this.$notify({
@@ -338,7 +350,12 @@
                 });
             },
             onEditordetailChange(e) {
+              if(this.dialogVisible){
                 this.form.manual = e.html;
+              }else{
+                this.form.picSize = e.html;
+              }
+
             },
             requestFile(param) {
                 var fileObj = param.file;
@@ -358,27 +375,28 @@
             },
             //语言配置
             btn_lan(row) {
-                languageListItem({
-                    isSupport:"1"
-                }).then(res=>{
-                    this.languageList=res.data
-                })
-                this.lanForm = {
-                    en: "",
-                    zh: row.manual,
-                    cs: "",
-                    fr: "",
-                    ja: "",
-                    pt: "",
-                    ru: "",
-                    sk: "",
-                    it: "",
-                    de: "",
-                    type: "manual",
-                    typeId: row.id,
-                    subType: "0"
-                }
-                this.getLanDetail()
+                // languageListItem({
+                //     isSupport:"1"
+                // }).then(res=>{
+                //     this.languageList=res.data
+                // })
+                // this.lanForm = {
+                //     en: "",
+                //     zh: row.manual,
+                //     cs: "",
+                //     fr: "",
+                //     ja: "",
+                //     pt: "",
+                //     ru: "",
+                //     sk: "",
+                //     it: "",
+                //     de: "",
+                //     type: "manual",
+                //     typeId: row.id,
+                //     subType: "0"
+                // }
+                // this.getLanDetail()
+                this.form = Object.assign({}, row)
                 this.lanDialogVisible=true
 
             },

@@ -71,7 +71,7 @@
 
 		div {
 			color: #cfcfd2;
-			font-size: .48rem;
+			font-size: .43rem;
 			white-space: nowrap;
 			span {
 				font-size: .24rem;
