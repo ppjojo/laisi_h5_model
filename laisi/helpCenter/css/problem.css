@@ -11,6 +11,8 @@
     float: left;
     width: 0.36rem;
     height: 0.36rem;
+    position: relative;
+    top: 0.05rem;
     line-height: 0.36rem;
     margin-right: 0.15rem;
     color: #fff;

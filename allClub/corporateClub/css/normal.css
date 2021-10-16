@@ -24,19 +24,7 @@ body {
     font-style: normal;
 }
 
-#app {
-    padding-top: .92rem;
-    min-height: 100vh;
-    background-color: #12121f;
-}
 
-#app>.header {
-    position: fixed;
-    width: 100%;
-    z-index: 9;
-    top: 0;
-    background-color: #12121f;
-}
 
 .van-nav-bar__title {
     color: #cfcfd2;

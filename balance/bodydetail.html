@@ -9,6 +9,7 @@
 	<link href="css/index.css" rel="stylesheet" type="text/css" />
 </head>
 
+
 <body>
 	<div id="app" v-cloak>
 		<div class="topContain">
@@ -336,6 +337,7 @@
 <script src="../common/js/network.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
 <script>
+
 	new Vue({
 		el: '#app',
 		data() {
@@ -355,9 +357,10 @@
 			};
 		},
 		created() {
-			if (this.isShare) {
-				this.initDataShare()
-			}
+			// if (this.isShare) {
+				
+			// }
+			this.initDataShare()
 			this.initData();
 
 		},
@@ -465,7 +468,7 @@
 					success: function (res) {
 						if (res.code == 0) {
 							that.user = res.data;
-							document.title=user.nickname+"的数据详情"
+							document.title=that.user.nickname+"的数据详情"
 						}
 					},
 					error: function (err) {

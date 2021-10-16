@@ -1,5 +1,4 @@
 body {
-    min-height: 100vh;
     background: #12121F;
     color: #CFCFD2;
 }
@@ -44,7 +43,7 @@ body {
     box-sizing: border-box;
     position: absolute;
     left: 0;
-    bottom: 1rem;
+    bottom: 0.5rem;
 }
 
 .toptxt p {
