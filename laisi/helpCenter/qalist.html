@@ -6,37 +6,19 @@
 		<title>常见问题</title>
 		<meta name="viewport"
 		  content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
-		<meta http-equiv="Expires" content="0">
-		<meta http-equiv="Pragma" content="no-cache">
-		<meta http-equiv="Cache-control" content="no-cache">
-		<meta http-equiv="Cache" content="no-cache">
-		<link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
+		  <link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
 		<link href="./css/helpCenter.css" rel="stylesheet" type="text/css" />
 		<link rel="stylesheet" href="./font/iconfont.css">
-		<!-- <link rel="stylesheet" type="text/css" href="css/problem.css"> -->
 		<style type="text/css">
-			.answer {
-				padding: 0;
-			}
-
+			
 			.listItem {
 				color: #cfcfd2;
-				border-top: 1px solid #161623;
-				border-bottom: 1px solid #161623;
+				border-bottom: 1px solid #1e1e2a;
 				padding: .24rem;
 				display: flex;
 				justify-content: space-between;
 				align-items: center;
 				font-size: .28rem;
-			}
-			.van-nav-bar--fixed{
-				background-color:#12121f!important;
-			}
-			.van-nav-bar__title,.icon-fanhuianniu{
-				color:#cfcfd2!important;
-			}
-			.van-hairline--bottom::after{
-				border-bottom-width:0;
 			}
 			.listItem img {
 				width: .1rem;
@@ -60,28 +42,15 @@
 				</div>
 			</div>
 		</div>
-		<script src="https://oss.laisitech.com/0bb12bf1-cb87-4d2c-a724-8a7c25b7ae04.js "></script>
-		<script src="https://oss.laisitech.com/6172e6c1-f460-40ac-97ba-31c8526f2e16.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+		<script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
 		<script src="../../common/js/network.js"></script>
 		<script type="text/javascript">
-			var phoneLanguage = navigator.language;
-			var language = ""
-			if (phoneLanguage.indexOf("zh") != -1) {
-				language = "zh"
-				document.title = getQueryString('title');
-				// getdata()
-			} else if (phoneLanguage.indexOf("en") != -1) {
-				language = "en"
-				document.title = 'FAQ';
-				// getdata()
-			}
 			new Vue({
 				el: '#app',
 				data() {
 					return {
 						dataList:[],
-						tenPlayer:null,
-						tenParser:null,
 					}
 				},
 				filters: {},

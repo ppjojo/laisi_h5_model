@@ -465,6 +465,7 @@
 					success: function (res) {
 						if (res.code == 0) {
 							that.user = res.data;
+							document.title=user.nickname+"的数据详情"
 						}
 					},
 					error: function (err) {

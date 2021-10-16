@@ -5,82 +5,62 @@
 		<link rel="icon" href="data:image/ico;base64,aWNv">
 		<title>常见问题</title>
 		<meta name="viewport"
-		  content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
-		<meta http-equiv="Expires" content="0">
-		<meta http-equiv="Pragma" content="no-cache">
-		<meta http-equiv="Cache-control" content="no-cache">
-		<meta http-equiv="Cache" content="no-cache">
-		<link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
+			content="width=device-width, initial-scale=1.0, maximum-scale=1.0,
+			minimum-scale=1.0, viewport-fit=cover">
+		<link rel="stylesheet"
+			href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
 		<link href="css/helpCenter.css" rel="stylesheet" type="text/css" />
 		<link rel="stylesheet" href="font/iconfont.css">
 		<link rel="stylesheet" type="text/css" href="css/problem.css">
-		<style type="text/css">
-			.answer .container{
-				background-color: #1E1E2A;
-				padding: .24rem;
-				padding-bottom: 0;
-				border-radius: 12px;
-			}
-			.borderbtm{
-				border-bottom: .02rem solid #12121f;
-			}
-			.van-nav-bar--fixed{
-				background-color:#12121f!important;
-			}
-			.van-nav-bar__title,.icon-fanhuianniu{
-				color:#cfcfd2!important;
-			}
-			.van-hairline--bottom::after{
-				border-bottom-width:0;
-			}
-		</style>
+		
 	</head>
 	<body>
 		<div id="app">
-		<div class="header">
-			<van-nav-bar @click-left="onclickLeft" :title="title" left-arrow safe-area-inset-top fixed>
-				<template #left>
-					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
-				</template>
-		
-			</van-nav-bar>
-		</div>
-		<div class="answer">
+			<div class="header">
+				<van-nav-bar @click-left="onclickLeft" :title="topTitle" left-arrow
+					safe-area-inset-top fixed>
+					<template #left>
+						<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
+						</template>
 
+					</van-nav-bar>
+				</div>
+				<div class="answer">
+					<div class="container">
+						<div class="borderbtm " style="padding:0.2rem">
+							<div class="icon">Q</div>
+							<div class="titleBox">  {{title}}</div>
+						</div>
+						<div style="padding:0.2rem"> 
+							<div class="icon bgGreen">A</div>
+							<div class="infoBox">
+								{{operation_manual}}
+							</div>
+						</div> 
+				</div>
+			</div>
 		</div>
-		</div>
-		</div>
-		<script src="https://oss.laisitech.com/0bb12bf1-cb87-4d2c-a724-8a7c25b7ae04.js "></script>
-		<script src="https://oss.laisitech.com/6172e6c1-f460-40ac-97ba-31c8526f2e16.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+		<script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
 		<script src="../../common/js/network.js"></script>
 		<script type="text/javascript">
-			var phoneLanguage = navigator.language;
-			var language = ""
-			if (phoneLanguage.indexOf("zh") != -1) {
-				language = "zh"
-				document.title =getQueryString('title');
-				getdata()
-			} else if (phoneLanguage.indexOf("en") != -1) {
-				language = "en"
-				document.title = 'FAQ';
-				getdata()
-			}
+			
 			new Vue({
 				el: '#app',
 				data() {
 					return {
-						dataList:[],
-						tenPlayer:null,
-						tenParser:null,
-						title:""
+						
+						title:getQueryString('title'),
+						operation_manual:getQueryString('qa'),
+						topTitle :getQueryString('topTitle'),
+
 					}
 				},
 				filters: {},
 				mounted() {
 				},
 				created() {
-					this.title = getQueryString('topTitle');
-					this.getList()
+					
 				},
 				methods: {
 					onclickLeft(){
@@ -88,42 +68,7 @@
 					},
 				}
 			})
-			// 获取问题列表
-			function getdata() {
-				// ajax({
-				// 	type: "get",
-				// 	url: "helpCenter/faq/query",
-				// 	data:{
-				// 		questionType:getQueryString('id'),
-				// 	},
-				// 	success: function(res) {
-				// 		if( parseInt(res.code) == 0) {
-				// 		   var data = res.data
-				// 		   appenddata(data)
-				// 		}
-				// 	},
-				// 	error: function() {
-				// 		console.log("error")
-						
-				// 	}
-				// })
-				let data={
-					title:getQueryString('title'),
-					operation_manual:getQueryString('qa')
-				}
-				appenddata(data)
-			}
-
-			function appenddata(data) {
-				var pdata = data.operation_manual
-				phtml = '';
-				pdata = pdata.replace(/\n/g, '<br>')
-				phtml += '<p>' + pdata + '</p>'
-
-				var html = '<div class="container"><div class="borderbtm"> <span class="icon bgBlue">Q</span> <h3>' + data.title +
-					'</h3></div><br> <span class="icon bgGreen">A</span><div class="text">' + phtml + '</div> </div>';
-				document.getElementsByClassName('answer')[0].innerHTML = html
-			}
+			
 		</script>
 	</body>
 </html>
