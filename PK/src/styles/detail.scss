@@ -66,17 +66,15 @@ $border_color:#1e1e2a;
 
         .laberTitle {
             font-size: 0.28rem;
-            text-align: justify;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             line-height: 0.55rem;
             height: 0.55rem;
             color: $text_color_white;
-            padding-right: 0.1rem;
         }
 
-        .laberTitle i {
-            display: inline-block;
-            width: 100%;
-        }
+
 
         .laberContent {
             font-size: 0.28rem;
@@ -112,6 +110,7 @@ $border_color:#1e1e2a;
 
     .raceInformation {
         padding-bottom: 2.5rem;
+        padding-top: 0.5rem;
 
         .raceInformationTitle {
             font-size: 0.32rem;
@@ -132,7 +131,7 @@ $border_color:#1e1e2a;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            border-bottom: 1px solid $bg_color;
+            border-bottom: 1px solid $border_color;
 
             .rank {
                 text-align: center;
@@ -448,7 +447,7 @@ $border_color:#1e1e2a;
         display: flex;
         justify-content: center;
         padding: 0.66rem 0;
-        background-image: linear-gradient(to bottom, rgba(18, 18, 31, 0.1), rgba(18, 18, 31, 0.8));
+        // background-image: linear-gradient(to bottom, rgba(18, 18, 31, 0.1), rgba(18, 18, 31, 0.8));
 
         .btn {
             border: none;
@@ -463,7 +462,7 @@ $border_color:#1e1e2a;
 
         .btn2 {
             background-image: none;
-            background-color: #74747E;
+            background-color: #71717f;
         }
 
 

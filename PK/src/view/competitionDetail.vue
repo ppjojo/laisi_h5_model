@@ -31,7 +31,9 @@
       <div class="detailContain">
         <div class="detailDiv">
           <van-row>
-            <van-col span="5" class="laberTitle">比赛名称<i></i></van-col>
+            <van-col span="5" class="laberTitle">
+              <span>比</span><span>赛</span><span>名</span><span>称</span>
+            </van-col>
             <van-col span="1" class="laberTitle">：</van-col>
             <van-col span="18" class="laberContent">
               {{competitionItem.name}}
@@ -42,7 +44,9 @@
 
           <div v-if="type=='skipping'">
             <van-row v-if="competitionItem.type!='multiTeam'">
-              <van-col span="5" class="laberTitle">比赛模式<i></i></van-col>
+              <van-col span="5" class="laberTitle">
+                <span>比</span><span>赛</span><span>模</span><span>式</span>
+              </van-col>
               <van-col span="1" class="laberTitle">：</van-col>
               <van-col span="18" class="laberContent" v-if="competitionItem.mode==2">
                 {{competitionItem.modeValue==30?"30秒钟倒计时跳":(parseInt((competitionItem.modeValue)/60))+"分钟倒计时跳"}}
@@ -52,7 +56,9 @@
             </van-row>
 
             <van-row v-if="competitionItem.type=='multiTeam'">
-              <van-col span="5" class="laberTitle">比赛模式<i></i></van-col>
+              <van-col span="5" class="laberTitle">
+                <span>比</span><span>赛</span><span>模</span><span>式</span>
+              </van-col>
               <van-col span="1" class="laberTitle">：</van-col>
               <van-col span="18" class="laberContent" v-if="competitionItem.mode==2">
                 {{competitionItem.modeValue==30?"30秒钟倒计时跳":(parseInt((competitionItem.modeValue)/60))+"分钟倒计时跳"}}/{{competitionItem.repeatTimes==-1?"不限次数":competitionItem.repeatTimes+"次内取最优"}}
@@ -64,7 +70,9 @@
           </div>
           <div v-else-if="type=='steps'">
             <van-row>
-              <van-col span="5" class="laberTitle">比赛模式<i></i></van-col>
+              <van-col span="5" class="laberTitle">
+                <span>比</span><span>赛</span><span>模</span><span>式</span>
+              </van-col>
               <van-col span="1" class="laberTitle">：</van-col>
               <van-col span="18" class="laberContent">
                 {{competitionItem.modeValue+"公里跑"}}
@@ -73,7 +81,9 @@
           </div>
           <div v-else-if="type=='wristball'">
             <van-row>
-              <van-col span="5" class="laberTitle">比赛模式<i></i></van-col>
+              <van-col span="5" class="laberTitle">
+                <span>比</span><span>赛</span><span>模</span><span>式</span>
+              </van-col>
               <van-col span="1" class="laberTitle">：</van-col>
               <van-col span="18" class="laberContent" v-if="competitionItem.mode==2">
                 {{competitionItem.modeValue==30?"30秒钟倒计时转":(parseInt((competitionItem.modeValue)/60))+"分钟倒计时转"}}
@@ -85,7 +95,9 @@
           </div>
           <div v-else-if="type=='wheel'">
             <van-row>
-              <van-col span="5" class="laberTitle">比赛模式<i></i></van-col>
+              <van-col span="5" class="laberTitle">
+                <span>比</span><span>赛</span><span>模</span><span>式</span>
+              </van-col>
               <van-col span="1" class="laberTitle">：</van-col>
               <van-col span="18" class="laberContent" v-if="competitionItem.mode==2">
                 {{competitionItem.modeValue==30?"30秒钟倒计时":(parseInt((competitionItem.modeValue)/60))+"分钟倒计时"}}
@@ -96,52 +108,70 @@
           </div>
 
           <van-row>
-            <van-col span="5" class="laberTitle">发起人<i></i></van-col>
+            <van-col span="5" class="laberTitle">
+              <span>发</span><span>起</span><span>人</span>
+            </van-col>
             <van-col span="1" class="laberTitle">：</van-col>
             <van-col span="18" class="laberContent">{{userItem.nickName||""}}</van-col>
           </van-row>
           <van-row v-if="competitionItem.type=='multiTeam'">
-            <van-col span="5" class="laberTitle">团队数<i></i></van-col>
+            <van-col span="5" class="laberTitle">
+              <span>团</span><span>队</span><span>数</span>
+            </van-col>
             <van-col span="1" class="laberTitle">：</van-col>
             <van-col span="18" class="laberContent">{{competitionItem.teamNum+'个'||""}}</van-col>
           </van-row>
           <van-row v-if="competitionItem.type=='multiTeam'">
-            <van-col span="5" class="laberTitle">团队人数<i></i></van-col>
+            <van-col span="5" class="laberTitle">
+              <span>团</span><span>队</span><span>人</span><span>数</span>
+            </van-col>
             <van-col span="1" class="laberTitle">：</van-col>
             <van-col span="18" class="laberContent">{{competitionItem.teamPersonLimit+'人'||""}}</van-col>
           </van-row>
           <van-row v-if="competitionItem.type!='multiTeam'">
-            <van-col span="5" class="laberTitle">已参赛<i></i></van-col>
+            <van-col span="5" class="laberTitle">
+              <span>已</span><span>参</span><span>赛</span>
+            </van-col>
             <van-col span="1" class="laberTitle">：</van-col>
             <van-col span="18" class="laberContent" v-if="joinDetailItem.registerCount">
               {{joinDetailItem.registerCount+'人'||""}}</van-col>
           </van-row>
           <van-row v-if="competitionItem.isVerify">
-            <van-col span="5" class="laberTitle">邀请码<i></i></van-col>
+            <van-col span="5" class="laberTitle">
+              <span>邀</span><span>请</span><span>码</span>
+            </van-col>
             <van-col span="1" class="laberTitle">：</van-col>
             <van-col span="18" class="laberContent">{{competitionItem.invitationCode}}</van-col>
           </van-row>
           <van-row v-if="competitionItem.type!='multiTeam'">
-            <van-col span="5" class="laberTitle">比赛次数<i></i></van-col>
+            <van-col span="5" class="laberTitle">
+              <span>比</span><span>赛</span><span>次</span><span>数</span>
+            </van-col>
             <van-col span="1" class="laberTitle">：</van-col>
             <van-col span="18" class="laberContent" v-if="competitionItem.repeatTimes">
               {{competitionItem.repeatTimes==-1?"不限次数，比赛期间取最好成绩":competitionItem.repeatTimes+"次内取最优"}}
             </van-col>
           </van-row>
           <van-row>
-            <van-col span="5" class="laberTitle">比赛时间<i></i></van-col>
+            <van-col span="5" class="laberTitle">
+              <span>比</span><span>赛</span><span>时</span><span>间</span>
+            </van-col>
             <van-col span="1" class="laberTitle">：</van-col>
             <van-col span="18" class="laberContent" v-if="competitionItem.startTime">
               {{DateTime.needYearOrNot(competitionItem.startTime,competitionItem.endTime)}}</van-col>
           </van-row>
           <van-row v-if="competitionItem.gameReward!='无奖励(由发起人提供)'">
-            <van-col span="5" class="laberTitle">比赛奖励<i></i></van-col>
+            <van-col span="5" class="laberTitle">
+              <span>比</span><span>赛</span><span>奖</span><span>励</span>
+            </van-col>
             <van-col span="1" class="laberTitle">：</van-col>
             <van-col span="18" class="laberContent"><span v-html='competitionItem.gameReward'></span>
             </van-col>
           </van-row>
           <van-row v-if="competitionItem.isOfficial">
-            <van-col span="5" class="laberTitle">获奖规则<i></i></van-col>
+            <van-col span="5" class="laberTitle">
+              <span>获</span><span>奖</span><span>规</span><span>则</span>
+            </van-col>
             <van-col span="1" class="laberTitle">：</van-col>
             <van-col span="18" class="laberContent"><span style="color:#59b8ff" @click="officialRuleShow=true">点击查看详细规则</span></van-col>
           </van-row>
