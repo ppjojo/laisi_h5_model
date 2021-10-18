@@ -152,7 +152,6 @@
 
         },
         created() {
-            this.getNormalClass()
             this.getLaberList()
         },
         methods: {
@@ -184,6 +183,8 @@
                                 return
                             });
                         }
+                    }else{
+                        this.getNormalClass()
                     }
                 }).catch((err) => {
                     console.log(err)

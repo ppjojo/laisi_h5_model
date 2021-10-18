@@ -86,7 +86,7 @@ body {
 
 .topContain .userBox {
   position: absolute;
-  top: 0.8rem;
+  top: 0.5rem;
   left: 0.24rem;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -109,7 +109,7 @@ body {
 
 .topContain .scoreBox {
   position: absolute;
-  top: 0.5rem;
+  bottom: 2rem;
   left: 1.02rem;
 }
 
