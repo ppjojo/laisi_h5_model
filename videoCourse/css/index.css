@@ -957,6 +957,11 @@ body {
   color: #CFCFD2;
 }
 
+.van-list__finished-text {
+  font-size: 0.24rem;
+  color: #71717f;
+}
+
 .normalHeader .header {
   height: 0.92rem;
   position: relative;
