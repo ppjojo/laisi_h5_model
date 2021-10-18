@@ -20,8 +20,8 @@
         <template scope="scope">
           <el-button @click="btn_edit(scope.row)" type="text" size="mini">编辑
           </el-button>
-          <!-- <el-button @click=" btn_delete(scope.row)" type="text" style="color:#f78989;" size="mini">删除
-          </el-button> -->
+          <el-button @click=" btn_delete(scope.row.id)" type="text" style="color:#f78989;" size="mini">删除
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -168,6 +168,29 @@ wheel"></el-input>
         this.dialogVisible = true;
         this.dialogTitle = "编辑"
         this.form = Object.assign({}, row)
+      },
+      //删除
+      btn_delete(id) {
+          this.$confirm('此操作将永久删除该设备, 是否继续?', '提示', {
+              confirmButtonText: '确定',
+              cancelButtonText: '取消',
+              type: 'warning'
+          }).then(() => {
+              deleteItem({
+                  id: id,
+              }).then(response => {
+                  this.getList()
+                  this.$notify({
+                      type: 'success',
+                      message: '成功删除所选设备!'
+                  });
+              })
+          }).catch(() => {
+              this.$notify({
+                  message: '已取消删除操作设备',
+                  type: 'info'
+              });
+          });
       },
       requestFile(param) { //
         var fileForm = new FormData()

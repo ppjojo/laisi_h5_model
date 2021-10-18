@@ -25,7 +25,7 @@
 		<!-- 打卡按钮 -->
 		<div class="clickBtn ub ub-ac ub-ad" @click="isChallage(info.type)" :class="{greyBtn:info.dateType==1||info.type==1}">
 			<div>
-				{{info.dateType==1?'今日休息':info.type==3?'迎战':info.type==1?'完成':info.type==2?'再次挑战':info.type==0?'迎战中':'暂未触发'}}
+				{{info.dateType==1?'今日休息':info.type==3?'迎战':info.type==1?'完成':info.type==2?'再次挑战':info.type==0?'迎战':'暂未触发'}}
 			</div>
 		</div>
 		<!-- 战列表 -->

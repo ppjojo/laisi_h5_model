@@ -27,7 +27,7 @@ export function updateItem(data) {
 export function deleteItem(data) {
     return request({
         url: '/helpCenter/device/delete/id',
-        method: 'post',
-        data
+        method: 'get',
+        params:data
     })
 }
