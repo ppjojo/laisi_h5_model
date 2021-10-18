@@ -6,13 +6,13 @@
           <el-input v-model="searchForm.className" clearable placeholder="课程名称"></el-input>
         </el-form-item>
         <el-form-item label="目标">
-          <el-select v-model="searchForm.classTarget" placeholder="" clearable>
+          <el-select v-model="searchForm.classTargetAttributes2" multiple placeholder="" clearable>
             <el-option v-for="item in attribute['目标']" :key="item.id" :label="item.attribute" :value="item.id">
             </el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="部位">
-          <el-select v-model="searchForm.classPart" multiple placeholder="" clearable>
+          <el-select v-model="searchForm.classPart2" multiple placeholder="" clearable>
             <el-option v-for="item in attribute['部位']" :key="item.id" :label="item.attribute" :value="item.id">
             </el-option>
           </el-select>
@@ -24,7 +24,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="器械">
-          <el-select v-model="searchForm.classKit" placeholder="" clearable>
+          <el-select v-model="searchForm.classKitAttributes2" multiple placeholder="" clearable>
             <el-option v-for="item in attribute['器械']" :key="item.id" :label="item.attribute" :value="item.id">
             </el-option>
           </el-select>
@@ -190,10 +190,13 @@
         },
         searchForm: {
           className: "",
-          classTarget: null,
+          classTargetAttributes: [],
+          classTargetAttributes2: [],
           classLevel: null,
-          classKit: null,
-          classPart: []
+          classKitAttributes: [],
+          classKitAttributes2: [],
+          classPart: [],
+          classPart2: []
         },
         dialogTitle:"",
         form: {},
@@ -246,6 +249,25 @@
           this.form.classKitAttributes.push({classKit:d})
         })
       },
+      
+      'searchForm.classPart2'(val,old){
+        this.searchForm.classPart=[];
+        val.forEach(d=>{
+          this.searchForm.classPart.push({classPart:d})
+        })
+      },
+      'searchForm.classTargetAttributes2'(val,old){
+        this.searchForm.classTargetAttributes=[];
+        val.forEach(d=>{
+          this.searchForm.classTargetAttributes.push({classTarget:d})
+        })
+      },
+      'searchForm.classKitAttributes2'(val,old){
+        this.searchForm.classKitAttributes=[];
+        val.forEach(d=>{
+          this.searchForm.classKitAttributes.push({classKit:d})
+        })
+      },
     },
     mounted() {
       this.getList()
@@ -274,7 +296,7 @@
             str.push(d.classKitName)
           }else{
             str.push(d.classLabelName)
-          } 
+          }
         });
         return str.toString();
       },
