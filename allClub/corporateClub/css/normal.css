@@ -225,29 +225,3 @@ body {
 .van-sticky--fixed {
     top: .92rem;
 }
-
-/*# sourceMappingURL=PersonalRanking.css.map */
-@supports ((height: constant(safe-area-inset-top)) or (height: env(safe-area-inset-top))) and (-webkit-overflow-scrolling: touch) {
-    #app {
-        padding-top: 0.92rem;
-        padding-top: calc(0.92rem + constant(safe-area-inset-top));
-        padding-top: calc(0.92rem + env(safe-area-inset-top));
-    }
-
-    /* .page {
-  	padding-top: 15;
-  	padding-top: calc(0.92rem + constant(safe-area-inset-top));
-  	padding-top: calc(0.92rem + env(safe-area-inset-top));
-  } */
-    .header {
-        padding-top: 0;
-        padding-top: constant(safe-area-inset-top);
-        padding-top: env(safe-area-inset-top);
-    }
-
-    .van-sticky--fixed {
-        top: 0.92rem;
-        top: calc(0.92rem + constant(safe-area-inset-top));
-        top: calc(0.92rem + env(safe-area-inset-top));
-    }
-}

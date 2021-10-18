@@ -8,7 +8,7 @@
 	<title>查看报表</title>
 	<!-- 引入样式文件 -->
 	<link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
-	<link rel="stylesheet" href="../../common/css/basic.css" />
+	<!-- <link rel="stylesheet" href="../../common/css/basic.css" /> -->
 	<link rel="stylesheet" href="../corporateClub/css/normal.css" />
 	<link rel="stylesheet" href="css/clubEchart.css" />
 	<link rel="stylesheet" href="../font/iconfont.css">
@@ -142,8 +142,7 @@
 		}
 		.van-checkbox__icon--checked .van-icon,
 		.van-address-item .van-radio__icon--checked .van-icon {
-			/* background: linear-gradient(to right, #FF6A88, #FF5136);
-			border-color: #FF6A88; */
+			
 			background: #ff4e3e;
 			border-color: #71717f;
 			border: none;
@@ -160,6 +159,7 @@
 </head>
 
 <body>
+	
 	<div id="app" class="normalHeader" v-cloak>
 		<div class="header">
 			<van-nav-bar @click-left="onclickLeft" title="查看报表" left-arrow safe-area-inset-top fixed>
@@ -169,7 +169,8 @@
 
 			</van-nav-bar>
 		</div>
-		<van-tabs v-model="tabActive">
+		
+		<van-tabs v-model="tabActive" >
 			<van-tab title="任务">
 				<div class="selectBox">
 					<div class="selectDiv" @click="" v-if="minister">
@@ -196,9 +197,7 @@
 									</div>
 								</van-dropdown-item>
 							</van-dropdown-menu>
-							<!-- <div class="title" :class="taskForm.taskType?'titleActive':''">
-									{{taskForm.taskType||"任务类型"}}
-								</div> -->
+						
 						</div>
 						<van-icon class="icon fixedIcon"
 							@click.stop="$refs.itemtaskType.toggle();$refs.itemgroup.toggle(false);" name="arrow-down">

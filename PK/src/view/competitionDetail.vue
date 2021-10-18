@@ -1002,7 +1002,7 @@ export default {
     gotoSkip() {
       var skipItem = {
         method: "LSTH5APP_SelectDeviceAndPushToSport", //H5调起原生选择设备，并跳转到对应设备类型的运动页，目前3.0后有：跳绳、健腹轮、腕力球
-        deviceType: this.type, //skipping、wristball、wheel 、steps
+        deviceType: this.type == "steps" ? "watch" : this.type, //skipping、wristball、wheel 、steps
         mode: this.competitionItem.mode, //倒计时2、倒计数3，按照原先跳绳PK类型定义的值",
         modeValue: this.competitionItem.modeValue, //按照原先跳绳的类型传值
         jumpCount: this.competitionItem.repeatTimes, //按照原先跳绳的类型传值
