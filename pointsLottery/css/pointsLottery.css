@@ -202,10 +202,12 @@ body {
 
 .van-checkbox__icon--checked .van-icon,
 .van-address-item .van-radio__icon--checked .van-icon {
-	background: linear-gradient(to right, #ff4e3e, #ffaa88);
+	background: #ff4e3e;
 	border-color: #ff4e3e;
 }
-
+.van-radio__icon .van-icon{
+	border-color: #595962;
+}
 .submit,
 .submit2 {
 	background: linear-gradient(to right, #ff4e3e, #ffaa88);
@@ -285,7 +287,7 @@ body {
 }
 
 .bottomBtngrey {
-	background: #999;
+	background: #71717f;
 }
 
 #popbg {
@@ -312,7 +314,9 @@ body {
 	width: 85%;
 	left: 7.5%;
 }
-
+.van-field__right-icon{
+	color: #71717F;
+}
 #popbg .redbagcount {
 	font-size: .28rem;
 	color: #E60012;

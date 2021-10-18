@@ -18,7 +18,7 @@
 			<div class="ub ub-ac" v-if="info.dateType==1" @click="goChallage">
 				<div class="reflesh"></div><span style="text-decoration: underline;">不休息</span>
 			</div>
-			<div class="ub ub-ac" v-else @click="changeChallenge()">
+			<div class="ub ub-ac" v-else-if="ischeck" @click="changeChallenge()">
 				<div class="reflesh"></div><span style="text-decoration: underline;">换一个</span>
 			</div>
 		</div>
@@ -101,7 +101,8 @@
 		data() {
 			return {
 				flag: 3, //1腕力球，2跳绳，3健腹轮
-				state: null, //1未挑战迎战，2挑战成功完成，3挑战失败-再次迎战
+				state: null, //1未挑战迎战，2挑战成功完成，3挑战失败-再次迎战,
+				ischeck:false,
 				page: {
 					page: 0,
 					pageSize: 200
@@ -135,6 +136,7 @@
 				typeCheck({}, this.flag).then(res => {
 					if ((res.hasOwnProperty('data') && res.data && res.code == 0) || (!res.hasOwnProperty(
 							'data') && res.code == 0)) {
+								this.ischeck = true;
 						HomeInfo({}, this.flag).then(res2 => {
 
 							this.info = Object.assign({}, res2.data);
@@ -219,7 +221,7 @@
 					message: str,
 				}).then(() => {
 					// on close
-					this.info.type = 3;
+					//this.info.type = 3;
 					this.$interaction.appNative('LSTH5APP_SelectDeviceAndPushToSport', {
 						isPK: 0,
 						deviceType: getQueryString('type')
@@ -374,5 +376,10 @@
 	}
 	[class*='van-hairline']::after{
 		border-color: #1E1E2A;
+	}
+	@supports ((height: constant(safe-area-inset-top)) or (height: env(safe-area-inset-top))) and (-webkit-overflow-scrolling: touch) {
+	  .finishtxt {
+	    padding-bottom: .5rem;
+	  }
 	}
 </style>
