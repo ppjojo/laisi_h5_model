@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
-		<title>我的记录</title>
+		<title>我的钱包</title>
 		<!-- 引入样式文件 -->
 		<link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
 		<link rel="stylesheet" href="../common/css/basic.css">
@@ -21,6 +21,7 @@
 			.wallet .detail span{
 				font-size: .2rem;
 				color: #fff;
+				opacity: 0.8;
 			}
 			#recordbox .detail{
 				font-size: .36rem;
@@ -37,7 +38,16 @@
 			.van-list__finished-text{
 				color:#71717f;
 			}
+			.withdrawalBox{
+				display: flex;
+				justify-content: center;
+				align-items: flex-end;
+				height: 1.5rem;
+				
+			}
 			.pinkBtn{
+				position: relative;
+				top:-0.25rem;
 				background: transparent;
 				border: 1px solid rgba(255, 255, 255, 1);
 				line-height: .52rem;
@@ -55,12 +65,17 @@
 				</van-nav-bar>
 			</div>
 			<!-- 钱包 -->
-			<div class="wallet ub ub-ac ub-pj">
-				<div>
-					<div class="detail">我的余额 <span class="">注:我的余额为全部活动余额</span> </div>
+			<div class="wallet ">
+				<div class="detail">我的余额 <span class="">注:我的余额为全部活动余额</span> </div>
+				<div class="ub ub-ac ub-pj">
+				<div class="withdrawalBox">
 					<div class="detail2">{{allPrice}}</div>
 				</div>
-				<div class="pinkBtn" @click="withdrawal">提现</div>
+				<div class="withdrawalBox">
+					<div class="pinkBtn" @click="withdrawal">提现</div>
+				</div>
+			</div>
+				
 			</div>
 			<!-- 记录 -->
 			<div id="recordbox">

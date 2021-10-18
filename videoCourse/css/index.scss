@@ -738,6 +738,10 @@ body {
                 align-items: center;
                 justify-content: center;
                 font-size: 0.28rem;
+
+                span {
+                    margin-right: 0.05rem;
+                }
             }
 
             .liked {

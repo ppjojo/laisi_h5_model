@@ -752,6 +752,10 @@ body {
   font-size: 0.28rem;
 }
 
+.courseList .commentBox .basicBox .likeBox span {
+  margin-right: 0.05rem;
+}
+
 .courseList .commentBox .basicBox .liked {
   color: #FF4E3E;
 }

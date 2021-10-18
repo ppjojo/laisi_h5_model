@@ -493,9 +493,9 @@
 			},
 			sharePage() {
 				Interaction.LSTH5APP_UrlAndSheetImageShareModel({
-					shareTitle: "11",
-					shareContent: "22",
-					shareUrl: "sportsReport/index.html",
+					shareTitle: `您的好友在派健康${this.sjc2time("ymd",this.startTime)+"-"+this.sjc2time("md",this.endTime)}生成了运动周报`,
+					shareContent: "加入派健康一起运动吧",
+					shareUrl: `sportsReport/weekReport.html?isShare=1&startTime=${this.startTime}&endTime=${this.endTime}&userId=${JSON.parse(localStorage.getItem("appInfo")).userId}`,
 				})
 			},
 			goAPP() {
@@ -564,7 +564,7 @@
 			//初始化获取数据
 			initData() {
 				ajax({
-					url: "sportClock/getWeekSportReport",
+					url: getQueryString("isShare")?"sportClock/share/getWeekSportReport":"sportClock/getWeekSportReport",
 					data: {
 						startTime: this.startTime,
 						endTime: this.endTime,
