@@ -3,7 +3,7 @@
     <div class="container-search">
       <el-form :inline="true" :model="searchForm">
         <el-form-item label="动作名称">
-          <el-input v-model="searchForm.className" clearable placeholder="动作名称"></el-input>
+          <el-input v-model="searchForm.smartActionName" clearable placeholder="动作名称"></el-input>
         </el-form-item>
         <el-form-item label="时长">
           <el-input v-model.number="searchForm.duration" clearable placeholder=""></el-input>
@@ -237,7 +237,7 @@
         courseList: [],
         form: {},
         searchForm: {
-          className: "",
+          smartActionName: "",
           duration: null,
         },
         attrstr: '',

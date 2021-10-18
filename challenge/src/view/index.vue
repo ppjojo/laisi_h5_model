@@ -50,7 +50,7 @@
 					<returnIcon :type="flag"></returnIcon>
 					<div class="">
 						<div class="fts14">{{returnTask(item.challengeType||{})}}</div>
-						<div class="fts12 c1f">{{timeStamp2String('ymd',item.dateTime)}}</div>
+						<div class="fts12 c1f subtitle" >{{timeStamp2String('ymd',item.dateTime)}}</div>
 					</div>
 				</div>
 				<img v-if="item.type==1" class="state" :src="require('@i/finish.png')" alt="">
@@ -170,7 +170,7 @@
 			},
 			getHistory() {
 				challengeHistory(this.page, this.flag).then(res => {
-					if (this.flag == 2) this.historyList = res.data.content
+					if (this.flag == 2) this.historyList =  res.data.content
 					else this.historyList =  res.data;
 					this.isFinish = true;
 				}).catch(() => {
@@ -305,9 +305,10 @@
 		background: linear-gradient(to bottom, #ffaa88, #ff4e3e);
 		text-align: center;
 		margin: .48rem auto;
-
+		
 		div {
 			width: 1rem;
+			font-weight: bold;
 		}
 	}
 
@@ -347,17 +348,21 @@
 	.historylist {
 		padding: 0 .4rem;
 		.finishtxt{
+			margin-top: .45rem;
 			text-align: center;
 			color: #71717f;
 			font-size: .24rem;
 		}
 		li {
 			background-color: #1E1E2A;
-			padding: .36rem .24rem;
+			padding: .3rem .24rem;
 			border-radius: .16rem;
 			margin-bottom: .16rem;
+			color: #CFCFD2;
 		}
-
+		.subtitle{
+			margin-top: .1rem;
+		}
 		.state {
 			width: .4rem;
 			height: .4rem;

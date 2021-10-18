@@ -97,7 +97,7 @@ body {
     justify-content: space-between;
 }
 
-.commonQA .listItem {
+.commonQA .listItem:last-child{
     border: none;
 }
 
