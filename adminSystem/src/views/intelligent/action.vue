@@ -31,6 +31,11 @@
           {{scope.row.smartActionDuration+'s'}}
         </template>
       </el-table-column>
+      <el-table-column align="center" label="次数或时间">
+        <template slot-scope="scope">
+          {{scope.row.timesOrCount==1?'次数':scope.row.timesOrCount==0?'时间':''}}
+        </template>
+      </el-table-column>
       <el-table-column align="center" label="操作" width="180">
         <template scope="scope">
           <el-button @click="btn_edit(scope.row)" type="text" size="mini">编辑
@@ -86,6 +91,12 @@
             <el-radio class="radio" :label="1">全身</el-radio>
             <el-radio class="radio" :label="2">上半身</el-radio>
             <el-radio class="radio" :label="3">下半身</el-radio>
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item label="时间或次数" prop="timesOrCount">
+          <el-radio-group v-model="form.timesOrCount">
+            <el-radio class="radio" :label="0">时间</el-radio>
+            <el-radio class="radio" :label="1">次数</el-radio>
           </el-radio-group>
         </el-form-item>
         <el-form-item label="动作讲解音频" prop="actionExplainAudio">
@@ -318,6 +329,7 @@
         this.dialogTitle = "新增";
         this.form = {
           smartActionName: "",
+          timesOrCount:0,
           smartActionCover: null,
           smartActionVod: null, //图片url
           smartActionDifficulty: 1,
