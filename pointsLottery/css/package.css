@@ -1,7 +1,7 @@
 			.task_unfinish,
 			.task_finish {
-				background: linear-gradient(to right, #FF6A88, #FF5136);
-				border-radius: .26rem;
+				background: linear-gradient(to right,#ff4e3e, #ffaa88);
+				border-radius: .28rem;
 				height: .52rem;
 				line-height: .52rem;
 				font-size: .24rem;
@@ -14,8 +14,8 @@
 
 			.task_finish {
 				/* border: 1px solid rgba(209, 209, 209, 1); */
-				background: #f5f5f5;
-				color: #E60012;
+				background: #1e1e2a;
+				color: #cfcfd2;
 			}
 
 			.list_ul .title {
@@ -24,6 +24,7 @@
 				    white-space: nowrap;
 				    text-overflow: ellipsis;
 					max-width: 3rem;
+					font-weight: bold;
 			}
 
 			.van-hairline--top-bottom::after,
@@ -62,4 +63,7 @@
 				font-size: 0.24rem;
 				border-radius: .26rem;
 				border: .02rem solid rgba(113, 113, 127, 1);
+			}
+			.van-list__finished-text{
+				color: #71717f;
 			}

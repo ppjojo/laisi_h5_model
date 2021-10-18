@@ -105,7 +105,7 @@
 				background-size: 100%;
 			
 			}
-			.van-popup--bottom.van-popup--round,.van-action-sheet__cancel, .van-action-sheet__item{
+			.van-popup--bottom.van-popup--round{
 				background-color: #1e1e2a;
 			}
 			#pricechange{
@@ -179,7 +179,7 @@
 						<p class="noData-p">还未拥有盲盒或盲盒已全部打开哦！</p>
 					</div>
 				</van-tab>
-				<van-tab title="奖品" id="price" style="padding-bottom: 1rem;">
+				<van-tab title="奖品" id="price" style="padding-bottom: 1.3rem;">
 					<van-checkbox-group v-model="priceresult" ref="checkboxGroup">
 						<van-cell-group>
 							<van-cell v-for="(item, index) in pricelist" clickable :key="item.bagId" @click="toggle(index)">

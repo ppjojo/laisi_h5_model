@@ -1,6 +1,6 @@
 <template>
 	<div id="app" v-cloak>
-		<div style="height: 1.3rem;" v-if="isShare==1||sheetImageStatus"></div>
+		<div style="height: 1.6rem;" v-if="isShare==1||sheetImageStatus"></div>
 		<div class="header" v-show="!sheetImageStatus&&isShare!=1">
 			<van-nav-bar title="打卡总览" @click-left="onClickLeft" @click-right="onClickRight" left-arrow
 				safe-area-inset-top fixed>

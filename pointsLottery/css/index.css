@@ -24,7 +24,8 @@
 
 .list_ul li .adimg {
 	width: 100%;
-	height: 3.2rem;
+	height: 3.4rem;
+	width: 3.4rem;
 	background-color: #1e1e2a;
 	border-radius: .7rem .3rem .7rem .3rem;
 	text-align: center;
@@ -34,7 +35,7 @@
 }
 
 #blindbox .list_ul li .adimg {
-	height: 3.46rem;
+	height: 3.4rem;
 }
 
 .list_ul li .adimg img {
