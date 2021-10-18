@@ -58,9 +58,10 @@ body {
 
 .normalHeader {
     .header {
-        height: 0.92rem;
         position: relative;
         z-index: 100;
+        height: calc(0.92rem + constant(safe-area-inset-top));
+        height: calc(0.92rem + env(safe-area-inset-top));
 
         .van-nav-bar {
             background-color: $bg_color;
@@ -147,6 +148,10 @@ body {
     border: 0.02rem solid #595962;
 }
 
+.van-popup {
+    background-color: #12121f;
+}
+
 .van-collapse-item--border::after {
     border: 1px solid $border_color
 }
@@ -157,14 +162,4 @@ textarea::placeholder {
 
 input::placeholder {
     color: #71717f !important;
-}
-
-@supports ((height: constant(safe-area-inset-top)) or (height: env(safe-area-inset-top))) and (-webkit-overflow-scrolling: touch) {
-    .normalHeader .header {
-        height: 0.92rem;
-        height: calc(0.92rem + constant(safe-area-inset-top));
-        height: calc(0.92rem + env(safe-area-inset-top));
-    }
-
-
 }
