@@ -43,6 +43,9 @@
 			margin-top: .1rem;
 			/* display: none; */
 		}
+		.icon-tongyong-gengduo{
+			color:#71717f;
+		}
 	</style>
 </head>
 
@@ -220,7 +223,7 @@
 		},
 		created() {
 			this.clubId = getQueryString("id");
-			this.submitform=Object.assign(this.submitform,localStorage.getItem("clubObj"))
+			this.submitform=Object.assign(this.submitform,localStorage.getItem("clubObject"))
 			this.initData();
 		},
 		methods: {
@@ -229,12 +232,12 @@
 			},
 			goClubName() {
 				if (this.submitform.self.isMinister != 'Y') return;
-				localStorage.setItem('clubForm', JSON.stringify(this.submitform));
+				
 				window.location.href = 'ministerSettingSecond.html?flag=1'
 			},
 			goDesc() {
 				if (this.submitform.self.isMinister != 'Y') return;
-				localStorage.setItem('clubForm', JSON.stringify(this.submitform));
+				
 				window.location.href = `ministerSettingSecond.html?flag=2`
 			},
 			initData() {
@@ -251,6 +254,7 @@
 					success: function (res) {
 						if (res.code == 0) {
 							_self.submitform = res.data;
+							localStorage.setItem("clubObject", JSON.stringify(res.data))
 							if (_self.submitform.self.isMinister == "N" && _self.submitform.self
 								.isSubMinister == "N") {
 								return;

@@ -85,7 +85,7 @@
 					</van-row>
 				</van-list>
 				<div class="noData-box" v-else-if="finished">
-					<img class="noData-img" src="../clubList_Detail/img/nulldata.png" />
+					<img class="noData-img" src="../../common/img/noData.png" />
 					<p class="noData-p">暂无数据</p>
 				</div>
 			</van-pull-refresh>
@@ -143,12 +143,15 @@
 						pageSize: this.pageSize
 					}
 				}).then(res => {
+					
 					if (res.code == 0) {
+
 						var rows = res.data.memberList;
-						if (rows.length == 1) {
+						if (rows.length == 1&&this.page!=1) {
 							this.finished = true;
 							return;
 						}
+						
 						if (this.page == 1) {
 							this.memberList = rows;
 						} else {
@@ -179,7 +182,6 @@
 
 			onRefresh() {
 				this.finished = false;
-				this.loading = true;
 				this.onLoad();
 			},
 			onLoad() {

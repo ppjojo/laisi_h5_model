@@ -80,8 +80,7 @@
 
 
 		.clubtag .clubtypeicon img {
-			/* width: .32rem !important; */
-			height: .48rem !important;
+			height: .55rem !important;
 		}
 
 		.cellbox {
@@ -98,6 +97,9 @@
 		}
 		textarea::placeholder {
 			color: #71717f!important;
+		}
+		.van-cell__value span{
+			color:#71717f;
 		}
 	</style>
 </head>
@@ -180,7 +182,7 @@
 					</div>
 					<div class="clubtype" @click="submitform.type = '03'">
 						<div class="clubtypeicon ub ub-ac ub-pc" :class="submitform.type=='03'?'active':''">
-							<img  :src="submitform.type=='03'?'img/clubtype_gym.png':'img/clubtype_gym2.png'"  alt="">
+							<img  style="width:0.45rem;" :src="submitform.type=='03'?'img/clubtype_gym.png':'img/clubtype_gym2.png'"  alt="">
 						</div>
 						<div>健身房</div>
 					</div>
@@ -227,7 +229,7 @@
 
 			<van-button round class="submit" block @click="submitFormData()"
 				:color="form.cs&&submitform.type?bgc:bgcgrey">创建</van-button>
-			<van-popup v-model="areaShow" position="bottom">
+			<van-popup v-model="areaShow" round position="bottom">
 				<van-area :area-list="areaList" @confirm="areaConfirm" @cancel="areaShow=false" />
 			</van-popup>
 
@@ -285,7 +287,7 @@
 				}
 			},
 			afterRead(file) {
-				this.submitform.photo = file.content;
+				//this.submitform.photo = file.content;
 				this.overlayShow = true;
 				this.uploadPic(file.file);
 			},

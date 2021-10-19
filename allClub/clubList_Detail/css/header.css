@@ -102,8 +102,16 @@ body {
   border: 1px solid #1e1e2a;
 }
 
+.van-overlay {
+  background-color: rgba(18, 18, 31, 0.7);
+}
+
 .van-picker {
   background-color: #12121f;
+}
+
+.van-picker .van-picker__toolbar {
+  border-bottom: 1px solid #1e1e2a;
 }
 
 .van-picker .van-picker-column__item {
@@ -128,6 +136,10 @@ body {
 .van-switch {
   background-color: #12121f;
   border: 0.02rem solid #595962;
+}
+
+.van-switch--on {
+  border: none;
 }
 
 .van-popup {
@@ -168,5 +180,15 @@ input::-ms-input-placeholder {
 
 input::placeholder {
   color: #71717f !important;
+}
+
+.van-list__error-text,
+.van-list__finished-text,
+.van-list__loading {
+  color: #71717f;
+}
+
+[class*=van-hairline]::after {
+  border-color: #1E1E2A;
 }
 /*# sourceMappingURL=header.css.map */

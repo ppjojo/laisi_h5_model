@@ -9,18 +9,42 @@ body {
   background-color: #12121f;
 }
 
-.van-tab__text {
+.van-nav-bar__title {
+  margin-left: 15%;
+  max-width: 50%;
+}
+
+.van-tabs .van-tab__text {
   color: #71717f;
   font-size: .32rem;
 }
 
-.van-tab--active .van-tab__text {
+.van-tabs .van-tab--active .van-tab__text {
   color: #cfcfd2;
   font-size: .36rem;
+  font-weight: bold;
 }
 
-.van-tabs__line {
-  bottom: 0.4rem;
+.van-tabs .van-tab--active::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0.15rem;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 0.4rem;
+  height: 0.14rem;
+  background-position: 100% 100%;
+  background: url("../img/tabselect.png") no-repeat;
+  background-size: 100%;
+}
+
+.van-tabs .van-tabs__wrap {
+  height: 1.28rem !important;
+}
+
+.van-tabs .van-tabs__line {
+  display: none;
 }
 
 .headerBox {
@@ -46,7 +70,7 @@ body {
 .headerBox .infoBox {
   padding: 0 0.3rem;
   position: absolute;
-  bottom: 1.5rem;
+  bottom: 2rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -73,8 +97,8 @@ body {
 
 .headerBox .infoBox .clubDescript .clubName {
   font-size: 0.28rem;
-  color: #ffffff;
-  line-height: 0.5rem;
+  color: #cfcfd2;
+  line-height: 0.4rem;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -85,14 +109,13 @@ body {
 .headerBox .infoBox .clubDescript .clubDate,
 .headerBox .infoBox .clubDescript .clubAddress {
   font-size: 0.2rem;
-  color: #71717f;
+  color: #cfcfd2;
   line-height: 0.35rem;
   max-width: 4.7rem;
 }
 
 .headerBox .infoBox .clubDescript .clubId img {
-  width: 0.28rem;
-  height: 0.28rem;
+  width: 0.2rem;
   position: relative;
   top: 0.02rem;
 }
@@ -100,7 +123,6 @@ body {
 .headerBox .infoBox .clubDescript .clubLabel {
   border-radius: 2px;
   width: 0.55rem;
-  height: 16px;
   background: -webkit-gradient(linear, left top, right top, from(#FF4E3E), to(#FFAA88));
   background: linear-gradient(to right, #FF4E3E, #FFAA88);
   font-size: 0.2rem;
@@ -177,6 +199,7 @@ body {
 .containBox .memberBox .title {
   height: 0.7rem;
   font-size: 0.32rem;
+  line-height: 0.7rem;
   color: #cfcfd2;
 }
 
@@ -244,6 +267,12 @@ body {
 .containBox .van-cell {
   background-color: #12121f;
   color: #cfcfd2;
+  font-size: 0.32rem;
+}
+
+.containBox .van-cell .van-cell__value {
+  color: #71717f;
+  font-size: 0.24rem;
 }
 
 .containBox .tabBox {
@@ -267,7 +296,7 @@ body {
 
 .containBox .tabBox .nullDataBox p {
   font-size: 0.25rem;
-  color: #999;
+  color: #71717f;
   margin: 0;
   padding: 0;
 }
@@ -326,6 +355,8 @@ body {
 
 .containBox .tabBox .todaySport .memberSport .descript {
   font-size: 0.2rem;
+  position: relative;
+  top: 0.04rem;
 }
 
 .containBox .tabBox .todaySport .historyBox .van-collapse-item {
@@ -336,6 +367,10 @@ body {
 .containBox .tabBox .todaySport .historyBox .van-collapse-item__content {
   padding: 0;
   background-color: #12121f;
+}
+
+.containBox .tabBox .todaySport .van-cell__right-icon {
+  color: #71717f;
 }
 
 .containBox .tabBox .task .taskBox, .containBox .tabBox .competition .taskBox, .containBox .tabBox .activity .taskBox {
@@ -560,15 +595,13 @@ body {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  padding: 0 0.5rem;
+  padding: 0.2rem 0.5rem;
 }
 
 .containBox2 .detailBox .clubDataBox .totalSkipBox .num {
-  height: 1.5rem;
   font-size: 0.84rem;
   font-family: "BebasNeue";
   color: #cfcfd2;
-  line-height: 1.5rem;
   text-align: center;
 }
 
@@ -580,7 +613,7 @@ body {
   font-size: 0.28rem;
   font-family: " PingFangSC-Regular";
   color: #71717f;
-  line-height: 0.8rem;
+  line-height: 0.5rem;
   text-align: center;
 }
 

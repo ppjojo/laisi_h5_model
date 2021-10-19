@@ -120,8 +120,16 @@ body {
     border: 1px solid #1e1e2a;
 }
 
+.van-overlay {
+    background-color: rgba(18, 18, 31, 0.7);
+}
+
 .van-picker {
     background-color: $bg_color;
+
+    .van-picker__toolbar {
+        border-bottom: 1px solid $border_color;
+    }
 
     .van-picker-column__item {
         color: $text_color_white;
@@ -148,6 +156,10 @@ body {
     border: 0.02rem solid #595962;
 }
 
+.van-switch--on {
+    border: none;
+}
+
 .van-popup {
     background-color: #12121f;
 }
@@ -162,4 +174,14 @@ textarea::placeholder {
 
 input::placeholder {
     color: #71717f !important;
+}
+
+.van-list__error-text,
+.van-list__finished-text,
+.van-list__loading {
+    color: #71717f;
+}
+
+[class*=van-hairline]::after {
+    border-color: #1E1E2A;
 }

@@ -41,7 +41,7 @@
 					maxlength="100" placeholder="请输入俱乐部简介~" show-word-limit />
 			</div>
 		</div>
-		<van-button round class="submit" block :color="!submitform.name||!submitform.introduce?bgcgrey:bgc" @click="onclickRight">修改</van-button>
+		<van-button round class="submit" block :color="submitform.name!=oldName||submitform.introduce!=oldIntroduce?bgc:bgcgrey" @click="onclickRight">修改</van-button>
 	</div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
@@ -52,19 +52,22 @@
 		el: '#app',
 		data() {
 			return {
-				bgc: "linear-gradient(to right, #FF6A88, #FF5136 )",
-				bgcgrey: '#999',
+				bgc: "linear-gradient(to left, #FFAA88, #FF4E3E )",
+				bgcgrey: '#71717f',
 				flag: getQueryString("flag"), //1俱乐部名称2//俱乐部简介
 				title: getQueryString("flag") == 1 ? '俱乐部名称' : '俱乐部简介',
-				submitform: JSON.parse(localStorage.getItem('clubForm')) || {},
-				isClick: false
+				submitform: JSON.parse(localStorage.getItem('clubObject')) || {},
+				isClick: false,
+				oldName:"",
+				oldIntroduce:"",
 			};
 		},
 		mounted() {
 
 		},
 		created() {
-
+			this.oldName=this.submitform.name
+			this.oldIntroduce=this.submitform.introduce
 		},
 		methods: {
 			onclickLeft() {
@@ -73,7 +76,7 @@
 			onclickRight() {
 				var _this = this;
 				if (this.isClick) return;
-				if ((!this.submitform.name && this.flag == 1) || (!this.submitform.introduce && this.flag == 2)) {
+				if ((this.submitform.name==this.oldName && this.flag == 1) || (this.submitform.introduce==this.oldIntroduce && this.flag == 2)) {
 					return;
 				}
 				this.isClick = true;
@@ -105,7 +108,6 @@
 				}).then(res => {
 					if (res.code == 0) {
 						this.$toast("俱乐部设置成功！");
-						localStorage.removeItem('clubForm');
 						setTimeout(function () {
 							window.history.back(-1)
 						}, 1000)

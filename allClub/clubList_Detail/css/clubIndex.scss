@@ -19,22 +19,52 @@ body {
 }
 
 
-
-.van-tab__text {
-    color: #71717f;
-    font-size: .32rem;
+.van-nav-bar__title {
+    margin-left: 15%;
+    max-width: 50%;
 }
 
-.van-tab--active {
+.van-tabs {
     .van-tab__text {
-        color: $text_color_white;
-        font-size: .36rem;
+        color: #71717f;
+        font-size: .32rem;
     }
+
+    .van-tab--active {
+        .van-tab__text {
+            color: $text_color_white;
+            font-size: .36rem;
+            font-weight: bold;
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0.15rem;
+            transform: translate(-50%, -50%);
+            width: 0.4rem;
+            height: 0.14rem;
+            background-position: 100% 100%;
+            background: url("../img/tabselect.png") no-repeat;
+            background-size: 100%;
+        }
+    }
+
+    .van-tabs__wrap {
+        height: 1.28rem !important;
+    }
+
+    .van-tabs__line {
+        display: none;
+    }
+
 }
 
-.van-tabs__line {
-    bottom: 0.4rem;
-}
+
+
+
+
 
 .headerBox {
     position: relative;
@@ -57,7 +87,7 @@ body {
     .infoBox {
         padding: 0 0.3rem;
         position: absolute;
-        bottom: 1.5rem;
+        bottom: 2rem;
         display: flex;
         z-index: 99;
         justify-content: start;
@@ -78,8 +108,8 @@ body {
         .clubDescript {
             .clubName {
                 font-size: 0.28rem;
-                color: #ffffff;
-                line-height: 0.5rem;
+                color: #cfcfd2;
+                line-height: 0.4rem;
                 overflow: hidden;
                 white-space: nowrap;
                 text-overflow: ellipsis;
@@ -90,15 +120,14 @@ body {
             .clubDate,
             .clubAddress {
                 font-size: 0.2rem;
-                color: #71717f;
+                color: #cfcfd2;
                 line-height: 0.35rem;
                 max-width: 4.7rem;
             }
 
             .clubId {
                 img {
-                    width: 0.28rem;
-                    height: 0.28rem;
+                    width: 0.2rem;
                     position: relative;
                     top: 0.02rem;
                 }
@@ -107,7 +136,6 @@ body {
             .clubLabel {
                 border-radius: 2px;
                 width: 0.55rem;
-                height: 16px;
                 background: linear-gradient(to right, #FF4E3E, #FFAA88);
                 font-size: 0.2rem;
                 color: #fff;
@@ -173,6 +201,7 @@ body {
         .title {
             height: 0.7rem;
             font-size: 0.32rem;
+            line-height: 0.7rem;
             color: $text_color_white;
         }
 
@@ -225,6 +254,12 @@ body {
     .van-cell {
         background-color: $bg_color;
         color: $text_color_white;
+        font-size: 0.32rem;
+
+        .van-cell__value {
+            color: #71717f;
+            font-size: 0.24rem;
+        }
     }
 
     .tabBox {
@@ -246,7 +281,7 @@ body {
 
             p {
                 font-size: 0.25rem;
-                color: #999;
+                color: #71717f;
                 margin: 0;
                 padding: 0;
             }
@@ -296,6 +331,8 @@ body {
 
                 .descript {
                     font-size: 0.2rem;
+                    position: relative;
+                    top: 0.04rem;
                 }
             }
 
@@ -309,6 +346,10 @@ body {
                     padding: 0;
                     background-color: $bg_color;
                 }
+            }
+
+            .van-cell__right-icon {
+                color: #71717f;
             }
         }
 
@@ -513,15 +554,13 @@ body {
         .clubDataBox {
             display: flex;
             justify-content: space-between;
-            padding: 0 0.5rem;
+            padding: 0.2rem 0.5rem;
 
             .totalSkipBox {
                 .num {
-                    height: 1.5rem;
                     font-size: 0.84rem;
                     font-family: "BebasNeue";
                     color: $text_color_white;
-                    line-height: 1.5rem;
                     text-align: center;
 
                     .smallNum {
@@ -533,7 +572,7 @@ body {
                     font-size: 0.28rem;
                     font-family: " PingFangSC-Regular";
                     color: #71717f;
-                    line-height: 0.8rem;
+                    line-height: 0.5rem;
                     text-align: center;
                 }
             }
@@ -552,8 +591,7 @@ body {
         -webkit-box-pack: center;
         -ms-flex-pack: center;
         justify-content: center;
-        // background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0.1)), color-stop(rgba(255, 255, 255, 0.8)), color-stop(rgba(255, 255, 255, 0.95)), to(white));
-        // background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.95), white);
+
     }
 
     .btn_box .addClubBtn {
