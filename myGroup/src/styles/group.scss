@@ -339,7 +339,7 @@ $border_color:#1e1e2a;
             position: absolute;
             box-sizing: border-box;
             padding: 0 0.3rem;
-            bottom: 1.2rem;
+            bottom: 1.5rem;
             width: 100%;
             z-index: 10;
 
@@ -412,7 +412,7 @@ $border_color:#1e1e2a;
 
         .noticeBox {
             border-bottom: 1px $border_color solid;
-            border-radius: 0.6rem 0.6rem 0 0;
+            border-radius: 0.8rem 0.8rem 0 0;
             padding: 0 0.3rem;
             box-sizing: border-box;
             position: absolute;
@@ -423,7 +423,7 @@ $border_color:#1e1e2a;
             justify-content: space-between;
             align-items: center;
             height: 1.2rem;
-            top: -1rem;
+            top: -1.5rem;
 
             .noticeBoxLeft {
                 display: flex;

@@ -391,6 +391,14 @@ body {
                 font-size: 0.36rem;
                 font-family: 'BebasNeue';
                 min-width: 0.5rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                img {
+                    width: 0.4rem;
+
+                }
             }
 
             .user {

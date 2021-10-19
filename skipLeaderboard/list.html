@@ -63,8 +63,9 @@
 				<div class="dataBox" :class="userType=='steps'?'dataBox2':''">
 					<div class="listDiv"  id='list' v-if="listData.length>0">
 						<div class="listItem" v-for="(item , index) in listData" :class="index==0?'isself':''"
-							v-if="item.rank>3&&item.value!=0">
-							<div class="rank">{{item.rank}}</div>
+							v-if="(index>3&&item.value!=0)||(item.rank>3&&item.value!=0)">
+							<div class="rank" v-if="item.rank<4"><img :src="'./img/'+item.rank+'.png'" alt="" srcset=""></div>
+							<div class="rank" v-else>{{item.rank}}</div>
 							<div class="user" @click="Interaction.visitPersonalHomepage(item.userId)">
 								<img class="headpic" :src="item.headerPicUrl" alt="">
 								<p class="name">{{item.nickName}}</p>
