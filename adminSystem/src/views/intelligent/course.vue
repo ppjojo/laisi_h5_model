@@ -44,7 +44,7 @@
       </el-table-column>
       <el-table-column align="center" prop="smartClassCover" label="课程封面">
         <template scope="scope">
-          <img :src="scope.row.smartClassCover" style="width: 50px;height: 50px;" alt="">
+          <img :src="scope.row.smartClassCover" style="width: 50px;" alt="">
         </template>
       </el-table-column>
       <el-table-column align="center"  label="类型">

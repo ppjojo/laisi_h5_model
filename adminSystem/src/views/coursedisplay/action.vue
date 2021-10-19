@@ -25,7 +25,7 @@
       <el-table-column align="center" prop="className" label="视频名称"></el-table-column>
       <el-table-column align="center" prop="pictureUrl" label="视频封面">
         <template scope="scope">
-          <img :src="scope.row.classCover" style="width: 50px;height: 50px;" alt="">
+          <img :src="scope.row.classCover" style="width: 50px;" alt="">
         </template>
       </el-table-column>
       <el-table-column align="center" label="视频类型">
