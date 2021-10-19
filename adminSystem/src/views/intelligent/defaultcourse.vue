@@ -44,7 +44,7 @@
       </el-table-column>
       <el-table-column align="center" prop="defaultCover" label="默认课程封面">
         <template scope="scope">
-          <img :src="scope.row.defaultCover" style="width: 50px;height: 50px;" alt="">
+          <img :src="scope.row.defaultCover" style="width: 50px;" alt="">
         </template>
       </el-table-column>
       <el-table-column align="center" prop="defaultDays" label="默认课程天数">

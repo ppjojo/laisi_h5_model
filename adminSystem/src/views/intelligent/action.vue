@@ -21,7 +21,7 @@
       <el-table-column align="center" prop="smartActionName" label="动作名称"></el-table-column>
       <el-table-column align="center" prop="smartActionCover" label="动作封面">
         <template scope="scope">
-          <img :src="scope.row.smartActionCover" style="width: 50px;height: 50px;" alt="">
+          <img :src="scope.row.smartActionCover" style="width: 50px;" alt="">
         </template>
       </el-table-column>
       <el-table-column align="center" prop="smartActionDifficulty" label="动作难度">

@@ -52,6 +52,10 @@
 				border: 1px solid rgba(255, 255, 255, 1);
 				line-height: .52rem;
 			}
+			.noprice{
+				border: 1px solid rgba(255, 255, 255, .5);
+				color: rgba(255,255,255,.5);
+			}
 		</style>
 	</head>
 
@@ -72,7 +76,7 @@
 					<div class="detail2">{{allPrice}}</div>
 				</div>
 				<div class="withdrawalBox">
-					<div class="pinkBtn" @click="withdrawal">提现</div>
+					<div class="pinkBtn" :class="{noprice:parseInt(allPrice)==0}" @click="withdrawal">提现</div>
 				</div>
 			</div>
 				
@@ -104,7 +108,7 @@
 							<p>正在刷新</p>
 						</div>
 					</template>
-					<van-list v-model="loading" :finished="finished" @load="onLoad" :immediate-check=false :finished-text="dataList.length>0?'已加载全部明细记录哦～':''">
+					<van-list v-model="loading" :finished="finished" @load="onLoad" :immediate-check=false :finished-text="dataList.length>0?'已加载全部余额明细哦～':''">
 						<ul class="list_ul" v-for="item in dataList">
 							<li class="">
 								<div class="ub ub-ac ub-pj">
