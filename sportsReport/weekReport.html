@@ -59,7 +59,7 @@
 								</div>
 								<p class="text_data_small align_right">运动总时长</p>
 								<p class="text_descript align_right">
-									(较上周{{reportData.lastDiff>0?("增加了"+parseInt(reportData.lastDiff/1000/60)):("减少了"+parseInt(reportData.lastDiff/-1000/60))}}分钟)
+									(较上周{{reportData.lastDiff>=0?("增加了"+parseInt(reportData.lastDiff/1000/60)):("减少了"+parseInt(reportData.lastDiff/-1000/60))}}分钟)
 								</p>
 							</div>
 						</div>
@@ -745,7 +745,7 @@
 				var myChart = echarts.init(document.getElementById("stepEchart"));
 				var option = {
 					title: {
-						text: '目标(' + item.stepMaps + ')',
+						text: '目标(' + item.targetStep + ')',
 						textStyle: {
 							color: '#CFCFD2',
 							fontSize: "10",

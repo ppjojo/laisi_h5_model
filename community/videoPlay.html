@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
+    <title>视频播放</title>
+    <link rel="stylesheet" href="https://g.alicdn.com/de/prismplayer/2.8.2/skins/default/aliplayer-min.css" />
+    <script charset="utf-8" type="text/javascript" src="https://g.alicdn.com/de/prismplayer/2.8.2/aliplayer-min.js"></script>
+    
+</head>
+
+<body>
+    <div class="prism-player" id="J_prismPlayer"></div>
+   <script src="../common/js/network.js"></script>
+    <script>
+        getPlayAuth()
+        function getPlayAuth() {
+            var id = getQueryString("id");
+            var that = this;
+            ajax({
+                type: "get",
+                url: "community/alivod/getPlayAuth",
+                data: {
+                    videoId: id,
+                    videoType:getQueryString("videoType")||0
+                },
+                shareStatus:true,
+                contentType: "application/json",
+                success: function (res) {
+                    if (res.code == 0) {
+
+                        var player = new Aliplayer({
+                            id: 'J_prismPlayer',
+                            width: '100%',
+                            setImage:"horizon",
+                            autoplay: true,
+                            //支持播放地址播放,此播放优先级最高
+                            //source : '播放url',
+                            //播放方式二：点播用户推荐
+                            vid: id,
+                            playauth: res.data.playAuth,
+                            cover: res.data.videoMeta.coverURL,
+                            encryptType: 1, //当播放私有加密流时需要设置。
+                            // skinLayout: [
+                            //     { name: "bigPlayButton", align: "blabs", x: 30, y: 80 },
+                            //     {
+                            //         name: "H5Loading", align: "cc"
+                            //     },
+                            //     {
+                            //         name: "controlBar", align: "blabs", x: 0, y: 0,
+                            //         children: [
+                            //             { name: "progress", align: "tlabs", x: 0, y: 0 },
+                            //             { name: "playButton", align: "tl", x: 15, y: 26 },
+                            //             { name: "timeDisplay", align: "tl", x: 10, y: 24 },
+                            //             { name: "fullScreenButton", align: "tr", x: 20, y: 25 },
+                            //             { name: "volume", align: "tr", x: 20, y: 25 },
+                            //         ]
+                            //     }
+                            // ]
+
+                        }, function (player) {
+                            console.log('播放器创建好了。')
+                            player.play()
+                            //player.fullscreenService.requestFullScreen()
+                            console.log(player)
+                             
+                        });
+
+                    } else {
+                        that.$toast(res.msg)
+                    }
+                },
+                error: function () {
+                    console.log("error")
+                }
+            })
+        }
+
+    </script>
+</body>
+
+</html>

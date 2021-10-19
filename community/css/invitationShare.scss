@@ -1,365 +1,488 @@
 * {
-  margin: 0;
-  padding: 0;
-  color: #cfcfd2;
+    margin: 0;
+    padding: 0;
+    color: #cfcfd2;
 }
-body{
-  background-color: #12121F;
+
+body {
+    background-color: #12121F;
 }
+
 //头部的logo 按钮
 .header {
-  position: sticky;
-  width: 100%;
-  top: 0em;
-  z-index: 99;
-  background-color: #12121F;
-  height: 1.32rem;
-  padding: 0.2rem 0.4rem;
-  box-sizing: border-box;
-  .logo {
-    width: 0.84rem;
-    height: 0.84rem;
-    float: left;
-  }
-  .content {
-    margin-left: 1rem;
-    .appInfo {
-      width: 50%;
-      float: left;
-      .appName {
-        font-size: 0.36rem;
-        line-height: 0.42rem;
-      }
-      .appD {
-        font-size: 0.24rem;
-        color: #71717f;
-        line-height: 0.42rem;
-      }
+    position: sticky;
+    width: 100%;
+    top: 0em;
+    z-index: 99;
+    background-color: #12121F;
+    height: 1.32rem;
+    padding: 0.2rem 0.4rem;
+    box-sizing: border-box;
+
+    .logo {
+        width: 0.84rem;
+        height: 0.84rem;
+        float: left;
     }
-    .btn a {
-      float: right;
-      width: 1.36rem;
-      height: 0.48rem;
-      background-color: #e60012;
-      color: #fff;
-      font-size: 12px;
-      line-height: 0.48rem;
-      text-align: center;
-      border-radius: 0.24rem;
-      -webkit-border-radius: 0.24rem;
-      -moz-border-radius: 0.24rem;
-      -ms-border-radius: 0.24rem;
-      -o-border-radius: 0.24rem;
-      margin-top: 0.2rem;
+
+    .content {
+        margin-left: 1rem;
+
+        .appInfo {
+            width: 50%;
+            float: left;
+
+            .appName {
+                font-size: 0.36rem;
+                line-height: 0.42rem;
+            }
+
+            .appD {
+                font-size: 0.24rem;
+                color: #71717f;
+                line-height: 0.42rem;
+            }
+        }
+
+        .btn a {
+            float: right;
+            width: 1.36rem;
+            height: 0.48rem;
+            background-color: #e60012;
+            color: #fff;
+            font-size: 12px;
+            line-height: 0.48rem;
+            text-align: center;
+            border-radius: 0.24rem;
+            -webkit-border-radius: 0.24rem;
+            -moz-border-radius: 0.24rem;
+            -ms-border-radius: 0.24rem;
+            -o-border-radius: 0.24rem;
+            margin-top: 0.2rem;
+        }
     }
-  }
 }
+
 //个人数据展示
 .personBox {
-  height: 4.4rem;
-  padding: 0.2rem 0.4rem;
-  box-sizing: border-box;
-  background-size: cover;
-  // background-image: url(../img/bg.png);
-  .info {
-    height: 2.4rem;
-    .picBox {
-        position: relative;
-        float: left;
-      .pic {
-        width: 1.6rem;
-        height: 1.6rem;
-        border-radius: 50%;
-        -webkit-border-radius: 50%;
-        -moz-border-radius: 50%;
-        -ms-border-radius: 50%;
-        -o-border-radius: 50%;
-        border: 2px solid #fff;
-      }
-      .sexIcon{
-          width: 0.38rem;
-          height: 0.38rem;
-          position: absolute;
-          right: 0;
-          bottom: 0.3rem;
-      }
-    }
-    .content {
-      margin-left: 1.8rem;
-      .personInfo {
-        width: 100%;
-        float: left;
-        .nameBox {
-          height: 0.6rem;
-          display: flex;
-          .nickName {
-            font-size: 0.32rem;
-            color: #fff;
-            line-height: 0.6rem;
-          }
-          .level {
-            margin-left: 0.2rem;
-            font-size: 10px;
-            color: #fff;
-            text-align: right;
-            line-height: 0.37rem;
-            background-image: url(../img/people_level.png);
-            width: 0.7rem;
-            height: 0.37rem;
+    height: 4.4rem;
+    padding: 0.2rem 0.4rem;
+    box-sizing: border-box;
+    background-size: cover;
+
+    // background-image: url(../img/bg.png);
+    .info {
+        height: 2.4rem;
+
+        .picBox {
             position: relative;
-            top: 0.11rem;
-            background-size: contain;
-            line-height: 0.37rem;
-            padding-right: 0.1rem;
-            background-size: 100% 100%;
-            text-align: left;
-            text-indent: 0.5rem;
-          }
+            float: left;
+
+            .pic {
+                width: 1.6rem;
+                height: 1.6rem;
+                border-radius: 50%;
+                -webkit-border-radius: 50%;
+                -moz-border-radius: 50%;
+                -ms-border-radius: 50%;
+                -o-border-radius: 50%;
+                border: 2px solid #fff;
+            }
+
+            .sexIcon {
+                width: 0.38rem;
+                height: 0.38rem;
+                position: absolute;
+                right: 0;
+                bottom: 0.3rem;
+            }
         }
 
-        .detail {
-          font-size: 0.24rem;
-          color: #fff;
-          line-height: 0.5rem;
+        .content {
+            margin-left: 1.8rem;
+
+            .personInfo {
+                width: 100%;
+                float: left;
+
+                .nameBox {
+                    height: 0.6rem;
+                    display: flex;
+
+                    .nickName {
+                        font-size: 0.32rem;
+                        color: #fff;
+                        line-height: 0.6rem;
+                    }
+
+                    .level {
+                        margin-left: 0.2rem;
+                        font-size: 10px;
+                        color: #fff;
+                        text-align: right;
+                        line-height: 0.37rem;
+                        background-image: url(../img/people_level.png);
+                        width: 0.7rem;
+                        height: 0.37rem;
+                        position: relative;
+                        top: 0.11rem;
+                        background-size: contain;
+                        line-height: 0.37rem;
+                        padding-right: 0.1rem;
+                        background-size: 100% 100%;
+                        text-align: left;
+                        text-indent: 0.5rem;
+                    }
+                }
+
+                .detail {
+                    font-size: 0.24rem;
+                    color: #fff;
+                    line-height: 0.5rem;
+                }
+
+                .address {
+                    font-size: 0.24rem;
+                    color: #fff;
+                    line-height: 0.42rem;
+                }
+            }
+
+            .btn {
+                float: right;
+                width: 1.04rem;
+                height: 0.4rem;
+                background-color: #e60012;
+                color: #fff;
+                font-size: 0.24rem;
+                line-height: 0.4rem;
+                text-align: center;
+                border-radius: 0.2rem;
+                -webkit-border-radius: 0.2rem;
+                -moz-border-radius: 0.2rem;
+                -ms-border-radius: 0.2rem;
+                -o-border-radius: 0.2rem;
+                margin-top: 0.2rem;
+            }
         }
-        .address {
-          font-size: 0.24rem;
-          color: #fff;
-          line-height: 0.42rem;
+    }
+
+    .countBox {
+        display: flex;
+        justify-content: space-between;
+
+        .numbox {
+            width: 1.6rem;
+            text-align: center;
+
+            .num {
+                font-size: 0.4rem;
+                color: #fff;
+            }
+
+            .descript {
+                font-size: 0.28rem;
+                color: #fff;
+            }
         }
-      }
-      .btn {
-        float: right;
-        width: 1.04rem;
-        height: 0.4rem;
-        background-color: #e60012;
-        color: #fff;
-        font-size: 0.24rem;
-        line-height: 0.4rem;
-        text-align: center;
-        border-radius: 0.2rem;
-        -webkit-border-radius: 0.2rem;
-        -moz-border-radius: 0.2rem;
-        -ms-border-radius: 0.2rem;
-        -o-border-radius: 0.2rem;
-        margin-top: 0.2rem;
-      }
     }
-  }
-  .countBox {
-    display: flex;
-    justify-content: space-between;
-    .numbox {
-      width: 1.6rem;
-      text-align: center;
-      .num {
-        font-size: 0.4rem;
-        color: #fff;
-      }
-      .descript {
-        font-size: 0.28rem;
-        color: #fff;
-      }
-    }
-  }
 }
+
 //动态展示部分
 .dynamicBox {
-  background-color: #12121f;
-  min-height: 5rem;
-  position: relative;
-  top: -0.6rem;
-  border-top-left-radius: 0.6rem;
-  border-top-right-radius: 0.6rem;
-  .dynamicUl {
-    // padding: 0.6rem 0.3rem;
-    li {
-      padding: 0.6rem 0.3rem;
-      border-bottom: 1px solid #1e1e2a;
-      .info {
-        height: 0.8rem;
-        .pic {
-          width: 0.8rem;
-          height: 0.8rem;
-          float: left;
-          border-radius: 50%;
-          -webkit-border-radius: 50%;
-          -moz-border-radius: 50%;
-          -ms-border-radius: 50%;
-          -o-border-radius: 50%;
-        }
-        .content {
-          margin-left: 1rem;
-          .personInfo {
-            width: 100%;
-            float: left;
-            .nickNameBox {
-              display: flex;
-              justify-content: space-between;
-              .nickName {
-                font-size: 0.32rem;
-                line-height: 0.4rem;
-              }
-              .viewNum {
-                img {
-                  width: 0.2rem;
-                  height: 0.2rem;
-                  margin-right: 0.1rem;
+    background-color: #12121f;
+    min-height: 5rem;
+    position: relative;
+    top: -0.6rem;
+    border-top-left-radius: 0.6rem;
+    border-top-right-radius: 0.6rem;
+
+    .dynamicUl {
+
+        // padding: 0.6rem 0.3rem;
+        li {
+            padding: 0.6rem 0.3rem;
+            border-bottom: 1px solid #1e1e2a;
+
+            .info {
+                height: 0.8rem;
+
+                .pic {
+                    width: 0.8rem;
+                    height: 0.8rem;
+                    float: left;
+                    border-radius: 50%;
+                    -webkit-border-radius: 50%;
+                    -moz-border-radius: 50%;
+                    -ms-border-radius: 50%;
+                    -o-border-radius: 50%;
                 }
-                font-size: 0.2rem;
-                line-height: 0.4rem;
-              }
+
+                .content {
+                    margin-left: 1rem;
+
+                    .personInfo {
+                        width: 100%;
+                        float: left;
+
+                        .nickNameBox {
+                            display: flex;
+                            justify-content: space-between;
+
+                            .nickName {
+                                font-size: 0.32rem;
+                                line-height: 0.4rem;
+                            }
+
+                            .viewNum {
+                                img {
+                                    width: 0.2rem;
+                                    height: 0.2rem;
+                                    margin-right: 0.1rem;
+                                }
+
+                                font-size: 0.2rem;
+                                line-height: 0.4rem;
+                            }
+                        }
+
+                        .detail {
+                            font-size: 0.2rem;
+                            line-height: 0.4rem;
+                        }
+                    }
+                }
             }
 
-            .detail {
-              font-size: 0.2rem;
-              line-height: 0.4rem;
+            .contentBox {
+                font-size: 0.32rem;
+                line-height: 0.45rem;
+                text-overflow: -o-ellipsis-lastline;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: 3;
+                line-clamp: 3;
+                -webkit-box-orient: vertical;
+                margin: 0.3rem 0;
             }
-          }
+
+            .contentBox_d {
+                font-size: 0.32rem;
+                line-height: 0.45rem;
+                margin: 0.3rem 0;
+            }
+
+            .imgBox {
+                // display: flex;
+                // justify-content: space-between;
+                // flex-wrap: wrap;
+                zoom: 1;
+
+                &:after {
+                    height: 0;
+                    visibility: hidden;
+                    display: block;
+                    clear: both;
+                    content: "";
+                }
+
+                div {
+                    width: 32%;
+                    float: left;
+                    margin-right: 2%;
+                    height: 2.2rem;
+                    background-size: cover;
+                    background-position: center;
+                    margin-bottom: 0.2rem;
+                    border-radius: 3px;
+                    -webkit-border-radius: 3px;
+                    -moz-border-radius: 3px;
+                    -ms-border-radius: 3px;
+                    -o-border-radius: 3px;
+
+                    &:nth-child(3n) {
+                        margin-right: 0%;
+                    }
+                }
+
+            }
+
+            .statisticsBox {
+                display: flex;
+                justify-content: flex-start;
+                padding: 0.3rem 0;
+
+                div {
+                    width: 1.6rem;
+                    font-size: 0.28rem;
+                    color: #71717f;
+
+                    img {
+                        width: 0.28rem;
+                        height: 0.26rem;
+                        margin-right: 0.1rem;
+                    }
+                }
+            }
+
+            .commentBox {
+                div {
+                    margin-bottom: 0.2rem;
+                    display: list-item;
+                    font-size: 0.28rem;
+                    line-height: 0.5rem;
+
+                    .commentNickName {
+                        font-size: 0.28rem;
+                        color: #727272;
+                        line-height: 0.5rem;
+                    }
+
+                    .commentContent {
+                        font-size: 0.28rem;
+                        line-height: 0.5rem;
+                        word-break: break-all;
+                    }
+                }
+
+                .viewMore {
+                    font-size: 0.28rem;
+                    color: #999999;
+                    margin: 0;
+                }
+            }
         }
-      }
-      .contentBox {
-        font-size: 0.32rem;
-        line-height: 0.45rem;
-        text-overflow: -o-ellipsis-lastline;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-line-clamp: 3;
-        line-clamp: 3;
-        -webkit-box-orient: vertical;
-        margin: 0.3rem 0;
-      }
-      .contentBox_d {
-        font-size: 0.32rem;
-        line-height: 0.45rem;
-        margin: 0.3rem 0;
-      }
-      .imgBox {
-        // display: flex;
-        // justify-content: space-between;
-        // flex-wrap: wrap;
-        zoom:1;
-        &:after{
-          height: 0;
-          visibility: hidden;
-          display: block;
-          clear: both;
-          content: "";
+    }
+
+    .noData-box {
+        text-align: center;
+        padding-top: 1.5rem;
+
+        .noData-img {
+            width: 4rem;
+            height: 2.7rem;
         }
-        div {
-          width: 32%;
-          float: left;
-          margin-right: 2%;
-          height: 2.2rem;
-          background-size: cover;
-          background-position: center;
-          margin-bottom: 0.2rem;
-          border-radius: 3px;
-          -webkit-border-radius: 3px;
-          -moz-border-radius: 3px;
-          -ms-border-radius: 3px;
-          -o-border-radius: 3px;
-          &:nth-child(3n){
-            margin-right: 0%;
-          }
-        }
-        
-      }
-      .statisticsBox {
-        display: flex;
-        justify-content: flex-start;
-        padding: 0.3rem 0;
-        div {
-          width: 1.6rem;
-          font-size: 0.28rem;
-          color: #71717f;
-          img {
-            width: 0.28rem;
-            height: 0.26rem;
-            margin-right: 0.1rem;
-          }
-        }
-      }
-      .commentBox {
-        div {
-          margin-bottom: 0.2rem;
-          display: list-item;
-          font-size: 0.28rem;
-            line-height: 0.5rem;
-          .commentNickName {
+
+        .noData-p {
+            color: #b3b8bb;
             font-size: 0.28rem;
-            color: #727272;
-            line-height: 0.5rem;
-          }
-          .commentContent {
-            font-size: 0.28rem;
-            line-height: 0.5rem;
-            word-break: break-all;
-          }
         }
-        .viewMore {
-          font-size: 0.28rem;
-          color: #999999;
-          margin: 0;
-        }
-      }
     }
-  }
-  .noData-box {
-    text-align: center;
-    padding-top: 1.5rem;
-    .noData-img {
-      width: 4rem;
-      height: 2.7rem;
-    }
-    .noData-p {
-      color: #b3b8bb;
-      font-size: 0.28rem;
-    }
-  }
 }
 
 
 #commentUl {
-  li {
-    margin-bottom: 0.1rem;
-    padding: 0;
-    .userImg {
-      float: left;
+    li {
+        margin-bottom: 0.1rem;
+        padding: 0;
 
-      img {
-        width: 0.56rem;
-        height: 0.56rem;
-        position: relative;
-        top: 0.05rem;
-        border-radius: 50%;
-        -webkit-border-radius: 50%;
-        -moz-border-radius: 50%;
-        -ms-border-radius: 50%;
-        -o-border-radius: 50%;
-      }
+        .userImg {
+            float: left;
+
+            img {
+                width: 0.56rem;
+                height: 0.56rem;
+                position: relative;
+                top: 0.05rem;
+                border-radius: 50%;
+                -webkit-border-radius: 50%;
+                -moz-border-radius: 50%;
+                -ms-border-radius: 50%;
+                -o-border-radius: 50%;
+            }
+        }
+
+        .detail {
+            margin-left: 0.76rem;
+
+            .nickname {
+                font-size: 0.26rem;
+                line-height: 0.4rem;
+                min-height: 0.4rem;
+            }
+
+            .time {
+                font-size: 0.2rem;
+                color: #71717f;
+                line-height: 0.35rem;
+                height: 0.35rem;
+            }
+
+            .comment {
+                font-size: 0.28rem;
+                color: #71717f;
+                line-height: 0.4rem;
+                min-height: 0.4rem;
+                word-break: break-all;
+            }
+        }
     }
-    .detail {
-      margin-left: 0.76rem;
-      .nickname {
-        font-size: 0.26rem;
-        line-height: 0.4rem;
-        min-height: 0.4rem;
-      }
-      .time {
-        font-size: 0.2rem;
-        color: #71717f;
-        line-height: 0.35rem;
-        height: 0.35rem;
-      }
-      .comment {
-        font-size: 0.28rem;
-        color: #71717f;
-        line-height: 0.4rem;
-        min-height: 0.4rem;
-        word-break: break-all;
-      }
+}
+
+.videobox {
+    top: 0;
+    width: 100%;
+    overflow-y: hidden;
+    height: calc(100vh - 1.32rem);
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    background-color: #000000;
+    display: flex;
+    align-items: center;
+
+    .videoimg {
+        width: 100%;
     }
-  }
+
+    .play_icon {
+        width: 1.12rem;
+        height: 1.12rem;
+        position: absolute;
+        top: calc(50% - .56rem);
+        left: calc(50% - .56rem);
+    }
+
+    .authorInfo {
+        position: absolute;
+        left: 0;
+        bottom: 1rem;
+        font-size: .28rem;
+        font-family: PingFangSC-Regular;
+        color: #fff;
+        padding: .3rem;
+        width: 80%;
+
+        .headInfo {
+            display: flex;
+            align-items: center;
+            margin-bottom: .3rem;
+
+            img {
+                width: .72rem;
+                height: .72rem;
+                border-radius: 50%;
+                margin-right: .3rem;
+            }
+        }
+    }
+
+    .navbox {
+        position: absolute;
+        right: .32rem;
+        bottom: 3rem;
+        text-align: center;
+        font-size: .28rem;
+        color: #fff;
+
+        div {
+            margin-bottom: .48rem;
+        }
+
+        img {
+            width: .46rem;
+            height: .46rem;
+            margin-bottom: .12rem;
+        }
+    }
 }

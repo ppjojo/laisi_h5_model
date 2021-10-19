@@ -59,7 +59,7 @@
 								</div>
 								<p class="text_data_small align_right">运动总时长</p>
 								<p class="text_descript align_right">
-									(较上周{{reportData.lastDiff>0?("增加了"+parseInt(reportData.lastDiff/1000/60)):("减少了"+parseInt(reportData.lastDiff/-1000/60))}}分钟)
+									(较上周{{reportData.lastDiff>=0?("增加了"+parseInt(reportData.lastDiff/1000/60)):("减少了"+parseInt(reportData.lastDiff/-1000/60))}}分钟)
 								</p>
 							</div>
 						</div>
@@ -70,9 +70,9 @@
 						<div id="totalCalEchart" style="height:2rem;width: 50%;"> </div>
 						<div>
 							<div class="text_data align_right">
-								{{reportData.burn/1000}}
+								{{(reportData.burn/1000).toFixed(1)}}
 							</div>
-							<p class="text_data_small align_right">运动总消耗</p>
+							<p class="text_data_small align_right">运动总消耗(kcal)</p>
 							<p class="text_descript align_right">(相当于消耗了{{reportData.fat}}g脂肪)</p>
 						</div>
 					</div>
@@ -102,7 +102,7 @@
 						<div class="">
 							<div style="width:50%;">
 								<div id="stepEchart" style="height:2rem;width: 100%;"> </div>
-								<div>
+								<div style="margin-top:0.15rem;"> 
 									<div class="text_data align_left">
 										{{item.number}}
 										<span v-html="returnStatus(item.flagCount)"></span>
@@ -599,10 +599,10 @@
 				var myChart = echarts.init(document.getElementById("totalTimeEchart"));
 				var option = {
 					grid: {
-						width: "60%",
+						width: "%",
 						height: "80%",
 						top: 0,
-						left: "40%"
+						left: "45%"
 					},
 					tooltip: {
 						axisPointer: {
@@ -682,15 +682,13 @@
 					keys.push(key);
 					vals.push(list[key])
 				}
-				console.log(keys)
-				console.log(vals)
 				var myChart = echarts.init(document.getElementById("totalCalEchart"));
 				var option = {
 					grid: {
-						width: "60%",
+						width: "55%",
 						height: "80%",
 						top: 0,
-						left: "40%"
+						left: "45%"
 					},
 					tooltip: {
 						axisPointer: {
@@ -763,13 +761,13 @@
 				let vals = [];
 				for (key in item.stepMaps) {
 					keys.push(key);
-					vals.push(list[key])
+					vals.push(item.stepMaps[key])
 				}
 
 				var myChart = echarts.init(document.getElementById("stepEchart"));
 				var option = {
 					title: {
-						text: '目标('+item.stepMaps+')',
+						text: '目标('+item.targetStep+')',
 						textStyle: {
 							color: '#CFCFD2',
 							fontSize: "10",
@@ -779,10 +777,10 @@
 						}
 					},
 					grid: {
-						width: "60%",
-						height: "80%",
-						top: "20%",
-						left: "40%"
+						width: "55%",
+						height: "75%",
+						top: "25%",
+						left: "45%"
 					},
 					tooltip: {
 						axisPointer: {
