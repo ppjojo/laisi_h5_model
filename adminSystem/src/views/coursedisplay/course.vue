@@ -80,6 +80,9 @@
         <template scope="scope">
           <el-button @click="btn_edit(scope.row)" type="text" size="mini">编辑
           </el-button>
+          <el-button @click=" btn_on(scope.row)" type="text" style="color:#f78989;" size="mini">
+            {{scope.row.status==1?'下架':'上架'}}
+          </el-button>
           <!-- <el-button @click=" btn_delete(scope.row)" type="text" style="color:#f78989;" size="mini">删除
           </el-button> -->
         </template>
@@ -249,7 +252,7 @@
           this.form.classKitAttributes.push({classKit:d})
         })
       },
-      
+
       'searchForm.classPart2'(val,old){
         this.searchForm.classPart=[];
         val.forEach(d=>{
@@ -363,6 +366,27 @@
         this.dialogVisible = true;
         this.dialogTitle = "编辑"
         this.form = Object.assign({}, row)
+      },
+      btn_on(row){
+        this.$confirm('是否要'+(row.status==1?'下架':'上架')+'该课程?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+        }).then(() => {
+          row.status = row.status==1?0:1;
+          updateCourse(row).then(response => {
+          	this.getList()
+          	this.$notify({
+          		type: 'success',
+          		message: '成功修改'
+          	});
+          })
+        }).catch(() => {
+            this.$notify({
+                message: '已取消',
+                type: 'info'
+            });
+        });
       },
       requestFile(param) { //
         var fileForm = new FormData()

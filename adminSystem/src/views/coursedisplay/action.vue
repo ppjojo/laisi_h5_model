@@ -21,6 +21,7 @@
     </div>
     <el-table v-loading="loading" :data="list" element-loading-text="Loading" border fit highlight-current-row size="small ">
       <el-table-column align="center" prop="smallClassDay" width="80" label="排序"></el-table-column>
+      <el-table-column align="center" prop="id" width="80" label="ID"></el-table-column>
       <el-table-column align="center" prop="className" label="视频名称"></el-table-column>
       <el-table-column align="center" prop="pictureUrl" label="视频封面">
         <template scope="scope">
