@@ -242,7 +242,7 @@
 
 				currentDatestr: "",
 				currentDate: "",
-				minDate: new Date("2021", "00", "01"),
+				minDate: new Date("2019", "00", "01"),
 				maxDate: new Date(),
 
 				memberList: [],
