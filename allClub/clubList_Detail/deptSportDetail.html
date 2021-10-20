@@ -23,6 +23,9 @@
 			font-weight: normal;
 			font-family: "BebasNeue";
 		}
+        .personnal .personnalList{
+            border:none;
+        }
     </style>
 </head>
 
@@ -51,13 +54,11 @@
                                 item.nickname }}</van-col>
 
                         <van-col span="6" class="align-right">
-                            <span class="bigNumberSpan">{{item.ropeNum||'--'}}</span>个</van-col>
+                            <span class="bigNumberSpan">{{item.ropeNum||'--'}}</span> 个</van-col>
 
                         <van-col span="8" class="align-right">
-							<span v-if="timestamp2HMS(item.duraMs/1000,'h')>0" class="bigNumberSpan">{{timestamp2HMS(item.duraMs/1000,"h")}}</span><span v-if="timestamp2HMS(item.duraMs/1000,'h')>0">小时</span>
-                            <span class="bigNumberSpan">{{timestamp2HMS(item.duraMs/1000,"m")}}</span>分
-                            <span
-                                class="bigNumberSpan">{{timestamp2HMS(item.duraMs/1000,"s")}}</span>秒
+                            <span class="bigNumberSpan">{{timestamp2HMS(item.duraMs/1000,"hms")}}</span>
+                            
                         </van-col>
 
                     </van-row>
@@ -118,21 +119,24 @@
 		computed: {
 		    timestamp2HMS: function () {
 		        return function (timestamp, type) {
-					if(isNaN(timestamp))return '';
-		            //timestamp 是秒
-		            var h = parseInt(timestamp / 3600)
-		            var m = parseInt((timestamp - h * 3600) / 60)
-		            var s = parseInt(timestamp - h * 3600 - m * 60)
-		            m = m < 10 ? ("0" + m) : m
-		            s = s < 10 ? ("0" + s) : s
-		            if (type == "h") {
-		                return h
-		            } else if (type == "m") {
-		                return m
-		            } else if (type == "s") {
-		                return s
-		            }
-		        }
+                    if (isNaN(timestamp)) return '';
+                    //timestamp 是秒
+                    var h = parseInt(timestamp / 3600)
+                    var m = parseInt((timestamp - h * 3600) / 60)
+                    var s = parseInt(timestamp - h * 3600 - m * 60)
+                    h = h < 10 ? ("0" + h) : h
+                    m = m < 10 ? ("0" + m) : m
+                    s = s < 10 ? ("0" + s) : s
+                    if (type == "h") {
+                        return h
+                    } else if (type == "m") {
+                        return m
+                    } else if (type == "s") {
+                        return s
+                    } else if (type == "hms") {
+                        return h+":"+m+":"+s
+                    }
+                }
 		    }
 		},
         methods: {

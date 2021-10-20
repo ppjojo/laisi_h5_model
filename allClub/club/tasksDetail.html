@@ -95,9 +95,7 @@
 					<div>
 						<div class="bgf8">
 							<div>
-								<van-notice-bar :scrollable="false"
-									:text="taskItem.taskNotice?taskItem.taskNotice.title:'暂无任务通知!'"
-									@click="noticeDetail(taskItem.taskNotice.taskNoticeId)" mode="link"
+								<van-notice-bar :scrollable="false" v-if="taskItem.taskNotice.title" @click="noticeDetail(taskItem.taskNotice.taskNoticeId)" mode="link"
 									left-icon="img/volume.png" />
 								</div>
 								<div class="deatilBox">

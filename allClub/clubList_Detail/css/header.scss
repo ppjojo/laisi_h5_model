@@ -161,7 +161,7 @@ body {
 }
 
 .van-popup {
-    background-color: #12121f;
+    background-color: #292934;
 }
 
 .van-collapse-item--border::after {
@@ -184,4 +184,12 @@ input::placeholder {
 
 [class*=van-hairline]::after {
     border-color: #1E1E2A;
+}
+
+.van-calendar {
+    background-color: #292934;
+
+    .van-calendar__month-mark {
+        color: #71717f;
+    }
 }

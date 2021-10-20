@@ -134,7 +134,13 @@
 
 			.tasks .laberContent input {
 				text-align: right;
+				font-size:0.24rem;
+				
 			}
+			.tasks .laberContent .big input{
+				font-size:0.28rem;
+			}
+
 
 			.van-popup {
 				border-radius: .5rem .5rem 0 0;
@@ -174,7 +180,7 @@
 				<div style="margin-bottom: 1.6rem;">
 					<div class="laberDiv">任务说明</div>
 					<div style="padding:0 0.2rem 0.2rem 0.2rem;">
-						<van-field v-model="submitform.introduce" style="font-size: .28rem;" class="tasks-input"
+						<van-field v-model="submitform.introduce" style="font-size: .28rem;border-radius:0.08rem;" class="tasks-input"
 							rows="4" autosize type="textarea" maxlength="50" placeholder="请输入任务说明~" show-word-limit />
 					</div>
 				</div>
@@ -188,7 +194,7 @@
 							任务目标
 						</van-col>
 						<van-col span="17" class="laberContent">
-							<van-field v-model="submitform.target" :error="isSubmit&&!submitform.target?true:false"
+							<van-field v-model="submitform.target" :class="submitform.target?'big':''" :error="isSubmit&&!submitform.target?true:false"
 								style="padding-left: 0;" placeholder="请输入跳绳目标个数" is-link />
 						</van-col>
 					</van-row>
@@ -201,14 +207,14 @@
 					<van-cell :title="form.zq2title" is-link :value="form.zq2"></van-cell>
 				</div>
 				<div>
-					<van-popup position="bottom" :style="{height: '45%'}" v-model="zq2show">
+					<van-popup position="bottom"  v-model="zq2show">
 						<van-datetime-picker v-model="currentDate" @change="zq2change" :filter='filter'
 							@cancel="zq2show = false" @confirm="zq2confirm" type="date" title="请选择任务截止时间"
 							:min-date="minDate" :formatter="formatter" />
 					</van-popup>
 				</div>
 				<div>
-					<van-popup position="bottom" :style="{height: '45%'}" v-model="zq2startshow">
+					<van-popup position="bottom"  v-model="zq2startshow">
 						<van-datetime-picker v-model="currentDate2" @cancel="zq2startshow = false"
 							@confirm="zq2startconfirm" type="date"
 							:title="submitform.period == '00'?'请选择任务截止时间':'请选择任务开始时间'" :min-date="minDate2"
@@ -315,7 +321,7 @@
 			el: '#app',
 			data() {
 				return {
-					flag: 1,
+					flag: 2,
 					bgc: "linear-gradient(to right, #FF4e3e, #FFaa88 )",
 					bgcgrey: '#71717F',
 					isCorporate: localStorage.getItem('isCorporate') ? parseInt(localStorage.getItem('isCorporate')) :

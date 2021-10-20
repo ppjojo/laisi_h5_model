@@ -148,7 +148,6 @@
 				<div class="hot" v-if="hotClassList.length>0">
 					<div class="courseBox">
 						<div class="title">热门课程</div>
-						<van-list v-model="hotloading" :finished="hotfinished" @load="hotonLoad" :immediate-check=false finished-text="全部课程都在这了，快去锻炼吧！">
 						<ul>
 							<li class="courseDiv" v-for="item in hotClassList" @click="courseList(item)">
 								<img v-if="item.classLableList.length>0"
@@ -169,11 +168,9 @@
 								</div>
 							</li>
 						</ul>
-					</van-list>
+					
 					</div>
-					<div class="a">
-
-					</div>
+					
 				</div>
 			</div>
 		</van-pull-refresh>
@@ -223,8 +220,6 @@
 				this.getBanner() //获取banner
 				this.getRecentList() //最近在练
 				this.getRecommend() //为你推荐
-				this.hotpage=0;
-				this.hotClassList=[]
 				this.getHotClass() //热门
 
 			},
@@ -328,27 +323,13 @@
 				})
 
 			},
-			hotonLoad(){
-				this.hotpage++;
-				this.getHotClass()
-			},
+			
 			//获取热门课程
 			getHotClass() {
 				ajax({
 					url: "community/threeUserCollect/see/most/class/top/three",
-					data:{
-						offset:this.hotpage,
-						limit:5
-					}
 				}).then(res => {
-					this.hotloading=false
-					if(res.data.resultList.length){
-						this.hotClassList = this.hotClassList.concat(res.data.resultList);
-					}else{
-						this.hotfinished=true
-					}
-					
-					
+					this.hotClassList=res.data;
 				}).catch((err) => {
 					console.log(e)
 				})

@@ -22,7 +22,7 @@
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   border-top: 1px solid #1e1e2a;
-  padding: 0 0.3rem 0 0.15rem;
+  padding: 0 0.24rem;
 }
 
 .corporate .deptList .ranking {
@@ -78,8 +78,7 @@
 
 .corporate .deptList .deptInfoBox .deptD .name {
   font-size: 0.28rem;
-  line-height: 0.55rem;
-  height: 0.55rem;
+  height: 0.45rem;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -96,6 +95,10 @@
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+}
+
+.corporate .deptList .scoreBox {
+  margin-right: 0.1rem;
 }
 
 .corporate .deptList .scoreBox .numBox {
@@ -132,9 +135,12 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
 }
 
 .corporate .deptList .iconBox i {
-  color: #999;
+  color: #71717f;
 }
 /*# sourceMappingURL=corporateCompetion.css.map */
