@@ -131,6 +131,7 @@
 			timeStamp2String: timeStamp2String,
 			RefreshFunction(){
 				this.getList();
+				this.getHistory();
 			},
 			getList() { //加载首页
 				typeCheck({}, this.flag).then(res => {

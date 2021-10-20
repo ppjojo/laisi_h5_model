@@ -45,7 +45,7 @@
 
 		data() {
 			return {
-				bgc: "linear-gradient(to left, #FF6A88, #FF4E3E )",
+				bgc: "linear-gradient(to right, #FF4E3E, #FFaa88 )",
 				bgcgrey: '#999',
 				nickname: this.$route.query.name || '',
 				groupId: parseInt(this.$route.query.id),

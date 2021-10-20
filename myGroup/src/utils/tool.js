@@ -33,6 +33,7 @@ var pictureReview = (fileObject, cb) => {
         .then((res2) => {
           if(res2.code!=0){
             Toast("图片审核未通过，请重新上传！");
+			cb(res2);
 			      return;
           }
           res2.url = res.data.url;

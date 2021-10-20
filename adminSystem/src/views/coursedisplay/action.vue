@@ -346,10 +346,12 @@ export default {
               "duration",
               Math.round(res.data.videoMeta.duration)
             );
+            let n1 = res.data.videoMeta.title.split(".")[0];
+            let n2 = n1.split("_")[0]
             this.$set(
               this.form,
               "className",
-              res.data.videoMeta.title.split(".")[0]
+              n2
             );
             this.$set(this.form, "classSize", res.data.videoMeta.classSize);
           } else {
