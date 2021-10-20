@@ -137,17 +137,19 @@ body {
 }
 
 .containBox {
-  position: relative;
+  position: absolute;
   z-index: 99;
+  top: 4.5rem;
+  width: 100%;
+  border-radius: 0.6rem 0.6rem 0 0;
+  overflow: hidden;
 }
 
 .containBox .noticeBox {
   border-bottom: 2px #1e1e2a solid;
-  border-radius: 0.6rem 0.6rem 0 0;
   padding: 0 0.3rem;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  position: absolute;
   background-color: #12121f;
   width: 100%;
   z-index: 2;
@@ -161,7 +163,6 @@ body {
       -ms-flex-align: center;
           align-items: center;
   height: 1.2rem;
-  top: -1rem;
 }
 
 .containBox .noticeBox .noticeBoxLeft {
@@ -286,6 +287,7 @@ body {
 
 .containBox .tabBox .nullDataBox {
   height: 3.6rem;
+  margin-top: 0.5rem;
   background-color: #12121f;
   text-align: center;
 }
@@ -476,21 +478,22 @@ body {
 }
 
 .containBox2 {
-  position: relative;
+  position: absolute;
   z-index: 99;
+  top: 4.5rem;
+  width: 100%;
+  border-radius: 0.6rem 0.6rem 0 0;
+  overflow: hidden;
 }
 
 .containBox2 .memberBox {
   padding: 0.3rem 0.3rem;
   background-color: #12121f;
-  border-radius: 0.6rem 0.6rem 0 0;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  position: absolute;
   width: 100%;
   z-index: 2;
   height: 2rem;
-  top: -1rem;
 }
 
 .containBox2 .memberBox .title {

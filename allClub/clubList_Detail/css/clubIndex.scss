@@ -152,15 +152,17 @@ body {
 }
 
 .containBox {
-    position: relative;
+    position: absolute;
     z-index: 99;
+    top: 4.5rem;
+    width: 100%;
+    border-radius: 0.6rem 0.6rem 0 0;
+    overflow: hidden;
 
     .noticeBox {
         border-bottom: 2px $border_color solid;
-        border-radius: 0.6rem 0.6rem 0 0;
         padding: 0 0.3rem;
         box-sizing: border-box;
-        position: absolute;
         background-color: $bg_color;
         width: 100%;
         z-index: 2;
@@ -168,7 +170,7 @@ body {
         justify-content: space-between;
         align-items: center;
         height: 1.2rem;
-        top: -1rem;
+
 
         .noticeBoxLeft {
             display: flex;
@@ -272,6 +274,7 @@ body {
 
         .nullDataBox {
             height: 3.6rem;
+            margin-top: 0.5rem;
             background-color: $bg_color;
             text-align: center;
 
@@ -458,19 +461,21 @@ body {
 
 //未加入俱乐部
 .containBox2 {
-    position: relative;
+    position: absolute;
     z-index: 99;
+    top: 4.5rem;
+    width: 100%;
+    border-radius: 0.6rem 0.6rem 0 0;
+    overflow: hidden;
 
     .memberBox {
         padding: 0.3rem 0.3rem;
         background-color: $bg_color;
-        border-radius: 0.6rem 0.6rem 0 0;
         box-sizing: border-box;
-        position: absolute;
         width: 100%;
         z-index: 2;
         height: 2rem;
-        top: -1rem;
+
 
         .title {
             height: 0.7rem;

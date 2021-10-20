@@ -80,21 +80,21 @@
 		}
 
 		.popbox {
-			padding: .3rem;
+			
 			padding-top: 0;
 		}
 
 		.popbox>div {
 			font-size: .32rem;
 			text-align: center;
-			border-bottom: .02rem solid #f5f5f5;
-			height: .88rem;
-			line-height: .88rem;
+			border-bottom: .02rem solid #12121f;
+			height: 1.12rem;
+			line-height: 1.12rem;
 		}
 
 		.cardList {
+			padding:0.3rem;
 			font-size: .32rem;
-			padding: .2rem 0;
 		}
 
 		.cardList>li {
@@ -104,20 +104,35 @@
 		.cardList>li .van-ellipsis {
 			max-width: 5.5rem;
 			font-size: .32rem;
-			margin-bottom: .1rem;
 		}
 
 		.cardList>li .detail {
 			font-size: .24rem;
-			color: #999;
+			color: #71717f;
 		}
 
 		.cardList>li .headpic {
 			width: .72rem;
 			height: .72rem;
 			border-radius: .1rem;
+			overflow: hidden;
 			margin-right: .2rem;
+			background-color:#1e1e2a;
+			display:flex;
+			align-items:center;
+			justify-content:center;
+			
 		}
+		
+		.cardList>li .headpic img{
+			width: 100%;
+			height: 100%;
+		}
+		.cardList>li .headpic2 img{
+			width: 80%;
+			height: 80%;
+		}
+		
 
 		.cardList>li>div {
 			border-bottom: none;
@@ -142,7 +157,7 @@
 				<ul class="cardList">
 					<li @click="createshow = true">
 						<div class="ub ub-ac">
-							<div class="headpic ub ub-ac ub-pc" style="background-color: #f5f5f5;"><img
+							<div class="headpic ub ub-ac ub-pc" style="background-color: #1e1e2a;"><img
 									style="width: .46rem;height: .46rem;" class=""
 									src="../corporateClub/img/plusicon.png" /></div>
 							<div class="">
@@ -153,12 +168,12 @@
 					<li v-for="(item,index) in dataList" @click="confirmGroup(item)">
 						<!-- 分组名称 -->
 						<div class="ub ub-ac">
-							<div><img class="headpic"
-									:src="item.id!='wfb'?item.image:'../corporateClub/img/notgroup.png'" /></div>
+							<div class="headpic" :class="item.id=='-1'?'headpic2':''"><img 
+									:src="item.id!='-1'?item.image:'../corporateClub/img/notgroup2.png'" /></div>
 							<div class="">
 								<div class="van-ellipsis">{{item.name}}</div>
 								<div class="detail">
-									{{item.subMinisterName?('分部长：'+item.subMinisterName):item.id!='wfb'?('分部长：未设置'):''}}
+									{{item.subMinisterName?('分部长：'+item.subMinisterName):item.id!='-1'?('分部长：未设置'):''}}
 									成员数：{{item.totalNumber}}人</div>
 							</div>
 						</div>
@@ -362,10 +377,6 @@
 					},
 					success: function (res) {
 						if (res.code == 0) {
-							if (!res.data[res.data.length - 1].id) {
-								res.data[res.data.length - 1].id = "wfb";
-								res.data[res.data.length - 1].name = "未分部部门";
-							}
 							_self.dataList = res.data;
 						} else {
 							_self.$toast(res.msg);

@@ -113,9 +113,8 @@
                     </div>
                 </div>
                 <div class="containBox" v-if="clubObject.self">
-                    <div class="noticeBox" @click="goNotice(clubObject.notice)">
+                    <div class="noticeBox" @click="goNotice(clubObject.notice)" v-if="clubObject.notice.title">
                         <div class="noticeBoxLeft">
-                            <!-- <van-icon color="#cfcfd2" size=".4rem" name="volume-o"></van-icon> -->
                             <img style="width: .48rem;height: .48rem;"
                                 src="./img/volume.png" alt="">
                             <span class="noticeContent">{{clubObject.notice.title||""}}</span>
@@ -182,7 +181,7 @@
                                     #12121f;margin-bottom:0;">
                                     <van-row v-for="item in today.list"
                                         class="deptList"
-                                        @click="gotoDeptSportDetail(item)">
+                                        @click="gotoDeptSportDetail(item)" v-if="item.id!='-1'&&item.totalNumber>0">
                                         <van-col span="16" class="deptInfoBox">
                                             <div class="deptPic">
                                                 <div
@@ -211,7 +210,7 @@
                                             </div>
                                         </van-col>
                                         <van-col span="1" class="iconBox">
-                                            <van-icon name="arrow" size="0.3rem"
+                                            <van-icon name="arrow" size="0.25rem" 
                                                 />
                                             </van-col>
                                         </van-row>
@@ -241,7 +240,8 @@
                                                         v-model:loading="item.loading"
                                                         :finished="item.finished"
                                                         finished-text="没有更多了"
-                                                        @load="getHistorySport(item)">
+                                                        @load="getHistorySport(item)"
+                                                       >
                                                         <van-row
                                                             class="memberSport"
                                                             v-for="sitem in
@@ -282,8 +282,8 @@
                                                     <van-row v-for="sitem in
                                                         item.list"
                                                         class="deptList"
-                                                        @click="gotoDeptSportDetail(sitem,item.date)">
-                                                        <van-col span="16"
+                                                        @click="gotoDeptSportDetail(sitem,item.date)" v-if="sitem.id!='-1'&&sitem.totalNumber>0">
+                                                        <van-col span="16"  
                                                             class="deptInfoBox">
                                                             <div
                                                                 class="deptPic">
