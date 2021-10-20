@@ -240,15 +240,15 @@ export default {
       this.overlayShow = true;
       pictureReview(file, (res) => {
         this.overlayShow = false;
+		if(res.code!=0)return;
         this.groupItem.portrait = res.url;
-
         upDateGroup(this.groupItem).then((res) => {
           this.$store.commit("setData", {
             key: "group.groupInfo.portrait",
             val: res.url,
           });
         });
-      });
+      })
     },
     goMember(flag) {
       //1组长转让 2 组长转让并退出  3移除成员  4 成员列表
