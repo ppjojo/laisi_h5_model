@@ -40,8 +40,8 @@
                             <div class="numBox">{{(recordData[key].burn/1000).toFixed(1)}}</div>
                             <div class="numDesc">消耗(kcal)</div>
                         </div>
-                        <div class="detailItem" >
-                            <div class="numBox">{{recordData[key].doubleJump||"--"/recordData[key].tripleJump||"--"}}</div>
+                        <div class="detailItem" v-if="recordData[key].doubleJump>0||recordData[key].tripleJump>0">
+                            <div class="numBox">{{recordData[key].doubleJump||"--"+recordData[key].tripleJump||"--"}}</div>
                             <div class="numDesc">双/三摇</div>
                         </div>
                         <div class="detailItem">
@@ -81,7 +81,7 @@
                         <div class="detailItem"></div>
                         <div class="detailItem">
                             <div class="numBox">{{recordData[key].maxRate}}</div>
-                            <div class="numDesc">最快转速(rpm)</div>
+                            <div class="numDesc">最大转速(rpm)</div>
                         </div>
                     </div>
                 </div>
@@ -143,14 +143,14 @@
                     </div>
                     <div class="detail">
                         <div class="detailItem">
-                            <div class="numBox">{{recordData[key].weight}}</div>
+                            <div class="numBox">{{recordData[key].weight||'- -'}}</div>
                             <div class="numDesc">体重(kg)</div>
                         </div>
                         <div class="detailItem">
 
                         </div>
                         <div class="detailItem">
-                            <div class="numBox">{{recordData[key].bfr}}</div>
+                            <div class="numBox">{{recordData[key].bfr||'- -'}}</div>
                             <div class="numDesc">体脂(%)</div>
                         </div>
                     </div>

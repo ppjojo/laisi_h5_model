@@ -300,6 +300,7 @@
 						groupId: this.groupId,
 						memberIds: this.memberResult
 					}).then(res => {
+						Toast('移除成员成功！');
 						this.getList();
 						this.memberResult = []
 					})

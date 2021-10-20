@@ -70,7 +70,7 @@
         <div class="personBox">
           <ul>
             <li v-for="item in userIdData">
-              <div class="personInfoBox">
+              <div class="personInfoBox" @click="goMemberDataDetail(item)">
                 <div class="personInfo">
                   <img :src="item.headPictureUrl" class="personImg"></img>
                   <div>
@@ -78,7 +78,7 @@
                     <div class="idInfo">ID:{{item.userId}}</div>
                   </div>
                 </div>
-                <span class="icon iconfont icon-tongyong-gengduo" @click="goMemberDataDetail(item)" />
+                <span class="icon iconfont icon-tongyong-gengduo"  />
               </div>
               <div class="deviceList">
                 <div v-for="item2 in item.dataList">
