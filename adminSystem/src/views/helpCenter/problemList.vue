@@ -235,6 +235,7 @@
                         this.dialogVisible = false
                         if (this.dialogTitle == "新增") {
                             addItem(this.form).then(response => {
+                              this.searchForm.questionType = this.form.questionType;
                                 this.getList()
                                 this.$notify({
                                     type: 'success',
@@ -283,7 +284,7 @@
                     type: 'warning'
                 }).then(() => {
                     deleteItem({
-                        ids: id,
+                        id: id,
                     }).then(response => {
                         this.getList()
                         this.$notify({

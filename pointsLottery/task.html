@@ -311,6 +311,14 @@
 					history.go(-1);
 				},
 				modifyRoute(type, num) {
+					if(this.nowIndex<this.menuactive){
+						this.$toast('未到任务时间点哦');
+						return;
+					}
+					// if(this.nowIndex>this.menuactive){
+					// 	this.$toast('该任务已失效');
+					// 	return;
+					// }
 					// {
 					//     method = "LSH5APP_Push_Action"   //原生与js交互：跳转类型
 					//     actionType = "跳转类型"  类型： 
