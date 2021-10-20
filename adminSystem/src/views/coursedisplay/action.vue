@@ -304,6 +304,7 @@ export default {
       this.dialogTitle = "编辑";
       row.newBigClassIdByUpdate = row.bigClassId;
       this.form = Object.assign({}, row);
+      this.classVodChange(this.form.classVod)
     },
     requestFile(param) {
       //

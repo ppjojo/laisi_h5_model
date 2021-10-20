@@ -50,6 +50,9 @@
 		.van-notice-bar .van-notice-bar__right-icon{
 			color: #71717f;
 		}
+		.van-notice-bar .van-notice-bar__left-icon{
+			margin-right: 0.1rem;
+		}
 		.van-action-sheet{
 			
 		}
@@ -95,7 +98,7 @@
 					<div>
 						<div class="bgf8">
 							<div>
-								<van-notice-bar :scrollable="false" v-if="taskItem.taskNotice.title" @click="noticeDetail(taskItem.taskNotice.taskNoticeId)" mode="link"
+								<van-notice-bar :scrollable="false" :text="taskItem.taskNotice.title" v-if="taskItem.taskNotice.title" @click="noticeDetail(taskItem.taskNotice.taskNoticeId)" mode="link"
 									left-icon="img/volume.png" />
 								</div>
 								<div class="deatilBox">
@@ -158,8 +161,8 @@
 												</div>
 
 											</van-col>
-											<van-col span="7" class="finishNumber" style="color: #71717f;">{{taskItem.doneMemberList.length}}人完成任务</van-col>
-											<van-col span="2" class="finishIcon">
+											<van-col span="8" class="finishNumber" style="color: #71717f;padding-right:0.05rem;">{{taskItem.doneMemberList.length}}人完成任务</van-col>
+											<van-col span="1" class="finishIcon">
 												<van-icon color="#71717f" name="arrow" />
 												</van-col>
 											</van-row>
@@ -174,7 +177,7 @@
 											<van-icon color="#71717f" name="arrow" />
 											</div>
 										</div>
-										<div class="memberDetailList" style="margin-bottom:1rem;">
+										<div class="memberDetailList" style="padding-bottom:2rem;">
 											<div>
 												<van-row>
 													<van-col span="12" class="schedule">
@@ -252,7 +255,7 @@
 
 												</div>
 												<div class="noPeople-div" v-else>
-													<img class="noPeoplePic" src="./img/noPeople.png" />
+													<img class="noPeoplePic" src="../../common/img/noData.png" />
 													<p class="noPeopleP">任务竟然没有人参与</p>
 												</div>
 											</div>

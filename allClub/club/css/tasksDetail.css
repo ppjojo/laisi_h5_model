@@ -11,7 +11,7 @@
 
 .deatilBox {
     /* margin-top: 0.2rem; */
-    padding: 0.28rem;
+    padding: 0.24rem;
     background-color: #12121f;
     border-bottom: .08rem solid #1e1e2a;
 }
@@ -40,7 +40,7 @@
 .memberList {
     /* margin-top: 0.2rem; */
     background-color: #12121f;
-    padding: 0 0.28rem;
+    padding: 0 0.24rem;
     padding-bottom: .3rem;
     border-bottom: .08rem solid #1e1e2a;
 }
@@ -53,14 +53,14 @@
 }
 
 .memberList .finishNumber {
-    font-size: 0.24rem;
+    font-size: 0.28rem;
     color: #cfcfd2;
     line-height: 1rem;
     text-align: right;
 }
 
 .memberList .finishIcon .van-icon {
-    font-size: 0.32rem;
+    font-size: 0.28rem;
 }
 
 .memberList .peopeleList {
@@ -100,7 +100,7 @@
 
 .memberDetailList .van-row {
     border-bottom: 1px solid #1e1e2a;
-    padding: 0 0.28rem;
+    padding: 0 0.24rem;
 }
 
 .memberDetailList .schedule {
@@ -220,11 +220,11 @@
 }
 
 .noPeople-div .noPeoplePic {
-    width: 1.22rem;
+    width: 35%
 }
 
 .noPeople-div .noPeopleP {
-    color: #D1D1D1;
+    color: #71717f;
     font-size: 0.28rem;
     margin: 0;
     padding: 0;

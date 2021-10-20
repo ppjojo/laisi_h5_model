@@ -23,12 +23,12 @@
 
 	<body>
 		<div id="app" v-cloak>
-			<div class="header">
+			<!-- <div class="header">
 				<van-nav-bar title="跳绳红包赛" @click-left="OnclickLeft" @click-right="onClickRight" >
 					<template #right>
 					</template>
 				</van-nav-bar>
-			</div>
+			</div> -->
 			<van-popup v-model="popshow" @opened="setNumberTransform('popparam',returnPopNum(popparam.count),returnPopNum(popparam.count).length<4?3:4)"
 			 close-icon="img/popclose.png" close-icon-position="bottom" :close-on-click-overlay="false" id="popbg">
 				<div :class="{popgetshare:true,popmiss:popparam.winStatus!=1}">
