@@ -338,7 +338,7 @@
                                         </div>
                                     </van-tab>
                                     <van-tab title="任务" class="task">
-                                        <div v-if="clubObject.type=='05'">
+                                        <div >
                                             <div class="taskBox">
                                                 <div class="taskDiv"
                                                     v-if="taskObject.join.list.length>0"
@@ -445,80 +445,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div v-else>
-                                                    <div class="taskBox">
-                                                        <div class="title">我的任务</div>
-                                                        <div class="taskDiv"
-                                                            v-if="taskObject.join.list.length>0">
-                                                            <van-list
-                                                                v-model:loading="taskObject.join.loading"
-                                                                :finished="taskObject.join.finished"
-                                                                @load="getTask()">
-                                                                <div
-                                                                    class="taskList"
-                                                                    v-for="item
-                                                                    in
-                                                                    taskObject.join.list"
-                                                                    @click="gotoTask(item)">
-                                                                    <div
-                                                                        class="taskName">{{item.name}}</div>
-                                                                    <div
-                                                                        class="taskPeopleNum">
-                                                                        {{item.doneTaskNum}}人完成
-                                                                        <van-icon
-                                                                            name="arrow"
-                                                                            color="#999"
-                                                                            size="0.3rem"
-                                                                            />
-                                                                            <!-- <img src="img/iconRight.png" class="iconRight" alt=""> -->
-                                                                        </div>
-                                                                    </div>
-                                                                </van-list>
-                                                            </div>
-                                                            <div v-else
-                                                                class="nullDataBox">
-                                                                <img
-                                                                    src="../../common/img/noData.png"
-                                                                    alt="">
-                                                            </div>
-                                                        </div>
-                                                        <div class="taskBox">
-                                                            <div class="title">未参加</div>
-                                                            <div class="taskDiv"
-                                                                v-if="taskObject.unJoin.list.length>0">
-                                                                <van-list
-                                                                    v-model:loading="taskObject.unJoin.loading"
-                                                                    :finished="taskObject.unJoin.finished"
-                                                                    @load="getnotJoinTask()">
-                                                                    <div
-                                                                        class="taskList"
-                                                                        v-for="item
-                                                                        in
-                                                                        taskObject.unJoin.list"
-                                                                        @click="gotoTask(item)">
-                                                                        <div
-                                                                            class="taskName">{{item.name}}</div>
-                                                                        <div
-                                                                            class="taskPeopleNum">
-                                                                            {{item.doneTaskNum}}人完成
-                                                                            <van-icon
-                                                                                name="arrow"
-                                                                                color="#999"
-                                                                                size="0.3rem"
-                                                                                />
-                                                                                <!-- <img src="img/iconRight.png" class="iconRight" alt=""> -->
-                                                                            </div>
-                                                                        </div>
-                                                                    </van-list>
-                                                                </div>
-                                                                <div v-else
-                                                                    class="nullDataBox">
-                                                                    <img
-                                                                        src="../../common/img/noData.png"
-                                                                        alt="">
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                               
 
                                                     </van-tab>
                                                     <van-tab title="线上赛"

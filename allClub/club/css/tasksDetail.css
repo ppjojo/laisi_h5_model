@@ -41,7 +41,6 @@
     /* margin-top: 0.2rem; */
     background-color: #12121f;
     padding: 0 0.24rem;
-    padding-bottom: .3rem;
     border-bottom: .08rem solid #1e1e2a;
 }
 
@@ -55,7 +54,7 @@
 .memberList .finishNumber {
     font-size: 0.28rem;
     color: #cfcfd2;
-    line-height: 1rem;
+    line-height: 1.28rem;
     text-align: right;
 }
 
@@ -65,7 +64,7 @@
 
 .memberList .peopeleList {
     position: relative;
-    height: 1rem;
+    height: 1.28rem;
 }
 
 .memberList .peopeleBox {
@@ -85,7 +84,7 @@
 }
 
 .memberList .finishIcon {
-    height: 1rem;
+    height: 1.28rem;
     text-align: right;
     display: flex;
     align-items: center;
@@ -130,13 +129,13 @@
 }
 
 .memberDetailList .memberDetailBox {
-    height: 1.2rem;
-    line-height: 1.2rem;
+    height: 1.24rem;
+    line-height: 1.24rem;
 }
 
 .memberDetailList .finishTimes {
     font-size: 0.24rem;
-    line-height: 1.2rem;
+    line-height: 1.24rem;
     text-align: right;
 }
 
@@ -169,24 +168,18 @@
 
 .btn_box .creatMatch2 {
     background-image: none;
-    background-color: #999999;
+    background-color: #71717f;
 }
 
-/* .creatMatch {
- 	background:linear-gradient(to right, #FF6A88, #FF5136 );
- 	color: #fff;
- 	position: fixed;
- 	width:80%;
- 	bottom: 0;
- 	left: 10%;
- 	height: 1rem;
- 	font-size: 0.4rem;
- 	line-height: 1rem;
-	border-radius: .46rem;
- }
- .creatMatch2{
- 	background-color: #D1D1D1;
- } */
+.van-button::before {
+    border: none;
+}
+
+.van-button--default {
+    border: none;
+}
+
+
 .van-action-sheet__description {
     font-size: 0.36rem;
     color: #333;

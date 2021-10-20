@@ -13,9 +13,8 @@ body {
 .memberList .van-row {
     padding: 0 0.26rem;
     /* border-bottom: 1px solid #f3f3f3; */
-    height: 1.2rem;
+    height: 1.28rem;
     background-color: #12121f;
-    margin-bottom: .2rem;
 }
 
 .createrHeadPic img {
@@ -38,7 +37,6 @@ body {
     color: #cfcfd2;
     line-height: 0.6rem;
     height: 0.6rem;
-    padding-top: .1rem;
 }
 
 .activityTime {

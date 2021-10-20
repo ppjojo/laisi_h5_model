@@ -28,7 +28,7 @@
 <body>
 	<div id="app" class="normalHeader" v-cloak>
 		<div class="header">
-			<van-nav-bar @click-left="onclickLeft" title="成员列表" left-arrow safe-area-inset-top fixed>
+			<van-nav-bar @click-left="onclickLeft" title="参与成员" left-arrow safe-area-inset-top fixed>
 				<template #left>
 					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
 				</template>
@@ -46,7 +46,7 @@
 						{{item.nickname}}
 					</div>
 					<div class="activityTime">
-						<span>加入时间</span>
+						<span>加入时间:</span>
 						<span>{{renderTime(item.joinTime)}}</span>
 					</div>
 				</van-col>

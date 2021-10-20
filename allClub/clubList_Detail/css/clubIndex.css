@@ -434,7 +434,7 @@ body {
   color: #F4FCF5;
   background-color: #6EC772;
   line-height: 0.32rem;
-  margin-right: 0.05rem;
+  margin-right: 0.1rem;
 }
 
 .containBox .tabBox .task .taskBox .taskList .taskPeopleNum, .containBox .tabBox .competition .taskBox .taskList .taskPeopleNum, .containBox .tabBox .activity .taskBox .taskList .taskPeopleNum {
