@@ -588,6 +588,33 @@ export default {
   },
   methods: {
     goApp() {
+      // var openApp = function (linkUrl) {
+      //   var a = document.createElement("a");
+      //   a.setAttribute("href", linkUrl);
+      //   a.setAttribute("id", "js_a");
+      //   //防止反复添加
+      //   if (document.getElementById("js_a")) {
+      //     document.body.removeChild(document.getElementById("js_a"));
+      //   }
+      //   document.body.appendChild(a);
+      //   a.click();
+      // };
+      // let linkUrl = "";
+      // if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+      //   linkUrl =
+      //     "https://lstemp.laisitech.com?actionType=groupDetail&id=" +
+      //     this.groupId;
+      //   openApp(linkUrl);
+      // } else if (/(Android)/i.test(navigator.userAgent)) {
+      //   linkUrl = "rehealth://groupdetail?id=" + this.groupId;
+      //   if (openApp(linkUrl)) {
+      //   } else {
+      //     linkUrl =
+      //       "https://a.app.qq.com/o/simple.jsp?pkgname=com.lstech.rehealth";
+      //     openApp(linkUrl);
+      //   }
+      // }
+
       let linkUrl = "";
       if (isIOS) {
         if (isWechat) {

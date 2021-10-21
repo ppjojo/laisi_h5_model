@@ -30,8 +30,8 @@
                 <div class="allContain">
                     <div class="classificationBox">
                         <div class="title">课程筛选
-                            <span class="titleInfo">已选{{chooseLength}}项</span>
-                            <span class="icon iconfont icon-shurukuang-chahao"
+                            <span class="titleInfo" v-if="chooseLength>0">已选{{chooseLength}}项</span>
+                            <span class="icon iconfont icon-shurukuang-chahao" v-if="chooseLength>0"
                                 @click="initCondition(0)"
                                 style="font-size: 0.2rem;color: #595962;" />
                             </div>

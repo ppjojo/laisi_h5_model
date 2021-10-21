@@ -9,12 +9,16 @@
 	<link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
 	<link rel="stylesheet" href="font/iconfont.css">
 	<link rel="stylesheet" href="css/index.css">
-	
+	<script src="https://cdn.bootcdn.net/ajax/libs/vConsole/3.8.1/vconsole.min.js"></script>
+	<script>
+		// init vConsole
+		var vConsole = new VConsole();
+	</script>
 
 </head>
 
 <body> 
-	<div id="app"  class="specialHeader" v-cloak>
+	<div id="app" class="specialHeader" :class="(reportData.takeMs||reportData.burn||reportData.reportRecordDto.length>0)?'':'nullheader'" v-cloak>
 		<div class="header" v-if="!sheetImageStatus">
 			<van-nav-bar @click-left="onclickLeft" title="月报" left-arrow safe-area-inset-top fixed>
 				<template #left>
@@ -30,7 +34,7 @@
 			</van-nav-bar>
 		</div>
 		<!-- y月报 -->
-		<div class="weekBox">
+		<div class="weekBox" v-if="reportData.takeMs||reportData.burn||reportData.reportRecordDto.length>0">
 			<div class="topPic">
 				<img class="bg" src="./img/month_topPic.png" alt="">
 			</div>
@@ -41,12 +45,12 @@
 					<p class="date">{{sjc2time("ymd",startTime)+"-"+sjc2time("md",endTime) }}</p>
 				</div>
 			</div>
-			<div class="contain">
+			<div class="contain" >
 				<!-- 本月运动 -->
-				<div class="dataBox">
+				<div class="dataBox" v-show="reportData.takeMs||reportData.burn">
 					<div class="boxTitle">本月运动</div>
 					<!-- 运动总时长 -->
-					<div class="">
+					<div class="" v-show="reportData.takeMs">
 						<div>
 							<img class="modulePic_left" width="65%" src="./img/total.png" alt="">
 						</div>
@@ -66,7 +70,7 @@
 					</div>
 
 					<!-- 运动总消耗 -->
-					<div class="totalCalBox">
+					<div class="totalCalBox" v-show="reportData.burn">
 						<div id="totalCalEchart" style="height:2rem;width: 50%;"> </div>
 						<div>
 							<div class="text_data align_right">
@@ -78,7 +82,7 @@
 					</div>
 
 					<!-- 消耗分布 -->
-					<div class="consumeBox">
+					<div class="consumeBox" v-if="reportData.burn">
 						<div class="smallTitle">消耗分布</div>
 						<div class="consumeDetail">
 							<div class="consumeDetailItem"
@@ -232,25 +236,20 @@
 						<div class="boxTitle ">本月腕力球</div>
 						<div class="">
 
-							<div style="width:50%">
-								<div>
-									<div class="text_data align_left">
-										{{secondsFormat(item.takeMs) }}
-									</div>
-									<p class="text_descript align_left">总时长</p>
-								</div>
-								<div style="display: flex;justify-content: flex-end;">
+							<div >
+								
+								<div style="display: flex;justify-content: flex-start;">
 									<div>
-										<div class="text_data align_right">
-											{{item.standardRate||"0%"}}
+										<div class="text_data align_left">
+											{{secondsFormat(item.takeMs) }}
 										</div>
-										<p class="text_descript align_right">达标率</p>
+										<p class="text_descript align_left">总时长</p>
 									</div>
 									<div style="padding-left: 0.5rem;">
 										<div class="text_data align_right">
-											{{secondsFormat(item.takeMs) }}
+											{{item.maxRate}}
 										</div>
-										<p class="text_descript align_right">总时长</p>
+										<p class="text_descript align_left">最大转速(rpm)</p>
 									</div>
 								</div>
 
@@ -315,7 +314,7 @@
 					<img src="./img/qrcode.png" alt="">
 				</div>
 
-				<div class="bottom">
+				<div class="bottom" v-if="!sheetImageStatus">
 					—学着改变自己，因为你还有未被发现的自己存在—
 				</div>
 
@@ -324,12 +323,15 @@
 					<div class="button" @click="goAPP">加入派健康一起运动吧！</div>
 				</div>
 
-				<img id="leadToBrowser" src="https://oss.laisitech.com/01c21e85-22db-4a2b-8f4f-500fca31b25d.png"
-					style="display: none; position: absolute;top: 0;left: 0;width: 100%;height: 100%;z-index: 99;"
-					alt="">
+				
 
 			</div>
 
+		</div>
+		
+		<div class="nullbox" v-else-if="finished">
+			<img src="../common/img/noData.png" alt="">
+			<p>暂无运动月报</p>
 		</div>
 	</div>
 </body>
@@ -338,13 +340,15 @@
 <script src="../common/js/network.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/echarts@5.0.0/dist/echarts.min.js"></script>
 <script>
-	// window.onpageshow = function (event) {
-	// 	if (event.persisted || window.performance &&
-	// 		window.performance.navigation.type == 2) {
-	// 		window.location.reload();
-	// 		console.log(5)
-	// 	}
-	// }
+	var isPageHide = false;
+   window.addEventListener('pageshow', function () {
+     if (isPageHide) {
+       window.location.reload();
+     }
+   });
+   window.addEventListener('pagehide', function () {
+     isPageHide = true;
+   });
 	new Vue({
 		el: '#app',
 		data() {
@@ -516,34 +520,35 @@
 				Interaction.LSTH5APP_UrlAndSheetImageShareModel({
 					shareTitle: `您的好友在派健康${this.sjc2time("ymd",this.startTime)+"-"+this.sjc2time("md",this.endTime)}生成了运动月报`,
 					shareContent: "加入派健康一起运动吧",
-					shareUrl: `sportsReport/monthReport.html?isShare=1&startTime=${this.startTime}&endTime=${this.endTime}&userId=${JSON.parse(localStorage.getItem("appInfo")).userId}`,
+					shareUrl: `sportsReport/monthReport.html?isShare=1&startTime=${this.startTime}&endTime=${this.endTime}&userId=${JSON.parse(localStorage.getItem("appInfo")).userId}`,
 				})
 			},
 			goAPP() {
-				let linkUrl = ""
-				if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) { //判断iPhone|iPad|iPod|iOS
-					linkUrl = "https://lstemp.laisitech.com?actionType=groupDetail&id=" + this.groupId
-				} else if (/(Android)/i.test(navigator.userAgent)) { //判断Android
-					if (navigator.userAgent.toLowerCase().indexOf('micromessenger') !== -1) { //微信
-						document.getElementById("leadToBrowser").style.display = "block";
-						setTimeout(function () {
-							document.getElementById("leadToBrowser").style.display = "none";
-						}, 2000)
-						return
-						//linkUrl = "https://a.app.qq.com/o/simple.jsp?pkgname=com.lstech.rehealth"
+				var openApp = function (linkUrl) {
+					var a = document.createElement("a");
+					a.setAttribute("href", linkUrl);
+					a.setAttribute("id", "js_a");
+					//防止反复添加
+					if (document.getElementById("js_a")) {
+					document.body.removeChild(document.getElementById("js_a"));
+					}
+					document.body.appendChild(a);
+					a.click();
+				};
+				let linkUrl = "";
+				if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+					linkUrl =
+					"https://lstemp.laisitech.com?actionType=ropeSkippingRedPacket";
+					openApp(linkUrl);
+				} else if (/(Android)/i.test(navigator.userAgent)) {
+					linkUrl = "rehealth://ropeSkippingRedPacket" ;
+					if (openApp(linkUrl)) {
 					} else {
-						linkUrl = "rehealth://groupdetail?id=" + this.groupId
+					linkUrl =
+						"https://a.app.qq.com/o/simple.jsp?pkgname=com.lstech.rehealth";
+					openApp(linkUrl);
 					}
 				}
-				var a = document.createElement('a');
-				a.setAttribute('href', linkUrl);
-				a.setAttribute('id', 'js_a');
-				//防止反复添加
-				if (document.getElementById('js_a')) {
-					document.body.removeChild(document.getElementById('js_a'));
-				}
-				document.body.appendChild(a);
-				a.click();
 			},
 			//返回状态
 			returnStatus(flag) {
@@ -593,8 +598,10 @@
 				}).then(res => {
 					if (res.code == 0) {
 						this.reportData = res.data;
-						this.getTotalTimeEchart(res.data.countTakeMs)
-						this.getTotalCalEchart(res.data.countBurn)
+						setTimeout(() => {
+							this.getTotalTimeEchart(res.data.countTakeMs)
+							this.getTotalCalEchart(res.data.countBurn)
+						}, 400)
 						this.reportData.reportRecordDto.forEach(item => {
 							if (item.type == "steps") {
 								setTimeout(() => {
@@ -615,6 +622,8 @@
 					keys.push(key);
 					vals.push(list[key])
 				}
+				keys=keys.reverse()
+				vals=vals.reverse()
 				var myChart = echarts.init(document.getElementById("totalTimeEchart"));
 				var option = {
 					grid: {
@@ -701,6 +710,8 @@
 					keys.push(key);
 					vals.push(list[key])
 				}
+				keys=keys.reverse()
+				vals=vals.reverse()
 				var myChart = echarts.init(document.getElementById("totalCalEchart"));
 				var option = {
 					grid: {
@@ -782,23 +793,25 @@
 					keys.push(key);
 					vals.push(item.stepMaps[key])
 				}
+				keys=keys.reverse()
+				vals=vals.reverse()
 
 				var myChart = echarts.init(document.getElementById("stepEchart"));
 				var option = {
 					title: {
-						text: '目标('+item.targetStep+')',
+						text: '目标:'+item.targetStep,
+						right:"10%",
+						show:false,
 						textStyle: {
 							color: '#CFCFD2',
 							fontSize: "10",
 							fontWeight: "normal",
-							height: "30",
-							lineHeight: "30"
 						}
 					},
 					grid: {
 						width: "55%",
-						height: "75%",
-						top: "25%",
+						height: "80%",
+						top: "0%",
 						left: "45%"
 					},
 					tooltip: {
@@ -862,7 +875,7 @@
 										color: '#188DFF'
 									}]
 								}
-								if (params.value < 50) {
+								if (params.value < item.targetStep) {
 									color = "#71717F"
 								}
 

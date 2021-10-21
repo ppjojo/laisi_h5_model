@@ -80,18 +80,7 @@
 				localStorage.setItem("report_startTime", times.startTime)
 				localStorage.setItem("report_endTime", times.endTime)
 			},
-			// getTime(time) {
-			// 	var myDate = new Date(time);
-			// 	var u = navigator.userAgent;
-			// 	var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
-			// 	var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
-			// 	if (isiOS) {
-			// 		var t = new Date(time.replace(/-/g, '/')).getTime();
-			// 	} else {
-			// 		var t = myDate.getTime();
-			// 	}
-			// 	return t;
-			// },
+			
 			getLastWeek(value) {
 				if (value == '' || value == undefined) {
 					return value

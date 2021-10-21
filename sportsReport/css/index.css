@@ -42,6 +42,8 @@ body {
   height: 0.92rem;
   position: relative;
   z-index: 100;
+  height: calc(0.92rem + constant(safe-area-inset-top));
+  height: calc(0.92rem + env(safe-area-inset-top));
 }
 
 .normalHeader .header .van-nav-bar {
@@ -63,6 +65,18 @@ body {
 
 .normalHeader .header .van-hairline--bottom::after {
   border: none;
+}
+
+.nullheader .van-nav-bar__content {
+  color: #fff;
+}
+
+.nullheader .van-nav-bar__title {
+  color: #fff;
+}
+
+.nullheader .van-nav-bar__text {
+  color: #fff;
 }
 
 .listBox {
@@ -121,6 +135,8 @@ body {
           justify-content: flex-start;
   padding: 0 0.24rem;
   margin-top: 1.2rem;
+  margin-top: calc(1.2rem + constant(safe-area-inset-top));
+  margin-top: calc(1.2rem + env(safe-area-inset-top));
 }
 
 .infoBox .headerpic {
@@ -395,15 +411,18 @@ body {
   border: none;
 }
 
-@supports ((height: constant(safe-area-inset-top)) or (height: env(safe-area-inset-top))) and (-webkit-overflow-scrolling: touch) {
-  .normalHeader .header {
-    height: 0.92rem;
-    height: calc(0.92rem + constant(safe-area-inset-top));
-    height: calc(0.92rem + env(safe-area-inset-top));
-  }
-  .infoBox {
-    margin-top: calc(1.2rem + constant(safe-area-inset-top));
-    margin-top: calc(1.2rem + env(safe-area-inset-top));
-  }
+.nullbox {
+  text-align: center;
+  padding-top: 3rem;
+}
+
+.nullbox img {
+  width: 50%;
+}
+
+.nullbox p {
+  color: #71717f;
+  font-size: 0.28rem;
+  line-height: 0.4rem;
 }
 /*# sourceMappingURL=index.css.map */

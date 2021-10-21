@@ -65,6 +65,8 @@ body {
         height: 0.92rem;
         position: relative;
         z-index: 100;
+        height: calc(0.92rem + constant(safe-area-inset-top));
+        height: calc(0.92rem + env(safe-area-inset-top));
 
         .van-nav-bar {
             background-color: $bg_color;
@@ -88,6 +90,20 @@ body {
         }
     }
 
+}
+
+.nullheader {
+    .van-nav-bar__content {
+        color: #fff;
+    }
+
+    .van-nav-bar__title {
+        color: #fff;
+    }
+
+    .van-nav-bar__text {
+        color: #fff;
+    }
 }
 
 // 主页列表
@@ -144,6 +160,8 @@ body {
     justify-content: flex-start;
     padding: 0 0.24rem;
     margin-top: 1.2rem;
+    margin-top: calc(1.2rem + constant(safe-area-inset-top));
+    margin-top: calc(1.2rem + env(safe-area-inset-top));
 
     .headerpic {
         width: 0.64rem;
@@ -402,17 +420,17 @@ body {
 }
 
 
-@supports ((height: constant(safe-area-inset-top)) or (height: env(safe-area-inset-top))) and (-webkit-overflow-scrolling: touch) {
-    .normalHeader .header {
-        height: 0.92rem;
-        height: calc(0.92rem + constant(safe-area-inset-top));
-        height: calc(0.92rem + env(safe-area-inset-top));
+.nullbox {
+    text-align: center;
+    padding-top: 3rem;
+
+    img {
+        width: 50%;
     }
 
-    .infoBox {
-        margin-top: calc(1.2rem + constant(safe-area-inset-top));
-        margin-top: calc(1.2rem + env(safe-area-inset-top));
+    p {
+        color: #71717f;
+        font-size: 0.28rem;
+        line-height: 0.4rem;
     }
-
-
 }

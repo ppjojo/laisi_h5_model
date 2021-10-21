@@ -9,7 +9,11 @@
     <link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
     <link rel="stylesheet" href="font/iconfont.css">
     <link rel="stylesheet" href="css/index.css">
-
+    <script src="https://cdn.bootcdn.net/ajax/libs/vConsole/3.8.1/vconsole.min.js"></script>
+	<script>
+		// init vConsole
+		var vConsole = new VConsole();
+	</script>
 
 </head>
 
@@ -87,12 +91,13 @@
         },
         methods: {
             onclickLeft() {
-                window.history.back()
+                window.history.back(-1)
             },
             goReport(item) {
+                console.log(item)
 				localStorage.setItem("report_startTime", item.startTime)
 				localStorage.setItem("report_endTime", item.endTime)
-                window.history.back()
+                window.history.go(-1);
             },
            
             getWeekList() {
