@@ -193,7 +193,7 @@ body {
             line-height: 0.48rem;
             height: 0.48rem;
             background-image: linear-gradient(to right, rgba(255, 78, 62, 0.2), rgba(255, 170, 136, 0));
-            width: 1.5rem;
+            max-width: 2rem;
             margin-bottom: 0.4rem;
             position: relative;
 
@@ -212,9 +212,7 @@ body {
             }
         }
 
-        .boxTitle2 {
-            width: 1.6rem;
-        }
+
 
         .modulePic_left {
             position: absolute;

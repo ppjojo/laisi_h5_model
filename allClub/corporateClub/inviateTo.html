@@ -25,12 +25,12 @@
 		.cardList>li .van-ellipsis {
 			max-width: 5.5rem;
 			font-size: .32rem;
-			margin-bottom: .1rem;
+			/* margin-bottom: .1rem; */
 		}
 
 		.cardList>li .detail {
 			font-size: .24rem;
-			color: #CFCFD2;
+			color: #71717f;
 		}
 
 		.cardList>li .headpic {
@@ -38,10 +38,15 @@
 			height: .72rem;
 			border-radius: .1rem;
 			margin-right: .2rem;
+			background-color:#292934;
 		}
 
 		.cardList>li>div {
 			border-bottom: none;
+		}
+		.headpicBox{
+			display:flex;
+			align-items:center;
 		}
 	</style>
 </head>
@@ -78,7 +83,7 @@
 			<li v-for="(item,index) in dataList" @click="chooseThisGroup(item)">
 				<!-- 分组名称 -->
 				<div class="ub ub-ac">
-					<div><img class="headpic" :src="item.id!=-1?item.image:'img/notgroup.png'" /></div>
+					<div class="headpicBox"><img class="headpic" :src="item.id!=-1?item.image:'img/notgroup.png'" /></div>
 					<div class="">
 						<div class="van-ellipsis">{{item.name}}</div>
 						<div class="detail">

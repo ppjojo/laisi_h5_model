@@ -6,6 +6,7 @@ body {
     margin-top: 0.2rem;
     padding: 0.28rem;
     background-color: #12121f;
+    border-bottom: 0.08rem solid #1e1e2a;
 }
 
 .detailBox .laberTitle {
@@ -38,6 +39,8 @@ body {
 
 .personnal .personalName {
     text-align: left;
+    display: flex;
+    align-items: center;
 }
 
 .personnal .personnalList {
@@ -50,21 +53,28 @@ body {
 }
 
 .personnal .self {
-    border-bottom: 0.1rem solid #1e1e2a;
+    background-image: linear-gradient(to right, rgba(255, 80, 63, 0.3), rgba(255, 81, 64, 0));
 }
 
 .personnal .ranking {
     font-size: 0.36rem;
     color: #cfcfd2;
+    display: flex;
+    align-items: center;
 }
 
 .personnal .detail_headpic {
     width: 0.6rem;
     height: 0.6rem;
     background-size: cover;
-    position: relative;
-    top: 0.26rem;
+
     border-radius: 50%;
+
+}
+
+.personnal .van-col {
+    display: flex;
+    align-items: center;
 }
 
 @font-face {
@@ -159,7 +169,7 @@ body {
 
 .btn_box .creatMatch2 {
     background-image: none;
-    background-color: #999999;
+    background-color: #71717f;
 }
 
 .scoreList-box {
@@ -255,8 +265,7 @@ body {
 .sortPic {
     width: 0.4rem;
     height: 0.46rem;
-    position: relative;
-    top: 0.1rem;
+
 }
 
 .van-pull-refresh {

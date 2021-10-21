@@ -70,7 +70,7 @@
 						<div id="totalCalEchart" style="height:2rem;width: 50%;"> </div>
 						<div>
 							<div class="text_data align_right">
-								{{(reportData.burn/1000).toFixed(1)}}
+								{{parseInt(reportData.burn/1000)}}
 							</div>
 							<p class="text_data_small align_right">运动总消耗(kcal)</p>
 							<p class="text_descript align_right">(相当于消耗了{{reportData.fat}}g脂肪)</p>
@@ -188,7 +188,7 @@
 
 					<!-- 本周健腹轮 -->
 					<div class="dataBox" v-if="item.type=='wheel'">
-						<div class="boxTitle boxTitle2">本周健腹轮</div>
+						<div class="boxTitle ">本周健腹轮</div>
 						<div class="">
 							<div>
 								<img class="modulePic_left" width="60%" style="top: 1.2rem;" src="./img/wheel.png"
@@ -229,15 +229,23 @@
 
 					<!-- 本周腕力球 -->
 					<div class="dataBox" v-if="item.type=='wristball'" style="padding-right: 0;">
-						<div class="boxTitle boxTitle2">本周腕力球</div>
+						<div class="boxTitle ">本周腕力球</div>
 						<div class="">
 
 							<div style="width:50%">
-								<div>
-									<div class="text_data align_left">
-										{{secondsFormat(item.takeMs) }}
+								<div style="display: flex;justify-content: flex-start;">
+									<div>
+										<div class="text_data align_left">
+											{{secondsFormat(item.takeMs) }}
+										</div>
+										<p class="text_descript align_left">总时长</p>
 									</div>
-									<p class="text_descript align_left">总时长</p>
+									<div style="padding-left: 0.5rem;">
+										<div class="text_data align_right">
+											{{item.maxRate}}
+										</div>
+										<p class="text_descript align_left">最大转速(rpm)</p>
+									</div>
 								</div>
 								<div>
 									<div class="text_data align_left">
@@ -263,7 +271,7 @@
 
 					<!-- 本周红包赛 -->
 					<div class="dataBox" v-if="item.type=='ropeRedPackage'">
-						<div class="boxTitle boxTitle2">本周红包赛</div>
+						<div class="boxTitle ">本周红包赛</div>
 						<div class="">
 							<div>
 								<img class="modulePic_left" width="60%" src="./img/redCompetition.png" alt="">
@@ -284,7 +292,7 @@
 								</div>
 								<div>
 									<div class="text_data align_right">
-										{{item.income}}
+										{{item.income/100}}
 									</div>
 									<p class="text_descript align_right">累计收益(元)</p>
 								</div>

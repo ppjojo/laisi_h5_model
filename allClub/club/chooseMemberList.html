@@ -32,10 +32,13 @@
 			color: #CFCFD2;
 		}
 
-		.normalHeader .van-nav-bar .van-nav-bar__title {
+		.van-nav-bar__left,  .van-nav-bar__title {
 			color: #CFCFD2;
 		}
+		.van-nav-bar__right{
+			font-size:0.32rem;
 
+		}
 		.normalHeader .van-hairline--bottom::after {
 			border: none;
 		}
@@ -144,6 +147,15 @@
 			border-radius: 50%;
 			margin-right: 0.2rem;
 		}
+		.itemBox .time{
+			font-size:0.24rem;
+			color:#71717F;
+		}
+		
+    .van-checkbox__icon {
+        font-size: 0.32rem;
+    }
+
 	</style>
 </head>
 
@@ -195,9 +207,16 @@
 									<van-checkbox :name="item2.memberId" ref="checkboxes"></van-checkbox>
 								</template>
 								<template #title>
-									<div class="itemBox">
+									<!-- <div class="itemBox">
 										<img class="headpic" :src="item2.headPictureUrl" alt="">
 										<div class="nickname van-ellipsis">{{item2.nickname}}</div>
+									</div> -->
+									<div class="itemBox">
+										<img class="headpic" :src="item2.headPictureUrl" alt="">
+										<div>
+											<div class="nickname van-ellipsis">{{item2.nickname}}</div>
+											<div class="time">加入时间:{{item2.createTime.split("T")[0]}}</div>
+										</div>
 									</div>
 								</template>
 							</van-cell>

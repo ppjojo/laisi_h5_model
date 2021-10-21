@@ -173,7 +173,7 @@ body {
   height: 0.48rem;
   background-image: -webkit-gradient(linear, left top, right top, from(rgba(255, 78, 62, 0.2)), to(rgba(255, 170, 136, 0)));
   background-image: linear-gradient(to right, rgba(255, 78, 62, 0.2), rgba(255, 170, 136, 0));
-  width: 1.5rem;
+  max-width: 2rem;
   margin-bottom: 0.4rem;
   position: relative;
 }
@@ -189,10 +189,6 @@ body {
 .contain .dataBox .boxTitle .skiplevel .status {
   margin-left: 0.05rem;
   width: 0.25rem;
-}
-
-.contain .dataBox .boxTitle2 {
-  width: 1.6rem;
 }
 
 .contain .dataBox .modulePic_left {

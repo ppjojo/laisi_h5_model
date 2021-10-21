@@ -1,50 +1,55 @@
 .selectBox {
-  border-top: 0.1rem solid #1e1e2a;
-  border-bottom: 0.1rem solid #1e1e2a;
-  .selectDiv {
-    &:last-child{
-        border-bottom: none;
-    }
-    height: 1.2rem;
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 1px solid  #1e1e2a;
-    padding: 0 0.3rem;
-    align-items: center;
-    .selectLeftBox {
-        display: flex;
-        align-items: center;
-      img {
-        width: 0.4rem;
-        height: 0.4rem;
-        margin-right: 0.3rem;
-      }
-      .lable{
-        font-size: 0.32rem;
-        color: #cfcfd2;
-      }
-      .title {
-        font-size: 0.28rem;
-        color: #999999;
-      }
-      .titleActive {
-        font-size: 0.32rem;
-        color: #CFCFD2;
-      }
-      .titleActive2 {
-        font-size: 0.32rem;
-        color: #cfcfd2;
-      }
-    }
+    border-top: 0.1rem solid #1e1e2a;
+    border-bottom: 0.1rem solid #1e1e2a;
 
-    .icon {
-      font-size: 0.3rem;
-      color: #999999;
+    .selectDiv {
+        &:last-child {
+            border-bottom: none;
+        }
+
+        height: 1.2rem;
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid #1e1e2a;
+        align-items: center;
+
+        .selectLeftBox {
+            display: flex;
+            align-items: center;
+
+            img {
+                width: 0.5rem;
+            }
+
+            .lable {
+                font-size: 0.32rem;
+                color: #cfcfd2;
+            }
+
+            .title {
+                font-size: 0.28rem;
+                color: #71717f;
+            }
+
+            .titleActive {
+                font-size: 0.32rem;
+                color: #CFCFD2;
+            }
+
+            .titleActive2 {
+                font-size: 0.32rem;
+                color: #cfcfd2;
+            }
+        }
+
+        .icon {
+            font-size: 0.3rem;
+            color: #71717f;
+        }
     }
-  }
 }
 
-.scoreDetailBox{
+.scoreDetailBox {
     height: 1.2rem;
     display: flex;
     padding: 0 0.3rem;
@@ -55,9 +60,9 @@
 }
 
 
-.echartBox{
-  height: 5.04rem;
-  width: 100%;
-  padding: 0 0.3rem;
-  border-bottom: 0.1rem solid #1e1e2a;
+.echartBox {
+    height: 5.04rem;
+    width: 100%;
+    padding: 0 0.3rem;
+    border-bottom: 0.1rem solid #1e1e2a;
 }

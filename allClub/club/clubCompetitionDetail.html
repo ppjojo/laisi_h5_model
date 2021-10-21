@@ -104,11 +104,11 @@
 										<div class="detail_headpic"
 											:style="{'background-image': 'url(' + item.headerPicUrl + ')'}"></div>
 									</van-col>
-									<van-col span="6" class="personalName"
+									<van-col span="8" class="personalName van-ellipsis" 
 										@click="Interaction.visitPersonalHomepage(item.userId)">
-										{{ item.nickName | ellipsis4 }}
+										{{ item.nickName  }}
 									</van-col>
-									<van-col span="6" class="align-right"><span
+									<van-col span="4" class="align-right"><span
 											class="bigNumberSpan">{{item.repeatNumber||'--'}}</span>次</van-col>
 									<van-col span="6" class="align-right" v-if="competitionItem.mode==2"><span
 											class="bigNumberSpan">{{item.bestValue||'--'}}</span>个</van-col>

@@ -65,7 +65,10 @@
                                                 <div>
                                                     <p class="nickname">{{Citem.authorName}}  </p>
                                                     <p class="time">{{renderTime2(Citem.createTime)}}</p>
-                                                    <p class="comment" v-html="Citem.content"></p>
+                                                    <p class="comment" >
+                                                        <span>{{Citem.content}}</span>
+                                                        <span v-for="r in Citem.refers" style="color:steelblue"> @{{r.nickName}}</span>
+                                                    </p>
                                                 </div>
                                                 <div  v-if="Citem.comments.length>0" style="background-color: #1e1e2a;padding: 0.1rem;">
                                                     <div v-for="ccitem in Citem.comments">
@@ -132,7 +135,7 @@
 					                        <div>
 					                            <p class="nickname">{{Citem.authorName}}  </p>
 					                            <p class="time">{{renderTime2(Citem.createTime)}}</p>
-					                            <p class="comment">{{Citem.content}}</p>
+					                            <p class="comment">{{Citem.content}}  <span v-for="r in Citem.refers" style="color:steelblue"> @{{r.nickName}}</span></p>
 					                        </div>
 					                        <div  v-if="Citem.comments.length>0" style="background-color: #1e1e2a;padding: 0.1rem;">
 					                            <div v-for="ccitem in Citem.comments">

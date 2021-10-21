@@ -112,6 +112,7 @@ body {
 
 .van-picker .van-picker__toolbar {
   border-bottom: 1px solid #1e1e2a;
+  height: 1.12rem;
 }
 
 .van-picker .van-picker-column__item {
@@ -198,5 +199,17 @@ input::placeholder {
 
 .van-calendar .van-calendar__month-mark {
   color: #71717f;
+}
+
+.van-checkbox .van-checkbox__icon {
+  font-size: 0.32rem;
+}
+
+.van-button::before {
+  border: none;
+}
+
+.van-button--default {
+  border: none;
 }
 /*# sourceMappingURL=header.css.map */

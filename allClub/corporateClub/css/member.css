@@ -88,15 +88,20 @@
 }
 
 .van-popover__action {
-    border-bottom: .02rem solid #333;
+    border-bottom: .02rem solid #12121f;
 }
 
 .van-popover--dark .van-popover__content {
-    background-color: #1f1f1f;
+    background-color: #292934;
+    overflow: hidden;
+}
+
+.van-popover--dark .van-popover__arrow {
+    color: #292934;
 }
 
 .van-icon-search {
-    color: #999;
+    color: #cfcfd2;
 }
 
 .van-search__content {
