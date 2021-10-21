@@ -14,7 +14,7 @@
 			</div>
 			<div class="unit ub ub-ad">
 				<div class="ub ub-aend">
-					<div class="num">100</div>
+					<div class="num">5</div>
 					<div style="padding-bottom: .2rem;padding-left: .1rem;">逗币</div>
 				</div>
 			</div>
