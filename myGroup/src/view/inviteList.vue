@@ -256,6 +256,7 @@ export default {
         path: "/groupIndex",
         query: {
           id: item,
+          fromH5: 1,
         },
       });
     },

@@ -1,97 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport"
-		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
-	<title>排行榜</title>
-	<link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
-	<link href="css/index.css" rel="stylesheet" type="text/css" />
-	<link rel="stylesheet" href="./font/iconfont.css">
-</head>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport"
+			content="width=device-width, initial-scale=1.0, maximum-scale=1.0,
+			minimum-scale=1.0, viewport-fit=cover">
+		<title>排行榜</title>
+		<link rel="stylesheet"
+			href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
+		<link href="css/index.css" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" href="./font/iconfont.css">
+	</head>
 
-<body id="body">
-	<div id="app" v-cloak>
-		<div class="header">
-			<van-nav-bar @click-left="onclickLeft" title="排行榜" left-arrow
-				safe-area-inset-top fixed>
-				<template #left>
-					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
-				</template>
+	<body id="body">
+		<div id="app" v-cloak>
+			<div class="header">
+				<van-nav-bar @click-left="onclickLeft" title="排行榜" left-arrow
+					safe-area-inset-top fixed>
+					<template #left>
+						<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
+						</template>
 
-			</van-nav-bar>
-		</div>
-		<div class="main-container">
-			<div class="threeDiv">
-				<div :class="'no'+index" v-for="(item,index) in listData" v-if="index>0&&index<4"> 
-					<div class="noDiv" @click="Interaction.visitPersonalHomepage(item.userId)">
-						<div class="headerPic" :style="{'backgroundImage':'url(./img/no'+item.rank+'.png)'}"></div>
-						<img  :src="item.headerPicUrl" alt="">
-					</div>
-					<p class="name" >{{item.nickName}}</p>
-					<p class="num"  v-html="item.valueHtml"></p>
+					</van-nav-bar>
 				</div>
-			</div>	
-			<div class="content-container">
-				<div class="headerBox">
-					<div class="tabDiv">
-						<p v-for="item in activeTimeOption" :class="activeTime==item.en?'selected':''"
-							@click="activeTimeChange(item.en)">{{item.zh}}</p>
-					</div>
-					<div class="tabDiv2" v-if="userType=='skipping'">
-						<p :class="secondType=='number'?'selected':''" @click="secondTypeChange('number')">总个数</p>
-						<p :class="secondType=='activeTime'?'selected':''" @click="secondTypeChange('activeTime')">总时长
-						</p>
-					</div>
+				<div class="main-container">
+					<div class="threeDiv">
+						<div :class="'no'+index" v-for="(item,index) in listData" v-if="index>0&&index<4">
+								<template v-if="item.rank"> 
+									<div class="noDiv"
+										@click="Interaction.visitPersonalHomepage(item.userId)">
+										<div class="headerPic"
+											:style="{'backgroundImage':'url(./img/no'+item.rank+'.png)'}"></div>
+										<img class="imgitem" :src="item.headerPicUrl" alt="">
+									</div>
+									<p class="name">{{item.nickName}}</p>
+									<p class="num" v-html="item.valueHtml"></p>
+								</template>
+								<template v-else> 
+									<div>
+										<img class="nullImg" src="./img/null.png" alt="">
+									</div>
+								</template>
 
-					<div class="tabDiv2" v-else-if="userType=='wristball'">
-						<p :class="secondType=='maxRate'?'selected':''" @click="secondTypeChange('maxRate')">竞速派
-						</p>
-						<p :class="secondType=='maxStrength'?'selected':''" @click="secondTypeChange('maxStrength')">力量派
-						</p>
-						<p :class="secondType=='count'?'selected':''" @click="secondTypeChange('count')">数量派</p>
-					</div>
+							</div>
+						</div>
+						<div class="content-container">
+							<div class="headerBox">
+								<div class="tabDiv">
+									<p v-for="item in activeTimeOption"
+										:class="activeTime==item.en?'selected':''"
+										@click="activeTimeChange(item.en)">{{item.zh}}</p>
+								</div>
+								<div class="tabDiv2" v-if="userType=='skipping'">
+									<p :class="secondType=='number'?'selected':''"
+										@click="secondTypeChange('number')">总个数</p>
+									<p :class="secondType=='activeTime'?'selected':''"
+										@click="secondTypeChange('activeTime')">总时长
+									</p>
+								</div>
 
-					<!-- <div class="tabDiv2" v-else-if="userType=='wheel'">
+								<div class="tabDiv2" v-else-if="userType=='wristball'">
+									<p :class="secondType=='maxRate'?'selected':''"
+										@click="secondTypeChange('maxRate')">竞速派
+									</p>
+									<p :class="secondType=='maxStrength'?'selected':''"
+										@click="secondTypeChange('maxStrength')">力量派
+									</p>
+									<p :class="secondType=='count'?'selected':''"
+										@click="secondTypeChange('count')">数量派</p>
+								</div>
+
+								<!-- <div class="tabDiv2" v-else-if="userType=='wheel'">
 						<p :class="secondType=='count'?'selected':''" @click="secondTypeChange('count')">总次数</p>
 						<p :class="secondType=='standardRate'?'selected':''" @click="secondTypeChange('standardRate')">达标率
 						</p>
 					</div> -->
-				</div>
-				<div class="dataBox" :class="userType=='steps'?'dataBox2':''">
-					<div class="listDiv"  id='list' v-if="listData.length>0">
-						<div class="listItem" v-for="(item , index) in listData" :class="index==0?'isself':''"
-							v-if="(index>3&&item.value!=0)||(item.rank>3&&item.value!=0)">
-							<div class="rank" v-if="item.rank<4"><img :src="'./img/'+item.rank+'.png'" alt="" srcset=""></div>
-							<div class="rank" v-else>{{item.rank}}</div>
-							<div class="user" @click="Interaction.visitPersonalHomepage(item.userId)">
-								<img class="headpic" :src="item.headerPicUrl" alt="">
-								<p class="name">{{item.nickName}}</p>
 							</div>
-							<div class="num" v-html="item.valueHtml">
+							<div class="dataBox" :class="userType=='steps'?'dataBox2':''">
+								<div class="listDiv" id='list' v-if="listData.length>0">
+									<div class="listItem" v-for="(item , index) in listData"
+										:class="index==0?'isself':''"
+										v-if="(index>3&&item.value!=0)||(item.rank>3&&item.value!=0)">
+										<div class="rank" v-if="item.rank<4"><img
+												:src="'./img/'+item.rank+'.png'" alt="" srcset=""></div>
+										<div class="rank" v-else>{{item.rank}}</div>
+										<div class="user"
+											@click="Interaction.visitPersonalHomepage(item.userId)">
+											<img class="headpic" :src="item.headerPicUrl" alt="">
+											<p class="name">{{item.nickName}}</p>
+										</div>
+										<div class="num" v-html="item.valueHtml">
+										</div>
+									</div>
+
+
+								</div>
+								<div class="noData-box" v-else-if="!refreshing">
+									<img class="noData-img" src="../common/img/noData.png" />
+								</div>
 							</div>
+
 						</div>
+						<p class="bottomTip">{{bottomTipMsg}}</p>
 
-
-					</div>
-					<div class="noData-box" v-else-if="!refreshing">
-						<img class="noData-img" src="../common/img/noData.png" />
 					</div>
 				</div>
-				
-			</div>
-			<p class="bottomTip">{{bottomTipMsg}}</p>
+			</body>
 
-		</div>
-	</div>
-</body>
-
-<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
-<script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
-<script src="../common/js/network.js"></script>
-<script>
+			<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+			<script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
+			<script src="../common/js/network.js"></script>
+			<script>
 	new Vue({
 		el: '#app',
 		data() {
@@ -219,9 +240,14 @@
 					setTimeout(() => {
 						this.refreshing = false
 					}, 500);
+					this.listData=[
+						{},{},{},{}
+					]
 					if (res.code == 0) {
 						if (res.data.length == 1 && res.data[0].value == 0) {
-							this.listData = []
+							this.listData=[
+						{},{},{},{}
+					]
 							return
 						}
 						if (this.userType == 'skipping') {
@@ -292,10 +318,12 @@
 								
 							})
 						}
-						this.listData = res.data;
+						this.listData = Object.assign(this.listData,res.data)
 
 					} else {
-						this.listData = [];
+						this.listData = [
+							{},{},{},{}
+						];
 					}
 
 				})
@@ -339,4 +367,4 @@
 </script>
 
 
-</html>
+		</html>

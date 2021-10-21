@@ -78,7 +78,7 @@
                     <div class="idInfo">ID:{{item.userId}}</div>
                   </div>
                 </div>
-                <span class="icon iconfont icon-tongyong-gengduo"  />
+                <span class="icon iconfont icon-tongyong-gengduo" />
               </div>
               <div class="deviceList">
                 <div v-for="item2 in item.dataList">
@@ -192,7 +192,7 @@ export default {
 
   data() {
     return {
-      fromList: 1,
+      fromH5: this.$route.query.fromH5,
       loading: false,
       finished: false,
       groupId: parseInt(this.$route.query.id),
@@ -225,14 +225,11 @@ export default {
     }
   },
 
-  beforeRouteEnter(to, from, next) {
-    next((vm) => {
-      //vm为vue的实例,代替this
-      if (!from.meta.index) {
-        vm.fromList = 0;
-      }
-    });
-  },
+  // beforeRouteEnter(to, from, next) {
+  //   next((vm) => {
+
+  //   });
+  // },
 
   beforeRouteLeave(to, from, next) {
     this.destroyed();
@@ -314,7 +311,7 @@ export default {
     },
     onclickLeft() {
       this.destroyed();
-      if (this.fromList) {
+      if (this.fromH5) {
         this.$router.go(-1);
       } else {
         this.$interaction.closePage();
@@ -333,38 +330,34 @@ export default {
       });
     },
     goInto() {
+      var openApp = function (linkUrl) {
+        var a = document.createElement("a");
+        a.setAttribute("href", linkUrl);
+        a.setAttribute("id", "js_a");
+        //防止反复添加
+        if (document.getElementById("js_a")) {
+          document.body.removeChild(document.getElementById("js_a"));
+        }
+        document.body.appendChild(a);
+        a.click();
+      };
       let linkUrl = "";
       if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
-        //判断iPhone|iPad|iPod|iOS
         linkUrl =
           "https://lstemp.laisitech.com?actionType=groupDetail&id=" +
           this.groupId;
+        openApp(linkUrl);
       } else if (/(Android)/i.test(navigator.userAgent)) {
-        //判断Android
-        if (
-          navigator.userAgent.toLowerCase().indexOf("micromessenger") !== -1
-        ) {
-          //微信
-          document.getElementById("leadToBrowser").style.display = "block";
-          setTimeout(function () {
-            document.getElementById("leadToBrowser").style.display = "none";
-          }, 2000);
-          return;
-          //linkUrl = "https://a.app.qq.com/o/simple.jsp?pkgname=com.lstech.rehealth"
+        linkUrl = "rehealth://groupdetail?id=" + this.groupId;
+        if (openApp(linkUrl)) {
         } else {
-          linkUrl = "rehealth://groupdetail?id=" + this.groupId;
+          linkUrl =
+            "https://a.app.qq.com/o/simple.jsp?pkgname=com.lstech.rehealth";
+          openApp(linkUrl);
         }
       }
-      var a = document.createElement("a");
-      a.setAttribute("href", linkUrl);
-      a.setAttribute("id", "js_a");
-      //防止反复添加
-      if (document.getElementById("js_a")) {
-        document.body.removeChild(document.getElementById("js_a"));
-      }
-      document.body.appendChild(a);
-      a.click();
     },
+
     goSetting() {
       //去设置页面
       if (!this.isGrouptMember) return;

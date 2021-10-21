@@ -247,6 +247,7 @@ export default {
                 path: "/groupIndex",
                 query: {
                   id: res.data.id,
+                  fromH5: 1,
                 },
               });
             }, 1500);
