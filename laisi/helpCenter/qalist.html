@@ -71,6 +71,7 @@
 							url: "helpCenter/faq/query",
 							data: {
 								questionType: getQueryString('id'),
+								pageSize:100
 							},
 							success: function(res) {
 								if (parseInt(res.code) == 0) {

@@ -87,7 +87,7 @@
 		.popbox>div {
 			font-size: .32rem;
 			text-align: center;
-			border-bottom: .02rem solid #12121f;
+			border-bottom: .02rem solid #1e1e2a;
 			height: 1.12rem;
 			line-height: 1.12rem;
 		}
@@ -136,6 +136,28 @@
 
 		.cardList>li>div {
 			border-bottom: none;
+		}
+		.acceptStatus{
+			width: 1.32rem;
+			height: .48rem;
+			line-height: .5rem;
+			border-color: #71717f;
+			color: #71717f;
+			top: .3rem;
+		}
+		.acceptStatus3{
+			width: 1.32rem;
+			height: .48rem;
+			line-height: .5rem;
+			text-align: center;
+			/* padding: 0 .4rem; */
+			border-radius: .24rem;
+			background: linear-gradient(to right, #FF4E3E, #FFAA88);
+			font-size: .24rem;
+			color: #fff;
+			top: .3rem;
+			position: relative;
+			margin-left: .16rem;
 		}
 	</style>
 </head>
@@ -204,7 +226,7 @@
 							<div class="detail_headpic"
 								:style="{'background-image': 'url(' + item.headPictureUrl + ')'}"></div>
 						</van-col>
-						<van-col span="15">
+						<van-col span="11">
 							<div class="createrName">
 								{{item.nickname}}
 							</div>
@@ -213,14 +235,17 @@
 								<span>{{renderTime(item.updateTime)}}</span>
 							</div>
 						</van-col>
-						<van-col span="5">
-							<div class="acceptStatus2" @click="beforeclick(item)">通过</div>
+						<van-col span="9">
+							<div class="ub ub-ac ub-pj">
+								<div class="acceptStatus" @click="deleteApply(item)">拒绝</div>
+								<div class="acceptStatus3" @click="beforeclick(item)">通过</div>
+							</div>
 						</van-col>
 					</van-row>
 
-					<template slot="right">
+					<!-- <template slot="right">
 						<van-button square type="danger" @click="deleteApply(item)" text="删除" />
-					</template>
+					</template> -->
 				</van-swipe-cell>
 			</div>
 			<div class="noData-box" v-else-if="memberList.length<=0&&upFinished">

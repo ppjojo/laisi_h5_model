@@ -72,7 +72,7 @@
                     </el-select>
                 </el-form-item>
                 <el-form-item label="设备类型" prop="deviceType">
-                    <el-input v-model="form.deviceType" disabled></el-input>
+                    <el-input v-model="form.deviceType"></el-input>
                 </el-form-item>
                 <el-form-item label="优先等级" prop="orderNumber">
                     <el-input v-model.number="form.orderNumber"></el-input>
@@ -168,7 +168,7 @@
                     // language: "zh"
                     title:null,
                     questionType:null,
-                    pageSize:10,
+                    pageSize:100,
                     pageNumber:0
                 },
                 rules: {
@@ -178,8 +178,8 @@
                     deviceType: [
                         { required: false, message: '请输入产品类型', trigger: 'blur' },
                     ],
-                    deviceModel: [
-                        { required: true, message: '请输入产品型号', trigger: 'blur' },
+                    questionType: [
+                        { required: true, message: '请选择问题类型', trigger: 'blur' },
                     ],
                 },
 

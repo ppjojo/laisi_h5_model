@@ -1,6 +1,6 @@
 <template>
 	<div id="app" v-cloak>
-		<div style="height: 1.6rem;" v-if="isShare==1||sheetImageStatus"></div>
+		<div style="height: 1.3rem;" v-if="isShare==1||sheetImageStatus"></div>
 		<div class="header" v-show="!sheetImageStatus&&isShare!=1">
 			<van-nav-bar title="打卡总览" @click-left="onClickLeft" @click-right="onClickRight" left-arrow
 				safe-area-inset-top fixed>
@@ -12,14 +12,16 @@
 				</template>
 			</van-nav-bar>
 		</div>
-		<div class="ub ub-ac tab" v-show="!sheetImageStatus&&isShare!=1">
-			<div class="subtab" @click="changeTab(1)">
-				<div class="title" :class="{active:tabIndex==1}">月度统计</div>
-				<img class="activeImg" v-show="tabIndex==1" :src="require('@i/tabselect.png')" alt="">
-			</div>
-			<div class="subtab" @click="changeTab(2)">
-				<div class="title" :class="{active:tabIndex==2}">年度统计</div>
-				<img class="activeImg" v-show="tabIndex==2" :src="require('@i/tabselect.png')" alt="">
+		<div v-show="!sheetImageStatus&&isShare!=1">
+			<div class="ub ub-ac tab" >
+				<div class="subtab" @click="changeTab(1)">
+					<div class="title" :class="{active:tabIndex==1}">月度统计</div>
+					<img class="activeImg" v-show="tabIndex==1" :src="require('@i/tabselect.png')" alt="">
+				</div>
+				<div class="subtab" @click="changeTab(2)">
+					<div class="title" :class="{active:tabIndex==2}">年度统计</div>
+					<img class="activeImg" v-show="tabIndex==2" :src="require('@i/tabselect.png')" alt="">
+				</div>
 			</div>
 		</div>
 		<!-- 月度统计 -->

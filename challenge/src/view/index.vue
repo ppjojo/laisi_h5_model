@@ -25,7 +25,7 @@
 		<!-- 打卡按钮 -->
 		<div class="clickBtn ub ub-ac ub-ad" @click="isChallage(info.type)" :class="{greyBtn:info.dateType==1||info.type==1}">
 			<div>
-				{{info.dateType==1?'今日休息':info.type==3?'迎战':info.type==1?'完成':info.type==2?'再次挑战':info.type==0?'迎战':'暂未触发'}}
+				{{info.dateType==1?'今日休息':info.type==3?'迎战':info.type==1?'完成':info.type==2?'再次挑战':info.type==0?'迎战':'迎战'}}
 			</div>
 		</div>
 		<!-- 战列表 -->
@@ -203,7 +203,7 @@
 						let min = 0;
 						if(obj.duration<60)min=1
 						else min = parseInt(obj.duration/60);
-						str += ('运动满' + min + '分钟');
+						str += ('单次运动满' + min + '分钟');
 					}
 				}
 				return str;

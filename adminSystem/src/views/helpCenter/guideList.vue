@@ -47,7 +47,7 @@
             </el-table-column>
             <el-table-column prop="manual" label="指南描述" :show-overflow-tooltip="true">
             </el-table-column>
-            <el-table-column prop="picSize" label="设备其他" :show-overflow-tooltip="true">
+            <el-table-column prop="deviceDescription" label="设备其他" :show-overflow-tooltip="true">
             </el-table-column>
             <el-table-column label="操作" width="180">
                 <template scope="scope">
@@ -72,7 +72,7 @@
 
 
         <!--新增和编辑界面-->
-        <el-dialog :title="dialogTitle+'操作指南'" :visible.sync="dialogVisible" width="60%">
+        <el-dialog :title="dialogTitle+'操作指南'" :close-on-click-modal="false" :visible.sync="dialogVisible" width="60%">
             <el-form :model="form" label-width="100px" :rules="rules" ref="form">
                 <!-- <el-form-item label="语言" prop="languageType">
                     <el-select v-model="form.languageType">
@@ -104,12 +104,12 @@
             </div>
         </el-dialog>
 
-        <el-dialog title="语言配置" :visible.sync="lanDialogVisible" width="70%">
+        <el-dialog title="语言配置" :close-on-click-modal="false" :visible.sync="lanDialogVisible" width="70%">
             <el-form :model="form" label-width="120px" ref="form">
               <el-upload class="avatar-uploader" name="img" action="" :http-request="requestFile"
                   :show-file-list="false" v-show="false">
               </el-upload>
-              <quill-editor class="myQuillEditor" ref="myQuillEditor" :content="form.picSize"
+              <quill-editor class="myQuillEditor" ref="myQuillEditor" :content="form.deviceDescription"
                   :options="editorOptiondetails" @change="onEditordetailChange($event)">
               </quill-editor>
                 <!-- <el-form-item :label="item.description+'-'+item.languageType" v-for="item in languageList">
@@ -317,6 +317,7 @@
                     deviceType: '',
                     picUrl: '',
                     picSize: '',
+                    deviceDescription:'',
                     // environment: '',
                     picOrder: 1,
                 }
@@ -353,7 +354,7 @@
               if(this.dialogVisible){
                 this.form.manual = e.html;
               }else{
-                this.form.picSize = e.html;
+                this.form.deviceDescription = e.html;
               }
 
             },

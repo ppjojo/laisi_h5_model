@@ -344,6 +344,9 @@
           classLevel: null,
           classPart: [],
           classLabel: [],
+          classTargetAttributes:[],
+          classKitAttributes:[],
+          status:1
         }
       },
       btn_edit(row) {
