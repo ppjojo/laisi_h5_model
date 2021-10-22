@@ -85,7 +85,7 @@
 
                 <el-form-item label="设备型号" prop="deviceType">
                     <el-select v-model="form.deviceType" clearable>
-                        <el-option v-for="item in deviceModelList" :key="item.deviceType" :label="item.deviceTypeDetail"
+                        <el-option v-for="item in deviceModelList" :key="item.deviceType" :label="item.deviceType"
                             :value="item.deviceType">
                         </el-option>
                     </el-select>

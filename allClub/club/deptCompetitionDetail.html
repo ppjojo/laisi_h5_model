@@ -17,6 +17,9 @@
             .van-pull-refresh{
                 margin-bottom: 0rem;
             }
+			.personnalList>.align-right:last-child{
+				padding-left: .15rem;
+			}
 		</style>
     </head>
 
@@ -138,7 +141,9 @@
                         pageSize: that.personalObject.pageSize
                     },
                     success: function (res) {
+						that.personalObject.loading = false;
                         that.loading = false;
+						// that.personalObject.loading = false;
                         if (res.code == 0) {
                             if(nowPageNum==0){
 							    that.personalObject.list = res.data.content
@@ -146,7 +151,9 @@
 								 that.personalObject.list = that.personalObject.list.concat(res.data.content);
                             }
                             //如果获取的数据足够 that.personalObject.finished=true
-                            if(res.data.total<=nowPageNum*that.personalObject.pageSize) that.personalObject.finished=true
+                            if(res.data.total<=(nowPageNum+1)*that.personalObject.pageSize){
+								that.personalObject.finished=true;
+							} 
                             
                         } else {
                             that.$toast(res.msg)
@@ -170,7 +177,8 @@
 					}else{
                         this.personalObject.page++;
                     }
-                    this.getList()
+                    this.getList();
+					
 				},
 			}
 		})

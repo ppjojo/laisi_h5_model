@@ -203,7 +203,7 @@
 						let min = 0;
 						if(obj.duration<60)min=1
 						else min = parseInt(obj.duration/60);
-						str += ('单次运动满' + min + '分钟');
+						str += ('单次腕力球' + min + '分钟');
 					}
 				}
 				return str;

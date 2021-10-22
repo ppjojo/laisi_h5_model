@@ -454,7 +454,7 @@
                                                             style="border-bottom:
                                                             .2rem solid
                                                             #1E1E2A;">
-                                                            <div class="title">已报名</div>
+                                                            <!-- <div class="title">已报名</div> -->
                                                             <div class="taskDiv"
                                                                 v-if="competitionObject.join.list.length>0">
                                                                 <van-list
@@ -490,14 +490,42 @@
                                                                         </div>
                                                                     </van-list>
                                                                 </div>
-                                                                <div v-else
+																<div
+																    class="taskDiv"
+																    v-if="competitionObject.unJoin.list.length>0">
+																    <van-list
+																        v-model:loading="competitionObject.unJoin.loading"
+																        :finished="competitionObject.unJoin.finished"
+																        @load="getnotJoinCompetition()">
+																        <div
+																            class="taskList"
+																            v-for="item
+																            in
+																            competitionObject.unJoin.list"
+																            @click="gotoCompetition(item)">
+																            <div
+																                class="taskName">{{item.name}}</div>
+																            <div
+																                class="taskPeopleNum">
+																                {{item.registerCount||0}}人参赛
+																                <van-icon
+																                    name="arrow"
+																                    color="#999"
+																                    size="0.3rem"
+																                    />
+																                    <!-- <img src="img/iconRight.png" class="iconRight" alt=""> -->
+																                </div>
+																            </div>
+																        </van-list>
+																    </div>
+                                                                <div v-else-if="competitionObject.unJoin.list.length==0&&competitionObject.join.list.length==0&&(!competitionObject.unJoin.loading&&!competitionObject.Join.loading)"
                                                                     class="nullDataBox">
                                                                     <img
                                                                         src="../../common/img/noData.png"
                                                                         alt="">
                                                                 </div>
                                                             </div>
-                                                            <div
+                                                            <!-- <div
                                                                 class="taskBox">
                                                                 <div
                                                                     class="title">未报名</div>
@@ -524,7 +552,6 @@
                                                                                     color="#999"
                                                                                     size="0.3rem"
                                                                                     />
-                                                                                    <!-- <img src="img/iconRight.png" class="iconRight" alt=""> -->
                                                                                 </div>
                                                                             </div>
                                                                         </van-list>
@@ -538,7 +565,7 @@
                                                                 </div>
                                                             </van-tab>
                                                         </van-tabs>
-                                                    </div>
+                                                    </div> -->
 
                                                     <div class="addBtn"
                                                         v-if="activeTab!=0&&isMinister=='Y'">
