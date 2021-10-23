@@ -79,6 +79,12 @@ body {
   color: #fff;
 }
 
+.loadingBox {
+  position: absolute;
+  left: 48%;
+  top: 48%;
+}
+
 .listBox {
   padding: 0.24rem;
 }
@@ -119,6 +125,14 @@ body {
 
 .topPic .bg {
   width: 100%;
+  display: block;
+}
+
+.topPic .black {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
 }
 
 .infoBox {

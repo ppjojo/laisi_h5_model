@@ -87,7 +87,7 @@
 
 						<div class="title2">
 							<div class="txt">最近在练</div>
-							<div class="btn_viewMore" @click="goAPPwebview_Recent">
+							<div class="btn_viewMore" @click="goAPPwebview_Recent" v-if="recentList.length>3">
 								查看全部<span class="icon iconfont icon-tongyong-gengduo" style="font-size: 0.25rem;" />
 							</div>
 						</div>

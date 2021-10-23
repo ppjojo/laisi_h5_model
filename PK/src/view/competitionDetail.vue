@@ -580,6 +580,7 @@ export default {
   filters: {},
   mounted() {
     window.addEventListener("scroll", this.scrollFn);
+    window.initCompetitionDetail = this.initCompetitionDetail;
   },
   created() {
     vm = this;
@@ -678,6 +679,9 @@ export default {
       } else {
         this.$interaction.closePage();
       }
+    },
+    initCompetitionDetail() {
+      this.initData();
     },
     //初始化比赛详情
     initData() {

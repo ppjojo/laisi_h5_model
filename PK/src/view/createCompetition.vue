@@ -457,11 +457,15 @@ export default {
     this.initEndTime();
   },
   created() {
-    console.log(this.$route.query.type);
+    //console.log(this.$route.query.type);
   },
   methods: {
     onclickLeft() {
-      this.$router.go(-1);
+      if (this.flag > 1) {
+        this.flag--;
+      } else {
+        this.$router.go(-1);
+      }
     },
     //检查跳绳是否有空项
     skippingCheckIsNull() {

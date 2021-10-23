@@ -106,6 +106,13 @@ body {
     }
 }
 
+.loadingBox {
+    position: absolute;
+    left: 48%;
+    top: 48%;
+
+}
+
 // 主页列表
 .listBox {
     padding: 0.24rem;
@@ -149,6 +156,14 @@ body {
 
     .bg {
         width: 100%;
+        display: block;
+    }
+
+    .black {
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        left: 0;
     }
 }
 

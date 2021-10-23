@@ -41,19 +41,19 @@
 }
 
 .myGroupList {
-  padding: 0 0.3rem;
+  padding: 0 0.24rem;
 }
 
 .myGroupList .labelTitle {
   color: #CFCFD2;
   font-size: 0.36rem;
-  padding: 0.3rem 0;
+  padding: 0.24rem 0;
 }
 
 .myGroupList .groupBox ul li {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  padding: 0.3rem 0 0;
+  padding-bottom: 0.32rem;
 }
 
 .myGroupList .groupBox ul li .groupImg {
@@ -68,7 +68,7 @@
 
 .myGroupList .groupBox ul li .groupInfo {
   margin-left: 2rem;
-  padding-bottom: 0.3rem;
+  padding-bottom: 0.32rem;
   border-bottom: 1px solid #1E1E2A;
 }
 
@@ -92,7 +92,7 @@
 }
 
 .myGroupList .groupBox ul li .groupInfo .desc {
-  color: #595962;
+  color: #71717f;
   font-size: 0.28rem;
   line-height: 0.35rem;
   overflow: hidden;
@@ -135,7 +135,7 @@
 
 .nullDataBox p {
   font-size: 0.28rem;
-  color: #595962;
+  color: #71717f;
   line-height: 1rem;
   margin: 0;
   padding: 0;
@@ -186,10 +186,15 @@
   background-repeat: no-repeat;
   width: 100%;
   height: 100%;
+  border-radius: 12px;
+}
+
+.createGroup .van-cell {
+  padding: 0.08rem 0.16rem;
 }
 
 .createGroup .uploaderTxt {
-  color: #595962;
+  color: #71717f;
   font-size: 0.28rem;
   line-height: 1rem;
   text-align: center;
@@ -239,7 +244,7 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  color: #595962;
+  color: #71717f;
 }
 
 .createGroup .labelBox li .embedImgBox .embedImg {
@@ -254,7 +259,7 @@
 }
 
 .createGroup .labelBox li .labelTxt {
-  color: #595962;
+  color: #71717f;
   font-size: 0.28rem;
   line-height: 0.6rem;
   text-align: center;
@@ -310,7 +315,7 @@
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   padding: 0 0.3rem;
-  bottom: 1.5rem;
+  bottom: 1.8rem;
   width: 100%;
   z-index: 10;
 }
@@ -365,7 +370,7 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  height: 0.5rem;
+  height: 0.4rem;
   -webkit-box-align: end;
       -ms-flex-align: end;
           align-items: flex-end;
@@ -377,7 +382,6 @@
   line-height: 0.32rem;
   padding: 0 4px;
   margin-right: 0.2rem;
-  height: 0.32rem;
   border-radius: 5px;
   white-space: nowrap;
 }
@@ -387,17 +391,23 @@
   position: relative;
   z-index: 99;
   background-color: #12121f;
+  border-radius: 0.5rem 0.5rem 0 0;
+  overflow: hidden;
+  top: 4rem;
+  position: absolute;
+  width: 100%;
+}
+
+.groupIndex .containBox .icon-tongyong-gengduo {
+  color: #71717f;
 }
 
 .groupIndex .containBox .noticeBox {
   border-bottom: 1px #1e1e2a solid;
-  border-radius: 0.8rem 0.8rem 0 0;
   padding: 0 0.3rem;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  position: absolute;
   background-color: #12121f;
-  width: 100%;
   z-index: 2;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -409,7 +419,6 @@
       -ms-flex-align: center;
           align-items: center;
   height: 1.2rem;
-  top: -1.5rem;
 }
 
 .groupIndex .containBox .noticeBox .noticeBoxLeft {
@@ -443,7 +452,7 @@
 
 .groupIndex .containBox .memberBox {
   background-color: #12121f;
-  padding: 0.3rem 0.3rem;
+  padding: 0.24rem 0.24rem;
 }
 
 .groupIndex .containBox .memberBox .title {
@@ -500,6 +509,7 @@
 
 .groupIndex .containBox .memberBox .memberListDiv .memberPersonNum .numP {
   font-size: 0.28rem;
+  color: #71717f;
 }
 
 .groupIndex .containBox .memberBox .memberListDiv .memberPersonNum .iconRight {
@@ -523,7 +533,7 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  padding: 0 0.3rem;
+  padding: 0 0.24rem;
 }
 
 .groupIndex .containBox .sportBox .dateBox .dateTitle {
@@ -531,7 +541,7 @@
 }
 
 .groupIndex .containBox .sportBox .dateBox .chooseDate {
-  font-size: 0.4rem;
+  font-size: 0.35rem;
 }
 
 .groupIndex .containBox .sportBox .personBox ul li {
@@ -574,10 +584,11 @@
 
 .groupIndex .containBox .sportBox .personBox ul li .personInfoBox .personInfo .name {
   font-size: 0.28rem;
+  line-height: 0.35rem;
 }
 
 .groupIndex .containBox .sportBox .personBox ul li .personInfoBox .personInfo .idInfo {
-  color: #595962;
+  color: #71717f;
   font-size: 0.2rem;
 }
 
@@ -651,6 +662,8 @@
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(18, 18, 31, 0)), to(#12121f));
+  background-image: linear-gradient(to bottom, rgba(18, 18, 31, 0), #12121f);
 }
 
 .groupIndex .containBox .btn_box .btn {
@@ -690,7 +703,7 @@
 
 .groupSetting .cellbox .iconfont {
   font-size: .3rem;
-  color: #595962;
+  color: #71717f;
 }
 
 .groupSetting .cellbox .rightBox {
@@ -708,7 +721,7 @@
 .groupSetting .cellbox .detail {
   font-size: .28rem;
   white-space: nowrap;
-  color: #595962;
+  color: #71717f;
 }
 
 .groupSetting .cellbox .groupMember {
@@ -779,7 +792,7 @@
 }
 
 .groupSetting .cellbox .labelBox .labelItem {
-  color: #999999;
+  color: #71717f;
   font-size: 0.2rem;
   line-height: 0.32rem;
   padding: 0 0.08rem;
@@ -795,6 +808,10 @@
 
 .groupSetting .cellbox .van-icon {
   display: block;
+}
+
+.groupSetting .cellbox .van-switch--on {
+  border: none;
 }
 
 .groupSetting .border-bottom2 {
@@ -829,7 +846,7 @@
 }
 
 .groupMember .ul_class li .time {
-  color: #595962;
+  color: #71717f;
   font-size: .24rem;
 }
 
@@ -846,19 +863,18 @@
 
 .groupMember .ul_class li .btn_member {
   width: 1.24rem;
-  height: .48rem;
   background-color: #12121f;
   border-radius: .24rem;
   font-size: .24rem;
   border: 1px solid #FF4E3E;
-  line-height: .45rem;
+  line-height: .48rem;
   text-align: center;
   color: #FF4E3E;
 }
 
 .groupMember .ul_class li .btn_member_gray {
-  border: 1px solid #595962;
-  color: #595962;
+  border: 1px solid #71717f;
+  color: #71717f;
 }
 
 .groupMember .van-search__content {
@@ -932,7 +948,7 @@
   background-color: #1e1e2a;
   height: 0.72rem;
   border-radius: 0.36rem;
-  padding: 0 0.2rem;
+  padding: 0 0.1rem;
 }
 
 .memberDataDetail .chooseBox .peopleBox .imgBox {
@@ -947,12 +963,12 @@
 }
 
 .memberDataDetail .chooseBox .peopleBox .iconfont {
-  color: #595962;
+  color: #71717f;
 }
 
 .memberDataDetail .chooseBox .dateBox {
   font-size: 0.24rem;
-  color: #595962;
+  color: #71717f;
   background-color: #1e1e2a;
   height: 0.72rem;
   border-radius: 0.36rem;
@@ -979,7 +995,7 @@
 
 .memberDataDetail .dataBox .dataItem {
   background-color: #1e1e2a;
-  padding: 0.4rem;
+  padding: 0.4rem 0.4rem 0.1rem;
   border-radius: 8px;
   margin-bottom: 0.24rem;
 }
@@ -995,7 +1011,7 @@
       -ms-flex-pack: start;
           justify-content: flex-start;
   font-size: 0.28rem;
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.4rem;
 }
 
 .memberDataDetail .dataBox .dataItem .typeBox img {
@@ -1042,7 +1058,7 @@
 }
 
 .memberDataDetail .dataBox .dataItem .detail .detailItem .numDesc {
-  color: #595962;
+  color: #71717f;
   font-size: 0.2rem;
   line-height: 0.4rem;
 }
@@ -1074,6 +1090,7 @@
   width: 50%;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  margin-bottom: 0.3rem;
 }
 
 .memberDataDetail .peopleListBox .peopleBox .imgBox {

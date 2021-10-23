@@ -28,7 +28,7 @@
           </div>
           <div class="detail">
             <div class="detailItem">
-              <div class="numBox">{{recordData[key].number}}</div>
+              <div class="numBox">{{recordData[key].number.toLocaleString()}}</div>
               <div class="numDesc">跳绳个数(个)</div>
             </div>
             <div class="detailItem">
@@ -36,23 +36,20 @@
               <div class="numDesc">用时</div>
             </div>
             <div class="detailItem">
-              <div class="numBox">{{(recordData[key].burn/1000).toFixed(1)}}</div>
+              <div class="numBox">{{parseInt(recordData[key].burn/1000).toLocaleString()}}</div>
               <div class="numDesc">消耗(kcal)</div>
             </div>
             <div class="detailItem">
-              <div class="numBox">{{recordData[key].totoalSection||0}}</div>
-              <div class="numDesc">绊绳(次)</div>
+              <div class="numBox">{{recordData[key].maxBpm||0}}</div>
+              <div class="numDesc">最快频次(次/分)</div>
             </div>
+            <div class="detailItem"></div>
             <div class="detailItem" v-if="recordData[key].doubleJump>0||recordData[key].tripleJump>0">
               <div class="numBox">{{(recordData[key].doubleJump||"--")+'/'+(recordData[key].tripleJump||"--")}}
               </div>
               <div class="numDesc">双/三摇</div>
             </div>
 
-            <div class="detailItem">
-              <div class="numBox">{{recordData[key].maxBpm||0}}</div>
-              <div class="numDesc">最快频次(次/分)</div>
-            </div>
           </div>
         </div>
         <!-- 腕力球 -->
@@ -63,7 +60,7 @@
           </div>
           <div class="detail">
             <div class="detailItem">
-              <div class="numBox">{{recordData[key].count}}</div>
+              <div class="numBox">{{recordData[key].count.toLocaleString()}}</div>
               <div class="numDesc">圈数(圈)</div>
             </div>
             <div class="detailItem">
@@ -71,7 +68,7 @@
               <div class="numDesc">用时</div>
             </div>
             <div class="detailItem">
-              <div class="numBox">{{(recordData[key].burn/1000).toFixed(1)}}</div>
+              <div class="numBox">{{parseInt(recordData[key].burn/1000).toLocaleString()}}</div>
               <div class="numDesc">消耗(kcal)</div>
             </div>
             <div class="detailItem">
@@ -80,7 +77,7 @@
             </div>
             <div class="detailItem"></div>
             <div class="detailItem">
-              <div class="numBox">{{recordData[key].maxRate}}</div>
+              <div class="numBox">{{recordData[key].maxRate.toLocaleString()}}</div>
               <div class="numDesc">最大转速(rpm)</div>
             </div>
           </div>
@@ -93,7 +90,7 @@
           </div>
           <div class="detail">
             <div class="detailItem">
-              <div class="numBox">{{recordData[key].finishCount}}</div>
+              <div class="numBox">{{(recordData[key].finishCount).toLocaleString()}}</div>
               <div class="numDesc">次数(次)</div>
             </div>
             <div class="detailItem">
@@ -101,7 +98,7 @@
               <div class="numDesc">用时</div>
             </div>
             <div class="detailItem">
-              <div class="numBox">{{(recordData[key].burn/1000).toFixed(1)}}</div>
+              <div class="numBox">{{parseInt(recordData[key].burn/1000).toLocaleString()}}</div>
               <div class="numDesc">消耗(kcal)</div>
             </div>
             <div class="detailItem">
@@ -123,14 +120,14 @@
           </div>
           <div class="detail">
             <div class="detailItem">
-              <div class="numBox">{{recordData[key].steps}}</div>
+              <div class="numBox">{{recordData[key].steps.toLocaleString()}}</div>
               <div class="numDesc">步数(步)</div>
             </div>
             <div class="detailItem">
 
             </div>
             <div class="detailItem">
-              <div class="numBox">{{(recordData[key].distance/1000).toFixed(1)}}</div>
+              <div class="numBox">{{parseInt(recordData[key].distance/1000).toLocaleString()}}</div>
               <div class="numDesc">距离(公里)</div>
             </div>
           </div>

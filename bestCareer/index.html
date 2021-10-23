@@ -34,14 +34,14 @@
 					</div>
 					<div class="dataBox">
 						<div class="dataItem">
-							<div class="num">{{item.mostSteps}}</div>
+							<div class="num">{{item.mostSteps||'--'}}</div>
 							<div class="info">最多步数(步)</div>
 						</div>
 						<div class="dataItem">
 							
 						</div>
 						<div class="dataItem">
-							<div class="num">{{(item.maxDistance/1000).toFixed(2)}}</div>
+							<div class="num">{{item.maxDistance?(item.maxDistance/1000).toFixed(2):'--'}}</div>
 							<div class="info">最远距离(公里)</div>
 						</div>
 					</div>
@@ -56,25 +56,25 @@
 					</div>
 					<div class="dataBox">
 						<div class="dataItem">
-							<div class="num">{{item.mostCount}}</div>
+							<div class="num">{{item.mostCount||'--'}}</div>
 							<div class="info">最多个数(个)</div>
 						</div>
 						<div class="dataItem">
-							<div class="num">{{secondsFormat(item.longestDuration)}}</div>
+							<div class="num">{{item.longestDuration?secondsFormat(item.longestDuration):'--'}}</div>
 							<div class="info">最长时间</div>
 						</div>
 						<div class="dataItem">
-							<div class="num">{{item.mostHolding}}</div>
+							<div class="num">{{item.mostHolding||'--'}}</div>
 							<div class="info">最多连续跳绳(个)</div>
 						</div>
 						<div class="dataItem">
-							<div class="num">{{item.mostFreq}}</div>
+							<div class="num">{{item.mostFreq||'--'}}</div>
 							<div class="info">最快频次(次/分)</div>
 						</div>
 						<div class="dataItem">
 						</div>
 						<div class="dataItem" v-if="item.tripleJumpCount">
-							<div class="num">{{item.tripleJumpCount}}</div>
+							<div class="num">{{item.tripleJumpCount||'--'}}</div>
 							<div class="info">双三摇最多个数(个)</div>
 						</div>
 
@@ -91,23 +91,23 @@
 					</div>
 					<div class="dataBox">
 						<div class="dataItem">
-							<div class="num">{{item.maxCount||0}}</div>
+							<div class="num">{{item.maxCount||"--"}}</div>
 							<div class="info">最多次数(次)</div>
 						</div>
 						<div class="dataItem">
 						</div>
 						<div class="dataItem">
-							<div class="num">{{item.getMostStandardRate}}%</div>
+							<div class="num">{{item.getMostStandardRate?item.getMostStandardRate+'%':'--'}}</div>
 							<div class="info">最高达标率</div>
 						</div>
 						<div class="dataItem">
-							<div class="num">{{secondsFormat(item.longestDuration)}}</div>
+							<div class="num">{{item.longestDuration?secondsFormat(item.longestDuration):'--'}}</div>
 							<div class="info">最长时间</div>
 						</div>
 						<div class="dataItem">
 						</div>
 						<div class="dataItem">
-							<div class="num">{{item.mostFreq}}</div>
+							<div class="num">{{item.mostFreq||'--'}}</div>
 							<div class="info">最快频次(次/分)</div>
 						</div>
 
@@ -124,24 +124,24 @@
 					</div>
 					<div class="dataBox">
 						<div class="dataItem">
-							<div class="num">{{item.maxCount}}</div>
+							<div class="num">{{item.maxCount||'--'}}</div>
 							<div class="info">最多圈数(圈)</div>
 						</div>
 						<div class="dataItem">
 
 						</div>
 						<div class="dataItem">
-							<div class="num">{{item.maxRate}}</div>
+							<div class="num">{{item.maxRate|'--'}}</div>
 							<div class="info">最大转速(rpm)</div>
 						</div>
 						<div class="dataItem">
-							<div class="num">{{item.maxStrength/1000}}</div>
+							<div class="num">{{item.maxStrength?item.maxStrength/1000:'--'}}</div>
 							<div class="info">最大力量(kg)</div>
 						</div>
 						<div class="dataItem">
 						</div>
 						<div class="dataItem">
-							<div class="num">{{secondsFormat(item.maxMs)}}</div>
+							<div class="num">{{item.maxMs?secondsFormat(item.maxMs):'--'}}</div>
 							<div class="info">最长时间</div>
 						</div>
 

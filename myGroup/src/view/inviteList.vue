@@ -297,3 +297,8 @@ export default {
   border: 1px solid #1e1e2a;
 }
 </style>
+<style >
+.van-index-anchor--sticky {
+  background-color: transparent;
+}
+</style>

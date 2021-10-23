@@ -85,12 +85,12 @@
                   <div class="deviceItem" v-if="item2.deviceType=='balance'">
                     <img class="deviceImg" :src="require('../img/group_tzc.png')" alt="">
                     <div class="deviceData">
-                      <span>体重:</span>
+                      <span>体重: </span>
                       <span class="num">{{item2.weight}}</span>
                       <span>kg</span>
                     </div>
                     <div class="deviceData">
-                      <span>体脂:</span>
+                      <span>体脂: </span>
                       <span class="num">{{item2.bfr.toFixed(1)}}</span>
                       <span>%</span>
                     </div>
@@ -98,24 +98,24 @@
                   <div class="deviceItem" v-else-if="item2.deviceType=='skipping'">
                     <img class="deviceImg" :src="require('../img/group_ts.png')" alt="">
                     <div class="deviceData">
-                      <span>个数:</span>
+                      <span>个数: </span>
                       <span class="num">{{item2.number}}</span>
                       <span>个</span>
                     </div>
                     <div class="deviceData">
-                      <span>用时:</span>
+                      <span>用时: </span>
                       <span class="num">{{returnTime(item2.takeMs)}}</span>
                     </div>
                   </div>
                   <div class="deviceItem" v-else-if="item2.deviceType=='wristball'">
                     <img class="deviceImg" :src="require('../img/group_wlq.png')" alt="">
                     <div class="deviceData">
-                      <span>圈数:</span>
+                      <span>圈数: </span>
                       <span class="num">{{ item2.number?(item2.number/10000).toFixed(3):0 }}</span>
                       <span>万</span>
                     </div>
                     <div class="deviceData">
-                      <span>用时:</span>
+                      <span>用时: </span>
                       <span class="num">{{returnTime(item2.takeMs)}}</span>
                     </div>
                   </div>
@@ -123,24 +123,24 @@
                   <div class="deviceItem" v-else-if="item2.deviceType=='wheel'">
                     <img class="deviceImg" :src="require('../img/group_jfl.png')" alt="">
                     <div class="deviceData">
-                      <span>次数:</span>
+                      <span>次数: </span>
                       <span class="num">{{item2.number}}</span>
                       <span>个</span>
                     </div>
                     <div class="deviceData">
-                      <span>用时:</span>
+                      <span>用时: </span>
                       <span class="num">{{returnTime(item2.takeMs)}}</span>
                     </div>
                   </div>
                   <div class="deviceItem" v-else-if="item2.deviceType=='steps'">
                     <img class="deviceImg" :src="require('../img/group_step.png')" alt="">
                     <div class="deviceData">
-                      <span>步数:</span>
+                      <span>步数: </span>
                       <span class="num">{{item2.steps}}</span>
                       <span>步</span>
                     </div>
                     <div class="deviceData">
-                      <span>距离:</span>
+                      <span>距离: </span>
                       <span class="num">{{item2.distance||0}}</span>
                       <span>米</span>
                     </div>
@@ -152,7 +152,7 @@
           </ul>
           <div v-if="userIdData.length==0" class="nullDataBox">
             <img style="width:2rem" :src="require('../img/noData.png')" alt="">
-            <p>今日无运动</p>
+            <p>当日无运动</p>
           </div>
         </div>
       </div>
@@ -165,7 +165,7 @@
 
       </div>
 
-      <van-popup v-model="dateshow" position="bottom" style="z-index: 9999;">
+      <van-popup v-model="dateshow" round position="bottom" style="z-index: 9999;">
         <van-datetime-picker confirm-button-text="确定" v-model="currentDate" type="date" title="" :min-date="minDate" :max-date="maxDate" :formatter="formatter" swipe-duration=100 @confirm="dateConfirm" @cancel="dateshow = false" />
       </van-popup>
 
@@ -499,7 +499,8 @@ export default {
 </style>
 <style scoped>
 .nullDataBox {
-  padding-top: 0;
+  padding-top: 0.5rem;
+  border-top: 0.02rem solid #1e1e2a;
 }
 
 .van-nav-bar {

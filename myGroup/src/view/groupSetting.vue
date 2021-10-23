@@ -11,14 +11,14 @@
     </div>
     <van-loading type="spinner" vertical v-show="overlayShow"></van-loading>
     <!-- 人数box -->
-    <div class="cellbox " @click="goMember(4)">
+    <div class="cellbox " @click="goMember(4)" style="border-bottom:none;">
       <div class="title">小组成员</div>
       <div class="rightBox">
         <div class="detail">{{groupItem.count}}人</div>
         <span class="icon iconfont icon-tongyong-gengduo" />
       </div>
     </div>
-    <div class="cellbox   border-bottom2" style="justify-content:flex-start">
+    <div class="cellbox   border-bottom2" style="justify-content:flex-start;padding-top:0;">
       <template v-for="(item,index) in memberIcon">
         <div class="groupMember " v-if="index<=(isCurrentUser?(groupItem.count==10?3:2):3)">
           <div class="imgbox ">
@@ -111,7 +111,7 @@
     <!-- 小组邀请确认 -->
     <div class="cellbox  " v-if="isCurrentUser">
       <div class="title">小组邀请确认</div>
-      <van-switch active-color="#07c160" @change="switchChange(false)" :active-value="1" :inactive-value="0" v-model="groupItem.isInviteConfirm" size="20"></van-switch>
+      <van-switch active-color="#3AD266" @change="switchChange(false)" :active-value="1" :inactive-value="0" v-model="groupItem.isInviteConfirm" size="20"></van-switch>
     </div>
     <!-- 我在小组中昵称 -->
     <div class="cellbox  " @click="goChangeNickname">
@@ -240,7 +240,7 @@ export default {
       this.overlayShow = true;
       pictureReview(file, (res) => {
         this.overlayShow = false;
-		if(res.code!=0)return;
+        if (res.code != 0) return;
         this.groupItem.portrait = res.url;
         upDateGroup(this.groupItem).then((res) => {
           this.$store.commit("setData", {
@@ -248,7 +248,7 @@ export default {
             val: res.url,
           });
         });
-      })
+      });
     },
     goMember(flag) {
       //1组长转让 2 组长转让并退出  3移除成员  4 成员列表

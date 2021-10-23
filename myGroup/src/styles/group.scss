@@ -17,7 +17,7 @@
 
 
 //黑字
-$text_color:#595962;
+$text_color:#71717f;
 //白字
 $text_color_white:#CFCFD2;
 //黑色背景
@@ -64,19 +64,19 @@ $border_color:#1e1e2a;
 }
 
 .myGroupList {
-    padding: 0 0.3rem;
+    padding: 0 0.24rem;
 
     .labelTitle {
         color: #CFCFD2;
         font-size: 0.36rem;
-        padding: 0.3rem 0;
+        padding: 0.24rem 0;
     }
 
     .groupBox {
         ul {
             li {
                 box-sizing: border-box;
-                padding: 0.3rem 0 0;
+                padding-bottom: 0.32rem;
 
                 .groupImg {
                     width: 1.76rem;
@@ -90,7 +90,7 @@ $border_color:#1e1e2a;
 
                 .groupInfo {
                     margin-left: 2rem;
-                    padding-bottom: 0.3rem;
+                    padding-bottom: 0.32rem;
                     border-bottom: 1px solid #1E1E2A;
 
                     .nameBox {
@@ -203,6 +203,7 @@ $border_color:#1e1e2a;
                 background-repeat: no-repeat;
                 width: 100%;
                 height: 100%;
+                border-radius: 12px;
             }
         }
 
@@ -216,6 +217,10 @@ $border_color:#1e1e2a;
         //     height: 2.4rem;
         //     border-radius: 5px;
         // }
+    }
+
+    .van-cell {
+        padding: 0.08rem 0.16rem;
     }
 
     .uploaderTxt {
@@ -339,7 +344,7 @@ $border_color:#1e1e2a;
             position: absolute;
             box-sizing: border-box;
             padding: 0 0.3rem;
-            bottom: 1.5rem;
+            bottom: 1.8rem;
             width: 100%;
             z-index: 10;
 
@@ -386,7 +391,7 @@ $border_color:#1e1e2a;
 
                 .labelBox {
                     display: flex;
-                    height: 0.5rem;
+                    height: 0.4rem;
                     align-items: flex-end;
 
                     .labelItem {
@@ -395,7 +400,7 @@ $border_color:#1e1e2a;
                         line-height: 0.32rem;
                         padding: 0 4px;
                         margin-right: 0.2rem;
-                        height: 0.32rem;
+                        // height: 0.32rem;
                         border-radius: 5px;
                         white-space: nowrap;
                     }
@@ -405,25 +410,31 @@ $border_color:#1e1e2a;
     }
 
     .containBox {
+        .icon-tongyong-gengduo {
+            color: #71717f;
+        }
+
         color: $text_color_white;
         position: relative;
         z-index: 99;
         background-color: $bg_color;
+        border-radius: 0.5rem 0.5rem 0 0;
+        overflow: hidden;
+        top: 4rem;
+        position: absolute;
+        width: 100%;
 
         .noticeBox {
             border-bottom: 1px $border_color solid;
-            border-radius: 0.8rem 0.8rem 0 0;
             padding: 0 0.3rem;
             box-sizing: border-box;
-            position: absolute;
             background-color: $bg_color;
-            width: 100%;
             z-index: 2;
             display: flex;
             justify-content: space-between;
             align-items: center;
             height: 1.2rem;
-            top: -1.5rem;
+
 
             .noticeBoxLeft {
                 display: flex;
@@ -451,7 +462,7 @@ $border_color:#1e1e2a;
 
         .memberBox {
             background-color: $bg_color;
-            padding: 0.3rem 0.3rem;
+            padding: 0.24rem 0.24rem;
 
             .title {
                 height: 0.7rem;
@@ -489,6 +500,7 @@ $border_color:#1e1e2a;
 
                     .numP {
                         font-size: 0.28rem;
+                        color: #71717f;
                     }
 
                     .iconRight {
@@ -508,14 +520,14 @@ $border_color:#1e1e2a;
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
-                padding: 0 0.3rem;
+                padding: 0 0.24rem;
 
                 .dateTitle {
                     font-size: 0.32rem;
                 }
 
                 .chooseDate {
-                    font-size: 0.4rem;
+                    font-size: 0.35rem;
                 }
             }
 
@@ -548,6 +560,7 @@ $border_color:#1e1e2a;
 
                                 .name {
                                     font-size: 0.28rem;
+                                    line-height: 0.35rem;
                                 }
 
                                 .idInfo {
@@ -625,6 +638,7 @@ $border_color:#1e1e2a;
             -webkit-box-pack: center;
             -ms-flex-pack: center;
             justify-content: center;
+            background-image: linear-gradient(to bottom, rgba(18, 18, 31, 0), rgba(18, 18, 31, 1));
 
 
             .btn {
@@ -730,7 +744,7 @@ $border_color:#1e1e2a;
             justify-content: flex-end;
 
             .labelItem {
-                color: #999999;
+                color: #71717f;
                 font-size: 0.2rem;
                 line-height: 0.32rem;
                 padding: 0 0.08rem;
@@ -747,6 +761,10 @@ $border_color:#1e1e2a;
 
         .van-icon {
             display: block;
+        }
+
+        .van-switch--on {
+            border: none;
         }
 
 
@@ -805,12 +823,12 @@ $border_color:#1e1e2a;
 
             .btn_member {
                 width: 1.24rem;
-                height: .48rem;
+                // height: .48rem;
                 background-color: $bg_color;
                 border-radius: .24rem;
                 font-size: .24rem;
                 border: 1px solid #FF4E3E;
-                line-height: .45rem;
+                line-height: .48rem;
                 text-align: center;
                 color: #FF4E3E;
             }
@@ -887,7 +905,7 @@ $border_color:#1e1e2a;
             background-color: $border_color;
             height: 0.72rem;
             border-radius: 0.36rem;
-            padding: 0 0.2rem;
+            padding: 0 0.1rem;
 
             .imgBox {
                 width: 0.48rem;
@@ -930,7 +948,7 @@ $border_color:#1e1e2a;
 
         .dataItem {
             background-color: $border_color;
-            padding: 0.4rem;
+            padding: 0.4rem 0.4rem 0.1rem;
             border-radius: 8px;
             margin-bottom: 0.24rem;
 
@@ -946,7 +964,7 @@ $border_color:#1e1e2a;
                 }
 
                 font-size: 0.28rem;
-                margin-bottom: 0.3rem;
+                margin-bottom: 0.4rem;
             }
 
             .detail {
@@ -1006,6 +1024,7 @@ $border_color:#1e1e2a;
             padding: 0 0.2rem;
             width: 50%;
             box-sizing: border-box;
+            margin-bottom: 0.3rem;
 
             .imgBox {
                 width: 0.48rem;

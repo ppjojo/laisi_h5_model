@@ -37,6 +37,7 @@
 		<div class="weekBox" v-if="reportData.takeMs||reportData.burn||reportData.reportRecordDto.length>0">
 			<div class="topPic">
 				<img class="bg" src="./img/month_topPic.png" alt="">
+				<img class="black" src="./img/black.png" alt="">
 			</div>
 			<div class="infoBox" v-if="reportData.headPictureUrl">
 				<img class="headerpic"  :src="reportData.headPictureUrl" alt="">
@@ -246,7 +247,7 @@
 										<p class="text_descript align_left">总时长</p>
 									</div>
 									<div style="padding-left: 0.5rem;">
-										<div class="text_data align_right">
+										<div class="text_data align_left">
 											{{item.maxRate}}
 										</div>
 										<p class="text_descript align_left">最大转速(rpm)</p>
@@ -298,7 +299,7 @@
 								</div>
 								<div>
 									<div class="text_data align_right">
-										{{item.income}}
+										{{item.income/100}}
 									</div>
 									<p class="text_descript align_right">累计收益(元)</p>
 								</div>
@@ -328,7 +329,7 @@
 			</div>
 
 		</div>
-		
+		<van-loading class="loadingBox" v-else-if="!finished"></van-loading>
 		<div class="nullbox" v-else-if="finished">
 			<img src="../common/img/noData.png" alt="">
 			<p>暂无运动月报</p>
@@ -357,6 +358,7 @@
 				startTime:localStorage.getItem("report_startTime")||getQueryString("startTime"),
 				endTime:localStorage.getItem("report_endTime")||getQueryString("endTime"),
 				sheetImageStatus: false,
+				finished:false,
 				reportData: {
 					headPictureUrl:"",
 					nickName:"",
@@ -589,6 +591,7 @@
 			},
 			//初始化获取数据
 			initData() {
+				this.finished=false;
 				ajax({
 					url: getQueryString("isShare")?"sportClock/share/getMonthSportReport":"sportClock/getMonthSportReport",
 					data: {
@@ -610,6 +613,7 @@
 							}
 						});
 					}
+					this.finished=true;
 				})
 			},
 

@@ -62,10 +62,10 @@
 								<div class="classifyItem">
 									{{classDetail.actionSize}}个{{classDetail.actionOrClass?'动作':'内容'}}</div>
 								<div class="classifyItem">不限训练频次</div>
-								<div class="classifyItem">{{classDetail.classKitName}}</div>
+								<div class="classifyItem" v-for="item in classDetail.classKitList">{{item.classKitName}}</div>
 							</div>
 							<div class="transPeopleCount">
-								{{classDetail.sumExercise>100000?(classDetail.sumExercise/100000).toFixed(2):classDetail.sumExercise}}人练过
+								{{classDetail.sumExercise>10000?(classDetail.sumExercise/10000).toFixed(2)+'w':classDetail.sumExercise}}人练过
 							</div>
 						</div>
 						<div class="information">
@@ -465,6 +465,11 @@
 				}).then(res => {
 					if (res.code == 0) {
 						this.classDetail.isNotCollect = !this.classDetail.isNotCollect;
+						if (this.classDetail.isNotCollect) {
+							this.$toast('已取消')
+						}else{
+							this.$toast('收藏成功，请至“我的-我的课程”页面查看')
+						}
 					} else {
 						this.$toast(res.msg)
 					}
@@ -491,16 +496,22 @@
 						if (item.dadCommendId) {
 							if (item.likeStatus) {
 								item.dadCommendLikeCount--;
+								this.$toast("已取消")
 							} else {
 								item.dadCommendLikeCount++;
+								this.$toast("点赞成功")
 							}
+							
 
 						} else {
 							if (item.likeStatus) {
 								item.dadCommendLikeCount--;
+								this.$toast("已取消")
 							} else {
 								item.dadCommendLikeCount++;
+								this.$toast("点赞成功")
 							}
+							
 						}
 						item.likeStatus = !item.likeStatus
 
