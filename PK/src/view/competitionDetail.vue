@@ -746,7 +746,7 @@ export default {
           description: "派健康--爱自己，爱生活",
           url:
             defaultSettings.host +
-            `h5/h5V3/skipPK/#/competitionDetail?id=${this.competitionItem.id}`,
+            `h5/h5V3/PK/#/competitionDetail?id=${this.competitionItem.id}&type=${this.type}`,
         });
       } else if (obj.type == 2) {
         this.destroyed();

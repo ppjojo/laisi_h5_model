@@ -422,7 +422,7 @@ body {
           justify-content: space-between;
 }
 
-.contain .iconBox img {
+.contain .iconBox .img1 {
   width: 2.4rem;
 }
 
@@ -454,7 +454,7 @@ body {
   color: #71717f;
 }
 
-.contain .iconBox .userBox img {
+.contain .iconBox .userBox .img2 {
   width: 0.8rem;
   height: 0.8rem;
   border-radius: 50%;

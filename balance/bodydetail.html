@@ -325,13 +325,13 @@
 				声明：所有数据仅供参考，不建议以此数据作为医疗或者健康状况的判断依据
 			</div>
 			<div v-if="isShare" class="iconBox">
-				<img src="img/lsicon.png"  alt="">
+				<img class="img1" src="img/lsicon.png"  alt="">
 				<div class="userBox" v-if="isShare">
 					<div class="nameBox">
 						<p class="name">{{user.nickname}}</p>
 						<p class="date">{{shareTime}}</p>
 					</div>
-					<img :src="user.headPictureUrl" alt="">
+					<img class="img2" :src="user.headPictureUrl" alt="">
 				</div>
 			</div>
 		</div>
