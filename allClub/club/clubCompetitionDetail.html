@@ -106,7 +106,7 @@
 									</van-col>
 									<van-col span="8" class="personalName van-ellipsis" 
 										@click="Interaction.visitPersonalHomepage(item.userId)">
-										{{ item.nickName  }}
+										{{ item.nickName | ellipsis4  }}
 									</van-col>
 									<van-col span="4" class="align-right"><span
 											class="bigNumberSpan">{{item.repeatNumber||'--'}}</span>次</van-col>
@@ -156,7 +156,7 @@
 												<img src="./img/draw.png"
 													v-else-if="competitionStatus==3&&teamList[0].win==0"
 													class="resultPic" />
-												<van-col span="24" class="">{{teamList[0].name}}</van-col>
+												<van-col span="24" class="">{{teamList[0].name | ellipsis4}}</van-col>
 											</van-row>
 											<van-row class="teamTitle" style="margin-bottom: 0.1rem">
 												<van-col span="24" class="" v-if="competitionItem.mode==2"><span
@@ -210,7 +210,7 @@
 												<img src="./img/draw.png"
 													v-else-if="competitionStatus==3&&teamList[1].win==0"
 													class="resultPic" />
-												<van-col span="24" class="">{{teamList[1].name}}</van-col>
+												<van-col span="24" class="">{{teamList[1].name | ellipsis4}}</van-col>
 											</van-row>
 											<van-row class="teamTitle" style="margin-bottom: 0.1rem">
 												<van-col span="24" class="" v-if="competitionItem.mode==2"><span

@@ -36,7 +36,7 @@
 				</van-nav-bar>
 			</div>
 			<div class="list answer">
-				<div class="listItem " v-for="(item,index) in dataList" @click="clickQuestion(item)">
+				<div class="listItem " v-for="(item,index) in dataList" @click="clickQuestion(item,index)">
 					<div>{{index+1}}.{{item.title}}</div>
 					<div><img src="img/icon_right.png" alt=""></div>
 				</div>
@@ -61,8 +61,8 @@
 					this.getList()
 				},
 				methods: {
-					clickQuestion(item){
-						window.location.href = "answer.html?qa=" + item.operationManual + '&userId='+ getQueryString('userId')+'&title='+item.title+'&topTitle='+this.title;
+					clickQuestion(item,index){
+						window.location.href = "answer.html?qa=" + index + '&userId='+ getQueryString('userId')+'&title='+item.title+'&topTitle='+this.title+'&id='+getQueryString('id');
 					},
 					getList(){
 						var _self = this;
