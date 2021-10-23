@@ -2,467 +2,444 @@
 <html>
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport"
-		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
-	<title>创建俱乐部(1/3)</title>
-	<!-- 引入样式文件 -->
-	<link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
-	<link rel="stylesheet" href="css/clubCreateCompetition.css">
-	<link rel="stylesheet" href="css/memberSetting.css">
-	<link rel="stylesheet" href="../font/iconfont.css">
-	<link href="../clubList_Detail/css/header.css" rel="stylesheet" type="text/css" />
-	<style type="text/css">
-		.van-hairline--top-bottom::after,
-		.van-hairline-unset--top-bottom::after {
-			border-width: 0;
-		}
-
-		.van-uploader__preview-image {
-			width: 2.4rem;
-			height: 2.4rem;
-			margin: 0 auto;
-			background-position: center center;
-			background-size: cover;
-		}
-
-		.van-uploader__preview-delete {
-			background-color: transparent;
-		}
-
-		.van-uploader__preview-image img {
-			width: 100%;
-			height: 100%;
-		}
-	</style>
-	<style type="text/css">
-		.van-cell::after {
-			border-bottom: none;
-		}
-
-		.van-hairline--top-bottom::after,
-		.van-hairline-unset--top-bottom::after {
-			border-width: 0;
-		}
-
-		.clubtype {
-			font-size: .24rem;
-			vertical-align: middle;
-			text-align: center;
-			color: #71717f;
-		}
-
-		.clubtype .clubtypeicon {
-			width: .72rem;
-			height: .72rem;
-			border-radius: 100%;
-			background-color: #1E1E2A;
-			margin: 0 auto .2rem;
-		}
-
-		.clubtype .active {
-			background-color: #1182ff;
-		}
-
-		.clubtag .active {
-			background-color: #ff7518;
-		}
-
-
-
-		
-
-		.ctype img {
-			width: .4rem;
-			
-		}
-
-
-
-		.clubtag .clubtypeicon img {
-			height: .55rem !important;
-		}
-
-		.cellbox {
-			border-bottom: .02rem solid #1E1E2A;
-			height: 1.2rem;
-			line-height: 1.2rem;
-		}
-
-		.van-switch {
-			width: 1.2rem;
-		}
-		.van-cell__value span,.van-field__word-limit{
-			color: #71717f;
-		}
-		textarea::placeholder {
-			color: #71717f!important;
-		}
-		.van-cell__value span{
-			color:#71717f;
-		}
-	</style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+    <title>创建俱乐部(1/3)</title>
+    <!-- 引入样式文件 -->
+    <link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
+    <link rel="stylesheet" href="css/clubCreateCompetition.css">
+    <link rel="stylesheet" href="css/memberSetting.css">
+    <link rel="stylesheet" href="../font/iconfont.css">
+    <link href="../clubList_Detail/css/header.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        .van-hairline--top-bottom::after,
+        .van-hairline-unset--top-bottom::after {
+            border-width: 0;
+        }
+        
+        .van-uploader__preview-image {
+            width: 2.4rem;
+            height: 2.4rem;
+            margin: 0 auto;
+            background-position: center center;
+            background-size: cover;
+        }
+        
+        .van-uploader__preview-delete {
+            background-color: transparent;
+        }
+        
+        .van-uploader__preview-image img {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    <style type="text/css">
+        .van-cell::after {
+            border-bottom: none;
+        }
+        
+        .van-hairline--top-bottom::after,
+        .van-hairline-unset--top-bottom::after {
+            border-width: 0;
+        }
+        
+        .clubtype {
+            font-size: .24rem;
+            vertical-align: middle;
+            text-align: center;
+            color: #71717f;
+        }
+        
+        .clubtype .clubtypeicon {
+            width: .72rem;
+            height: .72rem;
+            border-radius: 100%;
+            background-color: #1E1E2A;
+            margin: 0 auto .2rem;
+        }
+        
+        .clubtype .active {
+            background-color: #1182ff;
+        }
+        
+        .clubtag .active {
+            background-color: #ff7518;
+        }
+        
+        .ctype img {
+            width: .4rem;
+        }
+        
+        .clubtag .clubtypeicon img {
+            height: .55rem !important;
+        }
+        
+        .cellbox {
+            border-bottom: .02rem solid #1E1E2A;
+            height: 1.2rem;
+            line-height: 1.2rem;
+        }
+        
+        .van-switch {
+            width: 1.2rem;
+        }
+        
+        .van-cell__value span,
+        .van-field__word-limit {
+            color: #71717f;
+        }
+        
+        textarea::placeholder {
+            color: #71717f!important;
+        }
+        
+        .van-cell__value span {
+            color: #71717f;
+        }
+    </style>
 </head>
 
 <body>
-	<div id="app" class="normalHeader" v-cloak>
-		<div class="header">
-			<van-nav-bar @click-left="onclickLeft" :title="'创建俱乐部('+flag+'/3)'" left-arrow safe-area-inset-top fixed>
-				<template #left>
+    <div id="app" class="normalHeader" v-cloak>
+        <div class="header">
+            <van-nav-bar @click-left="onclickLeft" :title="'创建俱乐部('+flag+'/3)'" left-arrow safe-area-inset-top fixed>
+                <template #left>
 					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
 				</template>
 
-			</van-nav-bar>
-		</div>
-		<div v-if="flag==1">
-			<div class="laberDiv">俱乐部形象
-			</div>
-			<div style="padding:.5rem 0.2rem .5rem 0.2rem;text-align: center;">
-				<van-uploader upload-icon="plus" :deletable="false" :max-count="1" :after-read="afterRead" />
-				<div class="van-image van-uploader__preview-image"
-					:style="{'background-image':'url('+submitform.photo+')'}" v-if="submitform.photo">
-				</div>
-			</div>
+            </van-nav-bar>
+        </div>
+        <div v-if="flag==1">
+            <div class="laberDiv">俱乐部形象
+            </div>
+            <div style="padding:.5rem 0.2rem .5rem 0.2rem;text-align: center;">
+                <van-uploader upload-icon="plus" :deletable="false" :max-count="1" :after-read="afterRead" />
+                <div class="van-image van-uploader__preview-image" :style="{'background-image':'url('+submitform.photo+')'}" v-if="submitform.photo">
+                </div>
+            </div>
 
-			<div style="color: #71717f;font-size: .28rem;text-align: center;">请选择一张图片作为俱乐部头像</div>
-			<van-button round class="submit" block @click="goNext1()" :color="submitform.photo?bgc:bgcgrey">下一步
-			</van-button>
+            <div style="color: #71717f;font-size: .28rem;text-align: center;">请选择一张图片作为俱乐部头像</div>
+            <van-button round class="submit" block @click="goNext1()" :color="submitform.photo?bgc:bgcgrey">下一步
+            </van-button>
 
-			<van-overlay :show="overlayShow" @click="show = false"
-				style="align-items: center;display: flex;justify-content: center;">
-				<van-loading size="0.7rem" color="#fff" vertical>
-					<p style="color:#fff;font-size:0.24rem">正在上传...</p>
-				</van-loading>
-			</van-overlay>
-		</div>
-		<div v-else-if="flag==2">
-			<div>
-				<div class="laberDiv">
-					俱乐部名称
-				</div>
-				<div style="padding:0 0.2rem 0.2rem 0.2rem;">
-					<van-field v-model="submitform.name" class="club-input"  rows="1" autosize
-						type="textarea" maxlength="16" placeholder="请为您的俱乐部取个响亮的名称吧～" show-word-limit />
-				</div>
-				<div class="laberDiv">
-					俱乐部简介
-				</div>
-				<div style="padding:0 0.2rem 0.2rem 0.2rem;">
-					<van-field v-model="submitform.introduce" class="club-input" rows="5" autosize type="textarea"
-						maxlength="100" placeholder="简单介绍一下您的俱乐部吧～" show-word-limit />
-				</div>
-			</div>
-			<van-button round class="submit" block @click="goNext2()"
-				:color="submitform.introduce&&submitform.name?bgc:bgcgrey">下一步</van-button>
-		</div>
+            <van-overlay :show="overlayShow" @click="show = false" style="align-items: center;display: flex;justify-content: center;">
+                <van-loading size="0.7rem" color="#fff" vertical>
+                    <p style="color:#fff;font-size:0.24rem">正在上传...</p>
+                </van-loading>
+            </van-overlay>
+        </div>
+        <div v-else-if="flag==2">
+            <div>
+                <div class="laberDiv">
+                    俱乐部名称
+                </div>
+                <div style="padding:0 0.2rem 0.2rem 0.2rem;">
+                    <van-field v-model="submitform.name" class="club-input" rows="1" autosize type="textarea" maxlength="16" placeholder="请为您的俱乐部取个响亮的名称吧～" show-word-limit />
+                </div>
+                <div class="laberDiv">
+                    俱乐部简介
+                </div>
+                <div style="padding:0 0.2rem 0.2rem 0.2rem;">
+                    <van-field v-model="submitform.introduce" class="club-input" rows="5" autosize type="textarea" maxlength="100" placeholder="简单介绍一下您的俱乐部吧～" show-word-limit />
+                </div>
+            </div>
+            <van-button round class="submit" block @click="goNext2()" :color="submitform.introduce&&submitform.name?bgc:bgcgrey">下一步</van-button>
+        </div>
 
-		<div v-else-if="flag==3">
-			<div class="listBox" @click="areaShow=true">
-				<div>所在城市</div>
-				<div class="rightBox">
-					{{form.cs}}
-					<span class="icon iconfont icon-tongyong-gengduo" style="font-size: 0.3rem;color: #71717f;"></span>
-				</div>
-			</div>
-			<div class="ctype" style="border-bottom: .02rem solid #1E1E2A;padding:0 0 .4rem 0;">
-				<div class="van-cell"><span>俱乐部类型</span></div>
-				<div class="ub ub-ad ub-ac">
-					<div class="clubtype" @click="submitform.type = '01'">
-						<div class="clubtypeicon ub ub-ac ub-pc" :class="submitform.type=='01'?'active':''">
-							<img  style="width:0.48rem" :src="submitform.type=='01'?'img/clubtype_school.png':'img/clubtype_school2.png'"  alt="">
-						</div>
-						<div>学校</div>
-					</div>
-					<div class="clubtype"
-						@click="submitform.type = '05';">
-						<div class="clubtypeicon ub ub-ac ub-pc" :class="submitform.type=='05'?'active':''">
-							<img :src="submitform.type=='05'?'img/clubtype_company.png':'img/clubtype_company2.png'"  alt="">
-						</div>
-						<div>企事业单位</div>
-					</div>
-					<div class="clubtype" @click="submitform.type = '03'">
-						<div class="clubtypeicon ub ub-ac ub-pc" :class="submitform.type=='03'?'active':''">
-							<img  style="width:0.45rem;" :src="submitform.type=='03'?'img/clubtype_gym.png':'img/clubtype_gym2.png'"  alt="">
-						</div>
-						<div>健身房</div>
-					</div>
-					<div class="clubtype" @click="submitform.type = '04'">
-						<div class="clubtypeicon ub ub-ac ub-pc" :class="submitform.type=='04'?'active':''">
-							<img :src="submitform.type=='04'?'img/clubtype_hobby.png':'img/clubtype_hobby2.png'" alt="">
-						</div>
-						<div>爱好者</div>
-					</div>
-				</div>
-			</div>
-			<div class="listBox">
-				<div>是否需要申请加入</div>
-				<div class="rightBox">
-					<van-switch @change="isclubpublic" active-color="#07c160" v-model="form.yqm" size="20"></van-switch>
-					</van-switch>
-				</div>
-			</div>
-			<div class="listBox" v-if="submitform.type == '05'">
-				<div>是否需要邀请码</div>
-				<div class="rightBox">
-					<van-switch @change="isclubinviteCode" active-color="#07c160" v-model="form.invitecode" size="20">
-					</van-switch>
-					</van-switch>
-				</div>
-			</div>
-			<div>
-				<div class="van-cell"><span>俱乐部标签</span></div>
-				<van-row type="flex" justify="space-around">
-					<van-col span="6">
-						<div class="clubtype clubtag" @click="submitform.label = '00'">
-							<div class="clubtypeicon ub ub-ac ub-pc" style="margin:0 auto .2rem;"
-								:class="submitform.label=='00'?'active':''">
-								<img :src="submitform.label=='00'?'img/jumpskip.png':'img/jumpskip2.png'" alt="">
-							</div>
-							<div>跳绳</div>
-						</div>
-					</van-col>
-					<van-col span="6"></van-col>
-					<van-col span="6"></van-col>
-					<van-col span="6"></van-col>
-				</van-row>
-			</div>
+        <div v-else-if="flag==3">
+            <div class="listBox" @click="areaShow=true">
+                <div>所在城市</div>
+                <div class="rightBox">
+                    {{form.cs}}
+                    <span class="icon iconfont icon-tongyong-gengduo" style="font-size: 0.3rem;color: #71717f;"></span>
+                </div>
+            </div>
+            <div class="ctype" style="border-bottom: .02rem solid #1E1E2A;padding:0 0 .4rem 0;">
+                <div class="van-cell"><span>俱乐部类型</span></div>
+                <div class="ub ub-ad ub-ac">
+                    <div class="clubtype" @click="submitform.type = '01'">
+                        <div class="clubtypeicon ub ub-ac ub-pc" :class="submitform.type=='01'?'active':''">
+                            <img style="width:0.48rem" :src="submitform.type=='01'?'img/clubtype_school.png':'img/clubtype_school2.png'" alt="">
+                        </div>
+                        <div>学校</div>
+                    </div>
+                    <div class="clubtype" @click="submitform.type = '05';">
+                        <div class="clubtypeicon ub ub-ac ub-pc" :class="submitform.type=='05'?'active':''">
+                            <img :src="submitform.type=='05'?'img/clubtype_company.png':'img/clubtype_company2.png'" alt="">
+                        </div>
+                        <div>企事业单位</div>
+                    </div>
+                    <div class="clubtype" @click="submitform.type = '03'">
+                        <div class="clubtypeicon ub ub-ac ub-pc" :class="submitform.type=='03'?'active':''">
+                            <img style="width:0.45rem;" :src="submitform.type=='03'?'img/clubtype_gym.png':'img/clubtype_gym2.png'" alt="">
+                        </div>
+                        <div>健身房</div>
+                    </div>
+                    <div class="clubtype" @click="submitform.type = '04'">
+                        <div class="clubtypeicon ub ub-ac ub-pc" :class="submitform.type=='04'?'active':''">
+                            <img :src="submitform.type=='04'?'img/clubtype_hobby.png':'img/clubtype_hobby2.png'" alt="">
+                        </div>
+                        <div>爱好者</div>
+                    </div>
+                </div>
+            </div>
+            <div class="listBox">
+                <div>是否需要申请加入</div>
+                <div class="rightBox">
+                    <van-switch @change="isclubpublic" active-color="#07c160" v-model="form.yqm" size="20"></van-switch>
+                    </van-switch>
+                </div>
+            </div>
+            <div class="listBox" v-if="submitform.type == '05'">
+                <div>是否需要邀请码</div>
+                <div class="rightBox">
+                    <van-switch @change="isclubinviteCode" active-color="#07c160" v-model="form.invitecode" size="20">
+                    </van-switch>
+                    </van-switch>
+                </div>
+            </div>
+            <div>
+                <div class="van-cell"><span>俱乐部标签</span></div>
+                <van-row type="flex" justify="space-around">
+                    <van-col span="6">
+                        <div class="clubtype clubtag" @click="submitform.label = '00'">
+                            <div class="clubtypeicon ub ub-ac ub-pc" style="margin:0 auto .2rem;" :class="submitform.label=='00'?'active':''">
+                                <img :src="submitform.label=='00'?'img/jumpskip.png':'img/jumpskip2.png'" alt="">
+                            </div>
+                            <div>跳绳</div>
+                        </div>
+                    </van-col>
+                    <van-col span="6"></van-col>
+                    <van-col span="6"></van-col>
+                    <van-col span="6"></van-col>
+                </van-row>
+            </div>
 
-			<van-button round class="submit" block @click="submitFormData()"
-				:color="form.cs&&submitform.type?bgc:bgcgrey">创建</van-button>
-			<van-popup v-model="areaShow" round position="bottom">
-				<van-area :area-list="areaList" @confirm="areaConfirm" @cancel="areaShow=false" />
-			</van-popup>
+            <van-button round class="submit" block @click="submitFormData()" :color="form.cs&&submitform.type?bgc:bgcgrey">创建</van-button>
+            <van-popup v-model="areaShow" round position="bottom">
+                <van-area :area-list="areaList" @confirm="areaConfirm" @cancel="areaShow=false" />
+            </van-popup>
 
-		</div>
+        </div>
 
 
-	</div>
-	</div>
+    </div>
+    </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
 <script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
 <script src="js/area.js"></script>
 <script src="../../common/js/network.js"></script>
 <script type="text/javascript">
-	new Vue({
-		el: '#app',
-		data() {
-			return {
-				flag: 1,
-				bgc: "linear-gradient(to left, #FFAA88, #FF4E3E )",
-				bgcgrey: '#71717F',
-				submitform: {
-					name: "",
-					province: "",
-					city: "",
-					county: "",
-					type: "", //00学校,01公司,02健身房,03爱好者
-					label: "", //00跳绳
-					isPublic: "N", // Y(官方比赛)，N(非官方比赛)
-					introduce: "", //简介
-					creator: "", //创建者
-					isInviteCode: "N",
-					photo: ""
-				},
-				form: {
-					cs: "",
-					yqm: true,
-					invitecode: false
-				},
-				overlayShow: false,
-				areaShow: false
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                flag: 1,
+                bgc: "linear-gradient(to left, #FFAA88, #FF4E3E )",
+                bgcgrey: '#71717F',
+                submitform: {
+                    name: "",
+                    province: "",
+                    city: "",
+                    county: "",
+                    type: "", //00学校,01公司,02健身房,03爱好者
+                    label: "", //00跳绳
+                    isPublic: "N", // Y(官方比赛)，N(非官方比赛)
+                    introduce: "", //简介
+                    creator: "", //创建者
+                    isInviteCode: "N",
+                    photo: ""
+                },
+                form: {
+                    cs: "",
+                    yqm: true,
+                    invitecode: false
+                },
+                overlayShow: false,
+                areaShow: false
 
-			};
-		},
-		created() {
-			
-
-		},
-		methods: {
-			onclickLeft() {
-				if (this.flag > 1) {
-					this.flag--
-				} else {
-					window.history.back()
-				}
-			},
-			afterRead(file) {
-				//this.submitform.photo = file.content;
-				this.overlayShow = true;
-				this.uploadPic(file.file);
-			},
-			//上传图片
-			uploadPic(file) {
-				var _self = this;
-				var formdata = new FormData();
-				formdata.append("file", file);
-				ajax({
-					type: "post",
-					url: "oss/upload/file",
-					contentType: "multipart/form-data",
-					data: {
-						formdata: formdata
-					},
-				}).then(res => {
-					if (res.code == 0) {
-						this.overlayShow = false;
-						ajax({
-							type: "post",
-							url: "contentSecurity/aliyun/imageScan",
-							data: {
-								content: res.data.url
-							}
-						}).then(res2 => {
-							if (res2.code == 0) {
-								this.submitform.photo = res.data.url;
-							} else {
-								this.submitform.photo = null;
-								this.overlayShow = false;
-								this.$toast("图片审核未通过，请重新上传！");
-							}
-						})
-					} else {
-						this.$toast(res.msg);
-					}
-				})
-			},
-			goNext1() { //去下一步
-				if (!this.submitform.photo) return;
-				this.flag = 2
-			},
-
-			//检查文本合法
-			checkStr(param) {
-				var that = this;
-				ajax({
-					type: "post",
-					url: "contentSecurity/aliyun/textScan",
-					data: {
-						content: param
-					}
-				}).then(res => {
-					if (res.code == 0) {
-						this.checkSame(param)
-					} else if (res.code == 4001) {
-						this.$toast("输入的内容不合法!");
-					}
-				})
-			},
-			checkSame() {
-				ajax({
-					type: "get",
-					url: "club/checkClubName",
-					data: {
-						name:this.submitform.name,
-					}
-				}).then(res => {
-					if (res.code == 0) {
-						this.flag = 3
-					} else {
-						this.$toast("已存在该名称的俱乐部!");
-					}
-				})
-			},
-			goNext2() { //去下一步
-				if (!this.submitform.name || !this.submitform.introduce) return;
-				this.checkStr(this.submitform.name + this.submitform.introduce)
-			},
+            };
+        },
+        created() {
 
 
-			//地址选择回调
-			areaConfirm(item) {
-				this.submitform.province = item[0].name;
-				this.submitform.city = item[1].name;
-				if (item[2]) this.submitform.county = item[2].name
-				else this.submitform.county = ""
-				this.form.cs = this.submitform.province + this.submitform.city + this.submitform.county;
-				this.areaShow = false;
-			},
-			
-			isclubpublic(val) {
-				
-				if (val) this.submitform.isPublic = "N"
-				else this.submitform.isPublic = "Y";
-					this.form.invitecode = !val;
-					this.submitform.isInviteCode = val ? "N" : "Y";
-				
-			},
-			isclubinviteCode(val) {
-				if (val) {
-					this.submitform.isInviteCode = "Y"
-				} else {
-					this.submitform.isInviteCode = "N"
-				}
-				this.form.yqm = !val;
-				this.submitform.isPublic = val ? "N" : "Y";
-			},
+        },
+        methods: {
+            onclickLeft() {
+                if (this.flag > 1) {
+                    this.flag--
+                } else {
+                    window.history.back()
+                }
+            },
+            afterRead(file) {
+                //this.submitform.photo = file.content;
+                this.overlayShow = true;
+                this.uploadPic(file.file);
+            },
+            //上传图片
+            uploadPic(file) {
+                var _self = this;
+                var formdata = new FormData();
+                formdata.append("file", file);
+                ajax({
+                    type: "post",
+                    url: "oss/upload/file",
+                    contentType: "multipart/form-data",
+                    data: {
+                        formdata: formdata
+                    },
+                }).then(res => {
+                    if (res.code == 0) {
+                        this.overlayShow = false;
+                        ajax({
+                            type: "post",
+                            url: "contentSecurity/aliyun/imageScan",
+                            data: {
+                                content: res.data.url
+                            }
+                        }).then(res2 => {
+                            if (res2.code == 0) {
+                                this.submitform.photo = res.data.url;
+                            } else {
+                                this.submitform.photo = null;
+                                this.overlayShow = false;
+                                this.$toast("图片审核未通过，请重新上传！");
+                            }
+                        })
+                    } else {
+                        this.$toast(res.msg);
+                    }
+                })
+            },
+            goNext1() { //去下一步
+                if (!this.submitform.photo) return;
+                this.flag = 2
+            },
 
-			submitFormData() {
-				if (!this.form.cs || !this.submitform.type) return;
-				if (this.isClick) {
-					return;
-				}
-				this.isClick = true
-				this.submitform.creator = JSON.parse(localStorage.getItem("appInfo")).userId;
-				this.submitFormDataSecond();
-			},
-			submitFormDataSecond() {
-				if(this.submitform.type!='05'){
-					this.submitform.isInviteCode='N';
-				}
-				ajax({
-					type: "post",
-					url: "club/saveClub",
-					data: this.submitform,
-				}).then(res => {
-					if (res.code == 0) {
-						this.$toast("俱乐部创建成功！");
-						if (res.data.invite_code) {
-							this.$dialog.confirm({
-									title: '邀请码',
-									showCancelButton: false,
-									message: res.data.invite_code,
-									confirmButtonText: '复制',
-								})
-								.then(() => {
-									if (isAndroid) {
-										const range = document.createRange();
-										range.selectNode(document.getElementsByClassName(
-											'van-dialog__message--has-title'));
-										const selection = window.getSelection();
-										if (selection.rangeCount > 0) selection
-											.removeAllRanges();
-										selection.addRange(range);
-										document.execCommand('copy');
-									} else {
-										Interaction.appNative('clipboardCopy', {
-											str: res.data.invite_code
-										});
-									}
-									setTimeout( ()=> {
-										this.gotoDetail(res.data.clubId);
-									}, 500);
-								})
-								.catch(() => {
-									setTimeout(()=> {
-										this.gotoDetail(res.data.clubId);
-									}, 500);
-								});
-						} else {
-							this.gotoDetail(res.data.clubId);
-						}
-					} else {
-						this.isClick = false;
-						this.$toast(res.msg);
-					}
-				})
-
-			},
-			gotoDetail(id){
-				window.location.replace("../clubList_Detail/clubDetail.html?back=1&id=" + id )
-			},
+            //检查文本合法
+            checkStr(param) {
+                var that = this;
+                ajax({
+                    type: "post",
+                    url: "contentSecurity/aliyun/textScan",
+                    data: {
+                        content: param
+                    }
+                }).then(res => {
+                    if (res.code == 0) {
+                        this.checkSame(param)
+                    } else if (res.code == 4001) {
+                        this.$toast("输入的内容不合法!");
+                    }
+                })
+            },
+            checkSame() {
+                ajax({
+                    type: "get",
+                    url: "club/checkClubName",
+                    data: {
+                        name: this.submitform.name,
+                    }
+                }).then(res => {
+                    if (res.code == 0) {
+                        this.flag = 3
+                    } else {
+                        this.$toast("已存在该名称的俱乐部!");
+                    }
+                })
+            },
+            goNext2() { //去下一步
+                if (!this.submitform.name || !this.submitform.introduce) return;
+                this.checkStr(this.submitform.name + this.submitform.introduce)
+            },
 
 
-		}
-	})
+            //地址选择回调
+            areaConfirm(item) {
+                this.submitform.province = item[0].name;
+                this.submitform.city = item[1].name;
+                if (item[2]) this.submitform.county = item[2].name
+                else this.submitform.county = ""
+                this.form.cs = this.submitform.province + this.submitform.city + this.submitform.county;
+                this.areaShow = false;
+            },
+
+            isclubpublic(val) {
+
+                if (val) this.submitform.isPublic = "N"
+                else this.submitform.isPublic = "Y";
+                this.form.invitecode = !val;
+                this.submitform.isInviteCode = val ? "N" : "Y";
+
+            },
+            isclubinviteCode(val) {
+                if (val) {
+                    this.submitform.isInviteCode = "Y"
+                } else {
+                    this.submitform.isInviteCode = "N"
+                }
+                this.form.yqm = !val;
+                this.submitform.isPublic = val ? "N" : "Y";
+            },
+
+            submitFormData() {
+                if (!this.form.cs || !this.submitform.type) return;
+                if (this.isClick) {
+                    return;
+                }
+                this.isClick = true
+                this.submitform.creator = JSON.parse(localStorage.getItem("appInfo")).userId;
+                this.submitFormDataSecond();
+            },
+            submitFormDataSecond() {
+                if (this.submitform.type != '05') {
+                    this.submitform.isInviteCode = 'N';
+                }
+                ajax({
+                    type: "post",
+                    url: "club/saveClub",
+                    data: this.submitform,
+                }).then(res => {
+                    if (res.code == 0) {
+                        this.$toast("俱乐部创建成功！");
+                        if (res.data.invite_code) {
+                            this.$dialog.confirm({
+                                    title: '邀请码',
+                                    showCancelButton: false,
+                                    message: res.data.invite_code,
+                                    confirmButtonText: '复制',
+                                })
+                                .then(() => {
+                                    Interaction.appNative('clipboardCopy', {
+                                        str: res.data.invite_code
+                                    });
+                                    setTimeout(() => {
+                                        this.gotoDetail(res.data.clubId);
+                                    }, 500);
+                                })
+                                .catch(() => {
+                                    setTimeout(() => {
+                                        this.gotoDetail(res.data.clubId);
+                                    }, 500);
+                                });
+                        } else {
+                            this.gotoDetail(res.data.clubId);
+                        }
+                    } else {
+                        this.isClick = false;
+                        this.$toast(res.msg);
+                    }
+                })
+
+            },
+            gotoDetail(id) {
+                window.location.replace("../clubList_Detail/clubDetail.html?back=1&id=" + id)
+            },
+
+
+        }
+    })
 </script>

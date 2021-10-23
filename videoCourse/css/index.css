@@ -833,9 +833,9 @@ body {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
   position: fixed;
   width: 100%;
   bottom: 0;
@@ -863,6 +863,13 @@ body {
 
 .courseList .sendBox .van-field__control {
   color: #CFCFD2;
+  max-height: 2rem;
+}
+
+.courseList .sendBox .van-field__body {
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
 }
 
 .courseList .van-popup {
@@ -945,15 +952,19 @@ body {
   border-color: #1e1e2a;
 }
 
+.van-action-sheet .van-action-sheet__name {
+  font-size: 0.32rem;
+}
+
 .van-action-sheet .van-action-sheet__cancel,
 .van-action-sheet .van-action-sheet__item {
-  background-color: #12121f;
+  background-color: #292934;
   color: #CFCFD2;
-  border-bottom: 1px solid #1e1e2a;
+  border-bottom: 1px solid #12121f;
 }
 
 .van-action-sheet .van-action-sheet__gap {
-  background-color: #1e1e2a;
+  background-color: #12121f;
   color: #CFCFD2;
 }
 

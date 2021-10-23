@@ -262,47 +262,34 @@
                     </van-tab>
                     <van-tab title="任务" class="task">
                         <div class="taskBox">
-                            <div class="taskDiv" v-if="taskObject.join.list.length>0" style="max-height: 5rem;">
+                            <div class="taskDiv" v-if="taskObject.join.list.length>0">
                                 <van-list v-model:loading="taskObject.join.loading" :finished="taskObject.join.finished" @load="getTask()">
-                                    <!-- <div class="taskList"
-                                                    v-for="item in
-                                                    taskObject.join.list"
-                                                    @click="gotoTask(item)">
-                                                    <div class="taskName">
-                                                        <span
-                                                            class="label">
+                                    <div class="taskList" v-for="item in taskObject.join.list" @click="gotoTask(item)">
+                                        <div class="taskName">
+                                            <span class="label">
                                                             {{item.period=='00'?'日':item.period=='01'?'周':item.period=='02'?'月':""}}
-                                                        </span>
-                                                        <span>
+                                            </span>
+                                            <span>
                                                             {{item.assignType=='01'?'全员参加:':item.assignType=='02'?'指定成员参加:':item.assignType=='03'?'指定部门参加:':""}}
                                                         </span>
-                                                        <span
-                                                            class="van-ellipsis"
-                                                            v-if="item.period=='00'">
+                                            <span class="van-ellipsis" v-if="item.period=='00'">
                                                             {{item.name}}</span>
-                                                        <span
-                                                            class="van-ellipsis"
-                                                            v-if="item.period!='00'">
+                                            <span class="van-ellipsis" v-if="item.period!='00'">
                                                             ({{
                                                             timestampTodate(item.originTaskStartTime?item.originTaskStartTime:item.taskStartTime,"M/D")+'-'+timestampTodate(item.originTaskEndTime?item.originTaskEndTime:item.taskEndTime,"M/D")}})
                                                         </span>
-                                                    </div>
-                                                    <div
-                                                        class="taskPeopleNum">
-                                                        <span
-                                                            v-if="item.period!='00'&&(item.originTaskStartTime?item.originTaskStartTime:item.taskStartTime)>(new
+                                        </div>
+                                        <div class="taskPeopleNum">
+                                            <span v-if="item.period!='00'&&(item.originTaskStartTime?item.originTaskStartTime:item.taskStartTime)>(new
                                                             Date().getTime())">未开始</span>
-                                                        <span
-                                                            v-else-if="item.isDone=='N'">正在进行</span>
-                                                        <span v-else>{{item.doneTaskNum}}人完成</span>
-                                                        <van-icon
-                                                            name="arrow"
-                                                            color="#999"
-                                                            size="0.3rem"></van-icon>
-                                                    </div> -->
+                                            <span v-else-if="item.isDone=='N'">正在进行</span>
+                                            <span v-else>{{item.doneTaskNum}}人完成</span>
+                                            <van-icon name="arrow" color="#999" size="0.3rem"></van-icon>
+                                        </div>
+                                    </div>
                                 </van-list>
                             </div>
-                            <div class="taskDiv" v-else-if="taskObject.unJoin.list.length>0" style="max-height: 5rem;">
+                            <div class="taskDiv" v-if="taskObject.unJoin.list.length>0">
                                 <van-list v-model:loading="taskObject.unJoin.loading" :finished="taskObject.unJoin.finished" @load="getTask()">
                                     <div class="taskList" v-for="item in
                                                     taskObject.unJoin.list" @click="gotoTask(item)">
@@ -329,15 +316,13 @@
                                     </div>
                                 </van-list>
                             </div>
-                            <div v-else class="nullDataBox">
+                            <div v-if="taskObject.join.list.length==0&&taskObject.unJoin.list.length==0" class="nullDataBox">
                                 <img src="../../common/img/noData.png" alt="">
                             </div>
                         </div>
                     </van-tab>
                     <van-tab title="线上赛" class="competition">
-                        <div class="taskBox" style="border-bottom: .2rem
-                                    solid #1E1E2A;">
-                            <!-- <div class="title">已报名</div> -->
+                        <div class="taskBox">
                             <div class="taskDiv" v-if="competitionObject.join.list.length>0">
                                 <van-list v-model:loading="competitionObject.join.loading" :finished="competitionObject.join.finished" @load="getCompetition()">
                                     <div class="taskList" v-for="item in
@@ -1130,18 +1115,9 @@
             },
             //复制俱乐部id
             copyInvite() {
-                if (isAndroid) {
-                    const range = document.createRange();
-                    range.selectNode(document.getElementById('INcode'));
-                    const selection = window.getSelection();
-                    if (selection.rangeCount > 0) selection.removeAllRanges();
-                    selection.addRange(range);
-                    document.execCommand('copy');
-                } else {
-                    Interaction.appNative('clipboardCopy', {
-                        str: this.clubObject.id + ""
-                    });
-                }
+                Interaction.appNative('clipboardCopy', {
+                    str: this.clubObject.id + ""
+                });
 
                 this.$toast('复制成功');
             },

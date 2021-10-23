@@ -389,11 +389,6 @@ body {
   text-align: center;
 }
 
-.containBox .tabBox .task .taskBox .taskDiv, .containBox .tabBox .competition .taskBox .taskDiv, .containBox .tabBox .activity .taskBox .taskDiv {
-  max-height: 3.6rem;
-  overflow-y: scroll;
-}
-
 .containBox .tabBox .task .taskBox .taskList, .containBox .tabBox .competition .taskBox .taskList, .containBox .tabBox .activity .taskBox .taskList {
   display: -webkit-box;
   display: -ms-flexbox;

@@ -1,34 +1,30 @@
 <!DOCTYPE html>
 <html lang="zh-cmn-Hans">
 
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport"
-			content="width=device-width, initial-scale=1.0, maximum-scale=1.0,
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,
 			minimum-scale=1.0, viewport-fit=cover">
-		<title>课程主页</title>
-		<!-- 引入样式文件 -->
-		<link rel="stylesheet"
-			href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
-		<link rel="stylesheet" href="font/iconfont.css">
-		<link rel="stylesheet" href="css/index.css">
-		<script
-			src="https://cdn.bootcdn.net/ajax/libs/vConsole/3.8.1/vconsole.min.js"></script>
-		<script>
-		// init vConsole
-		var vConsole = new VConsole();
-	</script>
-	</head>
+    <title>课程主页</title>
+    <!-- 引入样式文件 -->
+    <link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
+    <link rel="stylesheet" href="font/iconfont.css">
+    <link rel="stylesheet" href="css/index.css">
+    <script src="https://cdn.bootcdn.net/ajax/libs/vConsole/3.8.1/vconsole.min.js"></script>
+    <script>
+        // init vConsole
+        var vConsole = new VConsole();
+    </script>
+</head>
 
-	<body>
-		<div id="app" class="courseList" v-cloak>
-			<div class="header" v-if="isShare!=1">
-				<van-nav-bar @click-left="onclickLeft" :title="classDetail.className"
-					left-arrow safe-area-inset-top fixed>
-					<template #left>
+<body>
+    <div id="app" class="courseList" v-cloak>
+        <div class="header" v-if="isShare!=1">
+            <van-nav-bar @click-left="onclickLeft" :title="classDetail.className" left-arrow safe-area-inset-top fixed>
+                <template #left>
 						<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;"></span>
 					</template>
-					<template #right>
+                <template #right>
 						<div @click="downButton" style="margin-right: 0.4rem;">
 							<span class="icon iconfont icon-huancun" style="font-size: 0.5rem;"></span>
 						</div>
@@ -44,929 +40,909 @@
 								style="font-size:0.46rem;"></span>
 						</div>
 					</template>
-				</van-nav-bar>
-			</div>
-			<div style="height:1rem" v-else></div>
+            </van-nav-bar>
+        </div>
+        <div style="height:1rem" v-else></div>
 
-			<div>
-				<div class="topBox">
+        <div>
+            <div class="topBox">
 
-					<div class="blackbg"></div>
-					<img class="bannerBg" :src='classDetail.classCover' alt="">
-					<div class="infoBox">
-						<div class="title">{{classDetail.className}}</div>
-						<div class="discript" @click="goCourseDetail(classDetail.bigClassId)">
-							{{classDetail.classDes}}</div>
-						<div class="classifyBox">
-							<div class="classifyDiv">
-								<div class="classifyItem">
-									{{classDetail.actionSize}}个{{classDetail.actionOrClass?'动作':'内容'}}</div>
-								<div class="classifyItem">不限训练频次</div>
-								<div class="classifyItem" v-for="item in classDetail.classKitList">{{item.classKitName}}</div>
-							</div>
-							<div class="transPeopleCount">
-								{{classDetail.sumExercise>10000?(classDetail.sumExercise/10000).toFixed(2)+'w':classDetail.sumExercise}}人练过
-							</div>
-						</div>
-						<div class="information">
-							<van-row>
-								<van-col span="8">
-									<div class="need1">{{ Math.round(classDetail.classDuration/60)}}</div>
-									<div class="needTitle1">时长(分钟)</div>
-								</van-col>
-								<van-col span="8">
-									<div class="need2">{{Math.round(classDetail.calory)}}</div>
-									<div class="needTitle2">消耗(kcal)</div>
-								</van-col>
-								<van-col span="8">
-									<div class="needBox3">
-										<div class="need3">{{classDetail.classLevelName}}</div>
-										<div class="needTitle3">等级</div>
-									</div>
-								</van-col>
-							</van-row>
-						</div>
-					</div>
-				</div>
-				<div class="tabBox">
-					<van-sticky>
-						<div class="tabTitle">
-							<div class="tabName" :class="tabSelected==1?'selected':''"
-								@click="tabSelected=1">
-								{{classDetail.actionOrClass?'动作':'内容'}}<span>({{classDetail.actionSize||0}}个)</span></div>
-							<div class="tabName" :class="tabSelected==2?'selected':''"
-								@click="tabSelected=2;getCommentList()">评论
-								<span>({{classDetail.commendCount||0}}条)</span> </div>
-						</div>
-					</van-sticky>
-					<div class="tabContain">
-						<div v-if="tabSelected==1">
-							<div class="listBox">
-								<div class="courseList">
-									<ul>
-										<li v-for="(item,index) in classDetail.smallClassList" class=""
-											@click="playVideo(item,index)">
-											<div class="liBox">
-												<div class="chooseBox" @click.stop="chooseClass(item,index)"
-													v-if="downlaodStatus">
-													<img src="./img/unable.png" v-if="item.isDownload==-1" alt="">
-													<img src="./img/choose.png" v-else-if="item.isDownload==1"
-														alt="">
-													<img src="./img/unchoose.png" v-else alt="">
-												</div>
-												<div class="rightBox">
-													<div class="itemImg"><img :src="item.classCover" alt=""></div>
-													<div class="itemDiscript">
-														<div class="smallTile">{{item.className}}</div>
-														<div class="need">
-															时长:{{secondsFormat(item.duration)}}
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="stopDurationBox" v-if="item.stopDuration">
-												休息{{item.stopDuration}}s
-											</div>
-										</li>
-									</ul>
-									<div class="info">全部内容都在这里了，快去锻炼吧！</div>
-									<div class="btn_box" v-if="!downlaodStatus">
-										<div class="btn"
-											@click="playVideo(classDetail.smallClassList[0],0)">开始训练</div>
-									</div>
-									<div v-if="downlaodStatus" class="chooseDiv">
-										<div class="box" @click="chooseAll()">
-											<img src="./img/unable.png" v-if="isChooseAll==-1" alt="">
-											<img src="./img/choose.png" v-else-if="isChooseAll==1" alt="">
-											<img src="./img/unchoose.png" v-else alt="">
-											全选
-										</div>
-										<div class="box" @click="downAll">
-											下载
-										</div>
-									</div>
+                <div class="blackbg"></div>
+                <img class="bannerBg" :src='classDetail.classCover' alt="">
+                <div class="infoBox">
+                    <div class="title">{{classDetail.className}}</div>
+                    <div class="discript" @click="goCourseDetail(classDetail.bigClassId)">
+                        {{classDetail.classDes}}</div>
+                    <div class="classifyBox">
+                        <div class="classifyDiv">
+                            <div class="classifyItem">
+                                {{classDetail.actionSize}}个{{classDetail.actionOrClass?'动作':'内容'}}</div>
+                            <div class="classifyItem">不限训练频次</div>
+                            <div class="classifyItem" v-for="item in classDetail.classKitList">{{item.classKitName}}</div>
+                        </div>
+                        <div class="transPeopleCount">
+                            {{classDetail.sumExercise>10000?(classDetail.sumExercise/10000).toFixed(2)+'w':classDetail.sumExercise}}人练过
+                        </div>
+                    </div>
+                    <div class="information">
+                        <van-row>
+                            <van-col span="8">
+                                <div class="need1">{{ Math.round(classDetail.classDuration/60)}}</div>
+                                <div class="needTitle1">时长(分钟)</div>
+                            </van-col>
+                            <van-col span="8">
+                                <div class="need2">{{Math.round(classDetail.calory)}}</div>
+                                <div class="needTitle2">消耗(kcal)</div>
+                            </van-col>
+                            <van-col span="8">
+                                <div class="needBox3">
+                                    <div class="need3">{{classDetail.classLevelName}}</div>
+                                    <div class="needTitle3">等级</div>
+                                </div>
+                            </van-col>
+                        </van-row>
+                    </div>
+                </div>
+            </div>
+            <div class="tabBox">
+                <van-sticky>
+                    <div class="tabTitle">
+                        <div class="tabName" :class="tabSelected==1?'selected':''" @click="tabSelected=1">
+                            {{classDetail.actionOrClass?'动作':'内容'}}<span>({{classDetail.actionSize||0}}个)</span></div>
+                        <div class="tabName" :class="tabSelected==2?'selected':''" @click="tabSelected=2;getCommentList()">评论
+                            <span>({{classDetail.commendCount||0}}条)</span> </div>
+                    </div>
+                </van-sticky>
+                <div class="tabContain">
+                    <div v-if="tabSelected==1">
+                        <div class="listBox">
+                            <div class="courseList">
+                                <ul>
+                                    <li v-for="(item,index) in classDetail.smallClassList" class="" @click="playVideo(item,index)">
+                                        <div class="liBox">
+                                            <div class="chooseBox" @click.stop="chooseClass(item,index)" v-if="downlaodStatus">
+                                                <img src="./img/unable.png" v-if="item.isDownload==-1" alt="">
+                                                <img src="./img/choose.png" v-else-if="item.isDownload==1" alt="">
+                                                <img src="./img/unchoose.png" v-else alt="">
+                                            </div>
+                                            <div class="rightBox">
+                                                <div class="itemImg"><img :src="item.classCover" alt=""></div>
+                                                <div class="itemDiscript">
+                                                    <div class="smallTile">{{item.className}}</div>
+                                                    <div class="need">
+                                                        时长:{{secondsFormat(item.duration)}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="stopDurationBox" v-if="item.stopDuration">
+                                            休息{{item.stopDuration}}s
+                                        </div>
+                                    </li>
+                                </ul>
+                                <div class="info">全部内容都在这里了，快去锻炼吧！</div>
+                                <div class="btn_box" v-if="!downlaodStatus">
+                                    <div class="btn" @click="playVideo(classDetail.smallClassList[0],0)">开始训练</div>
+                                </div>
+                                <div v-if="downlaodStatus" class="chooseDiv">
+                                    <div class="box" @click="chooseAll()">
+                                        <img src="./img/unable.png" v-if="isChooseAll==-1" alt="">
+                                        <img src="./img/choose.png" v-else-if="isChooseAll==1" alt="">
+                                        <img src="./img/unchoose.png" v-else alt=""> 全选
+                                    </div>
+                                    <div class="box" @click="downAll">
+                                        下载
+                                    </div>
+                                </div>
 
-								</div>
-							</div>
-						</div>
-						<div v-if="tabSelected==2">
-							<div class="commentBox">
-								<van-pull-refresh v-model="refreshing" @refresh="onRefresh">
-									<van-list v-model="loading" :finished="finished"
+                            </div>
+                        </div>
+                    </div>
+                    <div v-if="tabSelected==2">
+                        <div class="commentBox">
+                            <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
+                                <van-list v-model="loading" :finished="finished" @load="onLoad" :immediate-check=false>
+                                    <ul v-if="commmentList.length>0">
+                                        <li v-for="(item,index) in commmentList">
+                                            <div class="basicBox">
+                                                <div class="infoBox" @click="Interaction.visitPersonalHomepage(item.dadUserId)">
+                                                    <div class="userImg">
+                                                        <img :src="item.dadCommendHeadPictureUrl" alt="">
+                                                    </div>
+                                                    <div class="detail">
+                                                        <p class="nickname">
+                                                            {{item.dadCommendNickName}}</p>
+                                                        <p class="time">{{formatMsgTime(item.dadSendTime)}}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="likeBox" :class="item.likeStatus?'liked':''" @click="goLikeComment(item)">
+                                                    <span class="icon iconfont icon-dianzan-gaoliang" :class="item.likeStatus?'':'icon-dongtaidianzan'" style="font-size: 0.28rem;"></span> {{item.dadCommendLikeCount}}
+                                                </div>
+                                            </div>
+                                            <div class="commentDiv">
+                                                <div class="comment" @click="getCommentDetail(item)">
+                                                    {{item.dadContent}}
+                                                    <span v-for="r in item.dadAtResultList" @click.stop="Interaction.visitPersonalHomepage(r.atUserId)" style="color:steelblue">@{{r.atNickName}}</span>
+                                                </div>
+                                                <div class="commentBck" v-if="item.dadBelongCommendCount>0">
+                                                    <div v-for="ccitem in item.sonCommendResultList" class="commentBckItem">
 
-										@load="onLoad" :immediate-check=false>
-										<ul v-if="commmentList.length>0">
-											<li v-for="(item,index) in commmentList">
-												<div class="basicBox">
-													<div class="infoBox"
-														@click="Interaction.visitPersonalHomepage(item.dadUserId)">
-														<div class="userImg">
-															<img :src="item.dadCommendHeadPictureUrl" alt="">
-														</div>
-														<div class="detail">
-															<p class="nickname">
-																{{item.dadCommendNickName}}</p>
-															<p class="time">{{formatMsgTime(item.dadSendTime)}}</p>
-														</div>
-													</div>
-													<div class="likeBox" :class="item.likeStatus?'liked':''"
-														@click="goLikeComment(item)">
-														<span class="icon iconfont icon-dianzan-gaoliang"
-															:class="item.likeStatus?'':'icon-dongtaidianzan'"
-															style="font-size: 0.28rem;"></span>
-														{{item.dadCommendLikeCount}}
-													</div>
-												</div>
-												<div class="commentDiv">
-													<div class="comment" @click="getCommentDetail(item)">
-														{{item.dadContent}}
-														<span v-for="r in item.dadAtResultList"
-															@click.stop="Interaction.visitPersonalHomepage(r.atUserId)"
-															style="color:steelblue">@{{r.atNickName}}</span>
-													</div>
-													<div class="commentBck" v-if="item.dadBelongCommendCount>0">
-														<div v-for="ccitem in item.sonCommendResultList"
-															class="commentBckItem">
-
-															<span class="name">{{ccitem.sonSendAuthorName}} </span>
-															<span>回复</span>
-															<span class="name">{{ccitem.sonReplyAuthorName}} </span>
-															<span> : {{ccitem.sonContent}}</span>
-															<span v-for="r in ccitem.sonAtList"
-																style="color:steelblue">@{{r.atNickName}}</span>
-														</div>
-														<div class="more" @click="getCommentDetail(item)">
-															查看全部{{item.dadBelongCommendCount}}条回复>></div>
-													</div>
-												</div>
-											</li>
-											<div class="info" v-if='finished'>全部评论都在这里了，快去锻炼吧！</div>
-										</ul>
-										<div class="noData-box" v-else>
-											<img class="noData-img" src="../common/img/noData.png" />
-											<p class="noData-p">还没有评论，快来抢沙发</p>
-										</div>
-									</van-list>
-								</van-pull-refresh>
-								<div class="sendBox" v-if="this.tabSelected==2">
-									<van-field v-model="comment_message" rows="1" @blur="initSendBox"
-										type="textarea" autosize
-										maxlength="50" placeholder="说点什么">
-										<template #right-icon>
+                                                        <span class="name">{{ccitem.sonSendAuthorName}} </span>
+                                                        <span>回复</span>
+                                                        <span class="name">{{ccitem.sonReplyAuthorName}} </span>
+                                                        <span> : {{ccitem.sonContent}}</span>
+                                                        <span v-for="r in ccitem.sonAtList" style="color:steelblue">@{{r.atNickName}}</span>
+                                                    </div>
+                                                    <div class="more" @click="getCommentDetail(item)">
+                                                        查看全部{{item.dadBelongCommendCount}}条回复>></div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <div class="info" v-if='finished'>全部评论都在这里了，快去锻炼吧！</div>
+                                    </ul>
+                                    <div class="noData-box" v-else>
+                                        <img class="noData-img" src="../common/img/noData.png" />
+                                        <p class="noData-p">还没有评论，快来抢沙发</p>
+                                    </div>
+                                </van-list>
+                            </van-pull-refresh>
+                            <div class="sendBox" v-if="this.tabSelected==2">
+                                <van-field v-model="comment_message" rows="1" @blur="initSendBox" type="textarea" autosize placeholder="说点什么">
+                                    <template #right-icon>
 											<span class="icon iconfont icon-a-shequ-"
 												@click="noticeSomePeople"
 												style="font-size: 0.3rem;"></span>
 										</template>
-									</van-field>
-									<span class="icon iconfont icon-duihua-fasong"
-										@click="submitCommentFirst"
-										style="font-size: 0.48rem;padding-left: 0.24rem;"></span>
-								</div>
+                                </van-field>
+                                <span class="icon iconfont icon-duihua-fasong" @click="submitCommentFirst" style="font-size: 0.48rem;padding-left: 0.24rem;margin-bottom:0.04rem;"></span>
+                            </div>
 
-							</div>
-						</div>
-					</div>
-				</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-				<van-popup v-model="moreCommentShow" round position="bottom" :style="{
+            <van-popup v-model="moreCommentShow" round position="bottom" :style="{
 					height: '70%' }">
-					<div class="popupHeader">
-						<span class="icon iconfont icon-fanhuianniu"
-							@click="moreCommentShow=false"
-							style="font-size: 0.48rem;"></span>
-						<div class="title">评论</div>
-						<div style="width: 0.48rem;"></div>
-					</div>
-					<div class="commentBox">
-						<div class="mainComment">
-							<div>
-								<div class="basicBox">
-									<div class="infoBox"
-										@click="Interaction.visitPersonalHomepage(commentDetail.dadCommendResult.dadUserId)">
-										<div class="userImg">
-											<img
-												:src="commentDetail.dadCommendResult.dadCommendHeadPictureUrl">
-										</div>
-										<div class="detail">
-											<p class="nickname">
-												{{commentDetail.dadCommendResult.dadCommendNickName}}</p>
-											<p class="time">
-												{{formatMsgTime(commentDetail.dadCommendResult.dadSendTime)}}</p>
-										</div>
-									</div>
-									<div class="likeBox"
-										:class="commentDetail.dadCommendResult.likeStatus?'liked':''"
-										@click="goLikeComment(commentDetail.dadCommendResult)">
-										<span class="icon iconfont icon-dianzan-gaoliang"
-											:class="commentDetail.dadCommendResult.likeStatus?'':'icon-dongtaidianzan'"
-											style="font-size: 0.28rem;"></span>
-										{{commentDetail.dadCommendResult.dadCommendLikeCount}}
-									</div>
-								</div>
-								<div class="commentDiv">
-									<div class="comment"
-										@click="commentAction(commentDetail.dadCommendResult)">
-										{{commentDetail.dadCommendResult.dadContent}}
-										<span v-for="r in
-											commentDetail.dadCommendResult.dadAtResultList"
-											@click="Interaction.visitPersonalHomepage(r.atUserId)"
-											style="color:steelblue">@{{r.atNickName}}</span>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="allCommentTitle">全部回复</div>
-						<div class="childComment" v-for="(item,index) in
+                <div class="popupHeader">
+                    <span class="icon iconfont icon-fanhuianniu" @click="moreCommentShow=false" style="font-size: 0.48rem;"></span>
+                    <div class="title">评论</div>
+                    <div style="width: 0.48rem;"></div>
+                </div>
+                <div class="commentBox">
+                    <div class="mainComment">
+                        <div>
+                            <div class="basicBox">
+                                <div class="infoBox" @click="Interaction.visitPersonalHomepage(commentDetail.dadCommendResult.dadUserId)">
+                                    <div class="userImg">
+                                        <img :src="commentDetail.dadCommendResult.dadCommendHeadPictureUrl">
+                                    </div>
+                                    <div class="detail">
+                                        <p class="nickname">
+                                            {{commentDetail.dadCommendResult.dadCommendNickName}}</p>
+                                        <p class="time">
+                                            {{formatMsgTime(commentDetail.dadCommendResult.dadSendTime)}}</p>
+                                    </div>
+                                </div>
+                                <div class="likeBox" :class="commentDetail.dadCommendResult.likeStatus?'liked':''" @click="goLikeComment(commentDetail.dadCommendResult)">
+                                    <span class="icon iconfont icon-dianzan-gaoliang" :class="commentDetail.dadCommendResult.likeStatus?'':'icon-dongtaidianzan'" style="font-size: 0.28rem;"></span> {{commentDetail.dadCommendResult.dadCommendLikeCount}}
+                                </div>
+                            </div>
+                            <div class="commentDiv">
+                                <div class="comment" @click="commentAction(commentDetail.dadCommendResult)">
+                                    {{commentDetail.dadCommendResult.dadContent}}
+                                    <span v-for="r in
+											commentDetail.dadCommendResult.dadAtResultList" @click="Interaction.visitPersonalHomepage(r.atUserId)" style="color:steelblue">@{{r.atNickName}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="allCommentTitle">全部回复</div>
+                    <div class="childComment" v-for="(item,index) in
 							commentDetail.sonCommendResult">
-							<div class="basicBox">
-								<div class="infoBox"
-									@click="Interaction.visitPersonalHomepage(item.sonSendAuthorId)">
-									<div class="userImg">
-										<img :src="item.sonSendHeadPictureUrl">
-									</div>
-									<div class="detail">
-										<p class="nickname">
-											{{item.sonSendAuthorName}}</p>
-										<p class="time">{{formatMsgTime(item.sonSendTime)}}</p>
-									</div>
-								</div>
-								<div class="likeBox" :class="item.likeStatus?'liked':''"
-									@click="goLikeComment(item)">
-									<span class="icon iconfont icon-dianzan-gaoliang"
-										:class="item.likeStatus?'':'icon-dongtaidianzan'"
-										style="font-size: 0.28rem;"></span>
-									{{item.sonLikeCount}}
-								</div>
-							</div>
-							<div class="commentDiv">
-								<div class="comment" @click="commentAction(item)">
-									<span>
+                        <div class="basicBox">
+                            <div class="infoBox" @click="Interaction.visitPersonalHomepage(item.sonSendAuthorId)">
+                                <div class="userImg">
+                                    <img :src="item.sonSendHeadPictureUrl">
+                                </div>
+                                <div class="detail">
+                                    <p class="nickname">
+                                        {{item.sonSendAuthorName}}</p>
+                                    <p class="time">{{formatMsgTime(item.sonSendTime)}}</p>
+                                </div>
+                            </div>
+                            <div class="likeBox" :class="item.likeStatus?'liked':''" @click="goLikeComment(item)">
+                                <span class="icon iconfont icon-dianzan-gaoliang" :class="item.likeStatus?'':'icon-dongtaidianzan'" style="font-size: 0.28rem;"></span> {{item.sonLikeCount}}
+                            </div>
+                        </div>
+                        <div class="commentDiv">
+                            <div class="comment" @click="commentAction(item)">
+                                <span>
 										回复{{item.sonReplyAuthorName}}:
-									</span>
-									{{item.sonContent}}
-									<span v-for="r in item.sonAtList"
-										@click.stop="Interaction.visitPersonalHomepage(r.atUserId)"
-										style="color:steelblue">@{{r.atNickName}}</span>
-								</div>
-							</div>
-						</div>
-						<div class="noData-box" v-if="commentDetail.sonCommendResult==0">
-							<img class="noData-img" src="../common/img/noData.png" />
-							<p class="noData-p">还没有回复，快来抢沙发</p>
-						</div>
-					</div>
-					<div class="sendBox" v-if="this.tabSelected==2">
-						<van-field v-model="comment_message" rows="1" @blur="initSendBox"
-							type="textarea" autosize
-							maxlength="50" :placeholder="placeholder">
-							<template #right-icon>
+									</span> {{item.sonContent}}
+                                <span v-for="r in item.sonAtList" @click.stop="Interaction.visitPersonalHomepage(r.atUserId)" style="color:steelblue">@{{r.atNickName}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="noData-box" v-if="commentDetail.sonCommendResult==0">
+                        <img class="noData-img" src="../common/img/noData.png" />
+                        <p class="noData-p">还没有回复，快来抢沙发</p>
+                    </div>
+                </div>
+                <div class="sendBox" v-if="this.tabSelected==2">
+                    <van-field v-model="comment_message" rows="1" @blur="initSendBox" type="textarea" autosize :placeholder="placeholder">
+                        <template #right-icon>
 								<span class="icon iconfont icon-a-shequ-"
 									@click="noticeSomePeople"
 									style="font-size: 0.3rem;"></span>
 							</template>
-						</van-field>
-						<span class="icon iconfont icon-duihua-fasong"
-							@click="submitCommentFirst"
-							style="font-size: 0.48rem;padding-left: 0.24rem;"></span>
-					</div>
+                    </van-field>
+                    <span class="icon iconfont icon-duihua-fasong" @click="submitCommentFirst" style="font-size: 0.48rem;padding-left: 0.24rem;"></span>
+                </div>
 
-				</van-popup>
+            </van-popup>
 
-				<van-popup v-model="friendListShow" round position="right"
-					:style="{ height: '100%' ,width:'100%'}">
-					<iframe src="./friendList.html" width="100%" height="100%"
-						frameborder="0"></iframe>
-				</van-popup>
+            <van-popup v-model="friendListShow" round position="right" :style="{ height: '100%' ,width:'100%'}">
+                <iframe :src="'./friendList.html?t='+new Date().getTime()" width="100%" height="98%" frameborder="0"></iframe>
+            </van-popup>
 
-				<van-action-sheet v-model="actionSheetShow"
-					@select="actionSheetSelect" :actions="actions" cancel-text="取消"
-					close-on-click-action @cancel="actionSheetCancel" />
-				</div>
+            <van-action-sheet v-model="actionSheetShow" @select="actionSheetSelect" :actions="actions" cancel-text="取消" close-on-click-action @cancel="actionSheetCancel" />
+        </div>
 
-			</div>
-		</body>
-		<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
-		<script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
-		<script src="../common/js/network.js"></script>
-		<script src="js/videoCourse.js"></script>
-		<script>
-	var vm = null
-	new Vue({
-		el: '#app',
-		data() {
-			return {
-				isShare: getQueryString("isShare"),
-				id: getQueryString("id"), //大课程id
-				headPictureUrl: "",
-				classDetail: {
-					bigClass: {
-						className: ""
-					},
-					smallClass: [],
-					duration: 0,
-					calory: 0
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
+<script src="../common/js/network.js"></script>
+<script src="js/videoCourse.js"></script>
+<script>
+    var vm = null
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                isShare: getQueryString("isShare"),
+                id: getQueryString("id"), //大课程id
+                headPictureUrl: "",
+                classDetail: {
+                    bigClass: {
+                        className: ""
+                    },
+                    smallClass: [],
+                    duration: 0,
+                    calory: 0
 
-				},
-				commentDetail: {
-					dadCommendResult: {},
-					sonCommendResult: {}
-				},
-				tabSelected: 1,
+                },
+                commentDetail: {
+                    dadCommendResult: {},
+                    sonCommendResult: {}
+                },
+                tabSelected: 1,
 
-				comment_message: "",
-				isClick: false,
-				replyAuthorId: "", //二级回复的时候
-				placeholder: "说点什么",
-				replyCommentItem: {},
+                comment_message: "",
+                isClick: false,
+                replyAuthorId: "", //二级回复的时候
+                placeholder: "说点什么",
+                replyCommentItem: {},
 
 
 
 
-				downlaodStatus: false, //缓存打开的状态
+                downlaodStatus: false, //缓存打开的状态
 
-				commmentList: [],
-				pageNum: 0,
-				pageSize: 10,
-				total: 0,
+                commmentList: [],
+                pageNum: 0,
+                pageSize: 10,
+                total: 0,
 
-				loading: false,
-				finished: false,
-				refreshing: false,
-
-
-				peopleList: [], //参与人得列表
-				userId: "",
-
-				isChooseAll: 0,
-				classArray: [],
-
-				moreCommentShow: false,
-
-				actionSheetShow: false,
-				actions: [],
-
-				friendListShow: false,
-				videoCourse_noticeList: [],
-
-			};
-		},
-		mounted() {
-			window.getClassDetail = this.getClassDetail
-			window.H5_getDownloadCourseList = this.H5_getDownloadCourseList
-			if (!this.isShare) {
-				window.addEventListener('scroll', this.scrollFn);
-			}
-		},
-		created() {
-			this.getClassDetail()
-			vm = this;
-		},
-		methods: {
-			scrollFn() {
-				var t = document.documentElement.scrollTop || document.body.scrollTop;
-				var rate = t / 100
-				if (rate > 1) {
-					rate = 1
-				}
-				var colorValue = `rgba(18,18,31,${rate})`
-				document.getElementsByClassName("van-nav-bar")[0].style.background = colorValue
-				document.getElementsByClassName("van-nav-bar__title")[0].style.opacity = rate;
-				document.getElementsByClassName("van-nav-bar")[0].style.color =
-					`rgb(${255-48*rate},${255-48*rate},${255-45*rate})`
-
-			},
-			destroyed() {
-				window.removeEventListener('scroll', this.scrollFn); // 销毁监听
-			},
-			onclickLeft() {
-				if (getQueryString('back')) {
-					window.history.back();
-				} else {
-					Interaction.closePage();
-				}
-			},
-			//跳转课程介绍
-			goCourseDetail() {
-				window.location.href = `./courseDetail.html?id=${this.classDetail.bigClassId}`
-			},
-			//收藏相关
-			goCollect() {
-				let apiUrl = "community/threeUserCollect/insertOne"
-				if (!this.classDetail.isNotCollect) {
-					apiUrl = "community/threeUserCollect/update/status"
-				}
-				ajax({
-					type: "post",
-					url: apiUrl,
-					data: {
-						bigClassId: this.classDetail.bigClassId,
-						classDealType: 1
-					}
-				}).then(res => {
-					if (res.code == 0) {
-						this.classDetail.isNotCollect = !this.classDetail.isNotCollect;
-						if (this.classDetail.isNotCollect) {
-							this.$toast('已取消')
-						}else{
-							this.$toast('收藏成功，请至“我的-我的课程”页面查看')
-						}
-					} else {
-						this.$toast(res.msg)
-					}
-				}).catch(err => {
-
-				})
-			},
-			//点赞相关
-			goLikeComment(item) {
-				let apiUrl = "community/threeCommentUserLike/user/insert/like/commend"
-
-				// if (item.likeStatus) {
-				// 	apiUrl = "community/threeCommentUserLike/cancel/user/like"
-				// }
-				ajax({
-					url: apiUrl,
-					type: "post",
-					data: {
-						bigClassId: this.classDetail.bigClassId,
-						commendId: item.dadCommendId || item.sonCommendId
-					}
-				}).then(res => {
-					if (res.code == 0) {
-						if (item.dadCommendId) {
-							if (item.likeStatus) {
-								item.dadCommendLikeCount--;
-								this.$toast("已取消")
-							} else {
-								item.dadCommendLikeCount++;
-								this.$toast("点赞成功")
-							}
-							
-
-						} else {
-							if (item.likeStatus) {
-								item.dadCommendLikeCount--;
-								this.$toast("已取消")
-							} else {
-								item.dadCommendLikeCount++;
-								this.$toast("点赞成功")
-							}
-							
-						}
-						item.likeStatus = !item.likeStatus
-
-					} else {
-						this.$toast(res.msg)
-					}
-				}).catch(err => {
-
-				})
-			},
-			//分享
-			sharePage() {
-				ajax({
-					type: "post",
-					url: "community/threeUserCollect/insertOne",
-					data: {
-						bigClassId: this.classDetail.bigClassId,
-						classDealType: 3
-					}
-				})
-				Interaction.sharePage({
-					title: this.classDetail.className,
-					description: this.classDetail.description,
-					url: host + "h5/h5V3/videoCourse/courseList.html?isShare=1&id=" + this.classDetail
-						.bigClassId,
-				})
-			},
-			//@别人
-			noticeSomePeople() {
-				this.friendListShow = true
-				//window.location.href = "friendList.html"
-			},
-			actionSheetSelect(obj, index) {
-				if (index == 1) {
-					this.initReplyAuthorIdandPlaceholder((this.replyCommentItem.sonSendAuthorId || this
-						.replyCommentItem.dadUserId), (this
-						.replyCommentItem.sonSendAuthorName || this.replyCommentItem.dadCommendNickName))
-				} else if (index == 2) {
-					this.deleteComment(this.replyCommentItem)
-				}
-			},
-			actionSheetCancel() {},
-			commentAction(item) {
-				this.actions = [{
-					name: '复制'
-				}]
-				if (this.moreCommentShow) {
-					this.actions.push({
-						name: '回复'
-					})
-				}
-				if ((item.sonSendAuthorId || item.dadUserId) == JSON.parse(localStorage.getItem("appInfo"))
-					.userId) {
-					this.actions.push({
-						name: '删除',
-						color: '#ee0a24'
-					})
-				}
+                loading: false,
+                finished: false,
+                refreshing: false,
 
 
-				this.actionSheetShow = true;
-				this.replyCommentItem = item;
-			},
-			//获取大课程下的课程详情以及小课程列表
-			getClassDetail() {
-				ajax({
-					url: "community/threeUserCollect/see/bigClass/detail",
-					data: {
-						bigClassId: this.id
-					}
-				}).then(res => {
-					if (res.code == 0) {
-						this.classDetail = res.data;
-					} else {
-						this.$toast(res.msg)
-					}
-				}).catch(err => {
+                peopleList: [], //参与人得列表
+                userId: "",
 
-				})
+                isChooseAll: 0,
+                classArray: [],
 
+                moreCommentShow: false,
 
-			},
-			//获取评论列表
-			getCommentList() {
-				ajax({
-					url: "community/threeComment/see/all/class/commend",
-					data: {
-						bigClassId: this.id,
-						offset: this.pageNum,
-						limit: this.pageSize
-					}
-				}).then(res => {
-					if (res.code == 0) {
-						this.total = res.data.totalCount;
-						this.loading = false;
-						if (this.pageNum == 0) {
-							this.commmentList = res.data.resultList
-						} else {
-							this.commmentList = this.commmentList.concat(res.data.resultList);
-						}
-					} else if (res.code == 3062) {
-						this.finished = true;
-					}
+                actionSheetShow: false,
+                actions: [],
 
-				})
-			},
-			//评论详情
-			getCommentDetail(item) {
+                friendListShow: false,
+                videoCourse_noticeList: [],
 
-				ajax({
-					url: "community/threeComment/see/all/son/commend/by/dad",
-					data: {
-						bigClassId: this.classDetail.bigClassId,
-						commendId: item.dadCommendId
-					}
-				}).then(res => {
-					if (res.code == 0) {
-						this.comment_message = ""
-						this.moreCommentShow = true;
-						this.commentDetail = res.data;
-						this.initReplyAuthorIdandPlaceholder(this.commentDetail.dadCommendResult.dadUserId)
-					} else {
-						this.$toast(res.msg)
-					}
-				}).catch(err => {
+            };
+        },
+        mounted() {
+            window.getClassDetail = this.getClassDetail
+            window.H5_getDownloadCourseList = this.H5_getDownloadCourseList
+            if (!this.isShare) {
+                window.addEventListener('scroll', this.scrollFn);
+            }
+        },
+        created() {
+            this.getClassDetail()
+            vm = this;
+        },
+        methods: {
+            scrollFn() {
+                var t = document.documentElement.scrollTop || document.body.scrollTop;
+                var rate = t / 100
+                if (rate > 1) {
+                    rate = 1
+                }
+                var colorValue = `rgba(18,18,31,${rate})`
+                document.getElementsByClassName("van-nav-bar")[0].style.background = colorValue
+                document.getElementsByClassName("van-nav-bar__title")[0].style.opacity = rate;
+                document.getElementsByClassName("van-nav-bar")[0].style.color =
+                    `rgb(${255-48*rate},${255-48*rate},${255-45*rate})`
 
-				})
-			},
-			//二级评论的时候初始化显示
-			initReplyAuthorIdandPlaceholder(userId, nickName) {
-				if (userId) this.replyAuthorId = userId;
+            },
+            destroyed() {
+                window.removeEventListener('scroll', this.scrollFn); // 销毁监听
+            },
+            onclickLeft() {
+                if (getQueryString('fromH5')) {
+                    window.history.back();
+                } else {
+                    if (isAndroid) {
+                        console.log(window.history)
+                        for (var i = window.history.length; i > 0; i--) {
+                            Interaction.closePage();
+                        }
+                    } else {
+                        Interaction.closePage();
+                    }
 
-				if (nickName) this.placeholder = `回复${nickName}:`
-				else this.placeholder = "说点什么"
+                    console.log(window.history)
+                }
+            },
+            //跳转课程介绍
+            goCourseDetail() {
+                window.location.href = `./courseDetail.html?id=${this.classDetail.bigClassId}`
+            },
+            //收藏相关
+            goCollect() {
+                let apiUrl = "community/threeUserCollect/insertOne"
+                if (!this.classDetail.isNotCollect) {
+                    apiUrl = "community/threeUserCollect/update/status"
+                }
+                ajax({
+                    type: "post",
+                    url: apiUrl,
+                    data: {
+                        bigClassId: this.classDetail.bigClassId,
+                        classDealType: 1
+                    }
+                }).then(res => {
+                    if (res.code == 0) {
+                        this.classDetail.isNotCollect = !this.classDetail.isNotCollect;
+                        if (this.classDetail.isNotCollect) {
+                            this.$toast('已取消')
+                        } else {
+                            this.$toast('收藏成功，请至“我的-我的课程”页面查看')
+                        }
+                    } else {
+                        this.$toast(res.msg)
+                    }
+                }).catch(err => {
 
-			},
-			//删除评论
-			deleteComment(item) {
-				console.log(item)
-				ajax({
-					url: "community/threeComment/delete/one/commend",
-					data: {
-						bigClassId: this.classDetail.bigClassId,
-						commendId: item.dadCommendId || item.sonCommendId
-					}
-				}).then(res => {
-					if (res.code == 0) {
-						if (this.moreCommentShow) {
-							if (item.dadCommendId) {
-								this.moreCommentShow = false;
-							} else {
-								this.getCommentDetail(this.commentDetail.dadCommendResult)
-								return
+                })
+            },
+            //点赞相关
+            goLikeComment(item) {
+                let apiUrl = "community/threeCommentUserLike/user/insert/like/commend"
 
-							}
-						}
-
-						this.commmentList = [];
-						this.pageNum = 0;
-						this.onRefresh();
-
-					} else {
-						this.$toast(res.msg)
-					}
-				}).catch(err => {
-
-				})
-
-			},
-			//输入框失去焦点的时候初始化输入框
-			initSendBox() {
-				console.log(1)
-			},
-			submitCommentFirst() {
-				var that = this;
-				if (!JSON.parse(localStorage.getItem("appInfo")).phoneNumber) {
-					that.$dialog.confirm({
-						message: '使用本功能，请先绑定手机号',
-						confirmButtonText: "确定",
-						confirmButtonColor: "#CFCFD2",
-						width: "300",
-						cancelButtonColor: "#CFCFD2"
-					}).then(() => {
-						if (isIOS) {
-							window.webkit.messageHandlers.lstNative.postMessage({
-								"method": "bindPhoneNumber",
-							});
-						} else if (isAndroid) {
-							window.android.bindPhoneNumber()
-						}
-						localStorage.removeItem("appInfo")
-					}).catch(() => {});
-				} else {
-					that.submitComment()
-				}
-
-			},
-			//发表评论
-			submitComment() {
-				if (!this.comment_message) {
-					return
-				}
-				if (this.isClick) return
-				this.isClick = true;
-				//先审核 再提交
-				ajax({
-					url: "contentSecurity/aliyun/textScan",
-					type: "post",
-					data: {
-						content: this.comment_message
-					},
-				}).then(res => {
-					if (res.code == 0) {
-						let form = {
-							bigClassId: this.classDetail.bigClassId,
-							sendAuthorId: this.classDetail.userId,
-							content: this.comment_message,
-							isRefer: 0, //0表示没有at，1表示at
-
-						}
-
-						if (this.moreCommentShow) {
-							form = {
-								...form,
-								replyAuthorId: this.replyAuthorId, //被评论回复的用户id
-								replyCommentId: this.commentDetail.dadCommendResult
-									.dadCommendId, //被评论回复的评论id
-								belongTopId: this.commentDetail.dadCommendResult
-									.dadCommendId, //属于哪条主要评论（如果是Null，说明是主要评论）
-							}
-						}
-						if (this.videoCourse_noticeList.length > 0) {
-							form.isRefer = 1 //0表示没有at，1表示at
-							let commendReferList = [];
-							this.videoCourse_noticeList.forEach((item, index) => {
-								var referItem = {
-									atUserId: item,
-									orderNum: index + 1
-								};
-								commendReferList.push(referItem)
-							})
-							form.commendReferList = commendReferList;
-						}
-						ajax({
-							url: "community/threeComment/insert/one/commend/to/class",
-							type: "post",
-							data: form,
-						}).then(res => {
-							this.$toast("发布成功！")
-							this.comment_message = ""
-							this.videoCourse_noticeList = []
-							if (this.moreCommentShow) {
-								this.getCommentDetail(this.commentDetail.dadCommendResult)
-							} else {
-								this.commmentList = [];
-								this.pageNum = 0;
-								this.onRefresh();
-								this.isClick = false;
-							}
-
-						})
-					} else {
-						this.$toast("评论审核未通过！");
-					}
-				})
+                // if (item.likeStatus) {
+                // 	apiUrl = "community/threeCommentUserLike/cancel/user/like"
+                // }
+                ajax({
+                    url: apiUrl,
+                    type: "post",
+                    data: {
+                        bigClassId: this.classDetail.bigClassId,
+                        commendId: item.dadCommendId || item.sonCommendId
+                    }
+                }).then(res => {
+                    if (res.code == 0) {
+                        if (item.dadCommendId) {
+                            if (item.likeStatus) {
+                                item.dadCommendLikeCount--;
+                                this.$toast("已取消")
+                            } else {
+                                item.dadCommendLikeCount++;
+                                this.$toast("点赞成功")
+                            }
 
 
+                        } else {
+                            if (item.likeStatus) {
+                                item.dadCommendLikeCount--;
+                                this.$toast("已取消")
+                            } else {
+                                item.dadCommendLikeCount++;
+                                this.$toast("点赞成功")
+                            }
+
+                        }
+                        item.likeStatus = !item.likeStatus
+
+                    } else {
+                        this.$toast(res.msg)
+                    }
+                }).catch(err => {
+
+                })
+            },
+            //分享
+            sharePage() {
+                ajax({
+                    type: "post",
+                    url: "community/threeUserCollect/insertOne",
+                    data: {
+                        bigClassId: this.classDetail.bigClassId,
+                        classDealType: 3
+                    }
+                })
+                Interaction.sharePage({
+                    title: this.classDetail.className,
+                    description: (this.classDetail.sumExercise || 0) + "人在派健康练习这节课程，你也快来试试吧！",
+                    url: host + "h5/h5V3/videoCourse/courseList.html?isShare=1&id=" + this.classDetail
+                        .bigClassId,
+                })
+            },
+            //@别人
+            noticeSomePeople() {
+                this.friendListShow = true
+                    //window.location.href = "friendList.html"
+            },
+            actionSheetSelect(obj, index) {
+                if (index == 0) {
+
+                    Interaction.appNative('clipboardCopy', {
+                        str: this.replyCommentItem.dadContent || this.replyCommentItem.sonContent
+                    });
+
+                    this.$toast('已复制' + (this.replyCommentItem.sonSendAuthorName || this.replyCommentItem.dadCommendNickName) + "的评论");
+                } else if (index == 1) {
+                    this.initReplyAuthorIdandPlaceholder((this.replyCommentItem.sonSendAuthorId || this
+                        .replyCommentItem.dadUserId), (this
+                        .replyCommentItem.sonSendAuthorName || this.replyCommentItem.dadCommendNickName))
+                } else if (index == 2) {
+                    this.deleteComment(this.replyCommentItem)
+                }
+            },
+            actionSheetCancel() {},
+            commentAction(item) {
+                this.actions = [{
+                    name: '复制',
+                }]
+                if (this.moreCommentShow) {
+                    this.actions.push({
+                        name: '回复'
+                    })
+                }
+                if ((item.sonSendAuthorId || item.dadUserId) == JSON.parse(localStorage.getItem("appInfo"))
+                    .userId) {
+                    this.actions.push({
+                        name: '删除',
+                        // color: '#ee0a24'
+                    })
+                }
+
+
+                this.actionSheetShow = true;
+                this.replyCommentItem = item;
+            },
+            //获取大课程下的课程详情以及小课程列表
+            getClassDetail() {
+                ajax({
+                    url: "community/threeUserCollect/see/bigClass/detail",
+                    data: {
+                        bigClassId: this.id
+                    }
+                }).then(res => {
+                    if (res.code == 0) {
+                        this.classDetail = res.data;
+                    } else {
+                        this.$toast(res.msg)
+                    }
+                }).catch(err => {
+
+                })
+
+
+            },
+            //获取评论列表
+            getCommentList() {
+                ajax({
+                    url: "community/threeComment/see/all/class/commend",
+                    data: {
+                        bigClassId: this.id,
+                        offset: this.pageNum,
+                        limit: this.pageSize
+                    }
+                }).then(res => {
+                    if (res.code == 0) {
+                        this.total = res.data.totalCount;
+                        this.loading = false;
+                        if (this.pageNum == 0) {
+                            this.commmentList = res.data.resultList
+                        } else {
+                            this.commmentList = this.commmentList.concat(res.data.resultList);
+                        }
+                    } else if (res.code == 3062) {
+                        this.finished = true;
+                    }
+
+                })
+            },
+            //评论详情
+            getCommentDetail(item) {
+
+                ajax({
+                    url: "community/threeComment/see/all/son/commend/by/dad",
+                    data: {
+                        bigClassId: this.classDetail.bigClassId,
+                        commendId: item.dadCommendId
+                    }
+                }).then(res => {
+                    if (res.code == 0) {
+                        this.comment_message = ""
+                        this.moreCommentShow = true;
+                        this.commentDetail = res.data;
+                        this.initReplyAuthorIdandPlaceholder(this.commentDetail.dadCommendResult.dadUserId)
+                    } else {
+                        this.$toast(res.msg)
+                    }
+                }).catch(err => {
+
+                })
+            },
+            //二级评论的时候初始化显示
+            initReplyAuthorIdandPlaceholder(userId, nickName) {
+                if (userId) this.replyAuthorId = userId;
+
+                if (nickName) this.placeholder = `回复${nickName}:`
+                else this.placeholder = "说点什么"
+
+            },
+            //删除评论
+            deleteComment(item) {
+                console.log(item)
+                ajax({
+                    url: "community/threeComment/delete/one/commend",
+                    data: {
+                        bigClassId: this.classDetail.bigClassId,
+                        commendId: item.dadCommendId || item.sonCommendId
+                    }
+                }).then(res => {
+                    if (res.code == 0) {
+                        if (this.moreCommentShow) {
+                            if (item.dadCommendId) {
+                                this.moreCommentShow = false;
+                            } else {
+                                this.getCommentDetail(this.commentDetail.dadCommendResult)
+                                return
+
+                            }
+                        }
+
+                        this.commmentList = [];
+                        this.pageNum = 0;
+                        this.onRefresh();
+                        this.$toast("删除成功！")
+
+                    } else {
+                        this.$toast(res.msg)
+                    }
+                }).catch(err => {
+
+                })
+
+            },
+            //输入框失去焦点的时候初始化输入框
+            initSendBox() {
+                console.log(1)
+            },
+            submitCommentFirst() {
+                var that = this;
+                if (!JSON.parse(localStorage.getItem("appInfo")).phoneNumber) {
+                    that.$dialog.confirm({
+                        message: '使用本功能，请先绑定手机号',
+                        confirmButtonText: "确定",
+                        confirmButtonColor: "#CFCFD2",
+                        width: "300",
+                        cancelButtonColor: "#CFCFD2"
+                    }).then(() => {
+                        if (isIOS) {
+                            window.webkit.messageHandlers.lstNative.postMessage({
+                                "method": "bindPhoneNumber",
+                            });
+                        } else if (isAndroid) {
+                            window.android.bindPhoneNumber()
+                        }
+                        localStorage.removeItem("appInfo")
+                    }).catch(() => {});
+                } else {
+                    that.submitComment()
+                }
+
+            },
+            //发表评论
+            submitComment() {
+                var second = (() => {
+                    let form = {
+                        bigClassId: this.classDetail.bigClassId,
+                        sendAuthorId: this.classDetail.userId,
+                        content: this.comment_message,
+                        isRefer: 0, //0表示没有at，1表示at
+
+                    }
+
+                    if (this.moreCommentShow) {
+                        form = {
+                            ...form,
+                            replyAuthorId: this.replyAuthorId, //被评论回复的用户id
+                            replyCommentId: this.commentDetail.dadCommendResult
+                                .dadCommendId, //被评论回复的评论id
+                            belongTopId: this.commentDetail.dadCommendResult
+                                .dadCommendId, //属于哪条主要评论（如果是Null，说明是主要评论）
+                        }
+                    }
+                    if (this.videoCourse_noticeList.length > 0) {
+                        form.isRefer = 1 //0表示没有at，1表示at
+                        let commendReferList = [];
+                        this.videoCourse_noticeList.forEach((item, index) => {
+                            var referItem = {
+                                atUserId: item,
+                                orderNum: index + 1
+                            };
+                            commendReferList.push(referItem)
+                        })
+                        form.commendReferList = commendReferList;
+                    }
+                    ajax({
+                        url: "community/threeComment/insert/one/commend/to/class",
+                        type: "post",
+                        data: form,
+                    }).then(res => {
+                        this.$toast("发布成功！")
+                        this.comment_message = ""
+                        this.videoCourse_noticeList = []
+                        console.log(this.videoCourse_noticeList)
+                        if (this.moreCommentShow) {
+                            this.isClick = false;
+                            this.getCommentDetail(this.commentDetail.dadCommendResult)
+                        } else {
+                            this.commmentList = [];
+                            this.pageNum = 0;
+                            this.onRefresh();
+                            this.isClick = false;
+                        }
+
+                    })
+                })
+                if (!this.comment_message && this.videoCourse_noticeList.length == 0) {
+                    return
+                }
+                if (this.isClick) return
+                this.isClick = true;
+                if (this.comment_message) {
+                    //先审核 再提交
+                    ajax({
+                        url: "contentSecurity/aliyun/textScan",
+                        type: "post",
+                        data: {
+                            content: this.comment_message
+                        },
+                    }).then(res => {
+                        if (res.code == 0) {
+                            second()
+                        } else {
+                            this.$toast("评论审核未通过！");
+                        }
+                    })
+                } else {
+                    second()
+                }
 
 
 
-			},
-			//评论刷新
-			onRefresh() {
-				this.finished = false;
-				this.loading = true;
-				this.refreshing = true;
-				this.onLoad();
-			},
-			//评论得分页加载
-			onLoad() {
-				if (this.refreshing) {
-					this.commmentList = [];
-					this.refreshing = false;
-					this.pageNum = 0;
-				} else {
-					this.pageNum++;
-				}
-				this.getCommentList()
-			},
-			//播放
-			playVideo(item, index) {
-				//如果是动作的话 从第一个开始播放
-				if (this.classDetail.actionOrClass == 1) {
-					item = this.classDetail.smallClassList[0];
-					index = 0
-				}
-				//观看课程添加观看记录和增加观看人数
-				ajax({
-					url: "community/threeUserCollect/add/num/by/see/class",
-					data: {
-						bigClassId: this.classDetail.bigClassId
-					}
-				}).then(res => {
-					if (res.code == 0) {
-						var methodItem = {
-							method: "goToVideoPlayer",
-							actionOrClass: this.classDetail.actionOrClass, //1 动作 0课程
-							videoId: item.classVod,
-							currentIndex: index,
-							videoList: this.classDetail.smallClassList,
-							bigClassId: this.classDetail.bigClassId,
-							bigClass: this.classDetail
-						}
-						try {
-							if (isIOS) {
-								window.webkit.messageHandlers.lstNative.postMessage(methodItem);
-							} else if (isAndroid) {
-								window.android.goToVideoPlayer(JSON.stringify(methodItem));
-							}
-						} catch (e) {
-							console.log(e)
-						}
-					} else {
-						this.$toast(res.msg)
-					}
-				}).catch(err => {
-
-				})
-
-			},
-			//缓存视频
-			downButton() {
-				ajax({
-					type: "post",
-					url: "community/threeUserCollect/insertOne",
-					data: {
-						bigClassId: this.classDetail.bigClassId,
-						classDealType: 3
-					}
-				})
-				this.tabSelected = 1;
-				//如果是动作直接下载全部动作
-				if (this.classDetail.actionOrClass == 1) {
-					var obj = this.classDetail
-					obj.smallClassList.forEach(item => {
-						if (item.isDownload != -1) {
-							item.isDownload = 1;
-							this.classArray.push(item)
-						}
-					})
-					this.downAll()
-					return;
-				}
-				this.downlaodStatus = !(this.downlaodStatus);
-				
-			},
-			//获取已经缓存的视频
-			getCheckDownloadCourseList() {
-				if (isIOS) {
-					window.webkit.messageHandlers.lstNative.postMessage({
-						method: "LSTH5APP_checkDownloadCourseList",
-						smallClass: this.classDetail.smallClassList
-					});
-
-				} else if (isAndroid) {
-					this.H5_getDownloadCourseList(window.android.LSTH5APP_checkDownloadCourseList(JSON.stringify({
-						smallClass: this.classDetail.smallClassList
-					})));
-				}
-			},
-			H5_getDownloadCourseList(obj) {
-				if (isIOS) {
-					this.classDetail.smallClassList = JSON.parse(obj).data;
-
-				} else if (isAndroid) {
-
-					this.classDetail.smallClassList = JSON.parse(obj);
-				}
-				this.isChooseAll = -1;
-				this.classDetail.smallClassList.forEach(item => {
-					if (item.isDownload == 0 || !item.isDownload || item.isDownload == 2) {
-						this.isChooseAll = 0
-					}
-				})
-
-			},
-			//选中
-			chooseClass(item, index) {
-				//isDownload -1 已经下载 0 未选中 1选中
-				var obj = this.classDetail
-				if (item.isDownload != -1) {
-					obj.smallClassList[index].isDownload == 1 ? item.isDownload = 0 : item.isDownload = 1
-					if (item.isDownload == 1) {
-						this.classArray.push(item)
-					} else {
-						let index = this.classArray.findIndex(item2 => {
-							return item.classVod == item2.classVod
-						})
-						this.classArray.splice(index, 1)
-					}
-					this.classDetail = Object.assign({}, obj)
-					this.isChooseAll = 1;
-					this.classDetail.smallClassList.forEach(item => {
-						if (item.isDownload == 0 || !item.isDownload || item.isDownload == 2) {
-							this.isChooseAll = 0
-						}
-					})
-				} else {
-					this.$toast('该视频已在下载列表中')
-				}
 
 
-			},
-			chooseAll() {
-				if (this.isChooseAll != -1) {
-					this.isChooseAll == 1 ? this.isChooseAll = 0 : this.isChooseAll = 1
-				}
-				var obj = this.classDetail
-				obj.smallClassList.forEach(item => {
-					if (item.isDownload != -1) {
-						this.isChooseAll == 1 ? item.isDownload = 1 : item.isDownload = 0;
-						if (this.isChooseAll == 1) {
-							this.classArray.push(item)
-						} else {
-							this.classArray = []
-						}
-					}
-				})
-				this.classDetail = Object.assign({}, obj)
 
-			},
-			downAll() {
 
-				if (this.classArray.length == 0) {
-					this.$toast("请先选择需要缓存的课程！")
-					return
-				}
 
-				if (isIOS) {
-						window.webkit.messageHandlers.lstNative.postMessage({
-							method: "LSTH5APP_downloadCourseList",
-							bigClass: this.classDetail,
-							smallClass: this.classArray
-						});
 
-					} else if (isAndroid) {
-						window.android.LSTH5APP_downloadCourseList(JSON.stringify({
-							bigClass: this.classDetail,
-							smallClass: this.classArray
-						}));
-					}
-					this.downlaodStatus = false;
-					this.isChooseAll = 0;
-					this.classArray = [];
-			}
-		}
-	})
+            },
+            //评论刷新
+            onRefresh() {
+                this.finished = false;
+                this.loading = true;
+                this.refreshing = true;
+                this.onLoad();
+            },
+            //评论得分页加载
+            onLoad() {
+                if (this.refreshing) {
+                    this.commmentList = [];
+                    this.refreshing = false;
+                    this.pageNum = 0;
+                } else {
+                    this.pageNum++;
+                }
+                this.getCommentList()
+            },
+            //播放
+            playVideo(item, index) {
+                //如果是动作的话 从第一个开始播放
+                if (this.classDetail.actionOrClass == 1) {
+                    item = this.classDetail.smallClassList[0];
+                    index = 0
+                }
+                //观看课程添加观看记录和增加观看人数
+                ajax({
+                    url: "community/threeUserCollect/add/num/by/see/class",
+                    data: {
+                        bigClassId: this.classDetail.bigClassId
+                    }
+                }).then(res => {
+                    if (res.code == 0) {
+                        var methodItem = {
+                            method: "goToVideoPlayer",
+                            actionOrClass: this.classDetail.actionOrClass, //1 动作 0课程
+                            videoId: item.classVod,
+                            currentIndex: index,
+                            videoList: this.classDetail.smallClassList,
+                            bigClassId: this.classDetail.bigClassId,
+                            bigClass: this.classDetail
+                        }
+                        try {
+                            if (isIOS) {
+                                window.webkit.messageHandlers.lstNative.postMessage(methodItem);
+                            } else if (isAndroid) {
+                                window.android.goToVideoPlayer(JSON.stringify(methodItem));
+                            }
+                        } catch (e) {
+                            console.log(e)
+                        }
+                    } else {
+                        this.$toast(res.msg)
+                    }
+                }).catch(err => {
+
+                })
+
+            },
+            //缓存视频
+            downButton() {
+                ajax({
+                    type: "post",
+                    url: "community/threeUserCollect/insertOne",
+                    data: {
+                        bigClassId: this.classDetail.bigClassId,
+                        classDealType: 3
+                    }
+                })
+                this.tabSelected = 1;
+                //如果是动作直接下载全部动作
+                if (this.classDetail.actionOrClass == 1) {
+                    var obj = this.classDetail
+                    obj.smallClassList.forEach(item => {
+                        if (item.isDownload != -1) {
+                            item.isDownload = 1;
+                            this.classArray.push(item)
+                        }
+                    })
+                    this.downAll()
+                    return;
+                }
+                this.downlaodStatus = !(this.downlaodStatus);
+
+            },
+            //获取已经缓存的视频
+            getCheckDownloadCourseList() {
+                if (isIOS) {
+                    window.webkit.messageHandlers.lstNative.postMessage({
+                        method: "LSTH5APP_checkDownloadCourseList",
+                        smallClass: this.classDetail.smallClassList
+                    });
+
+                } else if (isAndroid) {
+                    this.H5_getDownloadCourseList(window.android.LSTH5APP_checkDownloadCourseList(JSON.stringify({
+                        smallClass: this.classDetail.smallClassList
+                    })));
+                }
+            },
+            H5_getDownloadCourseList(obj) {
+                if (isIOS) {
+                    this.classDetail.smallClassList = JSON.parse(obj).data;
+
+                } else if (isAndroid) {
+
+                    this.classDetail.smallClassList = JSON.parse(obj);
+                }
+                this.isChooseAll = -1;
+                this.classDetail.smallClassList.forEach(item => {
+                    if (item.isDownload == 0 || !item.isDownload || item.isDownload == 2) {
+                        this.isChooseAll = 0
+                    }
+                })
+
+            },
+            //选中
+            chooseClass(item, index) {
+                //isDownload -1 已经下载 0 未选中 1选中
+                var obj = this.classDetail
+                if (item.isDownload != -1) {
+                    obj.smallClassList[index].isDownload == 1 ? item.isDownload = 0 : item.isDownload = 1
+                    if (item.isDownload == 1) {
+                        this.classArray.push(item)
+                    } else {
+                        let index = this.classArray.findIndex(item2 => {
+                            return item.classVod == item2.classVod
+                        })
+                        this.classArray.splice(index, 1)
+                    }
+                    this.classDetail = Object.assign({}, obj)
+                    this.isChooseAll = 1;
+                    this.classDetail.smallClassList.forEach(item => {
+                        if (item.isDownload == 0 || !item.isDownload || item.isDownload == 2) {
+                            this.isChooseAll = 0
+                        }
+                    })
+                } else {
+                    this.$toast('该视频已在下载列表中')
+                }
+
+
+            },
+            chooseAll() {
+                if (this.isChooseAll != -1) {
+                    this.isChooseAll == 1 ? this.isChooseAll = 0 : this.isChooseAll = 1
+                }
+                var obj = this.classDetail
+                obj.smallClassList.forEach(item => {
+                    if (item.isDownload != -1) {
+                        this.isChooseAll == 1 ? item.isDownload = 1 : item.isDownload = 0;
+                        if (this.isChooseAll == 1) {
+                            this.classArray.push(item)
+                        } else {
+                            this.classArray = []
+                        }
+                    }
+                })
+                this.classDetail = Object.assign({}, obj)
+
+            },
+            downAll() {
+
+                if (this.classArray.length == 0) {
+                    this.$toast("请先选择需要缓存的课程！")
+                    return
+                }
+
+                if (isIOS) {
+                    window.webkit.messageHandlers.lstNative.postMessage({
+                        method: "LSTH5APP_downloadCourseList",
+                        bigClass: this.classDetail,
+                        smallClass: this.classArray
+                    });
+
+                } else if (isAndroid) {
+                    window.android.LSTH5APP_downloadCourseList(JSON.stringify({
+                        bigClass: this.classDetail,
+                        smallClass: this.classArray
+                    }));
+                }
+                this.downlaodStatus = false;
+                this.isChooseAll = 0;
+                this.classArray = [];
+            }
+        }
+    })
 </script>

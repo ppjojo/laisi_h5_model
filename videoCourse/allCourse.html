@@ -1,62 +1,53 @@
 <!DOCTYPE html>
 <html lang="zh-cmn-Hans">
 
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport"
-            content="width=device-width, initial-scale=1.0, maximum-scale=1.0,
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,
             minimum-scale=1.0, viewport-fit=cover">
-        <title>全部课程</title>
-        <link rel="stylesheet"
-            href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
-        <link rel="stylesheet" href="font/iconfont.css">
-        <link rel="stylesheet" href="../common/css/basic.css">
-        <link rel="stylesheet" href="css/index.css">
+    <title>全部课程</title>
+    <link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
+    <link rel="stylesheet" href="font/iconfont.css">
+    <link rel="stylesheet" href="../common/css/basic.css">
+    <link rel="stylesheet" href="css/index.css">
 
-    </head>
+</head>
 
-    <body>
-        <div id="app" class="normalHeader" v-cloak>
-            <div class="header">
-                <van-nav-bar @click-left="onclickLeft" title="全部课程" left-arrow
-                    safe-area-inset-top fixed>
-                    <template #left>
+<body>
+    <div id="app" class="normalHeader" v-cloak>
+        <div class="header">
+            <van-nav-bar @click-left="onclickLeft" title="全部课程" left-arrow safe-area-inset-top fixed>
+                <template #left>
                         <span class="icon iconfont icon-fanhuianniu"
                             style="font-size: 0.5rem;" />
                         </template>
 
-                    </van-nav-bar>
+            </van-nav-bar>
+        </div>
+        <div class="allContain">
+            <div class="classificationBox">
+                <div class="title">课程筛选
+                    <span class="titleInfo" v-if="chooseLength>0">已选{{chooseLength}}项</span>
+                    <span class="icon iconfont icon-shurukuang-chahao" v-if="chooseLength>0" @click="initCondition(0)" style="font-size: 0.2rem;color: #595962;" />
                 </div>
-                <div class="allContain">
-                    <div class="classificationBox">
-                        <div class="title">课程筛选
-                            <span class="titleInfo" v-if="chooseLength>0">已选{{chooseLength}}项</span>
-                            <span class="icon iconfont icon-shurukuang-chahao" v-if="chooseLength>0"
-                                @click="initCondition(0)"
-                                style="font-size: 0.2rem;color: #595962;" />
-                            </div>
-                            <div class="classificationDiv">
-                                <div class="classificationList" v-for="(items,
+                <div class="classificationDiv">
+                    <div class="classificationList" v-for="(items,
                                     key) in laberList">
-                                    <div class="name">
-                                        {{key}}
-                                    </div>
-                                    <div class="typeList">
-                                        <div class="typeItem" v-for="item in
-                                            items"
-                                            @click="laberChoose(item,items)"
-                                            :class="item.choose?'selected':''">{{item.attribute}}</div>
-                                    </div>
-                                </div>
-
-                            </div>
+                        <div class="name">
+                            {{key}}
                         </div>
+                        <div class="typeList">
+                            <div class="typeItem" v-for="item in
+                                            items" @click="laberChoose(item,items)" :class="item.choose?'selected':''">{{item.attribute}}</div>
+                        </div>
+                    </div>
 
-                        <div class="contain" style="overflow-y: auto;">
-                            <van-pull-refresh v-model="isLoading"
-                                :head-height="90" @refresh="initIndexData"
-                                class="monkey-pull-refresh">
-                                <template #pulling="props">
+                </div>
+            </div>
+
+            <div class="contain" style="overflow-y: auto;">
+                <van-pull-refresh v-model="isLoading" :head-height="90" @refresh="initIndexData" class="monkey-pull-refresh">
+                    <template #pulling="props">
                                     <div class="monkeyBox">
                                         <img class="monkey"
                                             src="../common/img/monkey.gif" />
@@ -64,8 +55,8 @@
                                     </div>
 
                                 </template>
-                                <!-- 释放提示 -->
-                                <template #loosing>
+                    <!-- 释放提示 -->
+                    <template #loosing>
                                     <div class="monkeyBox">
                                         <img class="monkey"
                                             src="../common/img/monkey.gif" />
@@ -73,63 +64,54 @@
                                     </div>
                                 </template>
 
-                                <!-- 加载提示 -->
-                                <template #loading>
+                    <!-- 加载提示 -->
+                    <template #loading>
                                     <div class="monkeyBox">
                                         <img class="monkey"
                                             src="../common/img/monkey.gif" />
                                         <p>正在刷新</p>
                                     </div>
                                 </template>
-                                <div class="courseBox" v-if="classList.length>0">
-                                    <ul>
-                                        <li class="courseDiv" v-for="item in
-                                            classList"
-                                            @click="courseList(item)">
-                                            <img
-                                                v-if="item.classLableList.length>0"
-                                            :src="'./img/'+item.classLableList[0].classLabel+'.png'"
-                                            class="iconlabel" alt="">
-                                            <div class="cover"
-                                                :style="{'backgroundImage':'url('+item.classCover+')'}">
-                                            </div>
-                                            <div class="content">
-                                                <div>
-                                                    <p class="stitle">{{item.className}}</p>
-                                                    <p class="detail">
-                                                        {{Math.round(item.classDuration/60)}}分钟
-                                                        · {{item.calory}}千卡 ·
-                                                        {{item.classLevelName}}
-                                                    </p>
-                                                </div>
-                                                <div class="progress">
-                                                    {{item.sumExercise||0}}人练过
-                                                </div>
-                                            </div>
-
-                                        </li>
-                                    </ul>
+                    <div class="courseBox" v-if="classList.length>0">
+                        <ul>
+                            <li class="courseDiv" v-for="item in
+                                            classList" @click="courseList(item)">
+                                <img v-if="item.classLableList.length>0" :src="'./img/'+item.classLableList[0].classLabel+'.png'" class="iconlabel" alt="">
+                                <div class="cover" :style="{'backgroundImage':'url('+item.classCover+')'}">
+                                </div>
+                                <div class="content">
+                                    <div>
+                                        <p class="stitle">{{item.className}}</p>
+                                        <p class="detail">
+                                            {{Math.round(item.classDuration/60)}}分钟 · {{item.calory}}千卡 · {{item.classLevelName}}
+                                        </p>
+                                    </div>
+                                    <div class="progress">
+                                        {{item.sumExercise||0}}人练过
+                                    </div>
                                 </div>
 
-                                <div class="noData-box" style="padding-top: 0;"
-                                    v-else-if="!isLoading">
-                                    <img class="noData-img"
-                                        src="../common/img/noData.png" />
-                                    <p class="noData-p">暂无符合条件的训练课程，换个条件试试吧~</p>
-                                </div>
-                            </van-pull-refresh>
-                        </div>
+                            </li>
+                        </ul>
                     </div>
 
-                </div>
-
+                    <div class="noData-box" style="padding-top: 0;" v-else-if="!isLoading">
+                        <img class="noData-img" src="../common/img/noData.png" />
+                        <p class="noData-p">暂无符合条件的训练课程，换个条件试试吧~</p>
+                    </div>
+                </van-pull-refresh>
             </div>
-        </body>
-        <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
-        <script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
-        <script src="../common/js/network.js"></script>
+        </div>
 
-        <script>
+    </div>
+
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
+<script src="../common/js/network.js"></script>
+
+<script>
     new Vue({
         el: '#app',
         data() {
@@ -139,7 +121,7 @@
                 userId: "",
                 classList: [],
                 chooseLength: 0,
-                classifyName:getQueryString("classifyName")||"",
+                classifyName: getQueryString("classifyName") || "",
 
             }
         },
@@ -148,7 +130,7 @@
 
         },
         mounted() {
-            
+
 
         },
         created() {
@@ -159,9 +141,9 @@
                 Interaction.closePage();
             },
             initIndexData() {
-                if(this.chooseLength==0){
+                if (this.chooseLength == 0) {
                     this.getNormalClass()
-                }else{
+                } else {
                     this.getClassByConditions()
                 }
 
@@ -172,22 +154,25 @@
                     url: "community/threeAttribute/group/see/all/attribute",
                 }).then(res => {
                     this.laberList = res.data;
-                    this.laberList['时间']=[{
-                        id: 10, attribute: "2-10分钟"
-                    },{
-                        id: 20, attribute: "11-20分钟"
-                    },{
-                        id: 30, attribute: "21-40分钟"
+                    this.laberList['时间'] = [{
+                        id: 10,
+                        attribute: "2-10分钟"
+                    }, {
+                        id: 20,
+                        attribute: "11-20分钟"
+                    }, {
+                        id: 30,
+                        attribute: "21-40分钟"
                     }]
-                    if(this.classifyName){
+                    if (this.classifyName) {
                         for (const key in this.laberList) {
                             this.laberList[key].forEach(item => {
-                                if(item.attribute==this.classifyName)
-                                this.laberChoose(item,this.laberList[key])
+                                if (item.attribute == this.classifyName)
+                                    this.laberChoose(item, this.laberList[key])
                                 return
                             });
                         }
-                    }else{
+                    } else {
                         this.getNormalClass()
                     }
                 }).catch((err) => {
@@ -230,11 +215,11 @@
             //选择标签
             laberChoose(item, items) {
                 if (item.choose) {
-                    item.choose=false
+                    item.choose = false
                     this.initCondition()
                     return
                 }
-                
+
                 items.forEach(ele => {
                     ele.choose = false
                 })
@@ -273,24 +258,24 @@
                             this.chooseLength = 0
                         } else if (item.choose) {
                             this.chooseLength++
-                            form[submitKey].push(item.id)
+                                form[submitKey].push(item.id)
                         }
                     });
                     form[submitKey] = form[submitKey].join()
                 }
-                
-               
+
+
 
                 if (this.chooseLength == 0) {
                     this.getNormalClass()
                 } else {
-                    this.form=form
+                    this.form = form
                     this.getClassByConditions()
                 }
             },
             //跳转课程详情
             courseList(item) {
-                window.location.href = `courseList.html?id=${item.bigClassId}&back=1`
+                window.location.href = `courseList.html?id=${item.bigClassId}&fromH5=1`
             },
 
 
@@ -299,4 +284,4 @@
     })
 </script>
 
-    </html>
+</html>

@@ -179,7 +179,9 @@ export default {
       )
         .then((res) => {
           if (res.code == 0) {
+            
             if (res.data.content.length < this.all[this.active].pageSize) {
+              
               this.all[this.active].finished = true;
             }
             if (
