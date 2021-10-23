@@ -12,16 +12,18 @@
 		<style type="text/css">
 			
 			.listItem {
+				line-height:0.96rem;
 				color: #cfcfd2;
 				border-bottom: 1px solid #1e1e2a;
-				padding: .24rem;
 				display: flex;
 				justify-content: space-between;
 				align-items: center;
-				font-size: .28rem;
+				font-size: .24rem;
+				padding:0 0.24rem;
 			}
 			.listItem img {
-				width: .1rem;
+				width: .12rem;
+				margin-left:0.05rem;
 			}
 		</style>
 	</head>
@@ -61,8 +63,8 @@
 					this.getList()
 				},
 				methods: {
-					clickQuestion(item,index){
-						window.location.href = "answer.html?qa=" + index + '&userId='+ getQueryString('userId')+'&title='+item.title+'&topTitle='+this.title+'&id='+getQueryString('id');
+					clickQuestion(item){
+						window.location.href = "answer.html?id="+item.id;
 					},
 					getList(){
 						var _self = this;

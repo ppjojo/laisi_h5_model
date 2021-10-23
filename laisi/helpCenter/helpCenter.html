@@ -107,11 +107,7 @@
 				window.location.href = "qalist.html?id=" + item.id + '&userId='+ getQueryString('userId')+'&title='+item.questionTypeTitle;
 			},
 			clickQuestion2(item){
-				let title = '';
-				this.dataList.questionTypes.forEach(d=>{
-					if(d.id==item.questionType)title = d.questionTypeTitle;
-				})
-				window.location.href = "qalist.html?id=" + item.questionType + '&userId='+ getQueryString('userId')+'&title='+title;
+				window.location.href = "answer.html?id="+item.id;
 			},
 			getList(){
 				

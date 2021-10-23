@@ -327,9 +327,9 @@
 			<div v-if="isShare" class="iconBox">
 				<img src="img/lsicon.png"  alt="">
 				<div class="userBox" v-if="isShare">
-					<div class>
+					<div class="nameBox">
 						<p class="name">{{user.nickname}}</p>
-						<p class="date">{{200101}}</p>
+						<p class="date">{{shareTime}}</p>
 					</div>
 					<img :src="user.headPictureUrl" alt="">
 				</div>
@@ -349,6 +349,7 @@
 				measureId: getQueryString("measureId")||'', //数据id
 				deviceType: getQueryString("deviceType")||'', //设备类型 区分是不是非智能体脂秤
 				isShare: getQueryString("isShare"),
+				shareTime:getQueryString("shareTime")||'',
 				bodyData: {
 					createTime:"",
 					tfr:"",

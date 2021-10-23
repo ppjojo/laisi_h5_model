@@ -17,7 +17,7 @@
 	<body>
 		<div id="app">
 			<div class="header">
-				<van-nav-bar @click-left="onclickLeft" :title="topTitle" left-arrow
+				<van-nav-bar @click-left="onclickLeft" :title="title" left-arrow
 					safe-area-inset-top fixed>
 					<template #left>
 						<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
@@ -33,7 +33,7 @@
 						</div>
 						<div style="padding:0.2rem"> 
 							<div class="icon bgGreen">A</div>
-							<div class="infoBox" v-html="operation_manual">
+							<div class="infoBox" v-html="operationManual">
 							</div>
 						</div> 
 				</div>
@@ -48,39 +48,28 @@
 				el: '#app',
 				data() {
 					return {
-						INDEX:parseInt(getQueryString('qa')),
-						title:getQueryString('title'),
-						operation_manual:'',
-						topTitle :getQueryString('topTitle'),
-
+						title:"",
+						operationManual:'',
 					}
 				},
 				filters: {},
 				mounted() {
 				},
 				created() {
-					this.getList()
+					this.getItem()
 				},
 				methods: {
-					getList(){
-						var _self = this;
+					getItem(){
 						ajax({
-							type: "get",
-							url: "helpCenter/faq/query",
+							url: "helpCenter/faq/get/id",
 							data: {
-								questionType: getQueryString('id'),
-								pageSize:100
-							},
-							success: function(res) {
-								if (parseInt(res.code) == 0) {
-									_self.operation_manual = res.data[_self.INDEX].operationManual;
-								}
-							},
-							error: function() {
-								console.log("error")
-						
+								id: getQueryString('id'),
 							}
+						}).then(res=>{
+							this.title=res.data.title;
+							this.operationManual=res.data.operationManual
 						})
+						
 					},
 					onclickLeft(){
 						window.history.back(-1);
