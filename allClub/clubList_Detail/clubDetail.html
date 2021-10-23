@@ -518,7 +518,7 @@
 																            </div>
 																        </van-list>
 																    </div>
-                                                                <div v-else-if="competitionObject.unJoin.list.length==0&&competitionObject.join.list.length==0&&(!competitionObject.unJoin.loading&&!competitionObject.Join.loading)"
+                                                                <div v-else-if="competitionObject.unJoin.list.length==0&&competitionObject.join.list.length==0&&(!(competitionObject.unJoin.loading)&&!(competitionObject.join.loading))"
                                                                     class="nullDataBox">
                                                                     <img
                                                                         src="../../common/img/noData.png"

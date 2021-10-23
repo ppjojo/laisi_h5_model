@@ -13,10 +13,6 @@
 <body>
 	<div id="app" v-cloak>
 		<div class="topContain">
-			<div class="userBox" v-if="isShare">
-				<img :src="user.headPictureUrl" alt="">
-				{{user.nickname}}
-			</div>
 			<div class="scoreBox">
 				<div class="scoreDiv" @click="gotoDetail('score')">{{bodyData.score||'--'}}</div>
 				<div class="scoreInfo">身体得分</div>
@@ -330,6 +326,13 @@
 			</div>
 			<div v-if="isShare" class="iconBox">
 				<img src="img/lsicon.png"  alt="">
+				<div class="userBox" v-if="isShare">
+					<div class>
+						<p class="name">{{user.nickname}}</p>
+						<p class="date">{{200101}}</p>
+					</div>
+					<img :src="user.headPictureUrl" alt="">
+				</div>
 			</div>
 		</div>
 	</div>
