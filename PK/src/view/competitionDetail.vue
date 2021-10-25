@@ -703,7 +703,7 @@ export default {
             if (this.competitionItem.gameReward) {
               this.competitionItem.gameReward =
                 this.competitionItem.gameReward.replace(/\n/g, "<br>") +
-                "<br>(由发起人提供)";
+                "(由发起人提供)";
             }
             if (this.competitionItem.rule) {
               this.competitionItem.rule = this.competitionItem.rule.replace(
