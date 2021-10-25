@@ -209,6 +209,10 @@
   width: 4rem;
 }
 
+.detailBox .raceInformation .team {
+  margin: 0 0.24rem;
+}
+
 .detailBox .raceInformation .teamcount {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -216,7 +220,7 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  padding: 0.8rem 0.3rem;
+  padding: 0.8rem 0;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
@@ -234,14 +238,19 @@
       -ms-flex-pack: start;
           justify-content: flex-start;
   width: 50%;
+  min-width: 28%;
+}
+
+.detailBox .raceInformation .teamcount .leftBox .skipImg {
+  left: 0;
 }
 
 .detailBox .raceInformation .teamcount .pkImg {
   position: absolute;
-  top: 0.75rem;
+  top: 0.48rem;
   left: 50%;
   z-index: 3;
-  margin-left: -0.5rem;
+  margin-left: -0.48rem;
 }
 
 .detailBox .raceInformation .teamcount .pkImg .centerimg {
@@ -262,6 +271,11 @@
       -ms-flex-pack: end;
           justify-content: flex-end;
   width: 50%;
+  min-width: 28%;
+}
+
+.detailBox .raceInformation .teamcount .rightBox .skipImg {
+  right: 0;
 }
 
 .detailBox .raceInformation .teamcount .skipImg {
@@ -280,7 +294,7 @@
       -ms-flex-pack: center;
           justify-content: center;
   border: 2px solid #12121f;
-  position: relative;
+  position: absolute;
   z-index: 2;
 }
 
@@ -321,26 +335,28 @@
   background-image: -webkit-gradient(linear, left top, right top, from(#FF4E3E), to(#FFAA88));
   background-image: linear-gradient(to right, #FF4E3E, #FFAA88);
   text-align: left;
-  padding-left: 0.35rem;
+  padding-left: 1rem;
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
   position: relative;
-  left: -0.28rem;
   top: -0.2rem;
+  width: 100%;
+  border-top-left-radius: 1rem;
 }
 
 .detailBox .raceInformation .teamcount .lineRight {
   background-image: -webkit-gradient(linear, left top, right top, from(#6DCAFB), to(#4684EF));
   background-image: linear-gradient(to right, #6DCAFB, #4684EF);
   text-align: right;
-  padding-right: 0.35rem;
+  padding-right: 1rem;
   -webkit-box-pack: end;
       -ms-flex-pack: end;
           justify-content: flex-end;
   position: relative;
-  right: -0.28rem;
   top: 0.2rem;
+  width: 100%;
+  border-bottom-right-radius: 1rem;
 }
 
 .detailBox .raceInformation .activeTeam, .detailBox .raceInformation .powerTeam, .detailBox .raceInformation .loserTeam {

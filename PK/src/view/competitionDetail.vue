@@ -200,7 +200,7 @@
                   <span class="bigNumberSpan">{{item.repeatNumber||'--'}}</span>次
                 </div>
                 <div class="num" v-if="competitionItem.mode==2">
-                  <span class="bigNumberSpan">{{item.bestValue||'--'}}</span>个
+                  <span class="bigNumberSpan">{{item.bestValue||'--'}}</span>{{type=='skipping'?'个':type=='wristball'?'圈':type=='wheel'?'次':''}}
                 </div>
                 <div class="num" v-else v-html="countTimeAll(item.bestValue||item.competitorRunTime)">
                 </div>
@@ -234,7 +234,7 @@
             </div>
           </div>
 
-          <van-row type="flex" justify="space-around">
+          <van-row type="flex" justify="space-between">
             <van-col span="11" class="activeTeam" :class="competitionStatus==3&&teamList[0].rank>teamList[1].rank?'loserTeam':''" @click="gotoTeamDetail">
               <div v-if="competitionStatus==3">
                 <img src="../img/winner.png" v-if="teamList[0].rank==1&&teamList[1].rank!=1" class="resultPic" />
@@ -755,6 +755,14 @@ export default {
           type: this.type,
         });
       } else if (obj.type == 3) {
+        if(!this.isSign){
+          this.$toast("您还未报名哦")
+          return
+        }
+        if(this.userItem.uid==JSON.parse(localStorage.getItem("appInfo")).userId){
+          this.$toast("自己创建的比赛,无法退出")
+          return
+        }
         Dialog.confirm({
           message: "确定退出比赛吗？",
           confirmButtonText: "确定",
@@ -809,17 +817,17 @@ export default {
 
             if (this.competitionItem.mode == 2) {
               //倒计时
-              this.teamList[0].lineWidth =
-                100 *
-                (this.teamList[0].average /
-                  (this.teamList[0].average + this.teamList[1].average));
+              this.teamList[0].lineWidth =72 *(this.teamList[0].average /(this.teamList[0].average + this.teamList[1].average));
               this.teamList[1].lineWidth = 100 - this.teamList[0].lineWidth;
+              if(this.teamList[0].lineWidth<28){
+                this.teamList[0].lineWidth=28
+              }
             } else {
-              this.teamList[1].lineWidth =
-                100 *
-                (this.teamList[0].average /
-                  (this.teamList[0].average + this.teamList[1].average));
+              this.teamList[1].lineWidth =72 *(this.teamList[0].average /(this.teamList[0].average + this.teamList[1].average));
               this.teamList[0].lineWidth = 100 - this.teamList[1].lineWidth;
+              if(this.teamList[1].lineWidth<28){
+                this.teamList[1].lineWidth=28
+              }
             }
             return;
           }

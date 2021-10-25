@@ -49,14 +49,14 @@
 
                 <div class="blackbg"></div>
                 <img class="bannerBg" :src='classDetail.classCover' alt="">
-                <div class="infoBox">
+                <div class="infoBox" v-if="classDetail.className">
                     <div class="title">{{classDetail.className}}</div>
                     <div class="discript" @click="goCourseDetail(classDetail.bigClassId)">
                         {{classDetail.classDes}}</div>
                     <div class="classifyBox">
                         <div class="classifyDiv">
                             <div class="classifyItem">
-                                {{classDetail.actionSize}}个{{classDetail.actionOrClass?'动作':'内容'}}</div>
+                                {{classDetail.actionSize||'--'}}个{{classDetail.actionOrClass?'动作':'内容'}}</div>
                             <div class="classifyItem">不限训练频次</div>
                             <div class="classifyItem" v-for="item in classDetail.classKitList">{{item.classKitName}}</div>
                         </div>
@@ -67,16 +67,16 @@
                     <div class="information">
                         <van-row>
                             <van-col span="8">
-                                <div class="need1">{{ Math.round(classDetail.classDuration/60)}}</div>
+                                <div class="need1">{{ Math.round(classDetail.classDuration/60)||'--'}}</div>
                                 <div class="needTitle1">时长(分钟)</div>
                             </van-col>
                             <van-col span="8">
-                                <div class="need2">{{Math.round(classDetail.calory)}}</div>
+                                <div class="need2">{{Math.round(classDetail.calory)||'--'}}</div>
                                 <div class="needTitle2">消耗(kcal)</div>
                             </van-col>
                             <van-col span="8">
                                 <div class="needBox3">
-                                    <div class="need3">{{classDetail.classLevelName}}</div>
+                                    <div class="need3">{{classDetail.classLevelName||'--'}}</div>
                                     <div class="needTitle3">等级</div>
                                 </div>
                             </van-col>
@@ -186,7 +186,7 @@
                                     </div>
                                 </van-list>
                             </van-pull-refresh>
-                            <div class="sendBox" v-if="this.tabSelected==2">
+                            <div class="sendBox" v-if="this.tabSelected==2&&isShare!=1">
                                 <van-field v-model="comment_message" rows="1" @blur="initSendBox" type="textarea" autosize placeholder="说点什么">
                                     <template #right-icon>
 											<span class="icon iconfont icon-a-shequ-"
@@ -269,7 +269,7 @@
                         <p class="noData-p">还没有回复，快来抢沙发</p>
                     </div>
                 </div>
-                <div class="sendBox" v-if="this.tabSelected==2">
+                <div class="sendBox" v-if="this.tabSelected==2&&isShare!=1">
                     <van-field v-model="comment_message" rows="1" @blur="initSendBox" type="textarea" autosize :placeholder="placeholder">
                         <template #right-icon>
 								<span class="icon iconfont icon-a-shequ-"
@@ -434,6 +434,7 @@
             },
             //点赞相关
             goLikeComment(item) {
+                if (this.isShare) return
                 let apiUrl = "community/threeCommentUserLike/user/insert/like/commend"
 
                 // if (item.likeStatus) {
@@ -540,7 +541,7 @@
             //获取大课程下的课程详情以及小课程列表
             getClassDetail() {
                 ajax({
-                    url: "community/threeUserCollect/see/bigClass/detail",
+                    url: this.isShare ? "community/threeUserCollect/classShare/see/bigClass/detail" : "community/threeUserCollect/see/bigClass/detail",
                     data: {
                         bigClassId: this.id
                     }
@@ -559,7 +560,7 @@
             //获取评论列表
             getCommentList() {
                 ajax({
-                    url: "community/threeComment/see/all/class/commend",
+                    url: this.isShare ? "community/threeComment/classShare/see/all/class/commend" : "community/threeComment/see/all/class/commend",
                     data: {
                         bigClassId: this.id,
                         offset: this.pageNum,
@@ -582,7 +583,7 @@
             },
             //评论详情
             getCommentDetail(item) {
-
+                if (this.isShare) return
                 ajax({
                     url: "community/threeComment/see/all/son/commend/by/dad",
                     data: {
