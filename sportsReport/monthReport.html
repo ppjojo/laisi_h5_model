@@ -2,494 +2,483 @@
 <html>
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport"
-		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
-	<title>派健康运动月报</title>
-	<link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
-	<link rel="stylesheet" href="font/iconfont.css">
-	<link rel="stylesheet" href="css/index.css">
-	<script src="https://cdn.bootcdn.net/ajax/libs/vConsole/3.8.1/vconsole.min.js"></script>
-	<script>
-		// init vConsole
-		var vConsole = new VConsole();
-	</script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+    <title>派健康运动月报</title>
+    <link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
+    <link rel="stylesheet" href="font/iconfont.css">
+    <link rel="stylesheet" href="css/index.css">
+    <script src="https://cdn.bootcdn.net/ajax/libs/vConsole/3.8.1/vconsole.min.js"></script>
+    <script>
+        // init vConsole
+        var vConsole = new VConsole();
+    </script>
 
 </head>
 
-<body> 
-	<div id="app" class="specialHeader" :class="(reportData.takeMs||reportData.burn||reportData.reportRecordDto.length>0)?'':'nullheader'" v-cloak>
-		<div class="header" v-if="!sheetImageStatus">
-			<van-nav-bar @click-left="onclickLeft" title="月报" left-arrow safe-area-inset-top fixed>
-				<template #left>
+<body>
+    <div id="app" class="specialHeader" :class="(reportData.takeMs||reportData.burn||reportData.reportRecordDto.length>0)?'':'nullheader'" v-cloak>
+        <div class="header" v-if="!sheetImageStatus">
+            <van-nav-bar @click-left="onclickLeft" title="月报" left-arrow safe-area-inset-top fixed>
+                <template #left>
 					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
 				</template>
-				<template #right>
+                <template #right>
 					<span class="icon iconfont icon-fenxianganniu" @click="sharePage"
 						style="font-size: 0.5rem;margin-right: 0.25rem;"></span>
 					<span class="icon iconfont icon-tongyong-rili" @click="gohistory"
 						style="font-size: 0.45rem;"></span>
 
 				</template>
-			</van-nav-bar>
-		</div>
-		<!-- y月报 -->
-		<div class="weekBox" v-if="reportData.takeMs||reportData.burn||reportData.reportRecordDto.length>0">
-			<div class="topPic">
-				<img class="bg" src="./img/month_topPic.png" alt="">
-				<img class="black" src="./img/black.png" alt="">
-			</div>
-			<div class="infoBox" v-if="reportData.headPictureUrl">
-				<img class="headerpic"  :src="reportData.headPictureUrl" alt="">
-				<div>
-					<p class="name">{{reportData.nickName}}</p>
-					<p class="date">{{sjc2time("ymd",startTime)+"-"+sjc2time("md",endTime) }}</p>
-				</div>
-			</div>
-			<div class="contain" >
-				<!-- 本月运动 -->
-				<div class="dataBox" v-show="reportData.takeMs||reportData.burn">
-					<div class="boxTitle">本月运动</div>
-					<!-- 运动总时长 -->
-					<div class="" v-show="reportData.takeMs">
-						<div>
-							<img class="modulePic_left" width="65%" src="./img/total.png" alt="">
-						</div>
-						<div style="width:50%;margin-left:50%">
-							<div id="totalTimeEchart" style="height:2rem;width: 100%;"> </div>
-							<div>
-								<div class="text_data align_right">
-									<span v-html="returnStatus(reportData.takeMsFlag)"></span>
-									{{secondsFormat(reportData.takeMs) }}
-								</div>
-								<p class="text_data_small align_right">运动总时长</p>
-								<p class="text_descript align_right">
-									(较上周{{reportData.lastDiff>=0?("增加了"+parseInt(reportData.lastDiff/1000/60)):("减少了"+parseInt(reportData.lastDiff/-1000/60))}}分钟)
-								</p>
-							</div>
-						</div>
-					</div>
+            </van-nav-bar>
+        </div>
+        <!-- y月报 -->
+        <div class="weekBox" v-if="reportData.takeMs||reportData.burn||reportData.reportRecordDto.length>0">
+            <div class="topPic">
+                <img class="bg" src="./img/month_topPic.png" alt="">
+                <img class="black" src="./img/black.png" alt="">
+            </div>
+            <div class="infoBox" v-if="reportData.headPictureUrl">
+                <img class="headerpic" :src="reportData.headPictureUrl" alt="">
+                <div>
+                    <p class="name">{{reportData.nickName}}</p>
+                    <p class="date">{{sjc2time("ymd",startTime)+"-"+sjc2time("md",endTime) }}</p>
+                </div>
+            </div>
+            <div class="contain">
+                <!-- 本月运动 -->
+                <div class="dataBox" v-show="reportData.takeMs||reportData.burn">
+                    <div class="boxTitle">本月运动</div>
+                    <!-- 运动总时长 -->
+                    <div class="" v-show="reportData.takeMs">
+                        <div>
+                            <img class="modulePic_left" width="65%" src="./img/total.png" alt="">
+                        </div>
+                        <div style="width:50%;margin-left:50%">
+                            <div id="totalTimeEchart" style="height:2rem;width: 100%;"> </div>
+                            <div>
+                                <div class="text_data align_right">
+                                    <span v-html="returnStatus(reportData.takeMsFlag)"></span> {{secondsFormat(reportData.takeMs) }}
+                                </div>
+                                <p class="text_data_small align_right">运动总时长</p>
+                                <p class="text_descript align_right">
+                                    (较上周{{reportData.lastDiff>=0?("增加了"+parseInt(reportData.lastDiff/1000/60)):("减少了"+parseInt(reportData.lastDiff/-1000/60))}}分钟)
+                                </p>
+                            </div>
+                        </div>
+                    </div>
 
-					<!-- 运动总消耗 -->
-					<div class="totalCalBox" v-show="reportData.burn">
-						<div id="totalCalEchart" style="height:2rem;width: 50%;"> </div>
-						<div>
-							<div class="text_data align_right">
-								{{parseInt(reportData.burn/1000)}}
-							</div>
-							<p class="text_data_small align_right">运动总消耗(kcal)</p>
-							<p class="text_descript align_right">(相当于消耗了{{reportData.fat}}g脂肪)</p>
-						</div>
-					</div>
+                    <!-- 运动总消耗 -->
+                    <div class="totalCalBox" v-show="reportData.burn">
+                        <div id="totalCalEchart" style="height:2rem;width: 50%;"> </div>
+                        <div>
+                            <div class="text_data align_right">
+                                {{parseInt(reportData.burn/1000)}}
+                            </div>
+                            <p class="text_data_small align_right">运动总消耗(kcal)</p>
+                            <p class="text_descript align_right">(相当于消耗了{{reportData.fat}}g脂肪)</p>
+                        </div>
+                    </div>
 
-					<!-- 消耗分布 -->
-					<div class="consumeBox" v-if="reportData.burn">
-						<div class="smallTitle">消耗分布</div>
-						<div class="consumeDetail">
-							<div class="consumeDetailItem"
-								:style="{'background-color': colorList[key].color,'width':value}"
-								v-for="(value,key) in reportData.burns"></div>
+                    <!-- 消耗分布 -->
+                    <div class="consumeBox" v-if="reportData.burn">
+                        <div class="smallTitle">消耗分布</div>
+                        <div class="consumeDetail">
+                            <div class="consumeDetailItem" :style="{'background-color': colorList[key].color,'width':value}" v-for="(value,key) in reportData.burns"></div>
 
-						</div>
-						<div class="itemInfoBox">
-							<div class="itemInfo" v-for="(value,key) in reportData.burns" v-if="value!='0%'">
-								<div class="colorBox" :style="{'background-color': colorList[key].color}"></div>
-								<div class="color_text">{{ colorList[key].zh+":"+value }}</div>
-							</div>
-						</div>
-					</div>
-				</div>
+                        </div>
+                        <div class="itemInfoBox">
+                            <div class="itemInfo" v-for="(value,key) in reportData.burns" v-if="value!='0%'">
+                                <div class="colorBox" :style="{'background-color': colorList[key].color}"></div>
+                                <div class="color_text">{{ colorList[key].zh+":"+value }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-				<div v-for="item in reportData.reportRecordDto">
-					<!-- 本月步数 -->
-					<div class="dataBox" v-if="item.type=='steps'">
-						<div class="boxTitle">本月步数</div>
-						<div class="">
-							<div style="width:50%;">
-								<div id="stepEchart" style="height:2rem;width: 100%;"> </div>
-								<div style="margin-top:0.15rem;"> 
-									<div class="text_data align_left">
-										{{item.number}}
-										<span v-html="returnStatus(item.flagCount)"></span>
-									</div>
-									<p class="text_data_small align_left">总步数(步)</p>
-									<p class="text_descript align_left">(日均：{{item.avgDailyNum}}步)</p>
-								</div>
-							</div>
-							<div>
-								<img class="modulePic_right" width="60%" src="./img/step.png" alt="">
-							</div>
-						</div>
-					</div>
+                <div v-for="item in reportData.reportRecordDto">
+                    <!-- 本月步数 -->
+                    <div class="dataBox" v-if="item.type=='steps'">
+                        <div class="boxTitle">本月步数</div>
+                        <div class="">
+                            <div style="width:50%;">
+                                <div id="stepEchart" style="height:2rem;width: 100%;"> </div>
+                                <div style="margin-top:0.15rem;">
+                                    <div class="text_data align_left">
+                                        {{item.number}}
+                                        <span v-html="returnStatus(item.flagCount)"></span>
+                                    </div>
+                                    <p class="text_data_small align_left">总步数(步)</p>
+                                    <p class="text_descript align_left">(日均：{{item.avgDailyNum}}步)</p>
+                                </div>
+                            </div>
+                            <div>
+                                <img class="modulePic_right" width="60%" src="./img/step.png" alt="">
+                            </div>
+                        </div>
+                    </div>
 
-					<!-- 本月课程 -->
-					<div class="dataBox" v-if="item.type=='course'">
-						<div class="boxTitle">本月课程</div>
-						<div class="">
-							<div>
-								<img class="modulePic_left" width="60%" style="top: 0.8rem;" src="./img/course.png"
-									alt="">
-							</div>
-							<div style="width:50%;margin-left: 50%;">
-								<div>
-									<div class="text_data align_right">
-										{{secondsFormat(item.takeMs) }}
-									</div>
-									<p class="text_descript align_right">课程训练时长</p>
-								</div>
-								<div>
-									<div class="text_data align_right">
-										{{item.number}}
-									</div>
-									<p class="text_descript align_right">课程训练次数(次)</p>
-								</div>
-								<div>
-									<div class="text_data align_right">
-										{{item.burn/1000}}
-									</div>
-									<p class="text_descript align_right">消耗(kcal)</p>
-								</div>
-							</div>
+                    <!-- 本月课程 -->
+                    <div class="dataBox" v-if="item.type=='course'">
+                        <div class="boxTitle">本月课程</div>
+                        <div class="">
+                            <div>
+                                <img class="modulePic_left" width="60%" style="top: 0.8rem;" src="./img/course.png" alt="">
+                            </div>
+                            <div style="width:50%;margin-left: 50%;">
+                                <div>
+                                    <div class="text_data align_right">
+                                        {{secondsFormat(item.takeMs) }}
+                                    </div>
+                                    <p class="text_descript align_right">课程训练时长</p>
+                                </div>
+                                <div>
+                                    <div class="text_data align_right">
+                                        {{item.number}}
+                                    </div>
+                                    <p class="text_descript align_right">课程训练次数(次)</p>
+                                </div>
+                                <div>
+                                    <div class="text_data align_right">
+                                        {{item.burn/1000}}
+                                    </div>
+                                    <p class="text_descript align_right">消耗(kcal)</p>
+                                </div>
+                            </div>
 
-						</div>
-					</div>
+                        </div>
+                    </div>
 
-					<!-- 本月跳绳 -->
-					<div class="dataBox" v-if="item.type=='skipping'">
-						<div class="boxTitle">本月跳绳 <div class="skiplevel">{{item.level}}
-								<span v-html="returnStatus(reportData.levelFlag)"></span>
-							</div>
-						</div>
-						<div class="">
+                    <!-- 本月跳绳 -->
+                    <div class="dataBox" v-if="item.type=='skipping'">
+                        <div class="boxTitle">本月跳绳
+                            <div class="skiplevel">{{item.level}}
+                                <span v-html="returnStatus(reportData.levelFlag)"></span>
+                            </div>
+                        </div>
+                        <div class="">
 
-							<div style="width:50%">
-								<div>
-									<div class="text_data align_left">
-										{{secondsFormat(item.takeMs) }}
-									</div>
-									<p class="text_descript align_left">总时长</p>
-								</div>
-								<div>
-									<div class="text_data align_left">
-										{{item.number}}
-										<span v-html="returnStatus(item.flagCount)"></span>
-									</div>
-									<p class="text_descript align_left">跳绳个数(个)</p>
-								</div>
-								<div>
-									<div class="text_data align_left">
-										{{item.avgDailyNum}}
-									</div>
-									<p class="text_descript align_left">日均跳绳(个)</p>
-								</div>
-							</div>
-							<div>
-								<img class="modulePic_right" width="60%" style="top: 0.8rem;" src="./img/skip.png"
-									alt="">
-							</div>
+                            <div style="width:50%">
+                                <div>
+                                    <div class="text_data align_left">
+                                        {{secondsFormat(item.takeMs) }}
+                                    </div>
+                                    <p class="text_descript align_left">总时长</p>
+                                </div>
+                                <div>
+                                    <div class="text_data align_left">
+                                        {{item.number}}
+                                        <span v-html="returnStatus(item.flagCount)"></span>
+                                    </div>
+                                    <p class="text_descript align_left">跳绳个数(个)</p>
+                                </div>
+                                <div>
+                                    <div class="text_data align_left">
+                                        {{item.avgDailyNum}}
+                                    </div>
+                                    <p class="text_descript align_left">日均跳绳(个)</p>
+                                </div>
+                            </div>
+                            <div>
+                                <img class="modulePic_right" width="60%" style="top: 0.8rem;" src="./img/skip.png" alt="">
+                            </div>
 
-						</div>
-					</div>
+                        </div>
+                    </div>
 
-					<!-- 本月健腹轮 -->
-					<div class="dataBox" v-if="item.type=='wheel'">
-						<div class="boxTitle ">本月健腹轮</div>
-						<div class="">
-							<div>
-								<img class="modulePic_left" width="60%" style="top: 1.2rem;" src="./img/wheel.png"
-									alt="">
-							</div>
-							<div style="width:80%;margin-left: 20%;">
-								<div style="display: flex;justify-content: flex-end;">
-									<div>
-										<div class="text_data align_right">
-											{{item.standardRate||"0%"}}
-										</div>
-										<p class="text_descript align_right">达标率</p>
-									</div>
-									<div style="padding-left: 0.5rem;">
-										<div class="text_data align_right">
-											{{secondsFormat(item.takeMs) }}
-										</div>
-										<p class="text_descript align_right">总时长</p>
-									</div>
-								</div>
-								<div>
-									<div class="text_data align_right">
-										<span v-html="returnStatus(item.flagCount)"></span>
-										{{item.number}}
-									</div>
-									<p class="text_descript align_right">健腹轮次数(次)</p>
-								</div>
-								<div>
-									<div class="text_data align_right">
-										{{item.avgDailyNum}}
-									</div>
-									<p class="text_descript align_right">日均次数(次)</p>
-								</div>
-							</div>
+                    <!-- 本月健腹轮 -->
+                    <div class="dataBox" v-if="item.type=='wheel'">
+                        <div class="boxTitle ">本月健腹轮</div>
+                        <div class="">
+                            <div>
+                                <img class="modulePic_left" width="60%" style="top: 1.2rem;" src="./img/wheel.png" alt="">
+                            </div>
+                            <div style="width:80%;margin-left: 20%;">
+                                <div style="display: flex;justify-content: flex-end;">
+                                    <div>
+                                        <div class="text_data align_right">
+                                            {{item.standardRate||"0%"}}
+                                        </div>
+                                        <p class="text_descript align_right">达标率</p>
+                                    </div>
+                                    <div style="padding-left: 0.5rem;">
+                                        <div class="text_data align_right">
+                                            {{secondsFormat(item.takeMs) }}
+                                        </div>
+                                        <p class="text_descript align_right">总时长</p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="text_data align_right">
+                                        <span v-html="returnStatus(item.flagCount)"></span> {{item.number}}
+                                    </div>
+                                    <p class="text_descript align_right">健腹轮次数(次)</p>
+                                </div>
+                                <div>
+                                    <div class="text_data align_right">
+                                        {{item.avgDailyNum}}
+                                    </div>
+                                    <p class="text_descript align_right">日均次数(次)</p>
+                                </div>
+                            </div>
 
-						</div>
-					</div>
+                        </div>
+                    </div>
 
-					<!-- 本月腕力球 -->
-					<div class="dataBox" v-if="item.type=='wristball'" style="padding-right: 0;">
-						<div class="boxTitle ">本月腕力球</div>
-						<div class="">
+                    <!-- 本月腕力球 -->
+                    <div class="dataBox" v-if="item.type=='wristball'" style="padding-right: 0;">
+                        <div class="boxTitle ">本月腕力球</div>
+                        <div class="">
 
-							<div >
-								
-								<div style="display: flex;justify-content: flex-start;">
-									<div>
-										<div class="text_data align_left">
-											{{secondsFormat(item.takeMs) }}
-										</div>
-										<p class="text_descript align_left">总时长</p>
-									</div>
-									<div style="padding-left: 0.5rem;">
-										<div class="text_data align_left">
-											{{item.maxRate}}
-										</div>
-										<p class="text_descript align_left">最大转速(rpm)</p>
-									</div>
-								</div>
+                            <div>
 
-								<div>
-									<div class="text_data align_left">
-										{{item.number}}
-										<span v-html="returnStatus(item.flagCount)"></span>
-									</div>
-									<p class="text_descript align_left">腕力球圈数(圈)</p>
-								</div>
-								<div>
-									<div class="text_data align_left">
-										{{item.avgDailyNum}}
-									</div>
-									<p class="text_descript align_left">日均圈数(次)</p>
-								</div>
-							</div>
-							<div>
-								<img class="modulePic_right" width="60%" style="top: 0.8rem;right: 0;"
-									src="./img/wristball.png" alt="">
-							</div>
+                                <div style="display: flex;justify-content: flex-start;">
+                                    <div>
+                                        <div class="text_data align_left">
+                                            {{secondsFormat(item.takeMs) }}
+                                        </div>
+                                        <p class="text_descript align_left">总时长</p>
+                                    </div>
+                                    <div style="padding-left: 0.5rem;">
+                                        <div class="text_data align_left">
+                                            {{item.maxRate}}
+                                        </div>
+                                        <p class="text_descript align_left">最大转速(rpm)</p>
+                                    </div>
+                                </div>
 
-						</div>
-					</div>
+                                <div>
+                                    <div class="text_data align_left">
+                                        {{item.number}}
+                                        <span v-html="returnStatus(item.flagCount)"></span>
+                                    </div>
+                                    <p class="text_descript align_left">腕力球圈数(圈)</p>
+                                </div>
+                                <div>
+                                    <div class="text_data align_left">
+                                        {{item.avgDailyNum}}
+                                    </div>
+                                    <p class="text_descript align_left">日均圈数(次)</p>
+                                </div>
+                            </div>
+                            <div>
+                                <img class="modulePic_right" width="60%" style="top: 0.8rem;right: 0;" src="./img/wristball.png" alt="">
+                            </div>
 
-					<!-- 本月红包赛 -->
-					<div class="dataBox" v-if="item.type=='ropeRedPackage'">
-						<div class="boxTitle ">本月红包赛</div>
-						<div class="">
-							<div>
-								<img class="modulePic_left" width="60%" src="./img/redCompetition.png" alt="">
-							</div>
-							<div style="width:50%;margin-left: 50%;">
-								<div>
-									<div class="text_data align_right">
-										{{item.number}}
-									</div>
-									<p class="text_descript align_right">参赛次数(次)</p>
-								</div>
-								<div>
-									<div class="text_data align_right">
-										<span v-html="returnStatus(item.standardRateFlag)"></span>
-										{{item.standardRate}}
-									</div>
-									<p class="text_descript align_right">达标率</p>
-								</div>
-								<div>
-									<div class="text_data align_right">
-										{{item.income/100}}
-									</div>
-									<p class="text_descript align_right">累计收益(元)</p>
-								</div>
-							</div>
+                        </div>
+                    </div>
 
-						</div>
-					</div>
+                    <!-- 本月红包赛 -->
+                    <div class="dataBox" v-if="item.type=='ropeRedPackage'">
+                        <div class="boxTitle ">本月红包赛</div>
+                        <div class="">
+                            <div>
+                                <img class="modulePic_left" width="60%" src="./img/redCompetition.png" alt="">
+                            </div>
+                            <div style="width:50%;margin-left: 50%;">
+                                <div>
+                                    <div class="text_data align_right">
+                                        {{item.number}}
+                                    </div>
+                                    <p class="text_descript align_right">参赛次数(次)</p>
+                                </div>
+                                <div>
+                                    <div class="text_data align_right">
+                                        <span v-html="returnStatus(item.standardRateFlag)"></span> {{item.standardRate}}
+                                    </div>
+                                    <p class="text_descript align_right">达标率</p>
+                                </div>
+                                <div>
+                                    <div class="text_data align_right">
+                                        {{item.income/100}}
+                                    </div>
+                                    <p class="text_descript align_right">累计收益(元)</p>
+                                </div>
+                            </div>
 
-				</div>
+                        </div>
+                    </div>
 
-				<!-- 分享才会显示 -->
-				<div class="shareBox" v-if="isShare==1">
-					<img src="./img/qrcode.png" alt="">
-				</div>
+                </div>
 
-				<div class="bottom" v-if="!sheetImageStatus">
-					—学着改变自己，因为你还有未被发现的自己存在—
-				</div>
+                <!-- 分享才会显示 -->
+                <div class="shareBox" style="padding-bottom:0" v-if="isShare==1">
+                    <img src="./img/qrcode.png" alt="">
+                </div>
 
-				<!-- 分享才会显示 -->
-				<div class="shareBox" v-if="isShare==1">
-					<div class="button" @click="goAPP">加入派健康一起运动吧！</div>
-				</div>
+                <div class="bottom" v-if="!sheetImageStatus">
+                    —学着改变自己，因为你还有未被发现的自己存在—
+                </div>
 
-				
+                <!-- 分享才会显示 -->
+                <div class="shareBox" v-if="isShare==1">
+                    <div class="button" @click="goAPP">加入派健康一起运动吧！</div>
+                </div>
 
-			</div>
 
-		</div>
-		<van-loading class="loadingBox" v-else-if="!finished"></van-loading>
-		<div class="nullbox" v-else-if="finished">
-			<img src="../common/img/noData.png" alt="">
-			<p>暂无运动月报</p>
-		</div>
-	</div>
+
+            </div>
+
+        </div>
+        <van-loading class="loadingBox" v-else-if="!finished"></van-loading>
+        <div class="nullbox" v-else-if="finished">
+            <img src="../common/img/noData.png" alt="">
+            <p>暂无运动月报</p>
+        </div>
+    </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
 <script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
 <script src="../common/js/network.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/echarts@5.0.0/dist/echarts.min.js"></script>
 <script>
-	var isPageHide = false;
-   window.addEventListener('pageshow', function () {
-     if (isPageHide) {
-       window.location.reload();
-     }
-   });
-   window.addEventListener('pagehide', function () {
-     isPageHide = true;
-   });
-	new Vue({
-		el: '#app',
-		data() {
-			return {
-				isShare: getQueryString("isShare") || 0,
-				startTime:localStorage.getItem("report_startTime")||getQueryString("startTime"),
-				endTime:localStorage.getItem("report_endTime")||getQueryString("endTime"),
-				sheetImageStatus: false,
-				finished:false,
-				reportData: {
-					headPictureUrl:"",
-					nickName:"",
-					takeMs: 0, //总时⻓
-					takeMsFlag: 0, //0 上升 1下降 2 持平 总时⻓的
-					lastDiff: 0, //相差时⻓
-					burn: 0,
-					fat: 0, //脂肪
-					reportRecordDto: []
-				},
-				colorList: {
-					freeTraining: {
-						color: "#C4B3DB",
-						zh: "自由训练"
-					},
-					wristball: {
-						color: "#4AA0FF",
-						zh: "腕力球"
-					},
-					rower: {
-						color: "#FFBB02",
-						zh: "划船机"
-					},
-					dancing: {
-						color: "#988DFF",
-						zh: "跳舞"
-					},
-					runin: {
-						color: "#2292FF",
-						zh: "室内跑步"
-					},
-					runout: {
-						color: "#F98700",
-						zh: "户外跑步"
-					},
-					basketball: {
-						color: "#8F6BFF",
-						zh: "篮球"
-					},
-					badminton: {
-						color: "#1EA4B8",
-						zh: "羽毛球"
-					},
-					football: {
-						color: "#FFB78D",
-						zh: "足球"
-					},
-					wheel: {
-						color: "#8C52FF",
-						zh: "健腹轮"
-					},
-					yoga: {
-						color: "#8ED2B0",
-						zh: "瑜伽"
-					},
-					onFoot: {
-						color: "#FFAA88",
-						zh: "徒步"
-					},
-					swimmingOut: {
-						color: "#5246FF",
-						zh: "开放水域"
-					},
-					walkIn: {
-						color: "#FF7C63",
-						zh: "室内步行"
-					},
-					swimming: {
-						color: "#002FA7",
-						zh: "泳池游泳"
-					},
-					walk: {
-						color: "#43D46D",
-						zh: "户外步行"
-					},
-					skipping: {
-						color: "#FF4E3E",
-						zh: "跳绳"
-					},
-					rideIndoor: {
-						color: "#BCCCE1",
-						zh: "室内骑行"
-					},
-					mountaineering: {
-						color: "#92CC00",
-						zh: "登山"
-					},
-					elliptical: {
-						color: "#FF4600",
-						zh: "椭圆机"
-					},
-					ride: {
-						color: "#7DB3FF",
-						zh: "户外骑行"
-					},
-					tennis: {
-						color: "#D9D456",
-						zh: "网球"
-					},
-					course: {
-						color: "#64D28B",
-						zh: "课程"
-					},
-					other: {
-						color: "#595962",
-						zh: "其他"
-					},
-					stepCalory:{
-						color: "#188dff",
-						zh: "步数"
-					}
-				}
+    var isPageHide = false;
+    window.addEventListener('pageshow', function() {
+        if (isPageHide) {
+            window.location.reload();
+        }
+    });
+    window.addEventListener('pagehide', function() {
+        isPageHide = true;
+    });
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                isShare: getQueryString("isShare") || 0,
+                startTime: localStorage.getItem("report_startTime") || getQueryString("startTime"),
+                endTime: localStorage.getItem("report_endTime") || getQueryString("endTime"),
+                sheetImageStatus: false,
+                finished: false,
+                reportData: {
+                    headPictureUrl: "",
+                    nickName: "",
+                    takeMs: 0, //总时⻓
+                    takeMsFlag: 0, //0 上升 1下降 2 持平 总时⻓的
+                    lastDiff: 0, //相差时⻓
+                    burn: 0,
+                    fat: 0, //脂肪
+                    reportRecordDto: []
+                },
+                colorList: {
+                    freeTraining: {
+                        color: "#C4B3DB",
+                        zh: "自由训练"
+                    },
+                    wristball: {
+                        color: "#4AA0FF",
+                        zh: "腕力球"
+                    },
+                    rower: {
+                        color: "#FFBB02",
+                        zh: "划船机"
+                    },
+                    dancing: {
+                        color: "#988DFF",
+                        zh: "跳舞"
+                    },
+                    runin: {
+                        color: "#2292FF",
+                        zh: "室内跑步"
+                    },
+                    runout: {
+                        color: "#F98700",
+                        zh: "户外跑步"
+                    },
+                    basketball: {
+                        color: "#8F6BFF",
+                        zh: "篮球"
+                    },
+                    badminton: {
+                        color: "#1EA4B8",
+                        zh: "羽毛球"
+                    },
+                    football: {
+                        color: "#FFB78D",
+                        zh: "足球"
+                    },
+                    wheel: {
+                        color: "#8C52FF",
+                        zh: "健腹轮"
+                    },
+                    yoga: {
+                        color: "#8ED2B0",
+                        zh: "瑜伽"
+                    },
+                    onFoot: {
+                        color: "#FFAA88",
+                        zh: "徒步"
+                    },
+                    swimmingOut: {
+                        color: "#5246FF",
+                        zh: "开放水域"
+                    },
+                    walkIn: {
+                        color: "#FF7C63",
+                        zh: "室内步行"
+                    },
+                    swimming: {
+                        color: "#002FA7",
+                        zh: "泳池游泳"
+                    },
+                    walk: {
+                        color: "#43D46D",
+                        zh: "户外步行"
+                    },
+                    skipping: {
+                        color: "#FF4E3E",
+                        zh: "跳绳"
+                    },
+                    rideIndoor: {
+                        color: "#BCCCE1",
+                        zh: "室内骑行"
+                    },
+                    mountaineering: {
+                        color: "#92CC00",
+                        zh: "登山"
+                    },
+                    elliptical: {
+                        color: "#FF4600",
+                        zh: "椭圆机"
+                    },
+                    ride: {
+                        color: "#7DB3FF",
+                        zh: "户外骑行"
+                    },
+                    tennis: {
+                        color: "#D9D456",
+                        zh: "网球"
+                    },
+                    course: {
+                        color: "#64D28B",
+                        zh: "课程"
+                    },
+                    other: {
+                        color: "#595962",
+                        zh: "其他"
+                    },
+                    stepCalory: {
+                        color: "#188dff",
+                        zh: "步数"
+                    }
+                }
 
 
-			};
-		},
-		filters: {
+            };
+        },
+        filters: {
 
-		},
-		created() {
-			this.initData()
-		},
-		mounted() {
-			window.sheetImageHideHeader = this.sheetImageHideHeader;
-			window.sheetImageshowHeader = this.sheetImageshowHeader;
-			if (!this.isShare) {
-                window.addEventListener('scroll', this.scrollFn);
-            }
-		},
-		methods: {
-			scrollFn() {
+        },
+        created() {
+            this.initData()
+        },
+        mounted() {
+            window.sheetImageHideHeader = this.sheetImageHideHeader;
+            window.sheetImageshowHeader = this.sheetImageshowHeader;
+
+        },
+        methods: {
+            scrollFn() {
                 var t = document.documentElement.scrollTop || document.body.scrollTop;
                 var rate = t / 100
                 if (rate > 1) {
@@ -505,414 +494,416 @@
             destroyed() {
                 window.removeEventListener('scroll', this.scrollFn); // 销毁监听
             },
-			sheetImageHideHeader() {
-				this.sheetImageStatus = true
-			},
-			sheetImageshowHeader() {
-				this.sheetImageStatus = false
-			},
-			onclickLeft() {
-				this.destroyed()
-				window.history.back()
-			},
-			gohistory() {
-				window.location.href = "history.html?type=2"
-			},
-			sharePage() {
-				Interaction.LSTH5APP_UrlAndSheetImageShareModel({
-					shareTitle: `您的好友在派健康${this.sjc2time("ymd",this.startTime)+"-"+this.sjc2time("md",this.endTime)}生成了运动月报`,
-					shareContent: "加入派健康一起运动吧",
-					shareUrl: `sportsReport/monthReport.html?isShare=1&startTime=${this.startTime}&endTime=${this.endTime}&userId=${JSON.parse(localStorage.getItem("appInfo")).userId}`,
-				})
-			},
-			goAPP() {
-				var openApp = function (linkUrl) {
-					var a = document.createElement("a");
-					a.setAttribute("href", linkUrl);
-					a.setAttribute("id", "js_a");
-					//防止反复添加
-					if (document.getElementById("js_a")) {
-					document.body.removeChild(document.getElementById("js_a"));
-					}
-					document.body.appendChild(a);
-					a.click();
-				};
-				let linkUrl = "";
-				if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
-					linkUrl =
-					"https://lstemp.laisitech.com?actionType=ropeSkippingRedPacket";
-					openApp(linkUrl);
-				} else if (/(Android)/i.test(navigator.userAgent)) {
-					linkUrl = "rehealth://ropeSkippingRedPacket" ;
-					if (openApp(linkUrl)) {
-					} else {
-					linkUrl =
-						"https://a.app.qq.com/o/simple.jsp?pkgname=com.lstech.rehealth";
-					openApp(linkUrl);
-					}
-				}
-			},
-			//返回状态
-			returnStatus(flag) {
-				if (flag == 0) {
-					return `<img class="status" src="./img/up.png"/>`
-				} else if (flag == 1) {
-					return `<img class="status" src="./img/down.png"/>`
-				} else {
-					return `<img class="status" src="./img/cp.png"/>`
-				}
-			},
-			//传入毫秒数 返回相应的日时分秒
-			secondsFormat(s) {
-				s=s/1000
-				var hour = Math.floor(s / 3600).toString()
-				var minute = Math.floor((s-(hour * 3600)) / 60).toString()
-				var second = (s-hour * 3600 - minute * 60).toString()
-				return hour.padStart(2, "0") + ":" + minute.padStart(2, "0") + ":" + second.padStart(2, "0")
-			},
-			//传入时间戳获取日期
-			sjc2time(id, sjc) {
+            sheetImageHideHeader() {
+                this.sheetImageStatus = true
+            },
+            sheetImageshowHeader() {
+                this.sheetImageStatus = false
+            },
+            onclickLeft() {
+                this.destroyed()
+                window.history.back()
+            },
+            gohistory() {
+                window.location.href = "history.html?type=2"
+            },
+            sharePage() {
+                Interaction.LSTH5APP_UrlAndSheetImageShareModel({
+                    shareTitle: `您的好友在派健康${this.sjc2time("ymd",this.startTime)+"-"+this.sjc2time("md",this.endTime)}生成了运动月报`,
+                    shareContent: "加入派健康一起运动吧",
+                    shareUrl: `sportsReport/monthReport.html?isShare=1&startTime=${this.startTime}&endTime=${this.endTime}&userId=${JSON.parse(localStorage.getItem("appInfo")).userId}`,
+                })
+            },
+            goAPP() {
+                var openApp = function(linkUrl) {
+                    var a = document.createElement("a");
+                    a.setAttribute("href", linkUrl);
+                    a.setAttribute("id", "js_a");
+                    //防止反复添加
+                    if (document.getElementById("js_a")) {
+                        document.body.removeChild(document.getElementById("js_a"));
+                    }
+                    document.body.appendChild(a);
+                    a.click();
+                };
+                let linkUrl = "";
+                if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+                    linkUrl =
+                        "https://lstemp.laisitech.com?actionType=ropeSkippingRedPacket";
+                    openApp(linkUrl);
+                } else if (/(Android)/i.test(navigator.userAgent)) {
+                    linkUrl = "rehealth://ropeSkippingRedPacket";
+                    if (openApp(linkUrl)) {} else {
+                        linkUrl =
+                            "https://a.app.qq.com/o/simple.jsp?pkgname=com.lstech.rehealth";
+                        openApp(linkUrl);
+                    }
+                }
+            },
+            //返回状态
+            returnStatus(flag) {
+                if (flag == 0) {
+                    return `<img class="status" src="./img/up.png"/>`
+                } else if (flag == 1) {
+                    return `<img class="status" src="./img/down.png"/>`
+                } else {
+                    return `<img class="status" src="./img/cp.png"/>`
+                }
+            },
+            //传入毫秒数 返回相应的日时分秒
+            secondsFormat(s) {
+                s = s / 1000
+                var hour = Math.floor(s / 3600).toString()
+                var minute = Math.floor((s - (hour * 3600)) / 60).toString()
+                var second = (s - hour * 3600 - minute * 60).toString()
+                return hour.padStart(2, "0") + ":" + minute.padStart(2, "0") + ":" + second.padStart(2, "0")
+            },
+            //传入时间戳获取日期
+            sjc2time(id, sjc) {
 
-				var datetime = new Date(parseInt(sjc));
-				var year = datetime.getFullYear();
-				var month = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() +
-					1;
-				var month2 = datetime.getMonth() + 1 < 10 ? datetime.getMonth() + 1 : datetime.getMonth() + 1;
-				var date = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();
-				var date2 = datetime.getDate() < 10 ? datetime.getDate() : datetime.getDate();
-				var hour = datetime.getHours() < 10 ? "0" + datetime.getHours() : datetime.getHours();
-				var minute = datetime.getMinutes() < 10 ? "0" + datetime.getMinutes() : datetime.getMinutes();
-				var second = datetime.getSeconds() < 10 ? "0" + datetime.getSeconds() : datetime.getSeconds();
-				if (id == "ymd") {
-					return year + "/" + month + "/" + date;
-				} else if (id == "md") {
-					return month + "/" + date;
-				}
-			},
-			//初始化获取数据
-			initData() {
-				this.finished=false;
-				ajax({
-					url: getQueryString("isShare")?"sportClock/share/getMonthSportReport":"sportClock/getMonthSportReport",
-					data: {
-						startTime: this.startTime,
-						// endTime: this.endTime,
-					}
-				}).then(res => {
-					if (res.code == 0) {
-						this.reportData = res.data;
-						setTimeout(() => {
-							this.getTotalTimeEchart(res.data.countTakeMs)
-							this.getTotalCalEchart(res.data.countBurn)
-						}, 400)
-						this.reportData.reportRecordDto.forEach(item => {
-							if (item.type == "steps") {
-								setTimeout(() => {
-									this.getStepEchart(item)
-								}, 1000)
-							}
-						});
-					}
-					this.finished=true;
-				})
-			},
+                var datetime = new Date(parseInt(sjc));
+                var year = datetime.getFullYear();
+                var month = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() +
+                    1;
+                var month2 = datetime.getMonth() + 1 < 10 ? datetime.getMonth() + 1 : datetime.getMonth() + 1;
+                var date = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();
+                var date2 = datetime.getDate() < 10 ? datetime.getDate() : datetime.getDate();
+                var hour = datetime.getHours() < 10 ? "0" + datetime.getHours() : datetime.getHours();
+                var minute = datetime.getMinutes() < 10 ? "0" + datetime.getMinutes() : datetime.getMinutes();
+                var second = datetime.getSeconds() < 10 ? "0" + datetime.getSeconds() : datetime.getSeconds();
+                if (id == "ymd") {
+                    return year + "/" + month + "/" + date;
+                } else if (id == "md") {
+                    return month + "/" + date;
+                }
+            },
+            //初始化获取数据
+            initData() {
+                this.finished = false;
+                ajax({
+                    url: getQueryString("isShare") ? "sportClock/share/getMonthSportReport" : "sportClock/getMonthSportReport",
+                    data: {
+                        startTime: this.startTime,
+                        // endTime: this.endTime,
+                    }
+                }).then(res => {
+                    if (res.code == 0) {
+                        this.reportData = res.data;
+                        if (!this.isShare && (this.reportData.takeMs || this.reportData.burn || this.reportData.reportRecordDto.length > 0)) {
+                            window.addEventListener('scroll', this.scrollFn);
+                        }
+                        setTimeout(() => {
+                            this.getTotalTimeEchart(res.data.countTakeMs)
+                            this.getTotalCalEchart(res.data.countBurn)
+                        }, 400)
+                        this.reportData.reportRecordDto.forEach(item => {
+                            if (item.type == "steps") {
+                                setTimeout(() => {
+                                    this.getStepEchart(item)
+                                }, 1000)
+                            }
+                        });
+                    }
+                    this.finished = true;
+                })
+            },
 
-			//运动时长
-			getTotalTimeEchart(list) {
-				if (!list) return
-				let keys = [];
-				let vals = [];
-				for (key in list) {
-					keys.push(key);
-					vals.push(list[key])
-				}
-				keys=keys.reverse()
-				vals=vals.reverse()
-				var myChart = echarts.init(document.getElementById("totalTimeEchart"));
-				var option = {
-					grid: {
-						width: "%",
-						height: "80%",
-						top: 0,
-						left: "45%"
-					},
-					tooltip: {
-						axisPointer: {
-							label: {
-								lineHeight: 20,
-								backgroundColor: "#ffffff",
-								padding: [0, 0, 0, 0]
-							},
-						},
-						formatter: (p) => {
-							let str
-							if(parseInt(p.data/1000/60)>0){
-								str= parseInt(p.data/1000/60) +"分"+ '</br>';
-							}else{
-								str= parseInt(p.data/1000) +"秒"+ '</br>';
-							}
-							str += p.name;
-							return str;
-						}
-					},
-					yAxis: {
-						type: "category",
-						data: keys,
-						axisTick: {
-							show: false,
-							lineStyle: {
-								color: "red"
-							}
-						},
-						axisLine: {
-							show: true,
-							lineStyle: {
-								color: "#71717F"
-							}
-						},
-						axisLabel: {
-							fontSize: 10,
-							color: "#71717F",
-						}
-					},
-					xAxis: {
-						show: false,
-					},
-					series: [{
-						data: vals,
-						type: "bar",
-						barWidth: "8",
-						itemStyle: {
-							barBorderRadius: [0, 4, 4, 0],
-							color: {
-								type: 'linear',
-								x: 1,
-								y: 0,
-								x2: 0,
-								y2: 0,
-								colorStops: [{
-									offset: 0,
-									color: '#ADCFFF'
-								}, {
-									offset: 1,
-									color: '#188DFF'
-								}],
+            //运动时长
+            getTotalTimeEchart(list) {
+                if (!list) return
+                let keys = [];
+                let vals = [];
+                for (key in list) {
+                    keys.push(key);
+                    vals.push(list[key])
+                }
+                keys = keys.reverse()
+                vals = vals.reverse()
+                var myChart = echarts.init(document.getElementById("totalTimeEchart"));
+                var option = {
+                    grid: {
+                        width: "%",
+                        height: "80%",
+                        top: 0,
+                        left: "45%"
+                    },
+                    tooltip: {
+                        axisPointer: {
+                            label: {
+                                lineHeight: 20,
+                                backgroundColor: "#ffffff",
+                                padding: [0, 0, 0, 0]
+                            },
+                        },
+                        formatter: (p) => {
+                            let str
+                            if (parseInt(p.data / 1000 / 60) > 0) {
+                                str = parseInt(p.data / 1000 / 60) + "分" + '</br>';
+                            } else {
+                                str = parseInt(p.data / 1000) + "秒" + '</br>';
+                            }
+                            str += p.name;
+                            return str;
+                        }
+                    },
+                    yAxis: {
+                        type: "category",
+                        data: keys,
+                        axisTick: {
+                            show: false,
+                            lineStyle: {
+                                color: "red"
+                            }
+                        },
+                        axisLine: {
+                            show: true,
+                            lineStyle: {
+                                color: "#71717F"
+                            }
+                        },
+                        axisLabel: {
+                            fontSize: 10,
+                            color: "#71717F",
+                        }
+                    },
+                    xAxis: {
+                        show: false,
+                    },
+                    series: [{
+                        data: vals,
+                        type: "bar",
+                        barWidth: "8",
+                        itemStyle: {
+                            barBorderRadius: [0, 4, 4, 0],
+                            color: {
+                                type: 'linear',
+                                x: 1,
+                                y: 0,
+                                x2: 0,
+                                y2: 0,
+                                colorStops: [{
+                                    offset: 0,
+                                    color: '#ADCFFF'
+                                }, {
+                                    offset: 1,
+                                    color: '#188DFF'
+                                }],
 
-							},
-						},
+                            },
+                        },
 
-					}, ],
-				};
-				myChart.setOption(option, true);
-			},
-			//运动总消耗
-			getTotalCalEchart(list) {
-				if (!list) return
-				let keys = [];
-				let vals = [];
-				for (key in list) {
-					keys.push(key);
-					vals.push(list[key])
-				}
-				keys=keys.reverse()
-				vals=vals.reverse()
-				var myChart = echarts.init(document.getElementById("totalCalEchart"));
-				var option = {
-					grid: {
-						width: "55%",
-						height: "80%",
-						top: 0,
-						left: "45%"
-					},
-					tooltip: {
-						axisPointer: {
-							label: {
-								lineHeight: 20,
-								backgroundColor: "#ffffff",
-								padding: [0, 0, 0, 0]
-							},
-						},
-						formatter: (p) => {
-							let str = parseInt(p.data/1000) +"kcal"+ '</br>';
-							str += p.name;
-							return str;
-						}
-					},
-					yAxis: {
-						type: "category",
-						data: keys,
-						axisTick: {
-							show: false,
-							lineStyle: {
-								color: "red"
-							}
-						},
-						axisLine: {
-							show: true,
-							lineStyle: {
-								color: "#71717F"
-							}
-						},
-						axisLabel: {
-							fontSize: 10,
-							color: "#71717F",
-						}
-					},
-					xAxis: {
-						show: false,
-					},
-					series: [{
-						data: vals,
-						type: "bar",
-						barWidth: "8",
-						itemStyle: {
-							barBorderRadius: [0, 4, 4, 0],
-							color: {
-								type: 'linear',
-								x: 1,
-								y: 0,
-								x2: 0,
-								y2: 0,
-								colorStops: [{
-									offset: 0,
-									color: '#D5BAAF'
-								}, {
-									offset: 1,
-									color: '#CE4A3E'
-								}],
+                    }, ],
+                };
+                myChart.setOption(option, true);
+            },
+            //运动总消耗
+            getTotalCalEchart(list) {
+                if (!list) return
+                let keys = [];
+                let vals = [];
+                for (key in list) {
+                    keys.push(key);
+                    vals.push(list[key])
+                }
+                keys = keys.reverse()
+                vals = vals.reverse()
+                var myChart = echarts.init(document.getElementById("totalCalEchart"));
+                var option = {
+                    grid: {
+                        width: "55%",
+                        height: "80%",
+                        top: 0,
+                        left: "45%"
+                    },
+                    tooltip: {
+                        axisPointer: {
+                            label: {
+                                lineHeight: 20,
+                                backgroundColor: "#ffffff",
+                                padding: [0, 0, 0, 0]
+                            },
+                        },
+                        formatter: (p) => {
+                            let str = parseInt(p.data / 1000) + "kcal" + '</br>';
+                            str += p.name;
+                            return str;
+                        }
+                    },
+                    yAxis: {
+                        type: "category",
+                        data: keys,
+                        axisTick: {
+                            show: false,
+                            lineStyle: {
+                                color: "red"
+                            }
+                        },
+                        axisLine: {
+                            show: true,
+                            lineStyle: {
+                                color: "#71717F"
+                            }
+                        },
+                        axisLabel: {
+                            fontSize: 10,
+                            color: "#71717F",
+                        }
+                    },
+                    xAxis: {
+                        show: false,
+                    },
+                    series: [{
+                        data: vals,
+                        type: "bar",
+                        barWidth: "8",
+                        itemStyle: {
+                            barBorderRadius: [0, 4, 4, 0],
+                            color: {
+                                type: 'linear',
+                                x: 1,
+                                y: 0,
+                                x2: 0,
+                                y2: 0,
+                                colorStops: [{
+                                    offset: 0,
+                                    color: '#D5BAAF'
+                                }, {
+                                    offset: 1,
+                                    color: '#CE4A3E'
+                                }],
 
-							},
-						},
+                            },
+                        },
 
-					}, ],
-				};
-				myChart.setOption(option, true);
-			},
-			//步数
-			getStepEchart(item) {
-				if(!item)return
-				let keys = [];
-				let vals = [];
-				for (key in item.stepMaps) {
-					keys.push(key);
-					vals.push(item.stepMaps[key])
-				}
-				keys=keys.reverse()
-				vals=vals.reverse()
+                    }, ],
+                };
+                myChart.setOption(option, true);
+            },
+            //步数
+            getStepEchart(item) {
+                if (!item) return
+                let keys = [];
+                let vals = [];
+                for (key in item.stepMaps) {
+                    keys.push(key);
+                    vals.push(item.stepMaps[key])
+                }
+                keys = keys.reverse()
+                vals = vals.reverse()
 
-				var myChart = echarts.init(document.getElementById("stepEchart"));
-				var option = {
-					title: {
-						text: '目标:'+item.targetStep,
-						right:"10%",
-						show:false,
-						textStyle: {
-							color: '#CFCFD2',
-							fontSize: "10",
-							fontWeight: "normal",
-						}
-					},
-					grid: {
-						width: "55%",
-						height: "80%",
-						top: "0%",
-						left: "45%"
-					},
-					tooltip: {
-						axisPointer: {
-							label: {
-								lineHeight: 20,
-								backgroundColor: "#ffffff",
-								padding: [0, 0, 0, 0]
-							},
-						},
-						formatter: (p) => {
-							let str = parseInt(p.data) +"步"+ '</br>';
-							str += p.name;
-							return str;
-						}
-					},
+                var myChart = echarts.init(document.getElementById("stepEchart"));
+                var option = {
+                    title: {
+                        text: '目标:' + item.targetStep,
+                        right: "10%",
+                        show: false,
+                        textStyle: {
+                            color: '#CFCFD2',
+                            fontSize: "10",
+                            fontWeight: "normal",
+                        }
+                    },
+                    grid: {
+                        width: "55%",
+                        height: "80%",
+                        top: "0%",
+                        left: "45%"
+                    },
+                    tooltip: {
+                        axisPointer: {
+                            label: {
+                                lineHeight: 20,
+                                backgroundColor: "#ffffff",
+                                padding: [0, 0, 0, 0]
+                            },
+                        },
+                        formatter: (p) => {
+                            let str = parseInt(p.data) + "步" + '</br>';
+                            str += p.name;
+                            return str;
+                        }
+                    },
 
-					yAxis: {
-						type: "category",
-						data: keys,
-						axisTick: {
-							show: false,
-							lineStyle: {
-								color: "red"
-							}
-						},
-						axisLine: {
-							show: true,
-							lineStyle: {
-								color: "#71717F"
-							}
-						},
-						axisLabel: {
-							fontSize: 10,
-							color: "#71717F",
-						}
-					},
-					xAxis: {
-						show: false,
-					},
-					series: [{
-						data: vals,
-						type: "bar",
-						barWidth: "8",
-						itemStyle: {
-							barBorderRadius: [0, 4, 4, 0],
-							color: function (params) {
-								// console.log(params)
-								//判断是否达标
-								let color = {
-									type: 'linear',
-									x: 1,
-									y: 0,
-									x2: 0,
-									y2: 0,
-									colorStops: [{
-										offset: 0,
-										color: '#ADCFFF'
-									}, {
-										offset: 1,
-										color: '#188DFF'
-									}]
-								}
-								if (params.value < item.targetStep) {
-									color = "#71717F"
-								}
+                    yAxis: {
+                        type: "category",
+                        data: keys,
+                        axisTick: {
+                            show: false,
+                            lineStyle: {
+                                color: "red"
+                            }
+                        },
+                        axisLine: {
+                            show: true,
+                            lineStyle: {
+                                color: "#71717F"
+                            }
+                        },
+                        axisLabel: {
+                            fontSize: 10,
+                            color: "#71717F",
+                        }
+                    },
+                    xAxis: {
+                        show: false,
+                    },
+                    series: [{
+                        data: vals,
+                        type: "bar",
+                        barWidth: "8",
+                        itemStyle: {
+                            barBorderRadius: [0, 4, 4, 0],
+                            color: function(params) {
+                                // console.log(params)
+                                //判断是否达标
+                                let color = {
+                                    type: 'linear',
+                                    x: 1,
+                                    y: 0,
+                                    x2: 0,
+                                    y2: 0,
+                                    colorStops: [{
+                                        offset: 0,
+                                        color: '#ADCFFF'
+                                    }, {
+                                        offset: 1,
+                                        color: '#188DFF'
+                                    }]
+                                }
+                                if (params.value < item.targetStep) {
+                                    color = "#71717F"
+                                }
 
-								return color
+                                return color
 
-							}
+                            }
 
-						},
-						markLine: {
-							symbol: ['none', 'none'],
-							itemStyle: {
-								normal: {
-									lineStyle: {
-										type: 'dashed',
-										color: '#595962',
-									},
-									label: {
-										show: false,
-									}
-								}
-							},
-							data: [{
-								xAxis: item.targetStep,
-							}]
-						}
+                        },
+                        markLine: {
+                            symbol: ['none', 'none'],
+                            itemStyle: {
+                                normal: {
+                                    lineStyle: {
+                                        type: 'dashed',
+                                        color: '#595962',
+                                    },
+                                    label: {
+                                        show: false,
+                                    }
+                                }
+                            },
+                            data: [{
+                                xAxis: item.targetStep,
+                            }]
+                        }
 
 
-					}, ],
-				};
-				myChart.setOption(option, true);
-			}
-		}
-	})
+                    }, ],
+                };
+                myChart.setOption(option, true);
+            }
+        }
+    })
 </script>
 
 </html>

@@ -9,11 +9,6 @@
     font-style: normal;
 }
 
-
-
-
-
-
 //黑字
 $text_color:#595962;
 //白字
@@ -22,8 +17,6 @@ $text_color_white:#CFCFD2;
 $bg_color:#12121f;
 //边框色
 $border_color:#1e1e2a;
-
-
 * {
     margin: 0;
     padding: 0;
@@ -38,23 +31,18 @@ body {
     position: relative;
     z-index: 100;
     background-color: transparent !important;
-
-
     .van-nav-bar {
         background-color: transparent;
         color: #12121f;
-
         .van-nav-bar__content {
             // 
         }
-
         .van-nav-bar__title {
             // opacity: 0;
             // color: #12121f;
             font-size: 0.36rem;
         }
     }
-
     .van-hairline--bottom::after {
         border: none;
     }
@@ -67,40 +55,32 @@ body {
         z-index: 100;
         height: calc(0.92rem + constant(safe-area-inset-top));
         height: calc(0.92rem + env(safe-area-inset-top));
-
         .van-nav-bar {
             background-color: $bg_color;
-
             .van-nav-bar__content {
                 color: $text_color_white;
             }
-
             .van-nav-bar__title {
                 color: $text_color_white;
                 font-size: 0.36rem;
             }
-
             .van-nav-bar__text {
                 color: $text_color_white;
             }
         }
-
         .van-hairline--bottom::after {
             border: none;
         }
     }
-
 }
 
 .nullheader {
     .van-nav-bar__content {
         color: #fff;
     }
-
     .van-nav-bar__title {
         color: #fff;
     }
-
     .van-nav-bar__text {
         color: #fff;
     }
@@ -110,13 +90,11 @@ body {
     position: absolute;
     left: 48%;
     top: 48%;
-
 }
 
 // 主页列表
 .listBox {
     padding: 0.24rem;
-
     .weekItem {
         width: 100%;
         background-image: url(../img/weekList.png);
@@ -125,27 +103,21 @@ body {
         border-radius: 5px;
         padding: 0.7rem 0.4rem;
         box-sizing: border-box;
-
         .title {
             color: $bg_color;
             font-size: 0.4rem;
             margin-bottom: 0.28rem;
-
         }
-
         .date {
             color: $bg_color;
             font-size: 0.32rem;
         }
-
         margin-bottom: 0.24rem;
     }
-
     .monthItem {
         @extend .weekItem;
         background-image: url(../img/monthList.png);
     }
-
 }
 
 .topPic {
@@ -153,12 +125,10 @@ body {
     top: 0;
     left: 0;
     z-index: 1;
-
     .bg {
         width: 100%;
         display: block;
     }
-
     .black {
         width: 100%;
         position: absolute;
@@ -177,7 +147,6 @@ body {
     margin-top: 1.2rem;
     margin-top: calc(1.2rem + constant(safe-area-inset-top));
     margin-top: calc(1.2rem + env(safe-area-inset-top));
-
     .headerpic {
         width: 0.64rem;
         height: 0.64rem;
@@ -188,13 +157,11 @@ body {
         -ms-border-radius: 50%;
         -o-border-radius: 50%;
     }
-
     .name {
         color: #4F81E6;
         font-size: 0.24rem;
         line-height: 0.3rem;
     }
-
     .date {
         color: #4F81E6;
         font-size: 0.2rem;
@@ -208,7 +175,6 @@ body {
     width: 100%;
     left: 0;
     z-index: 2;
-
     .dataBox {
         background-color: $border_color;
         margin: 0 0.24rem;
@@ -220,7 +186,6 @@ body {
         -ms-border-radius: 0.24rem;
         -o-border-radius: 0.24rem;
         position: relative;
-
         .boxTitle {
             font-size: 0.32rem;
             line-height: 0.48rem;
@@ -229,76 +194,61 @@ body {
             max-width: 2rem;
             margin-bottom: 0.4rem;
             position: relative;
-
             .skiplevel {
                 position: absolute;
                 color: #FF4F3F;
                 font-size: 0.28rem;
                 top: 0.02rem;
                 right: -1.6rem;
-
-
                 .status {
                     margin-left: 0.05rem;
                     width: 0.25rem;
                 }
             }
         }
-
-
-
         .modulePic_left {
             position: absolute;
             left: 0.4rem;
             top: 0.4rem;
         }
-
         .modulePic_right {
             position: absolute;
             right: 0.4rem;
             top: 0.4rem;
         }
-
         .text_data {
             font-size: 0.56rem;
             color: $text_color_white;
             font-family: "BebasNeue";
             line-height: 0.6rem;
-
             .status {
                 width: 0.25rem;
                 margin-bottom: 0.15rem;
             }
         }
-
         .text_data_small {
             font-size: 0.24rem;
             color: $text_color_white;
             line-height: 0.35rem;
         }
-
         .text_descript {
             font-size: 0.24rem;
             color: #71717F;
             line-height: 0.3rem;
             margin-bottom: 0.15rem;
         }
-
         .align_right {
             text-align: right;
         }
-
         .align_left {
             text-align: left;
         }
-
         .totalCalBox {
             display: flex;
             margin-top: 0.4rem;
             justify-content: space-around;
             align-items: center;
         }
-
         .consumeBox {
             .smallTitle {
                 color: $text_color_white;
@@ -306,48 +256,37 @@ body {
                 line-height: 0.5rem;
                 margin-top: 0.4rem;
             }
-
             .consumeDetail {
                 display: flex;
                 align-items: center;
                 justify-content: flex-start;
                 padding: 0.4rem 0;
-
                 .consumeDetailItem {
                     width: 10%;
                     height: 4px;
                     margin-right: 2px;
                     box-sizing: border-box;
                     background-color: #3AD266;
-
                     &:first-child {
                         border-top-left-radius: 2px;
                         border-bottom-left-radius: 2px;
-
                     }
-
                     &:last-child {
                         border-top-right-radius: 2px;
                         border-bottom-right-radius: 2px;
-
                     }
                 }
-
-
             }
-
             .itemInfoBox {
                 display: flex;
                 align-items: center;
                 justify-content: flex-start;
                 flex-wrap: wrap;
-
                 .itemInfo {
                     width: 33.33%;
                     display: flex;
                     align-items: center;
                     justify-content: flex-start;
-
                     .colorBox {
                         width: 0.08rem;
                         height: 0.08rem;
@@ -358,33 +297,26 @@ body {
                         -o-border-radius: 50%;
                         margin-right: 0.1rem;
                     }
-
                     .color_text {
                         color: $text_color_white;
                         font-size: 0.2rem;
                         line-height: 0.5rem;
                     }
-
                 }
             }
         }
-
     }
-
     .bottom {
         font-size: 0.24rem;
         color: #71717F;
-        margin: 0.8rem 0.24rem;
+        margin: 0.5rem 0.24rem;
         text-align: center;
     }
-
     .shareBox {
         padding: 0.5rem 0.24rem;
-
         img {
             width: 100%;
         }
-
         .button {
             color: #fff;
             width: 6.7rem;
@@ -397,25 +329,20 @@ body {
             margin: 0 auto;
         }
     }
-
-
 }
 
 //历史数据
 .historyListBox {
     padding: 0.24rem;
-
     .historyListDiv {
         .title {
             color: #71717F;
             font-size: 0.32rem;
             line-height: 1rem;
         }
-
         .itemList {
             background-color: #292934;
             border-radius: 4px;
-
             .itemTitle {
                 margin: 0 0.24rem;
                 height: 0.88rem;
@@ -425,7 +352,6 @@ body {
                 justify-content: space-between;
                 align-items: center;
                 border-bottom: 1px solid $bg_color;
-
                 &:last-child {
                     border: none;
                 }
@@ -434,15 +360,12 @@ body {
     }
 }
 
-
 .nullbox {
     text-align: center;
     padding-top: 3rem;
-
     img {
         width: 50%;
     }
-
     p {
         color: #71717f;
         font-size: 0.28rem;
