@@ -121,6 +121,7 @@
 			this.getList();
 			this.getHistory();
 			window.initData = this.RefreshFunction;
+			window.initCompetitionDetail = this.RefreshFunction;
 		},
 		created() {
 			let type = getQueryString('type') || "wristball";

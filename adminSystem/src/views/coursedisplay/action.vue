@@ -83,7 +83,7 @@
           </el-upload>
         </el-form-item>
 
-        <el-form-item label="视频类型" prop="bigAttributeId">
+        <el-form-item label="视频类型" prop="actionSmallClass">
           <el-radio-group v-model="form.actionSmallClass">
             <el-radio class="radio" :label="1">动作</el-radio>
             <el-radio class="radio" :label="0">内容</el-radio>
@@ -105,7 +105,7 @@
           </el-select>
         </el-form-item>
 
-        <el-form-item label="视频归属">
+        <el-form-item label="视频归属" prop="actionBelong">
           <el-select v-model="form.actionBelong" placeholder="" clearable>
             <el-option :key="0" label="训练" :value="0"></el-option>
             <el-option :key="1" label="热身" :value="1"></el-option>
@@ -211,6 +211,13 @@ export default {
             trigger: "blur,change",
           },
         ],
+        smallClassDay: [
+          {
+            required: true,
+            message: "请输入动作排序",
+            trigger: "blur,change",
+          },
+        ],
         bigClassId: [
           {
             required: true,
@@ -222,6 +229,13 @@ export default {
           {
             required: true,
             message: "请选择动作归属",
+            trigger: "blur,change",
+          },
+        ],
+        actionSmallClass: [
+          {
+            required: true,
+            message: "请选择视频归属",
             trigger: "blur,change",
           },
         ],
