@@ -580,6 +580,10 @@
             //初始化获取数据
             initData() {
                 this.finished = false;
+                if (getQueryString("isShare") == 1) {
+                    this.startTime = getQueryString("startTime");
+                    this.endTime = getQueryString("endTime");
+                }
                 ajax({
                     url: getQueryString("isShare") ? "sportClock/share/getMonthSportReport" : "sportClock/getMonthSportReport",
                     data: {

@@ -407,6 +407,7 @@ body {
 .contain .copyright {
   padding: 0.2rem 0.5rem;
   color: #71717f;
+  text-align: center;
 }
 
 .contain .iconBox {
