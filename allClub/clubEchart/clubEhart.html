@@ -283,7 +283,7 @@
 				<div class="echartBox" v-if="minister==1&&!taskSingle" id="memberNum2"></div>
 				<!-- <div class="echartBox" v-if="!taskSingle" id="deptTask"></div> -->
 				<div class="echartBox" id="memberNum"></div>
-				<div v-if="!taskSingle&&minister!=1">
+				<div v-if="!taskSingle&&minister!=1&&hasMemberFlag">
 					<div class="echartBox" id="deptPersonRank" style="border-bottom: none;"></div>
 					<div class="ub ub-ac ub-ad rankBox">
 						<div class="ub ub-ac">
@@ -408,6 +408,7 @@
 				groupTitle: '部门名称',
 				taskNameShow: false,
 				taskSingle: false, //是否是单个任务
+				hasMemberFlag:true,
 				taskSingleObj: {
 					rate: 0,
 					ropeNum: 0
@@ -1320,6 +1321,7 @@
 					}, ],
 				};
 				if (item.Yline.length == 0) {
+					this.hasMemberFlag = false;
 					option.graphic = [{
 						type: 'image',
 						style: {

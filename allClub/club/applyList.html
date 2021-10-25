@@ -159,6 +159,13 @@
 			position: relative;
 			margin-left: .16rem;
 		}
+		.van-uploader__upload{
+			background-color:#1e1e2a;
+		}
+		.van-uploader__upload-icon{
+			color:#292934;
+			font-size:1rem;
+		}
 	</style>
 </head>
 
@@ -204,18 +211,18 @@
 			</div>
 		</van-popup>
 		<van-dialog v-model="createshow" :before-close="beforeClose" @confirm="submitCreate"
-			:confirm-button-color="createGroupObj.fileList.length==0||!createGroupObj.name?'#999':''"
-			cancel-button-color="#999" :title="createGroupObj.id?'编辑分部':'创建分部'"
+			:confirm-button-color="createGroupObj.fileList.length==0||!createGroupObj.name?'#71717f':''"
+			cancel-button-color="#71717f" :title="createGroupObj.id?'编辑分部':'创建分部'"
 			:confirm-button-text="createGroupObj.id?'编辑':'创建'" show-cancel-button>
 			<div style="padding: .5rem;">
 				<div class="ub ub-ver ub-pc">
 					<van-uploader v-model="createGroupObj.fileList" upload-icon="plus" :deletable="false" :max-count="1"
 						:after-read="afterRead2"></van-uploader>
 				</div>
-				<div style="color: #999;font-size: .24rem;text-align: center;">选择部门形象</div>
+				<div style="color: #71717f;font-size: .24rem;text-align: center;">选择部门形象</div>
 				<van-field
-					style="background-color: #f8f8f8;margin-top: .48rem;border-radius: .1rem;height: .64rem;padding: .1rem .32rem;"
-					maxlength="16" v-model="createGroupObj.name" placeholder="请输入组别名称" />
+					style="background-color: #1e1e2a;margin-top: .48rem;border-radius: .1rem;height: .64rem;padding: .1rem .32rem;"
+					maxlength="16" v-model="createGroupObj.name" placeholder="请输入分部名称" />
 			</div>
 		</van-dialog>
 		<div>
@@ -227,7 +234,7 @@
 								:style="{'background-image': 'url(' + item.headPictureUrl + ')'}"></div>
 						</van-col>
 						<van-col span="11">
-							<div class="createrName">
+							<div class="createrName van-ellipsis">
 								{{item.nickname}}
 							</div>
 							<div class="activityTime">
