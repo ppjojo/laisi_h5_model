@@ -1262,13 +1262,13 @@
 							let str = '<span style="color:#cfcfd2">';
 							console.log(p)
 							let name = p.name;
-							if (name.length > 4) {
-								let namestr = name.substr(0, 5) + '<br/>';
-								namestr += name.substr(5, name.length - 1);
+							if (name.length > 6) {
+								let namestr = name.substr(0, 6) ;
+								// namestr += name.substr(5, name.length - 1);
 								name = namestr+'...'
 							}
 							if (type == 'team' || type == 'personal') { //mode2倒计时
-								str += '<span style="font-size:.2rem">'+name + '</span><br/>';
+								str += '<span style="font-size:.24rem">'+name + '</span><br/>';
 								str += '名次：第' + p.data + '名<br/>';
 								let unit = item.num[p.dataIndex];
 								if (mode == 3) {
