@@ -13,10 +13,6 @@ $text_color_white:#CFCFD2;
 $bg_color:#12121f;
 //边框色
 $border_color:#1e1e2a;
-
-
-
-
 .van-hairline--bottom::after {
     border: none;
 }
@@ -37,7 +33,6 @@ $border_color:#1e1e2a;
     .van-sticky--fixed {
         top: 1rem;
     }
-
     .van-tab--active {
         &::after {
             content: '';
@@ -50,25 +45,19 @@ $border_color:#1e1e2a;
             background-position: 100% 100%;
             background: url(../img/tabselect.png) no-repeat;
             background-size: 100%;
-
         }
     }
-
     .van-tabs__line {
         display: none;
     }
-
     .van-pull-refresh {
-        min-height: calc(100vh - 1.88rem);
+        min-height: calc(100vh - 3rem);
     }
-
     .monkey-pull-refresh .van-pull-refresh__head {
         line-height: 0;
         height: 90px !important;
     }
-
     .monkey-pull-refresh .monkeyBox {}
-
     .monkey-pull-refresh .monkeyBox .monkey {
         width: 60px;
         height: 60px;
@@ -76,7 +65,6 @@ $border_color:#1e1e2a;
         padding: 0;
         margin: 0;
     }
-
     .monkey-pull-refresh .monkeyBox p {
         height: 10px;
         font-size: 12px;
@@ -85,17 +73,13 @@ $border_color:#1e1e2a;
         padding: 0;
         margin: 0;
     }
-
     .noData-box {
         text-align: center;
         padding-top: 2.5rem;
     }
-
     .noData-box .noData-img {
         width: 4rem;
     }
-
-
 }
 
 .creatMatch-img-box img {
@@ -109,7 +93,6 @@ $border_color:#1e1e2a;
 
 .van-dialog__content {
     padding: 0.2rem;
-
     .van-field {
         // border: 1px solid $text_color_white;
         padding: 0.1rem;
@@ -123,22 +106,18 @@ $border_color:#1e1e2a;
         border-bottom: 1px solid $border_color;
         -webkit-box-sizing: border-box;
         box-sizing: border-box;
-
         .laber {
             font-size: 0.32rem;
             color: $text_color_white;
             line-height: 1rem;
         }
-
         .borderTop {
             border-top: 1px solid $bg_color;
         }
-
         .pkName_box {
             height: 1.2rem;
             background-color: $border_color;
             margin-bottom: 0.3rem;
-
             .van-field {
                 background-color: $border_color;
                 padding: 0.2rem;
@@ -150,79 +129,58 @@ $border_color:#1e1e2a;
                 -moz-border-radius: 4px;
                 -ms-border-radius: 4px;
                 -o-border-radius: 4px;
-
                 .van-field__control {
                     font-size: 0.24rem;
                 }
-
                 .van-field__control {
                     height: 0.5rem;
                     min-height: 0.5rem !important;
                 }
             }
-
-
-
         }
-
         .van-radio {
             padding: 0.3rem;
         }
-
         .van-radio--horizontal {
             margin-right: 1.5rem;
             width: 2rem;
         }
-
         .van-radio--horizontal:last-child {
             margin-right: 0;
             width: auto;
         }
-
         .van-radio__label {
             font-size: 0.32rem;
         }
-
-
         .pk_cell {
             padding: 0.35rem 0 0.35rem 0.3rem;
-
             .van-cell__value {
                 color: #71717f;
                 font-size: 0.24rem;
             }
         }
-
         .pk_cell2 {
             padding: 0.25rem 0;
-
             .van-cell__value {
                 color: #71717f;
                 font-size: 0.24rem;
             }
-
             .van-cell__title {
                 color: $text_color_white;
                 font-size: 0.32rem;
             }
         }
-
-
         .chosed .van-cell__value {
             color: $text_color_white;
             font-size: 0.28rem;
-
             flex: 1;
         }
-
         .pkRepeatTimes {
             .van-cell__value {
                 flex: 2;
             }
         }
     }
-
-
     .nextStep {
         width: 4rem;
         margin: 1.5rem auto;
@@ -232,7 +190,6 @@ $border_color:#1e1e2a;
         color: #fff;
         font-size: 0.4rem;
     }
-
     .canNextStep {
         background-image: linear-gradient(to left, #FFAA88, #FF4E3E);
     }
@@ -240,14 +197,11 @@ $border_color:#1e1e2a;
 
 //团队赛详情
 .teamDetailContain {
-
     margin-top: 0.3rem;
-
     .teamInfoBox {
         display: flex;
         align-items: center;
         justify-content: center;
-
         .activeTeam {
             width: 47%;
             height: 1.4rem;
@@ -263,19 +217,15 @@ $border_color:#1e1e2a;
             position: relative;
             right: -0.1rem;
             z-index: 2;
-
             .teamName {
                 font-size: 0.32rem;
                 line-height: 0.5rem
             }
-
             .bigNumberSpan {
                 font-size: 0.48rem;
                 font-family: "BebasNeue"
             }
-
         }
-
         .powerTeam {
             @extend .activeTeam;
             background-image: linear-gradient(to right, #4684EF, #6DCAFB);
@@ -284,24 +234,18 @@ $border_color:#1e1e2a;
             left: -0.1rem;
             right: 0;
             z-index: 1;
-
         }
     }
-
     .listBox {
-
         .van-pull-refresh {
             width: 100%;
             min-height: calc(100vh - 3.7rem);
         }
-
         .monkey-pull-refresh .van-pull-refresh__head {
             line-height: 0;
             height: 90px !important;
         }
-
         .monkey-pull-refresh .monkeyBox {}
-
         .monkey-pull-refresh .monkeyBox .monkey {
             width: 60px;
             height: 60px;
@@ -309,7 +253,6 @@ $border_color:#1e1e2a;
             padding: 0;
             margin: 0;
         }
-
         .monkey-pull-refresh .monkeyBox p {
             height: 10px;
             font-size: 12px;
@@ -318,16 +261,13 @@ $border_color:#1e1e2a;
             padding: 0;
             margin: 0;
         }
-
         .leftRightBox {
             display: flex;
             align-items: flex-start;
             padding: 0.5rem 0.3rem;
         }
-
         .left {
             width: 50%;
-
             .listItem {
                 border-radius: 0.24rem 0 0 0.24rem;
                 height: 1.8rem;
@@ -338,25 +278,21 @@ $border_color:#1e1e2a;
                 justify-content: flex-start;
                 background-color: $border_color;
                 margin-bottom: 1px;
-
                 .border {
                     width: 2px;
                     height: 0.8rem;
                     margin-right: 0.15rem;
                     background-image: linear-gradient(to bottom, #FF4E3E, #FFAA88);
                 }
-
                 .headerPic {
                     height: 0.48rem;
                     width: 0.48rem;
                     border-radius: 50%;
                     margin-right: 0.15rem;
                 }
-
                 .scoreBox {
                     font-size: 0.28rem;
                     color: #71717F;
-
                     .nickName {
                         overflow: hidden;
                         text-overflow: ellipsis;
@@ -366,86 +302,55 @@ $border_color:#1e1e2a;
                         line-height: 0.6rem;
                         color: $text_color_white;
                     }
-
                     .bigNumberSpan {
                         font-family: "BebasNeue";
                         font-size: 0.28rem
                     }
-
                 }
             }
-
             .self {
                 background-image: linear-gradient(to right, rgba(255, 78, 62, 0.3), rgba(255, 170, 136, 0.3));
             }
         }
-
         .right {
             @extend .left;
             border-left: 1px solid transparent;
-
             .listItem {
                 border-radius: 0 0.24rem 0.24rem 0;
-
                 .border {
                     background-image: linear-gradient(to bottom, #4684EF, #6DCAFB);
                 }
-
-
             }
-
             .self {
                 background-image: linear-gradient(to right, rgba(25, 141, 255, 0.3), rgba(28, 142, 255, 0));
             }
-
         }
-
         .button_box {
             max-height: 5rem;
             overflow-y: auto;
         }
-
         .noPeople-div {
             text-align: center;
             /* position: absolute; */
             width: 100%;
             margin-top: 1.5rem;
         }
-
         .noPeople-div .noPeoplePic {
             width: 1.22rem;
         }
-
         .noPeople-div .noPeopleP {
             color: #D1D1D1;
             font-size: 0.28rem;
             margin: 0;
             padding: 0;
         }
-
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .header {
     height: 1rem;
     position: relative;
     z-index: 9;
-
 }
 
 @supports ((height: constant(safe-area-inset-top)) or (height: env(safe-area-inset-top))) and (-webkit-overflow-scrolling: touch) {
@@ -454,7 +359,6 @@ $border_color:#1e1e2a;
         height: calc(1rem + constant(safe-area-inset-top));
         height: calc(1rem + env(safe-area-inset-top));
     }
-
     .comListBox .van-sticky--fixed {
         top: 1rem;
         top: calc(1rem + constant(safe-area-inset-top));

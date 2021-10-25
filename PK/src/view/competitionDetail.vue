@@ -5,7 +5,7 @@
         <template #left>
           <span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
         </template>
-        <template #right v-if="competitionStatus!=3">
+        <template #right v-if="competitionStatus != 3">
           <div @click="goSetting()">
             <span class="icon iconfont icon-gengduo" style="font-size: 0.48rem;" />
           </div>
@@ -13,18 +13,30 @@
       </van-nav-bar>
     </div>
     <div class="shareBox" v-if="isShare">
-      <div class="headPic" :style="{'background-image': 'url(' + userItem.headPictureUrl + ')'}"></div>
-      <div class="personalName">{{userItem.nickName}}</div>
-      <div class="competitionName">我在派健康参与了比赛【{{competitionItem.name}}】,快来和我battle吧</div>
+      <div class="headPic" :style="{ 'background-image': 'url(' + userItem.headPictureUrl + ')' }"></div>
+      <div class="personalName">{{ userItem.nickName }}</div>
+      <div class="competitionName">
+        我在派健康参与了比赛【{{ competitionItem.name }}】,快来和我battle吧
+      </div>
       <div class="codeTitle" v-if="competitionItem.invitationCode">邀请码</div>
-      <div class="invitationCode" v-if="competitionItem.invitationCode">{{competitionItem.invitationCode}}</div>
+      <div class="invitationCode" v-if="competitionItem.invitationCode">
+        {{ competitionItem.invitationCode }}
+      </div>
     </div>
     <div>
       <div class="detailBgBox">
-        <div class="detailBg" v-if="competitionItem&&!competitionItem.picUrl" :style="{'background-image':'url('+require('@/img/'+type+'/'+competitionItem.type+'.png')+')'}">
-        </div>
+        <div class="detailBg" v-if="competitionItem && !competitionItem.picUrl" :style="{
+            'background-image':
+              'url(' +
+              require('@/img/' + type + '/' + competitionItem.type + '.png') +
+              ')',
+          }"></div>
 
-        <div v-else class="detailBg" :style="{'backgroundImage':'url('+competitionItem.picUrl+')','background-size': 'contain'}"></div>
+        <div v-else class="detailBg" :style="{
+            backgroundImage: 'url(' + competitionItem.picUrl + ')',
+            'background-size': 'contain',
+            'background-position': 'center center',
+          }"></div>
       </div>
 
       <!-- 比赛信息 -->
@@ -36,74 +48,70 @@
             </van-col>
             <van-col span="1" class="laberTitle">：</van-col>
             <van-col span="18" class="laberContent">
-              {{competitionItem.name}}
-              <div v-if="competitionItem.isOfficial" class="van-tag-official">官方</div>
+              {{ competitionItem.name }}
+              <div v-if="competitionItem.isOfficial" class="van-tag-official">
+                官方
+              </div>
               <img class="lock_img" v-if="competitionItem.isVerify" src="../img/is_public2.png" />
             </van-col>
           </van-row>
 
-          <div v-if="type=='skipping'">
-            <van-row v-if="competitionItem.type!='multiTeam'">
+          <div v-if="type == 'skipping'">
+            <van-row v-if="competitionItem.type != 'multiTeam'">
               <van-col span="5" class="laberTitle">
                 <span>比</span><span>赛</span><span>模</span><span>式</span>
               </van-col>
               <van-col span="1" class="laberTitle">：</van-col>
-              <van-col span="18" class="laberContent" v-if="competitionItem.mode==2">
-                {{competitionItem.modeValue==30?"30秒钟倒计时跳":(parseInt((competitionItem.modeValue)/60))+"分钟倒计时跳"}}
+              <van-col span="18" class="laberContent">
+                {{modeName}}
               </van-col>
-              <van-col span="18" class="laberContent" v-else>
-                {{competitionItem.modeValue+"个倒计数跳"}}</van-col>
             </van-row>
 
-            <van-row v-if="competitionItem.type=='multiTeam'">
+            <van-row v-if="competitionItem.type == 'multiTeam'">
               <van-col span="5" class="laberTitle">
                 <span>比</span><span>赛</span><span>模</span><span>式</span>
               </van-col>
               <van-col span="1" class="laberTitle">：</van-col>
-              <van-col span="18" class="laberContent" v-if="competitionItem.mode==2">
-                {{competitionItem.modeValue==30?"30秒钟倒计时跳":(parseInt((competitionItem.modeValue)/60))+"分钟倒计时跳"}}/{{competitionItem.repeatTimes==-1?"不限次数":competitionItem.repeatTimes+"次内取最优"}}
-              </van-col>
-              <van-col span="18" class="laberContent" v-else>
-                {{competitionItem.modeValue+"个倒计数跳"}}/{{competitionItem.repeatTimes==-1?"不限次数":competitionItem.repeatTimes+"次内取最优"}}
+              <van-col span="18" class="laberContent">
+                {{modeName}}/{{
+                  competitionItem.repeatTimes == -1
+                    ? "不限次数"
+                    : competitionItem.repeatTimes + "次内取最优"
+                }}
               </van-col>
             </van-row>
           </div>
-          <div v-else-if="type=='steps'">
+          <div v-else-if="type == 'steps'">
             <van-row>
               <van-col span="5" class="laberTitle">
                 <span>比</span><span>赛</span><span>模</span><span>式</span>
               </van-col>
               <van-col span="1" class="laberTitle">：</van-col>
               <van-col span="18" class="laberContent">
-                {{competitionItem.modeValue+"公里跑"}}
+                {{modeName}}
               </van-col>
             </van-row>
           </div>
-          <div v-else-if="type=='wristball'">
+          <div v-else-if="type == 'wristball'">
             <van-row>
               <van-col span="5" class="laberTitle">
                 <span>比</span><span>赛</span><span>模</span><span>式</span>
               </van-col>
               <van-col span="1" class="laberTitle">：</van-col>
-              <van-col span="18" class="laberContent" v-if="competitionItem.mode==2">
-                {{competitionItem.modeValue==30?"30秒钟倒计时转":(parseInt((competitionItem.modeValue)/60))+"分钟倒计时转"}}
+              <van-col span="18" class="laberContent">
+                {{modeName}}
               </van-col>
-              <van-col span="18" class="laberContent" v-else>
-                {{competitionItem.modeValue+"个倒计数转"}}</van-col>
             </van-row>
-
           </div>
-          <div v-else-if="type=='wheel'">
+          <div v-else-if="type == 'wheel'">
             <van-row>
               <van-col span="5" class="laberTitle">
                 <span>比</span><span>赛</span><span>模</span><span>式</span>
               </van-col>
               <van-col span="1" class="laberTitle">：</van-col>
-              <van-col span="18" class="laberContent" v-if="competitionItem.mode==2">
-                {{competitionItem.modeValue==30?"30秒钟倒计时":(parseInt((competitionItem.modeValue)/60))+"分钟倒计时"}}
+              <van-col span="18" class="laberContent">
+                {{modeName}}
               </van-col>
-              <van-col span="18" class="laberContent" v-else>
-                {{competitionItem.modeValue+"次倒计数"}}</van-col>
             </van-row>
           </div>
 
@@ -112,44 +120,56 @@
               <span>发</span><span>起</span><span>人</span>
             </van-col>
             <van-col span="1" class="laberTitle">：</van-col>
-            <van-col span="18" class="laberContent">{{userItem.nickName||""}}</van-col>
+            <van-col span="18" class="laberContent">{{
+              userItem.nickName || ""
+            }}</van-col>
           </van-row>
-          <van-row v-if="competitionItem.type=='multiTeam'">
+          <van-row v-if="competitionItem.type == 'multiTeam'">
             <van-col span="5" class="laberTitle">
               <span>团</span><span>队</span><span>数</span>
             </van-col>
             <van-col span="1" class="laberTitle">：</van-col>
-            <van-col span="18" class="laberContent">{{competitionItem.teamNum+'个'||""}}</van-col>
+            <van-col span="18" class="laberContent">{{
+              competitionItem.teamNum + "个" || ""
+            }}</van-col>
           </van-row>
-          <van-row v-if="competitionItem.type=='multiTeam'">
+          <van-row v-if="competitionItem.type == 'multiTeam'">
             <van-col span="5" class="laberTitle">
               <span>团</span><span>队</span><span>人</span><span>数</span>
             </van-col>
             <van-col span="1" class="laberTitle">：</van-col>
-            <van-col span="18" class="laberContent">{{competitionItem.teamPersonLimit+'人'||""}}</van-col>
+            <van-col span="18" class="laberContent">{{
+              competitionItem.teamPersonLimit + "人" || ""
+            }}</van-col>
           </van-row>
-          <van-row v-if="competitionItem.type!='multiTeam'">
+          <van-row v-if="competitionItem.type != 'multiTeam'">
             <van-col span="5" class="laberTitle">
               <span>已</span><span>参</span><span>赛</span>
             </van-col>
             <van-col span="1" class="laberTitle">：</van-col>
             <van-col span="18" class="laberContent" v-if="joinDetailItem.registerCount">
-              {{joinDetailItem.registerCount+'人'||""}}</van-col>
+              {{ joinDetailItem.registerCount + "人" || "" }}</van-col>
           </van-row>
           <van-row v-if="competitionItem.isVerify">
             <van-col span="5" class="laberTitle">
               <span>邀</span><span>请</span><span>码</span>
             </van-col>
             <van-col span="1" class="laberTitle">：</van-col>
-            <van-col span="18" class="laberContent">{{competitionItem.invitationCode}}</van-col>
+            <van-col span="18" class="laberContent">{{
+              competitionItem.invitationCode
+            }}</van-col>
           </van-row>
-          <van-row v-if="competitionItem.type!='multiTeam'">
+          <van-row v-if="competitionItem.type != 'multiTeam'">
             <van-col span="5" class="laberTitle">
               <span>比</span><span>赛</span><span>次</span><span>数</span>
             </van-col>
             <van-col span="1" class="laberTitle">：</van-col>
             <van-col span="18" class="laberContent" v-if="competitionItem.repeatTimes">
-              {{competitionItem.repeatTimes==-1?"不限次数，比赛期间取最好成绩":competitionItem.repeatTimes+"次内取最优"}}
+              {{
+                competitionItem.repeatTimes == -1
+                  ? "不限次数，比赛期间取最好成绩"
+                  : competitionItem.repeatTimes + "次内取最优"
+              }}
             </van-col>
           </van-row>
           <van-row>
@@ -158,14 +178,19 @@
             </van-col>
             <van-col span="1" class="laberTitle">：</van-col>
             <van-col span="18" class="laberContent" v-if="competitionItem.startTime">
-              {{DateTime.needYearOrNot(competitionItem.startTime,competitionItem.endTime)}}</van-col>
+              {{
+                DateTime.needYearOrNot(
+                  competitionItem.startTime,
+                  competitionItem.endTime
+                )
+              }}</van-col>
           </van-row>
-          <van-row v-if="competitionItem.gameReward!='无奖励(由发起人提供)'">
+          <van-row v-if="competitionItem.gameReward != '无奖励(由发起人提供)'">
             <van-col span="5" class="laberTitle">
               <span>比</span><span>赛</span><span>奖</span><span>励</span>
             </van-col>
             <van-col span="1" class="laberTitle">：</van-col>
-            <van-col span="18" class="laberContent"><span v-html='competitionItem.gameReward'></span>
+            <van-col span="18" class="laberContent"><span v-html="competitionItem.gameReward"></span>
             </van-col>
           </van-row>
           <van-row v-if="competitionItem.isOfficial">
@@ -173,37 +198,50 @@
               <span>获</span><span>奖</span><span>规</span><span>则</span>
             </van-col>
             <van-col span="1" class="laberTitle">：</van-col>
-            <van-col span="18" class="laberContent"><span style="color:#59b8ff" @click="officialRuleShow=true">点击查看详细规则</span></van-col>
+            <van-col span="18" class="laberContent"><span style="color:#59b8ff" @click="officialRuleShow = true">点击查看详细规则</span></van-col>
           </van-row>
         </div>
       </div>
 
       <!-- 比赛详情数据 -->
       <div class="raceInformation" v-if="competitionItem.type">
-        <div class="raceInformationTitle" v-if="competitionItem.type!='team'">赛况直播</div>
+        <div class="raceInformationTitle" v-if="competitionItem.type != 'team'">
+          赛况直播
+        </div>
         <!-- 个人赛 -->
-        <div class="personnal" v-if="competitionItem.type=='personal'">
+        <div class="personnal" v-if="competitionItem.type == 'personal'">
           <van-pull-refresh v-model="refreshing" :head-height="90" @refresh="onRefresh">
-            <van-list v-model="loading" v-if="list.length>0" :finished="finished" finished-text="没有更多了" @load="onLoad" :immediate-check=false>
-              <div class="listItem" v-for="(item,index) in list">
+            <van-list v-model="loading" v-if="list.length > 0" :finished="finished" finished-text="没有更多了" @load="onLoad" :immediate-check="false">
+              <div class="listItem" v-for="(item, index) in list">
                 <div class="rank">
-                  <img v-if="item.rank==1" class="sortPic" src="../img/no1.png" />
-                  <img v-else-if="item.rank==2" class="sortPic" src="../img/no2.png" />
-                  <img v-else-if="item.rank==3" class="sortPic" src="../img/no3.png" />
-                  <span v-else>{{item.rank}}</span>
+                  <img v-if="item.rank == 1" class="sortPic" src="../img/no1.png" />
+                  <img v-else-if="item.rank == 2" class="sortPic" src="../img/no2.png" />
+                  <img v-else-if="item.rank == 3" class="sortPic" src="../img/no3.png" />
+                  <span v-else>{{ item.rank }}</span>
                 </div>
                 <div class="user" @click="$interaction.visitPersonalHomepage(item.userId)">
-                  <img class="headpic" :src="item.headerPicUrl" alt="">
-                  <p class="name">{{item.nickName}}</p>
+                  <img class="headpic" :src="item.headerPicUrl" alt="" />
+                  <p class="name">{{ item.nickName }}</p>
                 </div>
                 <div class="times">
-                  <span class="bigNumberSpan">{{item.repeatNumber||'--'}}</span>次
+                  <span class="bigNumberSpan">{{
+                    item.repeatNumber || "--"
+                  }}</span>次
                 </div>
-                <div class="num" v-if="competitionItem.mode==2">
-                  <span class="bigNumberSpan">{{item.bestValue||'--'}}</span>{{type=='skipping'?'个':type=='wristball'?'圈':type=='wheel'?'次':''}}
+                <div class="num" v-if="competitionItem.mode == 2">
+                  <span class="bigNumberSpan">{{ item.bestValue || "--" }}</span>{{
+                    type == "skipping"
+                      ? "个"
+                      : type == "wristball"
+                      ? "圈"
+                      : type == "wheel"
+                      ? "次"
+                      : ""
+                  }}
                 </div>
-                <div class="num" v-else v-html="countTimeAll(item.bestValue||item.competitorRunTime)">
-                </div>
+                <div class="num" v-else v-html="
+                    countTimeAll(item.bestValue || item.competitorRunTime)
+                  "></div>
               </div>
             </van-list>
             <div class="noData-box" v-else-if="finished">
@@ -213,49 +251,71 @@
         </div>
 
         <!-- 团队赛 -->
-        <div class="team" v-else-if="competitionItem.type=='team'">
+        <div class="team" v-else-if="competitionItem.type == 'team'">
           <div class="teamcount">
-            <div class="leftBox" :style="{'width':teamList[0].lineWidth+'%'}">
-              <div class="skipImg"><img src="../img/skipimg.png"></div>
-              <div class="line lineLeft" v-if="competitionItem.mode==2">
-                <span>{{teamList[0].average||'--'}}</span>
+            <div class="leftBox" :style="{ width: teamList[0].lineWidth + '%' }">
+              <div class="skipImg"><img src="../img/skipimg.png" /></div>
+              <div class="line lineLeft" v-if="competitionItem.mode == 2">
+                <span>{{ teamList[0].average || "--" }}</span>
               </div>
               <div class="line lineLeft" v-else v-html="countTimeAll(teamList[0].average)"></div>
             </div>
-            <div class="pkImg" :style="{'left':teamList[0].lineWidth+'%'}">
-              <img class="centerimg" src="../img/team_center_pk.png">
+            <div class="pkImg" :style="{ left: teamList[0].lineWidth + '%' }">
+              <img class="centerimg" src="../img/team_center_pk.png" />
             </div>
-            <div class="rightBox" :style="{'width':teamList[1].lineWidth+'%'}">
-              <div class="line lineRight" v-if="competitionItem.mode==2">
-                <span>{{teamList[1].average||'--'}}</span>
+            <div class="rightBox" :style="{ width: teamList[1].lineWidth + '%' }">
+              <div class="line lineRight" v-if="competitionItem.mode == 2">
+                <span>{{ teamList[1].average || "--" }}</span>
               </div>
               <div class="line lineRight" v-else v-html="countTimeAll(teamList[1].average)"></div>
-              <div class="skipImg"><img src="../img/skipimg.png"></div>
+              <div class="skipImg"><img src="../img/skipimg.png" /></div>
             </div>
           </div>
 
           <van-row type="flex" justify="space-between">
-            <van-col span="11" class="activeTeam" :class="competitionStatus==3&&teamList[0].rank>teamList[1].rank?'loserTeam':''" @click="gotoTeamDetail">
-              <div v-if="competitionStatus==3">
-                <img src="../img/winner.png" v-if="teamList[0].rank==1&&teamList[1].rank!=1" class="resultPic" />
-                <img src="../img/draw.png" v-else-if="teamList[1].rank==1&&teamList[0].rank==1" class="resultPic" />
+            <van-col span="11" class="activeTeam" :class="
+                competitionStatus == 3 && teamList[0].rank > teamList[1].rank
+                  ? 'loserTeam'
+                  : ''
+              " @click="gotoTeamDetail">
+              <div v-if="competitionStatus == 3">
+                <img src="../img/winner.png" v-if="teamList[0].rank == 1 && teamList[1].rank != 1" class="resultPic" />
+                <img src="../img/draw.png" v-else-if="teamList[1].rank == 1 && teamList[0].rank == 1" class="resultPic" />
               </div>
 
-              <p class="teamName">{{teamList[0].name}} <img src="../img/teaMore.png"></p>
-              <p v-if="competitionItem.mode==2"> 总个数：<span class="bigNumberSpan">{{teamList[0].totalBestValue||'--'}}</span>个</p>
-              <p v-else> 总时长：
+              <p class="teamName">
+                {{ teamList[0].name }} <img src="../img/teaMore.png" />
+              </p>
+              <p v-if="competitionItem.mode == 2">
+                总个数：<span class="bigNumberSpan">{{
+                  teamList[0].totalBestValue || "--"
+                }}</span>个
+              </p>
+              <p v-else>
+                总时长：
                 <span v-html="countTimeAll(teamList[0].totalBestValue)"></span>
               </p>
             </van-col>
-            <van-col span="11" class="powerTeam" :class="competitionStatus==3&&teamList[1].rank>teamList[0].rank?'loserTeam':''" @click="gotoTeamDetail">
-              <div v-if="competitionStatus==3">
-                <img src="../img/winner.png" v-if="teamList[1].rank==1&&teamList[0].rank!=1" class="resultPic" />
-                <img src="../img/draw.png" v-else-if="teamList[1].rank==1&&teamList[0].rank==1" class="resultPic" />
+            <van-col span="11" class="powerTeam" :class="
+                competitionStatus == 3 && teamList[1].rank > teamList[0].rank
+                  ? 'loserTeam'
+                  : ''
+              " @click="gotoTeamDetail">
+              <div v-if="competitionStatus == 3">
+                <img src="../img/winner.png" v-if="teamList[1].rank == 1 && teamList[0].rank != 1" class="resultPic" />
+                <img src="../img/draw.png" v-else-if="teamList[1].rank == 1 && teamList[0].rank == 1" class="resultPic" />
               </div>
 
-              <p class="teamName">{{teamList[1].name}} <img src="../img/teaMore.png"></p>
-              <p v-if="competitionItem.mode==2"> 总个数：<span class="bigNumberSpan">{{teamList[1].totalBestValue||'--'}}</span>个</p>
-              <p v-else> 总时长：
+              <p class="teamName">
+                {{ teamList[1].name }} <img src="../img/teaMore.png" />
+              </p>
+              <p v-if="competitionItem.mode == 2">
+                总个数：<span class="bigNumberSpan">{{
+                  teamList[1].totalBestValue || "--"
+                }}</span>个
+              </p>
+              <p v-else>
+                总时长：
                 <span v-html="countTimeAll(teamList[1].totalBestValue)"></span>
               </p>
             </van-col>
@@ -263,27 +323,29 @@
         </div>
 
         <!-- 多团队赛 -->
-        <div v-else-if="competitionItem.type=='multiTeam'" class="multiTeamBox">
-          <div class="multiTeamDiv " v-for="item in list" @click="multiTeamShowChange(item)" :class="item.self?'haveSelf':''">
+        <div v-else-if="competitionItem.type == 'multiTeam'" class="multiTeamBox">
+          <div class="multiTeamDiv " v-for="item in list" @click="multiTeamShowChange(item)" :class="item.self ? 'haveSelf' : ''">
             <div class="resultBox">
-              <img src="../img/winner.png" v-if="competitionStatus==3&&item.rank==1&&!drawStatus" class="resultPic" />
-              <img src="../img/draw.png" v-else-if="competitionStatus==3&&item.rank==1" class="resultPic" />
+              <img src="../img/winner.png" v-if="competitionStatus == 3 && item.rank == 1 && !drawStatus" class="resultPic" />
+              <img src="../img/draw.png" v-else-if="competitionStatus == 3 && item.rank == 1" class="resultPic" />
             </div>
             <div class="">
               <van-row class="multiTeamTitle ">
-                <van-col span="12" class="name">{{item.name}}</van-col>
-                <van-col span="12" class="score" v-if="competitionItem.mode==2">
-                  <span class="bigNumberSpan">{{item.totalBestValue}}</span>个
+                <van-col span="12" class="name">{{ item.name }}</van-col>
+                <van-col span="12" class="score" v-if="competitionItem.mode == 2">
+                  <span class="bigNumberSpan">{{ item.totalBestValue }}</span>个
                 </van-col>
                 <van-col span="12" class="score" v-else v-html="countTimeAll(item.totalBestValue)">
                 </van-col>
               </van-row>
-              <div v-if="item.dataDetail.length>0">
-                <van-row v-for="(item,index) in item.dataDetail" class="multiTeamItem" v-if="index<3">
-                  <van-col span="12" class="name" :class="item.userId==currentUserId?'selfName':''">
-                    {{item.nickName}}</van-col>
-                  <van-col span="12" class="score" v-if="competitionItem.mode==2">
-                    <span class="bigNumberSpan">{{item.bestValue||'--'}}</span>个
+              <div v-if="item.dataDetail.length > 0">
+                <van-row v-for="(item, index) in item.dataDetail" class="multiTeamItem" v-if="index < 3">
+                  <van-col span="12" class="name" :class="item.userId == currentUserId ? 'selfName' : ''">
+                    {{ item.nickName }}</van-col>
+                  <van-col span="12" class="score" v-if="competitionItem.mode == 2">
+                    <span class="bigNumberSpan">{{
+                      item.bestValue || "--"
+                    }}</span>个
                   </van-col>
                   <van-col span="12" class="score" v-else v-html="countTimeAll(item.bestValue)">
                   </van-col>
@@ -297,41 +359,42 @@
             </div>
           </div>
         </div>
-
       </div>
 
       <div class="btn_box" v-if="!isShare">
-        <van-button class="btn" size="large" v-if="isSign==0&&(competitionStatus==1||competitionStatus==2)" @click="getPowertoSign()">去报名
+        <van-button class="btn" size="large" v-if="
+            isSign == 0 && (competitionStatus == 1 || competitionStatus == 2)
+          " @click="getPowertoSign()">去报名
         </van-button>
-        <van-button class="btn btn2" size="large" v-else-if="isSign==2&&(competitionStatus==2||competitionStatus==1)">
+        <van-button class="btn btn2" size="large" v-else-if="
+            isSign == 2 && (competitionStatus == 2 || competitionStatus == 1)
+          ">
           去报名
         </van-button>
-        <van-button class="btn " size="large" v-else-if="isSign==1&&competitionStatus==1&&timesRemain!=0" @click="gotoSkip">
-          {{type=="skipping"?"去跳绳":"去运动"}}
+        <van-button class="btn " size="large" v-else-if="isSign == 1 && competitionStatus == 1 && timesRemain != 0" @click="gotoSkip">
+          {{ type == "skipping" ? "去跳绳" : "去运动" }}
         </van-button>
-        <van-button class="btn btn2" size="large" v-else-if="isSign==1&&competitionStatus==2">
-          {{type=="skipping"?"去跳绳":"去运动"}}
+        <van-button class="btn btn2" size="large" v-else-if="isSign == 1 && competitionStatus == 2">
+          {{ type == "skipping" ? "去跳绳" : "去运动" }}
         </van-button>
-        <van-button class="btn btn2" size="large" v-else-if="isSign==1&&competitionStatus==1&&timesRemain==0">
-          {{type=="skipping"?"去跳绳":"去运动"}}
+        <van-button class="btn btn2" size="large" v-else-if="isSign == 1 && competitionStatus == 1 && timesRemain == 0">
+          {{ type == "skipping" ? "去跳绳" : "去运动" }}
         </van-button>
 
-        <van-button class="btn btn2" size="large" v-else-if="competitionStatus==3">已结束
+        <van-button class="btn btn2" size="large" v-else-if="competitionStatus == 3">已结束
         </van-button>
       </div>
       <div class="btn_box" v-if="isShare">
-        <van-button class="btn" size="large" @click="goApp">去报名
-        </van-button>
+        <van-button class="btn" size="large" @click="goApp">去派健康查看更多 </van-button>
       </div>
-
     </div>
 
     <!-- 右上角的设置按钮 -->
     <van-action-sheet v-model="setting" @select="settingSelect" :actions="settingActions" cancel-text="取消" close-on-click-action />
 
     <!-- 比赛规则的弹出框 -->
-    <van-popup v-model="officialRuleShow" class="officialRulePopup" :style="{ height: '55%',width:'85%' }" closeable close-icon="close" round>
-      <p class="officalRule" v-html='competitionItem.rule'></p>
+    <van-popup v-model="officialRuleShow" class="officialRulePopup" :style="{ height: '55%', width: '85%' }" closeable close-icon="close" round>
+      <p class="officalRule" v-html="competitionItem.rule"></p>
     </van-popup>
 
     <!-- 选择团队赛的团队 -->
@@ -340,52 +403,58 @@
     <!-- 多团队赛的详情数据 -->
     <van-popup v-model="multiTeamShow" class="multiTeamPopup">
       <div class="scoreListBox">
+        <div class="title">{{modeName}}</div>
         <div class="scoreListDiv">
           <div>
             <div class="scoreBg">
               <van-row>
-                <van-col span="24" class="scoreListTile">{{multiTeamChoose.name}}赛况直播</van-col>
+                <van-col span="24" class="scoreListTile">{{ multiTeamChoose.name }}赛况直播</van-col>
               </van-row>
               <van-row class="scoreListDetail">
                 <van-col span="12" class="name">
-                  当前排名:第{{chineseRank[multiTeamChoose.rank-1]}}名</van-col>
+                  当前排名:第{{
+                    chineseRank[multiTeamChoose.rank - 1]
+                  }}名</van-col>
 
-                <van-col span="12" class="score" v-if="competitionItem.mode==2">总个数:<span class="bigNumberSpan">{{multiTeamChoose.totalBestValue||'--'}}</span>个</van-col>
+                <van-col span="12" class="score" v-if="competitionItem.mode == 2">总个数:<span class="bigNumberSpan">{{
+                    multiTeamChoose.totalBestValue || "--"
+                  }}</span>个</van-col>
                 <van-col span="12" class="score" v-else>
                   总时长:<span v-html="countTimeAll(multiTeamChoose.totalBestValue)"></span>
                 </van-col>
-
               </van-row>
             </div>
             <div class="scoreListItemDiv">
-              <van-row class="scoreListItem" v-for="(item,index) in multiTeamChoose.dataDetail" :class="(item.userId==currentUserId)&&index==0?'selfItem':''">
+              <van-row class="scoreListItem" v-for="(item, index) in multiTeamChoose.dataDetail" :class="
+                  item.userId == currentUserId && index == 0 ? 'selfItem' : ''
+                ">
                 <van-col span="12" class="name" @click="Interaction.visitPersonalHomepage(item.userId)">
                   <div class="rank">
-                    <img v-if="item.rank==1" class="sortPic" src="../img/no1.png" />
-                    <img v-else-if="item.rank==2" class="sortPic" src="../img/no2.png" />
-                    <img v-else-if="item.rank==3" class="sortPic" src="../img/no3.png" />
-                    <span v-else>{{item.rank}}</span>
+                    <img v-if="item.rank == 1" class="sortPic" src="../img/no1.png" />
+                    <img v-else-if="item.rank == 2" class="sortPic" src="../img/no2.png" />
+                    <img v-else-if="item.rank == 3" class="sortPic" src="../img/no3.png" />
+                    <span v-else>{{ item.rank }}</span>
                   </div>
-                  {{item.nickName}}
+                  {{ item.nickName }}
                 </van-col>
-                <van-col span="12" class="score" v-if="competitionItem.mode==2"><span class="bigNumberSpan">{{item.bestValue||'--'}}</span>个</van-col>
+                <van-col span="12" class="score" v-if="competitionItem.mode == 2"><span class="bigNumberSpan">{{
+                    item.bestValue || "--"
+                  }}</span>个</van-col>
                 <van-col span="12" class="score" v-else>
                   总时长:<span v-html="countTimeAll(item.bestValue)"></span>
                 </van-col>
-
               </van-row>
             </div>
           </div>
           <div class="multiTeamClose">
-            <img src="../img/multiTeamClose.png" @click="multiTeamShow = false">
+            <img src="../img/multiTeamClose.png" @click="multiTeamShow = false" />
           </div>
         </div>
       </div>
     </van-popup>
 
     <!-- 微信引导点击 -->
-    <img id="leadToBrowser" src="https://oss.laisitech.com/01c21e85-22db-4a2b-8f4f-500fca31b25d.png" style="display: none; position: absolute;top: 0;left: 0;width: 100%;height: 100%;z-index: 99;" alt="">
-
+    <img id="leadToBrowser" src="https://oss.laisitech.com/01c21e85-22db-4a2b-8f4f-500fca31b25d.png" style="display: none; position: absolute;top: 0;left: 0;width: 100%;height: 100%;z-index: 99;" alt="" />
   </div>
 </template>
 
@@ -464,11 +533,8 @@ export default {
           name: "比赛规则",
           type: 2,
         },
-        {
-          name: "退出比赛",
-          type: 3,
-        },
       ],
+      modeName: "",
 
       loading: false,
       finished: false,
@@ -585,7 +651,9 @@ export default {
   created() {
     vm = this;
     this.initData();
-    this.joinStatusAndTimesRemain();
+    if (this.isShare != 1) {
+      this.joinStatusAndTimesRemain();
+    }
   },
   methods: {
     goApp() {
@@ -717,6 +785,39 @@ export default {
           }
           this.userItem = res.data[0];
           this.joinDetailItem = res.data[2];
+          if (this.competitionItem.mode == 2) {
+            if (this.type == "skipping") {
+              this.modeName =
+                this.competitionItem.modeValue == 30
+                  ? "30秒钟倒计时跳"
+                  : parseInt(this.competitionItem.modeValue / 60) +
+                    "分钟倒计时跳";
+            } else if (this.type == "wristball") {
+              this.modeName =
+                this.competitionItem.modeValue == 30
+                  ? "30秒钟倒计时转"
+                  : parseInt(this.competitionItem.modeValue / 60) +
+                    "分钟倒计时转";
+            } else if (this.type == "steps") {
+              this.modeName = this.competitionItem.modeValue + "公里跑";
+            } else if (this.type == "wheel") {
+              this.modeName =
+                this.competitionItem.modeValue == 30
+                  ? "30秒钟倒计时"
+                  : parseInt(this.competitionItem.modeValue / 60) +
+                    "分钟倒计时";
+            }
+          } else {
+            if (this.type == "skipping") {
+              this.modeName = this.competitionItem.modeValue + "个倒计数跳";
+            } else if (this.type == "wristball") {
+              this.modeName = this.competitionItem.modeValue + "个倒计数转";
+            } else if (this.type == "steps") {
+              this.modeName = this.competitionItem.modeValue + "公里跑";
+            } else if (this.type == "wheel") {
+              this.modeName = this.competitionItem.modeValue + "个倒计数";
+            }
+          }
 
           if (
             !DateTime.timeContrast(this.competitionItem.startTime) &&
@@ -755,13 +856,16 @@ export default {
           type: this.type,
         });
       } else if (obj.type == 3) {
-        if(!this.isSign){
-          this.$toast("您还未报名哦")
-          return
+        if (!this.isSign) {
+          this.$toast("您还未报名哦");
+          return;
         }
-        if(this.userItem.uid==JSON.parse(localStorage.getItem("appInfo")).userId){
-          this.$toast("自己创建的比赛,无法退出")
-          return
+        if (
+          this.userItem.uid ==
+          JSON.parse(localStorage.getItem("appInfo")).userId
+        ) {
+          this.$toast("自己创建的比赛,无法退出");
+          return;
         }
         Dialog.confirm({
           message: "确定退出比赛吗？",
@@ -817,16 +921,47 @@ export default {
 
             if (this.competitionItem.mode == 2) {
               //倒计时
-              this.teamList[0].lineWidth =72 *(this.teamList[0].average /(this.teamList[0].average + this.teamList[1].average));
-              this.teamList[1].lineWidth = 100 - this.teamList[0].lineWidth;
-              if(this.teamList[0].lineWidth<28){
-                this.teamList[0].lineWidth=28
+
+              if (
+                this.teamList[0].average == 0 &&
+                this.teamList[1].average == 0
+              ) {
+              } else if (this.teamList[0].average == 0) {
+                this.teamList[0].lineWidth = 28;
+                this.teamList[1].lineWidth = 72;
+              } else if (this.teamList[1].average == 0) {
+                this.teamList[0].lineWidth = 72;
+                this.teamList[1].lineWidth = 28;
+              } else {
+                this.teamList[0].lineWidth =
+                  100 *
+                  (this.teamList[0].average /
+                    (this.teamList[0].average + this.teamList[1].average));
+                this.teamList[1].lineWidth = 100 - this.teamList[0].lineWidth;
+                if (this.teamList[0].lineWidth < 28) {
+                  this.teamList[0].lineWidth = 28;
+                }
               }
             } else {
-              this.teamList[1].lineWidth =72 *(this.teamList[0].average /(this.teamList[0].average + this.teamList[1].average));
-              this.teamList[0].lineWidth = 100 - this.teamList[1].lineWidth;
-              if(this.teamList[1].lineWidth<28){
-                this.teamList[1].lineWidth=28
+              if (
+                this.teamList[0].average == 0 &&
+                this.teamList[1].average == 0
+              ) {
+              } else if (this.teamList[0].average == 0) {
+                this.teamList[0].lineWidth = 28;
+                this.teamList[1].lineWidth = 72;
+              } else if (this.teamList[1].average == 0) {
+                this.teamList[0].lineWidth = 72;
+                this.teamList[1].lineWidth = 28;
+              } else {
+                this.teamList[1].lineWidth =
+                  100 *
+                  (this.teamList[0].average /
+                    (this.teamList[0].average + this.teamList[1].average));
+                this.teamList[0].lineWidth = 100 - this.teamList[1].lineWidth;
+                if (this.teamList[1].lineWidth < 28) {
+                  this.teamList[1].lineWidth = 28;
+                }
               }
             }
             return;
@@ -957,6 +1092,12 @@ export default {
         competitionId: this.competitionId,
       }).then((res) => {
         this.isSign = res.data;
+        if (this.isSign) {
+          this.settingActions.push({
+            name: "退出比赛",
+            type: 3,
+          });
+        }
       });
       userTimesRemain({
         competitionId: this.competitionId,
@@ -1013,8 +1154,25 @@ export default {
         this.multiTeamChoose = item;
       }
     },
-    //判断有没有资格报名
+
     getPowertoSign() {
+      boundDeviceCount().then((res) => {
+        let type = this.type == "steps" ? "watch" : this.type;
+        let unbind = true;
+        res.data.forEach((item) => {
+          if (item.deviceType == type) {
+            this.getPowertoSign2();
+            unbind = false;
+            return;
+          }
+        });
+        if (unbind) {
+          this.$toast("请先绑定设备");
+        }
+      });
+    },
+    //判断有没有资格报名
+    getPowertoSign2() {
       if (this.competitionItem.type == "team") {
         this.getTeamList();
         this.chooseTeamShow = true;

@@ -555,8 +555,8 @@
 
 .detailBox .shareBox {
   text-align: center;
-  padding: 0.5rem 0.2rem 0.3rem 0.2rem;
-  background-color: #fff;
+  padding: 1rem 0.2rem 0.3rem 0.2rem;
+  background-color: #12121f;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   margin-bottom: 0.2rem;
@@ -577,18 +577,18 @@
 
 .detailBox .shareBox .codeTitle, .detailBox .shareBox .personalName {
   font-size: 0.28rem;
-  color: #727272;
+  color: #CFCFD2;
   margin-top: 0.1rem;
 }
 
 .detailBox .shareBox .competitionName {
   font-size: 0.28rem;
-  color: #000;
+  color: #71717f;
   margin-top: 0.2rem;
 }
 
 .detailBox .shareBox .invitationCode {
-  color: #333;
+  color: #71717f;
   font-size: 0.4rem;
   margin-top: 0.2rem;
 }
@@ -597,6 +597,15 @@
   overflow-y: inherit;
   background-color: transparent;
   top: 40%;
+}
+
+.detailBox .multiTeamPopup .title {
+  position: absolute;
+  top: 2.7rem;
+  font-size: 0.28rem;
+  color: #925D19;
+  text-align: center;
+  width: 100%;
 }
 
 .detailBox .multiTeamPopup .scoreListBox {

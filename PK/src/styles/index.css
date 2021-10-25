@@ -44,7 +44,7 @@
 }
 
 .comListBox .van-pull-refresh {
-  min-height: calc(100vh - 1.88rem);
+  min-height: calc(100vh - 3rem);
 }
 
 .comListBox .monkey-pull-refresh .van-pull-refresh__head {

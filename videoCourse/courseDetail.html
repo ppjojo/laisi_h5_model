@@ -3,29 +3,28 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
     <title>课程介绍</title>
     <link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
     <link rel="stylesheet" href="font/iconfont.css">
     <link rel="stylesheet" href="css/index.css">
 </head>
-    <style>
-        #title {
-            font-size: 0.36rem;
-            line-height: 0.4rem;
-            padding: 0.3rem 0.1rem;
-        }
-
-        #discript {
-            font-size: 0.28rem;
-            line-height: 0.4rem;
-        }
-
-        .contain {
-            padding: 0.3rem;
-        }
-    </style>
+<style>
+    #title {
+        font-size: 0.36rem;
+        line-height: 0.4rem;
+        padding: 0.3rem 0.1rem;
+    }
+    
+    #discript {
+        font-size: 0.28rem;
+        line-height: 0.4rem;
+    }
+    
+    .contain {
+        padding: 0.3rem;
+    }
+</style>
 </head>
 
 <body>
@@ -38,7 +37,7 @@
 
             </van-nav-bar>
         </div>
-        
+
         <div class="contain">
             <div id="title">{{classDetail.className}}</div>
             <div id="discript">{{classDetail.classDes}}</div>
@@ -53,7 +52,7 @@
             data() {
                 return {
                     isLoading: false,
-                    classDetail:{}
+                    classDetail: {}
                 }
             },
 
@@ -70,7 +69,7 @@
                 //获取大课程下的课程详情以及小课程列表
                 getClassDetail() {
                     ajax({
-                        url: "community/threeUserCollect/see/bigClass/detail",
+                        url: this.isShare ? "classShare/see/bigClass/detail" : "community/threeUserCollect/see/bigClass/detail",
                         data: {
                             bigClassId: getQueryString("id")
                         }

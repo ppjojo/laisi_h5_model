@@ -18,7 +18,7 @@
 
 <body>
     <div id="app" class="specialHeader" :class="(reportData.takeMs||reportData.burn||reportData.reportRecordDto.length>0)?'':'nullheader'" v-cloak>
-        <div class="header" v-if="!sheetImageStatus">
+        <div class="header" v-if="!sheetImageStatus&&getQueryString('isShare')!=1">
             <van-nav-bar @click-left="onclickLeft" title="月报" left-arrow safe-area-inset-top fixed>
                 <template #left>
 					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />

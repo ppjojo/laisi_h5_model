@@ -541,7 +541,7 @@
             //获取大课程下的课程详情以及小课程列表
             getClassDetail() {
                 ajax({
-                    url: this.isShare ? "community/threeUserCollect/classShare/see/bigClass/detail" : "community/threeUserCollect/see/bigClass/detail",
+                    url: this.isShare ? "classShare/see/bigClass/detail" : "community/threeUserCollect/see/bigClass/detail",
                     data: {
                         bigClassId: this.id
                     }
@@ -560,7 +560,7 @@
             //获取评论列表
             getCommentList() {
                 ajax({
-                    url: this.isShare ? "community/threeComment/classShare/see/all/class/commend" : "community/threeComment/see/all/class/commend",
+                    url: this.isShare ? "classShare/see/all/class/commend" : "community/threeComment/see/all/class/commend",
                     data: {
                         bigClassId: this.id,
                         offset: this.pageNum,

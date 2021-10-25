@@ -422,8 +422,8 @@ $border_color:#1e1e2a;
     }
     .shareBox {
         text-align: center;
-        padding: 0.5rem 0.2rem 0.3rem 0.2rem;
-        background-color: #fff;
+        padding: 1rem 0.2rem 0.3rem 0.2rem;
+        background-color: #12121f;
         box-sizing: border-box;
         margin-bottom: 0.2rem;
         position: absolute;
@@ -440,7 +440,7 @@ $border_color:#1e1e2a;
         }
         .codeTitle {
             font-size: 0.28rem;
-            color: #727272;
+            color: #CFCFD2;
             margin-top: 0.1rem;
         }
         .personalName {
@@ -448,11 +448,11 @@ $border_color:#1e1e2a;
         }
         .competitionName {
             font-size: 0.28rem;
-            color: #000;
+            color: #71717f;
             margin-top: 0.2rem;
         }
         .invitationCode {
-            color: #333;
+            color: #71717f;
             font-size: 0.4rem;
             margin-top: 0.2rem;
         }
@@ -462,6 +462,14 @@ $border_color:#1e1e2a;
         overflow-y: inherit;
         background-color: transparent;
         top: 40%;
+        .title {
+            position: absolute;
+            top: 2.7rem;
+            font-size: 0.28rem;
+            color: #925D19;
+            text-align: center;
+            width: 100%;
+        }
         .scoreListBox {
             background-image: url("../img/multiTeambg.png");
             background-size: cover;
