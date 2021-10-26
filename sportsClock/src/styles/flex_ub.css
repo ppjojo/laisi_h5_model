@@ -7,8 +7,11 @@
 *{
 	box-sizing: border-box;
 }
-body{
+body,html{
 	background-color:#12121f;
+}
+.ftbe{
+	font-family: "BebasNeue";
 }
 .ub {
 	display: -webkit-flex !important;

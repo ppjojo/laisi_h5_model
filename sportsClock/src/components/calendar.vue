@@ -2,9 +2,9 @@
 	<div id="calendarBox" v-cloak>
 		<!-- 顶部日期 -->
 		<div class="ub ub-ac ub-pj dateTitle">
-			<van-icon @click="changeMonth(1)" name="arrow-left" size="10" />
+			<van-icon @click="changeMonth(1)" name="arrow-left" size="15" />
 			<div @click="openFatherPickYearMonth()">{{dateTitle}}</div>
-			<van-icon @click="changeMonth(2)" name="arrow" size="10" />
+			<van-icon @click="changeMonth(2)" name="arrow" size="15" />
 		</div>
 		<div class="dateList ub-ad">
 			<!-- 1-7 -->
@@ -70,14 +70,14 @@
 					.showOnly)) { //如果点的是今天或者今天以后的没反应
 					if (this.list[index].isToday && this.clickIndex != null) { //重新点回来
 						this.clickIndex = null;
-						this.$parent.clickBeforeDay(this.list[index].timeStamp);
+						this.$parent.clickBeforeDay(this.list[index].timeStamp,true);
 					}
 					return;
 				}
-				this.$parent.clickBeforeDay(this.list[index].timeStamp);
+				this.$parent.clickBeforeDay(this.list[index].timeStamp,false);
 				this.clickIndex = index;
 			},
-			calindarList(arr) {
+			calindarList(arr,isToday) {
 				if (!arr) arr = this.list;
 				let timeObj = {
 					startTime: arr[0].timeStamp,
@@ -98,8 +98,17 @@
 						})
 					})
 					this.list = arr;
+					if(isToday){
+						this.todayGreen();
+					}
 					console.log(arr);
 				})
+			},
+			todayGreen(){
+				this.list.forEach(d=>{
+					if(d.isToday)d.finished = true;
+				})
+				this.$forceUpdate();
 			},
 			openFatherPickYearMonth() { //打开父组件选择年月调用
 				this.$parent.fatherPickYearMonth();
@@ -188,7 +197,7 @@
 						position: absolute;
 						width: .08rem;
 						height: .08rem;
-						border-radius: 100%;
+						border-radius: 50%;
 						background-color: #71717F;
 						left: calc(50% - .04rem);
 						bottom: -.2rem;

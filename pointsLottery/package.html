@@ -58,9 +58,9 @@
 				border-bottom-color: #1e1e2a;
 			}
 			#coupon .task_finish {
-				border: .02rem solid rgba(209, 209, 209, 1);
-				background: #fff;
-				color: #E60012;
+				border: .02rem solid rgba(113, 113, 127, 1);
+				background: #12121f;
+				color: #71717f;
 			}
 			.van-tabs{
 				z-index: 1;
@@ -79,11 +79,11 @@
 			#app>.header,.van-nav-bar,.monkey-pull-refresh,.DBnotice,.van-tabs__nav,.van-cell-group,.van-cell,#pricechange,.van-action-sheet__gap{
 				background-color: #12121F;
 			}
-			.van-tab{
-				color:#71717f;
-			}
 			.van-nav-bar .van-icon,.van-nav-bar__title,.van-list__error-text, .van-list__finished-text, .van-list__loading,.van-tab--active,.van-checkbox__label,.van-action-sheet{
 				color:#CFCFD2;
+			}
+			.van-tab,.van-list__finished-text{
+				color:#71717f;
 			}
 			.van-tab--active{
 				font-size: .36rem;
@@ -110,6 +110,10 @@
 			}
 			#pricechange{
 				background-color: #1E1E2A;
+			}
+			.van-checkbox__icon--disabled .van-icon{
+				background-color: #1e1e2a;
+				border-color: #221925;
 			}
 		</style>
 	</head>
@@ -227,7 +231,7 @@
 												<div v-if="item.type==2" style="font-size: .24rem;color: #666;" class="title" >奖金已发送至我的钱包</div>
 											</div>
 										</div>
-										<div v-if="item.type==2" style="font-size: .28rem;color: #F24023;">
+										<div v-if="item.type==2" style="font-size: .28rem;color: #ff4e3e;">
 											￥{{item.redPacketValue/100}}
 										</div>
 										<div v-else class="overtime">
@@ -256,7 +260,8 @@
 									<img :src="item.logo" alt="">
 								</div>
 								<div>
-									<div class="title" style="margin-bottom: .1rem;">{{item.name}}</div>
+									<div v-if="timedown(item.endTime)" class="title" style="margin-bottom: .1rem;" >{{item.name}}</div>
+									<div v-else class="title" style="margin-bottom: .1rem;color:'#71717f'" >{{item.name}}</div>
 									<!-- {{ DateTime.sjc2time('ymd',item.endTime) }} -->
 									<div class="detail">有效期至：{{DateTime.sjc2time('ymdhms',item.endTime)}}</div>
 								</div>
@@ -264,7 +269,7 @@
 							<div v-if="timedown(item.endTime)" style="padding-top: .02rem;" class="task_unfinish" @click="toCoupon()">
 								去使用
 							</div>
-							<div v-else class="task_unfinish task_finish" style="padding-top: .02rem;" :style="{color:'#999'}">
+							<div v-else class="task_unfinish task_finish" style="padding-top: .02rem;" :style="{color:'#71717f'}">
 								已失效
 							</div>
 						</li>
@@ -596,16 +601,16 @@
 							Pcount++;
 						}
 					});
+					if (Gcount == 0) {
+						this.$toast("暂无奖品哦！");
+						return false;
+					}
 					if (Pcount == 0) {
 						this.$toast("暂无包邮券，快去兑换呀！");
 						return false;
 					}
 					if (Pcount > 1) {
 						this.$toast("包邮券只要一张哦！");
-						return false;
-					}
-					if (Gcount == 0) {
-						this.$toast("暂无奖品哦！");
 						return false;
 					}
 					return Couponid;

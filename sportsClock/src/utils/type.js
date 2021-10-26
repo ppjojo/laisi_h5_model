@@ -4,22 +4,24 @@ export default {
 	},
 	formatStrUnit(item, d) { //根据类型返回单位
 		if (d == 'runout' || d == 'runin' || d == 'ride' || d == 'onFoot' || d == 'mountaineering' || d == 'walkIn' ||
-			d == 'rideIndoor'|| d == 'steps'|| d == 'walk') {
-			return (this.toThousands((item.number)||item.distance) +'      '+ this.returnUnit(item, d))
+			d == 'rideIndoor' || d == 'steps' || d == 'walk') {
+			return (this.toThousands((item.number) || item.distance) + '      ' + this.returnUnit(item, d))
 		} else if (d == 'skipping' || d == 'wristball' || d == 'wheel' || d ==
-			'ropeSkipping') { 
-			return (this.toThousands(item.number||item.distance) + this.returnUnit(item, d) + '\xa0\xa0\xa0'  + this.formatSeconds(item.takeMs ||
-				item.timeSpend||0))
+			'ropeSkipping') {
+			return (this.toThousands(item.number || item.distance) + this.returnUnit(item, d) + '\xa0\xa0\xa0' + this
+				.formatSeconds(item.takeMs ||
+					item.timeSpend || 0))
 		} else {
 			return this.returnUnit(item, d)
 		}
 	},
 	formatStrUnit2(item, d) { //根据类型返回单位
-	if (d == 'runout' || d == 'runin' || d == 'ride' || d == 'onFoot' || d == 'mountaineering' || d == 'walkIn' ||
-		d == 'rideIndoor' || d == 'walk'||d == 'skipping' || d == 'ropeSkipping'||d == 'wristball' || d == 'wheel'||d=="steps"){
-			return this.toThousands(item.number||item.distance);
-		}else{
-			return this.formatSeconds2(item.takeMs || item.timeSpend||0);
+		if (d == 'runout' || d == 'runin' || d == 'ride' || d == 'onFoot' || d == 'mountaineering' || d == 'walkIn' ||
+			d == 'rideIndoor' || d == 'walk' || d == 'skipping' || d == 'ropeSkipping' || d == 'wristball' || d ==
+			'wheel' || d == "steps") {
+			return this.toThousands(item.number || item.distance);
+		} else {
+			return this.formatSeconds2(item.takeMs || item.timeSpend || 0);
 		}
 	},
 	formatSeconds(value) {
@@ -55,24 +57,55 @@ export default {
 	formatSeconds2(t) {
 		t = parseInt(t / 1000);
 		if (t < 60) return "00:00:" + ((i = t) < 10 ? "0" + i : i);
-		if (t < 3600) return "00:" + ((a = parseInt(t / 60)) < 10 ? "0" + a : a) + ":" + ((i = t % 60) < 10 ? "0" + i : i);
+		if (t < 3600) return "00:" + ((a = parseInt(t / 60)) < 10 ? "0" + a : a) + ":" + ((i = t % 60) < 10 ? "0" + i :
+			i);
 		if (3600 <= t) {
 			var a, i, e = parseInt(t / 3600);
 			return (e < 10 ? "0" + e : e) + ":" + ((a = parseInt(t % 3600 / 60)) < 10 ? "0" + a : a) + ":" + ((i = t %
 				60) < 10 ? "0" + i : i);
 		}
 	},
-	toThousands(num) { //处理数字
-		var num = (num || 0).toString(),
-			result = '';
-		while (num.length > 3) {
-			result = ',' + num.slice(-3) + result;
-			num = num.slice(0, num.length - 3);
+	toThousands(str) { //处理数字
+		if (str < 1) return str;
+		var newStr = "";
+		var count = 0;
+		var str = (str || 0).toString()
+		// 当数字是整数
+		if (str.indexOf(".") == -1) {
+			for (var i = str.length - 1; i >= 0; i--) {
+				if (count % 3 == 0 && count != 0) {
+					newStr = str.charAt(i) + "," + newStr;
+				} else {
+					newStr = str.charAt(i) + newStr;
+				}
+				count++;
+			}
+			str = newStr; //自动补小数点后两位
+			return str;
 		}
-		if (num) {
-			result = num + result;
+		// 当数字带有小数
+		else {
+			for (var i = str.indexOf(".") - 1; i >= 0; i--) {
+				if (count % 3 == 0 && count != 0) {
+					newStr = str.charAt(i) + "," + newStr;
+				} else {
+					newStr = str.charAt(i) + newStr; //逐个字符相接起来
+				}
+				count++;
+			}
+			str = newStr + (str + "00").substr((str + "00").indexOf("."), 3);
+			return str;
 		}
-		return result;
+		// var num = (num || 0).toString(),
+		// 	result = '';
+		// while (num.length > 3) {
+		// 	result = ',' + num.slice(-3) + result;
+		// 	num = num.slice(0, num.length - 3);
+		// }
+		// if (num) {
+		// 	result = num + result;
+		// }
+		// return result;
 	},
 	returnImg(d) { //返回图片
 		return require('@i/sporticon/' + d + '.png')
@@ -112,7 +145,7 @@ export default {
 				str = ''
 				return;
 			}
-			return this.formatSeconds(item.takeMs || item.timeSpend||0);
+			return this.formatSeconds(item.takeMs || item.timeSpend || 0);
 		}
 	},
 	returnName(d) { //返回名称

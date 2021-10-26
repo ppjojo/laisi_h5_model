@@ -6,7 +6,7 @@
 	visibility: hidden;
 	clear: both;
 }
-.van-action-sheet__cancel:active,.van-action-sheet__item:active{background-color:#f2f3f5 }
+.van-action-sheet__cancel:active,.van-action-sheet__item:active{background-color:#292934 }
 .list_ul li {
 	width: 3.3rem;
 	margin-bottom: .4rem;
@@ -453,3 +453,7 @@
 		opacity: 0;
 	}
 }
+.van-action-sheet__cancel:active,
+			.van-action-sheet__item:active {
+			    background-color: #292934!important;
+			}

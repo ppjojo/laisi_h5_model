@@ -1,6 +1,6 @@
 <template>
 	<div id="app" v-cloak>
-		<div style="height: 1.3rem;" v-if="isShare==1||sheetImageStatus"></div>
+		<div style="height: 1.32rem;" v-if="isIos&&(isShare==1||sheetImageStatus)"></div>
 		<div class="header" v-show="!sheetImageStatus&&isShare!=1">
 			<van-nav-bar title="打卡总览" @click-left="onClickLeft" @click-right="onClickRight" left-arrow
 				safe-area-inset-top fixed>
@@ -126,8 +126,9 @@
 				yearObj: {},
 				rate: [0, 0], //index0月1年
 				yearDetail: {},
-				nickname:localStorage.getItem("appInfo")?JSON.parse(localStorage.getItem("appInfo")).nickname:'',
-				userId:localStorage.getItem("appInfo")?JSON.parse(localStorage.getItem("appInfo")).userId:''
+				nickname:localStorage.getItem("appInfo")?JSON.parse(localStorage.getItem("appInfo")).nickname:getQueryString('nickname'),
+				userId:localStorage.getItem("appInfo")?JSON.parse(localStorage.getItem("appInfo")).userId:'',
+				isIos:!!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)
 			};
 		},
 		filters: {},
@@ -223,7 +224,7 @@
 					shareTitle: "运动日历打卡",
 					isShareUrl:false,
 					shareContent: "",
-					shareUrl: "sportsClock/#/clockoverview.html?isShare2=1&tabIndex="+this.tabIndex+'&userId='+this.userId,
+					shareUrl: "sportsClock/#/clockoverview.html?isShare2=1&tabIndex="+this.tabIndex+'&userId='+this.userId+'&nickname='+this.nickname,
 				})
 			},
 			sheetImageHideHeader() {

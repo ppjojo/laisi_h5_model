@@ -15,7 +15,7 @@
 			{{returnTask(info.challengeType||info.challengeDetail)}}
 		</div>
 		<div class="centerbox fts12 c1f ub ub-ad">
-			<div class="ub ub-ac" v-if="info.dateType==1" @click="goChallage">
+			<div class="ub ub-ac" v-if="info.dateType==1" @click="goChallage(true)">
 				<div class="reflesh"></div><span style="text-decoration: underline;">不休息</span>
 			</div>
 			<div class="ub ub-ac" v-else-if="ischeck" @click="changeChallenge()">
@@ -160,13 +160,14 @@
 					this.goChallage()
 				}
 			},
-			goChallage() {
+			goChallage(flag) {
 				//app迎战
 				this.info.challengeType.category = 6;
 				if (!this.info.challengeType.bpm) this.info.challengeType.bpm = 0;
 				this.info.challengeType.deviceType = getQueryString('type') || 'wristball';
 				this.info.challengeType.title = this.returnTask(this.info.challengeType).split(",")[0];
 				acceptChallage(this.info.challengeType || this.info.challengeDetail, this.flag).then(res => {
+					if(flag)this.getList();
 					this.$interaction.appNative('LSTH5APP_SelectedDeviceForChallenge', this.info.challengeType);
 				})
 			},
@@ -350,7 +351,7 @@
 	.historylist {
 		padding: 0 .4rem;
 		.finishtxt{
-			margin-top: .45rem;
+			margin-top: .5rem;
 			text-align: center;
 			color: #71717f;
 			font-size: .24rem;
@@ -358,12 +359,12 @@
 		li {
 			background-color: #1E1E2A;
 			padding: .3rem .24rem;
-			border-radius: .16rem;
+			border-radius:0.02rem .16rem .16rem .16rem;
 			margin-bottom: .16rem;
 			color: #CFCFD2;
 		}
 		.subtitle{
-			margin-top: .1rem;
+			margin-top: .15rem;
 		}
 		.state {
 			width: .4rem;

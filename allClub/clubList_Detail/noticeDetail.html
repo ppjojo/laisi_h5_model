@@ -65,6 +65,7 @@
 <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
 <script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
 <script src="../../common/js/network.js"></script>
+<script src="../corporateClub/js/tool.js"></script>
 <script type="text/javascript">
 	new Vue({
 		el: '#app',
@@ -97,11 +98,9 @@
 					data: params,
 				}).then(res => {
 					if (res.code == 0) {
-						this.obj = res.data
-						this.obj.createTime = this.obj.createTime.replace('T', " ").replace(/\-/g, "/")
-							.split(
-								'.000')[0]
-						this.obj.createTime = this.dealNoticeTime(this.obj.createTime)
+						this.obj = res.data;
+						console.log(DateTime.sjc2time('mdhm3',res.data.createTime))
+						this.obj.createTime = DateTime.sjc2time('mdhm3',res.data.createTime)
 					}
 				})
 			},

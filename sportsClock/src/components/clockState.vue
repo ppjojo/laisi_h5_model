@@ -6,7 +6,7 @@
 		</div>
 		<div v-if="state">
 			<div class="" style="width: 2.8rem;color: #959598;font-size: .24rem;margin: .34rem auto;">
-				你已累计运动打卡{{maxday+1}}天啦～
+				你已累计运动打卡{{maxday}}天啦～
 				继续加油呀！
 			</div>
 			<div>
@@ -84,8 +84,8 @@
 					this.$interaction.appNative('LSTH5APP_UrlAndSheetImageShareModel',{
 						shareTitle: "运动日历打卡",
 						isShareUrl:true,
-						shareContent: "",
-						shareUrl: 'sportsClock/#/index.html?isShare=1&userId='+JSON.parse(localStorage.getItem("appInfo")).userId,
+						shareContent: "派健康-爱自己，爱生活",
+						shareUrl: 'sportsClock/#/index?isShare2=1&userId='+JSON.parse(localStorage.getItem("appInfo")).userId,
 					})
 				}else{
 					this.$interaction.closePage();

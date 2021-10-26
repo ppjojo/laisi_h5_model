@@ -1,4 +1,5 @@
 import request from "@u/request"
+import { getQueryString } from "@u/tool";
 export function listItem(data) {
     return request({
         url: 'yz/yzGoodsReturn/goods/selectAll',
@@ -18,16 +19,20 @@ export function insertSportData(data) {//打卡按钮
     })
 }
 export function getSportByMonth(data) {//运动日历
+	let url = 'sportClock/getSportByMonth';
+	if(getQueryString('isShare2'))url = 'sportClock/share/getSportByMonth'
     return request({
-        url: 'sportClock/getSportByMonth',
+        url: url,
         method: 'post',
 		data,
         params:data
     })
 }
 export function getSportByYear(data) {//运动日历
+let url = 'sportClock/getSportByYear';
+	if(getQueryString('isShare2'))url = 'sportClock/share/getSportByYear'
     return request({
-        url: 'sportClock/getSportByYear',
+        url: url,
         method: 'get',
         params:data
     })
@@ -40,22 +45,28 @@ export function updateSportData(data) {//更新打卡
     })
 }
 export function getDayData(data) {//当天的运动信息
+let url = 'sportClock/getDayData';
+	if(getQueryString('isShare2'))url = 'sportClock/share/getDayData'
     return request({
-        url: 'sportClock/getDayData',
+        url: url,
         method: 'get',
         params:data
     })
 }
 export function getMonthDeviceTotal(data) {//月综合
+let url = 'sportClock/getMonthDeviceTotal';
+	if(getQueryString('isShare2'))url = 'sportClock/share/getMonthDeviceTotal'
     return request({
-        url: 'sportClock/getMonthDeviceTotal',
+        url: url,
         method: 'get',
         params:data
     })
 }
 export function getYearDeviceTotal(data) {//年综合
+let url = 'sportClock/getYearDeviceTotal';
+	if(getQueryString('isShare2'))url = 'sportClock/share/getYearDeviceTotal'
     return request({
-        url: 'sportClock/getYearDeviceTotal',
+        url: url,
         method: 'get',
         params:data
     })

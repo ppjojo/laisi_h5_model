@@ -82,12 +82,12 @@
 
 		.list_ul li .detail {
 			font-size: .24rem;
-			color: #999;
+			color: #71717f;
 		}
 
 		.list_ul li .title {
 			font-size: .32rem;
-			color: #1F1F1F;
+			color: #cfcfd2;
 			margin-bottom: .14rem;
 			max-width: 4.5rem;
 		}
@@ -113,7 +113,7 @@
 			border-radius: .3rem;
 			width: 1.32rem;
 			text-align: center;
-			background: linear-gradient(to right, #FF6A88, #FF5136);
+			background: linear-gradient(to right, #FF4e3e, #FFaa88);
 		}
 	</style>
 </head>
@@ -211,7 +211,7 @@
 				clubId: getQueryString('id'),
 				page: 1,
 				pageSize: 15,
-				userId: getQueryString('userId'),
+				userId: JSON.parse(localStorage.getItem("appInfo")).userId,
 				menuactive: 0, //
 				menuList: ['正在进行', '即将开始', '已经结束'],
 				dataList: {

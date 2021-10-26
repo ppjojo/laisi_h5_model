@@ -70,7 +70,9 @@
 .icon-fanhuianniu:before {
   content: "\e691";
 }
-
+.icon-fanhuianniu{
+	color: #cfcfd2;
+}
 .icon-duihua-fasong:before {
   content: "\e64b";
 }

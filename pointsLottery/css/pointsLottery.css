@@ -368,7 +368,7 @@ body {
     left: calc( 50% - .15rem );
 }
 .van-sticky--fixed{
-	top: .92rem;
+	top: .90rem;
 }
 .van-action-sheet__cancel,
 		.van-action-sheet__item {
@@ -409,6 +409,7 @@ body {
 	top: calc(0.92rem + env(safe-area-inset-top));
   }
 }
+.van-action-sheet__cancel:active,.van-action-sheet__item:active{background-color:#292934 }
 /* @supports ((height: constant(safe-area-inset-top)) or (height: env(safe-area-inset-top))) and (-webkit-overflow-scrolling: touch) {
 	#app {
 		padding-top: 20;

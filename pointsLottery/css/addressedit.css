@@ -37,7 +37,7 @@ html{
 }
 
 .van-switch--on {
-	background-color: #34c759;
+	background-color: #34c759!important;
 }
 
 .van-switch__node {
@@ -47,6 +47,7 @@ html{
 
 .van-switch--on .van-switch__node {
 	transform: translateX(.55rem);
+	background-color:#fff;
 }
 
 .van-switch {

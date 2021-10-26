@@ -166,6 +166,9 @@
 			color:#292934;
 			font-size:1rem;
 		}
+		.van-field__control{
+			color: #cfcfd2;
+		}
 	</style>
 </head>
 
@@ -599,7 +602,7 @@
 				// 处理成为时间戳
 				var timestamp = this.getTime(new_datetime);
 				// 增加8个小时，北京时间比utc时间多八个时区
-				var timestamp = timestamp + 8 * 60 * 60 * 1000;
+				// var timestamp = timestamp + 8 * 60 * 60 * 1000;
 
 				// 时间戳转为时间
 				var beijing_datetime = this.sjc2time("ymd3", timestamp);
