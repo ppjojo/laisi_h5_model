@@ -155,7 +155,7 @@
                             </van-list>
                         </div>
                         <div v-else-if="today.list.length>0&&clubObject.type=='05'" class="corporate" style="background-color: #12121f;margin-bottom:0;">
-                            <van-row v-for="item in today.list" class="deptList" @click="gotoDeptSportDetail(item)" v-if="item.id!='-1'&&item.totalNumber>0">
+                            <van-row v-for="item in today.list" class="deptList" @click="gotoDeptSportDetail(item)">
                                 <van-col span="16" class="deptInfoBox">
                                     <div class="deptPic">
                                         <div :style="{'background-image':'url('+(item.image||'../corporateClub/img/notgroup.png')+')'}">
@@ -220,7 +220,7 @@
                                     <div v-else-if="item.list.length>0&&clubObject.type=='05'" class="corporate" style="background-color:
                                                 #12121f;margin-bottom:0;">
                                         <van-row v-for="sitem in
-                                                    item.list" class="deptList" @click="gotoDeptSportDetail(sitem,item.date)" v-if="sitem.id!='-1'&&sitem.totalNumber>0">
+                                                    item.list" class="deptList" @click="gotoDeptSportDetail(sitem,item.date)" >
                                             <van-col span="16" class="deptInfoBox">
                                                 <div class="deptPic">
                                                     <img :src="sitem.image||'../corporateClub/img/notgroup.png'" alt="">

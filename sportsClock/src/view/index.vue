@@ -1,6 +1,6 @@
 <template>
 	<div id="app" v-cloak>
-		<div class="header">
+		<div class="header" v-if="isShare!=1">
 			<van-nav-bar title="运动日历" right-text="打卡总览" @click-left="onClickLeft" @click-right="onClickRight"
 				safe-area-inset-top fixed>
 				<template #left>
@@ -16,11 +16,11 @@
 			<!-- 今日尚未打卡有打卡按钮 -->
 			<div v-if="monthObj.sportClockMax>1" class="normaltxt"
 				style="width: 4rem;text-align: center;margin: .4rem auto 1.2rem;">
-				本月最大连续签到打卡<span>{{monthObj.sportClockMax||0}}</span>天！</br>
+				本月最大连续签到打卡<span class="ftbe">{{monthObj.sportClockMax||0}}</span>天！</br>
 				继续加油哦～
 			</div>
 			<div v-else class="normaltxt" style="width: 4rem;text-align: center;margin: .4rem auto 1.2rem;">
-				本月累计打卡<span>{{monthObj.sportClockSum||0}}</span>天！</br>
+				本月累计打卡<span class="ftbe">{{monthObj.sportClockSum||0}}</span>天！</br>
 				继续加油哦～
 			</div>
 			<div class="clockBtn" @click="firstClick">
@@ -30,7 +30,7 @@
 		<div class="infobox" v-else-if="flag==2||flag==5">
 			<!-- 打卡失败 一点都没有运动-->
 			<div v-if="flag==2" class="normaltxt" style="width: 4rem;text-align: center;margin: .4rem auto .8rem;">
-				本月累计打卡<span>{{monthObj.sportClockSum||0}}</span>天！</br>
+				本月累计打卡<span class="ftbe">{{monthObj.sportClockSum||0}}</span>天！</br>
 				继续加油哦～
 			</div>
 			<div v-else class="ub ub-ac sportfinish">
@@ -47,7 +47,7 @@
 			<div class="ub ub-ac sportfinish">
 				<img class="" v-if="flag==3" :src="require('@i/sportunfinish.png')" alt="">
 				<img class="" v-else :src="require('@i/sportfinish.png')" alt="">
-				<div>{{flag==3?'今日未达到目标运动量！继续加油哦！':'今日已达到目标运动量～'}}</div>
+				<div>{{flag==3?((todayFlag?'今':'当')+'日未达到目标运动量！继续加油哦！'):((todayFlag?'今':'当')+'今日已达到目标运动量～')}}</div>
 			</div>
 			<!-- 运动时长-运动消耗 -->
 			<div class="ub ub-ac ub-pj sportinfo">
@@ -103,7 +103,7 @@
 			</div>
 		</div>
 		<!-- 更新打卡 -->
-		<div class="updateclock" v-show="(isToday(sportObj.checkTime)&&(flag==3||flag==4))">
+		<div class="updateclock" v-show="(isToday(sportObj.checkTime)&&(flag==3||flag==4))&&isShare!=1">
 			<div class="btn" @click="reClick">
 				更新打卡
 			</div>
@@ -160,6 +160,7 @@
 
 		data() {
 			return {
+				isShare:getQueryString('isShare2'),
 				minDate: new Date(2021, 0, 1),
 				isClick: false,
 				maxDate: new Date(),
@@ -174,6 +175,7 @@
 					text: '连接手表状态下“步数不满2000步，不作为运动打卡数据”；未连接手表状态下“步数不满2000步时，不作为运动打卡数据，步数消耗不计入'
 				}],
 				flag: null, //1未打卡2打卡失败3打卡成功未达标4打卡成功已达标5当天无打卡记录
+				todayFlag:true,
 				sportObj: { //当日运动详情
 				},
 				monthObj: {
@@ -195,6 +197,7 @@
 				}).then(res => { //获取当天设备信息
 					if (res.code == "0") {
 						this.sportObj = Object.assign(this.sportObj, res.data);
+						this.sportObj.deviceDetail.steps={number:4188}
 						this.flag = this.sportObj.isFinishDays == 1 ? 4 : 3;
 						this.$forceUpdate();
 
@@ -219,7 +222,7 @@
 						this.flag = 2;
 					} else {
 						this.getList()
-						this.$refs.calendar.calindarList()
+						this.$refs.calendar.calindarList(null,true);
 						// this.calindarList()
 					}
 				})
@@ -244,10 +247,11 @@
 					// this.calindarList()
 				})
 			},
-			clickBeforeDay(stamp) { //点击了过去的某个时间
+			clickBeforeDay(stamp,todayFlag) { //点击了过去的某个时间
 				console.log(this.currentZero, stamp)
 				this.checkTime = stamp;
 				this.getList();
+				this.todayFlag = todayFlag;
 			},
 			onClickLeft() {
 				this.$interaction.closePage();

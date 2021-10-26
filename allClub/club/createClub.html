@@ -97,6 +97,9 @@
         .van-cell__value span {
             color: #71717f;
         }
+		.van-dialog__message--has-title{
+			color: #cfcfd2;
+		}
     </style>
 </head>
 
@@ -264,7 +267,6 @@
         },
         created() {
 
-
         },
         methods: {
             onclickLeft() {
@@ -373,7 +375,7 @@
                 else this.submitform.isPublic = "Y";
                 this.form.invitecode = !val;
                 this.submitform.isInviteCode = val ? "N" : "Y";
-
+				// console.log(this.submitform.isPublic,this.submitform.isInviteCode)
             },
             isclubinviteCode(val) {
                 if (val) {
@@ -382,7 +384,8 @@
                     this.submitform.isInviteCode = "N"
                 }
                 this.form.yqm = !val;
-                this.submitform.isPublic = val ? "N" : "Y";
+                this.submitform.isPublic = val ? "Y" : "N";
+				// console.log(this.submitform.isPublic,this.submitform.isInviteCode)
             },
 
             submitFormData() {

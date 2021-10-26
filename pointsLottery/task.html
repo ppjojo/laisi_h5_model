@@ -150,13 +150,13 @@
 											</div>
 
 											<div class="task_unfinish ub ub-ac ub-pc"
-												v-if="item.isFinish==0&&nowIndex==menuactive"
+												v-if="(item.isFinish==0&&nowIndex==menuactive)||nowIndex<menuactive"
 												@click="modifyRoute(item.modelType,item.actionType)">
 												+{{item.addIntegralCount||'?'}}
 											</div>
 											<div v-else class="task_finish"
 								 				@click="modifyRoute(item.modelType,item.actionType)">
-												{{item.isFinish==1?'已完成':'再看看'}}
+												{{item.isFinish==1?'再看看':'再看看'}}
 											</div>
 										</li>
 									</template>

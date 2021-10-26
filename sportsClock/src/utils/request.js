@@ -16,7 +16,7 @@ const service = axios.create({
 // request interceptor
 service.interceptors.request.use((config) => {
   let appInfo = {}
-  if (getQueryString('isShare')) {
+  if (getQueryString('isShare')||getQueryString('isShare2')) {
     appInfo = {
       token: "SHARE",
       userId: getQueryString("userId") || "",
@@ -61,7 +61,7 @@ service.interceptors.response.use(
     if (res.code == 0) {
       return res;
     }else if(res.code==2000){
-      if (process.env.NODE_ENV != "dev"&&!getQueryString('isShare')) {
+      if (process.env.NODE_ENV != "dev"&&!getQueryString('isShare')&&!getQueryString('isShare2')) {
         interaction.getAppInfoAndUserInfo();
         return service.request(response.config)
       }
@@ -101,7 +101,7 @@ let getToken = (config) => {
     if (process.env.NODE_ENV == "dev") {
       resolve(config);
     }
-    if(getQueryString('isShare')){
+    if(getQueryString('isShare')||getQueryString('isShare2')){
       resolve(config);
       return 
     }

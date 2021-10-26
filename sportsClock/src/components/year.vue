@@ -2,9 +2,9 @@
 	<div id="calendarBox" v-cloak>
 		<!-- 顶部日期 -->
 		<div class="ub ub-ac ub-pj dateTitle">
-			<van-icon name="arrow-left" size="10" />
+			<van-icon name="arrow-left" size="15" />
 			<div @click="openFatherPickYear()">{{dateTitle}}</div>
-			<van-icon name="arrow" size="10" />
+			<van-icon name="arrow" size="15" />
 		</div>
 		<div class="dateList">
 			<div class="monthbox ub ub-ac" v-for="mitem in monthList">

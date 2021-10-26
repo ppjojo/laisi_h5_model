@@ -51,7 +51,7 @@
                                     item.headPictureUrl + ')'}"></div>
                         </van-col>
                         <van-col span="7" class="personalName van-ellipsis" @click="Interaction.visitPersonalHomepage(item.userId)">{{
-                                item.nickname }}</van-col>
+                                item.nickname |ellipsis5 }}</van-col>
 
                         <van-col span="6" class="align-right">
                             <span class="bigNumberSpan">{{item.ropeNum||'--'}}</span> 个</van-col>
@@ -105,8 +105,8 @@
         filters: {
             ellipsis5(value) {
                 if (!value) return '';
-                if (value.length > 9) {
-                    return value.slice(0, 9) + '...';
+                if (value.length > 5) {
+                    return value.slice(0, 5) + '...';
                 }
                 return value;
             }

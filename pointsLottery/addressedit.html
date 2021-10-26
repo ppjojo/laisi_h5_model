@@ -15,7 +15,7 @@
 		#app>.header,.van-nav-bar,.monkey-pull-refresh,.DBnotice,.submit2{
 			background-color: #12121F;
 		}
-		.van-nav-bar .van-icon,.van-nav-bar__title,.van-list__error-text, .van-list__finished-text, .van-list__loading{
+		.van-nav-bar .van-icon,.van-nav-bar__title,.van-list__error-text, .van-list__finished-text, .van-list__loading,.van-dialog__message{
 			color:#CFCFD2;
 		}
 		.submit2{
@@ -25,6 +25,20 @@
 		input::-webkit-input-placeholder, textarea::-webkit-input-placeholder{
 		        color: #71717f!important;
 		      }
+			  .van-switch{
+				  background-color: #1e1e2a;
+			  }
+			  .van-switch__node{
+				  background-color: #71717f;
+				  top: .025rem;
+				  left: .025rem;
+				  width: .4rem;
+				  height: .4rem;
+			  }
+			  .van-dialog,.van-button--default{
+				  background-color: #292934;
+				  color: #cfcfd2;
+			  }
 		</style>
 		<!-- <script src="https://cdn.bootcss.com/vConsole/3.3.4/vconsole.min.js"></script>
 				<script>
@@ -100,7 +114,6 @@
 			},
 			filters: {},
 			mounted() {
-
 			},
 			created() {
 				if(this.isedit)this.queryByid();
