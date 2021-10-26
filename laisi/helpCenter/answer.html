@@ -1,82 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<link rel="icon" href="data:image/ico;base64,aWNv">
-		<title>常见问题</title>
-		<meta name="viewport"
-			content="width=device-width, initial-scale=1.0, maximum-scale=1.0,
+
+<head>
+    <meta charset="utf-8">
+    <link rel="icon" href="data:image/ico;base64,aWNv">
+    <title>常见问题</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,
 			minimum-scale=1.0, viewport-fit=cover">
-		<link rel="stylesheet"
-			href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
-		<link href="css/helpCenter.css" rel="stylesheet" type="text/css" />
-		<link rel="stylesheet" href="font/iconfont.css">
-		<link rel="stylesheet" type="text/css" href="css/problem.css">
-		
-	</head>
-	<body>
-		<div id="app">
-			<div class="header">
-				<van-nav-bar @click-left="onclickLeft" :title="title" left-arrow
-					safe-area-inset-top fixed>
-					<template #left>
+    <link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
+    <link href="css/helpCenter.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="font/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="css/problem.css">
+
+</head>
+
+<body>
+    <div id="app">
+        <div class="header">
+            <van-nav-bar @click-left="onclickLeft" :title="headerTitle" left-arrow safe-area-inset-top fixed>
+                <template #left>
 						<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
 						</template>
 
-					</van-nav-bar>
-				</div>
-				<div class="answer">
-					<div class="container">
-						<div class="borderbtm " style="padding:0.2rem">
-							<div class="icon">Q</div>
-							<div class="titleBox">  {{title}}</div>
-						</div>
-						<div style="padding:0.2rem"> 
-							<div class="icon bgGreen">A</div>
-							<div class="infoBox" v-html="operationManual">
-							</div>
-						</div> 
-				</div>
-			</div>
-		</div>
-		<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
-		<script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
-		<script src="../../common/js/network.js"></script>
-		<script type="text/javascript">
-			
-			new Vue({
-				el: '#app',
-				data() {
-					return {
-						title:"",
-						operationManual:'',
-					}
-				},
-				filters: {},
-				mounted() {
-				},
-				created() {
-					this.getItem()
-				},
-				methods: {
-					getItem(){
-						ajax({
-							url: "helpCenter/faq/get/id",
-							data: {
-								id: getQueryString('id'),
-							}
-						}).then(res=>{
-							this.title=res.data.title;
-							this.operationManual=res.data.operationManual
-						})
-						
-					},
-					onclickLeft(){
-						window.history.back(-1);
-					},
-				}
-			})
-			
-		</script>
-	</body>
+            </van-nav-bar>
+        </div>
+        <div class="answer">
+            <div class="container">
+                <div class="borderbtm " style="padding:0.2rem">
+                    <div class="icon">Q</div>
+                    <div class="titleBox"> {{title}}</div>
+                </div>
+                <div style="padding:0.2rem">
+                    <div class="icon bgGreen">A</div>
+                    <div class="infoBox" v-html="operationManual">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
+    <script src="../../common/js/network.js"></script>
+    <script type="text/javascript">
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    title: "",
+                    operationManual: '',
+                    headerTitle: ""
+                }
+            },
+            filters: {},
+            mounted() {},
+            created() {
+                this.getItem()
+                this.headerTitle = getQueryString("headerTitle") || ''
+            },
+            methods: {
+                getItem() {
+                    ajax({
+                        url: "helpCenter/faq/get/id",
+                        data: {
+                            id: getQueryString('id'),
+                        }
+                    }).then(res => {
+                        this.title = res.data.title;
+                        this.operationManual = res.data.operationManual
+                    })
+
+                },
+                onclickLeft() {
+                    window.history.back(-1);
+                },
+            }
+        })
+    </script>
+</body>
+
 </html>

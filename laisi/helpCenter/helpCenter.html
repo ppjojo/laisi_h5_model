@@ -1,133 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
 
-	<head>
-		<meta charset="UTF-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport"
-			content="width=device-width, initial-scale=1.0, maximum-scale=1.0,
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,
 			minimum-scale=1.0, viewport-fit=cover">
-		<title>帮助中心</title>
-		<link rel="stylesheet"
-			href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
-		<link href="./css/helpCenter.css" rel="stylesheet" type="text/css" />
-		<link rel="stylesheet" href="./font/iconfont.css">
-		<style type="text/css">
-    	.van-nav-bar{
-			background-color: transparent!important;
-		}
-		.van-nav-bar__title,.iconfont{
-			color: #fff!important;
-		}
+    <title>帮助中心</title>
+    <link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
+    <link href="./css/helpCenter.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="./font/iconfont.css">
+    <style type="text/css">
+        .van-nav-bar {
+            background-color: transparent!important;
+        }
+        
+        .van-nav-bar__title,
+        .iconfont {
+            color: #fff!important;
+        }
     </style>
-		<script
-			src="https://cdn.bootcdn.net/ajax/libs/vConsole/3.8.1/vconsole.min.js"></script>
-		<script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vConsole/3.8.1/vconsole.min.js"></script>
+    <script>
         var vConsole = new VConsole();
     </script>
 
 
-	</head>
+</head>
 
-	<body>
-		<div id='app' v-cloak>
-			<div class="main_container">
-				<!-- 顶部背景 -->
-				<div class='topBanner'>
-					<div class="header">
-						<van-nav-bar @click-left="onclickLeft" title="帮助中心" left-arrow
-							safe-area-inset-top fixed>
-							<template #left>
+<body>
+    <div id='app' v-cloak>
+        <div class="main_container">
+            <!-- 顶部背景 -->
+            <div class='topBanner'>
+                <div class="header">
+                    <van-nav-bar @click-left="onclickLeft" title="帮助中心" left-arrow safe-area-inset-top fixed>
+                        <template #left>
 								<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;"></span>
 							</template>
 
-						</van-nav-bar>
+                    </van-nav-bar>
 
-					</div>
-					<div class='toptxt'>
-						<p>Hi～<span id='username'>{{userName}}</span></p>
-						<p id="toptxtp">派小俊为您答疑解惑</p>
-					</div>
-				</div>
-				<!-- 六个icon -->
-				<div class="topMenu" v-if="dataList.questionTypes.length>0">
-					<div class="menuItem" v-for="item in dataList.questionTypes"
-						@click="clickQuestion(item)">
-						<img :src="item.questionTypePic" alt="">
-						<div class="">
-							{{item.questionTypeTitle||''}}
-						</div>
-					</div>
-				</div>
-				<!-- 常见问题 -->
-				<div class="outcommonBox">
-					<div class="commonQA">
-						<div class="listItem">
-							<span class="blodTitle">常见问题</span>
-						</div>
-						<div class="listItem" v-for="(item,index) in dataList.faqs"
-							@click="clickQuestion2(item)">
-							<span>{{index+1}}.{{item.title}}？</span>
-							<van-icon name="arrow" color="#71717f" size=".2rem" />
-							</div>
-						</div>
-					</div>
+                </div>
+                <div class='toptxt'>
+                    <p>Hi～<span id='username'>{{userName}}</span></p>
+                    <p id="toptxtp">派小俊为您答疑解惑</p>
+                </div>
+            </div>
+            <!-- 六个icon -->
+            <div class="topMenu" v-if="dataList.questionTypes.length>0">
+                <div class="menuItem" v-for="item in dataList.questionTypes" @click="clickQuestion(item)">
+                    <img :src="item.questionTypePic" alt="">
+                    <div class="">
+                        {{item.questionTypeTitle||''}}
+                    </div>
+                </div>
+            </div>
+            <!-- 常见问题 -->
+            <div class="outcommonBox">
+                <div class="commonQA">
+                    <div class="listItem">
+                        <span class="blodTitle">常见问题</span>
+                    </div>
+                    <div class="listItem" v-for="(item,index) in dataList.faqs" @click="clickQuestion2(item)">
+                        <span>{{index+1}}.{{item.title}}？</span>
+                        <van-icon name="arrow" color="#71717f" size=".2rem" />
+                    </div>
+                </div>
+            </div>
 
 
-				</div>
-			</div>
-		</body>
-		<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
-		<script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
-		<script src="../../common/js/network.js"></script>
-		<script type="text/javascript">
-	new Vue({
-		el: '#app',
-		data() {
-			return {
-				dataList:{
-					questionTypes:[],
-					faqs:[]
-				},
-				userName:JSON.parse(localStorage.getItem("appInfo")).nickname||'---',
-			}
-		},
-		filters: {},
-		mounted() {
-		},
-		created() {
-			this.getList()
-		},
-		methods: {
-			clickQuestion(item){
-				if(item.questionTypeTitle=='设备绑定流程'||item.questionTypeTitle=='设备其他说明'){
-					window.location.href = "guide.html?id=" + item.id + '&userId='+ getQueryString('userId')+'&title='+item.questionTypeTitle;
-					return;
-				}
-				window.location.href = "qalist.html?id=" + item.id + '&userId='+ getQueryString('userId')+'&title='+item.questionTypeTitle;
-			},
-			clickQuestion2(item){
-				window.location.href = "answer.html?id="+item.id;
-			},
-			getList(){
-				
-				ajax({
-					url: "helpCenter/question/type/help/homepage",
-				}).then(res=>{
-					if (res.code == 0) {
-							if(res.data){
-								this.dataList = res.data;
-							}
-							this.userName=JSON.parse(localStorage.getItem("appInfo")).nickname
-						} else {
-							this.$toast(res.msg);
-						}
-				})
-			},
-			onclickLeft(){
-				Interaction.closePage();
-			},
-		}
-	})
+        </div>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
+<script src="../../common/js/network.js"></script>
+<script type="text/javascript">
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                dataList: {
+                    questionTypes: [],
+                    faqs: []
+                },
+                userName: JSON.parse(localStorage.getItem("appInfo")).nickname || '---',
+            }
+        },
+        filters: {},
+        mounted() {},
+        created() {
+            this.getList()
+        },
+        methods: {
+            clickQuestion(item) {
+                if (item.questionTypeTitle == '设备绑定流程' || item.questionTypeTitle == '设备其他说明') {
+                    window.location.href = "guide.html?id=" + item.id + '&userId=' + getQueryString('userId') + '&title=' + item.questionTypeTitle;
+                    return;
+                }
+                window.location.href = "qalist.html?id=" + item.id + '&userId=' + getQueryString('userId') + '&title=' + item.questionTypeTitle;
+            },
+            clickQuestion2(item) {
+                let title = '';
+                this.dataList.questionTypes.forEach(d => {
+                    if (d.id == item.questionType) title = d.questionTypeTitle;
+                })
+                window.location.href = "answer.html?id=" + item.id + "&headerTitle=" + title;
+            },
+            getList() {
+
+                ajax({
+                    url: "helpCenter/question/type/help/homepage",
+                }).then(res => {
+                    if (res.code == 0) {
+                        if (res.data) {
+                            this.dataList = res.data;
+                        }
+                        this.userName = JSON.parse(localStorage.getItem("appInfo")).nickname
+                    } else {
+                        this.$toast(res.msg);
+                    }
+                })
+            },
+            onclickLeft() {
+                Interaction.closePage();
+            },
+        }
+    })
 </script>
-	</html>
+
+</html>
