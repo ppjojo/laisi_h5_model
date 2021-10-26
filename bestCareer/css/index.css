@@ -38,8 +38,8 @@ body {
 
 .topBox .personalInfo .headerPicBox {
   background-image: url("../img/headerBg.png");
-  height: 2.1rem;
-  width: 4rem;
+  height: 1.83rem;
+  width: 3.5rem;
   background-size: cover;
   margin: 0 auto;
   display: -webkit-box;
@@ -54,13 +54,13 @@ body {
 }
 
 .topBox .personalInfo .headerPicBox .headerPic {
-  width: 1.2rem;
-  height: 1.2rem;
+  width: 0.96rem;
+  height: 0.96rem;
   border-radius: 50%;
 }
 
 .topBox .personalInfo .nickName {
-  margin-top: 0.1rem;
+  margin-top: 0.2rem;
 }
 
 .topBox .personalInfo .time {
@@ -125,7 +125,7 @@ body {
 
 .totalBox .itemBox .dataBox .dataItem, .totalBox .itemBox2 .dataBox .dataItem {
   width: 33%;
-  margin-bottom: 0.2rem;
+  margin-bottom: 0.3rem;
   text-align: center;
 }
 

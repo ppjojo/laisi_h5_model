@@ -366,9 +366,7 @@
             isSign == 0 && (competitionStatus == 1 || competitionStatus == 2)
           " @click="getPowertoSign()">去报名
         </van-button>
-        <van-button class="btn btn2" size="large" v-else-if="
-            isSign == 2 && (competitionStatus == 2 || competitionStatus == 1)
-          ">
+        <van-button class="btn " size="large" v-else-if="isSign == 2 && (competitionStatus == 2 || competitionStatus == 1)" @click="$toast('您已经有报名的比赛')">
           去报名
         </van-button>
         <van-button class="btn " size="large" v-else-if="isSign == 1 && competitionStatus == 1 && timesRemain != 0" @click="gotoSkip">
