@@ -21,6 +21,18 @@ body {
   height: 100vh;
 }
 
+.shareBox {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  font-size: 0.28rem;
+  line-height: 1rem;
+  text-align: center;
+  color: #CFCFD2;
+  z-index: 9999;
+  background-color: #292934;
+}
+
 .contain {
   padding: 0.24rem;
   /* 视频课程的轮播图 */
@@ -30,12 +42,8 @@ body {
 .contain .course-swipe {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  border-radius: 5px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
-  height: 2.4rem;
+  border-radius: 12px;
+  height: 2.8rem;
 }
 
 .contain .course-swipe .van-swipe-item img {
@@ -470,6 +478,8 @@ body {
 
 .courseList .tabBox .van-sticky--fixed {
   top: 0.92rem;
+  top: calc(0.915rem + constant(safe-area-inset-top));
+  top: calc(0.915rem + env(safe-area-inset-top));
 }
 
 .courseList .tabBox .tabTitle {
@@ -515,6 +525,10 @@ body {
   background-position: 100% 100%;
   background: url(../img/tabselect.png) no-repeat;
   background-size: 100%;
+}
+
+.courseList .share .van-sticky--fixed {
+  top: 0;
 }
 
 .courseList .listBox {
@@ -977,6 +991,8 @@ body {
   height: 0.92rem;
   position: relative;
   z-index: 100;
+  height: calc(0.92rem + constant(safe-area-inset-top));
+  height: calc(0.92rem + env(safe-area-inset-top));
 }
 
 .normalHeader .header .van-nav-bar {
@@ -993,19 +1009,6 @@ body {
 
 .normalHeader .header .van-hairline--bottom::after {
   border: none;
-}
-
-@supports ((height: constant(safe-area-inset-top)) or (height: env(safe-area-inset-top))) and (-webkit-overflow-scrolling: touch) {
-  .normalHeader .header {
-    height: 0.92rem;
-    height: calc(0.92rem + constant(safe-area-inset-top));
-    height: calc(0.92rem + env(safe-area-inset-top));
-  }
-  .courseList .tabBox .van-sticky--fixed {
-    top: 0.92rem;
-    top: calc(0.915rem + constant(safe-area-inset-top));
-    top: calc(0.915rem + env(safe-area-inset-top));
-  }
 }
 
 .allCourse .van-swipe-cell__right {

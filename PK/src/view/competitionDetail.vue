@@ -451,8 +451,6 @@
       </div>
     </van-popup>
 
-    <!-- 微信引导点击 -->
-    <img id="leadToBrowser" src="https://oss.laisitech.com/01c21e85-22db-4a2b-8f4f-500fca31b25d.png" style="display: none; position: absolute;top: 0;left: 0;width: 100%;height: 100%;z-index: 99;" alt="" />
   </div>
 </template>
 
@@ -655,70 +653,32 @@ export default {
   },
   methods: {
     goApp() {
-      // var openApp = function (linkUrl) {
-      //   var a = document.createElement("a");
-      //   a.setAttribute("href", linkUrl);
-      //   a.setAttribute("id", "js_a");
-      //   //防止反复添加
-      //   if (document.getElementById("js_a")) {
-      //     document.body.removeChild(document.getElementById("js_a"));
-      //   }
-      //   document.body.appendChild(a);
-      //   a.click();
-      // };
-      // let linkUrl = "";
-      // if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
-      //   linkUrl =
-      //     "https://lstemp.laisitech.com?actionType=groupDetail&id=" +
-      //     this.groupId;
-      //   openApp(linkUrl);
-      // } else if (/(Android)/i.test(navigator.userAgent)) {
-      //   linkUrl = "rehealth://groupdetail?id=" + this.groupId;
-      //   if (openApp(linkUrl)) {
-      //   } else {
-      //     linkUrl =
-      //       "https://a.app.qq.com/o/simple.jsp?pkgname=com.lstech.rehealth";
-      //     openApp(linkUrl);
-      //   }
-      // }
-
+      var openApp = function (linkUrl) {
+        var a = document.createElement("a");
+        a.setAttribute("href", linkUrl);
+        a.setAttribute("id", "js_a");
+        //防止反复添加
+        if (document.getElementById("js_a")) {
+          document.body.removeChild(document.getElementById("js_a"));
+        }
+        document.body.appendChild(a);
+        a.click();
+      };
       let linkUrl = "";
-      if (isIOS) {
-        if (isWechat) {
-          linkUrl =
-            "https://lstemp.laisitech.com?actionType=ropeSkippingRedPacket"; //下面的链接微信点击无效
+      if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+        linkUrl = `https://lstemp.laisitech.com?actionType=competitionDetail&id=${this.competitionId}&type=${this.type}`;
+
+        openApp(linkUrl);
+      } else if (/(Android)/i.test(navigator.userAgent)) {
+        linkUrl = `rehealth://competitionDetail?id=${this.competitionId}&type=${this.type}`;
+
+        if (openApp(linkUrl)) {
         } else {
           linkUrl =
-            "lsthealth://competitionDetail?matchId=" +
-            this.competitionId +
-            "&name=" +
-            this.competitionItem.name;
-        }
-      } else {
-        if (isWechat) {
-          //微信
-          document.getElementById("leadToBrowser").style.display = "block";
-          setTimeout(function () {
-            document.getElementById("leadToBrowser").style.display = "none";
-          }, 2000);
-          return;
-        } else {
-          linkUrl =
-            "rehealth://competitionDetail?matchId=" +
-            this.competitionId +
-            "&name=" +
-            this.competitionItem.name;
+            "https://a.app.qq.com/o/simple.jsp?pkgname=com.lstech.rehealth";
+          openApp(linkUrl);
         }
       }
-      var a = document.createElement("a");
-      a.setAttribute("href", linkUrl);
-      a.setAttribute("id", "js_a");
-      //防止反复添加
-      if (document.getElementById("js_a")) {
-        document.body.removeChild(document.getElementById("js_a"));
-      }
-      document.body.appendChild(a);
-      a.click();
     },
     scrollFn() {
       var t = document.documentElement.scrollTop || document.body.scrollTop;

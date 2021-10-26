@@ -25,7 +25,7 @@
 						<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;"></span>
 					</template>
                 <template #right>
-						<div @click="downButton" style="margin-right: 0.4rem;">
+						<div @click="downButton" style="margin-right: 0.4rem;" v-if="!allDownload">
 							<span class="icon iconfont icon-huancun" style="font-size: 0.5rem;"></span>
 						</div>
 						<div @click="goCollect()" style="margin-right: 0.4rem;">
@@ -42,9 +42,10 @@
 					</template>
             </van-nav-bar>
         </div>
-        <div style="height:1rem" v-else></div>
-
-        <div>
+        <div class="shareBox" v-if="isShare==1" @click="goApp">
+            去派健康查看更多
+        </div>
+        <div :class="isShare==1?'share':''">
             <div class="topBox">
 
                 <div class="blackbg"></div>
@@ -121,7 +122,7 @@
                                     </li>
                                 </ul>
                                 <div class="info">全部内容都在这里了，快去锻炼吧！</div>
-                                <div class="btn_box" v-if="!downlaodStatus">
+                                <div class="btn_box" v-if="!downlaodStatus&&isShare!=1">
                                     <div class="btn" @click="playVideo(classDetail.smallClassList[0],0)">开始训练</div>
                                 </div>
                                 <div v-if="downlaodStatus" class="chooseDiv">
@@ -345,6 +346,7 @@
 
                 isChooseAll: 0,
                 classArray: [],
+                allDownload: true, //是否全部下载
 
                 moreCommentShow: false,
 
@@ -368,6 +370,32 @@
             vm = this;
         },
         methods: {
+            goApp() {
+                var openApp = function(linkUrl) {
+                    var a = document.createElement("a");
+                    a.setAttribute("href", linkUrl);
+                    a.setAttribute("id", "js_a");
+                    //防止反复添加
+                    if (document.getElementById("js_a")) {
+                        document.body.removeChild(document.getElementById("js_a"));
+                    }
+                    document.body.appendChild(a);
+                    a.click();
+                };
+                let linkUrl = "";
+                if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+                    linkUrl = `https://lstemp.laisitech.com?actionType=goCourseHomePage&id=${this.id}`;
+
+                    openApp(linkUrl);
+                } else if (/(Android)/i.test(navigator.userAgent)) {
+                    linkUrl = `rehealth://mainPage?redirectUrl=videoCourse/courseList.html?id=${this.id}`;
+                    if (openApp(linkUrl)) {} else {
+                        linkUrl =
+                            "https://a.app.qq.com/o/simple.jsp?pkgname=com.lstech.rehealth";
+                        openApp(linkUrl);
+                    }
+                }
+            },
             scrollFn() {
                 var t = document.documentElement.scrollTop || document.body.scrollTop;
                 var rate = t / 100
@@ -491,8 +519,7 @@
                 Interaction.sharePage({
                     title: this.classDetail.className,
                     description: (this.classDetail.sumExercise || 0) + "人在派健康练习这节课程，你也快来试试吧！",
-                    url: host + "h5/h5V3/videoCourse/courseList.html?isShare=1&id=" + this.classDetail
-                        .bigClassId,
+                    url: host + "h5/h5V3/videoCourse/courseList.html?isShare=1&id=" + this.classDetail.bigClassId + "&userId=" + JSON.parse(localStorage.getItem('appInfo')).userId,
                 })
             },
             //@别人
@@ -548,6 +575,7 @@
                 }).then(res => {
                     if (res.code == 0) {
                         this.classDetail = res.data;
+                        this.getCheckDownloadCourseList()
                     } else {
                         this.$toast(res.msg)
                     }
@@ -847,6 +875,7 @@
             },
             //获取已经缓存的视频
             getCheckDownloadCourseList() {
+                // console.log("我出发了")
                 if (isIOS) {
                     window.webkit.messageHandlers.lstNative.postMessage({
                         method: "LSTH5APP_checkDownloadCourseList",
@@ -860,6 +889,7 @@
                 }
             },
             H5_getDownloadCourseList(obj) {
+                // console.log("回来了")
                 if (isIOS) {
                     this.classDetail.smallClassList = JSON.parse(obj).data;
 
@@ -868,9 +898,12 @@
                     this.classDetail.smallClassList = JSON.parse(obj);
                 }
                 this.isChooseAll = -1;
+                this.allDownload = true;
                 this.classDetail.smallClassList.forEach(item => {
                     if (item.isDownload == 0 || !item.isDownload || item.isDownload == 2) {
                         this.isChooseAll = 0
+                        this.allDownload = false
+                            // console.log("还能下载")
                     }
                 })
 
