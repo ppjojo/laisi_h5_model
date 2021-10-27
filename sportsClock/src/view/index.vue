@@ -197,7 +197,7 @@
 				}).then(res => { //获取当天设备信息
 					if (res.code == "0") {
 						this.sportObj = Object.assign(this.sportObj, res.data);
-						this.sportObj.deviceDetail.steps={number:4188}
+						//this.sportObj.deviceDetail.steps={number:4188}
 						this.flag = this.sportObj.isFinishDays == 1 ? 4 : 3;
 						this.$forceUpdate();
 
