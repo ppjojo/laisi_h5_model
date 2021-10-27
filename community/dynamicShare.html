@@ -207,7 +207,8 @@
                     linkUrl = `https://lstemp.laisitech.com?actionType=communityDynamicDetail&id=${getQueryString('id')}&dynamicUserId=${getQueryString('userId')}`;
                     openApp(linkUrl);
                 } else if (/(Android)/i.test(navigator.userAgent)) {
-                    linkUrl = "rehealth://communityDynamicDetail?id=" + getQueryString("id") + "&userId=" + getQueryString("userId")
+                    linkUrl = "app://rehealth/mainPage?goto=/dynamic/dynamic_detail_activity&id=" + getQueryString("id") + "&userId=" + getQueryString("userId")
+
                     if (openApp(linkUrl)) {} else {
                         linkUrl = "https://a.app.qq.com/o/simple.jsp?pkgname=com.lstech.rehealth";
                         openApp(linkUrl);

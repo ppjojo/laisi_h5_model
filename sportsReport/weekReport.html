@@ -528,7 +528,7 @@
                     linkUrl = "https://lstemp.laisitech.com?actionType=goSportReport";
                     openApp(linkUrl);
                 } else if (/(Android)/i.test(navigator.userAgent)) {
-                    linkUrl = "rehealth://ropeSkippingRedPacket";
+                    linkUrl = `app://rehealth/mainPage?redirectUrl=sportReport/index.html?hideTitle=1`;
                     if (openApp(linkUrl)) {} else {
                         linkUrl =
                             "https://a.app.qq.com/o/simple.jsp?pkgname=com.lstech.rehealth";

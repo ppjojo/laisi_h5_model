@@ -139,7 +139,21 @@ export default {
     };
   },
   filters: {},
-  mounted() {},
+  mounted() {
+    // boundDeviceCount().then((res) => {
+    //   let type = this.type == "steps" ? "watch" : this.type;
+    //   let unbind = true;
+    //   res.data.forEach((item) => {
+    //     if (item.deviceType == type) {
+    //       unbind = false;
+    //       return;
+    //     }
+    //   });
+    //   if (unbind) {
+    //     this.$toast("请先绑定设备");
+    //   }
+    // });
+  },
   created() {
     // skipping跳绳   steps跑步  wristBall腕力球 wheel健腹轮
     this.navBarTitle =
@@ -160,8 +174,9 @@ export default {
   },
   methods: {
     onclickLeft() {
-      this.$interaction.closePage();
       localStorage.removeItem("pkActive");
+      this.$interaction.closePage();
+
       // this.$router.go(-1)
     },
     tabsClick() {
@@ -179,9 +194,7 @@ export default {
       )
         .then((res) => {
           if (res.code == 0) {
-            
             if (res.data.content.length < this.all[this.active].pageSize) {
-              
               this.all[this.active].finished = true;
             }
             if (
@@ -299,23 +312,23 @@ export default {
         this.getOrderToCreate();
       }
     },
-    getOrderToCreate(){
-      boundDeviceCount().then(res=>{
-        let type=this.type=='steps'?'watch':this.type;
-        let unbind=true;
-        res.data.forEach(item => {
-          if(item.deviceType==type){
-            this.getOrderToCreate2()
-            unbind=false
+    getOrderToCreate() {
+      boundDeviceCount().then((res) => {
+        let type = this.type == "steps" ? "watch" : this.type;
+        let unbind = true;
+        res.data.forEach((item) => {
+          if (item.deviceType == type) {
+            this.getOrderToCreate2();
+            unbind = false;
             return;
           }
         });
-        if(unbind){
-          this.$toast('请先绑定设备')
+        if (unbind) {
+          this.$toast("请先绑定设备");
         }
-      })
+      });
     },
-    
+
     getOrderToCreate2() {
       createTimes().then((res) => {
         if (res.data > 0) {

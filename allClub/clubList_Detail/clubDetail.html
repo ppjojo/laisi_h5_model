@@ -415,8 +415,8 @@
 
             <div class="btn_box">
                 <div v-if="getQueryString('isShare')">
-                    <a :href="linkUrl">
-                        <p id="joinBtn" class="addClubBtn" @click="joinClubReq(0)">立即加入</p>
+                    <a @click="goApp">
+                        <p id="joinBtn" class="addClubBtn">立即加入</p>
                     </a>
                 </div>
                 <div v-else>
@@ -550,7 +550,6 @@
 
                 },
 
-                linkUrl: "",
                 reqShow: false,
                 reqNum: "",
                 applyMemberList: []
@@ -608,21 +607,35 @@
 
 
 
-            if (navigator.userAgent.toLowerCase().indexOf('micromessenger') !== -1) { //微信
-                if (isIOS) {
-                    this.linkUrl = "https://lstemp.laisitech.com/?actionType=clubDetail&id=" + this.clubId
-                } else {
-                    this.linkUrl = "https://a.app.qq.com/o/simple.jsp?pkgname=com.lstech.rehealth"
-                }
-            } else { //浏览器打开
-                if (isIOS) {
-                    this.linkUrl = "https://lstemp.laisitech.com/?actionType=clubDetail&id=" + this.clubId
-                } else {
-                    this.linkUrl = "rehealth://clubDetail?id=" + this.clubId
-                }
-            }
+
         },
         methods: {
+            goApp() {
+                var openApp = function(linkUrl) {
+                    var a = document.createElement("a");
+                    a.setAttribute("href", linkUrl);
+                    a.setAttribute("id", "js_a");
+                    //防止反复添加
+                    if (document.getElementById("js_a")) {
+                        document.body.removeChild(document.getElementById("js_a"));
+                    }
+                    document.body.appendChild(a);
+                    a.click();
+                };
+                let linkUrl = "";
+                if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+                    linkUrl = "https://lstemp.laisitech.com?actionType=clubDetail&id=" + this.clubId;
+                    openApp(linkUrl);
+                } else if (/(Android)/i.test(navigator.userAgent)) {
+                    linkUrl = `app://rehealth/mainPage?redirectUrl=allClub/clubList_Detail/clubDetail.html?hideTitle=1&id=${this.clubId}`;
+                    if (openApp(linkUrl)) {} else {
+                        linkUrl =
+                            "https://a.app.qq.com/o/simple.jsp?pkgname=com.lstech.rehealth";
+                        openApp(linkUrl);
+                    }
+                }
+
+            },
             scrollFn() {
                 var t = document.documentElement.scrollTop || document.body.scrollTop;
                 var rate = t / 100

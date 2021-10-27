@@ -670,8 +670,7 @@ export default {
 
         openApp(linkUrl);
       } else if (/(Android)/i.test(navigator.userAgent)) {
-        linkUrl = `rehealth://competitionDetail?id=${this.competitionId}&type=${this.type}`;
-
+        linkUrl = `app://rehealth/mainPage?redirectUrl=PK/#/competitionDetail?hideTitle=1&id=${this.competitionId}&type=${this.type}`;
         if (openApp(linkUrl)) {
         } else {
           linkUrl =

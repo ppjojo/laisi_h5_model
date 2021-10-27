@@ -177,8 +177,7 @@
 
                     openApp(linkUrl);
                 } else if (/(Android)/i.test(navigator.userAgent)) {
-                    linkUrl = "rehealth://communityHomepage?userId=" + getQueryString("userId")
-
+                    linkUrl = "app://rehealth/mainPage?goto=/dynamic/dynamic_homepage&userId=" + getQueryString("userId")
                     if (openApp(linkUrl)) {} else {
                         linkUrl =
                             "https://a.app.qq.com/o/simple.jsp?pkgname=com.lstech.rehealth";

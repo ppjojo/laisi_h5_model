@@ -347,7 +347,7 @@ export default {
           this.groupId;
         openApp(linkUrl);
       } else if (/(Android)/i.test(navigator.userAgent)) {
-        linkUrl = "rehealth://groupdetail?id=" + this.groupId;
+        linkUrl = `app://rehealth/mainPage?redirectUrl=myGroup/#/groupIndex?hideTitle=1&id=${this.groupId}`;
         if (openApp(linkUrl)) {
         } else {
           linkUrl =

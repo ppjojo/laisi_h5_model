@@ -388,7 +388,7 @@
 
                     openApp(linkUrl);
                 } else if (/(Android)/i.test(navigator.userAgent)) {
-                    linkUrl = `rehealth://mainPage?redirectUrl=videoCourse/courseList.html?id=${this.id}`;
+                    linkUrl = `app://rehealth/mainPage?redirectUrl=videoCourse/courseList.html?hideTitle=1&id=${this.id}`;
                     if (openApp(linkUrl)) {} else {
                         linkUrl =
                             "https://a.app.qq.com/o/simple.jsp?pkgname=com.lstech.rehealth";
@@ -447,6 +447,13 @@
                     }
                 }).then(res => {
                     if (res.code == 0) {
+                        ajax({
+                            type: "post",
+                            url: "integral/add/integral",
+                            data: {
+                                actionType: "0303"
+                            }
+                        })
                         this.classDetail.isNotCollect = !this.classDetail.isNotCollect;
                         if (this.classDetail.isNotCollect) {
                             this.$toast('已取消')
@@ -752,6 +759,13 @@
                             this.onRefresh();
                             this.isClick = false;
                         }
+                        ajax({
+                            type: "post",
+                            url: "integral/add/integral",
+                            data: {
+                                actionType: "0301"
+                            }
+                        })
 
                     })
                 })
@@ -808,7 +822,14 @@
             },
             //播放
             playVideo(item, index) {
-                //如果是动作的话 从第一个开始播放
+                ajax({
+                        type: "post",
+                        url: "integral/add/integral",
+                        data: {
+                            actionType: "0305"
+                        }
+                    })
+                    //如果是动作的话 从第一个开始播放
                 if (this.classDetail.actionOrClass == 1) {
                     item = this.classDetail.smallClassList[0];
                     index = 0
