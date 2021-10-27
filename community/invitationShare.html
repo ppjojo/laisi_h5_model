@@ -3,14 +3,13 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
     <!-- <title>社区邀请</title> -->
     <!-- 引入样式文件 -->
     <link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
     <link rel="stylesheet" href="css/invitationShare.css">
     <script src="js/community.js"></script>
-    
+
 
 </head>
 
@@ -24,10 +23,10 @@
                         <p class="appName">派健康</p>
                         <p class="appD">运动·健康</p>
                     </div>
-                    <div class="btn"><a class="buttonA" v-bind:href=linkUrl>立即下载</a></div>
+                    <div class="btn"><a class="buttonA" @click="goApp">立即下载</a></div>
                 </div>
             </div>
-            <div class="personBox"  :style="{'backgroundImage':'url('+(info.bgPictureUrl?info.bgPictureUrl:'img/bg.png')+')'}"> 
+            <div class="personBox" :style="{'backgroundImage':'url('+(info.bgPictureUrl?info.bgPictureUrl:'img/bg.png')+')'}">
                 <div class="info">
                     <div class="picBox">
                         <img :src="info.headPictureUrl" class="pic" alt="">
@@ -63,7 +62,7 @@
             </div>
             <div class="dynamicBox">
                 <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
-                    <van-list v-model="loading" :finished="finished"  @load="onLoad" >
+                    <van-list v-model="loading" :finished="finished" @load="onLoad">
                         <ul class="dynamicUl" v-if="list.length>0">
                             <li v-for="item in list">
                                 <div class="info">
@@ -72,12 +71,11 @@
                                         <div class="personInfo">
                                             <div class="nickNameBox">
                                                 <p class="nickName">{{item.nickName}} </p>
-                                                <div class="viewNum"><img src="img/viewIcon.png"
-                                                        alt="">{{item.readCount}}</div>
+                                                <div class="viewNum"><img src="img/viewIcon.png" alt="">{{item.readCount}}</div>
                                             </div>
 
                                             <p class="detail">
-                                               
+
                                                 <span>{{renderTime(item.createTime||"")}}</span>
                                                 <span>{{item.location}}</span>
                                             </p>
@@ -86,8 +84,8 @@
                                 </div>
                                 <div class="contentBox">
                                     {{item.content}}
-                                </div> 
-                                <div class="imgBox" v-if="item.mediaUrl">                           
+                                </div>
+                                <div class="imgBox" v-if="item.mediaUrl">
                                     <div v-for="pic in item.mediaUrl.split(',')" :style="{'backgroundImage':'url('+pic+')'}"></div>
                                 </div>
                                 <div class="statisticsBox">
@@ -100,7 +98,7 @@
                                         <span class="commentNickName">{{commentItem.authorName}}：</span>
                                         <span class="commentContent">{{commentItem.content}}</span>
                                     </div>
-                                    
+
                                 </div>
                             </li>
                         </ul>
@@ -125,19 +123,19 @@
                 info: "",
                 error: false,
                 pageNum: 0,
-                pageSize:2,
+                pageSize: 2,
                 total: 0,
                 refreshing: false,
                 finished: false,
                 loading: false,
                 list: [],
                 linkUrl: "",
-                ok:false,
+                ok: false,
 
             }
         },
         filters: {
-            filtersDevice: function (value) {
+            filtersDevice: function(value) {
                 return value == 1 ? '手表' : '跳绳'
             },
         },
@@ -146,13 +144,13 @@
         },
         created() {
             var that = this;
-            this.getInfo()//获取个人资料
-            this.getList()//获取个人动态详情
-            if (navigator.userAgent.toLowerCase().indexOf('micromessenger') !== -1) {//微信
+            this.getInfo() //获取个人资料
+            this.getList() //获取个人动态详情
+            if (navigator.userAgent.toLowerCase().indexOf('micromessenger') !== -1) { //微信
                 that.linkUrl = "https://a.app.qq.com/o/simple.jsp?pkgname=com.lstech.rehealth"
-            } else if (navigator.userAgent.toLowerCase().indexOf('qq') !== -1) {//qq
+            } else if (navigator.userAgent.toLowerCase().indexOf('qq') !== -1) { //qq
                 that.linkUrl = "https://a.app.qq.com/o/simple.jsp?pkgname=com.lstech.rehealth"
-            } else {//浏览器打开
+            } else { //浏览器打开
                 if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) { //判断iPhone|iPad|iPod|iOS
                     that.linkUrl = "lsthealth://communityHomepage?userId=" + getQueryString("userId")
                 } else if (/(Android)/i.test(navigator.userAgent)) { //判断Android
@@ -161,6 +159,33 @@
             }
         },
         methods: {
+            goApp() {
+                var openApp = function(linkUrl) {
+                    var a = document.createElement("a");
+                    a.setAttribute("href", linkUrl);
+                    a.setAttribute("id", "js_a");
+                    //防止反复添加
+                    if (document.getElementById("js_a")) {
+                        document.body.removeChild(document.getElementById("js_a"));
+                    }
+                    document.body.appendChild(a);
+                    a.click();
+                };
+                let linkUrl = "";
+                if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+                    linkUrl = `https://lstemp.laisitech.com?actionType=communityHomepage&id=${getQueryString('userId')}`;
+
+                    openApp(linkUrl);
+                } else if (/(Android)/i.test(navigator.userAgent)) {
+                    linkUrl = "rehealth://communityHomepage?userId=" + getQueryString("userId")
+
+                    if (openApp(linkUrl)) {} else {
+                        linkUrl =
+                            "https://a.app.qq.com/o/simple.jsp?pkgname=com.lstech.rehealth";
+                        openApp(linkUrl);
+                    }
+                }
+            },
             getInfo() {
                 var that = this;
                 ajax({
@@ -171,7 +196,7 @@
                         authorId: getQueryString("userId"),
                         //userId: getQueryString("userId"),
                     },
-                    success: function (res) {
+                    success: function(res) {
                         this.loading = false;
                         if (res.code == 0) {
                             that.info = res.data
@@ -179,7 +204,7 @@
                             that.$toast(res.msg)
                         }
                     },
-                    error: function () {
+                    error: function() {
                         console.log("error")
                     }
                 })
@@ -197,15 +222,15 @@
                         page: that.pageNum,
                         pageSize: that.pageSize,
                     },
-                    success: function (res) {
-                       
+                    success: function(res) {
+
                         if (res.code == 0) {
                             that.total = res.data.total;
-                            if (nowPageNum > Math.ceil(that.total / that.pageSize)-1) {
+                            if (nowPageNum > Math.ceil(that.total / that.pageSize) - 1) {
                                 that.finished = true;
-                            } else  if(nowPageNum==0){
+                            } else if (nowPageNum == 0) {
                                 that.list = res.data.content;
-                            }else {
+                            } else {
                                 that.list = that.list.concat(res.data.content);
                             }
                             that.loading = false;
@@ -213,9 +238,9 @@
                             that.$toast(res.msg)
                             that.loading = false;
                         }
-                        that.ok=true;
+                        that.ok = true;
                     },
-                    error: function () {
+                    error: function() {
                         console.log("error")
                     }
                 })
@@ -238,7 +263,7 @@
                     this.pageNum++;
                 }
                 this.getList()
-                
+
 
             },
 

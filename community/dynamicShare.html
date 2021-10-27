@@ -3,8 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
     <!-- <title>动态详情</title> -->
     <!-- 引入样式文件 -->
     <link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
@@ -22,7 +21,7 @@
                         <p class="appName">派健康</p>
                         <p class="appD">运动·健康</p>
                     </div>
-                    <div class="btn"><a class="buttonA" v-bind:href=linkUrl>立即下载</a></div>
+                    <div class="btn"><a class="buttonA" @click="goApp">立即下载</a></div>
                 </div>
             </div>
             <div class="dynamicBox" v-if="item.type==1||item.type==0" style="top: 0;border-radius: 0;">
@@ -59,24 +58,24 @@
                                     <ul id="commentUl">
                                         <li v-for="(Citem,index) in commmentList">
                                             <div class="userImg">
-                                                <img :src="Citem.authorHeader"alt="">
+                                                <img :src="Citem.authorHeader" alt="">
                                             </div>
                                             <div class="detail">
                                                 <div>
-                                                    <p class="nickname">{{Citem.authorName}}  </p>
+                                                    <p class="nickname">{{Citem.authorName}} </p>
                                                     <p class="time">{{renderTime2(Citem.createTime)}}</p>
-                                                    <p class="comment" >
+                                                    <p class="comment">
                                                         <span>{{Citem.content}}</span>
                                                         <span v-for="r in Citem.refers" style="color:steelblue"> @{{r.nickName}}</span>
                                                     </p>
                                                 </div>
-                                                <div  v-if="Citem.comments.length>0" style="background-color: #1e1e2a;padding: 0.1rem;">
+                                                <div v-if="Citem.comments.length>0" style="background-color: #1e1e2a;padding: 0.1rem;">
                                                     <div v-for="ccitem in Citem.comments">
-                                                        <span >{{ccitem.authorName}} </span><span style="color:#71717f">回复</span>
-                                                        <span >{{ccitem.receiverName}} </span><span> :{{ccitem.content}}</span>
+                                                        <span>{{ccitem.authorName}} </span><span style="color:#71717f">回复</span>
+                                                        <span>{{ccitem.receiverName}} </span><span> :{{ccitem.content}}</span>
                                                         <span v-if="ccitem.refers" v-for="r in ccitem.refers" style="color:steelblue"> @{{r.nickName}}</span>
                                                     </div>
-                                                    <div v-if="Citem.comments.length>0" ><a v-bind:href=linkUrl style="color:#999">查看全部{{Citem.commentCount}}条回复>></a></div>
+                                                    <div v-if="Citem.comments.length>0"><a @click="goApp" style="color:#999">查看全部{{Citem.commentCount}}条回复>></a></div>
                                                 </div>
                                             </div>
                                         </li>
@@ -91,67 +90,67 @@
                     <p class="noData-p">此动态被原作者删除了</p>
                 </div>
             </div>
-			<!-- 视频 -->
-			<div v-else-if="(item.status==0&&item)" class="dynamicBox videobox">
-				<div class="">
-					<img @click="goVideo" class="play_icon" src="img/play.png" alt="">
-					<img class="videoimg" :src="item.mediaUrl" alt="">
-				</div>
-				<!-- 个人信息框 -->
-				<div class="authorInfo">
-					<div class="headInfo">
-						<img :src="item.headerUrl" alt="">
-						<div>{{item.nickName}}</div>
-					</div>
-					<div v-html="item.content">
-						
-					</div>
-				</div>
-				<!-- 点赞导航栏 -->
-				<div class="navbox">
-					<div>
-						<img src="img/liked.png" alt="">
-						<div>{{item.likesCount||0}}</div>
-					</div>
-					<div @click="commentShow = true">
-						<img src="img/comment.png" alt="">
-						<div>{{item.commentCount||0}}</div>
-					</div>
-					<div>
-						<img src="img/collected.png" alt="">
-						<div>{{item.forwardCount||0}}</div>
-					</div>
+            <!-- 视频 -->
+            <div v-else-if="(item.status==0&&item)" class="dynamicBox videobox">
+                <div class="">
+                    <img @click="goVideo" class="play_icon" src="img/play.png" alt="">
+                    <img class="videoimg" :src="item.mediaUrl" alt="">
                 </div>
-				<van-popup position="bottom" round  :style="{ height: '60%' }" v-model="commentShow">
-					<div class="commentBox" style="padding: .3rem;" v-if="commmentList.length>0">
-					    <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
-					        <van-list v-model="loading" :finished="finished" @load="onLoad">
-					            <ul id="commentUl">
-					                <li v-for="(Citem,index) in commmentList">
-					                    <div class="userImg">
-					                        <img :src="Citem.authorHeader"alt="">
-					                    </div>
-					                    <div class="detail">
-					                        <div>
-					                            <p class="nickname">{{Citem.authorName}}  </p>
-					                            <p class="time">{{renderTime2(Citem.createTime)}}</p>
-					                            <p class="comment">{{Citem.content}}  <span v-for="r in Citem.refers" style="color:steelblue"> @{{r.nickName}}</span></p>
-					                        </div>
-					                        <div  v-if="Citem.comments.length>0" style="background-color: #1e1e2a;padding: 0.1rem;">
-					                            <div v-for="ccitem in Citem.comments">
-					                                <span >{{ccitem.authorName}} </span><span style="color:#71717f">回复</span>
-					                                <span>{{ccitem.receiverName}} </span><span> :{{ccitem.content}}</span>
-					                                <span v-if="ccitem.refers" v-for="r in ccitem.refers" style="color:steelblue"> @{{r.nickName}}</span>
-					                            </div>
-					                            <div v-if="Citem.comments.length>0" ><a v-bind:href=linkUrl style="color:#999">查看全部{{Citem.commentCount}}条回复>></a></div>
-					                        </div>
-					                    </div>
-					                </li>
-					            </ul>
-					        </van-list>
-					    </van-pull-refresh>
-					</div>
-				</van-popup>
+                <!-- 个人信息框 -->
+                <div class="authorInfo">
+                    <div class="headInfo">
+                        <img :src="item.headerUrl" alt="">
+                        <div>{{item.nickName}}</div>
+                    </div>
+                    <div v-html="item.content">
+
+                    </div>
+                </div>
+                <!-- 点赞导航栏 -->
+                <div class="navbox">
+                    <div>
+                        <img src="img/liked.png" alt="">
+                        <div>{{item.likesCount||0}}</div>
+                    </div>
+                    <div @click="commentShow = true">
+                        <img src="img/comment.png" alt="">
+                        <div>{{item.commentCount||0}}</div>
+                    </div>
+                    <div>
+                        <img src="img/collected.png" alt="">
+                        <div>{{item.forwardCount||0}}</div>
+                    </div>
+                </div>
+                <van-popup position="bottom" round :style="{ height: '60%' }" v-model="commentShow">
+                    <div class="commentBox" style="padding: .3rem;" v-if="commmentList.length>0">
+                        <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
+                            <van-list v-model="loading" :finished="finished" @load="onLoad">
+                                <ul id="commentUl">
+                                    <li v-for="(Citem,index) in commmentList">
+                                        <div class="userImg">
+                                            <img :src="Citem.authorHeader" alt="">
+                                        </div>
+                                        <div class="detail">
+                                            <div>
+                                                <p class="nickname">{{Citem.authorName}} </p>
+                                                <p class="time">{{renderTime2(Citem.createTime)}}</p>
+                                                <p class="comment">{{Citem.content}} <span v-for="r in Citem.refers" style="color:steelblue"> @{{r.nickName}}</span></p>
+                                            </div>
+                                            <div v-if="Citem.comments.length>0" style="background-color: #1e1e2a;padding: 0.1rem;">
+                                                <div v-for="ccitem in Citem.comments">
+                                                    <span>{{ccitem.authorName}} </span><span style="color:#71717f">回复</span>
+                                                    <span>{{ccitem.receiverName}} </span><span> :{{ccitem.content}}</span>
+                                                    <span v-if="ccitem.refers" v-for="r in ccitem.refers" style="color:steelblue"> @{{r.nickName}}</span>
+                                                </div>
+                                                <div v-if="Citem.comments.length>0"><a @click="goApp" style="color:#999">查看全部{{Citem.commentCount}}条回复>></a></div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </van-list>
+                        </van-pull-refresh>
+                    </div>
+                </van-popup>
             </div>
             <div class="noData-box" v-else-if="ok">
                 <img class="noData-img" src="../common/img/noData.png" />
@@ -169,41 +168,52 @@
         data() {
             return {
                 item: {},
-                linkUrl: "",
-
                 commmentList: [],
                 pageNum: 0,
                 pageSize: 10,
                 total: 0,
-                ok:false,
+                ok: false,
 
                 loading: false,
                 finished: false,
                 refreshing: false,
-				commentShow:false,
+                commentShow: false,
             }
         },
         mounted() {
 
         },
         created() {
-            var that = this;
             this.getDetail() //获取个commentItem人动态详情
             this.getCommentList()
-            if (navigator.userAgent.toLowerCase().indexOf('micromessenger') !== -1) { //微信
-                that.linkUrl = "https://a.app.qq.com/o/simple.jsp?pkgname=com.lstech.rehealth"
-            } else if (navigator.userAgent.toLowerCase().indexOf('qq') !== -1) { //qq
-                that.linkUrl = "https://a.app.qq.com/o/simple.jsp?pkgname=com.lstech.rehealth"
-            } else { //浏览器打开
-                if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) { //判断iPhone|iPad|iPod|iOS
-                    that.linkUrl = "lsthealth://communityDynamicDetail?id=" + getQueryString("id") + "&userId=" + getQueryString("userId")
-                } else if (/(Android)/i.test(navigator.userAgent)) { //判断Android
-                    that.linkUrl = "rehealth://communityDynamicDetail?id=" + getQueryString("id") + "&userId=" + getQueryString("userId")
-                }
-            }
+
 
         },
         methods: {
+            goApp() {
+                var openApp = function(linkUrl) {
+                    var a = document.createElement("a");
+                    a.setAttribute("href", linkUrl);
+                    a.setAttribute("id", "js_a");
+                    //防止反复添加
+                    if (document.getElementById("js_a")) {
+                        document.body.removeChild(document.getElementById("js_a"));
+                    }
+                    document.body.appendChild(a);
+                    a.click();
+                };
+                let linkUrl = "";
+                if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+                    linkUrl = `https://lstemp.laisitech.com?actionType=communityDynamicDetail&id=${getQueryString('id')}&dynamicUserId=${getQueryString('userId')}`;
+                    openApp(linkUrl);
+                } else if (/(Android)/i.test(navigator.userAgent)) {
+                    linkUrl = "rehealth://communityDynamicDetail?id=" + getQueryString("id") + "&userId=" + getQueryString("userId")
+                    if (openApp(linkUrl)) {} else {
+                        linkUrl = "https://a.app.qq.com/o/simple.jsp?pkgname=com.lstech.rehealth";
+                        openApp(linkUrl);
+                    }
+                }
+            },
             getDetail() {
                 var that = this;
                 ajax({
@@ -214,17 +224,17 @@
                         authorId: getQueryString("userId"),
                         id: getQueryString("id"),
                     },
-                    success: function (res) {
+                    success: function(res) {
                         if (res.code == 0) {
                             that.item = res.data
                             that.item.content = that.item.content.replace(/(\r\n|\n|\r)/gm, "<br />");
-                            that.ok=true;
+                            that.ok = true;
                         } else {
                             //that.$toast(res.msg)
                             that.item = {};
                         }
                     },
-                    error: function () {
+                    error: function() {
                         console.log("error")
                     }
                 })
@@ -242,22 +252,22 @@
                         index: that.pageNum,
                         pageSize: that.pageSize
                     },
-                    success: function (res) {
+                    success: function(res) {
                         that.loading = false;
                         if (res.code == 0) {
                             that.total = res.data.total;
-                            if (nowPageNum > (res.data.total/that.pageSize)) {
+                            if (nowPageNum > (res.data.total / that.pageSize)) {
                                 that.finished = true;
-                            } else if(nowPageNum==0){
+                            } else if (nowPageNum == 0) {
                                 that.commmentList = res.data.content
-                            }else{
-								 that.commmentList = that.commmentList.concat(res.data.content);
-							}
+                            } else {
+                                that.commmentList = that.commmentList.concat(res.data.content);
+                            }
                         } else {
                             that.$toast(res.msg)
                         }
                     },
-                    error: function () {
+                    error: function() {
                         console.log("error")
                     }
                 })
@@ -283,10 +293,10 @@
                 this.refreshing = true;
                 this.onLoad();
             },
-			goVideo(){
-				if(!this.item.videoId)return;
-				window.location.href='./videoPlay.html?videoType=2&id='+this.item.videoId;
-			}
+            goVideo() {
+                if (!this.item.videoId) return;
+                window.location.href = './videoPlay.html?videoType=2&isShare=1&id=' + this.item.videoId;
+            }
 
         }
     })
