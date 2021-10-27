@@ -2,214 +2,206 @@
 <html lang="zh-cmn-Hans">
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport"
-		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
-	<title>跳绳红包赛</title>
-	<!-- 引入样式文件 -->
-	<link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
-	<link rel="stylesheet" href="../common/css/basic.css">
-	<link rel="stylesheet" href="css/index.css">
-	<link rel="stylesheet" href="css/normal.css">
-	<!-- <script src="https://cdn.bootcss.com/vConsole/3.3.4/vconsole.min.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+    <title>跳绳红包赛</title>
+    <!-- 引入样式文件 -->
+    <link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
+    <link rel="stylesheet" href="../common/css/basic.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/normal.css">
+    <!-- <script src="https://cdn.bootcss.com/vConsole/3.3.4/vconsole.min.js"></script>
 		<script>
 			// init vConsole
 				        var vConsole = new VConsole();
 				        console.log('Hello world');
 				    </script> -->
-	<style type="text/css">
-	body{
-		background-color: #F24023;
-	}
-		.rulePopup {
-			padding: 0.4rem 0.3rem;
-			box-sizing: border-box;
-		}
-
-		.rule {
-			color: #333333;
-			font-size: 0.28rem;
-			margin: 0;
-			padding: 0;
-			line-height: 0.45rem;
-		}
-
-		.van-popup__close-icon--top-right {
-			top: 0.16rem;
-			right: 0.16rem;
-		}
-	</style>
+    <style type="text/css">
+        body {
+            background-color: #F24023;
+        }
+        
+        .rulePopup {
+            padding: 0.4rem 0.3rem;
+            box-sizing: border-box;
+        }
+        
+        .rule {
+            color: #333333;
+            font-size: 0.28rem;
+            margin: 0;
+            padding: 0;
+            line-height: 0.45rem;
+        }
+        
+        .van-popup__close-icon--top-right {
+            top: 0.16rem;
+            right: 0.16rem;
+        }
+    </style>
 </head>
 
 <body>
-	<div id="app" v-cloak :style="{paddingBottom:stateFlag==3||(stateFlag==4&&!nextPool.startTime)?'0':'.8rem'}">
-		<div class="header" v-if="isShare!=1">
-			<van-nav-bar title="跳绳红包赛" @click-left="OnclickLeft" @click-right="onClickRight" left-arrow>
-				<template #right>
+    <div id="app" v-cloak :style="{paddingBottom:stateFlag==3||(stateFlag==4&&!nextPool.startTime)?'0':'.8rem'}">
+        <div class="header" v-if="isShare!=1">
+            <van-nav-bar title="跳绳红包赛" @click-left="OnclickLeft" @click-right="onClickRight" left-arrow>
+                <template #right>
 					<div v-if="stateFlag!=2">{{stateFlag==1?'分享':'规则'}}</div>
 				</template>
-			</van-nav-bar>
-		</div>
-		<div @click="shareGameTest(2)" style="background-color: black;color: #fff;display: inline-block;">给app的测试按钮
-		</div>
-		<van-popup v-model="popshow"
-			@opened="setNumberTransform('popparam',returnPopNum(popparam.count),returnPopNum(popparam.count).length<4?3:4)"
-			closeable close-icon="img/popclose.png" close-icon-position="bottom" id="popbg">
-			<div :class="{popget:true,popmiss:popparam.winStatus!=1}">
-				<div v-if="popparam.winStatus==1" class="title"></div>
-				<div v-else class="title">每期比赛需在当天<br />24:00前达到目标数</br>量，并成功提交，否则</br>无法瓜分红包哦~<br />你还有机会哦~</div>
-				<ul v-if="popparam.winStatus==1" class="numul ub ub-pc ub-aend num_6">
-					<li class=""><img style="width: .36rem;height: auto;" src="./img/rmb.png" alt=""></li>
-					<li class="numbg" v-for="(item,index) in returnPopNum(popparam.count).length<4?1:2">
-						<div class="hidenbox"><span ref="popparam">0123456789</span></div>
-					</li>
-					<li class=""><img style="width: .2rem;height: auto;" src="./img/jvhao.png" alt=""></li>
-					<li class="numbg " v-for="(item,index) in 2">
-						<div class="hidenbox"><span ref="popparam">0123456789</span></div>
-					</li>
-				</ul>
-				<div id="mnbtn" @click="signInGame()"></div>
-				<div id="sharebtn" @click="shareGame(2)"></div>
-			</div>
-		</van-popup>
+            </van-nav-bar>
+        </div>
+        <!-- <div @click="shareGameTest(2)" style="background-color: black;color: #fff;display: inline-block;">给app的测试按钮
+        </div> -->
+        <van-popup v-model="popshow" @opened="setNumberTransform('popparam',returnPopNum(popparam.count),returnPopNum(popparam.count).length<4?3:4)" closeable close-icon="img/popclose.png" close-icon-position="bottom" id="popbg">
+            <div :class="{popget:true,popmiss:popparam.winStatus!=1}">
+                <div v-if="popparam.winStatus==1" class="title"></div>
+                <div v-else class="title">每期比赛需在当天<br />24:00前达到目标数</br>量，并成功提交，否则</br>无法瓜分红包哦~<br />你还有机会哦~</div>
+                <ul v-if="popparam.winStatus==1" class="numul ub ub-pc ub-aend num_6">
+                    <li class=""><img style="width: .36rem;height: auto;" src="./img/rmb.png" alt=""></li>
+                    <li class="numbg" v-for="(item,index) in returnPopNum(popparam.count).length<4?1:2">
+                        <div class="hidenbox"><span ref="popparam">0123456789</span></div>
+                    </li>
+                    <li class=""><img style="width: .2rem;height: auto;" src="./img/jvhao.png" alt=""></li>
+                    <li class="numbg " v-for="(item,index) in 2">
+                        <div class="hidenbox"><span ref="popparam">0123456789</span></div>
+                    </li>
+                </ul>
+                <div id="mnbtn" @click="signInGame()"></div>
+                <div id="sharebtn" @click="shareGame(2)"></div>
+            </div>
+        </van-popup>
 
-		<!-- 我的记录 -->
-		<div id="myinfo" v-if="stateFlag!=2" class="ub ub-ac" @click="gotoWallet">
-			<img v-if="localStorage.getItem('appInfo')"
-				:src="JSON.parse(localStorage.getItem('appInfo')).headPictureUrl" alt="">
-			<div class="">
-				<div>我的记录</div>
-				<div style="font-size: .24rem;">累计参赛{{continueNum}}期</div>
-			</div>
-		</div>
-		<div v-if="stateFlag!=2&&stateFlag!=0&&stateFlag!=5"
-			:style="{marginTop:stateFlag==2?'0':isAndroid?'1.5rem':'0.5rem'}" class="redbagMain">
-			<div class="toptitle">
-				<div class="van-ellipsis">{{nowGameInfo.poolName||nowGameInfo.name||nowGameInfo.typeName}}</div>
-				<div v-if="stateFlag==1">{{DateTime.timeStamp2String('ymdhm',nowGameInfo.startTime)}}开赛</div>
-				<!-- 已报名闹钟+倒计时 -->
-				<div v-else-if="stateFlag==3" @click="setAppClock" class="ub ub-ac ub-pc">
-					<div style="line-height:.04rem;">离开始还有:&nbsp;</div>
-					<van-count-down @finish="countfinish()" format="HH:mm:ss" :time="timedown(nowGameInfo.startTime)">
-					</van-count-down>
-					<img style="width: .48rem;" src="./img/bell.gif" alt="">
-				</div>
-				<div v-else-if="stateFlag==4" class="ub ub-ac ub-pc">
-					<div style="line-height:.04rem;">离比赛结束还有:&nbsp;</div>
-					<van-count-down @finish="gamefinish()" format="HH:mm:ss" :time="timedown(nowGameInfo.endTime)">
-					</van-count-down>
-				</div>
-			</div>
-			<!-- 未报名与已报名第一位版相同6个-->
-			<div class="middlebox" v-if="stateFlag==1||stateFlag==3">
-				<div class="title">{{stateFlag==1?'红包奖池(元)':'红包总额(元)'}}</div>
-				<ul class="numul ub ub-pc ub-aend num_6">
-					<li class="numbg " v-for="(item,index) in 3">
-						<div class="hidenbox"><span ref="numberItem6">0123456789</span></div>
-					</li>
-					<li class=""><img src="./img/douhao.png" alt=""></li>
-					<li class="numbg " v-for="(item,index) in 3">
-						<div class="hidenbox"><span ref="numberItem6">0123456789</span></div>
-					</li>
-				</ul>
-				<div id="ljbm" v-if="stateFlag == 1">
-					<div class="bmbox">
-						<img src="img/mfbm.png" v-if="isNewUser" @click="signInGame()">
+        <!-- 我的记录 -->
+        <div id="myinfo" v-if="stateFlag!=2" class="ub ub-ac" @click="gotoWallet">
+            <img v-if="localStorage.getItem('appInfo')" :src="JSON.parse(localStorage.getItem('appInfo')).headPictureUrl" alt="">
+            <div class="">
+                <div>我的记录</div>
+                <div style="font-size: .24rem;">累计参赛{{continueNum}}期</div>
+            </div>
+        </div>
+        <div v-if="stateFlag!=2&&stateFlag!=0&&stateFlag!=5" :style="{marginTop:stateFlag==2?'0':isAndroid?'1.5rem':'0.5rem'}" class="redbagMain">
+            <div class="toptitle">
+                <div class="van-ellipsis">{{nowGameInfo.poolName||nowGameInfo.name||nowGameInfo.typeName}}</div>
+                <div v-if="stateFlag==1">{{DateTime.timeStamp2String('ymdhm',nowGameInfo.startTime)}}开赛</div>
+                <!-- 已报名闹钟+倒计时 -->
+                <div v-else-if="stateFlag==3" @click="setAppClock" class="ub ub-ac ub-pc">
+                    <div style="line-height:.04rem;">离开始还有:&nbsp;</div>
+                    <van-count-down @finish="countfinish()" format="HH:mm:ss" :time="timedown(nowGameInfo.startTime)">
+                    </van-count-down>
+                    <img style="width: .48rem;" src="./img/bell.gif" alt="">
+                </div>
+                <div v-else-if="stateFlag==4" class="ub ub-ac ub-pc">
+                    <div style="line-height:.04rem;">离比赛结束还有:&nbsp;</div>
+                    <van-count-down @finish="gamefinish()" format="HH:mm:ss" :time="timedown(nowGameInfo.endTime)">
+                    </van-count-down>
+                </div>
+            </div>
+            <!-- 未报名与已报名第一位版相同6个-->
+            <div class="middlebox" v-if="stateFlag==1||stateFlag==3">
+                <div class="title">{{stateFlag==1?'红包奖池(元)':'红包总额(元)'}}</div>
+                <ul class="numul ub ub-pc ub-aend num_6">
+                    <li class="numbg " v-for="(item,index) in 3">
+                        <div class="hidenbox"><span ref="numberItem6">0123456789</span></div>
+                    </li>
+                    <li class=""><img src="./img/douhao.png" alt=""></li>
+                    <li class="numbg " v-for="(item,index) in 3">
+                        <div class="hidenbox"><span ref="numberItem6">0123456789</span></div>
+                    </li>
+                </ul>
+                <div id="ljbm" v-if="stateFlag == 1">
+                    <div class="bmbox">
+                        <img src="img/mfbm.png" v-if="isNewUser" @click="signInGame()">
 
-						<img src="img/ljbm.png" v-else @click="signInGame()">
-					</div>
-					<div class="ub ub-ac ub-pc" style="margin-top: .4rem;">
-						参赛跳满
-						<span v-if="isNewUser" class="cfF24023">500</span>
-						<span class="cfF24023" v-else>1000</span>
-						个起可瓜分红包
-					</div>
-					<div class="" style="margin-top: .1rem;">
-						已有{{nowGameInfo.poolAttend||0}}人报名
-					</div>
-					<div class="cfF24023 ub ub-ac ub-pc" @click="gotoRule" style="margin-top: .2rem;font-weight: bold;">
-						点击查看规则
-						<van-icon name="arrow" />
-					</div>
-				</div>
-				<div id="bmrs" v-if="stateFlag == 3">
-					<div class="title">报名人数(人)</div>
-					<ul class="numul ub ub-pc">
-						<li v-if="signInCount.toString().length<=3" class="numbg " v-for="(item,index) in 3">
-							<div class="hidenbox"><span ref="numberItem4">0123456789</span></div>
-						</li>
-						<template v-if="signInCount.toString().length>3">
+                        <img src="img/ljbm.png" v-else @click="signInGame()">
+                    </div>
+                    <div class="ub ub-ac ub-pc" style="margin-top: .4rem;">
+                        参赛跳满
+                        <span v-if="isNewUser" class="cfF24023">500</span>
+                        <span class="cfF24023" v-else>1000</span> 个起可瓜分红包
+                    </div>
+                    <div class="" style="margin-top: .1rem;">
+                        已有{{nowGameInfo.poolAttend||0}}人报名
+                    </div>
+                    <div class="cfF24023 ub ub-ac ub-pc" @click="gotoRule" style="margin-top: .2rem;font-weight: bold;">
+                        点击查看规则
+                        <van-icon name="arrow" />
+                    </div>
+                </div>
+                <div id="bmrs" v-if="stateFlag == 3">
+                    <div class="title">报名人数(人)</div>
+                    <ul class="numul ub ub-pc">
+                        <li v-if="signInCount.toString().length<=3" class="numbg " v-for="(item,index) in 3">
+                            <div class="hidenbox"><span ref="numberItem4">0123456789</span></div>
+                        </li>
+                        <template v-if="signInCount.toString().length>3">
 							<li class="numbg " v-for="(item,index) in signInCount.toString().length-3">
 								<div class="hidenbox"><span ref="numberItem4">0123456789</span></div>
 							</li>
 						</template>
-						<li v-if="signInCount.toString().length>3" class=""><img class="jvhao" src="./img/douhao.png"
-								alt=""></li>
-						<li v-if="signInCount.toString().length>3" class="numbg" v-for="(item,index) in 3">
-							<div class="hidenbox"><span ref="numberItem4">0123456789</span></div>
-						</li>
-					</ul>
-					<div class="bmbox ub">
-						<img @click="shareGame(1)" src="img/yqhycs.png" alt="">
-					</div>
-				</div>
-			</div>
-			<div class="middlebox" v-else-if="stateFlag==4">
-				<div v-if="!issubmit" class="title ub ub-ac ub-pc">跳绳个数(个)<img style="width: .48rem;" ref="flashicon"
-						@click="reflashSkipNum" src="./img/reflash.png" alt=""></div>
-				<div class="title" v-else>预估分得红包(元)</div>
-				<!-- 未提交成绩 -->
-				<div v-if="!issubmit">
-					<ul class="numul ub ub-pc ub-aend num_6">
-						<li class="numbg " v-for="(item,index) in 3">
-							<div class="hidenbox"><span ref="SkipNum">0123456789</span></div>
-						</li>
-						<li class=""><img src="./img/douhao.png" alt=""></li>
-						<li class="numbg " v-for="(item,index) in 3">
-							<div class="hidenbox"><span ref="SkipNum">0123456789</span></div>
-						</li>
-					</ul>
-					<div class="percentbar">
-						<div class="insidebar" style="width: 0;" ref="formatBar"></div>
-					</div>
-				</div>
-				<div class="" v-else>
-					<ul class="numul ub ub-pc ub-aend num_6">
-						<li class=""><img style="width: .36rem;height: auto;" src="./img/rmb.png" alt=""></li>
-						<li class="numbg " v-for="(item,index) in 2">
-							<div class="hidenbox"><span ref="numberItem4">0123456789</span></div>
-						</li>
-						<li class=""><img style="width: .16rem;height: auto;" src="./img/jvhao.png" alt=""></li>
-						<li class="numbg " v-for="(item,index) in 2">
-							<div class="hidenbox"><span ref="numberItem4">0123456789</span></div>
-						</li>
-					</ul>
-					<div class="checkboxdiv">比赛正在进行中，24:00后结算最终红包</div>
-				</div>
-				<div class="tjdiv">
-					<!-- 未完成 -->
-					<div class="bmbox ub">
-						<img v-if="!isfinish&&!issubmit" src="./img/tjcjh.png" alt="">
-						<img @click="submitSkipNum" class="submiticon" v-else-if="isfinish&&!issubmit"
-							src="./img/tjcj.png" alt="">
-						<img v-else-if="issubmit" src="./img/ytjcj.png" alt="">
-					</div>
-					<div class="bzzk ub ub-ac ub-pc cfF24023" style="font-weight: bold;" @click="goToGroup">
-						查看本组战况
-						<van-icon name="arrow" />
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- stateFlag==2支付框改 -->
-		<div v-else-if="stateFlag==2" class="pricechoose" :style="{marginTop:isIOS?'-0.5rem':'.6rem'}">
-			<div class="toptitle">
-				<div class="van-ellipsis">{{nowGameInfo.poolName||nowGameInfo.name}}</div>
-				<div>
-					比赛时间:{{DateTime.timeStamp2String('ymdhms',nowGameInfo.startTime)}}-{{DateTime.timeStamp2String('hms',nowGameInfo.endTime)}}
-				</div>
-			</div>
-			<!-- <ul class="priceul ub ub-ac" v-if="isNewUser">
+                        <li v-if="signInCount.toString().length>3" class=""><img class="jvhao" src="./img/douhao.png" alt=""></li>
+                        <li v-if="signInCount.toString().length>3" class="numbg" v-for="(item,index) in 3">
+                            <div class="hidenbox"><span ref="numberItem4">0123456789</span></div>
+                        </li>
+                    </ul>
+                    <div class="bmbox ub">
+                        <img @click="shareGame(1)" src="img/yqhycs.png" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="middlebox" v-else-if="stateFlag==4">
+                <div v-if="!issubmit" class="title ub ub-ac ub-pc">跳绳个数(个)<img style="width: .48rem;" ref="flashicon" @click="reflashSkipNum" src="./img/reflash.png" alt=""></div>
+                <div class="title" v-else>预估分得红包(元)</div>
+                <!-- 未提交成绩 -->
+                <div v-if="!issubmit">
+                    <ul class="numul ub ub-pc ub-aend num_6">
+                        <li class="numbg " v-for="(item,index) in 3">
+                            <div class="hidenbox"><span ref="SkipNum">0123456789</span></div>
+                        </li>
+                        <li class=""><img src="./img/douhao.png" alt=""></li>
+                        <li class="numbg " v-for="(item,index) in 3">
+                            <div class="hidenbox"><span ref="SkipNum">0123456789</span></div>
+                        </li>
+                    </ul>
+                    <div class="percentbar">
+                        <div class="insidebar" style="width: 0;" ref="formatBar"></div>
+                    </div>
+                </div>
+                <div class="" v-else>
+                    <ul class="numul ub ub-pc ub-aend num_6">
+                        <li class=""><img style="width: .36rem;height: auto;" src="./img/rmb.png" alt=""></li>
+                        <li class="numbg " v-for="(item,index) in 2">
+                            <div class="hidenbox"><span ref="numberItem4">0123456789</span></div>
+                        </li>
+                        <li class=""><img style="width: .16rem;height: auto;" src="./img/jvhao.png" alt=""></li>
+                        <li class="numbg " v-for="(item,index) in 2">
+                            <div class="hidenbox"><span ref="numberItem4">0123456789</span></div>
+                        </li>
+                    </ul>
+                    <div class="checkboxdiv">比赛正在进行中，24:00后结算最终红包</div>
+                </div>
+                <div class="tjdiv">
+                    <!-- 未完成 -->
+                    <div class="bmbox ub">
+                        <img v-if="!isfinish&&!issubmit" src="./img/tjcjh.png" alt="">
+                        <img @click="submitSkipNum" class="submiticon" v-else-if="isfinish&&!issubmit" src="./img/tjcj.png" alt="">
+                        <img v-else-if="issubmit" src="./img/ytjcj.png" alt="">
+                    </div>
+                    <div class="bzzk ub ub-ac ub-pc cfF24023" style="font-weight: bold;" @click="goToGroup">
+                        查看本组战况
+                        <van-icon name="arrow" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- stateFlag==2支付框改 -->
+        <div v-else-if="stateFlag==2" class="pricechoose" :style="{marginTop:isIOS?'-0.5rem':'.6rem'}">
+            <div class="toptitle">
+                <div class="van-ellipsis">{{nowGameInfo.poolName||nowGameInfo.name}}</div>
+                <div>
+                    比赛时间:{{DateTime.timeStamp2String('ymdhms',nowGameInfo.startTime)}}-{{DateTime.timeStamp2String('hms',nowGameInfo.endTime)}}
+                </div>
+            </div>
+            <!-- <ul class="priceul ub ub-ac" v-if="isNewUser">
 				<li v-for="(item,index) in nowGameInfo.priceAndCountList" class="free"
 					:class="{active:index==priceIndex}" @click="priceIndex = index" v-if="item.type==1">
 					<img src="./img/newUser_ok.png" class="submiticon" v-if="index==priceIndex" alt="">
@@ -222,841 +214,835 @@
 					<p>{{item.price/100}}元 {{item.ropeCount}}个</p>
 				</li>
 			</ul> -->
-			<ul class="priceul ub ub-ac" v-if="isNewUser">
-				<li v-for="(item,index) in nowGameInfo.priceAndCountList" class="free" @click="priceIndex = index"
-					v-if="item.type==1">
-					<img src="./img/newUser_ok.png" class="submiticon" v-if="index==priceIndex" alt="">
-					<img src="./img/newUser_un.png" v-else alt="">
-				</li>
-			</ul>
-			<ul class="priceul ub ub-ac">
-				<li v-for="(item,index) in nowGameInfo.priceAndCountList" class="normal"
-					:class="{active:index==priceIndex}" @click="priceIndex = index" v-if="item.type==0">
-					<p>{{item.price/100}}元 {{item.ropeCount}}个</p>
-				</li>
-			</ul>
+            <ul class="priceul ub ub-ac" v-if="isNewUser">
+                <li v-for="(item,index) in nowGameInfo.priceAndCountList" class="free" @click="priceIndex = index" v-if="item.type==1">
+                    <img src="./img/newUser_ok.png" class="submiticon" v-if="index==priceIndex" alt="">
+                    <img src="./img/newUser_un.png" v-else alt="">
+                </li>
+            </ul>
+            <ul class="priceul ub ub-ac">
+                <li v-for="(item,index) in nowGameInfo.priceAndCountList" class="normal" :class="{active:index==priceIndex}" @click="priceIndex = index" v-if="item.type==0">
+                    <p>{{item.price/100}}元 {{item.ropeCount}}个</p>
+                </li>
+            </ul>
 
-			<div class="intro">选择挑战个数报名并缴纳保证金</div>
-		</div>
-		<!-- 底部 -->
-		<!-- 未报名时stateFlag=1,显示瓜分三步走,与已报名公用 -->
-		<div class="ybbox" v-if="stateFlag==1||(stateFlag==4&&nextPool.startTime!=null)">
-			<img class="title" :class="{title2:stateFlag==4}" :src="stateFlag==1?'./img/gfjcsbz.png':'./img/xqhbs.png'"
-				alt="">
-			<!-- 进行中的显示下期时间 -->
-			<div v-if="stateFlag==4" id="jxz">
-				<div class="title3">{{DateTime.timeStamp2String('ymdhms',nextPool.startTime)}}开赛</div>
-				<div class="ub ub-ac ub-pj">
-					<div class=" ub-f1">
-						<div class="detail">红包总额(元)</div>
-						<div class="detail2">{{ toThousands(nextPool.totalAmount/100,true) }}</div>
-					</div>
-					<div class=" ub-f1">
-						<div class="detail">报名人数(人)</div>
-						<div class="detail2">{{ toThousands(nextPool.totalAttend) }}</div>
-					</div>
-				</div>
-				<!-- 下期报名状态 -->
-				<img @click="signInGame(nextPool.isSign)" :src="nextPool.isSign?'./img/ybm.png':'./img/ljbm.png'"
-					alt="">
-			</div>
-			<!-- 三步走 -->
-			<div class="" v-if="stateFlag==1" id="wks">
-				<div class="">
-					<img class="steptitle" src="./img/Step1.png" alt="">
-					<div>报名缴纳{{ priceStr }}不同组别的报名费</div>
-				</div>
-				<div><img class="arrow" src="img/arrowdown.png"></div>
-				<div class="">
-					<img class="steptitle" src="./img/Step2.png" alt="">
-					<div>次日00:00:00-23:59:59完成目标跳绳个数，回到在活动页面提交成绩。</div>
-				</div>
-				<div v-if="!isNewUser"><img class="arrow" src="img/arrowdown.png"></div>
-				<div class="" v-if="!isNewUser">
-					<img class="steptitle" src="./img/Step3.png" alt="">
-					<div>瓜分奖池金额，分得红包</div>
-				</div>
-			</div>
-		</div>
-		<!-- 支付框 stateFlag=2 -->
-		<div v-if="stateFlag==2&&nowGameInfo.priceAndCountList.length>0" id="payBox">
-			<div class="checkboxdiv ub ub-ac">
-				<van-checkbox @click="funagree" v-model="agreement"></van-checkbox>
-				&nbsp;&nbsp;&nbsp;
-				<span @click="gotoRule2" style="text-decoration: underline;">我已阅读并同意《用户协议》</span>
-			</div>
-			<div class="ljzf" @click="openPay">立即支付
-				{{  nowGameInfo.priceAndCountList[priceIndex].type==1?"0.00":(nowGameInfo.priceAndCountList[priceIndex].price/100).toFixed(2) }}元
-			</div>
-		</div>
-		<!-- 这期和下期都没有 -->
-		<div v-if="stateFlag==5">
-			<div class="noData-box">
-				<img class="noData-img" src="../common/img/noData.png" />
-				<p class="noData-p">还没有红包赛哦～</p>
-			</div>
-		</div>
-		<div v-if="isNewUser&&!ruleShow">
-			<van-popup v-model="newUserRule" class="rulePopup" :style="{ height: '6.3rem',width:'6.2rem' }" closeable
-				@close="ruleClose" close-icon="close" round>
-				<p class="rule" style="font-weight: bold;">恭喜获得免费参与跳绳红包赛，瓜分现金红包机会！<br><br></p>
-				<p class="rule">
-					活动玩法如下：<br>
-					1.新用户专享0元参赛；若选择其他跳绳组别报名，则视作放弃本权益；<br>
-					2.次日00:00:00-23:59:59完成500个跳绳，并回到跳绳红包赛页面提交成绩；<br>
-					3.比赛结束后，成功提交成绩的用户将获得一元现金红包。点击“我的记录”或“我的钱包”均可查看。<br>
-				</p>
-			</van-popup>
-		</div>
+            <div class="intro">选择挑战个数报名并缴纳保证金</div>
+        </div>
+        <!-- 底部 -->
+        <!-- 未报名时stateFlag=1,显示瓜分三步走,与已报名公用 -->
+        <div class="ybbox" v-if="stateFlag==1||(stateFlag==4&&nextPool.startTime!=null)">
+            <img class="title" :class="{title2:stateFlag==4}" :src="stateFlag==1?'./img/gfjcsbz.png':'./img/xqhbs.png'" alt="">
+            <!-- 进行中的显示下期时间 -->
+            <div v-if="stateFlag==4" id="jxz">
+                <div class="title3">{{DateTime.timeStamp2String('ymdhms',nextPool.startTime)}}开赛</div>
+                <div class="ub ub-ac ub-pj">
+                    <div class=" ub-f1">
+                        <div class="detail">红包总额(元)</div>
+                        <div class="detail2">{{ toThousands(nextPool.totalAmount/100,true) }}</div>
+                    </div>
+                    <div class=" ub-f1">
+                        <div class="detail">报名人数(人)</div>
+                        <div class="detail2">{{ toThousands(nextPool.totalAttend) }}</div>
+                    </div>
+                </div>
+                <!-- 下期报名状态 -->
+                <img @click="signInGame(nextPool.isSign)" :src="nextPool.isSign?'./img/ybm.png':'./img/ljbm.png'" alt="">
+            </div>
+            <!-- 三步走 -->
+            <div class="" v-if="stateFlag==1" id="wks">
+                <div class="">
+                    <img class="steptitle" src="./img/Step1.png" alt="">
+                    <div>报名缴纳{{ priceStr }}不同组别的报名费</div>
+                </div>
+                <div><img class="arrow" src="img/arrowdown.png"></div>
+                <div class="">
+                    <img class="steptitle" src="./img/Step2.png" alt="">
+                    <div>次日00:00:00-23:59:59完成目标跳绳个数，回到在活动页面提交成绩。</div>
+                </div>
+                <div v-if="!isNewUser"><img class="arrow" src="img/arrowdown.png"></div>
+                <div class="" v-if="!isNewUser">
+                    <img class="steptitle" src="./img/Step3.png" alt="">
+                    <div>瓜分奖池金额，分得红包</div>
+                </div>
+            </div>
+        </div>
+        <!-- 支付框 stateFlag=2 -->
+        <div v-if="stateFlag==2&&nowGameInfo.priceAndCountList.length>0" id="payBox">
+            <div class="checkboxdiv ub ub-ac">
+                <van-checkbox @click="funagree" v-model="agreement"></van-checkbox>
+                &nbsp;&nbsp;&nbsp;
+                <span @click="gotoRule2" style="text-decoration: underline;">我已阅读并同意《用户协议》</span>
+            </div>
+            <div class="ljzf" @click="openPay">立即支付 {{ nowGameInfo.priceAndCountList[priceIndex].type==1?"0.00":(nowGameInfo.priceAndCountList[priceIndex].price/100).toFixed(2) }}元
+            </div>
+        </div>
+        <!-- 这期和下期都没有 -->
+        <div v-if="stateFlag==5">
+            <div class="noData-box">
+                <img class="noData-img" src="../common/img/noData2.png" />
+                <p class="noData-p">还没有红包赛哦～</p>
+            </div>
+        </div>
+        <div v-if="isNewUser&&!ruleShow">
+            <van-popup v-model="newUserRule" class="rulePopup" :style="{ height: '6.3rem',width:'6.2rem' }" closeable @close="ruleClose" close-icon="close" round>
+                <p class="rule" style="font-weight: bold;">恭喜获得免费参与跳绳红包赛，瓜分现金红包机会！<br><br></p>
+                <p class="rule">
+                    活动玩法如下：<br> 1.新用户专享0元参赛；若选择其他跳绳组别报名，则视作放弃本权益；
+                    <br> 2.次日00:00:00-23:59:59完成500个跳绳，并回到跳绳红包赛页面提交成绩；
+                    <br> 3.比赛结束后，成功提交成绩的用户将获得一元现金红包。点击“我的记录”或“我的钱包”均可查看。
+                    <br>
+                </p>
+            </van-popup>
+        </div>
 
 
-	</div>
+    </div>
 </body>
 <script src="https://oss.laisitech.com/0bb12bf1-cb87-4d2c-a724-8a7c25b7ae04.js "></script>
 <script src="https://oss.laisitech.com/6172e6c1-f460-40ac-97ba-31c8526f2e16.js"></script>
 <script src="../common/js/network.js"></script>
 <script src="js/tool.js"></script>
 <script>
-	window.addEventListener('pageshow', function (event) {
-		console.log("PageShow Event  " + event.persisted);
-		console.log(event)
-		if (isIOS) {
+    window.addEventListener('pageshow', function(event) {
+        console.log("PageShow Event  " + event.persisted);
+        console.log(event)
+        if (isIOS) {
 
-		}
-	})
-	new Vue({
-		el: '#app',
-		data() {
-			return {
-				nowtime: null,
-				loading: false,
-				isClick: false, //是否点击
-				popparam: {
-					winStatus: 1,
-					count: 0,
-				}, //弹框信息
-				popshow: false, //中奖弹框
-				agreement: localStorage.getItem('REDBAG_AGREEMENT') ? true : false, //默认同意用户协议
-				continueNum: 0, //已连续天数
-				stateFlag: 0, //0默认1-未报名，2-去支付，3-已报名，4-进行中
-				nextSignFlag: false, //下期是否已报名
-				isfinish: false, //是否完成比赛了
-				issubmit: false, //是否已经提交好成绩
-				nowGameInfo: { //当前赛事信息
-					startTime: null,
-					endTime: null,
-					poolName: '',
-					priceAndCountList: []
-				},
-				nextPool: {
-					name: '',
-					startTime: null,
-					totalAmount: 0,
-					totalAttend: 0,
-					isSign: false,
-					priceAndCountList: []
-				}, //下期信息
-				priceIndex: 0, //价钱档位index
-				priceStr: '', //档位术语
-				signInCount: 0, //报名人数
-				typeId: null, //当前组别id
-				nowFinishCount: 0, //当前的数量
-				needCount: 0, //需要条漫的数量
-				isNewUser: false,
-				newUserRule: true,
-				ruleShow: localStorage.getItem("ruleShow"),
-				isShare:getQueryString("isShare"),
-			}
-		},
-		filters: {},
-		mounted() {
-			window.paySuccessCallback = this.paySuccessCallback;
-		},
-		created() {
-			setTopBarColor('red');
-			this.getUserStatus(); //查询是否是新用户
-			this.getNowStatus(); //当前状态
-			this.getLastGameInfo(); //上一期的结果
-			this.getCompleteDay(); //完成期数
+        }
+    })
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                nowtime: null,
+                loading: false,
+                isClick: false, //是否点击
+                popparam: {
+                    winStatus: 1,
+                    count: 0,
+                }, //弹框信息
+                popshow: false, //中奖弹框
+                agreement: localStorage.getItem('REDBAG_AGREEMENT') ? true : false, //默认同意用户协议
+                continueNum: 0, //已连续天数
+                stateFlag: 0, //0默认1-未报名，2-去支付，3-已报名，4-进行中
+                nextSignFlag: false, //下期是否已报名
+                isfinish: false, //是否完成比赛了
+                issubmit: false, //是否已经提交好成绩
+                nowGameInfo: { //当前赛事信息
+                    startTime: null,
+                    endTime: null,
+                    poolName: '',
+                    priceAndCountList: []
+                },
+                nextPool: {
+                    name: '',
+                    startTime: null,
+                    totalAmount: 0,
+                    totalAttend: 0,
+                    isSign: false,
+                    priceAndCountList: []
+                }, //下期信息
+                priceIndex: 0, //价钱档位index
+                priceStr: '', //档位术语
+                signInCount: 0, //报名人数
+                typeId: null, //当前组别id
+                nowFinishCount: 0, //当前的数量
+                needCount: 0, //需要条漫的数量
+                isNewUser: false,
+                newUserRule: true,
+                ruleShow: localStorage.getItem("ruleShow"),
+                isShare: getQueryString("isShare"),
+            }
+        },
+        filters: {},
+        mounted() {
+            window.paySuccessCallback = this.paySuccessCallback;
+        },
+        created() {
+            setTopBarColor('red');
+            this.getUserStatus(); //查询是否是新用户
+            this.getNowStatus(); //当前状态
+            this.getLastGameInfo(); //上一期的结果
+            this.getCompleteDay(); //完成期数
 
-		},
-		methods: {
-			getNowStatus() {
-				//钥匙接口，知道现在啥情况
-				var _self = this;
-				ajax({
-					type: "get",
-					url: "ropeRedPackage/ropeRedTypeInfo/get/user/now/status",
-					data: {
-						dsd: new Date().getTime()
-					},
-					success: function (res) {
-						if (res.code == 0) {
-							let code = res.data.status;
-							_self.nowtime = res.data.nowTime || new Date().getTime();
-							if (res.data.typeId) _self.typeId = res.data.typeId;
-							if (code == "01") { //现在没有比赛并且他也没有报名下一期的比赛：
-								// _self.getNotSignInfo();
-								_self.stateFlag = 5;
-							} else if (code == "02") { //这期报名了但是比赛还没有开始
-								_self.getSignInfo(res.data.typeId, result => {
-									_self.signInCount = result.typeAttend;
-									_self.stateFlag = 3;
-									_self.newUserRule = false;
-									setTimeout(() => {
-										_self.setNumberTransform('numberItem6', result
-											.typeAmount / 100, 6)
-										_self.setNumberTransform('numberItem4', _self
-											.signInCount, _self.signInCount
-											.toString().length <= 3 ?
-											3 : _self.signInCount.toString().length
-										)
-									}, 300);
-								});
-							} else if (code == "03") { //该期存在但用户未报名
-								_self.getNotSignInfo();
-							} else if (code == "04") { //该用户已完成比赛并提交
-								_self.getSubmitedInfo(_self.typeId, result => {
-									_self.isfinish = true;
-									_self.issubmit = true;
-									_self.nextPool = result.nextPool || {};
-									_self.getNextIsSign(respon => {
-										// _self.nextPool.isSign = false;
-										if (respon.status == "002") _self.nextPool
-											.isSign = true; //下期是否报名
-										_self.stateFlag = 4;
-										setTimeout(() => {
-											_self.setNumberTransform(
-												'numberItem4', result
-												.getPrice, 4);
-										}, 300);
-									})
-								})
-							} else if (code == "05" || code == "06") { //该用户已报名，但跳绳次数未达到，未完成比赛，无法提交：05
-								//该用户已报名。且次数达标，已完成比赛，但未提交：
-								_self.needCount = res.data.needCount;
-								_self.getGoingInfo(res.data.typeId, result => {
-									_self.getSkipNum(() => {
-										if (code == "06") _self.isfinish =
-											true; //完成了比赛可以提交了
-										_self.nextPool = result.nextPool || {};
-										_self.getNextIsSign(respon => {
-											_self.nextPool.isSign = false;
-											if (respon.status == "002") _self
-												.nextPool.isSign =
-												true; //下期是否报名
-											_self.stateFlag = 4;
-											setTimeout(() => {
-												_self
-													.setNumberTransform(
-														'SkipNum',
-														_self
-														.nowFinishCount,
-														6);
-											}, 300);
-											setTimeout(() => {
-												_self.formatBarWidth(
-													_self
-													.nowFinishCount
-												);
-											}, 400);
-										})
-									});
-								});
-							} else if (code == "07") {
+        },
+        methods: {
+            getNowStatus() {
+                //钥匙接口，知道现在啥情况
+                var _self = this;
+                ajax({
+                    type: "get",
+                    url: "ropeRedPackage/ropeRedTypeInfo/get/user/now/status",
+                    data: {
+                        dsd: new Date().getTime()
+                    },
+                    success: function(res) {
+                        if (res.code == 0) {
+                            let code = res.data.status;
+                            _self.nowtime = res.data.nowTime || new Date().getTime();
+                            if (res.data.typeId) _self.typeId = res.data.typeId;
+                            if (code == "01") { //现在没有比赛并且他也没有报名下一期的比赛：
+                                // _self.getNotSignInfo();
+                                _self.stateFlag = 5;
+                            } else if (code == "02") { //这期报名了但是比赛还没有开始
+                                _self.getSignInfo(res.data.typeId, result => {
+                                    _self.signInCount = result.typeAttend;
+                                    _self.stateFlag = 3;
+                                    _self.newUserRule = false;
+                                    setTimeout(() => {
+                                        _self.setNumberTransform('numberItem6', result
+                                            .typeAmount / 100, 6)
+                                        _self.setNumberTransform('numberItem4', _self
+                                            .signInCount, _self.signInCount
+                                            .toString().length <= 3 ?
+                                            3 : _self.signInCount.toString().length
+                                        )
+                                    }, 300);
+                                });
+                            } else if (code == "03") { //该期存在但用户未报名
+                                _self.getNotSignInfo();
+                            } else if (code == "04") { //该用户已完成比赛并提交
+                                _self.getSubmitedInfo(_self.typeId, result => {
+                                    _self.isfinish = true;
+                                    _self.issubmit = true;
+                                    _self.nextPool = result.nextPool || {};
+                                    _self.getNextIsSign(respon => {
+                                        // _self.nextPool.isSign = false;
+                                        if (respon.status == "002") _self.nextPool
+                                            .isSign = true; //下期是否报名
+                                        _self.stateFlag = 4;
+                                        setTimeout(() => {
+                                            _self.setNumberTransform(
+                                                'numberItem4', result
+                                                .getPrice, 4);
+                                        }, 300);
+                                    })
+                                })
+                            } else if (code == "05" || code == "06") { //该用户已报名，但跳绳次数未达到，未完成比赛，无法提交：05
+                                //该用户已报名。且次数达标，已完成比赛，但未提交：
+                                _self.needCount = res.data.needCount;
+                                _self.getGoingInfo(res.data.typeId, result => {
+                                    _self.getSkipNum(() => {
+                                        if (code == "06") _self.isfinish =
+                                            true; //完成了比赛可以提交了
+                                        _self.nextPool = result.nextPool || {};
+                                        _self.getNextIsSign(respon => {
+                                            _self.nextPool.isSign = false;
+                                            if (respon.status == "002") _self
+                                                .nextPool.isSign =
+                                                true; //下期是否报名
+                                            _self.stateFlag = 4;
+                                            setTimeout(() => {
+                                                _self
+                                                    .setNumberTransform(
+                                                        'SkipNum',
+                                                        _self
+                                                        .nowFinishCount,
+                                                        6);
+                                            }, 300);
+                                            setTimeout(() => {
+                                                _self.formatBarWidth(
+                                                    _self
+                                                    .nowFinishCount
+                                                );
+                                            }, 400);
+                                        })
+                                    });
+                                });
+                            } else if (code == "07") {
 
-							}
-							if (isAndroid && window.localStorage.getItem(
-									'REDBAG_stateflag')) { //从规则返回来的
-								setTimeout(() => {
-									_self.signInGame();
-								}, 300)
-								window.localStorage.removeItem('REDBAG_stateflag');
-							}
-						} else {
-							_self.$toast(res.msg);
-						}
-					},
-					error: function () {
-						console.log("error")
-					}
-				})
-			},
-			getUserStatus() {
-				//查询是否是新用户
-				var _self = this;
-				ajax({
-					type: "get",
-					url: "ropeRedPackage/ropeRedTypeInfo/isNewUser",
-					data: {},
-					success: function (res) {
-						if (res.code == 0) {
-							_self.isNewUser = res.data;
-							// if (!_self.isNewUser) {
-							// 	_self.priceIndex = 1
-							// } else {
-							// 	_self.priceIndex = 0
-							// }
+                            }
+                            if (isAndroid && window.localStorage.getItem(
+                                    'REDBAG_stateflag')) { //从规则返回来的
+                                setTimeout(() => {
+                                    _self.signInGame();
+                                }, 300)
+                                window.localStorage.removeItem('REDBAG_stateflag');
+                            }
+                        } else {
+                            _self.$toast(res.msg);
+                        }
+                    },
+                    error: function() {
+                        console.log("error")
+                    }
+                })
+            },
+            getUserStatus() {
+                //查询是否是新用户
+                var _self = this;
+                ajax({
+                    type: "get",
+                    url: "ropeRedPackage/ropeRedTypeInfo/isNewUser",
+                    data: {},
+                    success: function(res) {
+                        if (res.code == 0) {
+                            _self.isNewUser = res.data;
+                            // if (!_self.isNewUser) {
+                            // 	_self.priceIndex = 1
+                            // } else {
+                            // 	_self.priceIndex = 0
+                            // }
 
-						} else {
-							_self.$toast(res.msg);
-						}
-					},
-					error: function () {
-						console.log("error")
-					}
-				})
-			},
-			//关闭规则框
-			ruleClose() {
-				localStorage.setItem("ruleShow", 1);
-			},
-			getLastGameInfo() {
-				//上一期是啥情况
-				var _self = this;
-				ajax({
-					type: "get",
-					url: "ropeRedPackage/ropeRedTypeInfo/get/last/pool/cover",
-					data: {},
-					success: function (res) {
-						if (res.code == 0) {
-							if (res.data.status == "0002" || res.data.status == '0003') {
-								if (!localStorage.getItem('REDBAG_LASTPID') || localStorage.getItem(
-										'REDBAG_LASTPID') != res.data.lastPoolId) { //为了只弹一次
-									//显示弹窗 0002没中 0003 中了
-									if (res.data.status == "0002") {
-										_self.popparam.winStatus = 2;
-									} else {
-										_self.popparam.winStatus = 1;
-										_self.popparam.count = res.data.getMoney;
-									}
-									_self.popshow = true;
-									localStorage.setItem("REDBAG_LASTPID", res.data.lastPoolId);
-								}
-							}
-						} else {
-							_self.$toast(res.msg);
-						}
-					},
-					error: function () {
-						console.log("error")
-					}
-				})
-			},
-			getNotSignInfo() {
-				//获取未报名那期
-				var _self = this;
-				ajax({
-					type: "get",
-					url: "ropeRedPackage/ropeRedTypeInfo/get/not/sign/cover",
-					data: {},
-					success: function (res) {
-						if (res.code == 0) {
-							_self.nowGameInfo = res.data;
-							_self.stateFlag = 1;
-							setTimeout(() => {
-								_self.setNumberTransform('numberItem6', _self.nowGameInfo
-									.poolAmount / 100, 6);
-								_self.formatpriceStr();
-							}, 300)
-						} else {
-							_self.$toast(res.msg);
-						}
-					},
-					error: function () {
-						console.log("error")
-					}
-				})
-			},
-			getSignInfo(id, cb) {
-				//已报名时候的信息
-				var _self = this;
-				ajax({
-					type: "get",
-					url: "ropeRedPackage/ropeRedTypeInfo/get/signOk/cover",
-					data: {
-						typeId: id
-					},
-					success: function (res) {
-						if (res.code == 0) {
-							_self.nowGameInfo = res.data;
-							cb(res.data);
-						} else {
-							_self.$toast(res.msg);
-						}
-					},
-					error: function () {
-						console.log("error")
-					}
-				})
-			},
-			getGoingInfo(id, cb) {
-				//已进行中时候的信息
-				var _self = this;
-				ajax({
-					type: "get",
-					url: "ropeRedPackage/ropeRedTypeInfo/get/process/cover",
-					data: {
-						typeId: id
-					},
-					success: function (res) {
-						if (res.code == 0) {
-							_self.nowGameInfo = res.data;
-							cb(res.data);
-						} else {
-							_self.$toast(res.msg);
-						}
-					},
-					error: function () {
-						console.log("error")
-					}
-				})
-			},
-			getSubmitedInfo(id, cb) {
-				//已进提交后时候的信息
-				var _self = this;
-				ajax({
-					type: "get",
-					url: "ropeRedPackage/ropeRedTypeInfo/get/teamCase/cover",
-					data: {
-						typeId: id
-					},
-					success: function (res) {
-						if (res.code == 0) {
-							_self.nowGameInfo = res.data;
-							cb(res.data);
-						} else {
-							_self.$toast(res.msg);
-						}
-					},
-					error: function () {
-						console.log("error")
-					}
-				})
-			},
-			getNextIsSign(cb) {
-				//获取下一期是否报名了
-				var _self = this;
-				ajax({
-					type: "get",
-					url: "ropeRedPackage/ropeRedTypeInfo/get/user/next/pool/status",
-					data: {},
-					success: function (res) {
-						if (res.code == 0) {
-							cb(res.data);
-						} else {
-							_self.$toast(res.msg);
-						}
-					},
-					error: function () {
-						console.log("error")
-					}
-				})
-			},
-			signInGame(flag) { //立即报名到支付
-				try {
-					if (this.popshow) this.popshow = false;
-					if (flag) return;
-					if (this.stateFlag == 5) return;
-					//前置逻辑
-					//...
-					var that = this;
-					let hasDevice = true;
-					ajax({
-						type: "get",
-						url: "device/get/bound/device",
-						data: {},
-						success: function (res) {
-							if (res.code == 0) {
-								var items = [];
-								for (var i = 0; i < res.data.length; i++) {
-									if (res.data[i].deviceType == "skipping") {
-										var item = {
-											name: res.data[i].deviceNickName,
-											mac: res.data[i].deviceId||res.data[i].btMac,
-										}
-										items.push(item);
-									}
-								}
-								if (items.length == 0) {
-									hasDevice = false;
-								}
-								if (!hasDevice) {
-									that.$toast("请先绑定设备");
-									return;
-								}
-								if (that.stateFlag == 4) {
-									//进行中的时候可以预报下一节，置换下其中的组别
-									that.nowGameInfo = that.nextPool;
-								}
-								//前置逻辑
-								that.stateFlag = 2;
-							} else if (res.code == '1000') {
-								that.$toast("请先绑定设备");
-								return;
-							}
-						},
-						error: function () {
-							console.log("error")
-						}
-					});
-				} catch (e) {
-					this.popshow = false;
-				}
+                        } else {
+                            _self.$toast(res.msg);
+                        }
+                    },
+                    error: function() {
+                        console.log("error")
+                    }
+                })
+            },
+            //关闭规则框
+            ruleClose() {
+                localStorage.setItem("ruleShow", 1);
+            },
+            getLastGameInfo() {
+                //上一期是啥情况
+                var _self = this;
+                ajax({
+                    type: "get",
+                    url: "ropeRedPackage/ropeRedTypeInfo/get/last/pool/cover",
+                    data: {},
+                    success: function(res) {
+                        if (res.code == 0) {
+                            if (res.data.status == "0002" || res.data.status == '0003') {
+                                if (!localStorage.getItem('REDBAG_LASTPID') || localStorage.getItem(
+                                        'REDBAG_LASTPID') != res.data.lastPoolId) { //为了只弹一次
+                                    //显示弹窗 0002没中 0003 中了
+                                    if (res.data.status == "0002") {
+                                        _self.popparam.winStatus = 2;
+                                    } else {
+                                        _self.popparam.winStatus = 1;
+                                        _self.popparam.count = res.data.getMoney;
+                                    }
+                                    _self.popshow = true;
+                                    localStorage.setItem("REDBAG_LASTPID", res.data.lastPoolId);
+                                }
+                            }
+                        } else {
+                            _self.$toast(res.msg);
+                        }
+                    },
+                    error: function() {
+                        console.log("error")
+                    }
+                })
+            },
+            getNotSignInfo() {
+                //获取未报名那期
+                var _self = this;
+                ajax({
+                    type: "get",
+                    url: "ropeRedPackage/ropeRedTypeInfo/get/not/sign/cover",
+                    data: {},
+                    success: function(res) {
+                        if (res.code == 0) {
+                            _self.nowGameInfo = res.data;
+                            _self.stateFlag = 1;
+                            setTimeout(() => {
+                                _self.setNumberTransform('numberItem6', _self.nowGameInfo
+                                    .poolAmount / 100, 6);
+                                _self.formatpriceStr();
+                            }, 300)
+                        } else {
+                            _self.$toast(res.msg);
+                        }
+                    },
+                    error: function() {
+                        console.log("error")
+                    }
+                })
+            },
+            getSignInfo(id, cb) {
+                //已报名时候的信息
+                var _self = this;
+                ajax({
+                    type: "get",
+                    url: "ropeRedPackage/ropeRedTypeInfo/get/signOk/cover",
+                    data: {
+                        typeId: id
+                    },
+                    success: function(res) {
+                        if (res.code == 0) {
+                            _self.nowGameInfo = res.data;
+                            cb(res.data);
+                        } else {
+                            _self.$toast(res.msg);
+                        }
+                    },
+                    error: function() {
+                        console.log("error")
+                    }
+                })
+            },
+            getGoingInfo(id, cb) {
+                //已进行中时候的信息
+                var _self = this;
+                ajax({
+                    type: "get",
+                    url: "ropeRedPackage/ropeRedTypeInfo/get/process/cover",
+                    data: {
+                        typeId: id
+                    },
+                    success: function(res) {
+                        if (res.code == 0) {
+                            _self.nowGameInfo = res.data;
+                            cb(res.data);
+                        } else {
+                            _self.$toast(res.msg);
+                        }
+                    },
+                    error: function() {
+                        console.log("error")
+                    }
+                })
+            },
+            getSubmitedInfo(id, cb) {
+                //已进提交后时候的信息
+                var _self = this;
+                ajax({
+                    type: "get",
+                    url: "ropeRedPackage/ropeRedTypeInfo/get/teamCase/cover",
+                    data: {
+                        typeId: id
+                    },
+                    success: function(res) {
+                        if (res.code == 0) {
+                            _self.nowGameInfo = res.data;
+                            cb(res.data);
+                        } else {
+                            _self.$toast(res.msg);
+                        }
+                    },
+                    error: function() {
+                        console.log("error")
+                    }
+                })
+            },
+            getNextIsSign(cb) {
+                //获取下一期是否报名了
+                var _self = this;
+                ajax({
+                    type: "get",
+                    url: "ropeRedPackage/ropeRedTypeInfo/get/user/next/pool/status",
+                    data: {},
+                    success: function(res) {
+                        if (res.code == 0) {
+                            cb(res.data);
+                        } else {
+                            _self.$toast(res.msg);
+                        }
+                    },
+                    error: function() {
+                        console.log("error")
+                    }
+                })
+            },
+            signInGame(flag) { //立即报名到支付
+                try {
+                    if (this.popshow) this.popshow = false;
+                    if (flag) return;
+                    if (this.stateFlag == 5) return;
+                    //前置逻辑
+                    //...
+                    var that = this;
+                    let hasDevice = true;
+                    ajax({
+                        type: "get",
+                        url: "device/get/bound/device",
+                        data: {},
+                        success: function(res) {
+                            if (res.code == 0) {
+                                var items = [];
+                                for (var i = 0; i < res.data.length; i++) {
+                                    if (res.data[i].deviceType == "skipping") {
+                                        var item = {
+                                            name: res.data[i].deviceNickName,
+                                            mac: res.data[i].deviceId || res.data[i].btMac,
+                                        }
+                                        items.push(item);
+                                    }
+                                }
+                                if (items.length == 0) {
+                                    hasDevice = false;
+                                }
+                                if (!hasDevice) {
+                                    that.$toast("请先绑定设备");
+                                    return;
+                                }
+                                if (that.stateFlag == 4) {
+                                    //进行中的时候可以预报下一节，置换下其中的组别
+                                    that.nowGameInfo = that.nextPool;
+                                }
+                                //前置逻辑
+                                that.stateFlag = 2;
+                            } else if (res.code == '1000') {
+                                that.$toast("请先绑定设备");
+                                return;
+                            }
+                        },
+                        error: function() {
+                            console.log("error")
+                        }
+                    });
+                } catch (e) {
+                    this.popshow = false;
+                }
 
-			},
-			// 设置文字滚动
-			setNumberTransform(numberItem, numpara, nummax) {
-				if (!numpara) return;
-				let num = numpara.toString(); //制成字符串
-				const numberItems = this.$refs[numberItem] // 拿到数字的ref，计算元素数量
-				if (num.length < nummax) {
-					let zero = ''
-					for (let index = 0; index < (nummax - num.length); index++) {
-						zero += '0';
-					}
-					num = zero + num;
-				}
-				const numberArr = num.split('');
-				// 结合CSS 对数字字符进行滚动,显示订单数量
-				for (let index = 0; index < numberItems.length; index++) {
-					const elem = numberItems[index];
-					setTimeout(() => {
-						elem.style.transform = `translate(0%, -${Number(numberArr[index]) * 10}%)`;
-					}, 500)
-				}
-			},
-			formatpriceStr() { //格式化档位术语
-				let arr = [];
-				this.nowGameInfo.priceAndCountList.forEach(d => {
-					if (d.type == 0) {
-						arr.push(d.price / 100 + '元')
-					}
+            },
+            // 设置文字滚动
+            setNumberTransform(numberItem, numpara, nummax) {
+                if (!numpara) return;
+                let num = numpara.toString(); //制成字符串
+                const numberItems = this.$refs[numberItem] // 拿到数字的ref，计算元素数量
+                if (num.length < nummax) {
+                    let zero = ''
+                    for (let index = 0; index < (nummax - num.length); index++) {
+                        zero += '0';
+                    }
+                    num = zero + num;
+                }
+                const numberArr = num.split('');
+                // 结合CSS 对数字字符进行滚动,显示订单数量
+                for (let index = 0; index < numberItems.length; index++) {
+                    const elem = numberItems[index];
+                    setTimeout(() => {
+                        elem.style.transform = `translate(0%, -${Number(numberArr[index]) * 10}%)`;
+                    }, 500)
+                }
+            },
+            formatpriceStr() { //格式化档位术语
+                let arr = [];
+                this.nowGameInfo.priceAndCountList.forEach(d => {
+                    if (d.type == 0) {
+                        arr.push(d.price / 100 + '元')
+                    }
 
-				});
-				this.priceStr = arr.join('、');
-			},
-			timedown(time) {
-				if (!time) return false;
-				if (time > this.nowtime) { //没到开奖时间，倒计时
-					return time - this.nowtime;
-				} else {
-					return false;
-				}
-			},
-			countfinish() {
-				if (!this.nowGameInfo.startTime) return;
-				//倒计时世界树，开始正赛
-				//开始逻辑
-				this.getNowStatus();
-				// this.stateFlag = 4;
-			},
-			gamefinish() {
-				if (!this.nowGameInfo.endTime) return;
-				//比赛倒计时结束
-				this.getLastGameInfo(); //上一期的结果
-				this.getNowStatus(); //当前状态
-				this.getCompleteDay(); //完成期数
-			},
-			reflashSkipNum() {
-				//刷新自己跳绳个数
-				let elem = this.$refs.flashicon;
-				elem.style.transform = `rotate(360deg)`;
-				elem.style.transition = 'all .6s ease-in-out';
-				setTimeout(() => {
-					elem.style.transform = `rotate(0deg)`;
-				}, 600);
-				var _self = this;
-				ajax({
-					type: "get",
-					url: "ropeRedPackage/ropeSkipping/cloud/selectSum",
-					data: {
-						typeId: _self.typeId
-					},
-					success: function (res) {
-						if (res.code == 0) {
-							_self.nowFinishCount = res.data;
-							_self.setNumberTransform('SkipNum', res.data, 6);
-							_self.formatBarWidth(res.data);
-						} else {
-							_self.$toast(res.msg);
-						}
-					},
-					error: function () {
-						console.log("error")
-					}
-				})
-			},
-			getSkipNum(cb) {
-				//刷新自己跳绳个数
-				var _self = this;
-				ajax({
-					type: "get",
-					url: "ropeRedPackage/ropeSkipping/cloud/selectSum",
-					data: {
-						typeId: _self.typeId
-					},
-					success: function (res) {
-						if (res.code == 0) {
-							_self.nowFinishCount = res.data;
-							cb();
-						} else {
-							_self.$toast(res.msg);
-						}
-					},
-					error: function () {
-						console.log("error")
-					}
-				})
-			},
-			submitSkipNum() {
-				if (!this.isfinish) return;
-				var _self = this;
-				this.$dialog.confirm({
-						title: '',
-						message: '确认提交成绩吗',
-					})
-					.then(() => {
-						ajax({ //提交成绩
-							type: "post",
-							url: "ropeRedPackage/ropeRedTypeInfo/get/submit/grade",
-							data: {
-								typeId: _self.typeId,
-								id: _self.nowGameInfo.userTypeInfoResult.id,
-								createTime: _self.nowGameInfo.userTypeInfoResult.createTime,
-								ropeSkippingCount: _self.nowFinishCount
-							},
-							success: function (res) {
-								if (res.code == 0) {
-									_self.getSubmitedInfo(_self.typeId, result => {
-										_self.isfinish = true;
-										_self.issubmit = true;
-										setTimeout(() => {
-											_self.setNumberTransform('numberItem4',
-												result.getPrice, 4);
-										}, 300);
-									});
-								} else {
-									_self.$toast(res.msg);
-								}
-							},
-							error: function () {
-								console.log("error")
-							}
-						})
-						// on confirm
-					})
-					.catch(() => {
-						// this.isClick = false;
-						// on cancel
-					});
-			},
-			goToGroup() {
-				//跳转本组战况
-				window.location.href = 'groupsituation.html?typeId=' + this.typeId + '&status=1';
-			},
-			formatBarWidth(skipnum) {
-				//format进度条
-				let percent = skipnum / this.needCount * 100;
-				if (percent >= 100) {
-					percent = 100;
-					this.isfinish = true;
-				}
-				if (skipnum = 0) percent = 0;
-				let elem = this.$refs["formatBar"];
-				elem.style.width = percent + "%";
-				elem.style.transition = 'all 1s ease-in-out';
-			},
-			returnPopNum(price) { //转换有小数点的金额
-				if (!price) return false;
-				let num = price.toFixed(2);
-				return num.toString().split('.')[0];
-			},
-			openPay() {
-				//立即支付获取订单号
-				if (!this.agreement) {
-					this.$toast('请同意用户协议')
-					return;
-				}
-				if (this.isClick) return;
-				this.isClick = true;
+                });
+                this.priceStr = arr.join('、');
+            },
+            timedown(time) {
+                if (!time) return false;
+                if (time > this.nowtime) { //没到开奖时间，倒计时
+                    return time - this.nowtime;
+                } else {
+                    return false;
+                }
+            },
+            countfinish() {
+                if (!this.nowGameInfo.startTime) return;
+                //倒计时世界树，开始正赛
+                //开始逻辑
+                this.getNowStatus();
+                // this.stateFlag = 4;
+            },
+            gamefinish() {
+                if (!this.nowGameInfo.endTime) return;
+                //比赛倒计时结束
+                this.getLastGameInfo(); //上一期的结果
+                this.getNowStatus(); //当前状态
+                this.getCompleteDay(); //完成期数
+            },
+            reflashSkipNum() {
+                //刷新自己跳绳个数
+                let elem = this.$refs.flashicon;
+                elem.style.transform = `rotate(360deg)`;
+                elem.style.transition = 'all .6s ease-in-out';
+                setTimeout(() => {
+                    elem.style.transform = `rotate(0deg)`;
+                }, 600);
+                var _self = this;
+                ajax({
+                    type: "get",
+                    url: "ropeRedPackage/ropeSkipping/cloud/selectSum",
+                    data: {
+                        typeId: _self.typeId
+                    },
+                    success: function(res) {
+                        if (res.code == 0) {
+                            _self.nowFinishCount = res.data;
+                            _self.setNumberTransform('SkipNum', res.data, 6);
+                            _self.formatBarWidth(res.data);
+                        } else {
+                            _self.$toast(res.msg);
+                        }
+                    },
+                    error: function() {
+                        console.log("error")
+                    }
+                })
+            },
+            getSkipNum(cb) {
+                //刷新自己跳绳个数
+                var _self = this;
+                ajax({
+                    type: "get",
+                    url: "ropeRedPackage/ropeSkipping/cloud/selectSum",
+                    data: {
+                        typeId: _self.typeId
+                    },
+                    success: function(res) {
+                        if (res.code == 0) {
+                            _self.nowFinishCount = res.data;
+                            cb();
+                        } else {
+                            _self.$toast(res.msg);
+                        }
+                    },
+                    error: function() {
+                        console.log("error")
+                    }
+                })
+            },
+            submitSkipNum() {
+                if (!this.isfinish) return;
+                var _self = this;
+                this.$dialog.confirm({
+                        title: '',
+                        message: '确认提交成绩吗',
+                    })
+                    .then(() => {
+                        ajax({ //提交成绩
+                                type: "post",
+                                url: "ropeRedPackage/ropeRedTypeInfo/get/submit/grade",
+                                data: {
+                                    typeId: _self.typeId,
+                                    id: _self.nowGameInfo.userTypeInfoResult.id,
+                                    createTime: _self.nowGameInfo.userTypeInfoResult.createTime,
+                                    ropeSkippingCount: _self.nowFinishCount
+                                },
+                                success: function(res) {
+                                    if (res.code == 0) {
+                                        _self.getSubmitedInfo(_self.typeId, result => {
+                                            _self.isfinish = true;
+                                            _self.issubmit = true;
+                                            setTimeout(() => {
+                                                _self.setNumberTransform('numberItem4',
+                                                    result.getPrice, 4);
+                                            }, 300);
+                                        });
+                                    } else {
+                                        _self.$toast(res.msg);
+                                    }
+                                },
+                                error: function() {
+                                    console.log("error")
+                                }
+                            })
+                            // on confirm
+                    })
+                    .catch(() => {
+                        // this.isClick = false;
+                        // on cancel
+                    });
+            },
+            goToGroup() {
+                //跳转本组战况
+                window.location.href = 'groupsituation.html?typeId=' + this.typeId + '&status=1';
+            },
+            formatBarWidth(skipnum) {
+                //format进度条
+                let percent = skipnum / this.needCount * 100;
+                if (percent >= 100) {
+                    percent = 100;
+                    this.isfinish = true;
+                }
+                if (skipnum = 0) percent = 0;
+                let elem = this.$refs["formatBar"];
+                elem.style.width = percent + "%";
+                elem.style.transition = 'all 1s ease-in-out';
+            },
+            returnPopNum(price) { //转换有小数点的金额
+                if (!price) return false;
+                let num = price.toFixed(2);
+                return num.toString().split('.')[0];
+            },
+            openPay() {
+                //立即支付获取订单号
+                if (!this.agreement) {
+                    this.$toast('请同意用户协议')
+                    return;
+                }
+                if (this.isClick) return;
+                this.isClick = true;
 
-				if (this.nowGameInfo.priceAndCountList[this.priceIndex].type == 1) {
-					this.freePay()
-					return
-				}
-				var _self = this;
-				ajax({
-					type: "post",
-					url: "ropeRedPackage/wechatPaymentApp/getOutTradeNo",
-					data: {
-						typeId: _self.nowGameInfo.priceAndCountList[_self.priceIndex].id
-					},
-					success: function (res) {
-						if (res.code == 0) {
-							_self.awakeAppPay(res.data);
-						} else {
-							_self.$toast(res.msg);
-							_self.isClick = false;
-						}
-					},
-					error: function () {
-						_self.isClick = false;
-						console.log("error")
-					}
-				})
-			},
-			freePay() {
-				//新用户免费报名
-				var _self = this;
-				ajax({
-					type: "post",
-					url: "ropeRedPackage/ropeRedTypeInfo/get/sign/up/new",
-					data: {
-						typeId: _self.nowGameInfo.priceAndCountList[_self.priceIndex].id
-					},
-					success: function (res) {
-						if (res.code == 0) {
-							_self.paySuccessCallback();
-							setTimeout(() => {
-								_self.isClick = false;
-							}, 700)
-						} else {
-							_self.$toast(res.msg);
-							_self.isClick = false;
-						}
-					},
-					error: function () {
-						_self.isClick = false;
-						console.log("error")
-					}
-				})
-			},
-			awakeAppPay(order) { //唤醒原生支付
-				Interaction.appNative('LSTH5APP_PayAction', {
-					"orderNo": order
-				});
-				setTimeout(() => {
-					this.isClick = false;
-				}, 700)
-			},
-			paySuccessCallback() {
-				//支付成功回调
-				//获取已报名的信息
-				this.priceIndex = 0;
-				this.getNowStatus();
-				//this.getSignInfo(this.nowGameInfo.priceAndCountList[this.priceIndex].id);
-			},
-			setAppClock() { //原生闹钟提醒
-				let param = {
-					startTime: this.nowGameInfo.startTime,
-					endTime: this.nowGameInfo.endTime,
-					title: this.nowGameInfo.poolName || this.nowGameInfo.name || this.nowGameInfo.typeName
-				};
-				Interaction.appNative('LSTH5APP_AddRemindToCalendar', param)
-			},
-			shareGame(shareType) {
-				//分享
-				// if (shareType == 1) {
-				// 	let url = host + "h5/h5V2/redbagGame/share.html?shareType=" + shareType + "&isShare=1"
+                if (this.nowGameInfo.priceAndCountList[this.priceIndex].type == 1) {
+                    this.freePay()
+                    return
+                }
+                var _self = this;
+                ajax({
+                    type: "post",
+                    url: "ropeRedPackage/wechatPaymentApp/getOutTradeNo",
+                    data: {
+                        typeId: _self.nowGameInfo.priceAndCountList[_self.priceIndex].id
+                    },
+                    success: function(res) {
+                        if (res.code == 0) {
+                            _self.awakeAppPay(res.data);
+                        } else {
+                            _self.$toast(res.msg);
+                            _self.isClick = false;
+                        }
+                    },
+                    error: function() {
+                        _self.isClick = false;
+                        console.log("error")
+                    }
+                })
+            },
+            freePay() {
+                //新用户免费报名
+                var _self = this;
+                ajax({
+                    type: "post",
+                    url: "ropeRedPackage/ropeRedTypeInfo/get/sign/up/new",
+                    data: {
+                        typeId: _self.nowGameInfo.priceAndCountList[_self.priceIndex].id
+                    },
+                    success: function(res) {
+                        if (res.code == 0) {
+                            _self.paySuccessCallback();
+                            setTimeout(() => {
+                                _self.isClick = false;
+                            }, 700)
+                        } else {
+                            _self.$toast(res.msg);
+                            _self.isClick = false;
+                        }
+                    },
+                    error: function() {
+                        _self.isClick = false;
+                        console.log("error")
+                    }
+                })
+            },
+            awakeAppPay(order) { //唤醒原生支付
+                Interaction.appNative('LSTH5APP_PayAction', {
+                    "orderNo": order
+                });
+                setTimeout(() => {
+                    this.isClick = false;
+                }, 700)
+            },
+            paySuccessCallback() {
+                //支付成功回调
+                //获取已报名的信息
+                this.priceIndex = 0;
+                this.getNowStatus();
+                //this.getSignInfo(this.nowGameInfo.priceAndCountList[this.priceIndex].id);
+            },
+            setAppClock() { //原生闹钟提醒
+                let param = {
+                    startTime: this.nowGameInfo.startTime,
+                    endTime: this.nowGameInfo.endTime,
+                    title: this.nowGameInfo.poolName || this.nowGameInfo.name || this.nowGameInfo.typeName
+                };
+                Interaction.appNative('LSTH5APP_AddRemindToCalendar', param)
+            },
+            shareGame(shareType) {
+                //分享
+                // if (shareType == 1) {
+                // 	let url = host + "h5/h5V2/redbagGame/share.html?shareType=" + shareType + "&isShare=1"
 
-				// } else if (shareType == 2) {
-				// 	let url = host + "h5/h5V2/redbagGame/share.html?shareType=" + shareType + "&getMoney=" + this
-				// 		.popparam.count +
-				// 		"&isShare=1"
-				// }
-				// Interaction.sharePage({
-				// 	title: shareType == 1 ? '快来加入派健康跳绳红包赛，一起来瓜分奖池' : '我在派健康跳绳红包赛瓜分到了大红包，你也来试试吧',
-				// 	description: this.nowGameInfo.poolName || this.nowGameInfo.name || this.nowGameInfo
-				// 		.typeName,
-				// 	url: url
-				// })
-				console.log(1)
-				if (shareType == 1) {
-					let url = host + "h5/h5V3/redbagGame/share.html?shareType=" + shareType + "&isShare=1"
-					
-					Interaction.sharePage({
-						title: shareType == 1 ? '快来加入派健康跳绳红包赛，一起来瓜分奖池' : '我在派健康跳绳红包赛瓜分到了大红包，你也来试试吧',
-						description: this.nowGameInfo.poolName || this.nowGameInfo.name || this.nowGameInfo.typeName,
-						url: url
-					})
+                // } else if (shareType == 2) {
+                // 	let url = host + "h5/h5V2/redbagGame/share.html?shareType=" + shareType + "&getMoney=" + this
+                // 		.popparam.count +
+                // 		"&isShare=1"
+                // }
+                // Interaction.sharePage({
+                // 	title: shareType == 1 ? '快来加入派健康跳绳红包赛，一起来瓜分奖池' : '我在派健康跳绳红包赛瓜分到了大红包，你也来试试吧',
+                // 	description: this.nowGameInfo.poolName || this.nowGameInfo.name || this.nowGameInfo
+                // 		.typeName,
+                // 	url: url
+                // })
+                console.log(1)
+                if (shareType == 1) {
+                    let url = host + "h5/h5V3/redbagGame/share.html?shareType=" + shareType + "&isShare=1"
 
-				} else if (shareType == 2) {
-					let url = host + "h5/h5V3/redbagGame/share.html?shareType=" + shareType + "&getMoney=" + this
-						.popparam.count +
-						"&isShare=1"
-					Interaction.appNative("shareRedbagGamePic", {
-						money:(parseInt( (this.popparam.count/100)* 100 ) / 100 ).toFixed(2)+"",
-						title: shareType == 1 ? '快来加入派健康跳绳红包赛，一起来瓜分奖池' : '我在派健康跳绳红包赛瓜分到了大红包，你也来试试吧',
-						description: '我在派健康跳绳红包赛瓜分到了大红包，你也来试试吧',
-						url: url
-					})
-				}
+                    Interaction.sharePage({
+                        title: shareType == 1 ? '快来加入派健康跳绳红包赛，一起来瓜分奖池' : '我在派健康跳绳红包赛瓜分到了大红包，你也来试试吧',
+                        description: this.nowGameInfo.poolName || this.nowGameInfo.name || this.nowGameInfo.typeName,
+                        url: url
+                    })
+
+                } else if (shareType == 2) {
+                    let url = host + "h5/h5V3/redbagGame/share.html?shareType=" + shareType + "&getMoney=" + this
+                        .popparam.count +
+                        "&isShare=1"
+                    Interaction.appNative("shareRedbagGamePic", {
+                        money: (parseInt((this.popparam.count / 100) * 100) / 100).toFixed(2) + "",
+                        title: shareType == 1 ? '快来加入派健康跳绳红包赛，一起来瓜分奖池' : '我在派健康跳绳红包赛瓜分到了大红包，你也来试试吧',
+                        description: '我在派健康跳绳红包赛瓜分到了大红包，你也来试试吧',
+                        url: url
+                    })
+                }
 
 
-			},
-			shareGameTest(shareType) {
-				let url = host + "h5/h5V3/redbagGame/share.html?shareType=" + shareType + "&getMoney=" + this
-					.popparam.count +
-					"&isShare=1"
+            },
+            shareGameTest(shareType) {
+                let url = host + "h5/h5V3/redbagGame/share.html?shareType=" + shareType + "&getMoney=" + this
+                    .popparam.count +
+                    "&isShare=1"
 
-				Interaction.appNative("shareRedbagGamePic", {
-					money: 100+"",
-					title: shareType == 1 ? '快来加入派健康跳绳红包赛，一起来瓜分奖池' : '我在派健康跳绳红包赛瓜分到了大红包，你也来试试吧',
-					description: '秒速',
-					url: url
-				})
-			},
-			OnclickLeft() {
-				if (this.stateFlag == 2) {
-					window.location.reload();
-				} else {
-					window.history.back(-1);
-					Interaction.closePage();
-				}
-			},
-			onClickRight() { //显示。。。
-				if (this.stateFlag == 1) { //分享
-					this.shareGame(1);
-				} else {
-					this.gotoRule();
-				}
-			},
-			gotoRule() { //前往规则
-				window.location.href = './rule.html?stateFlag=' + this.stateFlag;
-			},
-			gotoRule2() { //前往规则
-				window.location.href = './regulations.html?stateFlag=' + this.stateFlag;
-			},
-			getCompleteDay() {
-				//获取完成期数
-				var _self = this;
-				ajax({
-					type: "get",
-					url: "ropeRedPackage/ropeRedTypeInfo/get/complete/days",
-					data: {
-						dsd: new Date().getTime()
-					},
-					success: function (res) {
-						if (res.code == 0) {
-							_self.continueNum = res.data;
-						} else {
-							_self.$toast(res.msg);
-						}
-					},
-					error: function () {
-						console.log("error")
-					}
-				})
-			},
-			gotoWallet() {
-				window.location.href = './gamerecord.html'
-			},
-			funagree(e) {
-				localStorage.setItem("REDBAG_AGREEMENT", 1);
-			}
-		}
-	})
+                Interaction.appNative("shareRedbagGamePic", {
+                    money: 100 + "",
+                    title: shareType == 1 ? '快来加入派健康跳绳红包赛，一起来瓜分奖池' : '我在派健康跳绳红包赛瓜分到了大红包，你也来试试吧',
+                    description: '秒速',
+                    url: url
+                })
+            },
+            OnclickLeft() {
+                if (this.stateFlag == 2) {
+                    window.location.reload();
+                } else {
+                    window.history.back(-1);
+                    Interaction.closePage();
+                }
+            },
+            onClickRight() { //显示。。。
+                if (this.stateFlag == 1) { //分享
+                    this.shareGame(1);
+                } else {
+                    this.gotoRule();
+                }
+            },
+            gotoRule() { //前往规则
+                window.location.href = './rule.html?stateFlag=' + this.stateFlag;
+            },
+            gotoRule2() { //前往规则
+                window.location.href = './regulations.html?stateFlag=' + this.stateFlag;
+            },
+            getCompleteDay() {
+                //获取完成期数
+                var _self = this;
+                ajax({
+                    type: "get",
+                    url: "ropeRedPackage/ropeRedTypeInfo/get/complete/days",
+                    data: {
+                        dsd: new Date().getTime()
+                    },
+                    success: function(res) {
+                        if (res.code == 0) {
+                            _self.continueNum = res.data;
+                        } else {
+                            _self.$toast(res.msg);
+                        }
+                    },
+                    error: function() {
+                        console.log("error")
+                    }
+                })
+            },
+            gotoWallet() {
+                window.location.href = './gamerecord.html'
+            },
+            funagree(e) {
+                localStorage.setItem("REDBAG_AGREEMENT", 1);
+            }
+        }
+    })
 </script>
 
 </html>

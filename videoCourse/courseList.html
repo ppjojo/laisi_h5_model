@@ -157,13 +157,13 @@
                                                     </div>
                                                 </div>
                                                 <div class="likeBox" :class="item.likeStatus?'liked':''" @click="goLikeComment(item)">
-                                                    <span class="icon iconfont icon-dianzan-gaoliang" :class="item.likeStatus?'':'icon-dongtaidianzan'" style="font-size: 0.28rem;"></span> {{item.dadCommendLikeCount}}
+                                                    <span class="icon iconfont icon-dianzan-gaoliang" :class="item.likeStatus?'':'icon-dongtaidianzan'" style="font-size: 0.3rem;"></span> {{item.dadCommendLikeCount}}
                                                 </div>
                                             </div>
                                             <div class="commentDiv">
                                                 <div class="comment" @click="getCommentDetail(item)">
                                                     {{item.dadContent}}
-                                                    <span v-for="r in item.dadAtResultList" @click.stop="Interaction.visitPersonalHomepage(r.atUserId)" style="color:steelblue">@{{r.atNickName}}</span>
+                                                    <span v-for="r in item.dadAtResultList" @click.stop="Interaction.visitPersonalHomepage(r.atUserId)" style="color:#188DFF">@{{r.atNickName}}</span>
                                                 </div>
                                                 <div class="commentBck" v-if="item.dadBelongCommendCount>0">
                                                     <div v-for="ccitem in item.sonCommendResultList" class="commentBckItem">
@@ -172,7 +172,7 @@
                                                         <span>回复</span>
                                                         <span class="name">{{ccitem.sonReplyAuthorName}} </span>
                                                         <span> : {{ccitem.sonContent}}</span>
-                                                        <span v-for="r in ccitem.sonAtList" style="color:steelblue">@{{r.atNickName}}</span>
+                                                        <span v-for="r in ccitem.sonAtList" style="color:#188DFF">@{{r.atNickName}}</span>
                                                     </div>
                                                     <div class="more" @click="getCommentDetail(item)">
                                                         查看全部{{item.dadBelongCommendCount}}条回复>></div>
@@ -195,7 +195,7 @@
 												style="font-size: 0.3rem;"></span>
 										</template>
                                 </van-field>
-                                <span class="icon iconfont icon-duihua-fasong" @click="submitCommentFirst" style="font-size: 0.48rem;padding-left: 0.24rem;margin-bottom:0.04rem;"></span>
+                                <span class="icon iconfont icon-duihua-fasong" @click="submitCommentFirst" :style="{'color':comment_message?'#cfcfd2':'#71717f'}" style="font-size: 0.48rem;padding-left: 0.24rem;margin-bottom:0.04rem;"></span>
                             </div>
 
                         </div>
@@ -226,14 +226,14 @@
                                     </div>
                                 </div>
                                 <div class="likeBox" :class="commentDetail.dadCommendResult.likeStatus?'liked':''" @click="goLikeComment(commentDetail.dadCommendResult)">
-                                    <span class="icon iconfont icon-dianzan-gaoliang" :class="commentDetail.dadCommendResult.likeStatus?'':'icon-dongtaidianzan'" style="font-size: 0.28rem;"></span> {{commentDetail.dadCommendResult.dadCommendLikeCount}}
+                                    <span class="icon iconfont icon-dianzan-gaoliang" :class="commentDetail.dadCommendResult.likeStatus?'':'icon-dongtaidianzan'" style="font-size: 0.3rem;"></span> {{commentDetail.dadCommendResult.dadCommendLikeCount}}
                                 </div>
                             </div>
                             <div class="commentDiv">
                                 <div class="comment" @click="commentAction(commentDetail.dadCommendResult)">
                                     {{commentDetail.dadCommendResult.dadContent}}
                                     <span v-for="r in
-											commentDetail.dadCommendResult.dadAtResultList" @click="Interaction.visitPersonalHomepage(r.atUserId)" style="color:steelblue">@{{r.atNickName}}</span>
+											commentDetail.dadCommendResult.dadAtResultList" @click="Interaction.visitPersonalHomepage(r.atUserId)" style="color:#188DFF">@{{r.atNickName}}</span>
                                 </div>
                             </div>
                         </div>
@@ -253,7 +253,7 @@
                                 </div>
                             </div>
                             <div class="likeBox" :class="item.likeStatus?'liked':''" @click="goLikeComment(item)">
-                                <span class="icon iconfont icon-dianzan-gaoliang" :class="item.likeStatus?'':'icon-dongtaidianzan'" style="font-size: 0.28rem;"></span> {{item.sonLikeCount}}
+                                <span class="icon iconfont icon-dianzan-gaoliang" :class="item.likeStatus?'':'icon-dongtaidianzan'" style="font-size: 0.3rem;"></span> {{item.sonLikeCount}}
                             </div>
                         </div>
                         <div class="commentDiv">
@@ -261,7 +261,7 @@
                                 <span>
 										回复{{item.sonReplyAuthorName}}:
 									</span> {{item.sonContent}}
-                                <span v-for="r in item.sonAtList" @click.stop="Interaction.visitPersonalHomepage(r.atUserId)" style="color:steelblue">@{{r.atNickName}}</span>
+                                <span v-for="r in item.sonAtList" @click.stop="Interaction.visitPersonalHomepage(r.atUserId)" style="color:#188DFF">@{{r.atNickName}}</span>
                             </div>
                         </div>
                     </div>
@@ -278,7 +278,7 @@
 									style="font-size: 0.3rem;"></span>
 							</template>
                     </van-field>
-                    <span class="icon iconfont icon-duihua-fasong" @click="submitCommentFirst" style="font-size: 0.48rem;padding-left: 0.24rem;"></span>
+                    <span class="icon iconfont icon-duihua-fasong" @click="submitCommentFirst" :style="{'color':comment_message?'#cfcfd2':'#71717f'}" style="font-size: 0.48rem;padding-left: 0.24rem;"></span>
                 </div>
 
             </van-popup>

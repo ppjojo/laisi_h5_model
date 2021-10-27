@@ -12,21 +12,22 @@
     <link href="css/clubIndex.css" rel="stylesheet" type="text/css" />
     <link href="../club/css/corporateCompetion.css" rel="stylesheet" type="text/css" />
 
-  <!--  <script src="https://cdn.bootcss.com/vConsole/3.3.4/vconsole.min.js"></script>
+    <!--  <script src="https://cdn.bootcss.com/vConsole/3.3.4/vconsole.min.js"></script>
     <script>
         var vConsole = new VConsole();
     </script> -->
     <style type="text/css">
-		.taskDiv .van-ellipsis{
-			max-width: 3.5rem;
-		}
-		.corporate .deptList .deptInfoBox .deptPic div{
-			border-radius: 50%;
-			width: .6rem;
-			height: .6rem;
-			background-size: cover;
-			background-position: center;
-		}
+        .taskDiv .van-ellipsis {
+            max-width: 3.5rem;
+        }
+        
+        .corporate .deptList .deptInfoBox .deptPic div {
+            border-radius: 50%;
+            width: .6rem;
+            height: .6rem;
+            background-size: cover;
+            background-position: center;
+        }
     </style>
 </head>
 
@@ -39,8 +40,7 @@
                 <div class="clubPic" :style="{'backgroundImage':'url('+clubObject.photo+')'}"></div>
                 <div class="clubDescript">
                     <div class="clubName">{{clubObject.name}}</div>
-                    <div class="clubId">俱乐部ID：<span id="INcode">{{clubObject.id}}</span> <img v-if="clubObject.self"
-                            @click="copyInvite" src="../corporateClub/img/copyicon_white.png" alt=""></div>
+                    <div class="clubId">俱乐部ID：<span id="INcode">{{clubObject.id}}</span> <img v-if="clubObject.self" @click="copyInvite" src="../corporateClub/img/copyicon_white.png" alt=""></div>
                     <div class="clubDate">成立：{{renderTime(clubObject.createTime)}}</div>
                     <div class="clubAddress">城市：{{(clubObject.city||'')+"·"+(clubObject.county||'')}}</div>
                     <div class="clubLabel">{{clubObject.label=="00"?"跳绳":"其他"}}</div>
@@ -69,19 +69,15 @@
                 </div>
             </div>
             <div class="tabBox">
-                <van-tabs v-model:active="activeTab" sticky title-active-color="#1F1F1F" @change="tabChange" swipeable
-                    color="#1F1F1F">
+                <van-tabs v-model:active="activeTab" sticky title-active-color="#1F1F1F" @change="tabChange" swipeable color="#1F1F1F">
                     <van-tab title="今日运动" class="todaySport">
                         <div class="todayBox" v-if="today.list.length>0&&clubObject.type!='05'">
-                            <van-list v-model:loading="today.loading" :finished="today.finished" finished-text="没有更多了"
-                                @load="getTodaySport">
+                            <van-list v-model:loading="today.loading" :finished="today.finished" finished-text="没有更多了" @load="getTodaySport">
                                 <van-row class="memberSport" v-for="item in today.list">
-                                    <van-col span="3" class=""
-                                        @click="Interaction.visitPersonalHomepage(item.memberId)">
+                                    <van-col span="3" class="" @click="Interaction.visitPersonalHomepage(item.memberId)">
                                         <img class="headerPic" :src="item.headPictureUrl" alt="">
                                     </van-col>
-                                    <van-col span="7" class="nickName"
-                                        @click="Interaction.visitPersonalHomepage(item.memberId)">
+                                    <van-col span="7" class="nickName" @click="Interaction.visitPersonalHomepage(item.memberId)">
                                         {{item.nickname}}
                                     </van-col>
                                     <van-col span="6" class="flexBox">
@@ -89,22 +85,19 @@
                                         <span class="descript">个</span>
                                     </van-col>
                                     <van-col span="8" class="flexBox">
-                                        <span class="boldNum">{{timestamp2HMS(item.duraMs/1000,"h")}}</span><span
-                                            class="descript">小时</span>
+                                        <span class="boldNum">{{timestamp2HMS(item.duraMs/1000,"h")}}</span><span class="descript">小时</span>
                                         <span class="boldNum">{{timestamp2HMS(item.duraMs/1000,"m")}}</span>
                                         <span class="descript">分</span>
-                                        <span class="boldNum">{{timestamp2HMS(item.duraMs/1000,"s")}}</span><span
-                                            class="descript">秒</span>
+                                        <span class="boldNum">{{timestamp2HMS(item.duraMs/1000,"s")}}</span><span class="descript">秒</span>
                                     </van-col>
                                 </van-row>
                             </van-list>
                         </div>
-                        <div v-else-if="today.list.length>0&&clubObject.type=='05'" class="corporate"
-                            style="background-color: #fff;margin-bottom:0;">
+                        <div v-else-if="today.list.length>0&&clubObject.type=='05'" class="corporate" style="background-color: #fff;margin-bottom:0;">
                             <van-row v-for="item in today.list" class="deptList" @click="gotoDeptSportDetail(item)">
                                 <van-col span="16" class="deptInfoBox">
                                     <div class="deptPic">
-										<div :style="{'background-image':'url('+(item.image||'../corporateClub/img/notgroup.png')+')'}"> </div>
+                                        <div :style="{'background-image':'url('+(item.image||'../corporateClub/img/notgroup.png')+')'}"> </div>
                                         <!-- <img :src="item.image||'../corporateClub/img/notgroup.png'" alt=""> -->
                                     </div>
                                     <div class="deptD">
@@ -112,7 +105,8 @@
                                             {{item.name||"未分部部门"}}
                                         </div>
                                         <div class="userInfo">
-                                            <span><span v-if="item.id!='-1'">分部长：<span>{{item.subMinisterName | ellipsis4}}</span></span></span>
+                                            <span><span v-if="item.id!='-1'">分部长：<span>{{item.subMinisterName | ellipsis4}}</span></span>
+                                            </span>
                                             <span>成员：{{item.totalNumber||0}}人</span>
                                         </div>
                                     </div>
@@ -138,19 +132,15 @@
 
                         <div class="historyBox">
                             <van-collapse v-model="historyActive" accordion :change="historyDataChange()">
-                                <van-collapse-item v-for="(item ,index) in pastSportData" :title="item.date"
-                                    :name="index+1" :value="item.sportNum+'人'" :border="false">
+                                <van-collapse-item v-for="(item ,index) in pastSportData" :title="item.date" :name="index+1" :value="item.sportNum+'人'" :border="false">
 
                                     <div class="todayBox" v-if="item.list.length>0&&clubObject.type!='05'">
-                                        <van-list v-model:loading="item.loading" :finished="item.finished"
-                                            finished-text="没有更多了" @load="getHistorySport(item)">
+                                        <van-list v-model:loading="item.loading" :finished="item.finished" finished-text="没有更多了" @load="getHistorySport(item)">
                                             <van-row class="memberSport" v-for="sitem in item.list">
-                                                <van-col span="3" class=""
-                                                    @click="Interaction.visitPersonalHomepage(sitem.memberId)">
+                                                <van-col span="3" class="" @click="Interaction.visitPersonalHomepage(sitem.memberId)">
                                                     <img class="headerPic" :src="sitem.headPictureUrl" alt="">
                                                 </van-col>
-                                                <van-col span="7" class="nickName"
-                                                    @click="Interaction.visitPersonalHomepage(sitem.memberId)">
+                                                <van-col span="7" class="nickName" @click="Interaction.visitPersonalHomepage(sitem.memberId)">
                                                     {{sitem.nickname}}
                                                 </van-col>
                                                 <van-col span="6" class="flexBox">
@@ -158,23 +148,16 @@
                                                     <span class="descript">个</span>
                                                 </van-col>
                                                 <van-col span="8" class="flexBox">
-                                                    <span
-                                                        class="boldNum">{{timestamp2HMS(sitem.duraMs/1000,"h")}}</span><span
-                                                        class="descript">小时</span>
-                                                    <span
-                                                        class="boldNum">{{timestamp2HMS(sitem.duraMs/1000,"m")}}</span>
+                                                    <span class="boldNum">{{timestamp2HMS(sitem.duraMs/1000,"h")}}</span><span class="descript">小时</span>
+                                                    <span class="boldNum">{{timestamp2HMS(sitem.duraMs/1000,"m")}}</span>
                                                     <span class="descript">分</span>
-                                                    <span
-                                                        class="boldNum">{{timestamp2HMS(sitem.duraMs/1000,"s")}}</span><span
-                                                        class="descript">秒</span>
+                                                    <span class="boldNum">{{timestamp2HMS(sitem.duraMs/1000,"s")}}</span><span class="descript">秒</span>
                                                 </van-col>
                                             </van-row>
                                         </van-list>
                                     </div>
-                                    <div v-else-if="item.list.length>0&&clubObject.type=='05'" class="corporate"
-                                        style="background-color: #fff;margin-bottom:0;">
-                                        <van-row v-for="sitem in item.list" class="deptList"
-                                            @click="gotoDeptSportDetail(sitem,item.date)">
+                                    <div v-else-if="item.list.length>0&&clubObject.type=='05'" class="corporate" style="background-color: #fff;margin-bottom:0;">
+                                        <van-row v-for="sitem in item.list" class="deptList" @click="gotoDeptSportDetail(sitem,item.date)">
                                             <van-col span="16" class="deptInfoBox">
                                                 <div class="deptPic">
                                                     <img :src="sitem.image||'../corporateClub/img/notgroup.png'" alt="">
@@ -184,7 +167,8 @@
                                                         {{sitem.name||"未分部部门"}}
                                                     </div>
                                                     <div class="userInfo">
-                                                        <span><span v-if="sitem.id!='-1'">分部长：<span>{{sitem.subMinisterName | ellipsis4}}</span></span></span>
+                                                        <span><span v-if="sitem.id!='-1'">分部长：<span>{{sitem.subMinisterName | ellipsis4}}</span></span>
+                                                        </span>
                                                         <span>成员：{{sitem.totalNumber||0}}人</span>
                                                     </div>
                                                 </div>
@@ -216,10 +200,8 @@
                         <div v-if="clubObject.type=='05'">
                             <div class="taskBox">
                                 <div class="taskDiv" v-if="taskObject.join.list.length>0" style="max-height: 5rem;">
-                                    <van-list v-model:loading="taskObject.join.loading"
-                                        :finished="taskObject.join.finished" @load="getTask()">
-                                        <div class="taskList" v-for="item in taskObject.join.list"
-                                            @click="gotoTask(item)">
+                                    <van-list v-model:loading="taskObject.join.loading" :finished="taskObject.join.finished" @load="getTask()">
+                                        <div class="taskList" v-for="item in taskObject.join.list" @click="gotoTask(item)">
                                             <div class="taskName">
                                                 <span class="label">
                                                     {{item.period=='00'?'日':item.period=='01'?'周':item.period=='02'?'月':""}}
@@ -236,7 +218,7 @@
 
                                             </div>
                                             <div class="taskPeopleNum">
-												<span v-if="item.period!='00'&&(item.originTaskStartTime?item.originTaskStartTime:item.taskStartTime)>(new Date().getTime())">未开始</span>
+                                                <span v-if="item.period!='00'&&(item.originTaskStartTime?item.originTaskStartTime:item.taskStartTime)>(new Date().getTime())">未开始</span>
                                                 <span v-else-if="item.isDone=='N'">正在进行</span>
                                                 <span v-else>{{item.doneTaskNum}}人完成</span>
                                                 <img src="img/iconRight.png" class="iconRight" alt="">
@@ -244,12 +226,9 @@
                                         </div>
                                     </van-list>
                                 </div>
-                                <div class="taskDiv" v-else-if="taskObject.unJoin.list.length>0"
-                                    style="max-height: 5rem;">
-                                    <van-list v-model:loading="taskObject.unJoin.loading"
-                                        :finished="taskObject.unJoin.finished" @load="getTask()">
-                                        <div class="taskList" v-for="item in taskObject.unJoin.list"
-                                            @click="gotoTask(item)">
+                                <div class="taskDiv" v-else-if="taskObject.unJoin.list.length>0" style="max-height: 5rem;">
+                                    <van-list v-model:loading="taskObject.unJoin.loading" :finished="taskObject.unJoin.finished" @load="getTask()">
+                                        <div class="taskList" v-for="item in taskObject.unJoin.list" @click="gotoTask(item)">
                                             <div class="taskName">
                                                 <span class="label">
                                                     {{item.period=='00'?'日':item.period=='01'?'周':item.period=='02'?'月':""}}
@@ -281,10 +260,8 @@
                             <div class="taskBox">
                                 <div class="title">我的任务</div>
                                 <div class="taskDiv" v-if="taskObject.join.list.length>0">
-                                    <van-list v-model:loading="taskObject.join.loading"
-                                        :finished="taskObject.join.finished" @load="getTask()">
-                                        <div class="taskList" v-for="item in taskObject.join.list"
-                                            @click="gotoTask(item)">
+                                    <van-list v-model:loading="taskObject.join.loading" :finished="taskObject.join.finished" @load="getTask()">
+                                        <div class="taskList" v-for="item in taskObject.join.list" @click="gotoTask(item)">
                                             <div class="taskName">{{item.name}}</div>
                                             <div class="taskPeopleNum">
                                                 {{item.doneTaskNum}}人完成
@@ -300,10 +277,8 @@
                             <div class="taskBox">
                                 <div class="title">未参加</div>
                                 <div class="taskDiv" v-if="taskObject.unJoin.list.length>0">
-                                    <van-list v-model:loading="taskObject.unJoin.loading"
-                                        :finished="taskObject.unJoin.finished" @load="getnotJoinTask()">
-                                        <div class="taskList" v-for="item in taskObject.unJoin.list"
-                                            @click="gotoTask(item)">
+                                    <van-list v-model:loading="taskObject.unJoin.loading" :finished="taskObject.unJoin.finished" @load="getnotJoinTask()">
+                                        <div class="taskList" v-for="item in taskObject.unJoin.list" @click="gotoTask(item)">
                                             <div class="taskName">{{item.name}}</div>
                                             <div class="taskPeopleNum">
                                                 {{item.doneTaskNum}}人完成
@@ -323,10 +298,8 @@
                         <div class="taskBox">
                             <div class="title">已报名</div>
                             <div class="taskDiv" v-if="competitionObject.join.list.length>0">
-                                <van-list v-model:loading="competitionObject.join.loading"
-                                    :finished="competitionObject.join.finished" @load="getCompetition()">
-                                    <div class="taskList" v-for="item in competitionObject.join.list"
-                                        @click="gotoCompetition(item)">
+                                <van-list v-model:loading="competitionObject.join.loading" :finished="competitionObject.join.finished" @load="getCompetition()">
+                                    <div class="taskList" v-for="item in competitionObject.join.list" @click="gotoCompetition(item)">
                                         <div class="taskName">{{item.name}}</div>
                                         <div class="taskPeopleNum">
                                             <p>{{item.repeatNumber == 0?"未跳绳":item.endTime>nowTime?"进行中":('比赛排名'+item.rank)}}
@@ -344,10 +317,8 @@
                         <div class="taskBox">
                             <div class="title">未报名</div>
                             <div class="taskDiv" v-if="competitionObject.unJoin.list.length>0">
-                                <van-list v-model:loading="competitionObject.unJoin.loading"
-                                    :finished="competitionObject.unJoin.finished" @load="getnotJoinCompetition()">
-                                    <div class="taskList" v-for="item in competitionObject.unJoin.list"
-                                        @click="gotoCompetition(item)">
+                                <van-list v-model:loading="competitionObject.unJoin.loading" :finished="competitionObject.unJoin.finished" @load="getnotJoinCompetition()">
+                                    <div class="taskList" v-for="item in competitionObject.unJoin.list" @click="gotoCompetition(item)">
                                         <div class="taskName">{{item.name}}</div>
                                         <div class="taskPeopleNum">
                                             {{item.registerCount||0}}人参赛
@@ -365,10 +336,8 @@
                         <div class="taskBox">
                             <div class="title">已报名</div>
                             <div class="taskDiv" v-if="activityObject.join.list.length>0">
-                                <van-list v-model:loading="activityObject.join.loading"
-                                    :finished="activityObject.join.finished" @load="getActivity()">
-                                    <div class="taskList" v-for="item in activityObject.join.list"
-                                        @click="gotoactivity(item,1)">
+                                <van-list v-model:loading="activityObject.join.loading" :finished="activityObject.join.finished" @load="getActivity()">
+                                    <div class="taskList" v-for="item in activityObject.join.list" @click="gotoactivity(item,1)">
                                         <div class="taskName">{{item.title}}</div>
                                         <div class="taskPeopleNum">
                                             {{item.attendCount}}人报名
@@ -384,10 +353,8 @@
                         <div class="taskBox">
                             <div class="title">未报名</div>
                             <div class="taskDiv" v-if="activityObject.unJoin.list.length>0">
-                                <van-list v-model:loading="activityObject.unJoin.loading"
-                                    :finished="activityObject.unJoin.finished" @load="getnotJoinActivity()">
-                                    <div class="taskList" v-for="item in activityObject.unJoin.list"
-                                        @click="gotoactivity(item,0)">
+                                <van-list v-model:loading="activityObject.unJoin.loading" :finished="activityObject.unJoin.finished" @load="getnotJoinActivity()">
+                                    <div class="taskList" v-for="item in activityObject.unJoin.list" @click="gotoactivity(item,0)">
                                         <div class="taskName">{{item.title}}</div>
                                         <div class="taskPeopleNum">
                                             {{item.attendCount}}人报名
@@ -471,8 +438,7 @@
 
             </div>
         </div>
-        <van-dialog v-model="reqShow" confirm-button-text="加入" confirm-button-color="#007AFF" title="申请加入"
-            show-cancel-button @confirm="joinClubReq(3)">
+        <van-dialog v-model="reqShow" confirm-button-text="加入" confirm-button-color="#007AFF" title="申请加入" show-cancel-button @confirm="joinClubReq(3)">
             <van-field v-model="reqNum" placeholder="请输入邀请码" style="margin: 0.2rem 0;"></van-field>
         </van-dialog>
 
@@ -483,7 +449,7 @@
 <script src="https://cdn.jsdelivr.net/npm/vant@2.12.2/lib/vant.min.js"></script>
 <script src="../../common/js/network.js"></script>
 <script>
-    window.addEventListener('pageshow', function (e) {
+    window.addEventListener('pageshow', function(e) {
         var dataChangeVar = localStorage.getItem('dataChange')
         localStorage.removeItem('dataChange');
         if (dataChangeVar == 'tabDetailChange') {
@@ -548,7 +514,7 @@
                     notice: {},
                     memberList: {},
                     self: {},
-					type:false,
+                    type: false,
                 },
                 nowTime: new Date().getTime(),
                 isMinister: "",
@@ -627,9 +593,9 @@
             }
         },
         computed: {
-            timestamp2HMS: function () {
-                return function (timestamp, type) {
-					if(isNaN(timestamp))return '';
+            timestamp2HMS: function() {
+                return function(timestamp, type) {
+                    if (isNaN(timestamp)) return '';
                     //timestamp 是秒
                     var h = parseInt(timestamp / 3600)
                     var m = parseInt((timestamp - h * 3600) / 60)
@@ -675,17 +641,17 @@
         methods: {
             refreshDetailData() {
                 if (this.activeTab == 0) {
-                    this.today.page=1;
+                    this.today.page = 1;
                     this.getTodaySport()
-                    //this.getPastSportData()
+                        //this.getPastSportData()
 
                 } else if (this.activeTab == 1) {
                     //任务
                     this.taskObject.join.page = 1
                     this.taskObject.unJoin.page = 1
                     this.getTask()
-					if(this.clubObject.type!='05')this.getnotJoinTask()
-                    // this.getnotJoinTask()
+                    if (this.clubObject.type != '05') this.getnotJoinTask()
+                        // this.getnotJoinTask()
                 } else if (this.activeTab == 2) {
                     //线上赛
                     this.competitionObject.join.page = 1
@@ -708,7 +674,7 @@
                     data: {
                         actionType: "0503"
                     },
-                    success: function (res) {
+                    success: function(res) {
 
                     }
                 })
@@ -722,7 +688,7 @@
                     data: {
                         clubId: that.clubId,
                     },
-                    success: function (res) {
+                    success: function(res) {
                         if (res.code == 0) {
                             that.clubObject = res.data
                             that.sendDataToShare()
@@ -852,12 +818,11 @@
                         pageSize: that.today.pageSize,
                         date: timestampTodate(new Date(), '-'),
                     },
-                    success: function (res) {
+                    success: function(res) {
                         that.today.loading = false;
                         if (res.code == 0) {
                             if (currentPage == 0) {
-                                that.today.list = res.data.sportList || res.data.clubGroupVoList ||
-                                    []
+                                that.today.list = res.data.sportList || res.data.clubGroupVoList || []
                             } else {
                                 if (that.clubObject.type == "05") return
                                 that.today.list = that.today.list.concat(res.data.sportList || res
@@ -897,7 +862,7 @@
                         pageSize: historyObject.pageSize,
                         date: historyObject.date,
                     },
-                    success: function (res) {
+                    success: function(res) {
                         historyObject.loading = false;
                         if (res.code == 0) {
                             if (currentPage == 0) {
@@ -929,7 +894,7 @@
                     data: {
                         clubId: getQueryString('id'),
                     },
-                    success: function (res) {
+                    success: function(res) {
                         if (res.code == 0) {
                             that.pastSportData = res.data
                             that.pastSportData.forEach(obj => { //对tabs数据预处理
@@ -991,8 +956,8 @@
                     this.taskObject.join.page = 1
                     this.taskObject.unJoin.page = 1
                     this.getTask()
-					if(this.clubObject.type!='05')this.getnotJoinTask()
-                    // this.getnotJoinTask()
+                    if (this.clubObject.type != '05') this.getnotJoinTask()
+                        // this.getnotJoinTask()
                 } else if (tabName == 2) {
                     //线上赛
                     this.competitionObject.join.page = 1
@@ -1020,7 +985,7 @@
                         memberId: JSON.parse(localStorage.getItem("appInfo")).userId,
                         clubId: getQueryString('id'),
                     },
-                    success: function (res) {
+                    success: function(res) {
                         that.taskObject.join.loading = false;
                         if (res.code == 0) {
                             if (currentPage == 1) {
@@ -1052,7 +1017,7 @@
                         memberId: JSON.parse(localStorage.getItem("appInfo")).userId,
                         clubId: getQueryString('id'),
                     },
-                    success: function (res) {
+                    success: function(res) {
                         that.taskObject.unJoin.loading = false;
                         if (res.code == 0) {
                             if (currentPage == 1) {
@@ -1083,7 +1048,7 @@
                         memberId: JSON.parse(localStorage.getItem("appInfo")).userId,
                         clubId: getQueryString('id'),
                     },
-                    success: function (res) {
+                    success: function(res) {
                         that.competitionObject.join.loading = false;
                         if (res.code == 0) {
                             if (currentPage == 1) {
@@ -1115,7 +1080,7 @@
                         memberId: JSON.parse(localStorage.getItem("appInfo")).userId,
                         clubId: getQueryString('id'),
                     },
-                    success: function (res) {
+                    success: function(res) {
                         that.competitionObject.unJoin.loading = false;
                         if (res.code == 0) {
                             if (currentPage == 1) {
@@ -1131,9 +1096,9 @@
                                 that.competitionObject.unJoin.finished = true;
                             }
                             that.competitionObject.unJoin.page++
-                        }else{
-							that.competitionObject.unJoin.list = [];
-						}
+                        } else {
+                            that.competitionObject.unJoin.list = [];
+                        }
                     }
                 })
             },
@@ -1150,7 +1115,7 @@
                         memberId: JSON.parse(localStorage.getItem("appInfo")).userId,
                         clubId: getQueryString('id'),
                     },
-                    success: function (res) {
+                    success: function(res) {
                         that.activityObject.join.loading = false;
                         if (res.code == 0) {
                             if (currentPage == 1) {
@@ -1182,7 +1147,7 @@
                         memberId: JSON.parse(localStorage.getItem("appInfo")).userId,
                         clubId: getQueryString('id'),
                     },
-                    success: function (res) {
+                    success: function(res) {
                         that.activityObject.unJoin.loading = false;
                         if (res.code == 0) {
                             if (currentPage == 1) {
@@ -1294,21 +1259,6 @@
             },
             //加入俱乐部
             joinClubReq(isApply) {
-
-                var appInfo = JSON.parse(localStorage.getItem("appInfo"));
-                var version = appInfo.appVersion;
-                version = version.split(".");
-                if (isIOS) {
-                    if (parseInt(version[version.length - 1]) < 1167) {
-                        this.$toast("请先升级到最新版本后再加入企业俱乐部");
-                        return
-                    }
-                } else if (isAndroid) {
-                    if (parseInt(version[version.length - 1]) < 1143) {
-                        this.$toast("请先升级到最新版本后再加入企业俱乐部");
-                        return
-                    }
-                }
                 var that = this
                 if (this.isClicked) return
                 this.isClicked = true;
@@ -1324,7 +1274,7 @@
                     type: "post",
                     url: "club/joinClub",
                     data: params,
-                    success: function (res) {
+                    success: function(res) {
                         that.isClicked = false
                         if (parseInt(res.code) == 0) {
                             if (isApply == 1) {

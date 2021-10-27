@@ -1,117 +1,115 @@
 <!DOCTYPE html>
 <html lang="zh-cmn-Hans">
 
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport"
-			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
-		<title>逗币任务</title>
-		<!-- 引入样式文件 -->
-		<link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
-		<link rel="stylesheet" href="../common/css/basic.css">
-		<link rel="stylesheet" href="css/pointsLottery.css">
-		<link rel="stylesheet" href="css/font/iconfont.css">
-		<style type="text/css">
-			body {
-				font-family: 'PingFangSC-Medium';
-			}
-
-			.task_unfinish,
-			.task_finish {
-				background: linear-gradient(to right, #ff4e3e, #ffaa88);
-				border-radius: .26rem;
-				height: .52rem;
-				line-height: .52rem;
-				font-size: .24rem;
-				color: #fff;
-				padding: .01rem .15rem;
-				text-align: center;
-				min-width: 1.2rem;
-			}
-
-			.task_finish {
-				border: 1px solid rgba(113, 113, 127, 1);
-				background: #12121f;
-				color: #71717f;
-			}
-
-			#app>.header,
-			.van-nav-bar,
-			.monkey-pull-refresh,
-			.DBnotice,
-			.van-tabs__nav,
-			.van-cell-group,
-			.van-cell,
-			#pricechange,
-			.van-action-sheet__gap {
-				background-color: #12121F;
-			}
-
-			.van-tab {
-				color: #71717f;
-			}
-
-			.van-nav-bar .van-icon,
-			.van-nav-bar__title,
-			.van-list__error-text,
-			.van-list__finished-text,
-			.van-list__loading,
-			.van-tab--active,
-			.van-checkbox__label,
-			.van-action-sheet {
-				color: #CFCFD2;
-			}
-
-			[class*=van-hairline]::after {
-				border: none;
-			}
-
-			.van-tab--active {
-				font-size: .36rem;
-				position: relative;
-			}
-
-			.van-tabs__line {
-				display: none;
-			}
-
-			.van-tab--active::after {
-				content: '';
-				position: absolute;
-				left: 50%;
-				bottom: 0;
-				transform: translate(-50%, -50%);
-				width: 0.4rem;
-				height: 0.14rem;
-				background-position: 100% 100%;
-				background: url(./img/tabselect.png) no-repeat;
-				background-size: 100%;
-
-			}
-
-			.van-tabs--line .van-tabs__wrap {
-				border-bottom-color: #1E1E2A;
-			}
-		</style>
-		<!-- <script src="https://cdn.bootcss.com/vConsole/3.3.4/vconsole.min.js"></script>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+    <title>逗币任务</title>
+    <!-- 引入样式文件 -->
+    <link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
+    <link rel="stylesheet" href="../common/css/basic.css">
+    <link rel="stylesheet" href="css/pointsLottery.css">
+    <link rel="stylesheet" href="css/font/iconfont.css">
+    <style type="text/css">
+        body {
+            font-family: 'PingFangSC-Medium';
+        }
+        
+        .task_unfinish,
+        .task_finish {
+            background: linear-gradient(to right, #ff4e3e, #ffaa88);
+            border-radius: .26rem;
+            height: .52rem;
+            line-height: .52rem;
+            font-size: .24rem;
+            color: #fff;
+            padding: .01rem .15rem;
+            text-align: center;
+            min-width: 1.2rem;
+        }
+        
+        .task_finish {
+            border: 1px solid rgba(113, 113, 127, 1);
+            background: #12121f;
+            color: #71717f;
+        }
+        
+        #app>.header,
+        .van-nav-bar,
+        .monkey-pull-refresh,
+        .DBnotice,
+        .van-tabs__nav,
+        .van-cell-group,
+        .van-cell,
+        #pricechange,
+        .van-action-sheet__gap {
+            background-color: #12121F;
+        }
+        
+        .van-tab {
+            color: #71717f;
+        }
+        
+        .van-nav-bar .van-icon,
+        .van-nav-bar__title,
+        .van-list__error-text,
+        .van-list__finished-text,
+        .van-list__loading,
+        .van-tab--active,
+        .van-checkbox__label,
+        .van-action-sheet {
+            color: #CFCFD2;
+        }
+        
+        [class*=van-hairline]::after {
+            border: none;
+        }
+        
+        .van-tab--active {
+            font-size: .36rem;
+            position: relative;
+        }
+        
+        .van-tabs__line {
+            display: none;
+        }
+        
+        .van-tab--active::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translate(-50%, -50%);
+            width: 0.4rem;
+            height: 0.14rem;
+            background-position: 100% 100%;
+            background: url(./img/tabselect.png) no-repeat;
+            background-size: 100%;
+        }
+        
+        .van-tabs--line .van-tabs__wrap {
+            border-bottom-color: #1E1E2A;
+        }
+    </style>
+    <!-- <script src="https://cdn.bootcss.com/vConsole/3.3.4/vconsole.min.js"></script>
 		<script>
 			// init vConsole
 			var vConsole = new VConsole();
 			console.log('Hello world');
 		</script> -->
-	</head>
+</head>
 
-	<body>
-		<div id="app" v-cloak>
-			<div class="header">
-				<van-nav-bar title="逗币任务" @click-left="OnclickLeft" left-arrow>
-					<template #left>
+<body>
+    <div id="app" v-cloak>
+        <div class="header">
+            <van-nav-bar title="逗币任务" @click-left="OnclickLeft" left-arrow>
+                <template #left>
 						<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
 					</template>
-				</van-nav-bar>
-			</div>
-			<van-tabs v-model="menuactive" sticky swipeable @change="changeTab">
-				<template v-for="(bitem,index) in dataList">
+            </van-nav-bar>
+        </div>
+        <van-tabs v-model="menuactive" sticky swipeable @change="changeTab">
+            <template v-for="(bitem,index) in dataList">
 					<van-tab :title="bitem.timeSetting+'点'">
 						<van-pull-refresh v-model="isLoading" :head-height="90" @refresh="initIndexData"
 							class="monkey-pull-refresh" style="min-height: 100vh;">
@@ -121,26 +119,25 @@
 									<p>下拉刷新</p>
 								</div>
 							</template>
-							<!-- 释放提示 -->
-							<template #loosing>
+            <!-- 释放提示 -->
+            <template #loosing>
 								<div class="monkeyBox">
 									<img class="monkey" src="../common/img/monkey.gif" />
 									<p>释放刷新</p>
 								</div>
 							</template>
 
-							<!-- 加载提示 -->
-							<template #loading>
+            <!-- 加载提示 -->
+            <template #loading>
 								<div class="monkeyBox">
 									<img class="monkey" src="../common/img/monkey.gif" />
 									<p>正在刷新</p>
 								</div>
 							</template>
-							<van-list v-model="loading" :finished="finished" @load="onLoad" :loading-text="txt">
-								<ul class="list_ul">
-									<template v-for="(item,index) in bitem.taskAndActions">
-										<li class="ub ub-pj ub-ac"
-											v-if="item.modelType!='50'||(accept&&item.modelType=='50')">
+            <van-list v-model="loading" :finished="finished" @load="onLoad" :loading-text="txt">
+                <ul class="list_ul">
+                    <template v-for="(item,index) in bitem.taskAndActions">
+										<li class="ub ub-pj ub-ac">
 											<div style="width: 90%;">
 												<div v-if="item.modelType!='07'" class="title">
 													{{item.modeName}}
@@ -160,272 +157,247 @@
 											</div>
 										</li>
 									</template>
-								</ul>
-							</van-list>
-						</van-pull-refresh>
-					</van-tab>
-				</template>
-			</van-tabs>
-		</div>
-	</body>
-	<script src="https://oss.laisitech.com/0bb12bf1-cb87-4d2c-a724-8a7c25b7ae04.js "></script>
-	<script src="https://oss.laisitech.com/6172e6c1-f460-40ac-97ba-31c8526f2e16.js"></script>
-	<script src="../common/js/network.js"></script>
-	<script src="js/tool.js"></script>
-	<script>
-		// window.addEventListener('pageshow', function(event) {
-		// 	console.log("PageShow Event  " + event.persisted);
-		// 	console.log(event)
-		// 	if (localStorage.getItem('videoflag')) {
-		// 		window.reflashFuc();
-		// 		localStorage.removeItem('videoflag');
-		// 	}
-		// })
-		new Vue({
-			el: '#app',
-			data() {
-				return {
-					isLoading: false,
-					loading: false,
-					finished: false,
-					dataList: [],
-					pageNum: 0,
-					txt: ' ',
-					accept: true,
-					menuactive: 0,
-					nowIndex:null,
-				}
-			},
-			filters: {},
-			mounted() {
-				window.initPageData = this.initPageData;
-				window.reflashFuc = this.initData;
-			},
-			created() {
-				var that = this;
-				getVersion()
+                </ul>
+            </van-list>
+            </van-pull-refresh>
+            </van-tab>
+            </template>
+        </van-tabs>
+    </div>
+</body>
+<script src="https://oss.laisitech.com/0bb12bf1-cb87-4d2c-a724-8a7c25b7ae04.js "></script>
+<script src="https://oss.laisitech.com/6172e6c1-f460-40ac-97ba-31c8526f2e16.js"></script>
+<script src="../common/js/network.js"></script>
+<script src="js/tool.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                isLoading: false,
+                loading: false,
+                finished: false,
+                dataList: [],
+                pageNum: 0,
+                txt: ' ',
+                menuactive: 0,
+                nowIndex: null,
+            }
+        },
+        filters: {},
+        mounted() {
+            window.initPageData = this.initPageData;
+            window.reflashFuc = this.initData;
+        },
+        created() {
 
-				function getVersion() {
-					if (localStorage.getItem("appInfo")) {
-						var appInfo = JSON.parse(localStorage.getItem("appInfo"));
-						var version = appInfo.appVersion;
-						version = version.split(".");
-						// version[version.length-1] = 1145
-						if (isIOS) {
-							if (parseInt(version[version.length - 1]) == 1207) {
-								that.accept = false
-							} else {
-								that.accept = true
-							}
-						} else {
-							that.accept = true
-						}
-					} else {
-						Interaction.getAppInfoAndUserInfo()
-						setTimeout(() => {
-							getVersion()
-						}, 300)
-					}
-				}
-				this.initData();
-			},
-			methods: {
-				initData() {
-					var _self = this;
-					ajax({
-						type: "get",
-						url: "integral/task/list",
-						data: {},
-						success: function(res) {
-							_self.loading = false;
-							if (res.code == 0) {
-								_self.dataList = res.data;
-								_self.finished = true;
-								_self.isLoading = false;
-								Interaction.VIDEO_flag = false;
-								let nowHour = new Date().getHours();
-								res.data.forEach((d,index)=>{
-									let arr = d.timeSetting.split('-');
-									if(nowHour>=parseInt(arr[0])&&nowHour<parseInt(arr[1])){
-										_self.menuactive = index;
-										_self.nowIndex = index;
-									}
-								})
-							} else {
-								_self.$toast(res.msg);
-							}
-						},
-						error: function() {
-							_self.loading = false;
-							console.log("error")
-						}
-					})
-				},
-				initIndexData() {
-					// 清空列表数据
-					this.finished = false;
-					// 重新加载数据
-					// 将 loading 设置为 true，表示处于加载状态
-					this.loading = true;
-					this.isLoading = true;
-					this.initData();
-					this.loading = false;
-				},
-				initPageData(param) {
-					var _self = this;
-					if (isAndroid) {
-						this.initData();
-						// console.log(param || 'null');
-						// ajax({
-						// 	type: "post",
-						// 	url: "integral/add/integral",
-						// 	data: {
-						// 		actionType: "5001"
-						// 	},
-						// 	success: function(res) {
-						// 		_self.initData();
-						// 	},
-						// 	error: function() {
+            this.initData();
+            if (isAndroid) {
+                window.android.LSTH5APP_GetRandomDevicesType()
+            }
+        },
+        methods: {
+            initData() {
+                var _self = this;
+                ajax({
+                    type: "get",
+                    url: "integral/task/list",
+                    data: {},
+                    success: function(res) {
+                        _self.loading = false;
+                        if (res.code == 0) {
+                            _self.dataList = res.data;
+                            _self.finished = true;
+                            _self.isLoading = false;
+                            Interaction.VIDEO_flag = false;
+                            let nowHour = new Date().getHours();
+                            res.data.forEach((d, index) => {
+                                let arr = d.timeSetting.split('-');
+                                if (nowHour >= parseInt(arr[0]) && nowHour < parseInt(arr[1])) {
+                                    _self.menuactive = index;
+                                    _self.nowIndex = index;
+                                }
+                            })
+                        } else {
+                            _self.$toast(res.msg);
+                        }
+                    },
+                    error: function() {
+                        _self.loading = false;
+                        console.log("error")
+                    }
+                })
+            },
+            initIndexData() {
+                // 清空列表数据
+                this.finished = false;
+                // 重新加载数据
+                // 将 loading 设置为 true，表示处于加载状态
+                this.loading = true;
+                this.isLoading = true;
+                this.initData();
+                this.loading = false;
+            },
+            initPageData(param) {
+                var _self = this;
+                if (isAndroid) {
+                    this.initData();
+                    // console.log(param || 'null');
+                    // ajax({
+                    // 	type: "post",
+                    // 	url: "integral/add/integral",
+                    // 	data: {
+                    // 		actionType: "5001"
+                    // 	},
+                    // 	success: function(res) {
+                    // 		_self.initData();
+                    // 	},
+                    // 	error: function() {
 
-						// 	}
-						// })
-					} else {
-						this.initData();
-					}
-				},
-				changeTab() {
+                    // 	}
+                    // })
+                } else {
+                    this.initData();
+                }
+            },
+            changeTab() {
 
-				},
-				onLoad() {
-					// if (this.isLoading) {
-					// 	this.dataList = [];
-					// 	this.isLoading = false;
-					// 	this.pageNum = 1;
-					// } else {
-					// 	this.pageNum++;
-					// }
-					// //this.getCommentList()
-					// this.loading = false;
-				},
-				OnclickLeft() {
-					history.go(-1);
-				},
-				modifyRoute(type, num) {
-					if(this.nowIndex<this.menuactive){
-						this.$toast('未到任务时间点哦');
-						return;
-					}
-					// if(this.nowIndex>this.menuactive){
-					// 	this.$toast('该任务已失效');
-					// 	return;
-					// }
-					// {
-					//     method = "LSH5APP_Push_Action"   //原生与js交互：跳转类型
-					//     actionType = "跳转类型"  类型： 
-					//      "LSH5APP_BrowseCommunity"//去社区浏览，
-					//     "LSH5APP_BrowseCourse"//去课程浏览，
-					//     "LSH5APP_BrowsePKGame"//去赛事浏览，
-					//     "LSH5APP_BrowseClub"//去俱乐部浏览，
-					//     "LSH5APP_BrowseShopMall"//去商城浏览，
-					//     "LSH5APP_BrowseChallenge"//去挑战页面浏览，
-					//     "LSH5APP_BrowseRankList"//去排行榜页面浏览
-					//      "LSTH5APP_GoMyDeviceVC"//我的设备
-					// }
-					var actionType = "",
-						actionNum = num;
-					var _self = this;
-					switch (type) {
-						case "02":
-							// _self.Community();
-							actionType = "LSH5APP_BrowseCommunity";
-							break;
-						case "03":
-							actionType = "LSH5APP_BrowseCourse";
-							if(actionNum=='0304')actionType = "LSTH5APP_JoinIntelligentTrainingPlan";
-							break;
-						case "04":
-							actionType = "LSH5APP_BrowsePKGame";
-							break;
-						case "05":
-							actionType = "LSH5APP_BrowseClub";
-							break;
-						case "06":
-							actionType = "LSH5APP_BrowseShopMall";
-							break;
-						case "07":
-							actionType = "LSH5APP_BrowseChallenge";
-							break;
-						case "08":
-							actionType = "LSH5APP_BrowseRankList";
-							break;
-						case "09":
-							actionType = "LSTH5APP_GoMyDeviceVC";
-							break;
-						case "09":
-							actionType = "LSTH5APP_GoMyDeviceVC";
-							break;
-						case "11":
-							if(actionNum=='1100')actionType = "LSTH5APP_SportsCalendarSignIn";
-							if(actionNum=='1101')actionType = "LSTH5APP_SportsCalendarShareAction";
-							break;
-						case "13":
-							actionType = "LSTH5APP_BestSharingOfCareer";
-							break;
-						case "14":
-							actionType = "LSTH5APP_WeekReportMonthlyReportShare";
-							break;
-						default:
-							actionType = false;
-							break;
-					}
-					console.log(actionNum)
-					if (!actionType) return;
-					try {
-						//LSTH5APP_BrowseVideoAction
-						if (isIOS) {
-							localStorage.setItem('coinchange', 1);
-							window.webkit.messageHandlers.lstNative.postMessage({
-								"method": "LSH5APP_Push_Action",
-								"actionType": actionType,
-								"actionNum": actionNum
-							});
+            },
+            onLoad() {
+                // if (this.isLoading) {
+                // 	this.dataList = [];
+                // 	this.isLoading = false;
+                // 	this.pageNum = 1;
+                // } else {
+                // 	this.pageNum++;
+                // }
+                // //this.getCommentList()
+                // this.loading = false;
+            },
+            OnclickLeft() {
+                history.go(-1);
+            },
+            modifyRoute(type, num) {
+                var isEffective = 1 //1有效可打卡 0无效不可打卡
+                if (this.nowIndex < this.menuactive) {
+                    this.$toast('未到任务时间点哦');
+                    isEffective = 0
+                    return;
+                }
+                if (this.nowIndex > this.menuactive) {
+                    //this.$toast('该任务已失效');
+                    //return;
+                    isEffective = 0
+                }
+                // {
+                //     method = "LSH5APP_Push_Action"   //原生与js交互：跳转类型
+                //     actionType = "跳转类型"  类型： 
+                //      "LSH5APP_BrowseCommunity"//去社区浏览，
+                //     "LSH5APP_BrowseCourse"//去课程浏览，
+                //     "LSH5APP_BrowsePKGame"//去赛事浏览，
+                //     "LSH5APP_BrowseClub"//去俱乐部浏览，
+                //     "LSH5APP_BrowseShopMall"//去商城浏览，
+                //     "LSH5APP_BrowseChallenge"//去挑战页面浏览，
+                //     "LSH5APP_BrowseRankList"//去排行榜页面浏览
+                //      "LSTH5APP_GoMyDeviceVC"//我的设备
+                // }
+                var actionType = "",
+                    actionNum = num;
+                var _self = this;
+                switch (type) {
+                    case "02":
+                        // _self.Community();
+                        actionType = "LSH5APP_BrowseCommunity";
+                        break;
+                    case "03":
+                        actionType = "LSH5APP_BrowseCourse";
+                        if (actionNum == '0304') actionType = "LSTH5APP_JoinIntelligentTrainingPlan";
+                        break;
+                    case "04":
+                        actionType = "LSH5APP_BrowsePKGame";
+                        break;
+                    case "05":
+                        actionType = "LSH5APP_BrowseClub";
+                        break;
+                    case "06":
+                        actionType = "LSH5APP_BrowseShopMall";
+                        break;
+                    case "07":
+                        actionType = "LSH5APP_BrowseChallenge";
+                        break;
+                    case "08":
+                        actionType = "LSH5APP_BrowseRankList";
+                        break;
+                    case "09":
+                        actionType = "LSTH5APP_GoMyDeviceVC";
+                        break;
+                    case "09":
+                        actionType = "LSTH5APP_GoMyDeviceVC";
+                        break;
+                    case "11":
+                        if (actionNum == '1100') actionType = "LSTH5APP_SportsCalendarSignIn";
+                        if (actionNum == '1101') actionType = "LSTH5APP_SportsCalendarShareAction";
+                        break;
+                    case "13":
+                        actionType = "LSTH5APP_BestSharingOfCareer";
+                        break;
+                    case "14":
+                        actionType = "LSTH5APP_WeekReportMonthlyReportShare";
+                        break;
+                    default:
+                        actionType = false;
+                        break;
+                }
+                console.log(actionNum)
+                if (!actionType) return;
+                try {
+                    //LSTH5APP_BrowseVideoAction
+                    if (isIOS) {
+                        localStorage.setItem('coinchange', 1);
+                        window.webkit.messageHandlers.lstNative.postMessage({
+                            "method": "LSH5APP_Push_Action",
+                            "actionType": actionType,
+                            "actionNum": actionNum,
+                            isEffective: isEffective
+                        });
 
-						} else if (isAndroid) {
-							window.android.LSH5APP_Push_Action(JSON.stringify({
-								actionType: actionType,
-								actionNum: actionNum
-							}))
-						}
-						// if(actionType == 'LSTH5APP_BrowseVideoAction'){
-						// 	setTimeout(function(){
-						// 		_self.initData();
-						// 	},32000);
-						// }
-					} catch (e) {
-						console.log(e)
-					}
+                    } else if (isAndroid) {
+                        window.android.LSH5APP_Push_Action(JSON.stringify({
+                            actionType: actionType,
+                            actionNum: actionNum,
+                            isEffective: isEffective
+                        }))
+                    }
+                    // if(actionType == 'LSTH5APP_BrowseVideoAction'){
+                    // 	setTimeout(function(){
+                    // 		_self.initData();
+                    // 	},32000);
+                    // }
+                } catch (e) {
+                    console.log(e)
+                }
 
-				},
-				Community() {
-					ajax({
-						type: "post",
-						url: "integral/add/integral",
-						data: {
-							actionType: "0200"
-						},
-						success: function(res) {
+            },
+            Community() {
+                ajax({
+                    type: "post",
+                    url: "integral/add/integral",
+                    data: {
+                        actionType: "0200"
+                    },
+                    success: function(res) {
 
-						},
-						error: function() {
+                    },
+                    error: function() {
 
-						}
-					})
-				}
+                    }
+                })
+            }
 
 
 
-			}
-		})
-	</script>
+        }
+    })
+</script>
 
 </html>

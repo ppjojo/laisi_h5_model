@@ -2,492 +2,489 @@
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
-	<title>数据详情</title>
-	<link href="css/index.css" rel="stylesheet" type="text/css" />
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+    <title>数据详情</title>
+    <link href="css/index.css" rel="stylesheet" type="text/css" />
 </head>
 
 
 <body>
-	<div id="app" v-cloak>
-		<div class="topContain">
-			<div class="scoreBox">
-				<div class="scoreDiv" @click="gotoDetail('score')">{{bodyData.score||'--'}}</div>
-				<div class="scoreInfo">身体得分</div>
-				<div class="scoreTime">{{bodyData.createTime.replace(/-/g, "/")}}</div>
-			</div>
-		</div>
-		<div class="contain">
-			<div class="basicContain">
-				<div class="basicBox">
-					<div class="infoBox">
-						<div class="text">
-							<div class="imgBox"></div>
-							{{bodyData.bodyEvaluation}}
+    <div id="app" v-cloak>
+        <div class="topContain">
+            <div class="scoreBox">
+                <div class="scoreDiv" @click="gotoDetail('score')">{{bodyData.score||'--'}}</div>
+                <div class="scoreInfo">身体得分</div>
+                <div class="scoreTime">{{bodyData.createTime.replace(/-/g, "/")}}</div>
+            </div>
+        </div>
+        <div class="contain">
+            <div class="basicContain">
+                <div class="basicBox">
+                    <div class="infoBox">
+                        <div class="text">
+                            <div class="imgBox"></div>
+                            {{bodyData.bodyEvaluation}}
 
-						</div>
-						<div class="people">
-							<img src="./img/mainPeople.png" alt="">
-						</div>
-					</div>
-					<div class="detailBox">
-						<div class="detailDiv" @click="gotoDetail('weight')">
-							<div class="num">{{bodyData.weight||'--'}}</div>
-							<div class="numInfo">体重(kg)</div>
-							<div class="numStatus " :class="textFormart(bodyData.weightType,1)">
-								{{bodyData.weightType=="偏瘦"?"偏轻":bodyData.weightType}}
-							</div>
-						</div>
-						<div class="detailDiv" @click="gotoDetail('bmi')">
-							<div class="num">{{bodyData.bmi||'--'}}</div>
-							<div class="numInfo">BMI</div>
-							<div class="numStatus" :class="textFormart(bodyData.bmiType,1)">{{bodyData.bmiType}}</div>
-						</div>
-						<div class="detailDiv" @click="gotoDetail('bodyfat')">
-							<div class="num">{{bodyData.bodyFat.replace("%","")||'--'}}</div>
-							<div class="numInfo">体脂(%)</div>
-							<div class="numStatus " :class="textFormart(bodyData.bodyFatType,1)">
-								{{bodyData.bodyFatType}}</div>
-						</div>
-					</div>
-				</div>
-			</div>
+                        </div>
+                        <div class="people">
+                            <img src="./img/mainPeople.png" alt="">
+                        </div>
+                    </div>
+                    <div class="detailBox">
+                        <div class="detailDiv" @click="gotoDetail('weight')">
+                            <div class="num">{{bodyData.weight||'--'}}</div>
+                            <div class="numInfo">体重(kg)</div>
+                            <div class="numStatus " :class="textFormart(bodyData.weightType,1)">
+                                {{bodyData.weightType=="偏瘦"?"偏轻":bodyData.weightType}}
+                            </div>
+                        </div>
+                        <div class="detailDiv" @click="gotoDetail('bmi')">
+                            <div class="num">{{bodyData.bmi||'--'}}</div>
+                            <div class="numInfo">BMI</div>
+                            <div class="numStatus" :class="textFormart(bodyData.bmiType,1)">{{bodyData.bmiType}}</div>
+                        </div>
+                        <div class="detailDiv" @click="gotoDetail('bodyfat')">
+                            <div class="num">{{bodyData.bodyFat.replace("%","")||'--'}}</div>
+                            <div class="numInfo">体脂(%)</div>
+                            <div class="numStatus " :class="textFormart(bodyData.bodyFatType,1)">
+                                {{bodyData.bodyFatType}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-			<div class="listContain" v-if="!isShare">
-				<div class="itemBox" @click="gotoDetail('bodyage')">
-					<div class="itemName">
-						身体年龄
-					</div>
-					<div class="itemStatus" :class="textFormart(bodyData.bodyAgeType,2)">
-						{{bodyData.bodyAgeType}}
-					</div>
-					<div class="itemNum">
-						{{bodyData.bodyAge}}
-						<img src="./img/icon_more.png" alt="">
-					</div>
-				</div>
-				<div class="itemBox" @click="gotoDetail('sharp')">
-					<div class="itemName">
-						体型
-					</div>
-					<div class="itemStatus" :class="textFormart(bodyData.sharp,2)">
-						{{bodyData.sharp}}
-					</div>
-					<div class="itemNum">
-						<img class="bodyimg" :src="textFormart(bodyData.sharp,3)" />
-						<img src="./img/icon_more.png" alt="">
-					</div>
-				</div>
-				<div class="itemBox" @click="gotoDetail('muscle')">
-					<div class="itemName">
-						肌肉
-					</div>
-					<div class="itemStatus" :class="textFormart(bodyData.muscleType,2)">
-						{{bodyData.muscleType}}
-					</div>
-					<div class="itemNum">
-						{{bodyData.muscle}}
-						<img src="./img/icon_more.png" alt="">
-					</div>
-				</div>
-				<div class="itemBox" @click="gotoDetail('bone')">
-					<div class="itemName">
-						骨量(kg)
-					</div>
-					<div class="itemStatus" :class="textFormart(bodyData.mswType,2)">
-						{{bodyData.mswType}}
-					</div>
-					<div class="itemNum">
-						{{bodyData.msw}}
-						<img src="./img/icon_more.png" alt="">
-					</div>
-				</div>
-				<div class="itemBox" @click="gotoDetail('water')">
-					<div class="itemName">
-						水分(%)
-					</div>
-					<div class="itemStatus" :class="textFormart(bodyData.tfrType,2)">
-						{{bodyData.tfrType}}
-					</div>
-					<div class="itemNum">
-						{{bodyData.tfr.replace(/%/, "")}}
-						<img src="./img/icon_more.png" alt="">
-					</div>
-				</div>
-				<div class="itemBox" @click="gotoDetail('viscera')">
-					<div class="itemName">
-						内脏脂肪等级
-					</div>
-					<div class="itemStatus" :class="textFormart(bodyData.visceralFatType,2)">
-						{{bodyData.visceralFatType}}
-					</div>
-					<div class="itemNum">
-						{{bodyData.visceralFat}}
-						<img src="./img/icon_more.png" alt="">
-					</div>
-				</div>
-				<div class="itemBox" @click="gotoDetail('kcal')">
-					<div class="itemName">
-						基础代谢(kcal)
-					</div>
-					<div class="itemStatus" :class="textFormart(bodyData.bmrType,2)">
-						{{bodyData.bmrType}}
-					</div>
-					<div class="itemNum">
-						{{bodyData.bmr}}
-						<img src="./img/icon_more.png" alt="">
-					</div>
-				</div>
-				<div class="itemBox" @click="gotoDetail('protein')">
-					<div class="itemName">
-						蛋白质(%)
-					</div>
-					<div class="itemStatus" :class="textFormart(bodyData.proteinType,2)">
-						{{bodyData.proteinType}}
-					</div>
-					<div class="itemNum">
-						{{bodyData.protein.replace(/%/, "")}}
-						<img src="./img/icon_more.png" alt="">
-					</div>
-				</div>
-				<div class="itemBox" v-if="deviceType == 'blebalance'" @click="gotoDetail('bodyod')">
-					<div class="itemName">
-						肥胖度(%)
-					</div>
-					<div class="itemStatus" :class="textFormart(bodyData.odType,2)">
-						{{bodyData.odType}}
-					</div>
-					<div class="itemNum">
-						{{bodyData.od}}
-						<img src="./img/icon_more.png" alt="">
-					</div>
-				</div>
-				<div class="itemBox" v-if="deviceType == 'blebalance'" @click="gotoDetail('bodysmm')">
-					<div class="itemName">
-						骨骼肌率(%)
-					</div>
-					<div class="itemStatus" :class="textFormart(bodyData.smmType,2)">
-						{{bodyData.smmType}}
-					</div>
-					<div class="itemNum">
-						{{bodyData.smm}}
-						<img src="./img/icon_more.png" alt="">
-					</div>
-				</div>
-				<div class="itemBox" v-if="deviceType == 'blebalance'" @click="gotoDetail('bodylbm')">
-					<div class="itemName">
-						去脂体重(kg)
-					</div>
-					<div class="itemStatus" :class="textFormart(bodyData.lbmType,2)">
-						{{bodyData.lbmType}}
-					</div>
-					<div class="itemNum">
-						{{bodyData.lbm}}
-						<img src="./img/icon_more.png" alt="">
-					</div>
-				</div>
+            <div class="listContain" v-if="!isShare">
+                <div class="itemBox" @click="gotoDetail('bodyage')">
+                    <div class="itemName">
+                        身体年龄
+                    </div>
+                    <div class="itemStatus" :class="textFormart(bodyData.bodyAgeType,2)">
+                        {{bodyData.bodyAgeType}}
+                    </div>
+                    <div class="itemNum">
+                        {{bodyData.bodyAge}}
+                        <img src="./img/icon_more.png" alt="">
+                    </div>
+                </div>
+                <div class="itemBox" @click="gotoDetail('sharp')">
+                    <div class="itemName">
+                        体型
+                    </div>
+                    <div class="itemStatus" :class="textFormart(bodyData.sharp,2)">
+                        {{bodyData.sharp}}
+                    </div>
+                    <div class="itemNum">
+                        <img class="bodyimg" :src="textFormart(bodyData.sharp,3)" />
+                        <img src="./img/icon_more.png" alt="">
+                    </div>
+                </div>
+                <div class="itemBox" @click="gotoDetail('muscle')">
+                    <div class="itemName">
+                        肌肉
+                    </div>
+                    <div class="itemStatus" :class="textFormart(bodyData.muscleType,2)">
+                        {{bodyData.muscleType}}
+                    </div>
+                    <div class="itemNum">
+                        {{bodyData.muscle}}
+                        <img src="./img/icon_more.png" alt="">
+                    </div>
+                </div>
+                <div class="itemBox" @click="gotoDetail('bone')">
+                    <div class="itemName">
+                        骨量(kg)
+                    </div>
+                    <div class="itemStatus" :class="textFormart(bodyData.mswType,2)">
+                        {{bodyData.mswType}}
+                    </div>
+                    <div class="itemNum">
+                        {{bodyData.msw}}
+                        <img src="./img/icon_more.png" alt="">
+                    </div>
+                </div>
+                <div class="itemBox" @click="gotoDetail('water')">
+                    <div class="itemName">
+                        水分(%)
+                    </div>
+                    <div class="itemStatus" :class="textFormart(bodyData.tfrType,2)">
+                        {{bodyData.tfrType}}
+                    </div>
+                    <div class="itemNum">
+                        {{bodyData.tfr.replace(/%/, "")}}
+                        <img src="./img/icon_more.png" alt="">
+                    </div>
+                </div>
+                <div class="itemBox" @click="gotoDetail('viscera')">
+                    <div class="itemName">
+                        内脏脂肪等级
+                    </div>
+                    <div class="itemStatus" :class="textFormart(bodyData.visceralFatType,2)">
+                        {{bodyData.visceralFatType}}
+                    </div>
+                    <div class="itemNum">
+                        {{bodyData.visceralFat}}
+                        <img src="./img/icon_more.png" alt="">
+                    </div>
+                </div>
+                <div class="itemBox" @click="gotoDetail('kcal')">
+                    <div class="itemName">
+                        基础代谢(kcal)
+                    </div>
+                    <div class="itemStatus" :class="textFormart(bodyData.bmrType,2)">
+                        {{bodyData.bmrType}}
+                    </div>
+                    <div class="itemNum">
+                        {{bodyData.bmr}}
+                        <img src="./img/icon_more.png" alt="">
+                    </div>
+                </div>
+                <div class="itemBox" @click="gotoDetail('protein')">
+                    <div class="itemName">
+                        蛋白质(%)
+                    </div>
+                    <div class="itemStatus" :class="textFormart(bodyData.proteinType,2)">
+                        {{bodyData.proteinType}}
+                    </div>
+                    <div class="itemNum">
+                        {{bodyData.protein.replace(/%/, "")}}
+                        <img src="./img/icon_more.png" alt="">
+                    </div>
+                </div>
+                <div class="itemBox" v-if="deviceType == 'blebalance'" @click="gotoDetail('bodyod')">
+                    <div class="itemName">
+                        肥胖度(%)
+                    </div>
+                    <div class="itemStatus" :class="textFormart(bodyData.odType,2)">
+                        {{bodyData.odType}}
+                    </div>
+                    <div class="itemNum">
+                        {{bodyData.od}}
+                        <img src="./img/icon_more.png" alt="">
+                    </div>
+                </div>
+                <div class="itemBox" v-if="deviceType == 'blebalance'" @click="gotoDetail('bodysmm')">
+                    <div class="itemName">
+                        骨骼肌率(%)
+                    </div>
+                    <div class="itemStatus" :class="textFormart(bodyData.smmType,2)">
+                        {{bodyData.smmType}}
+                    </div>
+                    <div class="itemNum">
+                        {{bodyData.smm}}
+                        <img src="./img/icon_more.png" alt="">
+                    </div>
+                </div>
+                <div class="itemBox" v-if="deviceType == 'blebalance'" @click="gotoDetail('bodylbm')">
+                    <div class="itemName">
+                        去脂体重(kg)
+                    </div>
+                    <div class="itemStatus" :class="textFormart(bodyData.lbmType,2)">
+                        {{bodyData.lbmType}}
+                    </div>
+                    <div class="itemNum">
+                        {{bodyData.lbm}}
+                        <img src="./img/icon_more.png" alt="">
+                    </div>
+                </div>
 
 
-			</div>
+            </div>
 
-			<div class="shareBox" v-if="isShare">
-				<div class="item">
-					<div class="num">
-						{{bodyData.bodyAge||'-'}}-{{bodyData.bodyAgeType}}
-					</div>
-					<div class="info">
-						身体年龄
-					</div>
-				</div>
-				<div class="item">
-					<div class="num">
-						{{bodyData.sharp||'--'}}
-					</div>
-					<div class="info">
-						体型
-					</div>
-				</div>
-				<div class="item">
-					<div class="num">
-						{{bodyData.muscle||'-'}}-{{bodyData.muscleType}}
-					</div>
-					<div class="info">
-						肌肉
-					</div>
-				</div>
-				<div class="item">
-					<div class="num">
-						{{bodyData.msw||'-'}}-{{bodyData.mswType}}
-					</div>
-					<div class="info">
-						骨量(kg)
-					</div>
-				</div>
-				<div class="item">
-					<div class="num">
-						{{bodyData.tfr||'-'}}-{{bodyData.tfrType}}
-					</div>
-					<div class="info">
-						水分
-					</div>
-				</div>
-				<div class="item">
-					<div class="num">
-						{{bodyData.visceralFat||'-'}}-{{bodyData.visceralFatType}}
-					</div>
-					<div class="info">
-						内脏脂肪
-					</div>
-				</div>
-				<div class="item">
-					<div class="num">
-						{{bodyData.bmr||'-'}}-{{bodyData.bmrType}}
-					</div>
-					<div class="info">
-						基础代谢
-					</div>
-				</div>
-				<div class="item">
-					<div class="num">
-						{{bodyData.protein||'-'}}-{{bodyData.proteinType}}
-					</div>
-					<div class="info">
-						蛋白质
-					</div>
-				</div>
-				<div class="item">
-					<div class="num">
-						{{bodyData.score||'-'}}-{{bodyData.scoreType}}
-					</div>
-					<div class="info">
-						身体得分
-					</div>
-				</div>
+            <div class="shareBox" v-if="isShare">
+                <div class="item">
+                    <div class="num">
+                        {{bodyData.bodyAge||'-'}}-{{bodyData.bodyAgeType}}
+                    </div>
+                    <div class="info">
+                        身体年龄
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="num">
+                        {{bodyData.sharp||'--'}}
+                    </div>
+                    <div class="info">
+                        体型
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="num">
+                        {{bodyData.muscle||'-'}}-{{bodyData.muscleType}}
+                    </div>
+                    <div class="info">
+                        肌肉
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="num">
+                        {{bodyData.msw||'-'}}-{{bodyData.mswType}}
+                    </div>
+                    <div class="info">
+                        骨量(kg)
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="num">
+                        {{bodyData.tfr||'-'}}-{{bodyData.tfrType}}
+                    </div>
+                    <div class="info">
+                        水分
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="num">
+                        {{bodyData.visceralFat||'-'}}-{{bodyData.visceralFatType}}
+                    </div>
+                    <div class="info">
+                        内脏脂肪
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="num">
+                        {{bodyData.bmr||'-'}}-{{bodyData.bmrType}}
+                    </div>
+                    <div class="info">
+                        基础代谢
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="num">
+                        {{bodyData.protein||'-'}}-{{bodyData.proteinType}}
+                    </div>
+                    <div class="info">
+                        蛋白质
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="num">
+                        {{bodyData.score||'-'}}-{{bodyData.scoreType}}
+                    </div>
+                    <div class="info">
+                        身体得分
+                    </div>
+                </div>
 
-			</div>
-			<div class="bodyContain" v-if="deviceType != 'blebalance'&& bodyData.electrodeNumber==8">
-				<div class="title">
-					肢体数据
-				</div>
-				<div class="bodyBox">
-					<img class="bodyImg" src="./img/body.png" alt="">
-					<div class="mainBody">
-						<div class="partTitle">
-							躯干
-						</div>
-						<div class="zf">{{bodyData.bodyLegFatRate||"--"}}</div>
-						<div class="jr">{{bodyData.bodyLegFatMuscle||"--"}}</div>
-					</div>
-					<div class="leftHand">
-						<div class="partTitle">
-							左手
-						</div>
-						<div class="zf">{{bodyData.leftHandFatRate||"--"}}</div>
-						<div class="jr">{{bodyData.leftHandMuscle||"--"}}</div>
-					</div>
-					<div class="rightHand">
-						<div class="partTitle">
-							右手
-						</div>
-						<div class="zf">{{bodyData.rightHandFatRate||"--"}}</div>
-						<div class="jr">{{bodyData.rightHandMuscle||"--"}}</div>
-					</div>
-					<div class="leftfoot">
-						<div class="partTitle">
-							左脚
-						</div>
-						<div class="zf">{{bodyData.leftLegFatRate||"--"}}</div>
-						<div class="jr">{{bodyData.leftLegFatMuscle||"--"}}</div>
-					</div>
-					<div class="rightfoot">
-						<div class="partTitle">
-							右脚
-						</div>
-						<div class="zf">{{bodyData.rightLegFatRate||"--"}}</div>
-						<div class="jr">{{bodyData.rightLegFatMuscle||"--"}}</div>
-					</div>
-				</div>
-				<div class="pointInfo">
-					<div class="pointBox">
-						<span class="span1"></span>
-						肌肉量(kg)
-					</div>
-					<div class="pointBox">
-						<span class="span2"></span>
-						脂肪率
-					</div>
-				</div>
+            </div>
+            <div class="bodyContain" v-if="deviceType != 'blebalance'&& bodyData.electrodeNumber==8">
+                <div class="title">
+                    肢体数据
+                </div>
+                <div class="bodyBox">
+                    <img class="bodyImg" src="./img/body.png" alt="">
+                    <div class="mainBody">
+                        <div class="partTitle">
+                            躯干
+                        </div>
+                        <div class="zf">{{bodyData.bodyLegFatRate||"--"}}</div>
+                        <div class="jr">{{bodyData.bodyLegFatMuscle||"--"}}</div>
+                    </div>
+                    <div class="leftHand">
+                        <div class="partTitle">
+                            左手
+                        </div>
+                        <div class="zf">{{bodyData.leftHandFatRate||"--"}}</div>
+                        <div class="jr">{{bodyData.leftHandMuscle||"--"}}</div>
+                    </div>
+                    <div class="rightHand">
+                        <div class="partTitle">
+                            右手
+                        </div>
+                        <div class="zf">{{bodyData.rightHandFatRate||"--"}}</div>
+                        <div class="jr">{{bodyData.rightHandMuscle||"--"}}</div>
+                    </div>
+                    <div class="leftfoot">
+                        <div class="partTitle">
+                            左脚
+                        </div>
+                        <div class="zf">{{bodyData.leftLegFatRate||"--"}}</div>
+                        <div class="jr">{{bodyData.leftLegFatMuscle||"--"}}</div>
+                    </div>
+                    <div class="rightfoot">
+                        <div class="partTitle">
+                            右脚
+                        </div>
+                        <div class="zf">{{bodyData.rightLegFatRate||"--"}}</div>
+                        <div class="jr">{{bodyData.rightLegFatMuscle||"--"}}</div>
+                    </div>
+                </div>
+                <div class="pointInfo">
+                    <div class="pointBox">
+                        <span class="span1"></span> 肌肉量(kg)
+                    </div>
+                    <div class="pointBox">
+                        <span class="span2"></span> 脂肪率
+                    </div>
+                </div>
 
-			</div>
-			<div class="copyright" v-if="!isShare">
-				声明：所有数据仅供参考，不建议以此数据作为医疗或者健康状况的判断依据
-			</div>
-			<div v-if="isShare" class="iconBox">
-				<img class="img1" src="img/lsicon.png"  alt="">
-				<div class="userBox" v-if="isShare">
-					<div class="nameBox">
-						<p class="name">{{user.nickname}}</p>
-						<p class="date">{{shareTime}}</p>
-					</div>
-					<img class="img2" :src="user.headPictureUrl" alt="">
-				</div>
-			</div>
-		</div>
-	</div>
+            </div>
+            <div class="copyright" v-if="!isShare">
+                声明：所有数据仅供参考，不建议以此数据作为医疗或者健康状况的判断依据
+            </div>
+            <div v-if="isShare" class="iconBox">
+                <img class="img1" src="img/lsicon.png" alt="">
+                <div class="userBox" v-if="isShare">
+                    <div class="nameBox">
+                        <p class="name">{{user.nickname}}</p>
+                        <p class="date">{{decodeURIComponent(shareTime)}}</p>
+                    </div>
+                    <img class="img2" :src="user.headPictureUrl" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 <script src="../common/js/network.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
 <script>
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                memberId: getQueryString("memberId") || '', //成员id
+                measureId: getQueryString("measureId") || '', //数据id
+                deviceType: getQueryString("deviceType") || '', //设备类型 区分是不是非智能体脂秤
+                isShare: getQueryString("isShare"),
+                shareTime: getQueryString("shareTime") || '',
+                bodyData: {
+                    createTime: "",
+                    tfr: "",
+                    bodyFat: "",
+                    protein: "",
+                    electrodeNumber: ""
+                },
+                user: {},
+                sharpImg: "img/icon_normal.png"
+            };
+        },
+        created() {
+            // if (this.isShare) {
 
-	new Vue({
-		el: '#app',
-		data() {
-			return {
-				memberId: getQueryString("memberId")||'', //成员id
-				measureId: getQueryString("measureId")||'', //数据id
-				deviceType: getQueryString("deviceType")||'', //设备类型 区分是不是非智能体脂秤
-				isShare: getQueryString("isShare"),
-				shareTime:getQueryString("shareTime")||'',
-				bodyData: {
-					createTime:"",
-					tfr:"",
-					bodyFat:"",
-					protein:"",
-					electrodeNumber:""
-				},
-				user: {},
-				sharpImg: "img/icon_normal.png"
-			};
-		},
-		created() {
-			// if (this.isShare) {
-				
-			// }
-			this.initDataShare()
-			this.initData();
+            // }
+            this.initDataShare()
+            this.initData();
 
-		},
-		methods: {
-			textFormart(type, flag) {
-				if (type === "偏轻" || type === "偏瘦" || type === "偏低" || type === "良好" || type === "消瘦" || type ===
-					'消瘦型' || type === '偏瘦型') {
-					if (flag == 1) {
-						return "bg-blue";
-					} else if (flag == 3) {
-						return "img/icon_thin.png"
-					} else {
-						return "txt-blue";
-					}
-
-
-				} else if (type === "健康" || type === "标准" || type === "年轻" || type === "运动员体型" || type === '肌肉型' ||
-					type === '运动员体型' || type === '苗条肌肉型' || type ===
-					'苗条' || type === '健康型') {
-					if (flag == 1) {
-						return "bg-green";
-					} else if (flag == 3) {
-						return "img/icon_normal.png"
-					} else {
-						return "txt-green";
-					}
-
-				} else if (type === "偏重" || type === "偏胖" || type === "偏高" || type === "警惕" || type ===
-					"一般" || type === "隐形肥胖" || type === "偏大" || type === '肌肉型偏胖') {
-					if (flag == 1) {
-						return "bg-yellow";
-					} else if (flag == 3) {
-						return "img/icon_fat.png"
-					} else {
-						return "txt-yellow";
-					}
-
-				} else if (type === "亚健康" || type === "危险" || type === "肥胖" || type === "超重" || type ===
-					"稍多") {
-					if (flag == 1) {
-						return "bg-orange";
-					} else if (flag == 3) {
-						return "img/icon_fat.png"
-					} else {
-						return "txt-orange";
-					}
-
-				} else if (type === "危险") {
-					if (flag == 1) {
-						return "bg-red";
-					} else if (flag == 3) {
-						return "img/icon_fat.png"
-					} else {
-						return "txt-red";
-					}
-
-				} else if (type === "无" || type === "未成年") {
-					if (flag == 1) {
-						return "bg-gray";
-					} else if (flag == 3) {
-						return "img/icon_normal.png"
-					} else {
-						return "txt-gray";
-					}
-
-				}
+        },
+        methods: {
+            textFormart(type, flag) {
+                if (type === "偏轻" || type === "偏瘦" || type === "偏低" || type === "良好" || type === "消瘦" || type ===
+                    '消瘦型' || type === '偏瘦型') {
+                    if (flag == 1) {
+                        return "bg-blue";
+                    } else if (flag == 3) {
+                        return "img/icon_thin.png"
+                    } else {
+                        return "txt-blue";
+                    }
 
 
+                } else if (type === "健康" || type === "标准" || type === "年轻" || type === "运动员体型" || type === '肌肉型' ||
+                    type === '运动员体型' || type === '苗条肌肉型' || type ===
+                    '苗条' || type === '健康型') {
+                    if (flag == 1) {
+                        return "bg-green";
+                    } else if (flag == 3) {
+                        return "img/icon_normal.png"
+                    } else {
+                        return "txt-green";
+                    }
 
-			},
-			initData() {
-				var detailApiUrl = "balance/h5/data/body/detail/v2"
-				if (this.deviceType == 'blebalance') {
-					detailApiUrl = "bleBalance/h5/data/body/detail/v2"
-				}
-				var that = this
-				ajax({
-					type: "get",
-					url: detailApiUrl,
-					data: {
-						memberId: this.memberId,
-						measureId: this.measureId,
-					},
-					success: function (res) {
-						if (res.code == 0) {
-							that.bodyData = res.data;
-						}
-					},
-					error: function (err) {
-						console.log("error")
-					}
-				})
-			},
-			initDataShare() {
+                } else if (type === "偏重" || type === "偏胖" || type === "偏高" || type === "警惕" || type ===
+                    "一般" || type === "隐形肥胖" || type === "偏大" || type === '肌肉型偏胖') {
+                    if (flag == 1) {
+                        return "bg-yellow";
+                    } else if (flag == 3) {
+                        return "img/icon_fat.png"
+                    } else {
+                        return "txt-yellow";
+                    }
 
-				var that = this
-				ajax({
-					type: "get",
-					url: getQueryString('deviceType') == 'blebalance' ?
-						"bleBalance/h5/data/share" : "balance/h5/data/share",
-					data: {
-						memberId: this.memberId,
-						measureId: this.measureId,
-					},
-					success: function (res) {
-						if (res.code == 0) {
-							that.user = res.data;
-							document.title=that.user.nickname+"的数据详情"
-						}
-					},
-					error: function (err) {
-						console.log("error")
-					}
-				})
-			},
+                } else if (type === "亚健康" || type === "危险" || type === "肥胖" || type === "超重" || type ===
+                    "稍多") {
+                    if (flag == 1) {
+                        return "bg-orange";
+                    } else if (flag == 3) {
+                        return "img/icon_fat.png"
+                    } else {
+                        return "txt-orange";
+                    }
 
-			gotoDetail(urlType) {
-				if (this.isShare) return
-				window.location.href = "detail_" + urlType +`.html?memberId=${this.memberId}&measureId=${this.measureId}&deviceType=${this.deviceType}&weight=${this.bodyData.weight}`;
-			}
-		}
-	})
+                } else if (type === "危险") {
+                    if (flag == 1) {
+                        return "bg-red";
+                    } else if (flag == 3) {
+                        return "img/icon_fat.png"
+                    } else {
+                        return "txt-red";
+                    }
+
+                } else if (type === "无" || type === "未成年") {
+                    if (flag == 1) {
+                        return "bg-gray";
+                    } else if (flag == 3) {
+                        return "img/icon_normal.png"
+                    } else {
+                        return "txt-gray";
+                    }
+
+                }
+
+
+
+            },
+            initData() {
+                var detailApiUrl = "balance/h5/data/body/detail/v2"
+                if (this.deviceType == 'blebalance') {
+                    detailApiUrl = "bleBalance/h5/data/body/detail/v2"
+                }
+                var that = this
+                ajax({
+                    type: "get",
+                    url: detailApiUrl,
+                    data: {
+                        memberId: this.memberId,
+                        measureId: this.measureId,
+                    },
+                    success: function(res) {
+                        if (res.code == 0) {
+                            that.bodyData = res.data;
+                        }
+                    },
+                    error: function(err) {
+                        console.log("error")
+                    }
+                })
+            },
+            initDataShare() {
+
+                var that = this
+                ajax({
+                    type: "get",
+                    url: getQueryString('deviceType') == 'blebalance' ?
+                        "bleBalance/h5/data/share" : "balance/h5/data/share",
+                    data: {
+                        memberId: this.memberId,
+                        measureId: this.measureId,
+                    },
+                    success: function(res) {
+                        if (res.code == 0) {
+                            that.user = res.data;
+                            document.title = that.user.nickname + "的数据详情"
+                        }
+                    },
+                    error: function(err) {
+                        console.log("error")
+                    }
+                })
+            },
+
+            gotoDetail(urlType) {
+                if (this.isShare) return
+                window.location.href = "detail_" + urlType + `.html?memberId=${this.memberId}&measureId=${this.measureId}&deviceType=${this.deviceType}&weight=${this.bodyData.weight}`;
+            }
+        }
+    })
 </script>
 
 </html>

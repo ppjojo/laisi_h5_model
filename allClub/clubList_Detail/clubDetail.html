@@ -47,9 +47,13 @@
         .van-button--default {
             background-color: #12121f!important;
         }
-        .van-dialog,.van-dialog .van-cell,.van-dialog .van-button--default{
-			background-color: #292934!important;
-		}
+        
+        .van-dialog,
+        .van-dialog .van-cell,
+        .van-dialog .van-button--default {
+            background-color: #292934!important;
+        }
+        
         .corporate .deptList .deptInfoBox .deptD .userInfo,
         .corporate .deptList .scoreBox .numD {
             color: #71717f;
@@ -107,7 +111,7 @@
             </div>
         </div>
         <div class="containBox" v-if="clubObject.self">
-            <div class="noticeBox" @click="goNotice(clubObject.notice)" v-if="clubObject.notice.title">
+            <div class="noticeBox" @click="goNotice(clubObject.notice)" v-if="clubObject.notice&&clubObject.notice.title">
                 <div class="noticeBoxLeft">
                     <img style="width: .48rem;height: .48rem;" src="./img/volume.png" alt="">
                     <span class="noticeContent">{{clubObject.notice.title||""}}</span>
@@ -219,8 +223,7 @@
                                     </div>
                                     <div v-else-if="item.list.length>0&&clubObject.type=='05'" class="corporate" style="background-color:
                                                 #12121f;margin-bottom:0;">
-                                        <van-row v-for="sitem in
-                                                    item.list" class="deptList" @click="gotoDeptSportDetail(sitem,item.date)" >
+                                        <van-row v-for="sitem in item.list" class="deptList" @click="gotoDeptSportDetail(sitem,item.date)">
                                             <van-col span="16" class="deptInfoBox">
                                                 <div class="deptPic">
                                                     <img :src="sitem.image||'../corporateClub/img/notgroup.png'" alt="">

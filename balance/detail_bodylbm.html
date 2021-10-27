@@ -1,75 +1,77 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="initial-scale=1,maximum-scale=1, minimum-scale=1">
-		<meta name="format-detection" content="telephone=no">
-		<title>去脂体重</title>
-		<link rel="stylesheet" type="text/css" href="css/index.css">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1, minimum-scale=1">
+    <meta name="format-detection" content="telephone=no">
+    <title>去脂体重</title>
+    <link rel="stylesheet" type="text/css" href="css/index.css">
 </head>
 
 <body>
-	<div class="itemContain" id="app" v-cloak>
-		<div class="topBg">
-			<div class="numBox">
-				<div>
-					<div class="num">{{bodyData.lbm}}</div>
-					<!-- <div class="dw">kg</div> -->
-				</div>
-			</div>
-			<!-- <div class="numInfo">
+    <div class="itemContain" id="app" v-cloak>
+        <div class="topBg">
+            <div class="numBox">
+                <div>
+                    <div class="num">{{bodyData.lbm.toFixed(1ß)}}</div>
+                    <!-- <div class="dw">kg</div> -->
+                </div>
+            </div>
+            <!-- <div class="numInfo">
 				{{bodyData.smmType}}
 			</div> -->
-		</div>
-		<div class="itemContent">
-			<div class="imgBox">
-				<!-- <div class="title"><img src="img/icon_standard.png">骨骼肌率参考标准</div> -->
-				<div class="info" v-html="bodyData.description"></div>
-			</div>
-		</div>
-	</div>
-	<script src="../common/js/network.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
-	<script>
-		new Vue({
-			el: '#app',
-			data() {
-				return {
-					memberId: getQueryString("memberId"), //成员id
-					measureId: getQueryString("measureId"), //数据id
-					deviceType: getQueryString("deviceType"), //设备类型 区分是不是非智能体脂秤
-					bodyData: {
-						range:[30,40]
-					},
-					leftNum: 0,
-				};
-			},
-			created() {
-				this.initData();
-			},
-			methods: {
+        </div>
+        <div class="itemContent">
+            <div class="imgBox">
+                <!-- <div class="title"><img src="img/icon_standard.png">骨骼肌率参考标准</div> -->
+                <div class="info" v-html="bodyData.description"></div>
+            </div>
+        </div>
+    </div>
+    <script src="../common/js/network.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    memberId: getQueryString("memberId"), //成员id
+                    measureId: getQueryString("measureId"), //数据id
+                    deviceType: getQueryString("deviceType"), //设备类型 区分是不是非智能体脂秤
+                    bodyData: {
+                        range: [30, 40]
+                    },
+                    leftNum: 0,
+                };
+            },
+            created() {
+                this.initData();
+            },
+            methods: {
 
-				initData() {
-					var that = this
-					ajax({
-						type: "get",
-						url: "bleBalance/h5/data/body/detail/accredited/lbm",
-						data: {
-							memberId: this.memberId,
-							measureId: this.measureId,
-						},
-						success: function (res) {
-							if (res.code == 0) {
-								that.bodyData = res.data;
-							}
-						},
-						error: function (err) {
-							console.log("error")
-						}
-					})
-				},
-			}
-		})
-	</script>
+                initData() {
+                    var that = this
+                    ajax({
+                        type: "get",
+                        url: "bleBalance/h5/data/body/detail/accredited/lbm",
+                        data: {
+                            memberId: this.memberId,
+                            measureId: this.measureId,
+                        },
+                        success: function(res) {
+                            if (res.code == 0) {
+                                that.bodyData = res.data;
+                            }
+                        },
+                        error: function(err) {
+                            console.log("error")
+                        }
+                    })
+                },
+            }
+        })
+    </script>
 </body>
+
 </html>

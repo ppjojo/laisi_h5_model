@@ -186,14 +186,14 @@ body {
 .courseBox .courseDiv .content .detail, .courseBox-bg .courseDiv .content .detail {
   color: #71717f;
   font-size: 0.24rem;
-  line-height: 0.5rem;
+  line-height: 0.4rem;
 }
 
 .courseBox .courseDiv .content .progress, .courseBox-bg .courseDiv .content .progress {
   font-size: 0.24rem;
   line-height: 0.48rem;
   color: #71717f;
-  margin-top: 0.24rem;
+  margin-top: 0.5rem;
 }
 
 .courseBox-bg .van-swipe-item {
@@ -249,12 +249,12 @@ body {
 
 .classificationBox .title {
   font-size: 0.4rem;
-  line-height: 1.04rem;
+  padding: 0.2rem 0 0.2rem 0;
 }
 
 .classificationBox .title .titleInfo {
   color: #FFAA88;
-  font-size: 0.2rem;
+  font-size: 0.24rem;
 }
 
 .classificationBox .classificationDiv .classificationList .name {
@@ -298,6 +298,7 @@ body {
 .classificationBox .classificationDiv .classificationList .typeList .selected {
   background-color: rgba(255, 170, 136, 0.1);
   color: #FFAA88;
+  font-weight: bold;
 }
 
 .courseList .header .van-nav-bar {
@@ -352,6 +353,7 @@ body {
 .courseList .topBox .infoBox .title {
   font-size: 0.48rem;
   line-height: 0.8rem;
+  font-weight: bold;
   color: #ffffff;
   text-overflow: -o-ellipsis-lastline;
   overflow: hidden;
@@ -430,7 +432,7 @@ body {
 }
 
 .courseList .topBox .infoBox .information .needTitle1 {
-  font-size: 0.24rem;
+  font-size: 0.28rem;
   line-height: 0.4rem;
   color: #CFCFD2;
   display: table-row;
@@ -444,7 +446,7 @@ body {
 }
 
 .courseList .topBox .infoBox .information .needTitle2 {
-  font-size: 0.24rem;
+  font-size: 0.28rem;
   line-height: 0.4rem;
   color: #CFCFD2;
 }
@@ -461,7 +463,7 @@ body {
 }
 
 .courseList .topBox .infoBox .information .needTitle3 {
-  font-size: 0.24rem;
+  font-size: 0.28rem;
   line-height: 0.4rem;
   color: #CFCFD2;
   display: table-row;
@@ -477,7 +479,8 @@ body {
 }
 
 .courseList .tabBox .van-sticky--fixed {
-  top: 0.92rem;
+  background-color: #12121f;
+  top: 0.915rem;
   top: calc(0.915rem + constant(safe-area-inset-top));
   top: calc(0.915rem + env(safe-area-inset-top));
 }
@@ -494,6 +497,8 @@ body {
           align-items: center;
   padding: 0 0.8rem;
   height: 0.88rem;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
   border-bottom: 1px solid #1e1e2a;
 }
 
@@ -511,6 +516,7 @@ body {
   font-size: .36rem;
   color: #CFCFD2;
   position: relative;
+  font-weight: bold;
 }
 
 .courseList .tabBox .tabTitle .selected::after {
@@ -545,7 +551,6 @@ body {
 }
 
 .courseList .listBox .courseList ul .liBox {
-  height: 1.5rem;
   padding: 0.15rem 0.3rem;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -579,13 +584,9 @@ body {
 }
 
 .courseList .listBox .courseList ul .liBox .itemImg img {
-  width: 1.8rem;
-  height: 1.2rem;
-  border-radius: 5px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
+  width: 1.92rem;
+  height: 1.44rem;
+  border-radius: 8px;
 }
 
 .courseList .listBox .courseList ul .liBox .rightBox {
@@ -595,8 +596,12 @@ body {
   width: 6.5rem;
 }
 
+.courseList .listBox .courseList ul .liBox .rightBox .itemDiscript {
+  padding: 0.2rem 0;
+}
+
 .courseList .listBox .courseList ul .liBox .rightBox .itemDiscript .smallTile {
-  font-size: 0.28rem;
+  font-size: 0.32rem;
   color: #CFCFD2;
   line-height: 0.6rem;
   text-overflow: -o-ellipsis-lastline;
@@ -611,7 +616,7 @@ body {
 .courseList .listBox .courseList ul .liBox .rightBox .itemDiscript .need {
   font-size: 0.24rem;
   color: #71717f;
-  line-height: 0.6rem;
+  line-height: 0.4rem;
 }
 
 .courseList .listBox .courseList ul .stopDurationBox {
@@ -621,7 +626,7 @@ body {
 
 .courseList .listBox .courseList .info {
   color: #71717f;
-  font-size: 0.2rem;
+  font-size: 0.24rem;
   text-align: center;
   padding: 0.2rem 0;
 }
@@ -638,11 +643,13 @@ body {
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.1)), to(rgba(0, 0, 0, 0.5)));
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.5));
 }
 
 .courseList .listBox .courseList .btn_box .btn {
   color: #fff;
-  width: 6.3rem;
+  width: 6.7rem;
   height: 0.88rem;
   font-size: 0.4rem;
   line-height: 0.88rem;
@@ -792,6 +799,7 @@ body {
 }
 
 .courseList .commentBox .commentDiv .commentBck {
+  border-radius: 4px;
   font-size: 0.28rem;
   background-color: #1e1e2a;
   padding: 0.24rem;
@@ -803,7 +811,8 @@ body {
 }
 
 .courseList .commentBox .commentDiv .commentBck .commentBckItem span {
-  line-height: 0.35rem;
+  line-height: 0.4rem;
+  font-size: 0.28rem;
 }
 
 .courseList .commentBox .commentDiv .commentBck .commentBckItem .name {
@@ -1091,5 +1100,37 @@ body {
   font-size: 0.28rem;
   line-height: 0.4rem;
   margin-top: 0.2rem;
+}
+
+textarea::-webkit-input-placeholder {
+  color: #71717f !important;
+}
+
+textarea:-ms-input-placeholder {
+  color: #71717f !important;
+}
+
+textarea::-ms-input-placeholder {
+  color: #71717f !important;
+}
+
+textarea::placeholder {
+  color: #71717f !important;
+}
+
+input::-webkit-input-placeholder {
+  color: #71717f !important;
+}
+
+input:-ms-input-placeholder {
+  color: #71717f !important;
+}
+
+input::-ms-input-placeholder {
+  color: #71717f !important;
+}
+
+input::placeholder {
+  color: #71717f !important;
 }
 /*# sourceMappingURL=index.css.map */

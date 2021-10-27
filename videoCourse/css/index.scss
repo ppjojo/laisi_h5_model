@@ -170,13 +170,13 @@ body {
             .detail {
                 color: #71717f;
                 font-size: 0.24rem;
-                line-height: 0.5rem;
+                line-height: 0.4rem;
             }
             .progress {
                 font-size: 0.24rem;
                 line-height: 0.48rem;
                 color: #71717f;
-                margin-top: 0.24rem;
+                margin-top: 0.5rem;
             }
         }
     }
@@ -224,10 +224,10 @@ body {
     // margin-bottom: 0.4rem;
     .title {
         font-size: 0.4rem;
-        line-height: 1.04rem;
+        padding: 0.2rem 0 0.2rem 0;
         .titleInfo {
             color: #FFAA88;
-            font-size: 0.2rem;
+            font-size: 0.24rem;
         }
     }
     .classificationDiv {
@@ -264,6 +264,7 @@ body {
                 .selected {
                     background-color: rgba(255, 170, 136, 0.1);
                     color: #FFAA88;
+                    font-weight: bold;
                 }
             }
         }
@@ -315,6 +316,7 @@ body {
             .title {
                 font-size: 0.48rem;
                 line-height: 0.8rem;
+                font-weight: bold;
                 color: #ffffff;
                 text-overflow: -o-ellipsis-lastline;
                 overflow: hidden;
@@ -374,7 +376,7 @@ body {
                     font-family: "BebasNeue";
                 }
                 .needTitle1 {
-                    font-size: 0.24rem;
+                    font-size: 0.28rem;
                     line-height: 0.4rem;
                     color: $text_color_white;
                     display: table-row;
@@ -386,7 +388,7 @@ body {
                     font-family: "BebasNeue";
                 }
                 .needTitle2 {
-                    font-size: 0.24rem;
+                    font-size: 0.28rem;
                     line-height: 0.4rem;
                     color: $text_color_white;
                 }
@@ -400,7 +402,7 @@ body {
                     display: table-row;
                 }
                 .needTitle3 {
-                    font-size: 0.24rem;
+                    font-size: 0.28rem;
                     line-height: 0.4rem;
                     color: $text_color_white;
                     display: table-row;
@@ -417,7 +419,8 @@ body {
         top: -0.88rem;
         z-index: 4;
         .van-sticky--fixed {
-            top: 0.92rem;
+            background-color: #12121f;
+            top: 0.915rem;
             top: calc(0.915rem + constant(safe-area-inset-top));
             top: calc(0.915rem + env(safe-area-inset-top));
         }
@@ -428,6 +431,8 @@ body {
             align-items: center;
             padding: 0 0.8rem;
             height: 0.88rem;
+            border-top-left-radius: 0.5rem;
+            border-top-right-radius: 0.5rem;
             border-bottom: 1px solid $border_color;
             .tabName {
                 font-size: 0.36rem;
@@ -441,6 +446,7 @@ body {
                 font-size: .36rem;
                 color: $text_color_white;
                 position: relative;
+                font-weight: bold;
                 &::after {
                     content: '';
                     position: absolute;
@@ -472,7 +478,7 @@ body {
                 -ms-border-radius: 0.25rem;
                 -o-border-radius: 0.25rem;
                 .liBox {
-                    height: 1.5rem;
+                    // height: 1.5rem;
                     padding: 0.15rem 0.3rem;
                     display: flex;
                     align-items: center;
@@ -490,21 +496,18 @@ body {
                     .itemImg {
                         margin-right: 0.2rem;
                         img {
-                            width: 1.8rem;
-                            height: 1.2rem;
-                            border-radius: 5px;
-                            -webkit-border-radius: 5px;
-                            -moz-border-radius: 5px;
-                            -ms-border-radius: 5px;
-                            -o-border-radius: 5px;
+                            width: 1.92rem;
+                            height: 1.44rem;
+                            border-radius: 8px;
                         }
                     }
                     .rightBox {
                         display: flex;
                         width: 6.5rem;
                         .itemDiscript {
+                            padding: 0.2rem 0;
                             .smallTile {
-                                font-size: 0.28rem;
+                                font-size: 0.32rem;
                                 color: $text_color_white;
                                 line-height: 0.6rem;
                                 text-overflow: -o-ellipsis-lastline;
@@ -518,7 +521,7 @@ body {
                             .need {
                                 font-size: 0.24rem;
                                 color: #71717f;
-                                line-height: 0.6rem;
+                                line-height: 0.4rem;
                             }
                         }
                     }
@@ -530,7 +533,7 @@ body {
             }
             .info {
                 color: #71717f;
-                font-size: 0.2rem;
+                font-size: 0.24rem;
                 text-align: center;
                 padding: 0.2rem 0;
             }
@@ -546,9 +549,10 @@ body {
                 -webkit-box-pack: center;
                 -ms-flex-pack: center;
                 justify-content: center;
+                background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.5));
                 .btn {
                     color: #fff;
-                    width: 6.3rem;
+                    width: 6.7rem;
                     height: 0.88rem;
                     font-size: 0.4rem;
                     line-height: 0.88rem;
@@ -654,6 +658,7 @@ body {
                 }
             }
             .commentBck {
+                border-radius: 4px;
                 font-size: 0.28rem;
                 background-color: $border-color;
                 padding: 0.24rem;
@@ -661,7 +666,8 @@ body {
                 .commentBckItem {
                     margin-bottom: 0.1rem;
                     span {
-                        line-height: 0.35rem;
+                        line-height: 0.4rem;
+                        font-size: 0.28rem;
                     }
                     .name {
                         color: #71717f;
@@ -670,6 +676,7 @@ body {
                 .more {
                     font-size: 0.28rem;
                     line-height: 0.5rem;
+                    // color: #71717f;
                 }
             }
         }
@@ -911,4 +918,12 @@ body {
     font-size: 0.28rem;
     line-height: 0.4rem;
     margin-top: 0.2rem;
+}
+
+textarea::placeholder {
+    color: #71717f !important;
+}
+
+input::placeholder {
+    color: #71717f !important;
 }

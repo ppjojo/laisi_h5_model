@@ -2,405 +2,393 @@
 <html lang="zh-cmn-Hans">
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport"
-		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
-	<title>课程</title>
-	<!-- 引入样式文件 -->
-	<link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
-	<link rel="stylesheet" href="font/iconfont.css">
-	<link rel="stylesheet" href="../common/css/basic.css">
-	<link rel="stylesheet" href="css/index.css">
-	<script src="https://cdn.bootcdn.net/ajax/libs/vConsole/3.8.1/vconsole.min.js"></script>
-	<script>
-		// init vConsole
-		var vConsole = new VConsole();
-	</script>
-	<style>
-		#app{
-			overflow-x: hidden;
-			height: 100vh;
-		}
-		::-webkit-scrollbar {
-			width: 0;
-			display: none; 
-
-		}
-
-	</style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+    <title>课程</title>
+    <!-- 引入样式文件 -->
+    <link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
+    <link rel="stylesheet" href="font/iconfont.css">
+    <link rel="stylesheet" href="../common/css/basic.css">
+    <link rel="stylesheet" href="css/index.css">
+    <script src="https://cdn.bootcdn.net/ajax/libs/vConsole/3.8.1/vconsole.min.js"></script>
+    <script>
+        // init vConsole
+        var vConsole = new VConsole();
+    </script>
+    <style>
+        #app {
+            overflow-x: hidden;
+            height: 100vh;
+        }
+        
+         ::-webkit-scrollbar {
+            width: 0;
+            display: none;
+        }
+    </style>
 
 </head>
 
 <body>
-	<div id="app" v-cloak class="normalHeader" style="padding-bottom: 1rem;">
-		<div class="header">
-			<van-nav-bar left-arrow @click-right="onClickRight" safe-area-inset-top fixed>
-				<template #left>
-					<div style="font-size: 0.4rem;">课程</div>
+    <div id="app" v-cloak class="normalHeader" style="padding-bottom: 1rem;">
+        <div class="header">
+            <van-nav-bar left-arrow @click-right="onClickRight" safe-area-inset-top fixed>
+                <template #left>
+					<div style="font-size: 0.4rem;font-weight:bold;">课程</div>
 				</template>
-				<template #right>
-					<span class="icon iconfont icon-quanbu" style="font-size: 0.5rem;" />
+                <template #right>
+					<span class="icon iconfont icon-quanbu" style="font-size: 0.45rem;" />
 				</template>
-			</van-nav-bar>
-		</div>
-		<van-pull-refresh v-model="isLoading" :head-height="90" @refresh="initIndexData" class="monkey-pull-refresh">
-			<template #pulling="props">
+            </van-nav-bar>
+        </div>
+        <van-pull-refresh v-model="isLoading" :head-height="90" @refresh="initIndexData" class="monkey-pull-refresh">
+            <template #pulling="props">
 				<div class="monkeyBox">
 					<img class="monkey" src="../common/img/monkey.gif" />
 					<p>下拉刷新</p>
 				</div>
 			</template>
-			<!-- 释放提示 -->
-			<template #loosing>
+            <!-- 释放提示 -->
+            <template #loosing>
 				<div class="monkeyBox">
 					<img class="monkey" src="../common/img/monkey.gif" />
 					<p>释放刷新</p>
 				</div>
 			</template>
 
-			<!-- 加载提示 -->
-			<template #loading>
+            <!-- 加载提示 -->
+            <template #loading>
 				<div class="monkeyBox">
 					<img class="monkey" src="../common/img/monkey.gif" />
 					<p>正在刷新</p>
 				</div>
 			</template>
-			<div class="contain">
+            <div class="contain">
 
-				<van-swipe class="course-swipe" :show-indicators="false" :autoplay="3000" @change="onChange"
-					v-if="bannerList.length>0">
-					<van-swipe-item v-for="item in bannerList"><img :src="item.adUrl" @click="bannerClick(item)">
-					</van-swipe-item>
-				</van-swipe>
+                <van-swipe class="course-swipe" :show-indicators="false" :autoplay="3000" @change="onChange" v-if="bannerList.length>0">
+                    <van-swipe-item v-for="item in bannerList"><img :src="item.adUrl" @click="bannerClick(item)">
+                    </van-swipe-item>
+                </van-swipe>
 
-				<van-grid class="nav_grid" :column-num="classification.length" :border=false>
-					<van-grid-item @click="allCourse(index,item)" v-for="(item,index) in classification"
-						:text="item.name">
-						<template #icon>
+                <van-grid class="nav_grid" :column-num="classification.length" :border=false>
+                    <van-grid-item @click="allCourse(index,item)" v-for="(item,index) in classification" :text="item.name">
+                        <template #icon>
 							<van-image :src="item.image" />
 						</template>
-					</van-grid-item>
-				</van-grid>
-				<!-- 最近再练 -->
-				<div class="recentBox" v-if="recentList.length>0">
-					<div class="courseBox">
+                    </van-grid-item>
+                </van-grid>
+                <!-- 最近再练 -->
+                <div class="recentBox" v-if="recentList.length>0">
+                    <div class="courseBox">
 
-						<div class="title2">
-							<div class="txt">最近在练</div>
-							<div class="btn_viewMore" @click="goAPPwebview_Recent" v-if="recentList.length>3">
-								查看全部<span class="icon iconfont icon-tongyong-gengduo" style="font-size: 0.25rem;" />
-							</div>
-						</div>
-						<ul>
-							<li class="courseDiv" v-for="(item ,index) in recentList" v-if="index<3"
-								@click="courseList(item)">
-								<img v-if="item.classLableList.length>0"
-									:src="'./img/'+item.classLableList[0].classLabel+'.png'" class="iconlabel" alt="">
-								<div class="cover" :style="{'backgroundImage':'url('+item.classCover+')'}">
-								</div>
-								<div class="content">
-									<div>
-										<p class="stitle">{{item.className}}</p>
-										<p class="detail">
-											{{Math.round(item.classDuration/60)}}分钟 · {{item.calory}}千卡 ·
-											{{item.classLevelName}}
-										</p>
-									</div>
-									<div class="progress">
-										已锻炼{{item.pageFinish||0}}%
-									</div>
-								</div>
-								<div class="btn_train">继续锻炼</div>
-							</li>
-						</ul>
-					</div>
+                        <div class="title2">
+                            <div class="txt">最近在练</div>
+                            <div class="btn_viewMore" @click="goAPPwebview_Recent" v-if="recentList.length>3">
+                                查看全部<span class="icon iconfont icon-tongyong-gengduo" style="font-size: 0.25rem;" />
+                            </div>
+                        </div>
+                        <ul>
+                            <li class="courseDiv" v-for="(item ,index) in recentList" v-if="index<3" @click="courseList(item)">
+                                <img v-if="item.classLableList.length>0" :src="'./img/'+item.classLableList[0].classLabel+'.png'" class="iconlabel" alt="">
+                                <div class="cover" :style="{'backgroundImage':'url('+item.classCover+')'}">
+                                </div>
+                                <div class="content">
+                                    <div>
+                                        <p class="stitle">{{item.className}}</p>
+                                        <p class="detail">
+                                            {{Math.round(item.classDuration/60)}}分钟 · {{item.calory}}千卡 · {{item.classLevelName}}
+                                        </p>
+                                    </div>
+                                    <div class="progress">
+                                        已锻炼{{item.pageFinish||0}}%
+                                    </div>
+                                </div>
+                                <div class="btn_train">继续锻炼</div>
+                            </li>
+                        </ul>
+                    </div>
 
-				</div>
-				<!-- 推荐 -->
-				<div class="recommendBox" v-if="recommendList.length>0">
-					<div class="courseBox-bg">
-						<div class="title">为您推荐
-							<span class="titleInfo">(根据训练目标等数据智能生成)</span>
-						</div>
-						<van-swipe :show-indicators="false" :loop="false" :width="220">
-							<van-swipe-item v-for="item in recommendList" @click="courseList(item)">
-								<div class="courseDiv" :style="{'backgroundImage':'url('+item.classCover+')'}">
-									<img v-if="item.classLableList.length>0"
-										:src="'./img/'+item.classLableList[0].classLabel+'.png'" class="iconlabel"
-										alt="">
-									<div class="content">
-										<div>
-											<p class="stitle">{{item.className}}</p>
-											<p class="detail">
-												{{Math.round(item.classDuration/60)}}分钟 · {{item.calory}}千卡 ·
-												{{item.classLevelName}}
-											</p>
-										</div>
-									</div>
-								</div>
-							</van-swipe-item>
-						</van-swipe>
-					</div>
-				</div>
+                </div>
+                <!-- 推荐 -->
+                <div class="recommendBox" v-if="recommendList.length>0">
+                    <div class="courseBox-bg">
+                        <div class="title">为您推荐
+                            <span class="titleInfo">(根据训练目标等数据智能生成)</span>
+                        </div>
+                        <van-swipe :show-indicators="false" :loop="false" :width="260">
+                            <van-swipe-item v-for="item in recommendList" @click="courseList(item)">
+                                <div class="courseDiv" :style="{'backgroundImage':'url('+item.classCover+')'}">
+                                    <img v-if="item.classLableList.length>0" :src="'./img/'+item.classLableList[0].classLabel+'.png'" class="iconlabel" alt="">
+                                    <div class="content">
+                                        <div>
+                                            <p class="stitle">{{item.className}}</p>
+                                            <p class="detail">
+                                                {{Math.round(item.classDuration/60)}}分钟 · {{item.calory}}千卡 · {{item.classLevelName}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </van-swipe-item>
+                        </van-swipe>
+                    </div>
+                </div>
 
 
-				<!-- 热门 -->
-				<div class="hot" v-if="hotClassList.length>0">
-					<div class="courseBox">
-						<div class="title">热门课程</div>
-						<ul>
-							<li class="courseDiv" v-for="item in hotClassList" @click="courseList(item)">
-								<img v-if="item.classLableList.length>0"
-									:src="'./img/'+item.classLableList[0].classLabel+'.png'" class="iconlabel" alt="">
-								<div class="cover" :style="{'backgroundImage':'url('+item.classCover+')'}">
-								</div>
-								<div class="content">
-									<div>
-										<p class="stitle">{{item.className}}</p>
-										<p class="detail">
-											{{Math.round(item.classDuration/60)}}分钟 · {{item.calory}}千卡 ·
-											{{item.classLevelName}}
-										</p>
-									</div>
-									<div class="progress">
-										已锻炼{{item.pageFinish||0}}%
-									</div>
-								</div>
-							</li>
-						</ul>
-					
-					</div>
-					
-				</div>
-			</div>
-		</van-pull-refresh>
-	</div>
+                <!-- 热门 -->
+                <div class="hot" v-if="hotClassList.length>0">
+                    <div class="courseBox">
+                        <div class="title">热门课程</div>
+                        <ul>
+                            <li class="courseDiv" v-for="item in hotClassList" @click="courseList(item)">
+                                <img v-if="item.classLableList.length>0" :src="'./img/'+item.classLableList[0].classLabel+'.png'" class="iconlabel" alt="">
+                                <div class="cover" :style="{'backgroundImage':'url('+item.classCover+')'}">
+                                </div>
+                                <div class="content">
+                                    <div>
+                                        <p class="stitle">{{item.className}}</p>
+                                        <p class="detail">
+                                            {{Math.round(item.classDuration/60)}}分钟 · {{item.calory}}千卡 · {{item.classLevelName}}
+                                        </p>
+                                    </div>
+                                    <div class="progress">
+                                        {{item.sumExercise}}人练过
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+
+                    </div>
+
+                </div>
+            </div>
+        </van-pull-refresh>
+    </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
 <script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
 <script src="../common/js/network.js"></script>
 <script src="js/videoCourse.js"></script>
 <script>
-	new Vue({
-		el: '#app',
-		data() {
-			return {
-				isLoading: false,
-				bannerList: [],
-				classification: [],
-				recentList: [],
-				hotClassList: [],
-				recommendList: [],
-				hotloading:false,
-				hotfinished:false,
-				hotpage:0,
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                isLoading: false,
+                bannerList: [],
+                classification: [],
+                recentList: [],
+                hotClassList: [],
+                recommendList: [],
+                hotloading: false,
+                hotfinished: false,
+                hotpage: 0,
 
 
-			}
-		},
-		filters: {
+            }
+        },
+        filters: {
 
 
-		},
-		mounted() {
-			window.initIndexData = this.initIndexData;
-			window.refreshList = this.initIndexData;
-		},
-		created() {
-			this.addIntegral()
-			this.getBanner() //获取banner
-			this.getClassify() //获取分类
-			this.getRecentList() //最近在练
-			this.getRecommend() //为你推荐
-			this.getHotClass() //热门
-		},
-		methods: {
-			//原生调用h5的方法局部刷新课程主页
-			initIndexData() {
-				this.getBanner() //获取banner
-				this.getRecentList() //最近在练
-				this.getRecommend() //为你推荐
-				this.getHotClass() //热门
+        },
+        mounted() {
+            window.initIndexData = this.initIndexData;
+            window.refreshList = this.initIndexData;
+        },
+        created() {
+            this.addIntegral()
+            this.getBanner() //获取banner
+            this.getClassify() //获取分类
+            this.getRecentList() //最近在练
+            this.getRecommend() //为你推荐
+            this.getHotClass() //热门
+        },
+        methods: {
+            //原生调用h5的方法局部刷新课程主页
+            initIndexData() {
+                this.getBanner() //获取banner
+                this.getRecentList() //最近在练
+                this.getRecommend() //为你推荐
+                this.getHotClass() //热门
 
-			},
-			//轮播图的滚动
-			onChange(index) {
-				if (isAndroid)
-					Interaction.umengStatistics("course_banner_show", this.bannerList[index].id)
+            },
+            //轮播图的滚动
+            onChange(index) {
+                if (isAndroid)
+                    Interaction.umengStatistics("course_banner_show", this.bannerList[index].id)
 
-			},
-			//浏览加逗比
-			addIntegral() {
-				ajax({
-					type: "post",
-					url: "integral/add/integral",
-					data: {
-						actionType: "0300"
-					}
-				})
-			},
-			//获取bannner图
-			getBanner() {
-				ajax({
-					type: "post",
-					url: "advBanner/ad/banner",
-					data: {
-						type: 1, //1代表banner
-						location: 3
-					}
-				}).then(res => {
-					this.bannerList = res.data;
-					this.isLoading = false;
-					if (res.data.length > 0)
-						Interaction.umengStatistics("course_banner_show", this.bannerList[0].id)
-				}).catch((err) => {
-					console.log(err)
-				})
-			},
-			//banner点击事件
-			bannerClick(bannerItem) {
-				if (bannerItem.landingUrl.indexOf("videoCourse") != -1) {
-					var reg = new RegExp("(^|\\?|&)" + 'id' + "=([^&]*)(&|$)");
-					var r = bannerItem.landingUrl.substr(1).match(reg);
-					if (r != null) r = decodeURI(r[2]);
-					if (r) {
-						this.courseList(r)
-					} else {
-						return
-					}
-				} else {
-					Interaction.pushToNextVC(bannerItem.landingUrl)
-				}
+            },
+            //浏览加逗比
+            addIntegral() {
+                ajax({
+                    type: "post",
+                    url: "integral/add/integral",
+                    data: {
+                        actionType: "0300"
+                    }
+                })
+            },
+            //获取bannner图
+            getBanner() {
+                ajax({
+                    type: "post",
+                    url: "advBanner/ad/banner",
+                    data: {
+                        type: 1, //1代表banner
+                        location: 3
+                    }
+                }).then(res => {
+                    this.bannerList = res.data;
+                    this.isLoading = false;
+                    if (res.data.length > 0)
+                        Interaction.umengStatistics("course_banner_show", this.bannerList[0].id)
+                }).catch((err) => {
+                    console.log(err)
+                })
+            },
+            //banner点击事件
+            bannerClick(bannerItem) {
+                if (bannerItem.landingUrl.indexOf("videoCourse") != -1) {
+                    var reg = new RegExp("(^|\\?|&)" + 'id' + "=([^&]*)(&|$)");
+                    var r = bannerItem.landingUrl.substr(1).match(reg);
+                    if (r != null) r = decodeURI(r[2]);
+                    if (r) {
+                        this.courseList(r)
+                    } else {
+                        return
+                    }
+                } else {
+                    Interaction.pushToNextVC(bannerItem.landingUrl)
+                }
 
-				Interaction.umengStatistics("cource_banner_click")
-			},
-			//获取分类
-			getClassify() {
-				var that = this;
-				that.refresh = true;
-				ajax({
-					type: "post",
-					url: "community/cCatalog/queryAll",
-					data: {},
-					success: function (res) {
-						if (res.code == 0) {
-							that.classification = [];
-							res.data.forEach(item => {
-								if (item.isShow == 1) {
-									that.classification.push(item);
-								}
-							})
+                Interaction.umengStatistics("cource_banner_click")
+            },
+            //获取分类
+            getClassify() {
+                var that = this;
+                that.refresh = true;
+                ajax({
+                    type: "post",
+                    url: "community/cCatalog/queryAll",
+                    data: {},
+                    success: function(res) {
+                        if (res.code == 0) {
+                            that.classification = [];
+                            res.data.forEach(item => {
+                                if (item.isShow == 1) {
+                                    that.classification.push(item);
+                                }
+                            })
 
-							//that.getProfessionalTraining();
-						} else {
-							that.$toast(res.msg)
-						}
+                            //that.getProfessionalTraining();
+                        } else {
+                            that.$toast(res.msg)
+                        }
 
-					},
-					error: function () {
-						console.log("apiServer error")
-					}
-				})
-			},
-			//获取最近在练
-			getRecentList() {
-				ajax({
-					url: "community/threeUserCollect/see/near/by/homepage",
-				}).then(res => {
-					this.recentList = res.data;
-				}).catch((err) => {
-					console.log(e)
-				})
-			},
-			//为你推荐
-			getRecommend() {
-				ajax({
-					url: "community/threeUserCollect/get/recommend/to/you",
-				}).then(res => {
-					this.recommendList = res.data;
-				}).catch((err) => {
-					console.log(e)
-				})
+                    },
+                    error: function() {
+                        console.log("apiServer error")
+                    }
+                })
+            },
+            //获取最近在练
+            getRecentList() {
+                ajax({
+                    url: "community/threeUserCollect/see/near/by/homepage",
+                }).then(res => {
+                    this.recentList = res.data;
+                }).catch((err) => {
+                    console.log(e)
+                })
+            },
+            //为你推荐
+            getRecommend() {
+                ajax({
+                    url: "community/threeUserCollect/get/recommend/to/you",
+                }).then(res => {
+                    this.recommendList = res.data;
+                }).catch((err) => {
+                    console.log(e)
+                })
 
-			},
-			
-			//获取热门课程
-			getHotClass() {
-				ajax({
-					url: "community/threeUserCollect/see/most/class/top/three",
-				}).then(res => {
-					this.hotClassList=res.data;
-				}).catch((err) => {
-					console.log(e)
-				})
+            },
 
-			},
-			//跳转最近再练
-			goAPPwebview_Recent() {
-				try {
-					if (isIOS) {
-						window.webkit.messageHandlers.lstNative.postMessage({
-							method: "LSTH5APP_GoToMyCourse",
-						});
-					} else if (isAndroid) {
-						window.android.LSTH5APP_GoToMyCourse()
-					}
-				} catch (e) {
-					console.log(e)
-				}
-			},
+            //获取热门课程
+            getHotClass() {
+                ajax({
+                    url: "community/threeUserCollect/see/most/class/top/three",
+                }).then(res => {
+                    this.hotClassList = res.data;
+                }).catch((err) => {
+                    console.log(e)
+                })
 
-			//跳转课程详情
-			courseList(item) {
-				try {
-					Interaction.pushToNextVC(host +`h5/h5V3/videoCourse/courseList.html?id=${item.bigClassId}&hideTitle=1`)
-				} catch (e) {
-					console.log(e)
-				}
-			},
-			onClickRight() {
-				try {
-					Interaction.pushToNextVC(host + "h5/h5V3/videoCourse/allCourse.html?hideTitle=1")
-				} catch (e) {
-					console.log(e)
-				}
-			},
-			//跳转所有的课程分类
-			allCourse(index, item) {
-				try {
-					Interaction.pushToNextVC(host + "h5/h5V3/videoCourse/allCourse.html?hideTitle=1&classifyName="+item.name)
-				} catch (e) {
-					console.log(e)
-				}
-				switch (item.name) {
-					case "跳绳":
-						Interaction.umengStatistics("course_rope_skip")
-						break;
-					case "健身":
-						Interaction.umengStatistics("course_fitness")
-						break;
-					case "跑步":
-						Interaction.umengStatistics("course_run")
-						break;
-					case "燃脂":
-						Interaction.umengStatistics("course_fat_burning")
-						break;
-					case "全部":
-						Interaction.umengStatistics("course_all")
-						break;
-					default:
-						console.log(err)
-				}
+            },
+            //跳转最近再练
+            goAPPwebview_Recent() {
+                try {
+                    if (isIOS) {
+                        window.webkit.messageHandlers.lstNative.postMessage({
+                            method: "LSTH5APP_GoToMyCourse",
+                        });
+                    } else if (isAndroid) {
+                        window.android.LSTH5APP_GoToMyCourse()
+                    }
+                } catch (e) {
+                    console.log(e)
+                }
+            },
 
-
-			},
+            //跳转课程详情
+            courseList(item) {
+                try {
+                    Interaction.pushToNextVC(host + `h5/h5V3/videoCourse/courseList.html?id=${item.bigClassId}&hideTitle=1`)
+                } catch (e) {
+                    console.log(e)
+                }
+            },
+            onClickRight() {
+                try {
+                    Interaction.pushToNextVC(host + "h5/h5V3/videoCourse/allCourse.html?hideTitle=1")
+                } catch (e) {
+                    console.log(e)
+                }
+            },
+            //跳转所有的课程分类
+            allCourse(index, item) {
+                try {
+                    Interaction.pushToNextVC(host + "h5/h5V3/videoCourse/allCourse.html?hideTitle=1&classifyName=" + item.name)
+                } catch (e) {
+                    console.log(e)
+                }
+                switch (item.name) {
+                    case "跳绳":
+                        Interaction.umengStatistics("course_rope_skip")
+                        break;
+                    case "健身":
+                        Interaction.umengStatistics("course_fitness")
+                        break;
+                    case "跑步":
+                        Interaction.umengStatistics("course_run")
+                        break;
+                    case "燃脂":
+                        Interaction.umengStatistics("course_fat_burning")
+                        break;
+                    case "全部":
+                        Interaction.umengStatistics("course_all")
+                        break;
+                    default:
+                        console.log(err)
+                }
 
 
+            },
 
 
 
-		}
-	})
+
+
+        }
+    })
 </script>
 
 </html>

@@ -2,7 +2,7 @@ import request from "@/utils/request"
 //列表
 export function listItem(params) {
     return request({
-        url: '/community-core/notify/item/queryAllByLimit',
+        url: '/notice/notify/item/queryAllByLimit',
         method: 'get',
         params
     })
@@ -10,7 +10,7 @@ export function listItem(params) {
 //新增
 export function addItem(data) {
     return request({
-        url: '/community-core/notify/item/insertOne',
+        url: '/notice/notify/item/insertOne',
         method: 'post',
         data
     })
@@ -18,7 +18,7 @@ export function addItem(data) {
 //更新
 export function updateItem(data) {
     return request({
-        url: '/community-core/notify/item/updateOne',
+        url: '/notice/notify/item/updateOne',
         method: 'post',
         data
     })
@@ -26,7 +26,7 @@ export function updateItem(data) {
 //删除
 export function deleteItem(params) {
     return request({
-        url: '/community-core/notify/item/deleteOne',
+        url: '/notice/notify/item/deleteOne',
         method: 'get',
         params
     })
@@ -35,7 +35,7 @@ export function deleteItem(params) {
 //删除
 export function releaseItem(data) {
     return request({
-        url: '/community-core/notify/item/pushOne',
+        url: '/notice/notify/item/pushOne',
         method: 'POST',
         data
     })
