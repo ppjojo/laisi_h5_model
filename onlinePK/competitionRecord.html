@@ -3,8 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
     <title>个人战绩</title>
     <!-- 引入样式文件 -->
     <link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
@@ -19,23 +18,23 @@
             top: 0;
             padding: .32rem .6rem;
         }
-
+        
         #logobox .logo {
             width: .8rem;
             height: .8rem;
             margin-right: .14rem;
         }
-
+        
         .title {
             color: #cfcfd2;
             font-size: .36rem;
         }
-
+        
         .detail {
             font-size: .24rem;
             color: #cfcfd2;
         }
-
+        
         #download {
             height: .5rem;
             border-radius: .46rem;
@@ -57,7 +56,7 @@
                     <div class="title">派健康</div>
                 </div>
             </div>
-            <div id="download" class="ub ub-ac ub-ad" @click="goInto">
+            <div id="download" class="ub ub-ac ub-ad" @click="goApp">
                 立即下载
             </div>
         </div>
@@ -108,8 +107,7 @@
                 <img style="width: 3rem; margin-top: 1rem;" src="../common/img/noData.png" alt="">
                 <p style="color: #71717f;font-size: 0.28rem;">还没有任何的战绩记录哦~</p>
             </div>
-            <img id="leadToBrowser" src="https://oss.laisitech.com/01c21e85-22db-4a2b-8f4f-500fca31b25d.png"
-                style="display: none; position: absolute;top: 0;left: 0;width: 100%;height: 100%;z-index: 99;" alt="">
+
         </div>
 
     </div>
@@ -166,7 +164,7 @@
                     url: "shareRate/getOwnerRate",
                     data: {},
                     contentType: "application/json",
-                    success: function (res) {
+                    success: function(res) {
                         if (res.code == 0) {
                             that.info = res.data
                         }
@@ -175,7 +173,7 @@
             },
             onLoad() {
                 this.pageNum++
-                this.getAllByPage()
+                    this.getAllByPage()
             },
             getAllByPage() {
                 var that = this
@@ -186,7 +184,7 @@
                         pageNum: that.pageNum,
                         pageSize: that.pageSize
                     },
-                    success: function (res) {
+                    success: function(res) {
                         that.loading = false;
                         if (res.data.pageNum == 1) {
                             that.list = res.data.list
@@ -205,33 +203,33 @@
             },
             onClickRight() { //显示。。。
             },
-            goInto() {
-                let linkUrl = ""
-                if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) { //判断iPhone|iPad|iPod|iOS
+            goApp() {
+                var openApp = function(linkUrl) {
+                    var a = document.createElement("a");
+                    a.setAttribute("href", linkUrl);
+                    a.setAttribute("id", "js_a");
+                    //防止反复添加
+                    if (document.getElementById("js_a")) {
+                        document.body.removeChild(document.getElementById("js_a"));
+                    }
+                    document.body.appendChild(a);
+                    a.click();
+                };
+                let linkUrl = "";
+                if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
                     linkUrl = "https://lstemp.laisitech.com?actionType=ropeskippingLiveCompetion"
-                } else if (/(Android)/i.test(navigator.userAgent)) { //判断Android
-                    if (navigator.userAgent.toLowerCase().indexOf('micromessenger') !== -1) { //微信
-                        document.getElementById("leadToBrowser").style.display = "block";
-                        setTimeout(function () {
-                            document.getElementById("leadToBrowser").style.display = "none";
-                        }, 2000)
-                        return
-                    } else {
-                        linkUrl = "rehealth://ropeskippingLiveCompetion"
+                    openApp(linkUrl);
+                } else if (/(Android)/i.test(navigator.userAgent)) {
+                    linkUrl = "app://rehealth/mainPage?goto=/skiprope/skip_game_main_activity"
+                    if (openApp(linkUrl)) {} else {
+                        linkUrl = "https://a.app.qq.com/o/simple.jsp?pkgname=com.lstech.rehealth";
+                        openApp(linkUrl);
                     }
                 }
-                var a = document.createElement('a');
-                a.setAttribute('href', linkUrl);
-                a.setAttribute('id', 'js_a');
-                //防止反复添加
-                if (document.getElementById('js_a')) {
-                    document.body.removeChild(document.getElementById('js_a'));
-                }
-                document.body.appendChild(a);
-                a.click();
-            }
+            },
+
         }
-    
+
     })
 </script>
 

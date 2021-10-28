@@ -3,8 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
     <title></title>
     <!-- 引入样式文件 -->
     <link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
@@ -17,7 +16,7 @@
             background-repeat: no-repeat;
             height: 100vh;
         }
-
+        
         #logobox {
             background-color: #12121f;
             width: 100%;
@@ -26,23 +25,23 @@
             top: 0;
             padding: .32rem .6rem;
         }
-
+        
         #logobox .logo {
             width: .8rem;
             height: .8rem;
             margin-right: .14rem;
         }
-
+        
         .title {
             color: #cfcfd2;
             font-size: .36rem;
         }
-
+        
         .detail {
             font-size: .24rem;
             color: #999;
         }
-
+        
         #download {
             height: .5rem;
             border-radius: .46rem;
@@ -52,13 +51,12 @@
             text-align: center;
             padding: 0 .16rem;
         }
-
+        
         .invitebox {
             position: relative;
             top: 1rem;
-
         }
-
+        
         .nickname {
             font-size: .28rem;
             color: #A47928;
@@ -66,13 +64,13 @@
             left: 2.5rem;
             position: absolute;
         }
-
+        
         .evlope {
             width: 6.9rem;
             margin: .5rem auto;
             display: block;
         }
-
+        
         .joinIn {
             background: linear-gradient(to right, #FF6A88, #FF5136);
             color: #fff;
@@ -105,12 +103,11 @@
             <img class="evlope" v-else src="img/join.png">
             <div class="nickname">{{nickName}}</div>
         </div>
-        <div class="joinIn ub ub-ac ub-ad" @click="goInto">
+        <div class="joinIn ub ub-ac ub-ad" @click="goApp">
             立即加入
         </div>
 
-        <img id="leadToBrowser" src="https://oss.laisitech.com/01c21e85-22db-4a2b-8f4f-500fca31b25d.png"
-            style="display: none; position: absolute;top: 0;left: 0;width: 100%;height: 100%;z-index: 99;" alt="">
+
     </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
@@ -127,41 +124,40 @@
             }
         },
         filters: {},
-        mounted() {
-
-        },
+        mounted() {},
         created() {},
         methods: {
             OnclickLeft() {
+
                 window.history.back(-1);
             },
             onClickRight() { //显示。。。
             },
-            goInto() {
-                let linkUrl = ""
-                if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) { //判断iPhone|iPad|iPod|iOS
-                    linkUrl = "https://lstemp.laisitech.com" + window.location.search +"&actionType=inviteToOnlinePK"
-                } else if (/(Android)/i.test(navigator.userAgent)) { //判断Android
-                    if (navigator.userAgent.toLowerCase().indexOf('micromessenger') !== -1) { //微信
-                        document.getElementById("leadToBrowser").style.display = "block";
-                        setTimeout(function(){
-                            document.getElementById("leadToBrowser").style.display = "none";
-                        },2000)
-                        return
-                    } else {
-                        linkUrl = "rehealth://inviteToOnlinePK" + window.location.search
+            goApp() {
+                var openApp = function(linkUrl) {
+                    var a = document.createElement("a");
+                    a.setAttribute("href", linkUrl);
+                    a.setAttribute("id", "js_a");
+                    //防止反复添加
+                    if (document.getElementById("js_a")) {
+                        document.body.removeChild(document.getElementById("js_a"));
+                    }
+                    document.body.appendChild(a);
+                    a.click();
+                };
+                let linkUrl = "";
+                if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+                    linkUrl = "https://lstemp.laisitech.com" + window.location.search + "&actionType=inviteToOnlinePK"
+                    openApp(linkUrl);
+                } else if (/(Android)/i.test(navigator.userAgent)) {
+                    linkUrl = "app://rehealth/mainPage?goto=/skiprope/skip_game_main_translucent_activity" + window.location.search.replace("?", "$")
+                    if (openApp(linkUrl)) {} else {
+                        linkUrl = "https://a.app.qq.com/o/simple.jsp?pkgname=com.lstech.rehealth";
+                        openApp(linkUrl);
                     }
                 }
-                var a = document.createElement('a');
-                a.setAttribute('href', linkUrl);
-                a.setAttribute('id', 'js_a');
-                //防止反复添加
-                if (document.getElementById('js_a')) {
-                    document.body.removeChild(document.getElementById('js_a'));
-                }
-                document.body.appendChild(a);
-                a.click();
             }
+
         }
     })
 </script>
