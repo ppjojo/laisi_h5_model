@@ -23,10 +23,11 @@ function ajax1(config) {
 }
 //接口请求统一处理
 let ajax = (config) => {
+    console.log(config)
     return new Promise(function(resolve, reject) {
         Interaction.getAppInfoAndUserInfo();
         if (!config.data) config.data = Object.assign({}, config.data)
-        if (getQueryString("isShare")) {
+        if (getQueryString("isShare") || config.isShare == 1) {
             config.data.userId = getQueryString("userId") || "10000";
             resolve(config);
             return;
@@ -81,16 +82,16 @@ let ajaxResolve = (config) => {
         if (localStorage.getItem("appInfo")) {
             var appInfo = JSON.parse(localStorage.getItem("appInfo"));
             var unorderedHeaderObj = {
-                appId: appInfo.appId || "",
-                timestamp: timestamp,
-                version: "v1",
-                token: appInfo.token || "",
-                platform: appInfo.platform || "",
-                appVersion: appInfo.appVersion || "",
-                timeZone: appInfo.timeZone || "",
-                userId: appInfo.userId,
-            }
-            //unorderedHeaderObj = Object.assign(unorderedHeaderObj, config.data)
+                    appId: appInfo.appId || "",
+                    timestamp: timestamp,
+                    version: "v1",
+                    token: appInfo.token || "",
+                    platform: appInfo.platform || "",
+                    appVersion: appInfo.appVersion || "",
+                    timeZone: appInfo.timeZone || "",
+                    userId: appInfo.userId,
+                }
+                //unorderedHeaderObj = Object.assign(unorderedHeaderObj, config.data)
             const orderedHeaderObj = {};
             Object.keys(unorderedHeaderObj).sort().forEach(function(key) {
                 orderedHeaderObj[key] = unorderedHeaderObj[key];

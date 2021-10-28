@@ -162,6 +162,7 @@
                 ajax({
                     type: "post",
                     url: "shareRate/getOwnerRate",
+                    isShare: 1,
                     data: {},
                     contentType: "application/json",
                     success: function(res) {
@@ -180,6 +181,7 @@
                 ajax({
                     type: "post",
                     url: "shareRate/getAllByPage",
+                    isShare: 1,
                     data: {
                         pageNum: that.pageNum,
                         pageSize: that.pageSize

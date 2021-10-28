@@ -2,160 +2,154 @@
 <html>
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport"
-		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
-	<title>周报月报</title>
-	<link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
-	<link rel="stylesheet" href="font/iconfont.css">
-	<link rel="stylesheet" href="css/index.css">
-	<script src="https://cdn.bootcdn.net/ajax/libs/vConsole/3.8.1/vconsole.min.js"></script>
-	<script>
-		// init vConsole
-		var vConsole = new VConsole();
-	</script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+    <title>周报月报</title>
+    <link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
+    <link rel="stylesheet" href="font/iconfont.css">
+    <link rel="stylesheet" href="css/index.css">
 </head>
 
 <body>
-	<div id="app" class="normalHeader" v-cloak>
-		<div class="header">
-			<van-nav-bar @click-left="onclickLeft" title="周报月报" left-arrow safe-area-inset-top fixed>
-				<template #left>
+    <div id="app" class="normalHeader" v-cloak>
+        <div class="header">
+            <van-nav-bar @click-left="onclickLeft" title="周报月报" left-arrow safe-area-inset-top fixed>
+                <template #left>
 					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
 				</template>
 
-			</van-nav-bar>
-		</div>
-		<div class="listBox ">
-			<div class="weekItem" @click="goReport(1)">
-				<div class="title">运动周报</div>
-				<div class="date">{{lastWeek.startDateTime+'-'+lastWeek.endDateTime}}</div>
-			</div>
-			<div class="monthItem" @click="goReport(2)">
-				<div class="title">运动月报</div>
-				<div class="date">{{lastMonth.startDateTime}}</div>
-			</div>
-		</div>
+            </van-nav-bar>
+        </div>
+        <div class="listBox ">
+            <div class="weekItem" @click="goReport(1)">
+                <div class="title">运动周报</div>
+                <div class="date">{{lastWeek.startDateTime+'-'+lastWeek.endDateTime}}</div>
+            </div>
+            <div class="monthItem" @click="goReport(2)">
+                <div class="title">运动月报</div>
+                <div class="date">{{lastMonth.startDateTime}}</div>
+            </div>
+        </div>
 
-	</div>
+    </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
 <script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
 <script src="../common/js/network.js"></script>
 <script>
-	new Vue({
-		el: '#app',
-		data() {
-			return {
-				lastWeek: {},
-				lastMonth: {}
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                lastWeek: {},
+                lastMonth: {}
 
-			};
-		},
-		filters: {
+            };
+        },
+        filters: {
 
-		},
-		created() {
+        },
+        created() {
 
-		},
-		mounted() {
-			this.lastWeek = this.getLastWeek(new Date().getTime())
-			this.lastMonth = this.getLastMonth(new Date().getTime())
-		},
-		methods: {
-			onclickLeft() {
-				localStorage.removeItem("report_startTime")
-				localStorage.removeItem("report_endTime")
-				Interaction.closePage()
-			},
-			goReport(flag) {
-				let times={}
-				if(flag==1){
-					times=this.lastWeek
-					window.location.href = `weekReport.html`
-				}else{
-					times=this.lastMonth
-					window.location.href =`monthReport.html`
-				}
-				localStorage.setItem("report_startTime", times.startTime)
-				localStorage.setItem("report_endTime", times.endTime)
-			},
-			
-			getLastWeek(value) {
-				if (value == '' || value == undefined) {
-					return value
-				}
-				if (value.length == 10) {
-					value = value * 1000
-				}
+        },
+        mounted() {
+            this.lastWeek = this.getLastWeek(new Date().getTime())
+            this.lastMonth = this.getLastMonth(new Date().getTime())
+        },
+        methods: {
+            onclickLeft() {
+                localStorage.removeItem("report_startTime")
+                localStorage.removeItem("report_endTime")
+                Interaction.closePage()
+            },
+            goReport(flag) {
+                let times = {}
+                if (flag == 1) {
+                    times = this.lastWeek
+                    window.location.href = `weekReport.html`
+                } else {
+                    times = this.lastMonth
+                    window.location.href = `monthReport.html`
+                }
+                localStorage.setItem("report_startTime", times.startTime)
+                localStorage.setItem("report_endTime", times.endTime)
+            },
 
-
-				let myDate = new Date(value - 7 * 24 * 3600 * 1000)
-				
-				let day = myDate.getDay() // 回退7天后是星期几？
-
-				let time = myDate.getDate() - day + (day === 0 ? -6 : 1)
-				
-				let startTime = new Date(new Date(value - 7 * 24 * 3600 * 1000).setDate(time))
-				
-				let startDateTime =
-					(startTime.getMonth() + 1) +
-					'月' +
-					startTime.getDate() +
-					'日'
-				let startDateTime2 = (startTime.getFullYear()) + "-" + (startTime.getMonth() + 1).toString().padStart(2,"00") + '-' + startTime
-					.getDate().toString().padStart(2,"00")
+            getLastWeek(value) {
+                if (value == '' || value == undefined) {
+                    return value
+                }
+                if (value.length == 10) {
+                    value = value * 1000
+                }
 
 
-				let endTime = new Date(new Date(value - 7 * 24 * 3600 * 1000).setDate(time + 6))
-				let endDateTime = (endTime.getMonth() + 1) +
-					'月' +
-					endTime.getDate() +
-					'日'
-				let endDateTime2 = (endTime.getFullYear()) + "-" + (endTime.getMonth() + 1).toString().padStart(2,"00") + '-' + endTime
-					.getDate().toString().padStart(2,"00")
-				return {
-					startDateTime: startDateTime,
-					endDateTime: endDateTime,
-					startTime: new Date(startDateTime2).getTime(),
-					endTime: new Date(endDateTime2).getTime(),
-				}
-			},
-			getLastMonth(value) {
-				if (value == '' || value == undefined) {
-					return value
-				}
-				if (value.length == 10) {
-					value = value * 1000
-				}
-				// 获取上个月时间
-				let nowdays = new Date(value)
-				let year = nowdays.getFullYear()
-				let month = nowdays.getMonth()
-				if (month === 0) {
-					month = 12
-					year = year - 1
-				}
-				if (month < 10) {
-					month = '0' + month
-				}
+                let myDate = new Date(value - 7 * 24 * 3600 * 1000)
 
-				let yDate = new Date(year, month, 0)
+                let day = myDate.getDay() // 回退7天后是星期几？
 
-				startDateTime = year + '年' + month + '月' //上个月第一天
-				startDateTime2 = year + '-' + month + '-' + "01"
-				endDateTime = year + '-' + month + '-' + yDate.getDate() //上个月最后一天
-				return {
-					startDateTime: startDateTime,
-					endDateTime: endDateTime,
-					startTime: new Date(startDateTime2).getTime(),
-					endTime: new Date(endDateTime).getTime(),
-				}
-			}
+                let time = myDate.getDate() - day + (day === 0 ? -6 : 1)
+
+                let startTime = new Date(new Date(value - 7 * 24 * 3600 * 1000).setDate(time))
+
+                let startDateTime =
+                    (startTime.getMonth() + 1) +
+                    '月' +
+                    startTime.getDate() +
+                    '日'
+                let startDateTime2 = (startTime.getFullYear()) + "-" + (startTime.getMonth() + 1).toString().padStart(2, "00") + '-' + startTime
+                    .getDate().toString().padStart(2, "00")
 
 
-		}
-	})
+                let endTime = new Date(new Date(value - 7 * 24 * 3600 * 1000).setDate(time + 6))
+                let endDateTime = (endTime.getMonth() + 1) +
+                    '月' +
+                    endTime.getDate() +
+                    '日'
+                let endDateTime2 = (endTime.getFullYear()) + "-" + (endTime.getMonth() + 1).toString().padStart(2, "00") + '-' + endTime
+                    .getDate().toString().padStart(2, "00")
+                return {
+                    startDateTime: startDateTime,
+                    endDateTime: endDateTime,
+                    startTime: new Date(startDateTime2).getTime(),
+                    endTime: new Date(endDateTime2).getTime(),
+                }
+            },
+            getLastMonth(value) {
+                if (value == '' || value == undefined) {
+                    return value
+                }
+                if (value.length == 10) {
+                    value = value * 1000
+                }
+                // 获取上个月时间
+                let nowdays = new Date(value)
+                let year = nowdays.getFullYear()
+                let month = nowdays.getMonth()
+                if (month === 0) {
+                    month = 12
+                    year = year - 1
+                }
+                if (month < script 10) {
+                    month = '0' + month
+                }
+
+                let yDate = new Date(year, month, 0)
+
+                startDateTime = year + '年' + month + '月' //上个月第一天
+                startDateTime2 = year + '-' + month + '-' + "01"
+                endDateTime = year + '-' + month + '-' + yDate.getDate() //上个月最后一天
+                return {
+                    startDateTime: startDateTime,
+                    endDateTime: endDateTime,
+                    startTime: new Date(startDateTime2).getTime(),
+                    endTime: new Date(endDateTime).getTime(),
+                }
+            }
+
+
+        }
+    })
 </script>
 
 </html>

@@ -13,6 +13,7 @@
     <link href="css/header.css" rel="stylesheet" type="text/css" />
     <link href="css/clubIndex.css" rel="stylesheet" type="text/css" />
     <link href="../club/css/corporateCompetion.css" rel="stylesheet" type="text/css" />
+
     <style type="text/css">
         .taskDiv .van-ellipsis {
             max-width: 3.3rem;
@@ -415,9 +416,7 @@
 
             <div class="btn_box">
                 <div v-if="getQueryString('isShare')">
-                    <a @click="goApp">
-                        <p id="joinBtn" class="addClubBtn">立即加入</p>
-                    </a>
+                    <p id="joinBtn" @click="goApp" class="addClubBtn">立即加入</p>
                 </div>
                 <div v-else>
                     <p id="joinBtn" class="addClubBtn" v-if="clubObject.isInviteCode=='Y'" @click="reqShow=true">立即加入
@@ -624,11 +623,14 @@
                 };
                 let linkUrl = "";
                 if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+
                     linkUrl = "https://lstemp.laisitech.com?actionType=clubDetail&id=" + this.clubId;
                     openApp(linkUrl);
-                } else if (/(Android)/i.test(navigator.userAgent)) {
+                } else {
+
                     linkUrl = `app://rehealth/mainPage?redirectUrl=allClub/clubList_Detail/clubDetail.html?hideTitle=1&id=${this.clubId}`;
                     if (openApp(linkUrl)) {} else {
+
                         linkUrl =
                             "https://a.app.qq.com/o/simple.jsp?pkgname=com.lstech.rehealth";
                         openApp(linkUrl);
