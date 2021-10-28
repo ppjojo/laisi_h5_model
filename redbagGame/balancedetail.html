@@ -1,168 +1,164 @@
 <!DOCTYPE html>
 <html lang="zh-cmn-Hans">
 
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
-		<title>余额明细</title>
-		<!-- 引入样式文件 -->
-		<link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
-		<link rel="stylesheet" href="../common/css/basic.css">
-		<link rel="stylesheet" href="css/normal.css">
-		<link rel="stylesheet" href="css/balancedetail.css">
-		<!-- <script src="https://cdn.bootcss.com/vConsole/3.3.4/vconsole.min.js"></script>
-				<script>
-					// init vConsole
-				        var vConsole = new VConsole();
-				        console.log('Hello world');
-				    </script> -->
-		<style type="text/css">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+    <title>余额明细</title>
+    <!-- 引入样式文件 -->
+    <link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
+    <link rel="stylesheet" href="../common/css/basic.css">
+    <link rel="stylesheet" href="css/normal.css">
+    <link rel="stylesheet" href="css/balancedetail.css">
 
-		</style>
-	</head>
+    <style type="text/css">
 
-	<body>
-		<div id="app" v-cloak>
-			<div class="header">
-				<van-nav-bar title="余额明细" @click-left="OnclickLeft" @click-right="onClickRight" left-arrow>
-				</van-nav-bar>
-			</div>
-			<van-pull-refresh v-model="isLoading" :head-height="90" @refresh="initIndexData" class="monkey-pull-refresh" style="min-height: 92vh;">
-				<template #pulling="props">
+    </style>
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <div class="header">
+            <van-nav-bar title="余额明细" @click-left="OnclickLeft" @click-right="onClickRight" left-arrow>
+            </van-nav-bar>
+        </div>
+        <van-pull-refresh v-model="isLoading" :head-height="90" @refresh="initIndexData" class="monkey-pull-refresh" style="min-height: 92vh;">
+            <template #pulling="props">
 					<div class="monkeyBox">
 						<img class="monkey" src="../common/img/monkey.gif" />
 						<p>下拉刷新</p>
 					</div>
 				</template>
-				<!-- 释放提示 -->
-				<template #loosing>
+            <!-- 释放提示 -->
+            <template #loosing>
 					<div class="monkeyBox">
 						<img class="monkey" src="../common/img/monkey.gif" />
 						<p>释放刷新</p>
 					</div>
 				</template>
 
-				<!-- 加载提示 -->
-				<template #loading>
+            <!-- 加载提示 -->
+            <template #loading>
 					<div class="monkeyBox">
 						<img class="monkey" src="../common/img/monkey.gif" />
 						<p>正在刷新</p>
 					</div>
 				</template>
-				<van-list v-model="loading" :finished="finished" @load="onLoad" :immediate-check=false :finished-text="dataList.length==0?'还没有任何明细记录哦～':''">
-					<ul class="list_ul" v-for="item in dataList">
-						<li class="">
-							<div class="ub ub-ac ub-pj">
-								<div class="title1">{{item.trade_describe||""}}</div>
-								<div class="detail1">{{ item.total_amount<0?'':'+' }}{{ item.total_amount/100 }}</div>
-							</div>
-							<div class="ub ub-ac ub-pj">
-								<div class="title2">{{DateTime.timeStamp2String('ymdhms',item.create_time)}}</div>
-								<div class="title2">余额:{{item.remain_amount/100}}</div>
-							</div>
-						</li>
-					</ul>
-				</van-list>
-				<div class="noData-box" v-if="dataList.length==0&&!loading">
-					<img class="noData-img" src="../common/img/noData.png" />
-					<p class="noData-p">还没有任何明细记录哦～</p>
-				</div>
-			</van-pull-refresh>
-		</div>
-	</body>
-	<script src="https://oss.laisitech.com/0bb12bf1-cb87-4d2c-a724-8a7c25b7ae04.js "></script>
+            <van-list v-model="loading" :finished="finished" @load="onLoad" :immediate-check=false :finished-text="dataList.length==0?'还没有任何明细记录哦～':''">
+                <ul class="list_ul" v-for="item in dataList">
+                    <li class="">
+                        <div class="ub ub-ac ub-pj">
+                            <div class="title1">{{item.trade_describe||""}}</div>
+                            <div class="detail1">{{ item.total_amount
+                                <0? '': '+' }}{{ item.total_amount/100 }}</div>
+                            </div>
+                            <div class="ub ub-ac ub-pj">
+                                <div class="title2">{{DateTime.timeStamp2String('ymdhms',item.create_time)}}</div>
+                                <div class="title2">余额:{{item.remain_amount/100}}</div>
+                            </div>
+                    </li>
+                </ul>
+            </van-list>
+            <div class="noData-box" v-if="dataList.length==0&&!loading">
+                <img class="noData-img" src="../common/img/noData.png" />
+                <p class="noData-p">还没有任何明细记录哦～</p>
+            </div>
+        </van-pull-refresh>
+        </div>
+</body>
+<script src="https://oss.laisitech.com/0bb12bf1-cb87-4d2c-a724-8a7c25b7ae04.js "></script>
 <script src="https://oss.laisitech.com/6172e6c1-f460-40ac-97ba-31c8526f2e16.js"></script>
-	<script src="../common/js/network.js"></script>
-	<script src="js/tool.js"></script>
-	<script>
-		window.addEventListener('pageshow', function(event) {
-			console.log("PageShow Event  " + event.persisted);
-			console.log(event)
-			if (isIOS) {
+<script src="../common/js/network.js"></script>
+<script src="js/tool.js"></script>
+<script>
+    window.addEventListener('pageshow', function(event) {
+        console.log("PageShow Event  " + event.persisted);
+        console.log(event)
+        if (isIOS) {
 
-			}
-		})
-		new Vue({
-			el: '#app',
-			data() {
-				return {
-					isLoading: false,
-					loading: false,
-					finished: false,
-					dataList: [],
-					page: 0,
-					pageSize: 5,
-				}
-			},
-			filters: {},
-			mounted() {},
-			created() {
-				setTopBarColor('white');
-				this.initData()
-			},
-			methods: {
-				initData() {
-					this.loading = true;
-					var _self = this;
-					let nowPage = _self.page;
-					ajax({
-						type: "get",
-						url: "ropeRedPackage/userTradeStatement/userTradeStatement",
-						data: {
-							page: nowPage,
-							pageSize: _self.pageSize
-						},
-						success: function(res) {
-							_self.loading = false;
-							if (res.code == 0) {
-								if (nowPage == 0) {
-									_self.dataList = [];
-									_self.dataList = res.data.data;
-								} else {
-									_self.dataList = _self.dataList.concat(res.data.data);
-								}
-								if ((nowPage + 1) * _self.pageSize >= res.data.count) {
-									_self.finished = true;
-								}
-							} else {
-								_self.$toast(res.msg);
-							}
-						},
-						error: function() {
-							_self.loading = false;
-							console.log("error")
-						}
-					})
-				},
-				initIndexData() {
-					// 清空列表数据
-					this.finished = false;
-					// 重新加载数据
-					// 将 loading 设置为 true，表示处于加载状态
-					this.loading = true;
-					this.isLoading = true;
-					this.onLoad();
-				},
-				onLoad() {
-					console.log(this.isLoading)
-					if (this.isLoading) {
-						this.isLoading = false;
-						this.page = 0;
-					} else {
-						this.page++;
-					}
-					// this.initData()
-					this.loading = false;
-				},
-				OnclickLeft() {
-					window.history.back(-1);
-					setTopBarColor('red');
-					if(isAndroid)Interaction.closePage()
-				},
-				onClickRight() { //显示。。。
-				},
-			}
-		})
-	</script>
+        }
+    })
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                isLoading: false,
+                loading: false,
+                finished: false,
+                dataList: [],
+                page: 0,
+                pageSize: 5,
+            }
+        },
+        filters: {},
+        mounted() {},
+        created() {
+            setTopBarColor('white');
+            this.initData()
+        },
+        methods: {
+            initData() {
+                this.loading = true;
+                var _self = this;
+                let nowPage = _self.page;
+                ajax({
+                    type: "get",
+                    url: "ropeRedPackage/userTradeStatement/userTradeStatement",
+                    data: {
+                        page: nowPage,
+                        pageSize: _self.pageSize
+                    },
+                    success: function(res) {
+                        _self.loading = false;
+                        if (res.code == 0) {
+                            if (nowPage == 0) {
+                                _self.dataList = [];
+                                _self.dataList = res.data.data;
+                            } else {
+                                _self.dataList = _self.dataList.concat(res.data.data);
+                            }
+                            if ((nowPage + 1) * _self.pageSize >= res.data.count) {
+                                _self.finished = true;
+                            }
+                        } else {
+                            _self.$toast(res.msg);
+                        }
+                    },
+                    error: function() {
+                        _self.loading = false;
+                        console.log("error")
+                    }
+                })
+            },
+            initIndexData() {
+                // 清空列表数据
+                this.finished = false;
+                // 重新加载数据
+                // 将 loading 设置为 true，表示处于加载状态
+                this.loading = true;
+                this.isLoading = true;
+                this.onLoad();
+            },
+            onLoad() {
+                console.log(this.isLoading)
+                if (this.isLoading) {
+                    this.isLoading = false;
+                    this.page = 0;
+                } else {
+                    this.page++;
+                }
+                // this.initData()
+                this.loading = false;
+            },
+            OnclickLeft() {
+                window.history.back(-1);
+                setTopBarColor('red');
+                if (isAndroid) Interaction.closePage()
+            },
+            onClickRight() { //显示。。。
+            },
+        }
+    })
+</script>
 
 </html>

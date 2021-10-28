@@ -1,91 +1,84 @@
 <!DOCTYPE html>
 <html lang="zh-cmn-Hans">
 
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
-		<title>我的背包</title>
-		<!-- 引入样式文件 -->
-		<link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
-		<link rel="stylesheet" href="../common/css/basic.css">
-		<link rel="stylesheet" href="css/normal.css">
-		<!-- <script src="https://cdn.bootcss.com/vConsole/3.3.4/vconsole.min.js"></script>
-				<script>
-					// init vConsole
-				        var vConsole = new VConsole();
-				        console.log('Hello world');
-				    </script> -->
-		<style type="text/css">
-		</style>
-	</head>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+    <title>我的背包</title>
+    <!-- 引入样式文件 -->
+    <link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
+    <link rel="stylesheet" href="../common/css/basic.css">
+    <link rel="stylesheet" href="css/normal.css">
 
-	<body>
-		<div id="app" v-cloak>
-			<div class="header">
-				<van-nav-bar title="我的背包" @click-left="OnclickLeft" @click-right="onClickRight" left-arrow>
-					<template #right>
+    <style type="text/css">
+
+    </style>
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <div class="header">
+            <van-nav-bar title="我的背包" @click-left="OnclickLeft" @click-right="onClickRight" left-arrow>
+                <template #right>
 						<van-icon name="ellipsis" size="30" />
 					</template>
-				</van-nav-bar>
-			</div>
-			<!-- 奖品弹出 -->
-			<van-popup v-model="popshow"
-			 @opened="ShowSVG"
-			 @close="svgshow = false"
-			 closeable close-icon="img/popclose.png" close-icon-position="bottom" id="popbg">
-			 <div v-show="svgshow&&popparam.winStatus==1" id="demoCanvas"></div>
-				<div :class="{popget:true,popmiss:popparam.winStatus!=1}" @click="closeTodetail(popparam)">
-					<div v-if="popparam.winStatus==1&&(popparam.type==5||popparam.type==4||popparam.type==3)">
-						<img class="popimg" :src="popparam.logo">
-						<div class="prizename">{{popparam.name}}</div>
-					</div>
-					<div v-if="popparam.winStatus!=1&&popparam.type==2">
-						<img class="popimg" src="img/cashredbag.png">
-						<div class="redbagcount">￥{{popparam.redPackageValue}}</div>
-						<div class="prizename">{{popparam.redPackageValue}}元现金红包！</div>
-					</div>
-				</div>
-			</van-popup>
+            </van-nav-bar>
+        </div>
+        <!-- 奖品弹出 -->
+        <van-popup v-model="popshow" @opened="ShowSVG" @close="svgshow = false" closeable close-icon="img/popclose.png" close-icon-position="bottom" id="popbg">
+            <div v-show="svgshow&&popparam.winStatus==1" id="demoCanvas"></div>
+            <div :class="{popget:true,popmiss:popparam.winStatus!=1}" @click="closeTodetail(popparam)">
+                <div v-if="popparam.winStatus==1&&(popparam.type==5||popparam.type==4||popparam.type==3)">
+                    <img class="popimg" :src="popparam.logo">
+                    <div class="prizename">{{popparam.name}}</div>
+                </div>
+                <div v-if="popparam.winStatus!=1&&popparam.type==2">
+                    <img class="popimg" src="img/cashredbag.png">
+                    <div class="redbagcount">￥{{popparam.redPackageValue}}</div>
+                    <div class="prizename">{{popparam.redPackageValue}}元现金红包！</div>
+                </div>
+            </div>
+        </van-popup>
 
-			<van-tabs v-model="menuactive" @change="changeTab" sticky swipeable>
-				<van-tab title="盲盒" id="">
-					<ul class="list_ul">
-						<li class="ub ub-pj ub-ac" v-for="(item,index) in blindboxlist">
-							<div class="ub ub-ac">
-								<div class="imgbox" :style="{backgroundColor:blindbg[item.boxType]}">
-									<img :src="item.logo" alt="">
-								</div>
-								<div>
-									<div class="title" style="margin-bottom: .1rem;">{{item.name}}</div>
-									<div v-if="item.endTime==null&&item.drawed==0" class="detail">请等待活动开启</div>
-									<div v-else-if="item.drawed==1" class="detail">开盒时间已到，快去开启！</div>
-									<div v-else class="detail ub ub-ac">距离开盒还有:<van-count-down @finish="countfinish(index)" format="HH 时 mm 分 ss 秒"
-										 :time="timedown(item.endTime)"></van-count-down>
-									</div>
-								</div>
-							</div>
+        <van-tabs v-model="menuactive" @change="changeTab" sticky swipeable>
+            <van-tab title="盲盒" id="">
+                <ul class="list_ul">
+                    <li class="ub ub-pj ub-ac" v-for="(item,index) in blindboxlist">
+                        <div class="ub ub-ac">
+                            <div class="imgbox" :style="{backgroundColor:blindbg[item.boxType]}">
+                                <img :src="item.logo" alt="">
+                            </div>
+                            <div>
+                                <div class="title" style="margin-bottom: .1rem;">{{item.name}}</div>
+                                <div v-if="item.endTime==null&&item.drawed==0" class="detail">请等待活动开启</div>
+                                <div v-else-if="item.drawed==1" class="detail">开盒时间已到，快去开启！</div>
+                                <div v-else class="detail ub ub-ac">距离开盒还有:
+                                    <van-count-down @finish="countfinish(index)" format="HH 时 mm 分 ss 秒" :time="timedown(item.endTime)"></van-count-down>
+                                </div>
+                            </div>
+                        </div>
 
-							<div v-if="(item.drawed==0&&timedown(item.endTime))||(item.drawed==0&&item.endTime==null)" style="padding-top: .02rem;" class="task_finish task_unfinish" >
-								X{{item.ownCount}}
-							</div>
-							<div v-else class="task_unfinish" style="padding-top: .02rem;" @click="clickOpenBtn(item.boxType)">
-								开盒(X{{item.ownCount}})
-							</div>
-						</li>
-					</ul>
-					<div class="noData-box" v-if="!blindboxlist||blindboxlist.length==0">
-						<img class="noData-img" src="../common/img/noData.png" />
-						<p class="noData-p">还未拥有盲盒或盲盒已全部打开哦！</p>
-					</div>
-				</van-tab>
-				<van-tab title="奖品" id="price" style="padding-bottom: 1rem;">
-					<van-checkbox-group v-model="priceresult" ref="checkboxGroup">
-						<van-cell-group>
-							<van-cell v-for="(item, index) in pricelist" clickable :key="item.bagId" @click="toggle(index)">
-								<template #icon>
+                        <div v-if="(item.drawed==0&&timedown(item.endTime))||(item.drawed==0&&item.endTime==null)" style="padding-top: .02rem;" class="task_finish task_unfinish">
+                            X{{item.ownCount}}
+                        </div>
+                        <div v-else class="task_unfinish" style="padding-top: .02rem;" @click="clickOpenBtn(item.boxType)">
+                            开盒(X{{item.ownCount}})
+                        </div>
+                    </li>
+                </ul>
+                <div class="noData-box" v-if="!blindboxlist||blindboxlist.length==0">
+                    <img class="noData-img" src="../common/img/noData.png" />
+                    <p class="noData-p">还未拥有盲盒或盲盒已全部打开哦！</p>
+                </div>
+            </van-tab>
+            <van-tab title="奖品" id="price" style="padding-bottom: 1rem;">
+                <van-checkbox-group v-model="priceresult" ref="checkboxGroup">
+                    <van-cell-group>
+                        <van-cell v-for="(item, index) in pricelist" clickable :key="item.bagId" @click="toggle(index)">
+                            <template #icon>
 									<van-checkbox :name="item.bagId" ref="checkboxes"></van-checkbox>
 								</template>
-								<template #title>
+                            <template #title>
 									<ul class="list_ul">
 										<li class="ub ub-pj ub-ac">
 											<div class="ub ub-ac">
@@ -103,15 +96,15 @@
 										</li>
 									</ul>
 								</template>
-							</van-cell>
-						</van-cell-group>
-					</van-checkbox-group>
-					<van-cell-group>
-						<van-cell v-for="(item, index) in pricelist2" :key="item.name">
-							<template #icon>
+                        </van-cell>
+                    </van-cell-group>
+                </van-checkbox-group>
+                <van-cell-group>
+                    <van-cell v-for="(item, index) in pricelist2" :key="item.name">
+                        <template #icon>
 								<van-checkbox :name="item.bagId" disabled></van-checkbox>
 							</template>
-							<template #title>
+                        <template #title>
 								<ul class="list_ul">
 									<li class="ub ub-pj ub-ac">
 										<div class="ub ub-ac">
@@ -129,51 +122,47 @@
 									</li>
 								</ul>
 							</template>
-						</van-cell>
-					</van-cell-group>
-					<div class="noData-box" style="padding-top: 2.2rem;" v-if="(!pricelist||pricelist.length==0)&&(!pricelist2||pricelist2.length==0)">
-						<img class="noData-img" src="../common/img/noData.png" />
-						<p class="noData-p">还没有奖品哦！努力兑换吧！</p>
-					</div>
-				</van-tab>
-				<van-tab title="优惠券" id="coupon">
-					<van-list
-					  v-model="loading"
-					  :finished="finished"
-					  :finished-text="couponlist.length>0?'已加载全部优惠券!':''"
-					>
-					<ul class="list_ul">
-						<li class="ub ub-pj ub-ac" v-for="(item,index) in couponlist">
-							<div class="ub ub-ac">
-								<div class="imgbox" :class="{op5:!timedown(item.endTime)}" :style="{backgroundColor:blindbg[1]}">
-									<img :src="item.logo" alt="">
-								</div>
-								<div>
-									<div class="title" style="margin-bottom: .1rem;">{{item.name}}</div>
-									<!-- {{ DateTime.sjc2time('ymd',item.endTime) }} -->
-									<div class="detail">{{DateTime.sjc2time('ymdhms',item.endTime)}}</div>
-								</div>
-							</div>
-							<div v-if="timedown(item.endTime)" style="padding-top: .02rem;" class="task_unfinish" @click="toCoupon()">
-								去使用
-							</div>
-							<div v-else class="task_unfinish task_finish" style="padding-top: .02rem;" :style="{color:'#999'}">
-								已失效
-							</div>
-						</li>
-					</ul>
-					</van-list>
-					<div class="noData-box" v-if="couponlist.length==0">
-						<img class="noData-img" src="../common/img/noData.png" />
-						<p class="noData-p">还没有优惠券哦！努力兑换吧！</p>
-					</div>
-				</van-tab>
-			</van-tabs>
-			<div id="pricechange" class="ub ub-ac ub-pj" v-if="menuactive==1&&pricelist.length>0">
-				<van-checkbox v-model="chooseall" @change="toggleAll">全选</van-checkbox>
-				<div id="gochange" @click="toChange(priceresult.length>0)" :class="{canchange:priceresult.length>0?true:false}">去兑换</div>
-			</div>
-			<!-- <van-pull-refresh v-model="isLoading" :head-height="90" @refresh="initIndexData" class="monkey-pull-refresh">
+                    </van-cell>
+                </van-cell-group>
+                <div class="noData-box" style="padding-top: 2.2rem;" v-if="(!pricelist||pricelist.length==0)&&(!pricelist2||pricelist2.length==0)">
+                    <img class="noData-img" src="../common/img/noData.png" />
+                    <p class="noData-p">还没有奖品哦！努力兑换吧！</p>
+                </div>
+            </van-tab>
+            <van-tab title="优惠券" id="coupon">
+                <van-list v-model="loading" :finished="finished" :finished-text="couponlist.length>0?'已加载全部优惠券!':''">
+                    <ul class="list_ul">
+                        <li class="ub ub-pj ub-ac" v-for="(item,index) in couponlist">
+                            <div class="ub ub-ac">
+                                <div class="imgbox" :class="{op5:!timedown(item.endTime)}" :style="{backgroundColor:blindbg[1]}">
+                                    <img :src="item.logo" alt="">
+                                </div>
+                                <div>
+                                    <div class="title" style="margin-bottom: .1rem;">{{item.name}}</div>
+                                    <!-- {{ DateTime.sjc2time('ymd',item.endTime) }} -->
+                                    <div class="detail">{{DateTime.sjc2time('ymdhms',item.endTime)}}</div>
+                                </div>
+                            </div>
+                            <div v-if="timedown(item.endTime)" style="padding-top: .02rem;" class="task_unfinish" @click="toCoupon()">
+                                去使用
+                            </div>
+                            <div v-else class="task_unfinish task_finish" style="padding-top: .02rem;" :style="{color:'#999'}">
+                                已失效
+                            </div>
+                        </li>
+                    </ul>
+                </van-list>
+                <div class="noData-box" v-if="couponlist.length==0">
+                    <img class="noData-img" src="../common/img/noData.png" />
+                    <p class="noData-p">还没有优惠券哦！努力兑换吧！</p>
+                </div>
+            </van-tab>
+        </van-tabs>
+        <div id="pricechange" class="ub ub-ac ub-pj" v-if="menuactive==1&&pricelist.length>0">
+            <van-checkbox v-model="chooseall" @change="toggleAll">全选</van-checkbox>
+            <div id="gochange" @click="toChange(priceresult.length>0)" :class="{canchange:priceresult.length>0?true:false}">去兑换</div>
+        </div>
+        <!-- <van-pull-refresh v-model="isLoading" :head-height="90" @refresh="initIndexData" class="monkey-pull-refresh">
 				<template #pulling="props">
 					<div class="monkeyBox">
 						<img class="monkey" src="../common/img/monkey.gif" />
@@ -196,358 +185,358 @@
 				<van-list v-model="loading" :finished="finished" @load="onLoad">
 				</van-list>
 			</van-pull-refresh> -->
-		</div>
-	</body>
-	<script src="https://oss.laisitech.com/0bb12bf1-cb87-4d2c-a724-8a7c25b7ae04.js "></script>
+    </div>
+</body>
+<script src="https://oss.laisitech.com/0bb12bf1-cb87-4d2c-a724-8a7c25b7ae04.js "></script>
 <script src="https://oss.laisitech.com/6172e6c1-f460-40ac-97ba-31c8526f2e16.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/svgaplayerweb@2.3.1/build/svga.min.js"></script>
-	<script src="../common/js/network.js"></script>
-	<script src="js/tool.js"></script>
-	<script>
-		window.addEventListener('pageshow', function(event) {
-			console.log("PageShow Event  " + event.persisted);
-			console.log(event)
-			if (isIOS) {
-				if (localStorage.getItem('ordersuccess')) {
-					window.reflashFuc();
-					localStorage.removeItem('ordersuccess');
-				}
-			}
-		})
-		new Vue({
-			el: '#app',
-			data() {
-				return {
-					// isLoading: false,
-					loading: false,
-					finished: false,
-					// dataList: [],
-					// pageNum: 1, //分页参数
-					etcmenu: false, //右上角单显示flag
-					nowtime: new Date().getTime(),
-					blindbg: {
-						1: '#F7E6E1',
-						2: '#EFE1F7',
-						3: '#F7F6E1'
-					},
-					actions: [{
-						name: "开盒记录"
-					}, {
-						name: "兑换记录"
-					}], //右上角菜单
-					menuactive: parseInt(getQueryString("menuindex")||localStorage.getItem("P_packageTab")||0), //当前菜单index
-					blindboxlist: [], //盲盒arr
-					priceresult: [], //选中的奖品id
-					couponlist: [], //优惠券arr
-					pricelist: [], //奖品arr
-					pricelist2: [],
-					chooseall: false, //奖品全选标志
-					popshow: false, //弹框flag
-					svgshow:false,
-					popparam: {
-						winStatus: 1, //是否抽中0wu
-						type: 5, //5实物2红包4包邮3优惠券
-						name: "智能跳绳T20Pro一根",
-						logo: '',
-						redPackageValue: 0
-					}, //弹框参数
-				}
-			},
-			filters: {},
-			mounted() {
-				window.reflashFuc = this.reflashFuc;
-				// if(isIOS)document.getElementsByClassName('van-tabs__wrap')[0].style.top = '.92rem'
-			},
-			created() {
-				this.getblindbox();
-				this.getaward();
-				this.getcoupon();
-			},
-			methods: {
-				reflashFuc(){
-					this.getaward();
-				},
-				getblindbox() { //获取盲盒
-					var _self = this;
-					ajax({
-						type: "get",
-						url: "activity/UserBag/myboxes?dsd="+new Date().getTime(),
-						data: {},
-						success: function(res) {
-							if (res.code == 0) {
-								_self.blindboxlist = res.data;
-							} else {
-								_self.$toast(res.msg);
-							}
-						},
-						error: function() {
-							console.log("error")
-						}
-					})
-				},
-				getaward() { //获取奖品
-					var _self = this;
-					ajax({
-						type: "get",
-						url: "activity/UserBag/myAwards?dsd="+new Date().getTime(),
-						data: {},
-						success: function(res) {
-							if (res.code == 0) {
-								_self.pricelist = [];
-								_self.pricelist2 = [];
-								res.data.forEach((item, index) => {
-									if (!_self.timedown(item.endTime)) { //失效的
-										_self.pricelist2.push(item);
-									} else {
-										_self.pricelist.push(item);
-									}
-								})
-							} else {
-								_self.$toast(res.msg);
-							}
-						},
-						error: function() {
-							console.log("error")
-						}
-					})
-				},
-				//activity/UserBag/myVouchers
-				getcoupon() { //获取盲盒
-					var _self = this;
-					ajax({
-						type: "get",
-						url: "activity/UserBag/myVouchers?dsd="+new Date().getTime(),
-						data: {},
-						success: function(res) {
-							_self.loading = false;
-							if (res.code == 0) {
-								_self.finished = true;
-								_self.couponlist = res.data;
-							} else {
-								_self.$toast(res.msg);
-							}
-						},
-						error: function() {
-							console.log("error")
-						}
-					})
-				},
-				clickOpenBtn(boxType) {
-					this.openBox(boxType, res => {
-						this.popparam = res.box;
-						this.popshow = true;
-						this.getblindbox();
-						setTimeout(()=>{
-							this.getaward()();
-						},400);
-						setTimeout(()=>{
-							this.getcoupon();
-						},800);
-					});
-				},
-				openBox(boxType, cb) {
-					var _self = this;
-					ajax({
-						type: "post",
-						url: "activity/UserBag/openOneBox",
-						data: {
-							boxType: boxType
-						},
-						success: function(res) {
-							if (res.code == 0) {
-								cb(res.data)
-							} else {
-								_self.$toast(res.msg);
-							}
-						},
-						error: function() {
-							console.log("error")
-						}
-					})
-				},
-				// initIndexData() {
-				// 	// 清空列表数据
-				// 	this.finished = false;
-				// 	// 重新加载数据
-				// 	// 将 loading 设置为 true，表示处于加载状态
-				// 	this.loading = true;
-				// 	this.isLoading = true;
-				// 	this.onLoad();
-				// },
-				// onLoad() {
-				// 	if (this.isLoading) {
-				// 		this.dataList = [];
-				// 		this.isLoading = false;
-				// 		this.pageNum = 1;
-				// 	} else {
-				// 		this.pageNum++;
-				// 	}
-				// 	//this.getCommentList()
-				// 	this.loading = false;
-				// },
-				timedown(time) {
-					if (!time) return false;
-					let endtime = DateTime.getTime(time);
-					if (endtime > this.nowtime) { //没到开奖时间，倒计时
-						return endtime - this.nowtime;
-					} else {
-						return false;
-					}
+<script src="https://cdn.jsdelivr.net/npm/svgaplayerweb@2.3.1/build/svga.min.js"></script>
+<script src="../common/js/network.js"></script>
+<script src="js/tool.js"></script>
+<script>
+    window.addEventListener('pageshow', function(event) {
+        console.log("PageShow Event  " + event.persisted);
+        console.log(event)
+        if (isIOS) {
+            if (localStorage.getItem('ordersuccess')) {
+                window.reflashFuc();
+                localStorage.removeItem('ordersuccess');
+            }
+        }
+    })
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                // isLoading: false,
+                loading: false,
+                finished: false,
+                // dataList: [],
+                // pageNum: 1, //分页参数
+                etcmenu: false, //右上角单显示flag
+                nowtime: new Date().getTime(),
+                blindbg: {
+                    1: '#F7E6E1',
+                    2: '#EFE1F7',
+                    3: '#F7F6E1'
+                },
+                actions: [{
+                    name: "开盒记录"
+                }, {
+                    name: "兑换记录"
+                }], //右上角菜单
+                menuactive: parseInt(getQueryString("menuindex") || localStorage.getItem("P_packageTab") || 0), //当前菜单index
+                blindboxlist: [], //盲盒arr
+                priceresult: [], //选中的奖品id
+                couponlist: [], //优惠券arr
+                pricelist: [], //奖品arr
+                pricelist2: [],
+                chooseall: false, //奖品全选标志
+                popshow: false, //弹框flag
+                svgshow: false,
+                popparam: {
+                    winStatus: 1, //是否抽中0wu
+                    type: 5, //5实物2红包4包邮3优惠券
+                    name: "智能跳绳T20Pro一根",
+                    logo: '',
+                    redPackageValue: 0
+                }, //弹框参数
+            }
+        },
+        filters: {},
+        mounted() {
+            window.reflashFuc = this.reflashFuc;
+            // if(isIOS)document.getElementsByClassName('van-tabs__wrap')[0].style.top = '.92rem'
+        },
+        created() {
+            this.getblindbox();
+            this.getaward();
+            this.getcoupon();
+        },
+        methods: {
+            reflashFuc() {
+                this.getaward();
+            },
+            getblindbox() { //获取盲盒
+                var _self = this;
+                ajax({
+                    type: "get",
+                    url: "activity/UserBag/myboxes?dsd=" + new Date().getTime(),
+                    data: {},
+                    success: function(res) {
+                        if (res.code == 0) {
+                            _self.blindboxlist = res.data;
+                        } else {
+                            _self.$toast(res.msg);
+                        }
+                    },
+                    error: function() {
+                        console.log("error")
+                    }
+                })
+            },
+            getaward() { //获取奖品
+                var _self = this;
+                ajax({
+                    type: "get",
+                    url: "activity/UserBag/myAwards?dsd=" + new Date().getTime(),
+                    data: {},
+                    success: function(res) {
+                        if (res.code == 0) {
+                            _self.pricelist = [];
+                            _self.pricelist2 = [];
+                            res.data.forEach((item, index) => {
+                                if (!_self.timedown(item.endTime)) { //失效的
+                                    _self.pricelist2.push(item);
+                                } else {
+                                    _self.pricelist.push(item);
+                                }
+                            })
+                        } else {
+                            _self.$toast(res.msg);
+                        }
+                    },
+                    error: function() {
+                        console.log("error")
+                    }
+                })
+            },
+            //activity/UserBag/myVouchers
+            getcoupon() { //获取盲盒
+                var _self = this;
+                ajax({
+                    type: "get",
+                    url: "activity/UserBag/myVouchers?dsd=" + new Date().getTime(),
+                    data: {},
+                    success: function(res) {
+                        _self.loading = false;
+                        if (res.code == 0) {
+                            _self.finished = true;
+                            _self.couponlist = res.data;
+                        } else {
+                            _self.$toast(res.msg);
+                        }
+                    },
+                    error: function() {
+                        console.log("error")
+                    }
+                })
+            },
+            clickOpenBtn(boxType) {
+                this.openBox(boxType, res => {
+                    this.popparam = res.box;
+                    this.popshow = true;
+                    this.getblindbox();
+                    setTimeout(() => {
+                        this.getaward()();
+                    }, 400);
+                    setTimeout(() => {
+                        this.getcoupon();
+                    }, 800);
+                });
+            },
+            openBox(boxType, cb) {
+                var _self = this;
+                ajax({
+                    type: "post",
+                    url: "activity/UserBag/openOneBox",
+                    data: {
+                        boxType: boxType
+                    },
+                    success: function(res) {
+                        if (res.code == 0) {
+                            cb(res.data)
+                        } else {
+                            _self.$toast(res.msg);
+                        }
+                    },
+                    error: function() {
+                        console.log("error")
+                    }
+                })
+            },
+            // initIndexData() {
+            // 	// 清空列表数据
+            // 	this.finished = false;
+            // 	// 重新加载数据
+            // 	// 将 loading 设置为 true，表示处于加载状态
+            // 	this.loading = true;
+            // 	this.isLoading = true;
+            // 	this.onLoad();
+            // },
+            // onLoad() {
+            // 	if (this.isLoading) {
+            // 		this.dataList = [];
+            // 		this.isLoading = false;
+            // 		this.pageNum = 1;
+            // 	} else {
+            // 		this.pageNum++;
+            // 	}
+            // 	//this.getCommentList()
+            // 	this.loading = false;
+            // },
+            timedown(time) {
+                if (!time) return false;
+                let endtime = DateTime.getTime(time);
+                if (endtime > this.nowtime) { //没到开奖时间，倒计时
+                    return endtime - this.nowtime;
+                } else {
+                    return false;
+                }
 
-					// this.nowtime
-				},
-				OnclickLeft() {
-					window.history.back(-1);
-				},
-				onClickRight() { //显示。。。
-					this.etcmenu = true;
-				},
-				onSelect(action, index) { //点击选择。。。的菜单
-					if (index == 1) window.location.href = "changerecord.html"
-					else window.location.href = "openboxrecord.html"
-				},
-				onCancel() { //关闭。。。的弹框
-					this.etcmenu = false;
-				},
-				toggle(index) {
-					this.$refs.checkboxes[index].toggle();
-					setTimeout(() => {
-						if (this.priceresult.length == this.pricelist.length) this.chooseall = true;
-						if(this.priceresult.length == 0)this.chooseall = false
-						// else this.chooseall = false
-					}, 100)
-				},
-				toggleAll(checked) { //全选反选
-					this.$refs.checkboxGroup.toggleAll(checked);
-				},
-				toChange(flag) {
-					if (!flag) return;
-					// console.log(this.priceresult)
-					let postingCoupon = this.checkhasPostCoupon(this.returnformat(this.priceresult));
-					if (!postingCoupon) {
-						return;
-					}
-					let newpricelist = JSON.parse(JSON.stringify(this.priceresult));
-					newpricelist.forEach((item, index) => {
-						if (item == postingCoupon) newpricelist.splice(index, 1);
-					})
-					let choosedprice = this.arrformat(this.returnformat(newpricelist)); //选择好的去重
-					let obj = {};
-					obj.bagAwardIds = newpricelist;
-					obj.choosedprice = choosedprice;
-					obj.postingCoupon = postingCoupon;
-					console.log(obj)
-					localStorage.setItem("priceinfo", JSON.stringify(obj));
-					window.location.href = "ordersubmit.html";
-				},
-				checkhasPostCoupon(arr) {
-					console.log(arr)
-					let Pcount = 0; //包邮券数量
-					let Gcount = 0; //物品数量
-					let Couponid = "";
-					arr.forEach((item, index) => {
-						if (item.type == 5) Gcount++;
-						if (item.type == 4) {
-							Couponid = item.bagId;
-							Pcount++;
-						}
-					});
-					if (Pcount == 0) {
-						this.$toast("暂无包邮券，快去兑换呀！");
-						return false;
-					}
-					if (Pcount > 1) {
-						this.$toast("包邮券只要一张哦！");
-						return false;
-					}
-					if (Gcount == 0) {
-						this.$toast("暂无奖品哦！");
-						return false;
-					}
-					return Couponid;
-				},
-				arrformat(_arr) { //去重找出一样的
-					// var _arr = ['旅行箱', '旅行箱', '小米', '大米'];
-					var _res = []; // 
-					_arr.sort(compare('name'));
-					for (var i = 0; i < _arr.length;) {
-						var count = 0;
-						for (var j = i; j < _arr.length; j++) {
-							if (_arr[i].awardClass == _arr[j].awardClass) {
-								count++;
-							}
-						}
-						_res.push([_arr[i].name, count, _arr[i].logo]);
-						i += count;
-					}
-					//_res 二维数维中保存了 值和值的重复数
-					var _newArr = [];
-					for (var i = 0; i < _res.length; i++) {
-						// console.log(_res[i][0] + "重复次数:" + _res[i][1]);
-						_newArr.push(_res[i][0] + ',' + _res[i][1] + ',' + _res[i][2]);
-					}
-					return _newArr;
-				},
-				returnformat(arr) {
-					var _ = this;
-					var _res = []; //
-					for (var i = 0; i < arr.length; i++) {
-						for (var j = 0; j < _.pricelist.length; j++) {
-							if (arr[i] == _.pricelist[j].bagId) {
-								_res.push(_.pricelist[j]);
-							}
-						}
-					}
-					return _res;
-				},
-				countfinish(index) { //倒计时结束，可以开合
-					this.blindboxlist[index].drawed = 1;
-				},
-				closeTodetail(obj) { //点击查看详情
-					if (obj.winStatus != 1) {//未中奖
-						this.popshow = false;
-						return;
-					}
-					if (obj.type == 5 || obj.type == 4){
-						this.menuactive = 1;
-					} 
-					if (obj.type == 3){
-						this.menuactive = 2;
-					}
-					this.popshow = false;
-				},
-				changeTab(name){
-					localStorage.setItem("P_packageTab",name);
-				},
-				toCoupon(){//去优惠券页面
-					try {
-						if (isIOS) {
-							window.webkit.messageHandlers.lstNative.postMessage({
-								"method": "LSH5APP_Push_Action",
-								"actionType": "LSTH5APP_MyCouponVC"
-							});
-					
-						} else if (isAndroid) {
-							window.android.LSH5APP_Push_Action(JSON.stringify({
-								actionType: "LSTH5APP_MyCouponVC",
-								actionNum: "90000"
-							}))
-						}
-					} catch (e) {
-						console.log(e)
-					}
-				},
-				ShowSVG(){
-					var player = new SVGA.Player('#demoCanvas');
-					var parser = new SVGA.Parser('#demoCanvas'); // Must Provide same selector eg:#demoCanvas IF support IE6+
-					parser.load('css/giftbg-2_0.svga', function(videoItem) {
-					    player.setVideoItem(videoItem);
-					    player.startAnimation();
-					})
-					this.svgshow = true;
-				}
-			}
-		})
-	</script>
+                // this.nowtime
+            },
+            OnclickLeft() {
+                window.history.back(-1);
+            },
+            onClickRight() { //显示。。。
+                this.etcmenu = true;
+            },
+            onSelect(action, index) { //点击选择。。。的菜单
+                if (index == 1) window.location.href = "changerecord.html"
+                else window.location.href = "openboxrecord.html"
+            },
+            onCancel() { //关闭。。。的弹框
+                this.etcmenu = false;
+            },
+            toggle(index) {
+                this.$refs.checkboxes[index].toggle();
+                setTimeout(() => {
+                    if (this.priceresult.length == this.pricelist.length) this.chooseall = true;
+                    if (this.priceresult.length == 0) this.chooseall = false
+                        // else this.chooseall = false
+                }, 100)
+            },
+            toggleAll(checked) { //全选反选
+                this.$refs.checkboxGroup.toggleAll(checked);
+            },
+            toChange(flag) {
+                if (!flag) return;
+                // console.log(this.priceresult)
+                let postingCoupon = this.checkhasPostCoupon(this.returnformat(this.priceresult));
+                if (!postingCoupon) {
+                    return;
+                }
+                let newpricelist = JSON.parse(JSON.stringify(this.priceresult));
+                newpricelist.forEach((item, index) => {
+                    if (item == postingCoupon) newpricelist.splice(index, 1);
+                })
+                let choosedprice = this.arrformat(this.returnformat(newpricelist)); //选择好的去重
+                let obj = {};
+                obj.bagAwardIds = newpricelist;
+                obj.choosedprice = choosedprice;
+                obj.postingCoupon = postingCoupon;
+                console.log(obj)
+                localStorage.setItem("priceinfo", JSON.stringify(obj));
+                window.location.href = "ordersubmit.html";
+            },
+            checkhasPostCoupon(arr) {
+                console.log(arr)
+                let Pcount = 0; //包邮券数量
+                let Gcount = 0; //物品数量
+                let Couponid = "";
+                arr.forEach((item, index) => {
+                    if (item.type == 5) Gcount++;
+                    if (item.type == 4) {
+                        Couponid = item.bagId;
+                        Pcount++;
+                    }
+                });
+                if (Pcount == 0) {
+                    this.$toast("暂无包邮券，快去兑换呀！");
+                    return false;
+                }
+                if (Pcount > 1) {
+                    this.$toast("包邮券只要一张哦！");
+                    return false;
+                }
+                if (Gcount == 0) {
+                    this.$toast("暂无奖品哦！");
+                    return false;
+                }
+                return Couponid;
+            },
+            arrformat(_arr) { //去重找出一样的
+                // var _arr = ['旅行箱', '旅行箱', '小米', '大米'];
+                var _res = []; // 
+                _arr.sort(compare('name'));
+                for (var i = 0; i < _arr.length;) {
+                    var count = 0;
+                    for (var j = i; j < _arr.length; j++) {
+                        if (_arr[i].awardClass == _arr[j].awardClass) {
+                            count++;
+                        }
+                    }
+                    _res.push([_arr[i].name, count, _arr[i].logo]);
+                    i += count;
+                }
+                //_res 二维数维中保存了 值和值的重复数
+                var _newArr = [];
+                for (var i = 0; i < _res.length; i++) {
+                    // console.log(_res[i][0] + "重复次数:" + _res[i][1]);
+                    _newArr.push(_res[i][0] + ',' + _res[i][1] + ',' + _res[i][2]);
+                }
+                return _newArr;
+            },
+            returnformat(arr) {
+                var _ = this;
+                var _res = []; //
+                for (var i = 0; i < arr.length; i++) {
+                    for (var j = 0; j < _.pricelist.length; j++) {
+                        if (arr[i] == _.pricelist[j].bagId) {
+                            _res.push(_.pricelist[j]);
+                        }
+                    }
+                }
+                return _res;
+            },
+            countfinish(index) { //倒计时结束，可以开合
+                this.blindboxlist[index].drawed = 1;
+            },
+            closeTodetail(obj) { //点击查看详情
+                if (obj.winStatus != 1) { //未中奖
+                    this.popshow = false;
+                    return;
+                }
+                if (obj.type == 5 || obj.type == 4) {
+                    this.menuactive = 1;
+                }
+                if (obj.type == 3) {
+                    this.menuactive = 2;
+                }
+                this.popshow = false;
+            },
+            changeTab(name) {
+                localStorage.setItem("P_packageTab", name);
+            },
+            toCoupon() { //去优惠券页面
+                try {
+                    if (isIOS) {
+                        window.webkit.messageHandlers.lstNative.postMessage({
+                            "method": "LSH5APP_Push_Action",
+                            "actionType": "LSTH5APP_MyCouponVC"
+                        });
+
+                    } else if (isAndroid) {
+                        window.android.LSH5APP_Push_Action(JSON.stringify({
+                            actionType: "LSTH5APP_MyCouponVC",
+                            actionNum: "90000"
+                        }))
+                    }
+                } catch (e) {
+                    console.log(e)
+                }
+            },
+            ShowSVG() {
+                var player = new SVGA.Player('#demoCanvas');
+                var parser = new SVGA.Parser('#demoCanvas'); // Must Provide same selector eg:#demoCanvas IF support IE6+
+                parser.load('css/giftbg-2_0.svga', function(videoItem) {
+                    player.setVideoItem(videoItem);
+                    player.startAnimation();
+                })
+                this.svgshow = true;
+            }
+        }
+    })
+</script>
 
 </html>

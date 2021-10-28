@@ -3,17 +3,11 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
     <!-- <title>历史周报</title> -->
     <link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
     <link rel="stylesheet" href="font/iconfont.css">
     <link rel="stylesheet" href="css/index.css">
-    <script src="https://cdn.bootcdn.net/ajax/libs/vConsole/3.8.1/vconsole.min.js"></script>
-	<script>
-		// init vConsole
-		var vConsole = new VConsole();
-	</script>
 
 </head>
 
@@ -25,39 +19,39 @@
                     <template #left>
                         <span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
                     </template>
-    
+
                 </van-nav-bar>
             </div>
-        <div class=" historyListBox" v-if="type==1">
-            <div class="historyListDiv" v-for="item in weekList">
-                <div v-for="item2 in item.data">
-                    <div class="title">{{item.name+'年'+item2.name+'月'}}</div>
+            <div class=" historyListBox" v-if="type==1">
+                <div class="historyListDiv" v-for="item in weekList">
+                    <div v-for="item2 in item.data">
+                        <div class="title">{{item.name+'年'+item2.name+'月'}}</div>
+                        <div class="itemList">
+                            <div class="itemTitle" v-for="item3 in item2.data" @click="goReport(item3)">
+                                {{item3.startDateTime+'-'+item3.endDateTime}}
+                                <span class="icon iconfont icon-tongyong-gengduo" style="font-size: 0.35rem;"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="main-contain historyListBox" v-else>
+                <div class="historyListDiv" v-for="item in monthList">
+
+                    <div class="title">{{item.name+'年'}}</div>
                     <div class="itemList">
-                        <div class="itemTitle" v-for="item3 in item2.data" @click="goReport(item3)">
-                            {{item3.startDateTime+'-'+item3.endDateTime}}
+                        <div class="itemTitle" v-for="item2 in item.data" @click="goReport(item2)">
+                            {{item2.startDateTime}}
                             <span class="icon iconfont icon-tongyong-gengduo" style="font-size: 0.35rem;"></span>
                         </div>
                     </div>
                 </div>
+
             </div>
 
         </div>
-
-        <div class="main-contain historyListBox" v-else>
-            <div class="historyListDiv" v-for="item in monthList">
-
-                <div class="title">{{item.name+'年'}}</div>
-                <div class="itemList">
-                    <div class="itemTitle" v-for="item2 in item.data" @click="goReport(item2)">
-                        {{item2.startDateTime}}
-                        <span class="icon iconfont icon-tongyong-gengduo" style="font-size: 0.35rem;"></span>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
 <script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
@@ -95,11 +89,11 @@
             },
             goReport(item) {
                 console.log(item)
-				localStorage.setItem("report_startTime", item.startTime)
-				localStorage.setItem("report_endTime", item.endTime)
+                localStorage.setItem("report_startTime", item.startTime)
+                localStorage.setItem("report_endTime", item.endTime)
                 window.history.go(-1);
             },
-           
+
             getWeekList() {
                 let minDateTime = new Date(this.minDate).getTime();
                 let nowDateTime = new Date().getTime();
@@ -127,9 +121,9 @@
                         '月' +
                         startTime.getDate() +
                         '日'
-                    let startDateTime2 = (startTime.getFullYear()) + "-" + (startTime.getMonth() + 1).toString().padStart(2,"00") + '-' +
+                    let startDateTime2 = (startTime.getFullYear()) + "-" + (startTime.getMonth() + 1).toString().padStart(2, "00") + '-' +
                         startTime
-                        .getDate().toString().padStart(2,"00")
+                        .getDate().toString().padStart(2, "00")
 
                     let endTime = new Date(new Date(value - 7 * 24 * 3600 * 1000).setDate(time + 6))
                     let endDateTime =
@@ -139,17 +133,17 @@
                         '月' +
                         endTime.getDate() +
                         '日'
-                    let endDateTime2 = (endTime.getFullYear()) + "-" + (endTime.getMonth() + 1).toString().padStart(2,"00") + '-' + endTime
-                        .getDate().toString().padStart(2,"00")
+                    let endDateTime2 = (endTime.getFullYear()) + "-" + (endTime.getMonth() + 1).toString().padStart(2, "00") + '-' + endTime
+                        .getDate().toString().padStart(2, "00")
 
                     weekItem.startDateTime = startDateTime;
                     weekItem.endDateTime = endDateTime;
                     weekItem.year = endTime.getFullYear();
                     weekItem.month = endTime.getMonth() + 1;
-                    weekItem.startTime= new Date(startDateTime2).getTime(),
-                    weekItem.endTime= new Date(endDateTime2).getTime(),
+                    weekItem.startTime = new Date(startDateTime2).getTime(),
+                        weekItem.endTime = new Date(endDateTime2).getTime(),
 
-                    weekList.push(weekItem);
+                        weekList.push(weekItem);
 
                     if (startTime.getTime() > minDateTime) {
                         lastWeek(startTime.getTime())
@@ -159,7 +153,7 @@
 
                 //按照年分好
                 this.weekList = this.groupByType(weekList, "year")
-                //按照月分类
+                    //按照月分类
                 this.weekList.forEach(item => {
                     item.data = this.groupByType(item.data, "month")
                 });
@@ -226,11 +220,11 @@
                     monthItem.startDateTime = startDateTime;
                     monthItem.endDateTime = endDateTime;
                     monthItem.year = year;
-                    
-                    monthItem.startTime= new Date(year + '-' + month + '-' + "01").getTime(),
-                    monthItem.endTime= new Date(year + '-' + month + '-' + yDate.getDate().toString().padStart(2,"00")).getTime(),
 
-                    monthList.push(monthItem);
+                    monthItem.startTime = new Date(year + '-' + month + '-' + "01").getTime(),
+                        monthItem.endTime = new Date(year + '-' + month + '-' + yDate.getDate().toString().padStart(2, "00")).getTime(),
+
+                        monthList.push(monthItem);
 
                     if (new Date(endDateTime).getTime() > minDateTime) {
                         lastMonth(new Date(endDateTime).getTime())

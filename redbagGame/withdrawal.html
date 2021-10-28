@@ -2,233 +2,235 @@
 <html lang="zh-cmn-Hans">
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport"
-		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
-	<title>提现</title>
-	<!-- 引入样式文件 -->
-	<link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
-	<link rel="stylesheet" href="../common/css/basic.css">
-	<link rel="stylesheet" href="css/normal.css">
-	<link rel="stylesheet" href="css/withdrawal.css">
-	<!-- <script src="https://cdn.bootcss.com/vConsole/3.3.4/vconsole.min.js"></script>
-				<script>
-					// init vConsole
-				        var vConsole = new VConsole();
-				        console.log('Hello world');
-				    </script> -->
-	<style type="text/css">
-#app>.header,.van-nav-bar,.monkey-pull-refresh,.DBnotice{
-				background-color: #12121F;
-			}
-			.van-nav-bar .van-icon,.van-nav-bar__title,.van-list__error-text, .van-list__finished-text{
-				color:#CFCFD2;
-			}
-			.van-dialog,.van-button--default{
-				background-color: #292934;
-				color: #cfcfd2;
-			}
-			[class*=van-hairline]::after{
-				border-color: #1E1E2A;
-			}
-	</style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+    <title>提现</title>
+    <!-- 引入样式文件 -->
+    <link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
+    <link rel="stylesheet" href="../common/css/basic.css">
+    <link rel="stylesheet" href="css/normal.css">
+    <link rel="stylesheet" href="css/withdrawal.css">
+
+    <style type="text/css">
+        #app>.header,
+        .van-nav-bar,
+        .monkey-pull-refresh,
+        .DBnotice {
+            background-color: #12121F;
+        }
+        
+        .van-nav-bar .van-icon,
+        .van-nav-bar__title,
+        .van-list__error-text,
+        .van-list__finished-text {
+            color: #CFCFD2;
+        }
+        
+        .van-dialog,
+        .van-button--default {
+            background-color: #292934;
+            color: #cfcfd2;
+        }
+        
+        [class*=van-hairline]::after {
+            border-color: #1E1E2A;
+        }
+    </style>
 </head>
 
 <body>
-	<div id="app" :style="{paddingTop:isIOS?'.15rem':'.92rem'}" v-cloak>
-		<div class="header">
-			<van-nav-bar title="提现" @click-left="OnclickLeft" @click-right="onClickRight" left-arrow>
-			</van-nav-bar>
-		</div>
-		<van-number-keyboard @input="chargeNum" :show="keyboardShow" theme="custom" extra-key="." close-button-text="完成"
-			@show="OnShow" @hide="OnHide" :maxlength="10" @delete="onDelete" @blur="keyboardShow = false">
-		</van-number-keyboard>
-		<div class="pageinfo">
-			<div class="">提现金额(元)</div>
-			<div class="ub ub-ac ub-pj moneybox">
-				<div class="ub ub-aend ftmDON" @click.stop="keyboardShow = true" style="width: 80%;">
-					<div class="" style="font-size: .52rem;">￥</div>
-					<div class="money" :class="{cff:value!='0.00'}">
-						{{value}}
-					</div>
-				</div>
-				<div class="c71" @click="takeAll()">全部</div>
-			</div>
-			<div class="c71" v-if="notover" style="margin-bottom: 1.5rem;">钱包余额：{{allPrice}}元</div>
-			<div class="cfF24023" v-else style="margin-bottom: 1.5rem;">输入金额超过零钱余额</div>
-			<div class="detail">提取规则：</div>
-			<div class="detail2 c71">
-				<!-- 1、最低提现额度：单笔提现金额大于等于10元才可提现；<br/>
+    <div id="app" :style="{paddingTop:isIOS?'.15rem':'.92rem'}" v-cloak>
+        <div class="header">
+            <van-nav-bar title="提现" @click-left="OnclickLeft" @click-right="onClickRight" left-arrow>
+            </van-nav-bar>
+        </div>
+        <van-number-keyboard @input="chargeNum" :show="keyboardShow" theme="custom" extra-key="." close-button-text="完成" @show="OnShow" @hide="OnHide" :maxlength="10" @delete="onDelete" @blur="keyboardShow = false">
+        </van-number-keyboard>
+        <div class="pageinfo">
+            <div class="">提现金额(元)</div>
+            <div class="ub ub-ac ub-pj moneybox">
+                <div class="ub ub-aend ftmDON" @click.stop="keyboardShow = true" style="width: 80%;">
+                    <div class="" style="font-size: .52rem;">￥</div>
+                    <div class="money" :class="{cff:value!='0.00'}">
+                        {{value}}
+                    </div>
+                </div>
+                <div class="c71" @click="takeAll()">全部</div>
+            </div>
+            <div class="c71" v-if="notover" style="margin-bottom: 1.5rem;">钱包余额：{{allPrice}}元</div>
+            <div class="cfF24023" v-else style="margin-bottom: 1.5rem;">输入金额超过零钱余额</div>
+            <div class="detail">提取规则：</div>
+            <div class="detail2 c71">
+                <!-- 1、最低提现额度：单笔提现金额大于等于10元才可提现；<br/>
 2、最高提现额度：根据用户选择的提现方式不同有不同的额度，请以提现时的页面提示为准；<br/>
 3、提现到账时间：预计2小时内成功到账。如逾期未到账，请查询余额明细或在微信支付明细查询余额是否有退回。 -->
-				1、最低提现额度：单笔提现金额大于等于10元才可提现；<br />
-				2、最高提现额度：单笔提现金额最高100元，将在1-3个工作日内审核到账，请耐心等待。<br />
-				3、每日可申请3次，若当日限额已满，请次日申请。<br />
-			</div>
+                1、最低提现额度：单笔提现金额大于等于10元才可提现；<br /> 2、最高提现额度：单笔提现金额最高100元，将在1-3个工作日内审核到账，请耐心等待。
+                <br /> 3、每日可申请3次，若当日限额已满，请次日申请。
+                <br />
+            </div>
 
 
-		</div>
+        </div>
 
-		<van-button round block type="info" class="submit" :style="{bottom:keyboardBottom}"
-			:class="{submit2:!canSubmit}" native-type="submit" @click="onSubmit">
-			确认提现
-		</van-button>
-	</div>
+        <van-button round block type="info" class="submit" :style="{bottom:keyboardBottom}" :class="{submit2:!canSubmit}" native-type="submit" @click="onSubmit">
+            确认提现
+        </van-button>
+    </div>
 </body>
 <script src="https://oss.laisitech.com/0bb12bf1-cb87-4d2c-a724-8a7c25b7ae04.js "></script>
 <script src="https://oss.laisitech.com/6172e6c1-f460-40ac-97ba-31c8526f2e16.js"></script>
 <script src="../common/js/network.js"></script>
 <script src="js/tool.js"></script>
 <script>
-	window.addEventListener('pageshow', function (event) {
-		console.log("PageShow Event  " + event.persisted);
-		console.log(event)
-		window.showAccountMoney();
-		if (isIOS) {
+    window.addEventListener('pageshow', function(event) {
+        console.log("PageShow Event  " + event.persisted);
+        console.log(event)
+        window.showAccountMoney();
+        if (isIOS) {
 
-		}
+        }
 
-	})
-	new Vue({
-		el: '#app',
-		data() {
-			return {
-				keyboardShow: false,
-				value: "0.00",
-				regPos: /^\d+(\.\d+)?$/,
-				allPrice: 0,
-				canSubmit: false,
-				isClick: false,
-				keyboardBottom: '.8rem',
-				notover: true
-			}
-		},
-		filters: {},
-		mounted() {
-			window.withdrawalSuccessCallback = this.withdrawalSuccessCallback;
-			window.showAccountMoney = this.showAccountMoney;
-		},
-		created() {
-			this.showAccountMoney()
-		},
-		watch: {
-			value(newValue, oldValue) {
-				this.canSubmit = this.regPos.test(newValue); //判断当前数额是否是数字
-				if (parseFloat(newValue) > this.allPrice) { //如果大于余额
-					// this.value = this.allPrice + "";
-					this.notover = false;
-					this.canSubmit = false;
-				} else {
-					this.notover = true;
-					// this.canSubmit = true;
-				}
-			},
-		},
-		methods: {
-			showAccountMoney() { //获取余额
-				var _self = this;
-				ajax({
-					type: "get",
-					url: "ropeRedPackage/userAmount/userAmount",
-					data: {},
-					success: function (res) {
-						if (res.code == 0) {
-							_self.allPrice = res.data ? res.data.totalAmount / 100 : 0;
-						} else {
-							_self.$toast(res.msg);
-						}
-					},
-					error: function () {
-						console.log("error")
+    })
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                keyboardShow: false,
+                value: "0.00",
+                regPos: /^\d+(\.\d+)?$/,
+                allPrice: 0,
+                canSubmit: false,
+                isClick: false,
+                keyboardBottom: '.8rem',
+                notover: true
+            }
+        },
+        filters: {},
+        mounted() {
+            window.withdrawalSuccessCallback = this.withdrawalSuccessCallback;
+            window.showAccountMoney = this.showAccountMoney;
+        },
+        created() {
+            this.showAccountMoney()
+        },
+        watch: {
+            value(newValue, oldValue) {
+                this.canSubmit = this.regPos.test(newValue); //判断当前数额是否是数字
+                if (parseFloat(newValue) > this.allPrice) { //如果大于余额
+                    // this.value = this.allPrice + "";
+                    this.notover = false;
+                    this.canSubmit = false;
+                } else {
+                    this.notover = true;
+                    // this.canSubmit = true;
+                }
+            },
+        },
+        methods: {
+            showAccountMoney() { //获取余额
+                var _self = this;
+                ajax({
+                    type: "get",
+                    url: "ropeRedPackage/userAmount/userAmount",
+                    data: {},
+                    success: function(res) {
+                        if (res.code == 0) {
+                            _self.allPrice = res.data ? res.data.totalAmount / 100 : 0;
+                        } else {
+                            _self.$toast(res.msg);
+                        }
+                    },
+                    error: function() {
+                        console.log("error")
 
-					}
-				})
-			},
-			withdrawalSuccessCallback() { //提现成功回调
-				this.showAccountMoney();
-				this.value = '0.00';
-			},
-			OnclickLeft() {
-				window.history.back(-1);
-			},
-			onClickRight() { //显示。。。
-			},
-			onSubmit() { //确认提现
-				if (!this.canSubmit) return;
-				if (this.isClick) return;
-				this.isClick = true;
-				if (this.value < 10) {
-					this.$toast('提现金额需不小于10元');
-					this.isClick = false;
-					return;
-				}
-				if (this.value > 100) {
-					this.$toast('单笔提现金额需不大于100元');
-					this.isClick = false;
-					return;
-				}
-				this.$dialog.confirm({
-						title: '',
-						message: '确认提现¥' + this.value + '吗',
-					})
-					.then(() => {
-						// on confirm
-						this.appNativeTX();
-					})
-					.catch(() => {
-						this.isClick = false;
-						// on cancel
-					});
-			},
-			appNativeTX() {
-				let val = parseInt((this.value * 100).toFixed(2));
-				Interaction.appNative('LSTH5APP_drawalToWechat', {
-					amount: val
-				});
-				setTimeout(() => {
-					this.isClick = false;
-				}, 800)
-			},
-			chargeNum(val) { //键盘点击
-				if (this.allPrice == 0) return; //没余额就歇着
-				if (this.value == '0.00') { //第一次点击
-					this.value = val + ""
-					return;
-				}
-				if (this.value.indexOf('.') >= 0 && val == ".") { //如果有点了
-					return;
-				}
-				if (this.value.indexOf('.') >= 0 && this.value.split('.')[1].length == 2) { //如果小数点后超过两位了
-					return;
-				}
-				this.value += "" + val;
-			},
-			onDelete() { //键盘删除
-				if (this.value == '0.00') return;
-				if (!this.value || this.value.length == 1) { //只剩一位数了
-					this.value = '0.00';
-					return;
-				}
-				this.value = this.value.substring(0, this.value.length - 1);
-			},
-			OnShow() { //键盘弹起
-				this.keyboardBottom = ".8rem" //防止越来越高
-				this.keyboardBottom = this.keyboardBottom + " + " + document.getElementsByClassName(
-						'van-number-keyboard')[0].clientHeight +
-					"px + .1rem"
-				this.keyboardBottom = 'calc( ' + this.keyboardBottom + ' )';
-			},
-			OnHide() { //键盘收起
-				this.keyboardBottom = ".8rem"
-			},
-			takeAll() { //提取全部
-				if (this.allPrice > 0) {
-					this.value = this.allPrice + "";
-					this.canSubmit = true;
-				}
-			},
-		}
-	})
+                    }
+                })
+            },
+            withdrawalSuccessCallback() { //提现成功回调
+                this.showAccountMoney();
+                this.value = '0.00';
+            },
+            OnclickLeft() {
+                window.history.back(-1);
+            },
+            onClickRight() { //显示。。。
+            },
+            onSubmit() { //确认提现
+                if (!this.canSubmit) return;
+                if (this.isClick) return;
+                this.isClick = true;
+                if (this.value < 10) {
+                    this.$toast('提现金额需不小于10元');
+                    this.isClick = false;
+                    return;
+                }
+                if (this.value > 100) {
+                    this.$toast('单笔提现金额需不大于100元');
+                    this.isClick = false;
+                    return;
+                }
+                this.$dialog.confirm({
+                        title: '',
+                        message: '确认提现¥' + this.value + '吗',
+                    })
+                    .then(() => {
+                        // on confirm
+                        this.appNativeTX();
+                    })
+                    .catch(() => {
+                        this.isClick = false;
+                        // on cancel
+                    });
+            },
+            appNativeTX() {
+                let val = parseInt((this.value * 100).toFixed(2));
+                Interaction.appNative('LSTH5APP_drawalToWechat', {
+                    amount: val
+                });
+                setTimeout(() => {
+                    this.isClick = false;
+                }, 800)
+            },
+            chargeNum(val) { //键盘点击
+                if (this.allPrice == 0) return; //没余额就歇着
+                if (this.value == '0.00') { //第一次点击
+                    this.value = val + ""
+                    return;
+                }
+                if (this.value.indexOf('.') >= 0 && val == ".") { //如果有点了
+                    return;
+                }
+                if (this.value.indexOf('.') >= 0 && this.value.split('.')[1].length == 2) { //如果小数点后超过两位了
+                    return;
+                }
+                this.value += "" + val;
+            },
+            onDelete() { //键盘删除
+                if (this.value == '0.00') return;
+                if (!this.value || this.value.length == 1) { //只剩一位数了
+                    this.value = '0.00';
+                    return;
+                }
+                this.value = this.value.substring(0, this.value.length - 1);
+            },
+            OnShow() { //键盘弹起
+                this.keyboardBottom = ".8rem" //防止越来越高
+                this.keyboardBottom = this.keyboardBottom + " + " + document.getElementsByClassName(
+                        'van-number-keyboard')[0].clientHeight +
+                    "px + .1rem"
+                this.keyboardBottom = 'calc( ' + this.keyboardBottom + ' )';
+            },
+            OnHide() { //键盘收起
+                this.keyboardBottom = ".8rem"
+            },
+            takeAll() { //提取全部
+                if (this.allPrice > 0) {
+                    this.value = this.allPrice + "";
+                    this.canSubmit = true;
+                }
+            },
+        }
+    })
 </script>
 
 </html>
