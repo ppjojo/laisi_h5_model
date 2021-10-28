@@ -122,7 +122,9 @@
 				tabIndex: 1, //1月度2年度
 				columns: [2021, 2022, 2023],
 				sheetImageStatus: false,
-				monthObj: {},
+				monthObj: {
+					skipping:""
+				},
 				yearObj: {},
 				rate: [0, 0], //index0月1年
 				yearDetail: {},
@@ -144,31 +146,38 @@
 			}
 		},
 		methods: {
-			getList(flag) {
+			getList(flag,checkTime) {
+				console.log(checkTime)
+				if(!flag)flag = this.tabIndex;
 				if (flag == 1) {
-					this.monthAPI();
+					this.monthAPI(checkTime);
 				} else {
-					this.yearAPI();
+					this.yearAPI(checkTime);
 				}
 			},
-			monthAPI() {
+			monthAPI(checkTime) {
+				if(!checkTime)checkTime = this.checkTime;
 				getMonthDeviceTotal({
-					checkTime: this.checkTime
+					checkTime: checkTime
 				}).then(res => {
 					this.monthObj = res.data;
+					this.$forceUpdate()
 				})
 			},
-			yearAPI() {
+			yearAPI(checkTime) {
+				if(!checkTime)checkTime = this.checkTime
 				getSportByYear({
-					checkTime: this.checkTime
+					checkTime: checkTime
 				}).then(res => {
 					this.yearDetail = res.data;
 				})
 				getYearDeviceTotal({
-					checkTime: this.checkTime
+					checkTime: checkTime
 				}).then(res => {
 					this.yearObj = res.data;
+					this.$forceUpdate()
 				})
+				
 			},
 			changeTab(index) { //点击切换tab
 				this.tabIndex = index;
@@ -224,7 +233,7 @@
 					shareTitle: "运动日历打卡",
 					isShareUrl:false,
 					shareContent: "",
-					shareUrl: "sportsClock/#/clockoverview.html?isShare2=1&tabIndex="+this.tabIndex+'&userId='+this.userId+'&nickname='+this.nickname,
+					shareUrl: "sportsClock/#/clockoverview?isShare2=1&tabIndex="+this.tabIndex+'&userId='+this.userId+'&nickname='+this.nickname,
 				})
 			},
 			sheetImageHideHeader() {

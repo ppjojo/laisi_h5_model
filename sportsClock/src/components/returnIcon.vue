@@ -53,6 +53,14 @@
 				if (type == 'val') return typeUtil.returnUnit(val, key, 'time');
 				if (type == 'unit') return typeUtil.formatStrUnit2(val, key);
 			},
+		},
+		watch: {
+			taskNum(val) {
+				this.itemObj.number = this.itemObj.takeMs = val;
+			},
+			name(val) {
+				this.name = val;
+			}
 		}
 	};
 </script>
@@ -73,6 +81,7 @@
 			color: #cfcfd2;
 			font-size: .43rem;
 			white-space: nowrap;
+
 			span {
 				font-size: .24rem;
 			}

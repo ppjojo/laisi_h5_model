@@ -4,13 +4,15 @@ export default {
 	},
 	formatStrUnit(item, d) { //根据类型返回单位
 		if (d == 'runout' || d == 'runin' || d == 'ride' || d == 'onFoot' || d == 'mountaineering' || d == 'walkIn' ||
-			d == 'rideIndoor' || d == 'steps' || d == 'walk') {
+			 d == 'steps' || d == 'walk') {
 			return (this.toThousands((item.number) || item.distance) + '      ' + this.returnUnit(item, d))
 		} else if (d == 'skipping' || d == 'wristball' || d == 'wheel' || d ==
 			'ropeSkipping') {
 			return (this.toThousands(item.number || item.distance) + this.returnUnit(item, d) + '\xa0\xa0\xa0' + this
 				.formatSeconds(item.takeMs ||
 					item.timeSpend || 0))
+		}else if(d == 'rideIndoor'){
+			return this.formatSeconds(item.takeMs ||item.timeSpend || 0);
 		} else {
 			return this.returnUnit(item, d)
 		}

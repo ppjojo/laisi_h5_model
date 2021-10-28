@@ -146,6 +146,18 @@
             background-color: #1e1e2a;
             border-color: #221925;
         }
+		.van-dialog,
+		.van-button--default {
+			background-color: rgba(41, 41, 52, 1);
+		}
+		
+		[class*=van-hairline]::after {
+			border-color: #12121F;
+		}
+		
+		.van-dialog__message {
+			color: #CFCFD2;
+		}
     </style>
 </head>
 
@@ -618,7 +630,29 @@
                 window.location.href = "ordersubmit.html";
             },
             checkhasPostCoupon(arr) {
-                console.log(arr)
+                console.log(arr);
+				let bynum= 0
+				for (let i=0;i<this.pricelist.length;i++) {
+					if(this.pricelist[i].type==4){
+						bynum++;
+						break;
+					}
+				}
+				if(bynum==0){
+					this.$dialog.confirm({
+						title: '',
+						width: '5.4rem',
+						confirmButtonText: '去兑换',
+						cancelButtonText: '取消',
+						confirmButtonColor: '#CFCFD2',
+						cancelButtonColor: '#CFCFD2',
+						message: '暂无包邮券，快去兑换呀！',
+					}).then(() => {
+						// on close
+						window.location.href = "index.html";
+					});
+					return;
+				}
                 let Pcount = 0; //包邮券数量
                 let Gcount = 0; //物品数量
                 let Couponid = "";
@@ -630,11 +664,12 @@
                     }
                 });
                 if (Gcount == 0) {
-                    this.$toast("暂无奖品哦！");
+                    this.$toast("未选择奖品哦！");
                     return false;
                 }
                 if (Pcount == 0) {
-                    this.$toast("暂无包邮券，快去兑换呀！");
+					this.$toast("未选择包邮券哦！");
+                    // this.$toast("暂无包邮券，快去兑换呀！");
                     return false;
                 }
                 if (Pcount > 1) {
