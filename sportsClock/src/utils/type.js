@@ -19,8 +19,8 @@ export default {
 	},
 	formatStrUnit2(item, d) { //根据类型返回单位
 		if (d == 'runout' || d == 'runin' || d == 'ride' || d == 'onFoot' || d == 'mountaineering' || d == 'walkIn' ||
-			d == 'rideIndoor' || d == 'walk' || d == 'skipping' || d == 'ropeSkipping' || d == 'wristball' || d ==
-			'wheel' || d == "steps") {
+			d == 'swimming' || d == 'walk' || d == 'skipping' || d == 'ropeSkipping' || d == 'wristball' || d ==
+			'wheel' || d == "steps"||d=='swimmingOut'||d=='trailRun') {
 			return this.toThousands(item.number || item.distance);
 		} else {
 			return this.formatSeconds2(item.takeMs || item.timeSpend || 0);
