@@ -1101,6 +1101,7 @@ export default {
           id: this.competitionId,
           userId: this.currentUserId,
           type: this.type,
+          time: new Date().getTime(),
         },
       });
     },
