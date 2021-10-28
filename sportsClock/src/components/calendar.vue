@@ -147,6 +147,7 @@
 						month += 1;
 					}
 				}
+				this.$parent.getList(null,new Date(year+'/'+month+'/1').getTime());
 				this.dateTitleStr(new Date(year+'/'+month+'/1'), 'ym');
 				this.getList(new Date(year+'/'+month+'/1'));
 			}

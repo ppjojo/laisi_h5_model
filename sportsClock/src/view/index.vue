@@ -47,7 +47,7 @@
 			<div class="ub ub-ac sportfinish">
 				<img class="" v-if="flag==3" :src="require('@i/sportunfinish.png')" alt="">
 				<img class="" v-else :src="require('@i/sportfinish.png')" alt="">
-				<div>{{flag==3?((todayFlag?'今':'当')+'日未达到目标运动量！继续加油哦！'):((todayFlag?'今':'当')+'今日已达到目标运动量～')}}</div>
+				<div>{{flag==3?((todayFlag?'今':'当')+'日未达到目标运动量！继续加油哦！'):((todayFlag?'今':'当')+'日已达到目标运动量～')}}</div>
 			</div>
 			<!-- 运动时长-运动消耗 -->
 			<div class="ub ub-ac ub-pj sportinfo">

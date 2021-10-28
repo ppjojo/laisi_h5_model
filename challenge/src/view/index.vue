@@ -131,6 +131,7 @@
 		methods: {
 			timeStamp2String: timeStamp2String,
 			RefreshFunction(){
+				console.log('app调用了刷新方法')
 				this.getList();
 				this.getHistory();
 			},
