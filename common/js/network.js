@@ -18,12 +18,9 @@ window.onresize = function() {
         document.documentElement.clientWidth / 7.5 + "px";
 };
 
-function ajax1(config) {
-    console.log(config)
-}
+
 //接口请求统一处理
 let ajax = (config) => {
-    console.log(config)
     return new Promise(function(resolve, reject) {
         Interaction.getAppInfoAndUserInfo();
         if (!config.data) config.data = Object.assign({}, config.data)

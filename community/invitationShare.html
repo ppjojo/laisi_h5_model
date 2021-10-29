@@ -190,7 +190,7 @@
                 ajax({
                     type: "get",
                     url: "community-core-share/home/info",
-                    shareStatus: true,
+                    isShare: 1,
                     data: {
                         authorId: getQueryString("userId"),
                         //userId: getQueryString("userId"),
@@ -214,7 +214,7 @@
                 ajax({
                     type: "get",
                     url: "community-core-share/story/detail/list",
-                    shareStatus: true,
+                    isShare: 1,
                     data: {
                         authorId: getQueryString("userId"),
                         //userId: getQueryString("userId"),

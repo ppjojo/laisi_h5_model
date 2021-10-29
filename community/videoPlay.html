@@ -24,6 +24,7 @@
             ajax({
                 type: "get",
                 url: "community/alivod/getPlayAuth",
+                isShare: 1,
                 data: {
                     videoId: id,
                     videoType: getQueryString("videoType") || 0
