@@ -30,7 +30,7 @@ module.exports = {
    */
   publicPath: process.env.NODE_ENV === "production" ?
     "/h5/h5V3/challenge" : "/h5/h5V3/challenge",
-  outputDir: "dist",
+  outputDir: "prod",
   assetsDir: "static",
   lintOnSave: process.env.NODE_ENV === "development",
   productionSourceMap: false,
