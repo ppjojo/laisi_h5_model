@@ -540,6 +540,7 @@ export default {
       total: 0,
       list: [],
       officialRuleShow: false,
+      signClick: false,
 
       teamList: [
         {
@@ -1139,6 +1140,8 @@ export default {
       this.sign();
     },
     sign() {
+      if (this.signClick) return;
+      this.signClick = true;
       participateCompetition(
         {
           competitionId: this.competitionItem.id,
@@ -1150,8 +1153,10 @@ export default {
         if (res.code == 0) {
           this.initData();
           this.joinStatusAndTimesRemain();
+
           this.$toast("报名成功！");
         }
+        this.signClick = false;
       });
     },
     gotoSkip() {
