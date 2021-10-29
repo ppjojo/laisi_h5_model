@@ -1,187 +1,190 @@
 <!DOCTYPE html>
 <html lang="zh-cmn-Hans">
 
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
-		<title>奖品详情</title>
-		<!-- 引入样式文件 -->
-		<link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
-		<link rel="stylesheet" href="../common/css/basic.css">
-		<link rel="stylesheet" href="css/pointsLottery.css">
-		<link rel="stylesheet" href="css/prizedetail.css">
-		<link rel="stylesheet" href="css/font/iconfont.css">
-		<style type="text/css">
-		#app>.header,.van-nav-bar,.monkey-pull-refresh,.DBnotice{
-			background-color: #12121F;
-		}
-		.van-nav-bar .van-icon,.van-nav-bar__title,.van-list__error-text, .van-list__finished-text, .van-list__loading{
-			color:#CFCFD2;
-		}
-		</style>
-		<!-- <script src="https://cdn.bootcss.com/vConsole/3.3.4/vconsole.min.js"></script>
-				<script>
-					// init vConsole
-				        var vConsole = new VConsole();
-				        console.log('Hello world');
-				    </script> -->
-	</head>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+    <title>奖品详情</title>
+    <!-- 引入样式文件 -->
+    <link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
+    <link rel="stylesheet" href="../common/css/basic.css">
+    <link rel="stylesheet" href="css/pointsLottery.css">
+    <link rel="stylesheet" href="css/prizedetail.css">
+    <link rel="stylesheet" href="css/font/iconfont.css">
+    <style type="text/css">
+        #app>.header,
+        .van-nav-bar,
+        .monkey-pull-refresh,
+        .DBnotice {
+            background-color: #12121F;
+        }
+        
+        .van-nav-bar .van-icon,
+        .van-nav-bar__title,
+        .van-list__error-text,
+        .van-list__finished-text,
+        .van-list__loading {
+            color: #CFCFD2;
+        }
+    </style>
 
-	<body>
-		<div id="app" v-cloak>
-			<van-loading type="spinner" vertical v-show="submitflag"></van-loading>
-			<div class="header">
-				<van-nav-bar :title="datalist.name" @click-left="OnclickLeft" left-arrow>
-					<template #left>
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <van-loading type="spinner" vertical v-show="submitflag"></van-loading>
+        <div class="header">
+            <van-nav-bar :title="datalist.name" @click-left="OnclickLeft" left-arrow>
+                <template #left>
 						<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
 					</template>
-				</van-nav-bar>
-			</div>
-			<div class="bigpic ub ub-ac ub-pc" :style="{backgroundColor:bgc}">
-				<img :src="datalist.logo" alt="">
-			</div>
-			<div class="detailbox">
-				<div class="van-multi-ellipsis--l2 title">
-					{{datalist.name}}
-				</div>
-				<div class="ub ub-aend ub-pj">
-					<div class="pricetag">
-						{{datalist.integral}}<span>逗币</span>
-					</div>
-					<div class="changedetail">
-						近30天已兑换{{datalist.exchangedCount||0}}份
-					</div>
-				</div>
-				<div class="describle">
-					<span style="font-weight: bold;">奖品说明:</span>
-					<div class="detail">
-						{{datalist.instructions||""}}
-					</div>
-				</div>
-			</div>
-			<!-- {{ coinnum<datalist.integral?'积分不足':leftcount<=0?'补货中':'立即兑换'}} -->
-			<div class="bottombox">
-				<div class="bottomBtn" :class="{bottomBtngrey:coinnum<datalist.integral||leftcount<=0}" @click="exchange(coinnum<datalist.integral||leftcount<=0)">
-					{{textstr}}
-				</div>
-			</div>
-		</div>
-	</body>
-	<script src="https://oss.laisitech.com/0bb12bf1-cb87-4d2c-a724-8a7c25b7ae04.js "></script>
+            </van-nav-bar>
+        </div>
+        <div class="bigpic ub ub-ac ub-pc" :style="{backgroundColor:bgc}">
+            <img :src="datalist.logo" alt="">
+        </div>
+        <div class="detailbox">
+            <div class="van-multi-ellipsis--l2 title">
+                {{datalist.name}}
+            </div>
+            <div class="ub ub-aend ub-pj">
+                <div class="pricetag">
+                    {{datalist.integral}}<span>逗币</span>
+                </div>
+                <div class="changedetail">
+                    近30天已兑换{{datalist.exchangedCount||0}}份
+                </div>
+            </div>
+            <div class="describle">
+                <span style="font-weight: bold;">奖品说明:</span>
+                <div class="detail">
+                    {{datalist.instructions||""}}
+                </div>
+            </div>
+        </div>
+        <!-- {{ coinnum<datalist.integral?'积分不足':leftcount<=0?'补货中':'立即兑换'}} -->
+        <div class="bottombox">
+            <div class="bottomBtn" :class="{bottomBtngrey:coinnum<datalist.integral||leftcount<=0}" @click="exchange(coinnum<datalist.integral||leftcount<=0)">
+                {{textstr}}
+            </div>
+        </div>
+    </div>
+</body>
+<script src="https://oss.laisitech.com/0bb12bf1-cb87-4d2c-a724-8a7c25b7ae04.js "></script>
 <script src="https://oss.laisitech.com/6172e6c1-f460-40ac-97ba-31c8526f2e16.js"></script>
-	<script src="../common/js/network.js"></script>
-	<script src="js/tool.js"></script>
-	<script>
-		new Vue({
-			el: '#app',
-			data() {
-				return {
-					pid: getQueryString("id"),
-					leftcount: parseInt(getQueryString("leftcount")),
-					bgc: '#1E1E2A',
-					coinnum: 0,
-					datalist: {},
-					textstr: "",
-					submitflag: false,
-					blindbg: {
-						0: '#1E1E2A',
-						1: '#1E1E2A',
-						2: '#1E1E2A',
-						3: '#1E1E2A',
-						4: '#1E1E2A',
-					},
-				}
-			},
-			filters: {},
-			mounted() {
+<script src="../common/js/network.js"></script>
+<script src="js/tool.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                pid: getQueryString("id"),
+                leftcount: parseInt(getQueryString("leftcount")),
+                bgc: '#1E1E2A',
+                coinnum: 0,
+                datalist: {},
+                textstr: "",
+                submitflag: false,
+                blindbg: {
+                    0: '#1E1E2A',
+                    1: '#1E1E2A',
+                    2: '#1E1E2A',
+                    3: '#1E1E2A',
+                    4: '#1E1E2A',
+                },
+            }
+        },
+        filters: {},
+        mounted() {
 
-			},
-			created() {
-				this.mycoinnum();
-				// this.getawardinfo();
-			},
-			methods: {
-				mycoinnum() {
-					var _self = this;
-					ajax({
-						type: "get",
-						url: "integral/my/coins",
-						data: {},
-						success: function(res) {
-							if (res.code == 0) {
-								_self.coinnum = res.data || 0;
-								_self.getawardinfo();
-							} else {
-								_self.$toast(res.msg);
-							}
-						},
-						error: function() {
-							console.log("error")
-						}
-					})
-				},
-				getawardinfo() {
-					var _self = this;
-					ajax({
-						type: "get",
-						url: "activity/exchange/show/awardDetail",
-						data: {
-							"awardClass": _self.pid
-						},
-						success: function(res) {
-							if (res.code == 0) {
-								_self.datalist = res.data;
-								_self.textstr = _self.coinnum < _self.datalist.integral ? '积分不足' : _self.leftcount <= 0 ? '补货中' : '立即兑换'
-							} else {
-								_self.$toast(res.msg);
-							}
-						},
-						error: function() {
-							console.log("error")
-						}
-					})
-				},
-				exchange(flag) {
-					if (flag) return;
-					if(!this.datalist.logo&&!this.datalist.integral)return;
-					if (this.submitflag) return;
-					this.submitflag = true;
-					var _self = this;
-					ajax({
-						type: "post",
-						url: "activity/exchange/award",
-						data: {
-							"awardClass": _self.datalist.awardClass
-						},
-						success: function(res) {
-							if (res.code == 0) {
-								localStorage.setItem('coinchange', 1);
-								let menuindex = _self.datalist.type == 1 ? 0 : _self.datalist.type == 5 || _self.datalist.type == 4 ? 1 :
-									2;
-								window.location.replace("./orderresult.html?menuindex=" + menuindex + "&fromwhere=2&isSuccess=1");
-							}else if(res.code==2766||res.code == 2752||res.code==2768||res.code==2753){
-								_self.submitflag = false;
-								_self.$toast(res.msg)
-							} else {
-								_self.submitflag = false;
-								window.location.href = "./orderresult.html?fromwhere=2&isSuccess=2";
-							}
-						},
-						error: function() {
-							_self.submitflag = false;
-							window.location.href = "./orderresult.html?fromwhere=2&isSuccess=2";
-							console.log("error")
-						}
-					})
-				},
-				OnclickLeft() {
-					window.history.back(-1);
-				}
+        },
+        created() {
+            this.mycoinnum();
+            // this.getawardinfo();
+        },
+        methods: {
+            mycoinnum() {
+                var _self = this;
+                ajax({
+                    type: "get",
+                    url: "integral/my/coins",
+                    data: {},
+                    success: function(res) {
+                        if (res.code == 0) {
+                            _self.coinnum = res.data || 0;
+                            _self.getawardinfo();
+                        } else {
+                            _self.$toast(res.msg);
+                        }
+                    },
+                    error: function() {
+                        console.log("error")
+                    }
+                })
+            },
+            getawardinfo() {
+                var _self = this;
+                ajax({
+                    type: "get",
+                    url: "activity/exchange/show/awardDetail",
+                    data: {
+                        "awardClass": _self.pid
+                    },
+                    success: function(res) {
+                        if (res.code == 0) {
+                            _self.datalist = res.data;
+                            _self.textstr = _self.coinnum < _self.datalist.integral ? '积分不足' : _self.leftcount <= 0 ? '补货中' : '立即兑换'
+                        } else {
+                            _self.$toast(res.msg);
+                        }
+                    },
+                    error: function() {
+                        console.log("error")
+                    }
+                })
+            },
+            exchange(flag) {
+                if (flag) return;
+                if (!this.datalist.logo && !this.datalist.integral) return;
+                if (this.submitflag) return;
+                this.submitflag = true;
+                var _self = this;
+                ajax({
+                    type: "post",
+                    url: "activity/exchange/award",
+                    data: {
+                        "awardClass": _self.datalist.awardClass
+                    },
+                    success: function(res) {
+                        if (res.code == 0) {
+                            localStorage.setItem('coinchange', 1);
+                            let menuindex = _self.datalist.type == 1 ? 0 : _self.datalist.type == 5 || _self.datalist.type == 4 ? 1 :
+                                2;
+                            window.location.replace("./orderresult.html?menuindex=" + menuindex + "&fromwhere=2&isSuccess=1");
+                        } else if (res.code == 2766 || res.code == 2752 || res.code == 2768 || res.code == 2753) {
+                            _self.submitflag = false;
+                            _self.$toast(res.msg)
+                        } else {
+                            _self.submitflag = false;
+                            window.location.href = "./orderresult.html?fromwhere=2&isSuccess=2";
+                        }
+                    },
+                    error: function() {
+                        _self.submitflag = false;
+                        window.location.href = "./orderresult.html?fromwhere=2&isSuccess=2";
+                        console.log("error")
+                    }
+                })
+            },
+            OnclickLeft() {
+                window.history.back(-1);
+            }
 
 
 
-			}
-		})
-	</script>
+        }
+    })
+</script>
 
 </html>

@@ -1,73 +1,78 @@
 <!DOCTYPE html>
 <html lang="zh-cmn-Hans">
 
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
-		<title>兑换记录</title>
-		<!-- 引入样式文件 -->
-		<link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
-		<link rel="stylesheet" href="../common/css/basic.css">
-		<link rel="stylesheet" href="css/pointsLottery.css">
-		<link rel="stylesheet" href="css/swiper.css">
-		<link rel="stylesheet" href="css/changerecord.css">
-		<link rel="stylesheet" href="css/font/iconfont.css">
-		<style type="text/css">
-			.list_ul>li{
-				margin-bottom: .2rem;
-			}
-			.van-pull-refresh__track{
-				margin-top: -0.28rem;
-			}
-			#app>.header,.van-nav-bar,.monkey-pull-refresh,.DBnotice{
-				background-color: #12121F;
-			}
-			.van-nav-bar .van-icon,.van-nav-bar__title,.van-list__error-text, .van-list__finished-text, .van-list__loading{
-				color:#CFCFD2;
-			}
-		</style>
-		<!-- <script src="https://cdn.bootcss.com/vConsole/3.3.4/vconsole.min.js"></script>
-				<script>
-					// init vConsole
-				        var vConsole = new VConsole();
-				        console.log('Hello world');
-				    </script> -->
-	</head>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+    <title>兑换记录</title>
+    <!-- 引入样式文件 -->
+    <link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
+    <link rel="stylesheet" href="../common/css/basic.css">
+    <link rel="stylesheet" href="css/pointsLottery.css">
+    <link rel="stylesheet" href="css/swiper.css">
+    <link rel="stylesheet" href="css/changerecord.css">
+    <link rel="stylesheet" href="css/font/iconfont.css">
+    <style type="text/css">
+        .list_ul>li {
+            margin-bottom: .2rem;
+        }
+        
+        .van-pull-refresh__track {
+            margin-top: -0.28rem;
+        }
+        
+        #app>.header,
+        .van-nav-bar,
+        .monkey-pull-refresh,
+        .DBnotice {
+            background-color: #12121F;
+        }
+        
+        .van-nav-bar .van-icon,
+        .van-nav-bar__title,
+        .van-list__error-text,
+        .van-list__finished-text,
+        .van-list__loading {
+            color: #CFCFD2;
+        }
+    </style>
 
-	<body>
-		<div id="app" :style="{backgroundColor:dataList.length>0?'#f5f5f5':'#fff'}" v-cloak>
-			<div class="header">
-				<van-nav-bar title="兑换记录" @click-left="OnclickLeft" left-arrow>
-					<template #left>
+</head>
+
+<body>
+    <div id="app" :style="{backgroundColor:dataList.length>0?'#f5f5f5':'#fff'}" v-cloak>
+        <div class="header">
+            <van-nav-bar title="兑换记录" @click-left="OnclickLeft" left-arrow>
+                <template #left>
 						<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
 					</template>
-				</van-nav-bar>
-			</div>
-			<van-pull-refresh v-model="isLoading" :head-height="90" @refresh="initIndexData" class="monkey-pull-refresh" style="min-height: 80vh;">
-				<template #pulling="props">
+            </van-nav-bar>
+        </div>
+        <van-pull-refresh v-model="isLoading" :head-height="90" @refresh="initIndexData" class="monkey-pull-refresh" style="min-height: 80vh;">
+            <template #pulling="props">
 					<div class="monkeyBox">
 						<img class="monkey" src="../common/img/monkey.gif" />
 						<p>下拉刷新</p>
 					</div>
 				</template>
-				<!-- 释放提示 -->
-				<template #loosing>
+            <!-- 释放提示 -->
+            <template #loosing>
 					<div class="monkeyBox">
 						<img class="monkey" src="../common/img/monkey.gif" />
 						<p>释放刷新</p>
 					</div>
 				</template>
 
-				<!-- 加载提示 -->
-				<template #loading>
+            <!-- 加载提示 -->
+            <template #loading>
 					<div class="monkeyBox">
 						<img class="monkey" src="../common/img/monkey.gif" />
 						<p>正在刷新</p>
 					</div>
 				</template>
-				<van-list v-model="loading" :immediate-check=false :finished="finished" >
-					<ul class="list_ul">
-						<template v-for="item in dataList" v-if="item.address">
+            <van-list v-model="loading" :immediate-check=false :finished="finished">
+                <ul class="list_ul">
+                    <template v-for="item in dataList" v-if="item.address">
 							<li class="" >
 								<div class="ub ub-ac ub-pj">
 									<div class="title van-ellipsis">{{ DateTime.sjc2time('mdhm4', item.requestTime) }}</div>
@@ -109,8 +114,8 @@
 								</div>
 							</li>
 						</template>
-						
-						<!-- <li class="">
+
+                    <!-- <li class="">
 							<div class="ub ub-ac ub-pj">
 								<div class="title">2021/02/27 12:34</div>
 								<div class="title">快递单号：123455434567</div>
@@ -123,136 +128,136 @@
 								</div>
 							</div>
 						</li> -->
-					</ul>
-					<div class="noData-box" v-if="dataList.length==0&&!loading">
-						<img class="noData-img" src="../common/img/noData.png" />
-						<p class="noData-p">还没有兑换记录哦！</p>
-					</div>
-				</van-list>
-			</van-pull-refresh>
-		</div>
-	</body>
-	<script src="https://oss.laisitech.com/0bb12bf1-cb87-4d2c-a724-8a7c25b7ae04.js "></script>
+                </ul>
+                <div class="noData-box" v-if="dataList.length==0&&!loading">
+                    <img class="noData-img" src="../common/img/noData.png" />
+                    <p class="noData-p">还没有兑换记录哦！</p>
+                </div>
+            </van-list>
+        </van-pull-refresh>
+    </div>
+</body>
+<script src="https://oss.laisitech.com/0bb12bf1-cb87-4d2c-a724-8a7c25b7ae04.js "></script>
 <script src="https://oss.laisitech.com/6172e6c1-f460-40ac-97ba-31c8526f2e16.js"></script>
-	<script src="../common/js/network.js"></script>
-	<script src="js/swiper.js"></script>
-	<script src="js/tool.js"></script>
-	<script>
-		new Vue({
-			el: '#app',
-			data() {
-				return {
-					isLoading: false,
-					loading: false,
-					finished: false,
-					dataList: [],
-					pageNum: 0,
-					pageSize:150,
-				}
-			},
-			filters: {},
-			mounted() {
-				
-			},
-			created() {
-				this.initData()
-			},
-			methods: {
-				initData(){
-					var _self = this;
-					ajax({
-						type: "get",
-						url: "activity/UserBag/exchangeHistory",
-						data: {
-							pageNum:_self.pageNum,
-							pageSize:_self.pageSize
-						},
-						success: function(res) {
-							_self.loading = false;
-							_self.finished = true;
-							if (res.code == 0) {
-								res.data.forEach((item,index)=>{
-									item.goods = _self.arrformat(item.items);
-								})
-								if(_self.pageNum == 0){
-									_self.dataList = [];
-									_self.dataList = res.data;
-								}else{
-									_self.dataList = _self.dataList.concat(res.data);
-								}
-								if((_self.pageNum+1)*_self.pageSize>=res.data.count){
-									_self.finished = true;
-								}
-								_self.$nextTick(()=>{
-									var swiper = new Swiper('.swiper-container', {
-										slidesPerView: 4,
-										spaceBetween: 10,
-										observeParents:true,
-										freeMode: true,
-										observer:true
-									});
-								})
-							} else {
-								_self.$toast(res.msg);
-							}
-						},
-						error: function() {
-							_self.loading = false;
-							console.log("error")
-						}
-					})
-				},
-				initIndexData() {
-					// 清空列表数据
-					this.finished = false;
-					// 重新加载数据
-					// 将 loading 设置为 true，表示处于加载状态
-					this.loading = true;
-					this.isLoading = true;
-					this.onLoad();
-				},
-				onLoad() {
-					if (this.isLoading) {
-						this.isLoading = false;
-						this.pageNum = 0;
-					} else {
-						this.pageNum++;
-					}
-					this.initData()
-					//this.getCommentList()
-					this.loading = false;
-				},
-				OnclickLeft() {
-					window.history.back(-1);
-				},
-				arrformat(_arr) {//去重找出一样的
-					// var _arr = ['旅行箱', '旅行箱', '小米', '大米'];
-					var _res = []; // 
-					_arr.sort(compare('name'));
-					// console.log(_arr)
-					for (var i = 0; i < _arr.length;) {
-						var count = 0;
-						for (var j = i; j < _arr.length; j++) {
-							if (_arr[i].awardClass == _arr[j].awardClass) {
-								count++;
-							}
-						}
-						_res.push([_arr[i].name, count,_arr[i].logo]);
-						i += count;
-					}
-					//_res 二维数维中保存了 值和值的重复数
-					var _newArr = [];
-					for (var i = 0; i < _res.length; i++) {
-						// console.log(_res[i][0] + "重复次数:" + _res[i][1]);
-						_newArr.push(_res[i][0] + ',' + _res[i][1]+','+_res[i][2]);
-					}
-					return _newArr;
-				},
-				
+<script src="../common/js/network.js"></script>
+<script src="js/swiper.js"></script>
+<script src="js/tool.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                isLoading: false,
+                loading: false,
+                finished: false,
+                dataList: [],
+                pageNum: 0,
+                pageSize: 150,
+            }
+        },
+        filters: {},
+        mounted() {
+
+        },
+        created() {
+            this.initData()
+        },
+        methods: {
+            initData() {
+                var _self = this;
+                ajax({
+                    type: "get",
+                    url: "activity/UserBag/exchangeHistory",
+                    data: {
+                        pageNum: _self.pageNum,
+                        pageSize: _self.pageSize
+                    },
+                    success: function(res) {
+                        _self.loading = false;
+                        _self.finished = true;
+                        if (res.code == 0) {
+                            res.data.forEach((item, index) => {
+                                item.goods = _self.arrformat(item.items);
+                            })
+                            if (_self.pageNum == 0) {
+                                _self.dataList = [];
+                                _self.dataList = res.data;
+                            } else {
+                                _self.dataList = _self.dataList.concat(res.data);
+                            }
+                            if ((_self.pageNum + 1) * _self.pageSize >= res.data.count) {
+                                _self.finished = true;
+                            }
+                            _self.$nextTick(() => {
+                                var swiper = new Swiper('.swiper-container', {
+                                    slidesPerView: 4,
+                                    spaceBetween: 10,
+                                    observeParents: true,
+                                    freeMode: true,
+                                    observer: true
+                                });
+                            })
+                        } else {
+                            _self.$toast(res.msg);
+                        }
+                    },
+                    error: function() {
+                        _self.loading = false;
+                        console.log("error")
+                    }
+                })
+            },
+            initIndexData() {
+                // 清空列表数据
+                this.finished = false;
+                // 重新加载数据
+                // 将 loading 设置为 true，表示处于加载状态
+                this.loading = true;
+                this.isLoading = true;
+                this.onLoad();
+            },
+            onLoad() {
+                if (this.isLoading) {
+                    this.isLoading = false;
+                    this.pageNum = 0;
+                } else {
+                    this.pageNum++;
+                }
+                this.initData()
+                    //this.getCommentList()
+                this.loading = false;
+            },
+            OnclickLeft() {
+                window.history.back(-1);
+            },
+            arrformat(_arr) { //去重找出一样的
+                // var _arr = ['旅行箱', '旅行箱', '小米', '大米'];
+                var _res = []; // 
+                _arr.sort(compare('name'));
+                // console.log(_arr)
+                for (var i = 0; i < _arr.length;) {
+                    var count = 0;
+                    for (var j = i; j < _arr.length; j++) {
+                        if (_arr[i].awardClass == _arr[j].awardClass) {
+                            count++;
+                        }
+                    }
+                    _res.push([_arr[i].name, count, _arr[i].logo]);
+                    i += count;
+                }
+                //_res 二维数维中保存了 值和值的重复数
+                var _newArr = [];
+                for (var i = 0; i < _res.length; i++) {
+                    // console.log(_res[i][0] + "重复次数:" + _res[i][1]);
+                    _newArr.push(_res[i][0] + ',' + _res[i][1] + ',' + _res[i][2]);
+                }
+                return _newArr;
+            },
 
 
-			}
-		})
-	</script>
+
+        }
+    })
+</script>
 
 </html>

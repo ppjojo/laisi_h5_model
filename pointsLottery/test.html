@@ -1,125 +1,123 @@
 <!DOCTYPE html>
 <html lang="zh-cmn-Hans">
 
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
-		<title>兑换结果</title>
-		<!-- 引入样式文件 -->
-		<link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
-		<link rel="stylesheet" href="../common/css/basic.css">
-		<link rel="stylesheet" href="css/pointsLottery.css">
-		<style type="text/css">
-			#app img {
-				width: 3.6rem;
-				margin: .96rem auto .48rem;
-			}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+    <title>兑换结果</title>
+    <!-- 引入样式文件 -->
+    <link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
+    <link rel="stylesheet" href="../common/css/basic.css">
+    <link rel="stylesheet" href="css/pointsLottery.css">
+    <style type="text/css">
+        #app img {
+            width: 3.6rem;
+            margin: .96rem auto .48rem;
+        }
+        
+        .resulttxt {
+            font-size: .32rem;
+            text-align: center;
+            font-family: 'PingFangSC-Regular';
+            color: #333;
+        }
+        
+        #demoCanvas,
+        #demoCanvas2,
+        #demoCanvas3 {
+            position: fixed;
+            width: 100%;
+            height: 4rem;
+        }
+    </style>
 
-			.resulttxt {
-				font-size: .32rem;
-				text-align: center;
-				font-family: 'PingFangSC-Regular';
-				color: #333;
-			}
-			#demoCanvas,#demoCanvas2,#demoCanvas3{
-				position: fixed;
-				width: 100%;
-				height: 4rem;
-			}
-		</style>
-		<script src="https://cdn.bootcss.com/vConsole/3.3.4/vconsole.min.js"></script>
-				<script>
-					// init vConsole
-				        var vConsole = new VConsole();
-				        console.log('Hello world');
-				    </script>
-	</head>
+</head>
 
-	<body>
-		<div id="app" style="height: 20rem;">
-			<div id="demoCanvas"  class="monkeysvga"></div>
-		</div>
-	</body>
-	<script src="https://oss.laisitech.com/0bb12bf1-cb87-4d2c-a724-8a7c25b7ae04.js "></script>
+<body>
+    <div id="app" style="height: 20rem;">
+        <div id="demoCanvas" class="monkeysvga"></div>
+    </div>
+</body>
+<script src="https://oss.laisitech.com/0bb12bf1-cb87-4d2c-a724-8a7c25b7ae04.js "></script>
 <script src="https://oss.laisitech.com/6172e6c1-f460-40ac-97ba-31c8526f2e16.js"></script>
-	<script src="../common/js/network.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/svgaplayerweb@2.3.1/build/svga.min.js"></script>
-	<script>
-		window.onload=function(){
-				window.scrollTo(0,500)
-		}
-		new Vue({
-			el: '#app',
-			data() {
-				return {
-					pic:'css/normal.svga',
-					pic : 'css/click.svga',
-					isclick:false,
-					isten:false,
-					normalPlayer:null,
-					normalParser:null,
-					clickPlayer:null,
-					clicklParser:null,
-					tenPlayer:null,
-					tenParser:null,
-				}
-			},
-			filters: {},
-			mounted() {
-				var _this = this;
-				this.initnormal();
-				// this.initClick();
-				// this.initTen()
-			},
-			created() {
+<script src="../common/js/network.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/svgaplayerweb@2.3.1/build/svga.min.js"></script>
+<script>
+    window.onload = function() {
+        window.scrollTo(0, 500)
+    }
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                pic: 'css/normal.svga',
+                pic: 'css/click.svga',
+                isclick: false,
+                isten: false,
+                normalPlayer: null,
+                normalParser: null,
+                clickPlayer: null,
+                clicklParser: null,
+                tenPlayer: null,
+                tenParser: null,
+            }
+        },
+        filters: {},
+        mounted() {
+            var _this = this;
+            this.initnormal();
+            // this.initClick();
+            // this.initTen()
+        },
+        created() {
 
-			},
-			methods: {
-				changeclick2(){
-					this.isten = true;
-					setTimeout(()=>{
-						this.isten = false;
-					},3000)
-				},
-				changeclick(){
-					var _this = this;
-					this.normalParser.load('css/normal.svga', function(videoItem) {
-					    _this.normalPlayer.setVideoItem(videoItem);
-					    _this.normalPlayer.startAnimation();
-					})
-				},
-				initnormal(){
-					var player = new SVGA.Player('#demoCanvas');
-					var parser = new SVGA.Parser('#demoCanvas'); // Must Provide same selector eg:#demoCanvas IF support IE6+
-					parser.load('css/jxhb.svga', function(videoItem) {
-					    player.setVideoItem(videoItem);
-					    player.startAnimation();
-					})
-				},
-				initClick(){
-					var player = new SVGA.Player('#demoCanvas2');
-					var parser = new SVGA.Parser('#demoCanvas2'); // Must Provide same selector eg:#demoCanvas IF support IE6+
-					parser.load('css/click.svga', function(videoItem) {
-					    player.setVideoItem(videoItem);
-					    player.startAnimation();
-					})
-				},
-				initTen(){
-					var player = new SVGA.Player('#demoCanvas3');
-					var parser = new SVGA.Parser('#demoCanvas3'); // Must Provide same selector eg:#demoCanvas IF support IE6+
-					parser.load('css/ten.svga', function(videoItem) {
-					    player.setVideoItem(videoItem);
-					    player.startAnimation();
-					})
-				},
-				OnclickLeft() {
-					
-				}
+        },
+        methods: {
+            changeclick2() {
+                this.isten = true;
+                setTimeout(() => {
+                    this.isten = false;
+                }, 3000)
+            },
+            changeclick() {
+                var _this = this;
+                this.normalParser.load('css/normal.svga', function(videoItem) {
+                    _this.normalPlayer.setVideoItem(videoItem);
+                    _this.normalPlayer.startAnimation();
+                })
+            },
+            initnormal() {
+                var player = new SVGA.Player('#demoCanvas');
+                var parser = new SVGA.Parser('#demoCanvas'); // Must Provide same selector eg:#demoCanvas IF support IE6+
+                parser.load('css/jxhb.svga', function(videoItem) {
+                    player.setVideoItem(videoItem);
+                    player.startAnimation();
+                })
+            },
+            initClick() {
+                var player = new SVGA.Player('#demoCanvas2');
+                var parser = new SVGA.Parser('#demoCanvas2'); // Must Provide same selector eg:#demoCanvas IF support IE6+
+                parser.load('css/click.svga', function(videoItem) {
+                    player.setVideoItem(videoItem);
+                    player.startAnimation();
+                })
+            },
+            initTen() {
+                var player = new SVGA.Player('#demoCanvas3');
+                var parser = new SVGA.Parser('#demoCanvas3'); // Must Provide same selector eg:#demoCanvas IF support IE6+
+                parser.load('css/ten.svga', function(videoItem) {
+                    player.setVideoItem(videoItem);
+                    player.startAnimation();
+                })
+            },
+            OnclickLeft() {
+
+            }
 
 
 
-			}
-		})
-	</script>
+        }
+    })
+</script>
 
 </html>

@@ -3,23 +3,17 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
     <title>国体赛事</title>
-   <!-- <script src="https://cdn.bootcdn.net/ajax/libs/vConsole/3.8.1/vconsole.min.js"></script>
-        <script>
-            // init vConsole
-                var vConsole = new VConsole();
-              
-            </script> -->
-  
+
+
 
 </head>
 
 <body>
-    <img  src="1019.png">
+    <img src="1019.png">
 
-    <a  id="aTag"href=""></a>
+    <a id="aTag" href=""></a>
 
 </body>
 <script src="../common/js/network.js"></script>
@@ -28,7 +22,7 @@
     ajax({
         type: "get",
         url: "nationalSports/huaWei/authorizationCodeRequest",
-        success: function (res) {
+        success: function(res) {
             if (res.code == 0) {
                 var link = res.data
                 document.getElementById("aTag").setAttribute("href", link);
@@ -37,30 +31,33 @@
                 // document.getElementById("aTag").dispatchEvent(e); //只要id 就好 
             }
         },
-        error: function () {
+        error: function() {
             console.log("error")
         }
     })
 </script>
 <style>
-    *{
+    * {
         padding: 0;
         margin: 0;
     }
-    body{
+    
+    body {
         position: relative;
     }
-    img{
+    
+    img {
         width: 100%;
-        display:block;
+        display: block;
     }
-    #aTag{
+    
+    #aTag {
         position: absolute;
-    bottom: 0.2rem;
-    width: 50%;
-    height: 0.8rem;
-    left: 25%;
-    z-index: 9;
+        bottom: 0.2rem;
+        width: 50%;
+        height: 0.8rem;
+        left: 25%;
+        z-index: 9;
     }
 </style>
 
