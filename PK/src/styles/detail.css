@@ -707,6 +707,7 @@
 .detailBox .scoreListItemDiv {
   height: 6rem;
   overflow-y: auto;
+  padding: 0 0.2rem;
 }
 
 .detailBox .scoreListBox .scoreListDiv .scoreListItem {
