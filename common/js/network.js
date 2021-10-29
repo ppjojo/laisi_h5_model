@@ -1,4 +1,4 @@
-//version 20210713
+//version 20211029
 var host = "https://lstest3.laisitech.com/";
 
 //Android终端
