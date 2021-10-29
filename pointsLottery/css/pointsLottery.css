@@ -367,9 +367,6 @@ body {
     z-index: 9;
     left: calc( 50% - .15rem );
 }
-.van-sticky--fixed{
-	top: .90rem;
-}
 .van-action-sheet__cancel,
 		.van-action-sheet__item {
 			font-size: .32rem;
@@ -404,9 +401,9 @@ body {
     padding-top: env(safe-area-inset-top);
   }
   .van-sticky--fixed{
-	top: 0.92rem;
-	top: calc(0.92rem + constant(safe-area-inset-top));
-	top: calc(0.92rem + env(safe-area-inset-top));
+	top: 0.90rem;
+	top: calc(0.90rem + constant(safe-area-inset-top));
+	top: calc(0.90rem + env(safe-area-inset-top));
   }
 }
 .van-action-sheet__cancel:active,.van-action-sheet__item:active{background-color:#292934 }

@@ -59,7 +59,9 @@
 			<div style="margin-top:.48rem;">
 				<div class="target">
 					亲爱的{{nickname}}～</br>
-					你本年度填满了<span style="font-size: .3rem;">{{yearDetail.yearCount||0}}</span>个方块，太棒啦！
+					<div v-if="yearDetail.yearCount>=50">你本年度填满了<span style="font-size: .3rem;">{{yearDetail.yearCount||0}}</span>个方块，太棒啦！</div>
+					<div v-else-if="yearDetail.yearCount<50">你本年度填满了<span style="font-size: .3rem;">{{yearDetail.yearCount||0}}</span>个方块，请继续加油哦！</div>
+					<div v-else-if="yearDetail.yearCount==0||!yearDetail.yearCount">很遗憾，本年度你没有填满方块</div>
 				</div>
 				<!-- 完成程度 -->
 				<div class="ub ub-ac ub-pj finishList">
@@ -200,6 +202,7 @@
 			},
 			fatherSetMonthObj(obj, index) {
 				this.rate[index] = obj.standardRate;
+				this.$forceUpdate()
 			},
 			fatherPickYearMonth() { //子组件调用打开时间选择
 				this.YMshow = true;
