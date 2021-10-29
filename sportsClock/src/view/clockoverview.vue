@@ -45,7 +45,7 @@
 			<div class="ub ub-ac ub-pj finishList">
 				<template v-for="(item,i) in monthObj">
 					<div class="listItem" v-if="item!=0">
-						<returnIcon :name="i" :taskNum="item"></returnIcon>
+						<returnIcon :isoverClock="true" :name="i" :taskNum="item"></returnIcon>
 					</div>
 				</template>
 			</div>
@@ -67,7 +67,7 @@
 				<div class="ub ub-ac ub-pj finishList">
 					<template v-for="(item,i) in yearObj">
 						<div class="listItem" v-if="item!=0">
-							<returnIcon :name="i" :taskNum="item"></returnIcon>
+							<returnIcon :isoverClock="true" :name="i" :taskNum="item"></returnIcon>
 						</div>
 					</template>
 				</div>

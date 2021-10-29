@@ -27,6 +27,10 @@
 			taskNum: {
 				type: Number,
 				default: () => 0
+			},
+			isoverClock:{
+				type:Boolean,
+				default:()=>false
 			}
 		},
 		components: {},
@@ -43,7 +47,7 @@
 		filters: {},
 		mounted() {},
 		created() {
-			this.url = typeUtil.returnImg(this.name);
+			this.url = typeUtil.returnImg(this.name,this.isoverClock);
 			if (!this.bgw) {
 				this.itemObj.number = this.itemObj.takeMs = this.taskNum;
 			}
@@ -60,7 +64,7 @@
 			},
 			name(val) {
 				this.name = val;
-				this.url = typeUtil.returnImg(this.name);
+				this.url = typeUtil.returnImg(this.name,this.isoverClock);
 			}
 		}
 	};

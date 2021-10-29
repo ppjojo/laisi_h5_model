@@ -109,7 +109,9 @@ export default {
 		// }
 		// return result;
 	},
-	returnImg(d) { //返回图片
+	returnImg(d,isoverClock) { //返回图片
+	console.log(isoverClock)
+		if(isoverClock)return require('@i/sporticon/' + d + '2.png')
 		return require('@i/sporticon/' + d + '.png')
 	},
 	returnUnit(item, d, type) { //just
