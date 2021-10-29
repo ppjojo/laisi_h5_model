@@ -6,7 +6,7 @@
 		<div v-else class="sporticon2 ub ub-ac">
 			<img :src="url" alt="">
 			<div>
-				{{typeUtilStr(itemObj,name,'unit')}}<span>{{typeUtilStr(itemObj,name,'val')}}</span>
+				<span class="num">{{typeUtilStr(itemObj,name,'unit')}}</span><span>{{typeUtilStr(itemObj,name,'val')}}</span>
 			</div>
 		</div>
 	</div>
@@ -74,7 +74,10 @@
 		width: .64rem;
 		height: .64rem;
 	}
-
+	.num{
+		font-family:BebasNeue;
+		font-size: .48rem!important;
+	}
 	.sporticon2 {
 		img {
 			width: .56rem;
