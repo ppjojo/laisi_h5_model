@@ -76,9 +76,9 @@
 		<!-- 时间选择 -->
 		<van-popup position="bottom" round :style="{height: '45%'}" v-model="YMshow">
 			<van-datetime-picker v-show="tabIndex==1" v-model="currentDate" type="year-month" title=""
-				:min-date="minDate" @confirm="pickConfirm" :max-date="maxDate" :formatter="formatter">
+				:min-date="minDate" @cancel="YMshow=false" @confirm="pickConfirm" :max-date="maxDate" :formatter="formatter">
 			</van-datetime-picker>
-			<van-picker v-show="tabIndex==2" title="选择年份" show-toolbar :columns="columns" @confirm="onConfirmYear">
+			<van-picker v-show="tabIndex==2" @cancel="YMshow=false"  title="选择年份" show-toolbar :columns="columns" @confirm="onConfirmYear">
 			</van-picker>
 		</van-popup>
 	</div>
