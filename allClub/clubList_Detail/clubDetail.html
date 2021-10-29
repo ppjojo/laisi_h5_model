@@ -489,6 +489,20 @@
 
         }
     }
+	var vm;
+	var isPageHide = false;
+	window.addEventListener('pageshow', function() {
+	    if (isPageHide&&isIOS) {
+	       if (localStorage.getItem("clubTab")) {
+	           vm.activeTab = parseInt(localStorage.getItem("clubTab"))
+	           vm.refreshDetailData()
+	       }
+	    }
+	});
+	window.addEventListener('pagehide', function() {
+	    isPageHide = true;
+	});
+	
     new Vue({
         el: '#app',
         data() {
@@ -590,6 +604,8 @@
             if (!this.isShare) {
                 window.addEventListener('scroll', this.scrollFn);
             }
+			vm=this;
+			
 
         },
         created() {
@@ -598,7 +614,7 @@
             }
             this.clubObject = Object.assign({}, localStorage.getItem("clubObject"))
             this.getClubDetail()
-            console.log(localStorage.getItem("clubTab"))
+           
             if (localStorage.getItem("clubTab")) {
                 this.activeTab = parseInt(localStorage.getItem("clubTab"))
                 this.refreshDetailData()
@@ -847,6 +863,7 @@
             },
             //获取历史跳绳数据
             getHistorySport(historyObject) {
+				if(!historyObject)return;
                 var that = this
                 var currentPage = historyObject.page - 1
                 historyObject.done = false

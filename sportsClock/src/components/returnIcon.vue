@@ -60,6 +60,7 @@
 			},
 			name(val) {
 				this.name = val;
+				this.url = typeUtil.returnImg(this.name);
 			}
 		}
 	};
