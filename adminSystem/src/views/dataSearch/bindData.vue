@@ -3,7 +3,7 @@
         <div class="container-search">
             <el-form :inline="true" :model="searchForm">
                 <el-form-item label="UserId">
-                    <el-input v-model="searchForm.userId" placeholder="用户ID" @input="userIdChange"></el-input>
+                    <el-input v-model="searchForm.bgUserId" placeholder="用户ID" @input="userIdChange"></el-input>
                 </el-form-item>
                 <el-form-item label="memberId">
                     <el-select v-model="searchForm.memberId" placeholder="请选择子账户" clearable>
@@ -72,7 +72,7 @@
                 memberList:[],
                 
                 searchForm: {
-                    userId: '',
+                    bgUserId: '',
                     memberId: ""
                 },
                 dev: "production"
@@ -90,14 +90,14 @@
             },
             getMemberList() {
                 memberList({
-                    uid: this.searchForm.userId
+                    uid: this.searchForm.bgUserId
                 }).then(res => {
                     this.memberList = res.data;
                     this.loading = false
                 })
             },
             getBindListByUserId(){
-                if (!this.searchForm.userId) {
+                if (!this.searchForm.bgUserId) {
                     this.$message({
                         showClose: true,
                         message: "请输入UserId",
@@ -111,7 +111,7 @@
                 })
             },
             getBindListByMemberId(){
-                if (!this.searchForm.memberId || !this.searchForm.userId) {
+                if (!this.searchForm.memberId || !this.searchForm.bgUserId) {
                     this.$message({
                         showClose: true,
                         message: "请输入UserId或者选择memberId",
