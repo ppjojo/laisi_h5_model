@@ -6,15 +6,11 @@
     font-style: normal;
 }
 
-
-
 .header {
     height: 1rem;
     position: relative;
     z-index: 100;
 }
-
-
 
 //黑字
 $text_color:#71717f;
@@ -24,8 +20,6 @@ $text_color_white:#CFCFD2;
 $bg_color:#12121f;
 //边框色
 $border_color:#1e1e2a;
-
-
 .van-hairline--bottom::after {
     border: none;
 }
@@ -38,7 +32,6 @@ $border_color:#1e1e2a;
 
 //跳绳
 .ts {
-
     background-color: rgba(255, 170, 136, 0.2) !important;
     color: #FF8D3F !important;
 }
@@ -48,8 +41,6 @@ $border_color:#1e1e2a;
     background-color: rgba(125, 179, 255, 0.2) !important;
     color: #7C87F8 !important;
 }
-
-
 
 //减脂
 .jz {
@@ -65,19 +56,16 @@ $border_color:#1e1e2a;
 
 .myGroupList {
     padding: 0 0.24rem;
-
     .labelTitle {
         color: #CFCFD2;
         font-size: 0.36rem;
         padding: 0.24rem 0;
     }
-
     .groupBox {
         ul {
             li {
                 box-sizing: border-box;
                 padding-bottom: 0.32rem;
-
                 .groupImg {
                     width: 1.76rem;
                     height: 1.76rem;
@@ -87,19 +75,16 @@ $border_color:#1e1e2a;
                     float: left;
                     background-size: cover;
                 }
-
                 .groupInfo {
                     margin-left: 2rem;
                     padding-bottom: 0.32rem;
                     border-bottom: 1px solid #1E1E2A;
-
                     .nameBox {
                         display: flex;
                         align-items: center;
                         color: #CFCFD2;
                         font-size: 0.32rem;
                         line-height: 0.7rem;
-
                         .name {
                             overflow: hidden;
                             max-width: 4rem;
@@ -107,7 +92,6 @@ $border_color:#1e1e2a;
                             text-overflow: ellipsis;
                         }
                     }
-
                     .desc {
                         color: $text_color;
                         font-size: 0.28rem;
@@ -116,12 +100,10 @@ $border_color:#1e1e2a;
                         white-space: nowrap;
                         text-overflow: ellipsis;
                     }
-
                     .labelBox {
                         display: flex;
                         height: 0.6rem;
                         align-items: flex-end;
-
                         .labelItem {
                             //color: #999999;
                             font-size: 0.2rem;
@@ -136,28 +118,19 @@ $border_color:#1e1e2a;
                             -ms-border-radius: 4px;
                             -o-border-radius: 4px;
                         }
-
-
-
                     }
                 }
             }
         }
     }
-
-
-
-
 }
 
 .nullDataBox {
     padding-top: 3rem;
     text-align: center;
-
     img {
         width: 4rem;
     }
-
     p {
         font-size: 0.28rem;
         color: $text_color;
@@ -169,16 +142,13 @@ $border_color:#1e1e2a;
 
 .createGroup {
     padding: 0 0.3rem;
-
     .labelTitle {
         color: #CFCFD2;
         font-size: 0.32rem;
         padding: 0.4rem 0;
     }
-
     .uploaderBox {
         text-align: center;
-
         .uploadLoadIconBox {
             width: 2.4rem;
             height: 2.4rem;
@@ -191,12 +161,10 @@ $border_color:#1e1e2a;
             display: flex;
             justify-content: center;
             align-items: center;
-
             .van-icon-plus {
                 font-size: 1.28rem;
                 color: #292934;
             }
-
             .uploadLoadIconBG {
                 background-size: cover;
                 background-position: center center;
@@ -206,30 +174,25 @@ $border_color:#1e1e2a;
                 border-radius: 12px;
             }
         }
-
         // .van-uploader__upload-icon {
         //     font-size: 1.28rem;
         //     color: #AAAAAA;
         // }
-
         // .van-uploader__preview-image {
         //     width: 2.4rem;
         //     height: 2.4rem;
         //     border-radius: 5px;
         // }
     }
-
     .van-cell {
         padding: 0.08rem 0.16rem;
     }
-
     .uploaderTxt {
         color: $text_color;
         font-size: 0.28rem;
         line-height: 1rem;
         text-align: center;
     }
-
     .nextStep {
         width: 4rem;
         margin: 0 auto;
@@ -240,7 +203,6 @@ $border_color:#1e1e2a;
         color: #fff;
         font-size: 0.4rem;
     }
-
     .labelBox {
         &::after {
             content: "";
@@ -249,12 +211,10 @@ $border_color:#1e1e2a;
             clear: both;
             visibility: hidden;
         }
-
         li {
             width: 25%;
             float: left;
             margin-bottom: 0.3rem;
-
             .embedImgBox {
                 margin: 0 auto;
                 width: 0.8rem;
@@ -269,36 +229,29 @@ $border_color:#1e1e2a;
                 justify-content: center;
                 align-items: center;
                 color: $text_color;
-
                 .embedImg {
                     width: 0.6rem;
                     height: 0.6rem;
                 }
-
                 .embedIcon {
                     font-size: 0.48rem;
                     line-height: 0.8rem;
                     text-align: center;
-
                 }
             }
-
             .labelTxt {
                 color: $text_color;
                 font-size: 0.28rem;
                 line-height: 0.6rem;
                 text-align: center;
             }
-
         }
-
     }
 }
 
 .groupIndex {
     .header {
         background-color: transparent !important;
-
         .van-nav-bar__title {
             color: #fff;
             opacity: 0;
@@ -306,21 +259,17 @@ $border_color:#1e1e2a;
             margin-left: 15%;
             max-width: 50%;
         }
-
         .van-nav-bar__text {
             color: #fff;
         }
-
         .van-nav-bar .van-icon {
             color: #fff;
         }
     }
-
     .groupInfoBox {
         position: absolute;
         top: 0;
         width: 100%;
-
         .blackBGBox {
             background-color: #000;
             width: 100%;
@@ -331,7 +280,6 @@ $border_color:#1e1e2a;
             z-index: 9;
             opacity: 0.5;
         }
-
         .bannerBg {
             height: 5.16rem;
             width: 100%;
@@ -339,7 +287,6 @@ $border_color:#1e1e2a;
             filter: blur(5px);
             -webkit-filter: blur(5px);
         }
-
         .groupBox {
             position: absolute;
             box-sizing: border-box;
@@ -347,7 +294,6 @@ $border_color:#1e1e2a;
             bottom: 1.8rem;
             width: 100%;
             z-index: 10;
-
             .groupImg {
                 width: 1.76rem;
                 height: 1.76rem;
@@ -357,25 +303,21 @@ $border_color:#1e1e2a;
                 float: left;
                 background-size: cover;
             }
-
             .groupInfo {
                 margin-left: 2rem;
                 padding-bottom: 0.3rem;
-
                 .nameBox {
                     display: flex;
                     align-items: center;
                     color: #fff;
                     font-size: 0.28rem;
                     line-height: 0.6rem;
-
                     .name {
                         overflow: hidden;
                         white-space: nowrap;
                         text-overflow: ellipsis;
                     }
                 }
-
                 .desc {
                     color: #fff;
                     font-size: 0.24rem;
@@ -388,12 +330,10 @@ $border_color:#1e1e2a;
                     line-clamp: 2;
                     -webkit-box-orient: vertical;
                 }
-
                 .labelBox {
                     display: flex;
                     height: 0.4rem;
                     align-items: flex-end;
-
                     .labelItem {
                         color: #999999;
                         font-size: 0.2rem;
@@ -408,23 +348,21 @@ $border_color:#1e1e2a;
             }
         }
     }
-
     .containBox {
         .icon-tongyong-gengduo {
             color: #71717f;
         }
-
         color: $text_color_white;
         position: relative;
         z-index: 99;
         background-color: $bg_color;
         border-radius: 0.5rem 0.5rem 0 0;
-        overflow: hidden;
+        // overflow: hidden;
         top: 4rem;
         position: absolute;
         width: 100%;
-
         .noticeBox {
+            border-radius: 0.5rem 0.5rem 0 0;
             border-bottom: 1px $border_color solid;
             padding: 0 0.3rem;
             box-sizing: border-box;
@@ -434,52 +372,43 @@ $border_color:#1e1e2a;
             justify-content: space-between;
             align-items: center;
             height: 1.2rem;
-
-
             .noticeBoxLeft {
                 display: flex;
                 justify-content: start;
                 align-items: center;
-
                 .iconNotice {
                     width: 0.4rem;
                     height: 0.4rem;
                     margin-right: 0.2rem;
                 }
-
                 .noticeContent {
                     font-size: 0.28rem;
                     width: 5.8rem;
                     padding: 0 !important;
                 }
             }
-
             .iconRight {
                 width: 0.25rem;
                 height: 0.25rem;
             }
         }
-
         .memberBox {
+            border-radius: 0.5rem 0.5rem 0 0;
             background-color: $bg_color;
             padding: 0.24rem 0.24rem;
-
             .title {
                 height: 0.7rem;
                 font-size: 0.32rem;
             }
-
             .memberListDiv {
                 height: 0.7rem;
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
-
                 .memberPersonPic {
                     display: flex;
                     align-items: center;
                     position: relative;
-
                     img {
                         position: absolute;
                         left: 0;
@@ -492,17 +421,14 @@ $border_color:#1e1e2a;
                         -o-border-radius: 50%;
                     }
                 }
-
                 .memberPersonNum {
                     display: flex;
                     justify-content: end;
                     align-items: center;
-
                     .numP {
                         font-size: 0.28rem;
                         color: #71717f;
                     }
-
                     .iconRight {
                         width: 0.25rem;
                         height: 0.25rem;
@@ -510,43 +436,35 @@ $border_color:#1e1e2a;
                 }
             }
         }
-
         .sportBox {
             padding-bottom: 1.5rem;
             border-top: 4px solid $border_color;
-
             .dateBox {
                 height: 1.2rem;
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
                 padding: 0 0.24rem;
-
                 .dateTitle {
                     font-size: 0.32rem;
                 }
-
                 .chooseDate {
                     font-size: 0.35rem;
                 }
             }
-
             .personBox {
                 ul {
                     li {
                         padding: 0.3rem;
                         padding-bottom: 0.15rem;
                         border-top: 1px solid $border_color;
-
                         .personInfoBox {
                             display: flex;
                             align-items: center;
                             justify-content: space-between;
-
                             .personInfo {
                                 display: flex;
                                 align-items: center;
-
                                 .personImg {
                                     width: 0.64rem;
                                     height: 0.64rem;
@@ -557,33 +475,26 @@ $border_color:#1e1e2a;
                                     -o-border-radius: 50%;
                                     margin-right: 0.2rem;
                                 }
-
                                 .name {
                                     font-size: 0.28rem;
                                     line-height: 0.35rem;
                                 }
-
                                 .idInfo {
                                     color: $text_color;
                                     font-size: 0.2rem;
                                 }
                             }
-
                             .more {
                                 font-size: 0.25rem;
                             }
                         }
-
-
                         .deviceList {
-
                             .deviceItem {
                                 display: flex;
                                 justify-content: space-between;
                                 align-items: center;
                                 padding-left: 0.2rem;
                                 height: 1.2rem;
-
                                 .deviceImg {
                                     width: 0.6rem;
                                     height: 0.6rem;
@@ -593,17 +504,14 @@ $border_color:#1e1e2a;
                                     -ms-border-radius: 50%;
                                     -o-border-radius: 50%;
                                 }
-
                                 .deviceData {
                                     font-size: 0.28rem;
                                     width: 35%;
-
                                     .num {
                                         font-size: 0.48rem;
                                         font-family: BebasNeue;
                                     }
                                 }
-
                                 .iconRightBox {
                                     width: 0.5rem;
                                     text-align: right;
@@ -611,21 +519,17 @@ $border_color:#1e1e2a;
                                     display: flex;
                                     justify-content: flex-end;
                                     align-items: center;
-
                                     .iconRight {
                                         width: 0.25rem;
                                         height: 0.25rem;
                                     }
                                 }
-
                             }
-
                         }
                     }
                 }
             }
         }
-
         .btn_box {
             text-align: center;
             position: fixed;
@@ -639,8 +543,6 @@ $border_color:#1e1e2a;
             -ms-flex-pack: center;
             justify-content: center;
             background-image: linear-gradient(to bottom, rgba(18, 18, 31, 0), rgba(18, 18, 31, 1));
-
-
             .btn {
                 color: #fff;
                 width: 6.3rem;
@@ -652,15 +554,11 @@ $border_color:#1e1e2a;
                 margin-bottom: 0.68rem;
             }
         }
-
-
     }
 }
 
-
 .groupSetting {
     color: $text_color_white;
-
     .cellbox {
         padding: .3rem;
         min-height: 1.2rem;
@@ -668,36 +566,28 @@ $border_color:#1e1e2a;
         align-items: center;
         justify-content: space-between;
         border-bottom: 1px solid $border_color;
-
         .title {
             font-size: .32rem;
         }
-
-
-
         .iconfont {
             font-size: .3rem;
             color: $text_color;
         }
-
         .rightBox {
             display: flex;
             align-items: center;
             justify-content: flex-end;
         }
-
         .detail {
             font-size: .28rem;
             white-space: nowrap;
             color: $text_color;
         }
-
         .groupMember {
             text-align: center;
             width: 20%;
             display: flex;
             flex-flow: column;
-
             .imgbox {
                 display: flex;
                 align-items: center;
@@ -707,7 +597,6 @@ $border_color:#1e1e2a;
                 height: .92rem;
                 margin-bottom: .1rem;
                 background-color: $border_color;
-
                 div.headImg {
                     width: .92rem;
                     height: .92rem;
@@ -715,18 +604,15 @@ $border_color:#1e1e2a;
                     background-position: center center;
                     border-radius: 100%;
                 }
-
                 img.menuicon {
                     height: .54rem;
                     width: .54rem;
                 }
             }
-
             .van-ellipsis {
                 max-width: .92rem;
             }
         }
-
         .headpic {
             width: .72rem;
             height: .72rem;
@@ -735,14 +621,10 @@ $border_color:#1e1e2a;
             background-repeat: no-repeat;
             background-position: center center;
         }
-
-
-
         .labelBox {
             display: flex;
             align-items: center;
             justify-content: flex-end;
-
             .labelItem {
                 color: #71717f;
                 font-size: 0.2rem;
@@ -752,39 +634,27 @@ $border_color:#1e1e2a;
                 height: 0.32rem;
                 border-radius: 0.1rem;
                 white-space: nowrap;
-
                 &:last-child {
                     margin-right: 0;
                 }
             }
         }
-
         .van-icon {
             display: block;
         }
-
         .van-switch--on {
             border: none;
         }
-
-
-
-
     }
-
-
-
     .border-bottom2 {
         border-bottom: .08rem solid $border_color;
     }
-
     .quit {
         color: #FF4E3E;
         font-size: .32rem;
         line-height: .6rem;
         justify-content: center
     }
-
     .van-uploader__input-wrapper {
         display: flex;
     }
@@ -799,17 +669,14 @@ $border_color:#1e1e2a;
                 border-radius: 100%;
                 margin-right: .16rem;
             }
-
             .nickname {
                 font-size: .32rem;
                 max-width: 3.5rem;
             }
-
             .time {
                 color: $text_color;
                 font-size: .24rem;
             }
-
             .badage {
                 color: #fff;
                 background-color: #7DB3FF;
@@ -820,7 +687,6 @@ $border_color:#1e1e2a;
                 height: .28rem;
                 line-height: .28rem;
             }
-
             .btn_member {
                 width: 1.24rem;
                 // height: .48rem;
@@ -832,26 +698,21 @@ $border_color:#1e1e2a;
                 text-align: center;
                 color: #FF4E3E;
             }
-
             .btn_member_gray {
                 border: 1px solid $text_color;
                 color: $text_color;
             }
         }
     }
-
     .van-search__content {
         border-radius: .3rem;
     }
 }
 
-
-
 .multChangePage {
     .outside {
         padding: .3rem;
     }
-
     .club-input {
         background-color: $border_color !important;
         border-radius: .08rem;
@@ -863,14 +724,12 @@ $border_color:#1e1e2a;
         color: #CFCFD2;
         text-align: center !important;
     }
-
     #changeName {
         width: 85%;
         margin: 0 auto;
         border-bottom: 1px solid #1e1e2a;
         text-align: center;
     }
-
     .infomation {
         margin: 1.2rem auto;
         line-height: .4rem;
@@ -879,7 +738,6 @@ $border_color:#1e1e2a;
         color: #595962;
         text-align: center;
     }
-
     .submit {
         width: 4rem;
         height: 0.8rem;
@@ -890,13 +748,10 @@ $border_color:#1e1e2a;
 
 .memberDataDetail {
     padding: 0.3rem;
-
     .chooseBox {
         display: flex;
         align-items: center;
         justify-content: space-between;
-
-
         .peopleBox {
             display: flex;
             align-items: center;
@@ -906,7 +761,6 @@ $border_color:#1e1e2a;
             height: 0.72rem;
             border-radius: 0.36rem;
             padding: 0 0.1rem;
-
             .imgBox {
                 width: 0.48rem;
                 height: 0.48rem;
@@ -917,13 +771,10 @@ $border_color:#1e1e2a;
                 -o-border-radius: 50%;
                 margin-right: 0.1rem;
             }
-
             .iconfont {
                 color: $text_color;
-
             }
         }
-
         .dateBox {
             font-size: 0.24rem;
             color: $text_color;
@@ -935,86 +786,68 @@ $border_color:#1e1e2a;
             justify-content: space-between;
             padding: 0 0.2rem;
         }
-
         .iconfont {
             font-size: 0.2rem;
             margin-left: 0.1rem;
-
         }
     }
-
     .dataBox {
         margin-top: 0.4rem;
-
         .dataItem {
             background-color: $border_color;
             padding: 0.4rem 0.4rem 0.1rem;
             border-radius: 8px;
             margin-bottom: 0.24rem;
-
             .typeBox {
                 display: flex;
                 align-items: center;
                 justify-content: flex-start;
-
                 img {
                     width: 0.48rem;
                     height: 0.48rem;
                     margin-right: 0.3rem;
                 }
-
                 font-size: 0.28rem;
                 margin-bottom: 0.4rem;
             }
-
             .detail {
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
                 flex-wrap: wrap;
-
                 .detailItem {
                     &:nth-child(3n+1) {
                         text-align: left;
                     }
-
                     &:nth-child(3n+2) {
                         text-align: center;
                     }
-
                     &:nth-child(3n) {
                         text-align: right;
                     }
-
                     width: 33.3333%;
                     margin-bottom: 0.3rem;
-
                     .numBox {
                         font-size: 0.56rem;
                         line-height: 0.6rem;
                         font-family: "BebasNeue";
                     }
-
                     .numDesc {
                         color: $text_color;
                         font-size: 0.2rem;
                         line-height: 0.4rem;
                     }
                 }
-
             }
-
             .balanceDetail {}
         }
     }
-
     .peopleListBox {
         padding: 0.3rem;
         display: flex;
         flex-wrap: wrap;
         padding-bottom: calc(0.1rem + constant(safe-area-inset-bottom));
         padding-bottom: calc(0.1rem + env(safe-area-inset-bottom));
-
         .peopleBox {
             display: flex;
             align-items: center;
@@ -1025,7 +858,6 @@ $border_color:#1e1e2a;
             width: 50%;
             box-sizing: border-box;
             margin-bottom: 0.3rem;
-
             .imgBox {
                 width: 0.48rem;
                 height: 0.48rem;
@@ -1047,8 +879,6 @@ $border_color:#1e1e2a;
         height: calc(1rem + env(safe-area-inset-top));
     }
 }
-
-
 
 .van-picker__toolbar {
     border-bottom: 1px solid #1e1e2a;

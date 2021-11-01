@@ -260,16 +260,15 @@ export default createComponent({
 
                 var disabled = isOptionDisabled(option);
 
+
                 let optionStyle2 = {}
                 optionStyle2.transform = "rotateX(" + ((-_this3.offset / _this3.itemHeight) - index) * 10 + "deg)" + "scale(" + (5 - Math.abs((-_this3.offset / _this3.itemHeight) - index)) * 0.25 + ")"
                 optionStyle2.opacity = 1 - Math.abs((-_this3.offset / _this3.itemHeight) - index) * 0.4
+                optionStyle2.height = 40 + "px"
 
 
                 var data = {
-                    style: {
-                        ...optionStyle,
-                        ...optionStyle2
-                    },
+                    style: optionStyle2,
                     attrs: {
                         role: 'button',
                         tabindex: disabled ? -1 : 0

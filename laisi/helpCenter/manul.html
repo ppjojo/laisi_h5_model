@@ -4,42 +4,41 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
     <link rel="icon" href="data:image/ico;base64,aWNv">
     <title></title>
-	<link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
+    <link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
     <link href="css/helpCenter.css" rel="stylesheet" type="text/css" />
-	<link href="font/iconfont.css" rel="stylesheet" type="text/css" />
+    <link href="font/iconfont.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
     <div id='app'>
-		<div class="header">
-			<van-nav-bar @click-left="onclickLeft" :title="title" left-arrow safe-area-inset-top fixed>
-				<template #left>
+        <div class="header">
+            <van-nav-bar @click-left="onclickLeft" :title="title" left-arrow safe-area-inset-top fixed>
+                <template #left>
 					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
 				</template>
-		
-			</van-nav-bar>
-		</div>
+
+            </van-nav-bar>
+        </div>
         <div class="main_container">
-			<!-- 常见问题 -->
-			<div class="outcommonBox">
-				<div class="commonQA">
-					<div class="listItem ">
-						<span class="blodTitle">{{bigTitle=='设备绑定流程'?'操作指南':'设备其他说明'}}</span>
-					</div>
-					<div class="listItem" v-if="bigTitle=='设备绑定流程'" >
-						<div v-html="dataList.manual"></div>
-					</div>
-					<div class="listItem" v-else >
-						<div id="" v-html="dataList.deviceDescription">
-							
-						</div>
-					</div>
-				</div>
-			</div>
+            <!-- 常见问题 -->
+            <div class="outcommonBox">
+                <div class="commonQA">
+                    <div class="listItem ">
+                        <span class="blodTitle">{{bigTitle=='设备绑定流程'?'操作指南':'设备其他说明'}}</span>
+                    </div>
+                    <div class="listItem" v-if="bigTitle=='设备绑定流程'">
+                        <div v-html="dataList.manual"></div>
+                    </div>
+                    <div class="listItem" v-else>
+                        <div id="" v-html="dataList.deviceDescription">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         </div>
     </div>
@@ -48,55 +47,55 @@
 <script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
 <script src="../../common/js/network.js"></script>
 <script type="text/javascript">
-	new Vue({
-		el: '#app',
-		data() {
-			return {
-				dataList:{
-					questionTypes:[],
-					faqs:[]
-				},
-				
-				title:'',
-				bigTitle:getQueryString('bigTitle')
-			}
-		},
-		filters: {},
-		mounted() {
-		},
-		created() {
-			this.title = getQueryString('title');
-			this.getList()
-		},
-		methods: {
-			getList(){
-				var _self = this;
-				ajax({
-					type: "get",
-					url: "helpCenter/manual/devicetype",
-					data: {
-						deviceType:getQueryString('id'),
-					},
-					success: function(res) {
-						if (res.code == 0) {
-							if(res.data){
-								res.data[0].manual = res.data[0].manual.replace(/\n/g, '<br>');
-								res.data[0].deviceDescription = res.data[0].deviceDescription.replace(/\n/g, '<br>');
-								_self.dataList = res.data[0];
-							}
-						} else {
-							_self.$toast(res.msg);
-						}
-					},
-					error: function() {
-						console.log("error")
-					}
-				})
-			},
-			onclickLeft(){
-				window.history.back(-1);
-			},
-		}
-	})
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                dataList: {
+                    questionTypes: [],
+                    faqs: []
+                },
+
+                title: '',
+                bigTitle: getQueryString('bigTitle')
+            }
+        },
+        filters: {},
+        mounted() {},
+        created() {
+            this.title = getQueryString('title');
+            this.getList()
+        },
+        methods: {
+            getList() {
+                var _self = this;
+                ajax({
+                    type: "get",
+                    url: "helpCenter/manual/devicetype",
+                    data: {
+                        deviceType: getQueryString('id'),
+                    },
+                    success: function(res) {
+                        if (res.code == 0) {
+                            if (res.data) {
+                                res.data[0].manual = res.data[0].manual.replace(/\n/g, '<br>');
+                                res.data[0].deviceDescription = res.data[0].deviceDescription.replace(/\n/g, '<br>');
+                                _self.dataList = res.data[0];
+                            }
+                        } else {
+                            _self.$toast(res.msg);
+                        }
+                    },
+                    error: function() {
+                        console.log("error")
+                    }
+                })
+            },
+            onclickLeft() {
+                window.history.back(-1);
+            },
+        }
+    })
 </script>
+
 </html>

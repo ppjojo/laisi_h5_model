@@ -392,7 +392,6 @@
   z-index: 99;
   background-color: #12121f;
   border-radius: 0.5rem 0.5rem 0 0;
-  overflow: hidden;
   top: 4rem;
   position: absolute;
   width: 100%;
@@ -403,6 +402,7 @@
 }
 
 .groupIndex .containBox .noticeBox {
+  border-radius: 0.5rem 0.5rem 0 0;
   border-bottom: 1px #1e1e2a solid;
   padding: 0 0.3rem;
   -webkit-box-sizing: border-box;
@@ -451,6 +451,7 @@
 }
 
 .groupIndex .containBox .memberBox {
+  border-radius: 0.5rem 0.5rem 0 0;
   background-color: #12121f;
   padding: 0.24rem 0.24rem;
 }

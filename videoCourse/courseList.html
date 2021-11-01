@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
     <link rel="stylesheet" href="font/iconfont.css">
     <link rel="stylesheet" href="css/index.css">
+
 </head>
 
 <body>
@@ -715,14 +716,10 @@
                     }
 
                     if (this.moreCommentShow) {
-                        form = {
-                            ...form,
-                            replyAuthorId: this.replyAuthorId, //被评论回复的用户id
-                            replyCommentId: this.commentDetail.dadCommendResult
-                                .dadCommendId, //被评论回复的评论id
-                            belongTopId: this.commentDetail.dadCommendResult
-                                .dadCommendId, //属于哪条主要评论（如果是Null，说明是主要评论）
-                        }
+                        form.replyAuthorId = this.replyAuthorId; //被评论回复的用户id
+                        form.replyCommentId = this.commentDetail.dadCommendResult.dadCommendId; //被评论回复的评论id
+                        form.belongTopId = this.commentDetail.dadCommendResult.dadCommendId; //属于哪条主要评论（如果是Null，说明是主要评论）
+
                     }
                     if (this.videoCourse_noticeList.length > 0) {
                         form.isRefer = 1 //0表示没有at，1表示at
