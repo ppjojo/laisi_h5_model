@@ -48,6 +48,16 @@
 			display:flex;
 			align-items:center;
 		}
+		.van-uploader__upload{
+			background-color: #1e1e2a;
+		}
+		.van-uploader__upload-icon{
+			color: #292934;
+			font-size: .75rem;
+		}
+		.van-field__control{
+			color: #cfcfd2;
+		}
 	</style>
 </head>
 
@@ -66,16 +76,16 @@
 			</van-nav-bar>
 		</div>
 		<van-loading type="spinner" vertical v-show="overlayShow"></van-loading>
-		<van-dialog v-model="createshow" :before-close="beforeClose" @confirm="submitCreate" cancel-button-color="#999"
+		<van-dialog v-model="createshow" :before-close="beforeClose" @confirm="submitCreate" cancel-button-color="#cfcfd2"
 			title="创建分组" confirm-button-text="创建" show-cancel-button>
 			<div style="padding: .5rem;">
 				<div class="ub ub-ver ub-pc">
 					<van-uploader v-model="createGroupObj.fileList" upload-icon="plus" :deletable="false" :max-count="1"
 						:after-read="afterRead2"></van-uploader>
 				</div>
-				<div style="color: #999;font-size: .24rem;text-align: center;">选择组别形象</div>
+				<div style="color: #71717f;font-size: .24rem;text-align: center;">选择组别形象</div>
 				<van-field
-					style="background-color: #f8f8f8;margin-top: .48rem;border-radius: .1rem;height: .64rem;padding: .1rem .32rem;"
+					style="background-color: #1e1e2a;margin-top: .48rem;border-radius: .1rem;height: .64rem;padding: .1rem .32rem;color: #CFCFD2;"
 					maxlength="16" v-model="createGroupObj.name" placeholder="请输入组别名称" />
 			</div>
 		</van-dialog>
