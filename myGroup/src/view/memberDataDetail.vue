@@ -127,7 +127,7 @@
 
             </div>
             <div class="detailItem">
-              <div class="numBox">{{parseInt(recordData[key].distance/1000).toLocaleString()}}</div>
+              <div class="numBox">{{(recordData[key].distance/1000).toFixed(1)}}</div>
               <div class="numDesc">距离(公里)</div>
             </div>
           </div>

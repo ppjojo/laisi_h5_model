@@ -141,8 +141,8 @@
                     </div>
                     <div class="deviceData">
                       <span>距离: </span>
-                      <span class="num">{{item2.distance||0}}</span>
-                      <span>米</span>
+                      <span class="num">{{(item2.distance/1000).toFixed(1)||0}}</span>
+                      <span>公里</span>
                     </div>
                   </div>
                 </div>

@@ -24,7 +24,8 @@ let ajax = (config) => {
     return new Promise(function(resolve, reject) {
         Interaction.getAppInfoAndUserInfo();
         if (!config.data) config.data = Object.assign({}, config.data)
-        if (getQueryString("isShare") || config.isShare == 1) {
+        if (getQueryString("isShare") == 1 || config.isShare == 1) {
+            config.isShare = 1
             config.data.userId = getQueryString("userId") || "10000";
             resolve(config);
             return;
@@ -76,7 +77,7 @@ let ajaxResolve = (config) => {
 
         //设置请求头
         var timestamp = new Date().getTime()
-        if (localStorage.getItem("appInfo")) {
+        if (localStorage.getItem("appInfo") && config.isShare != 1) {
             var appInfo = JSON.parse(localStorage.getItem("appInfo"));
             var unorderedHeaderObj = {
                     appId: appInfo.appId || "",
