@@ -264,7 +264,7 @@
 
       btn_bind(item) {
         bindListByUserId({
-          userId: item.userId
+          bgUserId: item.userId
         }).then(res => {
           this.bindList = res.data;
           this.bindVisible = true
@@ -280,13 +280,13 @@
       },
       btn_version(item) {
         deviceVersionInfo({
-          userId: item.userId
+          bgUserId: item.userId
         }).then(res => {
           this.deviceVersionList = res.data;
           this.versionVisible = true
         })
         appVersionInfo({
-          userId: item.userId
+          bgUserId: item.userId
         }).then(res => {
           this.appVersionList = res.data;
           this.versionVisible = true
