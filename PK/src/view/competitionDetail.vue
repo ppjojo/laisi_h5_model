@@ -643,9 +643,10 @@ export default {
   filters: {},
   mounted() {
     window.addEventListener("scroll", this.scrollFn);
-    window.initCompetitionDetail = this.initCompetitionDetail;
+    window.- = this.initCompetitionDetail;
   },
   created() {
+    window.scrollTo(0, 0);
     vm = this;
     this.initData();
     if (this.isShare != 1) {
