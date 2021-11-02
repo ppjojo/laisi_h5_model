@@ -73,6 +73,8 @@
 <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
 <script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
 <script src="../../common/js/network.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/vConsole/3.8.1/vconsole.min.js"></script>
+
 <script type="text/javascript">
     new Vue({
         el: '#app',
@@ -88,6 +90,9 @@
         filters: {},
         mounted() {},
         created() {
+            if (host == "https://lstest3.laisitech.com/") {
+                var vConsole = new VConsole();
+            }
             this.getList()
         },
         methods: {

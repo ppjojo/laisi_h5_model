@@ -11,8 +11,9 @@ if (process.env.NODE_ENV != 'dev') {
     localStorage.removeItem("appInfo")
 }
 router.beforeEach((to, from, next) => {
-    window.scrollTo(0, 0)
     next()
+        // window.scrollTo(0, 0)
+
 })
 new Vue({
     router,

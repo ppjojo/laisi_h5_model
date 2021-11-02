@@ -30,8 +30,19 @@ $border_color:#1e1e2a;
 }
 
 .comListBox {
-    .van-sticky--fixed {
+    .van-tabs__wrap {
+        position: fixed;
+        width: 100%;
+        left: 0;
+        z-index: 9;
         top: 1rem;
+        top: calc(1rem + constant(safe-area-inset-top));
+        top: calc(1rem + env(safe-area-inset-top));
+    }
+    .van-tabs__content {
+        margin-top: 1rem;
+        // margin-top: calc(1rem + constant(safe-area-inset-top));
+        // margin-top: calc(1rem + env(safe-area-inset-top));
     }
     .van-tab--active {
         &::after {
@@ -72,6 +83,10 @@ $border_color:#1e1e2a;
         line-height: 20px;
         padding: 0;
         margin: 0;
+    }
+    .van-list {
+        position: relative;
+        z-index: 5;
     }
     .noData-box {
         text-align: center;
@@ -351,19 +366,8 @@ $border_color:#1e1e2a;
     height: 1rem;
     position: relative;
     z-index: 9;
-}
-
-@supports ((height: constant(safe-area-inset-top)) or (height: env(safe-area-inset-top))) and (-webkit-overflow-scrolling: touch) {
-    .header {
-        height: 1rem;
-        height: calc(1rem + constant(safe-area-inset-top));
-        height: calc(1rem + env(safe-area-inset-top));
-    }
-    .comListBox .van-sticky--fixed {
-        top: 1rem;
-        top: calc(1rem + constant(safe-area-inset-top));
-        top: calc(1rem + env(safe-area-inset-top));
-    }
+    height: calc(1rem + constant(safe-area-inset-top));
+    height: calc(1rem + env(safe-area-inset-top));
 }
 
 .van-picker__toolbar {

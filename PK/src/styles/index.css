@@ -21,8 +21,18 @@
   border: none;
 }
 
-.comListBox .van-sticky--fixed {
+.comListBox .van-tabs__wrap {
+  position: fixed;
+  width: 100%;
+  left: 0;
+  z-index: 9;
   top: 1rem;
+  top: calc(1rem + constant(safe-area-inset-top));
+  top: calc(1rem + env(safe-area-inset-top));
+}
+
+.comListBox .van-tabs__content {
+  margin-top: 1rem;
 }
 
 .comListBox .van-tab--active::after {
@@ -67,6 +77,11 @@
   line-height: 20px;
   padding: 0;
   margin: 0;
+}
+
+.comListBox .van-list {
+  position: relative;
+  z-index: 5;
 }
 
 .comListBox .noData-box {
@@ -413,19 +428,8 @@
   height: 1rem;
   position: relative;
   z-index: 9;
-}
-
-@supports ((height: constant(safe-area-inset-top)) or (height: env(safe-area-inset-top))) and (-webkit-overflow-scrolling: touch) {
-  .header {
-    height: 1rem;
-    height: calc(1rem + constant(safe-area-inset-top));
-    height: calc(1rem + env(safe-area-inset-top));
-  }
-  .comListBox .van-sticky--fixed {
-    top: 1rem;
-    top: calc(1rem + constant(safe-area-inset-top));
-    top: calc(1rem + env(safe-area-inset-top));
-  }
+  height: calc(1rem + constant(safe-area-inset-top));
+  height: calc(1rem + env(safe-area-inset-top));
 }
 
 .van-picker__toolbar {

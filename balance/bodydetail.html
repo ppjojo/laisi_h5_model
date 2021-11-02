@@ -434,9 +434,22 @@
 
             },
             initData() {
-                var detailApiUrl = "balance/h5/data/body/detail/v2"
+
+                // if (this.isShare) {
+                //     var detailApiUrl = "balance/share/h5/data/body/detail/v2"
+                //     if (this.deviceType == 'blebalance') {
+                //         detailApiUrl = "bleBalance/share/h5/data/body/detail/v2"
+                //     }
+
+                // } else {
+                //     var detailApiUrl = "balance/h5/data/body/detail/v2"
+                //     if (this.deviceType == 'blebalance') {
+                //         detailApiUrl = "bleBalance/h5/data/body/detail/v2"
+                //     }
+                // }
+                var detailApiUrl = "balance/share/h5/data/body/detail/v2"
                 if (this.deviceType == 'blebalance') {
-                    detailApiUrl = "bleBalance/h5/data/body/detail/v2"
+                    detailApiUrl = "bleBalance/share/h5/data/body/detail/v2"
                 }
                 var that = this
                 ajax({
@@ -459,10 +472,25 @@
             initDataShare() {
 
                 var that = this
+                    // if (this.isShare) {
+                    //     var detailApiUrl = "balance/share/h5/data/share"
+                    //     if (this.deviceType == 'blebalance') {
+                    //         detailApiUrl = "bleBalance/share/h5/data/share"
+                    //     }
+
+                // } else {
+                //     var detailApiUrl = "balance/h5/data/share"
+                //     if (this.deviceType == 'blebalance') {
+                //         detailApiUrl = "bleBalance/h5/data/share"
+                //     }
+                // }
+                var detailApiUrl = "balance/share/h5/data/share"
+                if (this.deviceType == 'blebalance') {
+                    detailApiUrl = "bleBalance/share/h5/data/share"
+                }
                 ajax({
                     type: "get",
-                    url: getQueryString('deviceType') == 'blebalance' ?
-                        "bleBalance/h5/data/share" : "balance/h5/data/share",
+                    url: detailApiUrl,
                     data: {
                         memberId: this.memberId,
                         measureId: this.measureId,

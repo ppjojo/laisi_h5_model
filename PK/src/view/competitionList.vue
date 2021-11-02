@@ -8,7 +8,7 @@
       </van-nav-bar>
     </div>
     <div class="comListBox">
-      <van-tabs v-model="active" @click="tabsClick" sticky>
+      <van-tabs v-model="active" @click="tabsClick">
         <van-tab v-for="tabItem in all" :title="tabItem.title">
           <van-pull-refresh v-model="tabItem.refreshing" :head-height="90" @refresh="onRefresh" class=" monkey-pull-refresh">
             <template #pulling="props">

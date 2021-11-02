@@ -41,6 +41,7 @@ $border_color:#1e1e2a;
             position: absolute;
             top: 0;
             left: 0;
+            background-repeat: no-repeat;
         }
     }
     .detailContain {
@@ -69,22 +70,22 @@ $border_color:#1e1e2a;
             display: flex;
             align-items: center;
             justify-content: flex-start;
+            flex-wrap: wrap;
             .lock_img {
                 width: 0.25rem;
                 position: relative;
-                top: 0.02rem;
+                top: 0.01rem;
                 left: 0.1rem;
             }
         }
         .van-tag-official {
             font-size: 0.2rem;
-            padding: 0 0.05rem;
+            width: 0.5rem;
             position: relative;
             text-align: center;
             background-color: #E50012;
             color: #fff;
-            line-height: 0.26rem;
-            height: 0.26rem;
+            line-height: 0.3rem;
             margin-left: 0.1rem;
         }
     }

@@ -643,7 +643,7 @@ export default {
   filters: {},
   mounted() {
     window.addEventListener("scroll", this.scrollFn);
-    window.- = this.initCompetitionDetail;
+    window.initCompetitionDetail = this.initCompetitionDetail;
   },
   created() {
     window.scrollTo(0, 0);
