@@ -191,9 +191,10 @@
 			this.getList();
 		},
 		methods: {
-			getList() {
+			getList(flag,checkTime) {
+				if(!checkTime)checkTime = this.checkTime;
 				getDayData({
-					checkTime: this.checkTime
+					checkTime: checkTime
 				}).then(res => { //获取当天设备信息
 					if (res.code == "0") {
 						this.sportObj = Object.assign(this.sportObj, res.data);
