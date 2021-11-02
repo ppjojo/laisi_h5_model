@@ -14,7 +14,7 @@
         <div class="topBg">
             <div class="numBox">
                 <div>
-                    <div class="num">{{bodyData.lbm.toFixed(1ß)}}</div>
+                    <div class="num">{{bodyData.lbm}}</div>
                     <!-- <div class="dw">kg</div> -->
                 </div>
             </div>
@@ -62,6 +62,7 @@
                         success: function(res) {
                             if (res.code == 0) {
                                 that.bodyData = res.data;
+                                that.bodyData.lbm = Number(that.bodyData.lbm).toFixed(1)
                             }
                         },
                         error: function(err) {

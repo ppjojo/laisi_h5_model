@@ -2,90 +2,89 @@
 <html>
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="initial-scale=1,maximum-scale=1, minimum-scale=1">
-	<meta name="format-detection" content="telephone=no">
-	<title>身体年龄</title>
-	<link rel="stylesheet" type="text/css" href="css/index.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1, minimum-scale=1">
+    <meta name="format-detection" content="telephone=no">
+    <title>身体年龄</title>
+    <link rel="stylesheet" type="text/css" href="css/index.css">
 
 </head>
 
 <body>
-	<div class="itemContain" id="app" v-cloak>
-		<div class="topBg">
-			<div class="numBox">
-				<div>
-					<div class="num">{{bodyData.bodyAge}}</div>
-					<!-- <div class="dw">kg</div> -->
-				</div>
-			</div>
-			<div class="numInfo">
-				{{bodyData.bodyAgeType}}
-			</div>
-		</div>
-		<div class="itemContent">
-			<div class="lineBox">
-				<div class="line2">
-					<div class="bg-yellow" v-if="bodyData.bodyAgeOrder=='bodyAge_older'"></div>
-					<div  class="bg-green" v-else></div>
-				</div>
-				<div class="detailInfo" style="text-align:center;line-height: 0.6rem;">理想的身体年龄</div>
-				<div class="detailInfo">
-					{{bodyData.bodyAgeSuggestion}}
-				</div>
-			</div>
+    <div class="itemContain" id="app" v-cloak>
+        <div class="topBg">
+            <div class="numBox">
+                <div>
+                    <div class="num">{{bodyData.bodyAge}}</div>
+                    <!-- <div class="dw">kg</div> -->
+                </div>
+            </div>
+            <div class="numInfo">
+                {{bodyData.bodyAgeType}}
+            </div>
+        </div>
+        <div class="itemContent">
+            <div class="lineBox">
+                <div class="line2">
+                    <div class="bg-yellow" v-if="bodyData.bodyAgeOrder=='bodyAge_older'"></div>
+                    <div class="bg-green" v-else></div>
+                </div>
+                <div class="detailInfo" style="text-align:center;line-height: 0.6rem;">理想的身体年龄</div>
+                <div class="detailInfo">
+                    {{bodyData.bodyAgeSuggestion}}
+                </div>
+            </div>
 
-			<div class="imgBox">
-				<div class="title"><img src="img/icon_advice.png">小建议</div>
-				<div class="info" v-html="bodyData.description">
-				</div>
-			</div>
-		</div>
-	</div>
-	<script src="../common/js/network.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
-	<script>
-		new Vue({
-			el: '#app',
-			data() {
-				return {
-					memberId: getQueryString("memberId"), //成员id
-					measureId: getQueryString("measureId"), //数据id
-					deviceType: getQueryString("deviceType"), //设备类型 区分是不是非智能体脂秤
-					bodyData: {},
-					leftNum: 0,
-				};
-			},
-			created() {
-				this.initData();
-			
-			},
-			methods: {
+            <div class="imgBox">
+                <div class="title"><img src="img/icon_advice.png">小建议</div>
+                <div class="info" v-html="bodyData.description">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../common/js/network.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    memberId: getQueryString("memberId"), //成员id
+                    measureId: getQueryString("measureId"), //数据id
+                    deviceType: getQueryString("deviceType"), //设备类型 区分是不是非智能体脂秤
+                    bodyData: {},
+                    leftNum: 0,
+                };
+            },
+            created() {
+                this.initData();
 
-				initData() {
-					var that = this
-					ajax({
-						type: "get",
-						url: getQueryString('deviceType') == 'blebalance' ?
-							"bleBalance/h5/data/body/detail/accredited/bodyAge" :
-							"balance/h5/data/body/detail/accredited/bodyAge",
-						data: {
-							memberId: this.memberId,
-							measureId: this.measureId,
-						},
-						success: function (res) {
-							if (res.code == 0) {
-								that.bodyData = res.data;
-							}
-						},
-						error: function (err) {
-							console.log("error")
-						}
-					})
-				},
-			}
-		})
-	</script>
+            },
+            methods: {
+
+                initData() {
+                    var that = this
+                    ajax({
+                        type: "get",
+                        url: getQueryString('deviceType') == 'blebalance' ?
+                            "bleBalance/h5/data/body/detail/accredited/bodyAge" : "balance/share/h5/data/body/detail/accredited/bodyAge",
+                        data: {
+                            memberId: this.memberId,
+                            measureId: this.measureId,
+                        },
+                        success: function(res) {
+                            if (res.code == 0) {
+                                that.bodyData = res.data;
+                            }
+                        },
+                        error: function(err) {
+                            console.log("error")
+                        }
+                    })
+                },
+            }
+        })
+    </script>
 </body>
 
 

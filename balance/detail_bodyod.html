@@ -2,147 +2,148 @@
 <html>
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="initial-scale=1,maximum-scale=1, minimum-scale=1">
-	<meta name="format-detection" content="telephone=no">
-	<title>肥胖度</title>
-	<link rel="stylesheet" type="text/css" href="css/index.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1, minimum-scale=1">
+    <meta name="format-detection" content="telephone=no">
+    <title>肥胖度</title>
+    <link rel="stylesheet" type="text/css" href="css/index.css">
 </head>
 
 <body>
-	<div class="itemContain" id="app" v-cloak>
-		<div class="topBg">
-			<div class="numBox">
-				<div>
-					<div class="num">{{bodyData.bmi}}</div>
-					<!-- <div class="dw">kg</div> -->
-				</div>
-			</div>
-			<div class="numInfo">
-				{{bodyData.odType}}
-			</div>
-		</div>
-		<div class="itemContent">
-			<div class="lineBox">
-				<div class="lineNum">
-					<div>{{bodyData.range[0]}}</div>
-					<div>{{bodyData.range[1]}}</div>
-					<div>{{bodyData.range[2]}}</div>
-					<div>{{bodyData.range[3]}}</div>
-					<div>{{bodyData.range[4]}}</div>
-					<div>{{bodyData.range[5]}}</div>
-					<div></div>
-				</div>
-				<div class="line">
-					<div class="bg-green03"></div>
-					<div class="bg-green"></div>
-					<div class="bg-green02"></div>
-					<div class="bg-yellow"></div>
-					<div class="bg-orange2"></div>
-					<div class="bg-orange"></div>
-					<div class="bg-red rightDiv"></div>
-					<span class="point" :style="{'left':leftNum+'%'}"></span>
-				</div>
-				<div class="lineInfo">
-					<div>消瘦</div>
-					<div>偏瘦</div>
-					<div>标准</div>
-					<div>超重</div>
-					<div>轻度</div>
-					<div>中度</div>
-					<div>重度</div>
-				</div>
-				<div class="detailInfo">
-					{{bodyData.description}}
-				</div>
-			</div>
+    <div class="itemContain" id="app" v-cloak>
+        <div class="topBg">
+            <div class="numBox">
+                <div>
+                    <div class="num">{{bodyData.od}}</div>
+                    <div class="dw">%</div>
+                </div>
+            </div>
+            <div class="numInfo">
+                {{bodyData.odType}}
+            </div>
+        </div>
+        <div class="itemContent">
+            <div class="lineBox">
+                <div class="lineNum">
+                    <div>{{bodyData.range[0]}}</div>
+                    <div>{{bodyData.range[1]}}</div>
+                    <div>{{bodyData.range[2]}}</div>
+                    <div>{{bodyData.range[3]}}</div>
+                    <div>{{bodyData.range[4]}}</div>
+                    <div>{{bodyData.range[5]}}</div>
+                    <div></div>
+                </div>
+                <div class="line">
+                    <div class="bg-green03"></div>
+                    <div class="bg-green"></div>
+                    <div class="bg-green02"></div>
+                    <div class="bg-yellow"></div>
+                    <div class="bg-orange2"></div>
+                    <div class="bg-orange"></div>
+                    <div class="bg-red rightDiv"></div>
+                    <span class="point" :style="{'left':leftNum+'%'}"></span>
+                </div>
+                <div class="lineInfo">
+                    <div>消瘦</div>
+                    <div>偏瘦</div>
+                    <div>标准</div>
+                    <div>超重</div>
+                    <div>轻度</div>
+                    <div>中度</div>
+                    <div>重度</div>
+                </div>
+                <div class="detailInfo">
+                    {{bodyData.description}}
+                </div>
+            </div>
 
-			<div class="imgBox">
-				<div class="title"><img src="img/icon_advice.png">小建议</div>
-				<div class="info">
-					<p>饮食建议</p>
-					<div v-html="bodyData.dietaryAdvice"></div>
-					<p>运动建议</p>
-					<div v-html="bodyData.sportAdvice"></div>
-				</div>
-			</div>
-			<div class="imgBox">
-				<div class="title"><img src="img/icon_standard.png">肥胖度参考标准</div>
-				<div class="info" v-html="bodyData.definition"></div>
-				<div class="standard_table"><img src="img/item_form_bodyod.png"></div>
-			</div>
-		</div>
-	</div>
-	<script src="../common/js/network.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
-	<script>
-		new Vue({
-			el: '#app',
-			data() {
-				return {
-					memberId: getQueryString("memberId"), //成员id
-					measureId: getQueryString("measureId"), //数据id
-					deviceType: getQueryString("deviceType"), //设备类型 区分是不是非智能体脂秤
-					bodyData: {
-						range:[-20, -10, 0, 10, 20, 30,40]
-					},
-					leftNum: 0,
-				};
-			},
-			created() {
-				this.initData();
-			},
-			methods: {
+            <div class="imgBox">
+                <div class="title"><img src="img/icon_advice.png">小建议</div>
+                <div class="info">
+                    <p>饮食建议</p>
+                    <div v-html="bodyData.dietaryAdvice"></div>
+                    <p>运动建议</p>
+                    <div v-html="bodyData.sportAdvice"></div>
+                </div>
+            </div>
+            <div class="imgBox">
+                <div class="title"><img src="img/icon_standard.png">肥胖度参考标准</div>
+                <div class="info" v-html="bodyData.definition"></div>
+                <div class="standard_table"><img src="img/item_form_bodyod.png"></div>
+            </div>
+        </div>
+    </div>
+    <script src="../common/js/network.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    memberId: getQueryString("memberId"), //成员id
+                    measureId: getQueryString("measureId"), //数据id
+                    deviceType: getQueryString("deviceType"), //设备类型 区分是不是非智能体脂秤
+                    bodyData: {
+                        range: [-20, -10, 0, 10, 20, 30, 40]
+                    },
+                    leftNum: 0,
+                };
+            },
+            created() {
+                this.initData();
+            },
+            methods: {
 
-				initData() {
-					var that = this
-					ajax({
-						type: "get",
-						url: "bleBalance/h5/data/body/detail/accredited/od",
-						data: {
-							memberId: this.memberId,
-							measureId: this.measureId,
-						},
-						success: function (res) {
-							if (res.code == 0) {
-								that.bodyData = res.data;
-								var number = parseFloat(res.data.od);
-								res.data.range = [-20, -10, 0, 10, 20, 30,40]
-								var index01 = res.data.range[0];
-								var index02 = res.data.range[1];
-								var index03 = res.data.range[2];
-								var index04 = res.data.range[3];
-								var index05 = res.data.range[4];
-								var index06 = res.data.range[5];
-								if (number < index01) {
-									that.leftNum = ((number + 30) / (index01 +30)) * 14
-								} else if (number < index02) {
-									that.leftNum = ((number - index01) / (index02 + index01)) * 14 + 14
-								} else if (number < index03) {
-									that.leftNum = ((number - index02) / (index03 - index02)) * 14 + 28
-								} else if (number < index04) {
-									that.leftNum = ((number - index03) / (index04 - index03)) * 14 + 42
-								} else if (number < index05) {
-									that.leftNum = ((number - index04) / (index05 - index04)) * 14 + 56
-								} else if(number < index06) {
-									that.leftNum = ((number - index05) / (index06 - index05)) * 14 + 70
-								} else {
-									that.leftNum = ((number - index06) / (60 - index06)) * 16 + 84
-								}
-								if (that.leftNum < 0) {
-									that.leftNum = 0
-								} else if (that.leftNum > 98) {
-									that.leftNum = 98
-								}
-							}
-						},
-						error: function (err) {
-							console.log("error")
-						}
-					})
-				},
-			}
-		})
-	</script>
+                initData() {
+                    var that = this
+                    ajax({
+                        type: "get",
+                        url: "bleBalance/h5/data/body/detail/accredited/od",
+                        data: {
+                            memberId: this.memberId,
+                            measureId: this.measureId,
+                        },
+                        success: function(res) {
+                            if (res.code == 0) {
+                                that.bodyData = res.data;
+                                var number = parseFloat(res.data.od);
+                                res.data.range = [-20, -10, 0, 10, 20, 30, 40]
+                                var index01 = res.data.range[0];
+                                var index02 = res.data.range[1];
+                                var index03 = res.data.range[2];
+                                var index04 = res.data.range[3];
+                                var index05 = res.data.range[4];
+                                var index06 = res.data.range[5];
+                                if (number < index01) {
+                                    that.leftNum = ((number + 30) / (index01 + 30)) * 14
+                                } else if (number < index02) {
+                                    that.leftNum = ((number - index01) / (index02 + index01)) * 14 + 14
+                                } else if (number < index03) {
+                                    that.leftNum = ((number - index02) / (index03 - index02)) * 14 + 28
+                                } else if (number < index04) {
+                                    that.leftNum = ((number - index03) / (index04 - index03)) * 14 + 42
+                                } else if (number < index05) {
+                                    that.leftNum = ((number - index04) / (index05 - index04)) * 14 + 56
+                                } else if (number < index06) {
+                                    that.leftNum = ((number - index05) / (index06 - index05)) * 14 + 70
+                                } else {
+                                    that.leftNum = ((number - index06) / (60 - index06)) * 16 + 84
+                                }
+                                if (that.leftNum < 0) {
+                                    that.leftNum = 0
+                                } else if (that.leftNum > 98) {
+                                    that.leftNum = 98
+                                }
+                            }
+                        },
+                        error: function(err) {
+                            console.log("error")
+                        }
+                    })
+                },
+            }
+        })
+    </script>
 </body>
+
 </html>
