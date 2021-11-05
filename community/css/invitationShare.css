@@ -374,8 +374,12 @@ body {
   font-size: 0.28rem;
 }
 
+#commentUl {
+  padding-top: 0.1rem;
+}
+
 #commentUl li {
-  margin-bottom: 0.1rem;
+  margin-bottom: 0.3rem;
   padding: 0;
 }
 
@@ -387,7 +391,7 @@ body {
   width: 0.56rem;
   height: 0.56rem;
   position: relative;
-  top: 0.05rem;
+  top: -0.2rem;
   border-radius: 50%;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;

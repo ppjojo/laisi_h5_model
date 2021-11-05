@@ -5,7 +5,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
     <title>国体赛事</title>
-
+    <!-- <script src="https://cdn.bootcdn.net/ajax/libs/vConsole/3.8.1/vconsole.min.js"></script>
+        <script>
+            // init vConsole
+                var vConsole = new VConsole();
+              
+            </script> -->
 
 
 </head>
@@ -14,6 +19,7 @@
     <img src="1019.png">
 
     <a id="aTag" href=""></a>
+    <p>参加此比赛涉及查看华为运动健康服务数据</p>
 
 </body>
 <script src="../common/js/network.js"></script>
@@ -53,11 +59,18 @@
     
     #aTag {
         position: absolute;
-        bottom: 0.2rem;
+        bottom: 0.7rem;
         width: 50%;
         height: 0.8rem;
         left: 25%;
         z-index: 9;
+    }
+    
+    p {
+        font-size: 0.28rem;
+        text-align: center;
+        line-height: 0.5rem;
+        color: rgb(131, 76, 40);
     }
 </style>
 

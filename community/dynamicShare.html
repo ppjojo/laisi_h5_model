@@ -9,6 +9,11 @@
     <link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
     <link rel="stylesheet" href="css/invitationShare.css">
     <script src="js/community.js"></script>
+    <style>
+        .van-popup {
+            background-color: #12121f;
+        }
+    </style>
 </head>
 
 <body>
@@ -136,7 +141,7 @@
                                                 <p class="time">{{renderTime2(Citem.createTime)}}</p>
                                                 <p class="comment">{{Citem.content}} <span v-for="r in Citem.refers" style="color:steelblue"> @{{r.nickName}}</span></p>
                                             </div>
-                                            <div v-if="Citem.comments.length>0" style="background-color: #1e1e2a;padding: 0.1rem;">
+                                            <div v-if="Citem.comments.length>0" style="background-color: #1e1e2a;padding: 0.1rem;font-size:0.28rem;">
                                                 <div v-for="ccitem in Citem.comments">
                                                     <span>{{ccitem.authorName}} </span><span style="color:#71717f">回复</span>
                                                     <span>{{ccitem.receiverName}} </span><span> :{{ccitem.content}}</span>

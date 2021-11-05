@@ -2,276 +2,274 @@
 <html>
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport"
-		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
-	<title>成员列表</title>
-	<script type="text/javascript">
-	</script>
-	<link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
-	<link rel="stylesheet" href="css/memberList.css">
-	<link rel="stylesheet" href="../font/iconfont.css">
-	<link rel="stylesheet" type="text/css" href="../clubList_Detail/css/header.css" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+    <title>成员列表</title>
+    <script type="text/javascript">
+    </script>
+    <link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
+    <link rel="stylesheet" href="css/memberList.css">
+    <link rel="stylesheet" href="../font/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="../clubList_Detail/css/header.css" />
 
 
-	<style type="text/css">
-		[class*=van-hairline]::after {
-			border: none;
-		}
-
-		[class*=van-hairline]::after {
-			border-color: #1e1e2a;
-		}
-
-		#app {
-			min-height: 100vh;
-		}
-	</style>
+    <style type="text/css">
+        [class*=van-hairline]::after {
+            border: none;
+        }
+        
+        [class*=van-hairline]::after {
+            border-color: #1e1e2a;
+        }
+        
+        #app {
+            min-height: 100vh;
+        }
+    </style>
 </head>
 
 <body>
-	<div id="app" class="normalHeader" v-cloak>
-		<div class="header">
-			<van-nav-bar @click-left="onclickLeft" :title="titleText" left-arrow safe-area-inset-top fixed>
-				<template #left>
+    <div id="app" class="normalHeader" v-cloak>
+        <div class="header">
+            <van-nav-bar @click-left="onclickLeft" :title="titleText" left-arrow safe-area-inset-top fixed>
+                <template #left>
 					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
 				</template>
-			</van-nav-bar>
-		</div>
-		<div class=" memberList">
-			<van-pull-refresh v-model="refreshing" @refresh="onRefresh" class="list-item-box">
-				<van-list v-model="loading" :finished="finished" finished-text="已经到底啦" :offset="offset" @load="onLoad"
-					:immediate-check=false v-if="memberList.length>0">
-					<van-row v-for="(item ,index) in memberList">
-						<van-col span="4" class="createrHeadPic"
-							@click="Interaction.visitPersonalHomepage(item.memberId)">
-							<div class="detail_headpic"
-								:style="{'background-image': 'url(' + item.headPictureUrl + ')'}"></div>
-						</van-col>
-						<van-col span="15">
-							<div class="createrName" @click="Interaction.visitPersonalHomepage(item.memberId)">
-								{{item.nickname}}
-								<van-tag class="van-tag-ower " v-if="flag!=3&&item.isMinister=='Y'">部长</van-tag>
-							</div>
-							<div class="activityTime">
-								<span v-if="flag!=3">{{flag==3?"申请时间":"加入时间"}}:</span>
-								<span>{{renderTime(item.createTime)}}</span>
-							</div>
-						</van-col>
-						<van-col span="5" v-if="flag==1&&item.isMinister!=='Y'">
-							<div class="acceptStatus" @click="deleteMember(item,index)">删除</div>
-						</van-col>
-						<van-col span="5" v-else-if="flag==2&&item.isMinister!=='Y'">
-							<div class="acceptStatus" @click="transferMinister(item)">转让</div>
-						</van-col>
-						<van-col span="5" v-else-if="flag==3">
-							<div class="acceptStatus2" @click="handleApply(item,flag)">通过</div>
-						</van-col>
-						<van-col span="5" v-else-if="flag==4">
-							<div class="acceptStatus">已接受</div>
-						</van-col>
-						<van-col span="5" v-else-if="flag==5&&item.relation==3">
-							<div class="acceptStatus">相互关注</div>
-						</van-col>
-						<van-col span="5" v-else-if="flag==5&&item.relation==0">
-							<div class="acceptStatus2" @click="addFans(item)">关注</div>
-						</van-col>
-						<van-col span="5" v-else-if="flag==5&&item.relation==1">
-							<div class="acceptStatus2" @click="addFans(item)">回粉</div>
-						</van-col>
-						<van-col span="5" v-else-if="flag==5&&item.relation==2">
-							<div class="acceptStatus">已关注</div>
-						</van-col>
-					</van-row>
-				</van-list>
-				<div class="noData-box" v-else-if="finished">
-					<img class="noData-img" src="../../common/img/noData.png" />
-					<p class="noData-p">赶快去邀请志同道合的小伙伴吧～</p>
-				</div>
-			</van-pull-refresh>
-		</div>
-	</div>
+            </van-nav-bar>
+        </div>
+        <div class=" memberList">
+            <van-pull-refresh v-model="refreshing" @refresh="onRefresh" class="list-item-box">
+                <van-list v-model="loading" :finished="finished" finished-text="已经到底啦" :offset="offset" @load="onLoad" :immediate-check=false v-if="memberList.length>0">
+                    <van-row v-for="(item ,index) in memberList">
+                        <van-col span="4" class="createrHeadPic" @click="Interaction.visitPersonalHomepage(item.memberId)">
+                            <div class="detail_headpic" :style="{'background-image': 'url(' + item.headPictureUrl + ')'}"></div>
+                        </van-col>
+                        <van-col span="15">
+                            <div class="createrName" @click="Interaction.visitPersonalHomepage(item.memberId)">
+                                {{item.nickname}}
+                                <van-tag class="van-tag-ower " v-if="flag!=3&&item.isMinister=='Y'">部长</van-tag>
+                            </div>
+                            <div class="activityTime">
+                                <span v-if="flag!=3">{{flag==3?"申请时间":"加入时间"}}:</span>
+                                <span>{{renderTime(item.createTime)}}</span>
+                            </div>
+                        </van-col>
+                        <van-col span="5" v-if="flag==1&&item.isMinister!=='Y'">
+                            <div class="acceptStatus" @click="deleteMember(item,index)">删除</div>
+                        </van-col>
+                        <van-col span="5" v-else-if="flag==2&&item.isMinister!=='Y'">
+                            <div class="acceptStatus" @click="transferMinister(item)">转让</div>
+                        </van-col>
+                        <van-col span="5" v-else-if="flag==3">
+                            <div class="acceptStatus2" @click="handleApply(item,flag)">通过</div>
+                        </van-col>
+                        <van-col span="5" v-else-if="flag==4">
+                            <div class="acceptStatus">已接受</div>
+                        </van-col>
+                        <van-col span="5" v-else-if="flag==5&&item.relation==3">
+                            <div class="acceptStatus">相互关注</div>
+                        </van-col>
+                        <van-col span="5" v-else-if="flag==5&&item.relation==0">
+                            <div class="acceptStatus2" @click="addFans(item)">关注</div>
+                        </van-col>
+                        <van-col span="5" v-else-if="flag==5&&item.relation==1">
+                            <div class="acceptStatus2" @click="addFans(item)">回粉</div>
+                        </van-col>
+                        <van-col span="5" v-else-if="flag==5&&item.relation==2">
+                            <div class="acceptStatus">已关注</div>
+                        </van-col>
+                    </van-row>
+                </van-list>
+                <div class="noData-box" v-else-if="finished">
+                    <img class="noData-img" src="../../common/img/noData.png" />
+                    <p class="noData-p">赶快去邀请志同道合的小伙伴吧～</p>
+                </div>
+            </van-pull-refresh>
+        </div>
+    </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
 <script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
 <script src="js/DateTime.js"></script>
 <script src="../../common/js/network.js"></script>
 <script type="text/javascript">
-	new Vue({
-		el: '#app',
-		data() {
-			return {
-				flag: 0, //部长成员管理1  部长转让2    任务查看加入情况4  成员从设置进入的成员管理5 
-				memberId: "", //成员id
-				ministerId: "", //部长id
-				clubId: getQueryString("id"), //俱乐部id
-				memberList: [],
-				refreshing: false,
-				finished: false,
-				loading: false,
-				page: 1,
-				pageSize: 30,
-				offset: 200, // 滚动条与底部距离小于 offset 时触发load事件
-				titleText: "成员列表"
-			}
-		},
-		beforeCreate() {},
-		created() {
-			this.flag = getQueryString("flag") || "1";
-			if (this.flag == 1) {
-				this.memberManage();
-			} else if (this.flag == 2) {
-				this.titleText = "部长转让";
-				this.memberManage();
-			} else if (this.flag == 5) {
-				this.memberManage();
-			}
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                flag: 0, //部长成员管理1  部长转让2    任务查看加入情况4  成员从设置进入的成员管理5 
+                memberId: "", //成员id
+                ministerId: "", //部长id
+                clubId: getQueryString("id"), //俱乐部id
+                memberList: [],
+                refreshing: false,
+                finished: false,
+                loading: false,
+                page: 1,
+                pageSize: 30,
+                offset: 200, // 滚动条与底部距离小于 offset 时触发load事件
+                titleText: "成员列表"
+            }
+        },
+        beforeCreate() {},
+        created() {
+            this.flag = getQueryString("flag") || "1";
+            if (this.flag == 1) {
+                this.memberManage();
+            } else if (this.flag == 2) {
+                this.titleText = "部长转让";
+                this.memberManage();
+            } else if (this.flag == 5) {
+                this.memberManage();
+            }
 
-		},
-		methods: {
-			onclickLeft() {
-				window.history.back(-1)
-			},
-			//成员管理
-			memberManage() {
-				ajax({
-					type: "post",
-					url: "club/memberManage",
-					data: {
-						clubId: this.clubId,
-						page: this.page,
-						pageSize: this.pageSize
-					}
-				}).then(res => {
-					
-					if (res.code == 0) {
+        },
+        methods: {
+            onclickLeft() {
+                window.history.back(-1)
+            },
+            //成员管理
+            memberManage() {
+                ajax({
+                    type: "post",
+                    url: "club/memberManage",
+                    data: {
+                        clubId: this.clubId,
+                        page: this.page,
+                        pageSize: this.pageSize
+                    }
+                }).then(res => {
 
-						var rows = res.data.memberList;
-						if (rows.length == 1&&this.page!=1) {
-							this.finished = true;
-							return;
-						}
-						
-						if (this.page == 1) {
-							this.memberList = rows;
-						} else {
-							this.memberList = this.memberList.concat(rows);
-						}
-						this.loading = false;
-					}
-				})
-			},
-			//2019-11-20T02:22:58.000+0000 转换2019-11-20 11:11:59
-			renderTime(utc_datetime) {
-				var T_pos = utc_datetime.indexOf('T');
-				var Z_pos = utc_datetime.indexOf('.');
-				var year_month_day = utc_datetime.substr(0, T_pos);
-				var hour_minute_second = utc_datetime.substr(T_pos + 1, Z_pos - T_pos - 1);
-				var new_datetime = year_month_day + " " + hour_minute_second; // 2017-03-31 08:02:06
+                    if (res.code == 0) {
 
-				// 处理成为时间戳
-				var timestamp = DateTime.getTime(new_datetime);
-				// 增加8个小时，北京时间比utc时间多八个时区
-				var timestamp = timestamp + 8 * 60 * 60 * 1000;
+                        var rows = res.data.memberList;
+                        if (rows.length == 1 && this.page != 1) {
+                            this.finished = true;
+                            return;
+                        }
 
-				// 时间戳转为时间
-				var beijing_datetime = DateTime.sjc2time("ymd3", timestamp);
-				return beijing_datetime;
+                        if (this.page == 1) {
+                            this.memberList = rows;
+                        } else {
+                            this.memberList = this.memberList.concat(rows);
+                        }
+                        this.loading = false;
+                    }
+                })
+            },
+            //2019-11-20T02:22:58.000+0000 转换2019-11-20 11:11:59
+            renderTime(utc_datetime) {
+                var T_pos = utc_datetime.indexOf('T');
+                var Z_pos = utc_datetime.indexOf('.');
+                var year_month_day = utc_datetime.substr(0, T_pos);
+                var hour_minute_second = utc_datetime.substr(T_pos + 1, Z_pos - T_pos - 1);
+                var new_datetime = year_month_day + " " + hour_minute_second; // 2017-03-31 08:02:06
 
-			},
+                // 处理成为时间戳
+                var timestamp = DateTime.getTime(new_datetime);
+                // 增加8个小时，北京时间比utc时间多八个时区
+                var timestamp = timestamp + 8 * 60 * 60 * 1000;
 
-			onRefresh() {
-				this.finished = false;
-				this.onLoad();
-			},
-			onLoad() {
-				if (this.refreshing) {
-					this.refreshing = false;
-					this.page = 1;
-				} else {
-					this.page++;
-				}
-				this.memberManage()
-			},
+                // 时间戳转为时间
+                var beijing_datetime = DateTime.sjc2time("ymd3", timestamp);
+                return beijing_datetime;
 
-			//部长的删除成员
-			deleteMember(item, index) {
-				this.$dialog.confirm({
-					message: '您确定要删除 ' + item.nickname + ' 吗？'
-				}).then(() => {
-					ajax({
-						type: "post",
-						url: "club/deleteMember",
-						data: [{
-							clubId: _self.clubId,
-							memberId: item.memberId,
-						}]
-					}).then(res => {
-						if (res.code == 0) {
-							this.$toast("成员删除成功");
-							this.memberList.splice(index, 1)
-						} else {
-							this.$toast(res.msg);
-						}
-					})
-				}).catch(() => {
+            },
 
-				});
+            onRefresh() {
+                this.finished = false;
+                this.onLoad();
+            },
+            onLoad() {
+                if (this.refreshing) {
+                    this.refreshing = false;
+                    this.page = 1;
+                } else {
+                    this.page++;
+                }
+                this.memberManage()
+            },
 
-			},
+            //部长的删除成员
+            deleteMember(item, index) {
+                this.$dialog.confirm({
+                    message: '您确定要删除 ' + item.nickname + ' 吗？'
+                }).then(() => {
+                    ajax({
+                        type: "post",
+                        url: "club/deleteMember",
+                        data: {
+                            clubMemberList: [{
+                                clubId: this.clubId,
+                                memberId: item.memberId,
+                            }]
+                        }
+                    }).then(res => {
+                        if (res.code == 0) {
+                            this.$toast("成员删除成功");
+                            this.memberList.splice(index, 1)
+                        } else {
+                            this.$toast(res.msg);
+                        }
+                    })
+                }).catch(() => {
 
-			
-			//部长转让部长的身份
-			transferMinister(item) {
-				this.$dialog.confirm({
-					message: '您确定要转让部长给 ' + item.nickname + ' 吗？'
-				}).then(() => {
-					ajax({
-						type: "post",
-						url: "club/transferMinister",
-						data: {
-							clubId: _self.clubId,
-							memberId: item.memberId,
-							ministerId: JSON.parse(localStorage.getItem("appInfo")).userId
-						}
-					}).then(res => {
-						if (res.code == 0) {
-							this.$toast("部长转让成功");
-							this.onRefresh();
-							setTimeout(function () {
-								window.history.back(-2)
-							}, 500)
-						} else {
-							this.$toast(res.msg);
-						}
-					})
+                });
 
-				}).catch(() => {
-
-				});
-
-			},
+            },
 
 
-			//添加关注
-			addFans(item) {
-				ajax({
-					type: "post",
-					url: "community-core/interest/add",
-					data: {
-						targetId: item.memberId,
-					}
-				}).then(res => {
-					if (res.code == 0) {
-						item.relation = 2
-					} else {
-						this.$toast(res.msg);
-					}
-				})
-			}
+            //部长转让部长的身份
+            transferMinister(item) {
+                this.$dialog.confirm({
+                    message: '您确定要转让部长给 ' + item.nickname + ' 吗？'
+                }).then(() => {
+                    ajax({
+                        type: "post",
+                        url: "club/transferMinister",
+                        data: {
+                            clubId: this.clubId,
+                            memberId: item.memberId,
+                            ministerId: JSON.parse(localStorage.getItem("appInfo")).userId
+                        }
+                    }).then(res => {
+                        if (res.code == 0) {
+                            this.$toast("部长转让成功");
+                            this.onRefresh();
+                            setTimeout(function() {
+                                window.history.back(-2)
+                            }, 500)
+                        } else {
+                            this.$toast(res.msg);
+                        }
+                    })
 
-		}
-	})
+                }).catch(() => {
+
+                });
+
+            },
+
+
+            //添加关注
+            addFans(item) {
+                ajax({
+                    type: "post",
+                    url: "community-core/interest/add",
+                    data: {
+                        targetId: item.memberId,
+                    }
+                }).then(res => {
+                    if (res.code == 0) {
+                        item.relation = 2
+                    } else {
+                        this.$toast(res.msg);
+                    }
+                })
+            }
+
+        }
+    })
 </script>
 
 </html>
