@@ -1,5 +1,5 @@
 #app {
-    background-color: #12121f;
+    background-color: var(--bgColor);
 }
 
 .cardList {
@@ -30,7 +30,7 @@
 }
 
 .cardList>li>div {
-    border-bottom: .02rem solid #12121f;
+    border-bottom: .02rem solid var(--bgColor);
     padding: 0 .3rem;
 }
 
