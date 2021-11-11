@@ -5,14 +5,19 @@
     font-style: normal;
 }
 
-//黑字
-$text_color:#595962;
+$textColor2:var(--textColor2);
 //白字
-$text_color_white:#CFCFD2;
+$textColor:var(--textColor);
 //黑色背景
-$bg_color:#12121f;
+$bgColor:var(--bgColor);
 //边框色
-$border_color:#1e1e2a;
+$borderColor:var(--borderColor);
+#app {
+    background-color: $bgColor;
+    color: $textColor;
+    min-height: 100vh;
+}
+
 .van-hairline--bottom::after {
     border: none;
 }
@@ -109,7 +114,7 @@ $border_color:#1e1e2a;
 .van-dialog__content {
     padding: 0.2rem;
     .van-field {
-        // border: 1px solid $text_color_white;
+        // border: 1px solid $textColor;
         padding: 0.1rem;
         box-sizing: border-box;
     }
@@ -118,23 +123,23 @@ $border_color:#1e1e2a;
 .creatBox {
     .item_box {
         padding: 0.1rem 0.3rem;
-        border-bottom: 1px solid $border_color;
+        border-bottom: 1px solid $borderColor;
         -webkit-box-sizing: border-box;
         box-sizing: border-box;
         .laber {
             font-size: 0.32rem;
-            color: $text_color_white;
+            color: $textColor;
             line-height: 1rem;
         }
         .borderTop {
-            border-top: 1px solid $bg_color;
+            border-top: 1px solid $bgColor;
         }
         .pkName_box {
             height: 1.2rem;
-            background-color: $border_color;
+            background-color: $borderColor;
             margin-bottom: 0.3rem;
             .van-field {
-                background-color: $border_color;
+                background-color: $borderColor;
                 padding: 0.2rem;
                 font-size: 0.24rem;
                 -webkit-box-sizing: border-box;
@@ -181,12 +186,12 @@ $border_color:#1e1e2a;
                 font-size: 0.24rem;
             }
             .van-cell__title {
-                color: $text_color_white;
+                color: $textColor;
                 font-size: 0.32rem;
             }
         }
         .chosed .van-cell__value {
-            color: $text_color_white;
+            color: $textColor;
             font-size: 0.28rem;
             flex: 1;
         }
@@ -291,7 +296,7 @@ $border_color:#1e1e2a;
                 display: flex;
                 align-items: center;
                 justify-content: flex-start;
-                background-color: $border_color;
+                background-color: $borderColor;
                 margin-bottom: 1px;
                 .border {
                     width: 2px;
@@ -315,7 +320,7 @@ $border_color:#1e1e2a;
                         width: 2rem;
                         min-height: 0.6rem;
                         line-height: 0.6rem;
-                        color: $text_color_white;
+                        color: $textColor;
                     }
                     .bigNumberSpan {
                         font-family: "BebasNeue";

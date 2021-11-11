@@ -19,15 +19,11 @@
 // .list-item-official {
 // 	background-image: url(../img/skipping/10.png)!important;
 // }
-
-
-
 .pkTitle {
     font-size: 0.36rem;
     display: flex;
     align-items: center;
     justify-content: flex-start;
-
     span {
         background-image: linear-gradient(to right, #FF4E3E, #FFAA88);
         color: #fff;
@@ -36,7 +32,6 @@
         text-align: center;
         margin: 0 0.1rem;
     }
-
     .lock_img {
         width: 0.28rem;
         position: relative;
@@ -51,13 +46,10 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-
     span {
         margin-right: 0.16rem;
     }
 }
-
-
 
 .pkPromoter {
     font-size: 0.2rem;

@@ -7,10 +7,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title>PK赛</title>
+    <link rel="stylesheet" id="themeCssLink" href="https://lstest3.laisitech.com/h5/h5V3/common/css/default.css">
 </head>
 
-<body style="background:#12121f;color:#CFCFD2;min-height:100vh;">
+<body style="">
     <div id="app"></div>
 </body>
 
 </html>
+<script>
+    if (document.getElementById("themeCssLink")) {
+        document.getElementById("themeCssLink").href = "https://lstest3.laisitech.com/h5/h5V3/common/css/dark.css"
+    }
+</script>

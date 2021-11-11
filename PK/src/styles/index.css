@@ -5,6 +5,12 @@
   font-style: normal;
 }
 
+#app {
+  background-color: var(--bgColor);
+  color: var(--textColor);
+  min-height: 100vh;
+}
+
 .van-hairline--bottom::after {
   border: none;
 }
@@ -114,29 +120,29 @@
 
 .creatBox .item_box {
   padding: 0.1rem 0.3rem;
-  border-bottom: 1px solid #1e1e2a;
+  border-bottom: 1px solid var(--borderColor);
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
 
 .creatBox .item_box .laber {
   font-size: 0.32rem;
-  color: #CFCFD2;
+  color: var(--textColor);
   line-height: 1rem;
 }
 
 .creatBox .item_box .borderTop {
-  border-top: 1px solid #12121f;
+  border-top: 1px solid var(--bgColor);
 }
 
 .creatBox .item_box .pkName_box {
   height: 1.2rem;
-  background-color: #1e1e2a;
+  background-color: var(--borderColor);
   margin-bottom: 0.3rem;
 }
 
 .creatBox .item_box .pkName_box .van-field {
-  background-color: #1e1e2a;
+  background-color: var(--borderColor);
   padding: 0.2rem;
   font-size: 0.24rem;
   -webkit-box-sizing: border-box;
@@ -194,12 +200,12 @@
 }
 
 .creatBox .item_box .pk_cell2 .van-cell__title {
-  color: #CFCFD2;
+  color: var(--textColor);
   font-size: 0.32rem;
 }
 
 .creatBox .item_box .chosed .van-cell__value {
-  color: #CFCFD2;
+  color: var(--textColor);
   font-size: 0.28rem;
   -webkit-box-flex: 1;
       -ms-flex: 1;
@@ -339,7 +345,7 @@
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
-  background-color: #1e1e2a;
+  background-color: var(--borderColor);
   margin-bottom: 1px;
 }
 
@@ -370,7 +376,7 @@
   width: 2rem;
   min-height: 0.6rem;
   line-height: 0.6rem;
-  color: #CFCFD2;
+  color: var(--textColor);
 }
 
 .teamDetailContain .listBox .left .listItem .scoreBox .bigNumberSpan, .teamDetailContain .listBox .right .listItem .scoreBox .bigNumberSpan {
