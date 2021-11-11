@@ -2,77 +2,73 @@
 <html>
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport"
-		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
-	<title>参与历史</title>
-	<link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
-	<link rel="stylesheet" href="../font/iconfont.css">
-	<link href="../clubList_Detail/css/header.css" rel="stylesheet" type="text/css" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+    <title>参与历史</title>
+    <link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
+    <link rel="stylesheet" href="../font/iconfont.css">
+    <link href="../clubList_Detail/css/header.css" rel="stylesheet" type="text/css" />
 
 
-	<style>
-		.van-cell {
-			text-align: left;
-			font-size: 0.32rem;
-			line-height: 1.4rem;
-			padding: 0 0.32rem;
-			background-color: #12121F;
-		}
-
-		.van-cell::after {
-			border: 1px solid #1e1e2a;
-		}
-
-		.van-cell__title {
-			color: #cfcfd2;
-		}
-
-		.van-cell__left-icon,
-		.van-cell__right-icon {
-			line-height: 1.4rem;
-		}
-
-		.van-cell:not(:last-child)::after {
-			left: 0;
-		}
-
-		.noData-box {
-			text-align: center;
-		}
-
-		.noData-box .noData-img {
-			height: auto;
-			margin-top: 2.5rem;
-		}
-	</style>
+    <style>
+        .van-cell {
+            text-align: left;
+            font-size: 0.32rem;
+            line-height: 1.4rem;
+            padding: 0 0.32rem;
+            background-color: var(--bgColor);
+        }
+        
+        .van-cell::after {
+            border: 1px solid #1e1e2a;
+        }
+        
+        .van-cell__title {
+            color: #cfcfd2;
+        }
+        
+        .van-cell__left-icon,
+        .van-cell__right-icon {
+            line-height: 1.4rem;
+        }
+        
+        .van-cell:not(:last-child)::after {
+            left: 0;
+        }
+        
+        .noData-box {
+            text-align: center;
+        }
+        
+        .noData-box .noData-img {
+            height: auto;
+            margin-top: 2.5rem;
+        }
+    </style>
 </head>
 
 <body>
-	<div id="app" class="normalHeader" v-cloak>
-		<div class="header">
-			<van-nav-bar @click-left="onclickLeft" title="参与历史" left-arrow safe-area-inset-top fixed>
-				<template #left>
+    <div id="app" class="normalHeader" v-cloak>
+        <div class="header">
+            <van-nav-bar @click-left="onclickLeft" title="参与历史" left-arrow safe-area-inset-top fixed>
+                <template #left>
 					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
 				</template>
 
-			</van-nav-bar>
-		</div>
+            </van-nav-bar>
+        </div>
 
-		<div>
-			<van-pull-refresh v-model="refreshing" @refresh="Refresh">
-				<van-list v-model="loading" :finished="finished" finished-text="没有更多了" :offset="offset" @load="LoadList"
-					:immediate-check=false v-if="historyList.length>0">
-					<van-cell v-for="item in historyList"
-						:title="'['+(item.type=='00'?'任务':item.type=='01'?'比赛':item.type=='02'?'活动':'')+']'+item.name"
-						is-link @click="gotoDetail(item)"></van-cell>
-				</van-list>
-				<div class="noData-box" v-else-if="finished">
-					<img class="noData-img" style="width: 4rem;" src="../../common/img/noData.png" />
-				</div>
-			</van-pull-refresh>
-		</div>
-	</div>
+        <div>
+            <van-pull-refresh v-model="refreshing" @refresh="Refresh">
+                <van-list v-model="loading" :finished="finished" finished-text="没有更多了" :offset="offset" @load="LoadList" :immediate-check=false v-if="historyList.length>0">
+                    <van-cell v-for="item in historyList" :title="'['+(item.type=='00'?'任务':item.type=='01'?'比赛':item.type=='02'?'活动':'')+']'+item.name" is-link @click="gotoDetail(item)"></van-cell>
+                </van-list>
+                <div class="noData-box" v-else-if="finished">
+                    <img class="noData-img" style="width: 4rem;" src="../../common/img/noData.png" />
+                </div>
+            </van-pull-refresh>
+        </div>
+    </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
 <script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
@@ -80,78 +76,78 @@
 <!-- <script src="js/DateTime.js"></script> -->
 <script src="../../common/js/network.js"></script>
 <script type="text/javascript">
-	new Vue({
-		el: '#app',
-		data() {
-			return {
-				clubId: "", //俱乐部id
-				historyList: [],
-				refreshing: false, // 下拉刷新
-				loading: false, // 上拉加载
-				finished: false, // 上拉加载完毕
-				page: 1,
-				pageSize: 10,
-				offset: 200, // 滚动条与底部距离小于 offset 时触发load事件
-			}
-		},
-		created() {
-			this.clubId = getQueryString("id");
-			this.getHistory();
-		},
-		methods: {
-			onclickLeft() {
-				window.history.back(-1)
-			},
-			getHistory() {
-				ajax({
-					type: "get",
-					url: "club/partInHistory",
-					data: {
-						clubId: this.clubId,
-						memberId: JSON.parse(localStorage.getItem("appInfo")).userId,
-						page: this.page,
-						pageSize: this.pageSize
-					}
-				}).then(res => {
-					this.refreshing = false;
-					this.loading = false;
-					if (res.code == 0) {
-						var rows = res.data.historyList;
-						if (this.page == 1) {
-							this.historyList = rows;
-						} else {
-							this.historyList = this.historyList.concat(rows);
-						}
-						if(rows.length<this.pageSize){
-							this.finished = true
-						}
-					} else {
-						this.finished = true
-						this.historyList = [];
-						this.finished = true;
-					}
-				})
-			},
-			//刷新成员管理
-			Refresh() {
-				this.page = 1;
-				this.finished = false; 
-				this.getHistory(); // 加载数据
-			},
-			LoadList() {
-				this.page++;
-				this.getHistory();
-			},
-			//判断去什么详情 item.type=='00'?'任务':item.type=='01'?'比赛':item.type=='02'?'活动'
-			gotoDetail(item) {
-				if (item.type == "00") {
-					window.location.href=`../club/tasksDetail.html?id=${item.id}&clubId=${this.clubId}`
-				} else if (item.type == "01") {
-					window.location.href=`../club/clubCompetitionDetail.html?id=${item.id}&clubId=${this.clubId}`
-				}
-			},
-		}
-	})
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                clubId: "", //俱乐部id
+                historyList: [],
+                refreshing: false, // 下拉刷新
+                loading: false, // 上拉加载
+                finished: false, // 上拉加载完毕
+                page: 1,
+                pageSize: 10,
+                offset: 200, // 滚动条与底部距离小于 offset 时触发load事件
+            }
+        },
+        created() {
+            this.clubId = getQueryString("id");
+            this.getHistory();
+        },
+        methods: {
+            onclickLeft() {
+                window.history.back(-1)
+            },
+            getHistory() {
+                ajax({
+                    type: "get",
+                    url: "club/partInHistory",
+                    data: {
+                        clubId: this.clubId,
+                        memberId: JSON.parse(localStorage.getItem("appInfo")).userId,
+                        page: this.page,
+                        pageSize: this.pageSize
+                    }
+                }).then(res => {
+                    this.refreshing = false;
+                    this.loading = false;
+                    if (res.code == 0) {
+                        var rows = res.data.historyList;
+                        if (this.page == 1) {
+                            this.historyList = rows;
+                        } else {
+                            this.historyList = this.historyList.concat(rows);
+                        }
+                        if (rows.length < this.pageSize) {
+                            this.finished = true
+                        }
+                    } else {
+                        this.finished = true
+                        this.historyList = [];
+                        this.finished = true;
+                    }
+                })
+            },
+            //刷新成员管理
+            Refresh() {
+                this.page = 1;
+                this.finished = false;
+                this.getHistory(); // 加载数据
+            },
+            LoadList() {
+                this.page++;
+                this.getHistory();
+            },
+            //判断去什么详情 item.type=='00'?'任务':item.type=='01'?'比赛':item.type=='02'?'活动'
+            gotoDetail(item) {
+                if (item.type == "00") {
+                    window.location.href = `../club/tasksDetail.html?id=${item.id}&clubId=${this.clubId}`
+                } else if (item.type == "01") {
+                    window.location.href = `../club/clubCompetitionDetail.html?id=${item.id}&clubId=${this.clubId}`
+                }
+            },
+        }
+    })
 </script>
 
 </html>

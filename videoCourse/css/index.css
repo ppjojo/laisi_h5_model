@@ -9,15 +9,14 @@
 }
 
 @font-face {
-  font-family: "BebasNeue";
   src: url("../../common/font/BebasNeue/BebasNeue.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 
 body {
-  background-color: #12121f;
-  color: #CFCFD2;
+  background-color: var(--bgColor);
+  color: var(--textColor);
   height: 100vh;
 }
 
@@ -28,7 +27,7 @@ body {
   font-size: 0.28rem;
   line-height: 1rem;
   text-align: center;
-  color: #CFCFD2;
+  color: var(--textColor);
   z-index: 9999;
   background-color: #292934;
 }
@@ -68,7 +67,7 @@ body {
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  background-color: #12121f;
+  background-color: var(--bgColor);
 }
 
 .contain .nav_grid .van-image img {
@@ -82,7 +81,7 @@ body {
 }
 
 .contain .nav_grid .van-grid-item__text {
-  color: #CFCFD2;
+  color: var(--textColor);
   line-height: 0.6rem;
   font-size: 0.32rem;
 }
@@ -177,7 +176,7 @@ body {
 .courseBox .courseDiv .content .stitle, .courseBox-bg .courseDiv .content .stitle {
   font-size: 0.32rem;
   line-height: 0.5rem;
-  color: #CFCFD2;
+  color: var(--textColor);
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -225,11 +224,11 @@ body {
 }
 
 .courseBox-bg .courseDiv .content .stitle {
-  color: #CFCFD2;
+  color: var(--textColor);
 }
 
 .courseBox-bg .courseDiv .content .detail {
-  color: #CFCFD2;
+  color: var(--textColor);
 }
 
 .allContain {
@@ -281,7 +280,7 @@ body {
 }
 
 .classificationBox .classificationDiv .classificationList .typeList .typeItem {
-  background-color: #1e1e2a;
+  background-color: var(--borderColor);
   font-size: 0.24rem;
   color: #71717f;
   line-height: 0.48rem;
@@ -367,7 +366,7 @@ body {
 .courseList .topBox .infoBox .discript {
   font-size: 0.24rem;
   line-height: 0.4rem;
-  color: #CFCFD2;
+  color: var(--textColor);
   text-overflow: -o-ellipsis-lastline;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -434,7 +433,7 @@ body {
 .courseList .topBox .infoBox .information .needTitle1 {
   font-size: 0.28rem;
   line-height: 0.4rem;
-  color: #CFCFD2;
+  color: var(--textColor);
   display: table-row;
 }
 
@@ -448,7 +447,7 @@ body {
 .courseList .topBox .infoBox .information .needTitle2 {
   font-size: 0.28rem;
   line-height: 0.4rem;
-  color: #CFCFD2;
+  color: var(--textColor);
 }
 
 .courseList .topBox .infoBox .information .needBox3 {
@@ -465,12 +464,12 @@ body {
 .courseList .topBox .infoBox .information .needTitle3 {
   font-size: 0.28rem;
   line-height: 0.4rem;
-  color: #CFCFD2;
+  color: var(--textColor);
   display: table-row;
 }
 
 .courseList .tabBox {
-  background-color: #12121f;
+  background-color: var(--bgColor);
   border-top-left-radius: 0.5rem;
   border-top-right-radius: 0.5rem;
   position: relative;
@@ -479,14 +478,14 @@ body {
 }
 
 .courseList .tabBox .van-sticky--fixed {
-  background-color: #12121f;
+  background-color: var(--bgColor);
   top: 0.915rem;
   top: calc(0.915rem + constant(safe-area-inset-top));
   top: calc(0.915rem + env(safe-area-inset-top));
 }
 
 .courseList .tabBox .tabTitle {
-  background-color: #12121f;
+  background-color: var(--bgColor);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -499,7 +498,7 @@ body {
   height: 0.88rem;
   border-top-left-radius: 0.5rem;
   border-top-right-radius: 0.5rem;
-  border-bottom: 1px solid #1e1e2a;
+  border-bottom: 1px solid var(--borderColor);
 }
 
 .courseList .tabBox .tabTitle .tabName {
@@ -514,7 +513,7 @@ body {
 
 .courseList .tabBox .tabTitle .selected {
   font-size: .36rem;
-  color: #CFCFD2;
+  color: var(--textColor);
   position: relative;
   font-weight: bold;
 }
@@ -602,7 +601,7 @@ body {
 
 .courseList .listBox .courseList ul .liBox .rightBox .itemDiscript .smallTile {
   font-size: 0.32rem;
-  color: #CFCFD2;
+  color: var(--textColor);
   line-height: 0.6rem;
   text-overflow: -o-ellipsis-lastline;
   overflow: hidden;
@@ -675,7 +674,7 @@ body {
   left: 0;
   width: 100%;
   z-index: 10;
-  background-color: #1e1e2a;
+  background-color: var(--borderColor);
   height: 1.2rem;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -783,7 +782,7 @@ body {
 
 .courseList .commentBox .commentDiv {
   margin-left: 0.96rem;
-  border-bottom: 1px solid #1e1e2a;
+  border-bottom: 1px solid var(--borderColor);
 }
 
 .courseList .commentBox .commentDiv .comment {
@@ -801,7 +800,7 @@ body {
 .courseList .commentBox .commentDiv .commentBck {
   border-radius: 4px;
   font-size: 0.28rem;
-  background-color: #1e1e2a;
+  background-color: var(--borderColor);
   padding: 0.24rem;
   margin-bottom: 0.4rem;
 }
@@ -834,7 +833,7 @@ body {
 }
 
 .courseList .commentBox .noData-box .noData-p {
-  color: #CFCFD2;
+  color: var(--textColor);
   font-size: 0.28rem;
   padding: 0.2rem 0;
   color: #71717f;
@@ -865,13 +864,13 @@ body {
   left: 0;
   z-index: 99;
   padding: 0.16rem 0.24rem;
-  background-color: #12121f;
+  background-color: var(--bgColor);
   padding-bottom: calc(0.16rem + constant(safe-area-inset-bottom));
   padding-bottom: calc(0.16rem + env(safe-area-inset-bottom));
 }
 
 .courseList .sendBox .van-cell {
-  background-color: #1e1e2a;
+  background-color: var(--borderColor);
   padding: 0.03rem 0.2rem;
   border-radius: 0.4rem;
   -webkit-border-radius: 0.4rem;
@@ -885,7 +884,7 @@ body {
 }
 
 .courseList .sendBox .van-field__control {
-  color: #CFCFD2;
+  color: var(--textColor);
   max-height: 2rem;
 }
 
@@ -896,12 +895,12 @@ body {
 }
 
 .courseList .van-popup {
-  background-color: #12121f;
+  background-color: var(--bgColor);
 }
 
 .courseList .van-popup .popupHeader {
   position: absolute;
-  background-color: #12121f;
+  background-color: var(--bgColor);
   z-index: 10;
   top: 0;
   left: 0;
@@ -934,7 +933,7 @@ body {
 .courseList .van-popup .commentBox .mainComment {
   padding: 0 0.3rem;
   margin-top: 1rem;
-  border-bottom: 4px solid #1e1e2a;
+  border-bottom: 4px solid var(--borderColor);
 }
 
 .courseList .van-popup .commentBox .commentDiv {
@@ -968,11 +967,11 @@ body {
 }
 
 .van-dialog .van-hairline--left::after {
-  border-color: #1e1e2a;
+  border-color: var(--borderColor);
 }
 
 .van-dialog .van-hairline--top::after {
-  border-color: #1e1e2a;
+  border-color: var(--borderColor);
 }
 
 .van-action-sheet .van-action-sheet__name {
@@ -982,13 +981,13 @@ body {
 .van-action-sheet .van-action-sheet__cancel,
 .van-action-sheet .van-action-sheet__item {
   background-color: #292934;
-  color: #CFCFD2;
-  border-bottom: 1px solid #12121f;
+  color: var(--textColor);
+  border-bottom: 1px solid var(--bgColor);
 }
 
 .van-action-sheet .van-action-sheet__gap {
-  background-color: #12121f;
-  color: #CFCFD2;
+  background-color: var(--bgColor);
+  color: var(--textColor);
 }
 
 .van-list__finished-text {
@@ -1005,15 +1004,15 @@ body {
 }
 
 .normalHeader .header .van-nav-bar {
-  background-color: #12121f;
+  background-color: var(--bgColor);
 }
 
 .normalHeader .header .van-nav-bar .van-nav-bar__content {
-  color: #CFCFD2;
+  color: var(--textColor);
 }
 
 .normalHeader .header .van-nav-bar .van-nav-bar__title {
-  color: #CFCFD2;
+  color: var(--textColor);
 }
 
 .normalHeader .header .van-hairline--bottom::after {

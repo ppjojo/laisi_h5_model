@@ -14,8 +14,8 @@
 }
 
 body {
-  background-color: #12121f;
-  color: #CFCFD2;
+  background-color: var(--bgColor);
+  color: var(--textColor);
   min-height: 100vh;
   font-size: 0.28rem;
 }
@@ -65,7 +65,7 @@ body {
 
 .topBox .personalInfo .time {
   font-size: 0.24rem;
-  color: #71717f;
+  color: var(--textColor2);
   line-height: 0.4rem;
 }
 
@@ -105,7 +105,7 @@ body {
 
 .totalBox .itemBox .labelBox .txt, .totalBox .itemBox2 .labelBox .txt {
   font-size: 0.2rem;
-  color: #71717f;
+  color: var(--textColor2);
 }
 
 .totalBox .itemBox .dataBox, .totalBox .itemBox2 .dataBox {
@@ -145,7 +145,7 @@ body {
 
 .totalBox .itemBox .dataBox .dataItem .info, .totalBox .itemBox2 .dataBox .dataItem .info {
   font-size: 0.2rem;
-  color: #71717f;
+  color: var(--textColor2);
 }
 
 .totalBox .itemBox2 {
@@ -215,12 +215,12 @@ body {
 
 .detailBox .detailDiv .itemBox .dataBox .dataItem .info, .detailBox .detailDiv .itemBox2 .dataBox .dataItem .info {
   font-size: 0.28rem;
-  color: #CFCFD2;
+  color: var(--textColor);
 }
 
 .detailBox .detailDiv .itemBox .dataBox .dataItem .time, .detailBox .detailDiv .itemBox2 .dataBox .dataItem .time {
   font-size: 0.2rem;
-  color: #71717f;
+  color: var(--textColor2);
   height: 0.4rem;
   line-height: 0.4rem;
 }
@@ -265,7 +265,7 @@ body {
 }
 
 .desc {
-  color: #71717f;
+  color: var(--textColor2);
   font-size: 0.24rem;
   text-align: center;
 }

@@ -15,8 +15,8 @@
 }
 
 body {
-  background-color: #12121f;
-  color: #CFCFD2;
+  background-color: var(--bgColor);
+  color: var(--textColor2);
 }
 
 .specialHeader .header {
@@ -27,7 +27,7 @@ body {
 
 .specialHeader .header .van-nav-bar {
   background-color: transparent;
-  color: #12121f;
+  color: var(--bgColor);
 }
 
 .specialHeader .header .van-nav-bar .van-nav-bar__title {
@@ -47,20 +47,20 @@ body {
 }
 
 .normalHeader .header .van-nav-bar {
-  background-color: #12121f;
+  background-color: var(--bgColor);
 }
 
 .normalHeader .header .van-nav-bar .van-nav-bar__content {
-  color: #CFCFD2;
+  color: var(--textColor2);
 }
 
 .normalHeader .header .van-nav-bar .van-nav-bar__title {
-  color: #CFCFD2;
+  color: var(--textColor2);
   font-size: 0.36rem;
 }
 
 .normalHeader .header .van-nav-bar .van-nav-bar__text {
-  color: #CFCFD2;
+  color: var(--textColor2);
 }
 
 .normalHeader .header .van-hairline--bottom::after {
@@ -102,13 +102,13 @@ body {
 }
 
 .listBox .weekItem .title, .listBox .monthItem .title {
-  color: #12121f;
+  color: var(--bgColor);
   font-size: 0.4rem;
   margin-bottom: 0.28rem;
 }
 
 .listBox .weekItem .date, .listBox .monthItem .date {
-  color: #12121f;
+  color: var(--bgColor);
   font-size: 0.32rem;
 }
 
@@ -185,7 +185,7 @@ body {
 }
 
 .contain .dataBox {
-  background-color: #1e1e2a;
+  background-color: var(--borderColor);
   margin: 0 0.24rem;
   padding: 0.4rem;
   margin-bottom: 0.24rem;
@@ -235,7 +235,7 @@ body {
 
 .contain .dataBox .text_data {
   font-size: 0.56rem;
-  color: #CFCFD2;
+  color: var(--textColor2);
   font-family: "BebasNeue";
   line-height: 0.6rem;
 }
@@ -247,13 +247,13 @@ body {
 
 .contain .dataBox .text_data_small {
   font-size: 0.24rem;
-  color: #CFCFD2;
+  color: var(--textColor2);
   line-height: 0.35rem;
 }
 
 .contain .dataBox .text_descript {
   font-size: 0.24rem;
-  color: #71717F;
+  color: var(--textColor2);
   line-height: 0.3rem;
   margin-bottom: 0.15rem;
 }
@@ -279,7 +279,7 @@ body {
 }
 
 .contain .dataBox .consumeBox .smallTitle {
-  color: #CFCFD2;
+  color: var(--textColor2);
   font-size: 0.28rem;
   line-height: 0.5rem;
   margin-top: 0.4rem;
@@ -356,14 +356,14 @@ body {
 }
 
 .contain .dataBox .consumeBox .itemInfoBox .itemInfo .color_text {
-  color: #CFCFD2;
+  color: var(--textColor2);
   font-size: 0.2rem;
   line-height: 0.5rem;
 }
 
 .contain .bottom {
   font-size: 0.24rem;
-  color: #71717F;
+  color: var(--textColor2);
   margin: 0.5rem 0.24rem;
   text-align: center;
 }
@@ -394,7 +394,7 @@ body {
 }
 
 .historyListBox .historyListDiv .title {
-  color: #71717F;
+  color: var(--textColor2);
   font-size: 0.32rem;
   line-height: 1rem;
 }
@@ -407,7 +407,7 @@ body {
 .historyListBox .historyListDiv .itemList .itemTitle {
   margin: 0 0.24rem;
   height: 0.88rem;
-  color: #CFCFD2;
+  color: var(--textColor2);
   font-size: 0.32rem;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -418,7 +418,7 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  border-bottom: 1px solid #12121f;
+  border-bottom: 1px solid var(--bgColor);
 }
 
 .historyListBox .historyListDiv .itemList .itemTitle:last-child {
@@ -435,7 +435,7 @@ body {
 }
 
 .nullbox p {
-  color: #71717f;
+  color: var(--textColor2);
   font-size: 0.28rem;
   line-height: 0.4rem;
 }

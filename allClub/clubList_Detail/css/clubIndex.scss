@@ -1,11 +1,8 @@
-//黑字
-$text_color:#595962;
-//白字
-$text_color_white:#cfcfd2;
-//黑色背景
-$bg_color:#12121f;
-//边框色
-$border_color:#1e1e2a;
+$textColor:var(--textColor);
+$textColor2:var(--textColor2);
+$bgColor:var(--bgColor);
+$borderColor:var(--borderColor);
+$popBgColor:var(--popBgColor);
 @font-face {
     font-family: "BebasNeue";
     src: url("../../../common/font/BebasNeue/BebasNeue.ttf") format("truetype");
@@ -14,7 +11,7 @@ $border_color:#1e1e2a;
 }
 
 body {
-    background-color: $bg_color;
+    background-color: $bgColor;
 }
 
 .van-nav-bar__title {
@@ -24,12 +21,12 @@ body {
 
 .van-tabs {
     .van-tab__text {
-        color: #71717f;
+        color: $textColor2;
         font-size: .32rem;
     }
     .van-tab--active {
         .van-tab__text {
-            color: $text_color_white;
+            color: $textColor;
             font-size: .36rem;
             font-weight: bold;
         }
@@ -89,9 +86,9 @@ body {
             -o-border-radius: 10px;
         }
         .clubDescript {
+            color: #cfcfd2;
             .clubName {
                 font-size: 0.28rem;
-                color: #cfcfd2;
                 line-height: 0.4rem;
                 overflow: hidden;
                 white-space: nowrap;
@@ -102,7 +99,6 @@ body {
             .clubDate,
             .clubAddress {
                 font-size: 0.2rem;
-                color: #cfcfd2;
                 line-height: 0.35rem;
                 max-width: 4.7rem;
             }
@@ -139,10 +135,10 @@ body {
     border-radius: 0.6rem 0.6rem 0 0;
     // overflow: hidden;
     .noticeBox {
-        border-bottom: 2px $border_color solid;
+        border-bottom: 2px $borderColor solid;
         padding: 0 0.3rem;
         box-sizing: border-box;
-        background-color: $bg_color;
+        background-color: $bgColor;
         width: 100%;
         z-index: 2;
         display: flex;
@@ -157,7 +153,7 @@ body {
             .noticeContent {
                 margin-left: 0.2rem;
                 font-size: 0.28rem;
-                color: $text_color_white;
+                color: $textColor;
                 overflow: hidden;
                 white-space: nowrap;
                 text-overflow: ellipsis;
@@ -169,13 +165,13 @@ body {
         }
     }
     .memberBox {
-        background-color: $bg_color;
+        background-color: $bgColor;
         padding: 0.3rem 0.3rem;
         .title {
             height: 0.7rem;
             font-size: 0.32rem;
             line-height: 0.7rem;
-            color: $text_color_white;
+            color: $textColor;
         }
         .memberListDiv {
             height: 0.7rem;
@@ -203,7 +199,7 @@ body {
                 justify-content: end;
                 align-items: center;
                 .numP {
-                    color: #71717f;
+                    color: $textColor2;
                     font-size: 0.28rem;
                 }
                 .iconRight {
@@ -217,16 +213,16 @@ body {
         background-color: transparent;
     }
     .van-cell {
-        background-color: $bg_color;
-        color: $text_color_white;
+        background-color: $bgColor;
+        color: $textColor;
         font-size: 0.32rem;
         .van-cell__value {
-            color: #71717f;
+            color: $textColor2;
             font-size: 0.24rem;
         }
     }
     .tabBox {
-        border-top: .08rem solid $border_color;
+        border-top: .08rem solid $borderColor;
         .van-tabs__line {
             width: 0.4rem;
             height: 2px;
@@ -234,14 +230,14 @@ body {
         .nullDataBox {
             height: 3.6rem;
             margin-top: 0.5rem;
-            background-color: $bg_color;
+            background-color: $bgColor;
             text-align: center;
             img {
                 width: 35%;
             }
             p {
                 font-size: 0.25rem;
-                color: #71717f;
+                color: $textColor2;
                 margin: 0;
                 padding: 0;
             }
@@ -256,8 +252,8 @@ body {
                 padding: 0 0.3rem;
                 display: flex;
                 align-items: center;
-                border-top: 1px $border_color solid;
-                color: $text_color_white;
+                border-top: 1px $borderColor solid;
+                color: $textColor;
                 .flexBox {
                     display: flex;
                     align-items: center;
@@ -290,26 +286,26 @@ body {
             }
             .historyBox {
                 .van-collapse-item {
-                    border-top: .08rem $border_color solid;
-                    background-color: $border_color;
+                    border-top: .08rem $borderColor solid;
+                    background-color: $borderColor;
                 }
                 .van-collapse-item__content {
                     padding: 0;
-                    background-color: $bg_color;
+                    background-color: $bgColor;
                 }
             }
             .van-cell__right-icon {
-                color: #71717f;
+                color: $textColor2;
             }
         }
         .task {
             .taskBox {
                 margin-bottom: 0.2rem;
-                background-color: $bg_color;
+                background-color: $bgColor;
                 .title {
                     height: 1.2rem;
-                    color: $text_color_white;
-                    background-color: $bg_color;
+                    color: $textColor;
+                    background-color: $bgColor;
                     font-size: 0.28rem;
                     line-height: 1.2rem;
                     text-align: center;
@@ -324,9 +320,9 @@ body {
                     align-items: center;
                     padding: 0 0.3rem;
                     height: 1.2rem;
-                    background-color: $bg_color;
-                    border-top: 1px solid $border_color;
-                    color: $text_color_white;
+                    background-color: $bgColor;
+                    border-top: 1px solid $borderColor;
+                    color: $textColor;
                     .taskName {
                         display: flex;
                         justify-content: center;
@@ -400,7 +396,7 @@ body {
     overflow: hidden;
     .memberBox {
         padding: 0.3rem 0.3rem;
-        background-color: $bg_color;
+        background-color: $bgColor;
         box-sizing: border-box;
         width: 100%;
         z-index: 2;
@@ -408,7 +404,7 @@ body {
         .title {
             height: 0.7rem;
             font-size: 0.32rem;
-            color: $text_color_white;
+            color: $textColor;
         }
         .memberListDiv {
             height: 0.7rem;
@@ -436,7 +432,7 @@ body {
                 justify-content: end;
                 align-items: center;
                 .numP {
-                    color: #71717f;
+                    color: $textColor2;
                     font-size: 0.28rem;
                 }
                 .iconRight {
@@ -447,29 +443,29 @@ body {
         }
     }
     .introduceBox {
-        background-color: $bg_color;
+        background-color: $bgColor;
         padding: 0 0.3rem 0.3rem;
-        border-bottom: 0.08rem solid $border_color;
+        border-bottom: 0.08rem solid $borderColor;
         .titleBox {
             font-family: " PingFangSC-Regular";
             font-size: 0.32rem;
-            color: $text_color_white;
+            color: $textColor;
             line-height: 1rem;
         }
         .clubDescript {
             font-size: 0.28rem;
-            color: #71717f;
+            color: $textColor2;
             line-height: 0.4rem;
         }
     }
     .detailBox {
-        background-color: $bg_color;
+        background-color: $bgColor;
         padding: 0 0.3rem 0.3rem;
         padding-bottom: 2rem;
         .titleBox {
             font-size: 0.32rem;
             font-family: " PingFangSC-Regular";
-            color: $text_color_white;
+            color: $textColor;
             line-height: 1rem;
         }
         .clubDataBox {
@@ -480,7 +476,7 @@ body {
                 .num {
                     font-size: 0.84rem;
                     font-family: "BebasNeue";
-                    color: $text_color_white;
+                    color: $textColor;
                     text-align: center;
                     .smallNum {
                         font-size: 0.48rem;
@@ -489,7 +485,7 @@ body {
                 .txt {
                     font-size: 0.28rem;
                     font-family: " PingFangSC-Regular";
-                    color: #71717f;
+                    color: $textColor2;
                     line-height: 0.5rem;
                     text-align: center;
                 }

@@ -8,10 +8,11 @@
     <!-- 引入样式文件 -->
     <link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
     <link rel="stylesheet" href="../common/css/basic.css">
-    <link rel="stylesheet" href="css/pointsLottery.css">
     <link rel="stylesheet" href="css/swiper.css">
     <link rel="stylesheet" href="css/changerecord.css">
     <link rel="stylesheet" href="css/font/iconfont.css">
+    <link rel="stylesheet" id="themeCssLink" href="../common/css/default.css">
+    <link rel="stylesheet" href="css/pointsLottery.css">
     <style type="text/css">
         .list_ul>li {
             margin-bottom: .2rem;
@@ -20,29 +21,14 @@
         .van-pull-refresh__track {
             margin-top: -0.28rem;
         }
-        
-        #app>.header,
-        .van-nav-bar,
-        .monkey-pull-refresh,
-        .DBnotice {
-            background-color: #12121F;
-        }
-        
-        .van-nav-bar .van-icon,
-        .van-nav-bar__title,
-        .van-list__error-text,
-        .van-list__finished-text,
-        .van-list__loading {
-            color: #CFCFD2;
-        }
     </style>
 
 </head>
 
 <body>
-    <div id="app" :style="{backgroundColor:dataList.length>0?'#f5f5f5':'#fff'}" v-cloak>
+    <div id="app" v-cloak>
         <div class="header">
-            <van-nav-bar title="兑换记录" @click-left="OnclickLeft" left-arrow>
+            <van-nav-bar title="兑换记录" @click-left="OnclickLeft" safe-area-inset-top fixed>
                 <template #left>
 						<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
 					</template>
@@ -99,7 +85,7 @@
 											<div v-if="item.goods[0].split(',')[1]>1" class="picnum">{{item.goods[0].split(',')[1]}}</div>
 										</div>
 										<div >
-											<div class="detail van-ellipsis">{{item.goods[0].split(',')[0]}}</div>
+											<div class="detail van-ellipsis ">{{item.goods[0].split(',')[0]}}</div>
 										</div>
 									</div>
 									<div class="info ub ub-ac ub-pend">
@@ -114,20 +100,6 @@
 								</div>
 							</li>
 						</template>
-
-                    <!-- <li class="">
-							<div class="ub ub-ac ub-pj">
-								<div class="title">2021/02/27 12:34</div>
-								<div class="title">快递单号：123455434567</div>
-							</div>
-							
-							<div class="adinfo">
-								<div class="">收货人姓名 XXXXXX</div>
-								<div class="van-multi-ellipsis--l2">
-									江苏省 南京市 棚户区 澎湖中路123号21A座1001 
-								</div>
-							</div>
-						</li> -->
                 </ul>
                 <div class="noData-box" v-if="dataList.length==0&&!loading">
                     <img class="noData-img" src="../common/img/noData.png" />

@@ -1,5 +1,5 @@
 #app {
-    background-color: #12121f;
+    background-color: var(--bgColor);
     min-height: 100vh;
 }
 
@@ -86,12 +86,12 @@
     font-size: 0.32rem;
     line-height: 1.24rem;
     padding: 0 0.3rem;
-    background-color: #12121f;
+    background-color: var(--bgColor);
     color: #CFCFD2;
 }
 
 .van-cell-group {
-    background-color: #12121f;
+    background-color: var(--bgColor);
 }
 
 .van-cell__left-icon,
@@ -108,7 +108,6 @@
     padding: 0 0.3rem;
 }
 
-
 .gameReward-input {
     height: auto;
 }
@@ -117,8 +116,6 @@
     color: #CFCFD2;
     font-size: .28rem;
 }
-
-
 
 .laberDiv {
     text-align: left;
@@ -129,7 +126,9 @@
     /* font-weight: bold; */
 }
 
+
 /* 活动说明 */
+
 .content-input {
     background-color: #f8f8f8;
     font-size: 0.32rem;
@@ -140,6 +139,7 @@
 
 
 /* 任务说明 */
+
 .tasks-input {
     background-color: #1e1e2a;
     font-size: 0.32rem;
@@ -153,7 +153,6 @@
     margin-bottom: .08rem;
 }
 
-
 textarea::placeholder {
     font-size: .24rem;
     color: #71717f !important;
@@ -163,10 +162,11 @@ textarea::placeholder {
     position: absolute;
     bottom: 0.1rem;
     right: 0.1rem;
-
 }
 
+
 /* 俱乐部简介 */
+
 .club-input {
     background-color: #1E1E2A;
     font-size: 0.32rem;
@@ -175,7 +175,6 @@ textarea::placeholder {
     padding: 0 0.2rem;
     border-radius: .08rem;
 }
-
 
 .submit {
     width: 4rem;
@@ -203,7 +202,9 @@ textarea::placeholder {
     background-color: rgba(252, 171, 46, 0.1);
 }
 
+
 /* 上传图片的地方 */
+
 .van-uploader {
     margin: 0 auto;
 }
@@ -221,7 +222,9 @@ textarea::placeholder {
     color: #292934;
 }
 
+
 /* 俱乐部形象 */
+
 .clubImg .clubImg_photo {
     width: 0.64rem;
     height: 0.64rem;

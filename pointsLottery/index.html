@@ -8,15 +8,12 @@
     <!-- 引入样式文件 -->
     <link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
     <link rel="stylesheet" href="../common/css/basic.css">
-    <link rel="stylesheet" href="css/pointsLottery.css?t=5">
     <link rel="stylesheet" href="css/font/iconfont.css">
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/swiper.css">
+    <link rel="stylesheet" id="themeCssLink" href="../common/css/default.css">
+    <link rel="stylesheet" href="css/pointsLottery.css">
     <style type="text/css">
-        #app {
-            overflow-x: hidden;
-        }
-        
         .monkeysvga {
             position: absolute;
             width: 6.75rem;
@@ -25,53 +22,6 @@
             left: calc(50% - 3.375rem);
             z-index: 0;
         }
-        
-        .van-dialog,
-        .van-button--default {
-            background-color: rgba(41, 41, 52, 1);
-        }
-        
-        [class*=van-hairline]::after {
-            border-color: #12121F;
-        }
-        
-        .van-dialog__message {
-            color: #CFCFD2;
-        }
-        
-        .van-tab--active {
-            font-size: .36rem;
-            position: relative;
-        }
-        
-        .van-tabs__line {
-            display: none;
-        }
-        
-        .van-tab--active::after {
-            content: '';
-            position: absolute;
-            left: 50%;
-            bottom: 0;
-            transform: translate(-50%, -50%);
-            width: 0.4rem;
-            height: 0.14rem;
-            background-position: 100% 100%;
-            background: url(./img/tabselect.png) no-repeat;
-            background-size: 100%;
-        }
-        
-        [class*=van-hairline]::after {
-            /* border-width:0; */
-        }
-        
-        .list_ul>li:first-child {
-            padding-top: .3rem;
-        }
-        
-        .van-overlay {
-            background-color: rgba(18, 18, 31, .7);
-        }
     </style>
 
 </head>
@@ -79,7 +29,7 @@
 <body>
     <div id="app" ref="DOM" class="page" v-cloak>
         <div class="header">
-            <van-nav-bar title="我的逗币" @click-left="OnclickLeft" @click-right="onClickRight" left-arrow>
+            <van-nav-bar title="我的逗币" @click-left="OnclickLeft" @click-right="onClickRight" safe-area-inset-top fixed>
                 <template #left>
 						<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
 					</template>
@@ -88,7 +38,7 @@
 					</template>
             </van-nav-bar>
         </div>
-        <div id="versionShow" v-show="accept">
+        <div id="versionShow">
             <van-action-sheet v-model="etcmenu" :actions="actions" cancel-text="取消" close-on-click-action @cancel="onCancel" @select="onSelect"></van-action-sheet>
             <div class="" id="energybox">
                 <!-- 飘云 -->
@@ -142,7 +92,7 @@
                 <van-tab title="抽盲盒" id="blindbox">
                     <ul class="list_ul">
                         <li v-for="(item,index) in blindboxList" @click="goToDetail(item,blindbg[index])">
-                            <div class="adimg" :style="{backgroundColor:blindbg[index]}">
+                            <div class="adimg">
                                 <img :src="item.logo" alt="">
                             </div>
                             <div class="van-ellipsis title">
@@ -160,7 +110,7 @@
                 <van-tab title="兑换">
                     <ul class="list_ul">
                         <li v-for="(item,index) in changebox" @click="goToDetail(item,pricebg[index<=3?index+1:parseInt(index%4)])">
-                            <div class="adimg" :style="{backgroundColor:pricebg[index<=3?index+1:parseInt(index%4)]}">
+                            <div class="adimg">
                                 <img :src="item.logo" alt="">
                             </div>
                             <div class="van-ellipsis title">
@@ -177,13 +127,6 @@
                 </van-tab>
             </van-tabs>
         </div>
-        <div id="noshow" v-show="!accept&&localStorage.getItem('appInfo')">
-            <div class="noData-box">
-                <img class="noData-img" src="../common/img/noData.png" />
-                <!-- 请更新到最新版本再来体验新玩法 -->
-                <p class="noData-p">暂未开放！</p>
-            </div>
-        </div>
     </div>
 </body>
 <script src="https://oss.laisitech.com/0bb12bf1-cb87-4d2c-a724-8a7c25b7ae04.js "></script>
@@ -193,14 +136,6 @@
 <script src="js/swiper.js"></script>
 <script src="js/tool.js"></script>
 <script>
-    // if (document.addEventListener) {
-    //         /*event.persisted 判断浏览器是否有缓存, 有为true, 没有为false*/
-    //         window.addEventListener('pageshow', function (event) {
-    //             if (event.persisted || window.performance && window.performance.navigation.type == 2){
-    //                 location.reload();
-    //             }
-    //         },false);
-    //  }
     window.addEventListener('pageshow', function(event) {
         console.log("PageShow Event  " + event.persisted);
         console.log(event)
@@ -247,7 +182,6 @@
                 isnormal: true, //猴子正常
                 isminus: false, //猴子+分
                 isInit: true,
-                accept: false,
                 SetT: null,
             }
         },
@@ -257,35 +191,6 @@
         },
         mounted() {
             var that = this;
-            getVersion()
-
-            function getVersion() {
-                if (localStorage.getItem("appInfo")) {
-                    var appInfo = JSON.parse(localStorage.getItem("appInfo"));
-                    var version = appInfo.appVersion;
-                    version = version.split(".");
-                    // version[version.length-1] = 1145
-                    if (isIOS) {
-                        if (parseInt(version[version.length - 1]) >= 1145) {
-                            that.accept = true
-                        } else {
-                            that.accept = false
-                        }
-                    } else if (isAndroid) {
-                        if (parseInt(version[version.length - 1]) >= 1121) {
-                            that.accept = true
-                        } else {
-                            that.accept = false
-                        }
-                    }
-                } else {
-                    Interaction.getAppInfoAndUserInfo()
-                    setTimeout(() => {
-                        getVersion()
-                    }, 300)
-                }
-            }
-            console.log(this.accept)
             window.reflashFuc = this.reflashFuc;
             this.initnormal(); //初始化三只小猴子
             this.initClick();

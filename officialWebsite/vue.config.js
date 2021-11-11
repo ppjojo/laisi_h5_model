@@ -4,7 +4,7 @@ const autoprefixer = require("autoprefixer");
 const Compression = require('compression-webpack-plugin')
 
 function resolve(dir) {
-	return path.join(__dirname, dir);
+    return path.join(__dirname, dir);
 }
 
 const name = "LAISITECH"; // page title
@@ -18,97 +18,96 @@ const port = process.env.port || process.env.npm_config_port || 8080; // dev por
 
 // All configuration item explanations can be find in https://cli.vuejs.org/config/
 module.exports = {
-	/**
-	 * You will need to set publicPath if you plan to deploy your site under a sub path,
-	 * for example GitHub Pages. If you plan to deploy your site to https://foo.github.io/bar/,
-	 * then publicPath should be set to "/bar/".
-	 * In most cases please use '/' !!!
-	 * Detail: https://cli.vuejs.org/config/#publicpath
-	 */
-	publicPath: process.env.NODE_ENV === "production" ?
-		"/h5/h5V2/officialWebsite" : "/h5/h5V2/officialWebsite",
-	outputDir: "dist",
-	assetsDir: "static",
-	lintOnSave: process.env.NODE_ENV === "development",
-	productionSourceMap: false,
-	css: {
-		loaderOptions: {
-		},
-	},
-	devServer: {
-		port: port,
-		open: true,
-		overlay: {
-			warnings: false,
-			errors: true,
-		},
+    /**
+     * You will need to set publicPath if you plan to deploy your site under a sub path,
+     * for example GitHub Pages. If you plan to deploy your site to https://foo.github.io/bar/,
+     * then publicPath should be set to "/bar/".
+     * In most cases please use '/' !!!
+     * Detail: https://cli.vuejs.org/config/#publicpath
+     */
+    publicPath: process.env.NODE_ENV === "production" ?
+        "/" : "/h5/h5V2/officialWebsite",
+    outputDir: "dist",
+    assetsDir: "static",
+    lintOnSave: process.env.NODE_ENV === "development",
+    productionSourceMap: false,
+    css: {
+        loaderOptions: {},
+    },
+    devServer: {
+        port: port,
+        open: true,
+        overlay: {
+            warnings: false,
+            errors: true,
+        },
 
-	},
-	configureWebpack: config => {
-		let baseConfig = {
-			name: name,
-			resolve: {
-				alias: {
-					"@": resolve("src"),
-					"@u": resolve("src/utils"),
-					"@a": resolve("src/api"),
-					"@s": resolve("src/style"),
-				},
-			},
-		}
+    },
+    configureWebpack: config => {
+        let baseConfig = {
+            name: name,
+            resolve: {
+                alias: {
+                    "@": resolve("src"),
+                    "@u": resolve("src/utils"),
+                    "@a": resolve("src/api"),
+                    "@s": resolve("src/style"),
+                },
+            },
+        }
 
-		if (process.env.NODE_ENV != "dev") {
-			baseConfig.plugins = [
-				new Compression({
-					test: /\.js$|\.html$|\.css$/, // 选择压缩的 文件格式
-					threshold: 10240, //超过10k启动gzip压缩
-					deleteOriginalAssets: false //删除源文件
-				})
-			]
-			return baseConfig
-		} else {
-			return baseConfig
-		}
+        if (process.env.NODE_ENV != "dev") {
+            baseConfig.plugins = [
+                new Compression({
+                    test: /\.js$|\.html$|\.css$/, // 选择压缩的 文件格式
+                    threshold: 10240, //超过10k启动gzip压缩
+                    deleteOriginalAssets: false //删除源文件
+                })
+            ]
+            return baseConfig
+        } else {
+            return baseConfig
+        }
 
-	},
-	chainWebpack(config) {
-		config.plugins.delete("preload"); // TODO: need test
-		config.plugins.delete("prefetch"); // TODO: need test
-		config.module
-			.rule("vue")
-			.use("vue-loader")
-			.loader("vue-loader")
-			.tap((options) => {
-				options.compilerOptions.preserveWhitespace = true;
-				return options;
-			})
-			.end();
+    },
+    chainWebpack(config) {
+        config.plugins.delete("preload"); // TODO: need test
+        config.plugins.delete("prefetch"); // TODO: need test
+        config.module
+            .rule("vue")
+            .use("vue-loader")
+            .loader("vue-loader")
+            .tap((options) => {
+                options.compilerOptions.preserveWhitespace = true;
+                return options;
+            })
+            .end();
 
-		config.when(process.env.NODE_ENV === "development", (config) =>
-			config.devtool("cheap-source-map")
-		);
+        config.when(process.env.NODE_ENV === "development", (config) =>
+            config.devtool("cheap-source-map")
+        );
 
-		config.when(process.env.NODE_ENV !== "development", (config) => {
-			
-			config.optimization.splitChunks({
-				chunks: "all",
-				cacheGroups: {
-					libs: {
-						name: "chunk-libs",
-						test: /[\\/]node_modules[\\/]/,
-						priority: 10,
-						chunks: "initial", // only package third parties that are initially dependent
-					},
-					commons: {
-						name: "chunk-commons",
-						test: resolve("src/components"), // can customize your rules
-						minChunks: 3, //  minimum common number
-						priority: 5,
-						reuseExistingChunk: true,
-					},
-				},
-			});
-			config.optimization.runtimeChunk("single");
-		});
-	},
+        config.when(process.env.NODE_ENV !== "development", (config) => {
+
+            config.optimization.splitChunks({
+                chunks: "all",
+                cacheGroups: {
+                    libs: {
+                        name: "chunk-libs",
+                        test: /[\\/]node_modules[\\/]/,
+                        priority: 10,
+                        chunks: "initial", // only package third parties that are initially dependent
+                    },
+                    commons: {
+                        name: "chunk-commons",
+                        test: resolve("src/components"), // can customize your rules
+                        minChunks: 3, //  minimum common number
+                        priority: 5,
+                        reuseExistingChunk: true,
+                    },
+                },
+            });
+            config.optimization.runtimeChunk("single");
+        });
+    },
 };

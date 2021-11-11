@@ -1,10 +1,12 @@
 .bgf8 {
-    background-color: #12121f;
+    background-color: var(--bgColor);
 }
 
+
 /* 通知栏的css */
+
 .van-notice-bar {
-    background-color: #12121f;
+    background-color: var(--bgColor);
     color: #cfcfd2;
     border-bottom: 1px solid #1e1e2a;
 }
@@ -12,7 +14,7 @@
 .deatilBox {
     /* margin-top: 0.2rem; */
     padding: 0.24rem;
-    background-color: #12121f;
+    background-color: var(--bgColor);
     border-bottom: .08rem solid #1e1e2a;
 }
 
@@ -36,10 +38,12 @@
     line-height: 0.6rem;
 }
 
+
 /* 成员列表 */
+
 .memberList {
     /* margin-top: 0.2rem; */
-    background-color: #12121f;
+    background-color: var(--bgColor);
     padding: 0 0.24rem;
     border-bottom: .08rem solid #1e1e2a;
 }
@@ -80,7 +84,6 @@
     vertical-align: middle;
     border-radius: 50%;
     position: absolute;
-
 }
 
 .memberList .finishIcon {
@@ -91,10 +94,12 @@
     justify-content: flex-end;
 }
 
+
 /* 成员参与详情 */
+
 .memberDetailList {
     /* margin-top: 0.2rem; */
-    background-color: #12121f;
+    background-color: var(--bgColor);
 }
 
 .memberDetailList .van-row {
@@ -178,7 +183,6 @@
 .van-button--default {
     border: none;
 }
-
 
 .van-action-sheet__description {
     font-size: 0.36rem;

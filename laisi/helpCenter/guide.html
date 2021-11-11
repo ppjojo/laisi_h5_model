@@ -1,97 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <title>设备绑定流程</title>
-    <meta name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
-	  <link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
-	<link rel="stylesheet" href="./font/iconfont.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+    <link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
+    <link rel="stylesheet" href="./font/iconfont.css">
     <link rel="stylesheet" type="text/css" href="./css/helpCenter.css">
+    <link rel="stylesheet" id="themeCssLink2" href="../../common/css/default.css">
     <style type="text/css">
-    	.listItem {
-    		color: #cfcfd2;
-    		border-top: 1px solid #161623;
-    		border-bottom: 1px solid #161623;
-    		padding: .28rem;
-    		display: flex;
-    		justify-content:start;
-    		align-items: center;
-    		font-size: .24rem;
-    	}
-		
-    	.listItem img {
-    		width: 1.8rem;
-			border-radius: 4px;
-			margin-right: .2rem;
-    	}
+        .listItem {
+            color: #cfcfd2;
+            border-top: 1px solid var(--borderColor);
+            border-bottom: 1px solid var(--borderColor);
+            padding: .28rem;
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            font-size: .24rem;
+        }
+        
+        .listItem img {
+            width: 1.8rem;
+            border-radius: 4px;
+            margin-right: .2rem;
+        }
     </style>
 </head>
+
 <body>
-    <div id="app" >
-		<div class="header">
-			<van-nav-bar @click-left="onclickLeft" :title="title" left-arrow safe-area-inset-top fixed>
-				<template #left>
+    <div id="app">
+        <div class="header">
+            <van-nav-bar @click-left="onclickLeft" :title="title" left-arrow safe-area-inset-top fixed>
+                <template #left>
 					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
 				</template>
-		
-			</van-nav-bar>
-		</div>
-    	<div class="list">
-    		<div class="listItem " v-for="(item,index) in dataList" @click="clickQuestion(item)">
-				<div><img :src="item.picUrl" alt=""></div>
-    			<div>{{item.deviceTypeDetail}}</div>
-    		</div>
-    	</div>
-    </div>
-	<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
-	<script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
-	<script src="../../common/js/network.js"></script>
-    <script type="text/javascript">
-      
-	new Vue({
-		el: '#app',
-		data() {
-			return {
-				dataList:[],
-				title:getQueryString('title')
-			}
-		},
-		filters: {},
-		mounted() {
-		},
-		created() {
-			this.getList()
-		},
-		methods: {
-			clickQuestion(item){
-				window.location.href = "manul.html?id=" + item.deviceType + '&userId='+ getQueryString('userId')+'&title='+item.deviceTypeDetail+'&bigTitle='+this.title;
-			},
-			getList(){
-				var _self = this;
-				ajax({
-					type: "get",
-					url: "helpCenter/device/get/all",
-					data: {
-					},
-					success: function(res) {
-						if (parseInt(res.code) == 0) {
-							_self.dataList = res.data
-						}
-					},
-					error: function() {
-						console.log("error")
-				
-					}
-				})
-			},
-			onclickLeft(){
-				window.history.back(-1);
-			},
-		}
-	})
 
+            </van-nav-bar>
+        </div>
+        <div class="list">
+            <div class="listItem " v-for="(item,index) in dataList" @click="clickQuestion(item)">
+                <div><img :src="item.picUrl" alt=""></div>
+                <div>{{item.deviceTypeDetail}}</div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
+    <script src="../../common/js/network.js"></script>
+    <script type="text/javascript">
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    dataList: [],
+                    title: getQueryString('title')
+                }
+            },
+            filters: {},
+            mounted() {},
+            created() {
+                this.getList()
+            },
+            methods: {
+                clickQuestion(item) {
+                    window.location.href = "manul.html?id=" + item.deviceType + '&userId=' + getQueryString('userId') + '&title=' + item.deviceTypeDetail + '&bigTitle=' + this.title;
+                },
+                getList() {
+                    var _self = this;
+                    ajax({
+                        type: "get",
+                        url: "helpCenter/device/get/all",
+                        data: {},
+                        success: function(res) {
+                            if (parseInt(res.code) == 0) {
+                                _self.dataList = res.data
+                            }
+                        },
+                        error: function() {
+                            console.log("error")
+
+                        }
+                    })
+                },
+                onclickLeft() {
+                    window.history.back(-1);
+                },
+            }
+        })
     </script>
 
 </body>
+
 </html>

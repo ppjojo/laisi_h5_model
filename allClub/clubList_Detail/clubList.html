@@ -2,312 +2,307 @@
 <html>
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport"
-		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
-	<title>俱乐部</title>
-	<link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
-	<link rel="stylesheet" href="../../common/css/basic.css">
-	<link rel="stylesheet" href="../font/iconfont.css">
-	<link href="css/header.css" rel="stylesheet" type="text/css" />
-	<link href="css/clublist.css" rel="stylesheet" type="text/css" />
-	<style type="text/css">
-	</style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+    <title>俱乐部</title>
+    <link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
+    <link rel="stylesheet" href="../../common/css/basic.css">
+    <link rel="stylesheet" href="../font/iconfont.css">
+    <link href="css/header.css" rel="stylesheet" type="text/css" />
+    <link href="css/clublist.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" id="themeCssLink2" href="../../common/css/default.css">
+    <style type="text/css">
+
+    </style>
 </head>
 
 <body>
-	<div id="app" class="normalHeader" v-cloak>
-		<div class="header">
-			<van-nav-bar @click-left="onclickLeft" @click-right="onclickRight" title="俱乐部" left-arrow
-				safe-area-inset-top fixed>
-				<template #left>
+    <div id="app" class="normalHeader" v-cloak>
+        <div class="header">
+            <van-nav-bar @click-left="onclickLeft" @click-right="onclickRight" title="俱乐部" left-arrow safe-area-inset-top fixed>
+                <template #left>
 					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
 				</template>
-				<template  #right>
+                <template #right>
 					{{searchValue.length>0?'':'我的俱乐部'}}
 				</template>
-			</van-nav-bar>
-		</div>
-		<div>
-			<div class="searchBox">
-				<van-sticky>
-					<van-search v-model="searchValue" background="#12121f" shape="round" @input="searchClub"
-						placeholder="请输入俱乐部昵称或ID"></van-search>
-				</van-sticky>
-			</div>
-			<ul class="listDiv" v-if="searchValue!=''">
-				<li v-if="list.length>0" v-for="item in list">
-					<div class="listItem " @click="clickItem(item)">
-						<div class="listItem-picImg">
-							<div :style="{'background-image':'url('+item.photo+')'}"></div>
-							<!-- <img :src="item.photo" alt=""> -->
-						</div>
-						<div class="listItem-content">
-							<div class="name ub ub-ac">
-								<div class="van-ellipsis">{{item.name|strEllipsis}}</div>
-								<span v-if="item.isMinister=='Y'" class="ministerIcon">部长</span>
-							</div>
-							<p class="content">
-								<span>{{item.label=="00"?"跳绳":"--"}}</span>
-								<span>{{item.city || '--'}}</span>
-								<span>{{item.memberNum}}人</span>
-							</p>
-							<p class="content desc van-ellipsis">{{item.introduce}}</p>
-						</div>
-					</div>
-				</li>
-				<div class="nulldataDiv" v-if="list.length==0">
-					<img src="../../common/img/noData.png" alt="">
-					未找到相关内容哦，换个词试试吧！
-				</div>
-			</ul>
-			<van-pull-refresh v-model="refreshing" :head-height="90" @refresh="onRefresh" class="monkey-pull-refresh"
-				v-else>
-				<template #pulling="props">
+            </van-nav-bar>
+        </div>
+        <div>
+            <div class="searchBox">
+                <van-sticky>
+                    <van-search v-model="searchValue" shape="round" @input="searchClub" placeholder="请输入俱乐部昵称或ID"></van-search>
+                </van-sticky>
+            </div>
+            <ul class="listDiv" v-if="searchValue!=''">
+                <li v-if="list.length>0" v-for="item in list">
+                    <div class="listItem " @click="clickItem(item)">
+                        <div class="listItem-picImg">
+                            <div :style="{'background-image':'url('+item.photo+')'}"></div>
+                            <!-- <img :src="item.photo" alt=""> -->
+                        </div>
+                        <div class="listItem-content">
+                            <div class="name ub ub-ac">
+                                <div class="van-ellipsis">{{item.name|strEllipsis}}</div>
+                                <span v-if="item.isMinister=='Y'" class="ministerIcon">部长</span>
+                            </div>
+                            <p class="content">
+                                <span>{{item.label=="00"?"跳绳":"--"}}</span>
+                                <span>{{item.city || '--'}}</span>
+                                <span>{{item.memberNum}}人</span>
+                            </p>
+                            <p class="content desc van-ellipsis">{{item.introduce}}</p>
+                        </div>
+                    </div>
+                </li>
+                <div class="nulldataDiv" v-if="list.length==0">
+                    <img src="../../common/img/noData.png" alt=""> 未找到相关内容哦，换个词试试吧！
+                </div>
+            </ul>
+            <van-pull-refresh v-model="refreshing" :head-height="90" @refresh="onRefresh" class="monkey-pull-refresh" v-else>
+                <template #pulling="props">
 					<div class="monkeyBox">
 						<img class="monkey" src="../../common/img/monkey.gif" />
 						<p>下拉刷新</p>
 					</div>
 				</template>
 
-				<!-- 释放提示 -->
-				<template #loosing>
+                <!-- 释放提示 -->
+                <template #loosing>
 					<div class="monkeyBox">
 						<img class="monkey" src="../../common/img/monkey.gif" />
 						<p>释放刷新</p>
 					</div>
 				</template>
 
-				<!-- 加载提示 -->
-				<template #loading>
+                <!-- 加载提示 -->
+                <template #loading>
 					<div class="monkeyBox">
 						<img class="monkey" src="../../common/img/monkey.gif" />
 						<p>正在刷新</p>
 					</div>
 				</template>
-				<van-list v-model="loading" :finished="finished" @load="onLoad" finished-text="已经到底啦~"
-					v-if="list.length>0">
-					<ul class="listDiv">
-						<li v-for="item in list">
-							<div class="listItem " @click="clickItem(item)">
-								<div class="listItem-picImg">
-									<div :style="{'background-image':'url('+item.photo+')'}"></div>
-									<!-- <img :src="item.photo" alt=""> -->
-								</div>
-								<div class="listItem-content">
-									<div class="name ub ub-ac">
-										<div class="van-ellipsis">{{item.name|strEllipsis}}</div>
-										<span v-if="item.isMinister=='Y'" class="ministerIcon">部长</span>
-									</div>
-									<p class="content">
-										<span>{{item.label=="00"?"跳绳":"--"}}</span>
-										<span>{{item.city || '--'}}</span>
-										<span>{{item.memberNum}}人</span>
-									</p>
-									<p class="content desc van-ellipsis">{{item.introduce}}</p>
-								</div>
-							</div>
-						</li>
-					</ul>
-				</van-list>
-				<div class="nulldataDiv" v-else-if="finished">
-					<img src="../../common/img/noData.png" alt="">
-					暂无数据
-				</div>
-			</van-pull-refresh>
+                <van-list v-model="loading" :finished="finished" @load="onLoad" finished-text="已经到底啦~" v-if="list.length>0">
+                    <ul class="listDiv">
+                        <li v-for="item in list">
+                            <div class="listItem " @click="clickItem(item)">
+                                <div class="listItem-picImg">
+                                    <div :style="{'background-image':'url('+item.photo+')'}"></div>
+                                    <!-- <img :src="item.photo" alt=""> -->
+                                </div>
+                                <div class="listItem-content">
+                                    <div class="name ub ub-ac">
+                                        <div class="van-ellipsis">{{item.name|strEllipsis}}</div>
+                                        <span v-if="item.isMinister=='Y'" class="ministerIcon">部长</span>
+                                    </div>
+                                    <p class="content">
+                                        <span>{{item.label=="00"?"跳绳":"--"}}</span>
+                                        <span>{{item.city || '--'}}</span>
+                                        <span>{{item.memberNum}}人</span>
+                                    </p>
+                                    <p class="content desc van-ellipsis">{{item.introduce}}</p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </van-list>
+                <div class="nulldataDiv" v-else-if="finished">
+                    <img src="../../common/img/noData.png" alt=""> 暂无数据
+                </div>
+            </van-pull-refresh>
 
-			<div class="addClubBtn" @click="goAddClub()">
-				<img src="./img/iconAdd.png" alt="">
-			</div>
-		</div>
-	</div>
+            <div class="addClubBtn" @click="goAddClub()">
+                <img src="./img/iconAdd.png" alt="">
+            </div>
+        </div>
+    </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
 <script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
 <script src="../../common/js/network.js"></script>
 <script>
-	new Vue({
-		el: '#app',
-		data() {
-			return {
-				id: null, //课程id
-				error: false,
-				pageNum: 1,
-				pageSize: 10,
-				total: 0,
-				refreshing: false,
-				finished: false,
-				loading: false,
-				list: [],
-				searchValue: "",
-				oldStr: ""
-			};
-		},
-		filters: {
-			strEllipsis: (str) => {
-				if (str && str.length > 8) {
-					return str.slice(0, 8) + '...';
-				} else {
-					return str;
-				}
-			}
-		},
-		created() {
-			this.getClubList();
-		},
-		mounted() {
-			ajax({
-				type: "post",
-				url: "integral/add/integral",
-				data: {
-					actionType: "0503"
-				}
-			})
-			window.refreshList = this.refreshList;
-		},
-		methods: {
-			onclickLeft() {
-				Interaction.closePage();
-			},
-			onclickRight() {
-				if (isIOS) {
-					window.webkit.messageHandlers.lstNative.postMessage({
-						method: "LSTH5APP_GoToMyClub",
-					});
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                id: null, //课程id
+                error: false,
+                pageNum: 1,
+                pageSize: 10,
+                total: 0,
+                refreshing: false,
+                finished: false,
+                loading: false,
+                list: [],
+                searchValue: "",
+                oldStr: ""
+            };
+        },
+        filters: {
+            strEllipsis: (str) => {
+                if (str && str.length > 8) {
+                    return str.slice(0, 8) + '...';
+                } else {
+                    return str;
+                }
+            }
+        },
+        created() {
+            this.getClubList();
+        },
+        mounted() {
+            ajax({
+                type: "post",
+                url: "integral/add/integral",
+                data: {
+                    actionType: "0503"
+                }
+            })
+            window.refreshList = this.refreshList;
+        },
+        methods: {
+            onclickLeft() {
+                Interaction.closePage();
+            },
+            onclickRight() {
+                if (isIOS) {
+                    window.webkit.messageHandlers.lstNative.postMessage({
+                        method: "LSTH5APP_GoToMyClub",
+                    });
 
-				} else if (isAndroid) {
-					window.android.LSTH5APP_GoToMyClub()
-				}
-			},
-			//获取俱乐部列表
-			getClubList() {
-				var that = this;
-				var nowPageNum = that.pageNum;
-				if (nowPageNum > 1) {
-					if ((nowPageNum - 1) > (that.total / that.pageSize)) {
-						that.finished = true;
-						this.loading = false;
-						return
-					}
-				}
-				ajax({
-					url: "club/clubList",
-					data: {
-						page: that.pageNum,
-						pageSize: that.pageSize,
-						uid: getQueryString('userId') || JSON.parse(localStorage.getItem("appInfo"))
-							.userId,
-					}
-				}).then(res => {
-					if (res.code == 0) {
-						that.total = res.data.totalNum;
-						if ((nowPageNum - 1) > (res.data.totalNum / that.pageSize)) {
-							that.finished = true;
-						} else if (nowPageNum == 1) {
-							that.list = res.data.clubList
-						} else {
-							that.list = that.list.concat(res.data.clubList);
-						}
-						that.loading = false;
-						setTimeout(() => {
-							that.refreshing = false;
-						}, 500);
-					} else {
-						that.finished = true;
-						that.loading = false;
-						that.$toast(res.msg)
-					}
-				})
-			},
-			onRefresh() {
-				this.finished = false;
-				this.loading = true;
-				this.onLoad();
-			},
-			onLoad() {
-				if (this.refreshing) {
-					this.pageNum = 1;
-				} else {
-					this.pageNum++;
-				}
-				this.getClubList()
-			},
-			//创建俱乐部
-			goAddClub() {
-				var that = this;
-				if (!JSON.parse(localStorage.getItem("appInfo")).phoneNumber) {
-					that.$dialog.confirm({
-						message: '使用本功能，请先绑定手机号',
-						confirmButtonText: "确定",
-						confirmButtonColor: "#007AFF",
-						width: "300",
-						cancelButtonColor: "#FF453A"
-					}).then(() => {
-						if (isIOS) {
-							window.webkit.messageHandlers.lstNative.postMessage({
-								"method": "bindPhoneNumber",
-							});
-						} else if (isAndroid) {
-							window.android.bindPhoneNumber()
-						}
-						localStorage.removeItem("appInfo")
-					}).catch(() => {});
-				} else {
-					window.location.href=`../club/createClub.html`
-				}
-			},
-			//点击进入俱乐部
-			clickItem(item) {
-				localStorage.removeItem("clubTab")
+                } else if (isAndroid) {
+                    window.android.LSTH5APP_GoToMyClub()
+                }
+            },
+            //获取俱乐部列表
+            getClubList() {
+                var that = this;
+                var nowPageNum = that.pageNum;
+                if (nowPageNum > 1) {
+                    if ((nowPageNum - 1) > (that.total / that.pageSize)) {
+                        that.finished = true;
+                        this.loading = false;
+                        return
+                    }
+                }
+                ajax({
+                    url: "club/clubList",
+                    data: {
+                        page: that.pageNum,
+                        pageSize: that.pageSize,
+                        uid: getQueryString('userId') || JSON.parse(localStorage.getItem("appInfo"))
+                            .userId,
+                    }
+                }).then(res => {
+                    if (res.code == 0) {
+                        that.total = res.data.totalNum;
+                        if ((nowPageNum - 1) > (res.data.totalNum / that.pageSize)) {
+                            that.finished = true;
+                        } else if (nowPageNum == 1) {
+                            that.list = res.data.clubList
+                        } else {
+                            that.list = that.list.concat(res.data.clubList);
+                        }
+                        that.loading = false;
+                        setTimeout(() => {
+                            that.refreshing = false;
+                        }, 500);
+                    } else {
+                        that.finished = true;
+                        that.loading = false;
+                        that.$toast(res.msg)
+                    }
+                })
+            },
+            onRefresh() {
+                this.finished = false;
+                this.loading = true;
+                this.onLoad();
+            },
+            onLoad() {
+                if (this.refreshing) {
+                    this.pageNum = 1;
+                } else {
+                    this.pageNum++;
+                }
+                this.getClubList()
+            },
+            //创建俱乐部
+            goAddClub() {
+                var that = this;
+                if (!JSON.parse(localStorage.getItem("appInfo")).phoneNumber) {
+                    that.$dialog.confirm({
+                        message: '使用本功能，请先绑定手机号',
+                        confirmButtonText: "确定",
+                        confirmButtonColor: "#007AFF",
+                        width: "300",
+                        cancelButtonColor: "#FF453A"
+                    }).then(() => {
+                        if (isIOS) {
+                            window.webkit.messageHandlers.lstNative.postMessage({
+                                "method": "bindPhoneNumber",
+                            });
+                        } else if (isAndroid) {
+                            window.android.bindPhoneNumber()
+                        }
+                        localStorage.removeItem("appInfo")
+                    }).catch(() => {});
+                } else {
+                    window.location.href = `../club/createClub.html`
+                }
+            },
+            //点击进入俱乐部
+            clickItem(item) {
+                localStorage.removeItem("clubTab")
                 localStorage.removeItem("clubObject")
                 localStorage.removeItem("clubHistoryActive")
-				this.oldStr = this.searchValue
-				this.searchValue = ""
-				window.location.href=`clubDetail.html?id=${item.id}&fromH5=1`
-			},
+                this.oldStr = this.searchValue
+                this.searchValue = ""
+                window.location.href = `clubDetail.html?id=${item.id}&fromH5=1`
+            },
 
-			//刷新列表
-			refreshList() {
-				if (this.oldStr) {
-					this.searchValue = this.oldStr
-					this.oldStr = ""
-					this.searchClub(this.searchValue)
-				}
+            //刷新列表
+            refreshList() {
+                if (this.oldStr) {
+                    this.searchValue = this.oldStr
+                    this.oldStr = ""
+                    this.searchClub(this.searchValue)
+                }
 
-			},
-			//搜索
-			searchClub(value) {
-				if (!value) {
-					this.pageNum = 1;
-					this.getClubList()
-					return
-				}
-				ajax({
-					url: "club/clubSearch",
-					data: {
-						page: 1,
-						pageSize: 1000,
-						uid: JSON.parse(localStorage.getItem("appInfo")).userId,
-						key: value
-					}
-				}).then(res => {
-					if (res.code == 0) {
-						this.list = res.data
-					} else {
-						this.finished = true;
-						this.loading = false;
-						this.$toast(res.msg)
-					}
-				})
-			}
-
-
+            },
+            //搜索
+            searchClub(value) {
+                if (!value) {
+                    this.pageNum = 1;
+                    this.getClubList()
+                    return
+                }
+                ajax({
+                    url: "club/clubSearch",
+                    data: {
+                        page: 1,
+                        pageSize: 1000,
+                        uid: JSON.parse(localStorage.getItem("appInfo")).userId,
+                        key: value
+                    }
+                }).then(res => {
+                    if (res.code == 0) {
+                        this.list = res.data
+                    } else {
+                        this.finished = true;
+                        this.loading = false;
+                        this.$toast(res.msg)
+                    }
+                })
+            }
 
 
 
 
-		}
-	})
+
+
+        }
+    })
 </script>
 
 </html>

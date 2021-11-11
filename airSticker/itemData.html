@@ -4,310 +4,307 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport"
-    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
     <link rel="icon" href="data:image/ico;base64,aWNv">
     <title>空气详情</title>
-   
+
     <script src="../common/js/network.js"></script>
     <link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
     <link rel="stylesheet" href="font/iconfont.css">
     <link href="css/itemData.css" rel="stylesheet" type="text/css" />
-</head>
+    <link rel="stylesheet" id="themeCssLink" href="../common/css/default.css">
 
-<body>
-    <div id="app" v-cloak>
-        <div class="header">
-            <van-nav-bar @click-left="onclickLeft" title="空气详情" @click-right="onClickRight" left-arrow safe-area-inset-top fixed>
-                <template #left>
+    <body>
+        <div id="app" v-cloak>
+            <div class="header">
+                <van-nav-bar @click-left="onclickLeft" title="空气详情" @click-right="onClickRight" left-arrow safe-area-inset-top fixed>
+                    <template #left>
                     <span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
                 </template>
-                <template #right>
+                    <template #right>
                     <span class="icon iconfont icon-H10-lishi" style="font-size: 0.48rem;" />
                 </template>
-            </van-nav-bar>
-        </div>
+                </van-nav-bar>
+            </div>
 
-        <div class="main_contaniner" >
-            <div class="flexDiv">
-                <!-- 空气等级,数据,时间 -->
-                <div class="circle-bar">
-                    <div class="sector"></div>
-                    <!-- 数据 -->
-                    <div class="infodata">
-                        <p class="time" id="time">{{timestampTodate(detail.sampleTime)}}</p>
-                        <p class="bloddata" id='airData'>{{ (detail.airQuality).toFixed(2) }}</p>
-                        <span class="unit">PPM</span>
+            <div class="main_contaniner">
+                <div class="flexDiv">
+                    <!-- 空气等级,数据,时间 -->
+                    <div class="circle-bar">
+                        <div class="sector"></div>
+                        <!-- 数据 -->
+                        <div class="infodata">
+                            <p class="time" id="time">{{timestampTodate(detail.sampleTime)}}</p>
+                            <p class="bloddata" id='airData'>{{ (detail.airQuality).toFixed(2) }}</p>
+                            <span class="unit">PPM</span>
 
-                    </div>
-                    <p class="leveltxt" :class="selectlevel(detail.airQuality).bgClass">
-                        {{selectlevel(detail.airQuality).txt}}</p>
-                </div>
-
-                <!-- 温度和湿度显示 -->
-                <div class="addDataShow">
-                    <div class="item">
-                        <div class="num"><span class='data' id='temp'>{{Math.round(detail.temperature)}}</span><span
-                                class="unit">°C</span></div>
-                        <div class="name">温度</div>
-                    </div>
-                    <div class="item">
-                        <div class="num"><span class='data' id='humidity'>{{Math.round(detail.humidity)}}</span><span
-                                class="unit">%</span></div>
-                        <div class="name">湿度</div>
-                    </div>
-                </div>
-
-                <div class="PPM_Notes">
-                    <!-- PM等级对比条 -->
-                    <div class="levelbar">
-                        <div class="levelindex">
-                            <div class="levelbg bg-green"></div>
-                            <div class="levelbg bg-Lightblue"></div>
-                            <div class="levelbg bg-orange"></div>
-                            <div class="levelbg bg-purple"></div>
-                            <div class="levelbg bg-red"></div>
                         </div>
-                        <div class="levelindex_p">
-                            <p class="leveldata">0PPM</p>
-                            <p class="leveldata">1PPM</p>
-                            <p class="leveldata">2PPM</p>
-                            <p class="leveldata">5PPM</p>
-                            <p class="leveldata">10PPM</p>
+                        <p class="leveltxt" :class="selectlevel(detail.airQuality).bgClass">
+                            {{selectlevel(detail.airQuality).txt}}</p>
+                    </div>
+
+                    <!-- 温度和湿度显示 -->
+                    <div class="addDataShow">
+                        <div class="item">
+                            <div class="num"><span class='data' id='temp'>{{Math.round(detail.temperature)}}</span><span class="unit">°C</span></div>
+                            <div class="name">温度</div>
+                        </div>
+                        <div class="item">
+                            <div class="num"><span class='data' id='humidity'>{{Math.round(detail.humidity)}}</span><span class="unit">%</span></div>
+                            <div class="name">湿度</div>
                         </div>
                     </div>
 
-                    <div class="levelnotes">
-                        <div class="notesItem">
-                            <p><span class="level-margin">优</span>0～1PPM</p>
-                            <p><span class="level-margin">较差</span>5～10PPM</p>
+                    <div class="PPM_Notes">
+                        <!-- PM等级对比条 -->
+                        <div class="levelbar">
+                            <div class="levelindex">
+                                <div class="levelbg bg-green"></div>
+                                <div class="levelbg bg-Lightblue"></div>
+                                <div class="levelbg bg-orange"></div>
+                                <div class="levelbg bg-purple"></div>
+                                <div class="levelbg bg-red"></div>
+                            </div>
+                            <div class="levelindex_p">
+                                <p class="leveldata">0PPM</p>
+                                <p class="leveldata">1PPM</p>
+                                <p class="leveldata">2PPM</p>
+                                <p class="leveldata">5PPM</p>
+                                <p class="leveldata">10PPM</p>
+                            </div>
                         </div>
-                        <div class="notesItem">
-                            <p><span class="level-margin">良</span>1～2PPM</p>
-                            <p><span class="level-margin">差</span><span class="ppm_left">>10PPM</p>
+
+                        <div class="levelnotes">
+                            <div class="notesItem">
+                                <p><span class="level-margin">优</span>0～1PPM</p>
+                                <p><span class="level-margin">较差</span>5～10PPM</p>
+                            </div>
+                            <div class="notesItem">
+                                <p><span class="level-margin">良</span>1～2PPM</p>
+                                <p><span class="level-margin">差</span><span class="ppm_left">>10PPM</p>
                         </div>
                         <div class="notesItem">
                             <p><span class="level-margin">中</span>2～5PPM</p>
+                            </div>
                         </div>
                     </div>
                 </div>
+
             </div>
-
         </div>
-    </div>
-</body>
-<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
-<script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
-<script>
-    new Vue({
-        el: '#app',
-        data() {
-            return {
-                paramsid: getQueryString('dataId'),
-                detail: {
-                    airQuality: 0,
-                    batteryPer: "",
-                    humidity: 0,
-                    macAddress: "",
-                    sampleTime: "",
-                    temperature: ""
-                }
-            }
-        },
-        filters: {},
-        mounted() {},
-        created() {
-            this.initData()
-        },
-        methods: {
-            initData() {
-                ajax({
-                    type: "post",
-                    url: "airSticker/get/id",
-                    data: {
-                        id: this.paramsid
+    </body>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    paramsid: getQueryString('dataId'),
+                    detail: {
+                        airQuality: 0,
+                        batteryPer: "",
+                        humidity: 0,
+                        macAddress: "",
+                        sampleTime: "",
+                        temperature: ""
                     }
-                }).then(res => {
-                    if (res.code == 0) {
-                        this.detail = res.data
-                        var airQuality = res.data.airQuality
-                        var circle_bar = document.querySelector('.circle-bar')
-                        var rotate = 30;
-                        if (airQuality >= 0 && airQuality <= 2) {
-                            // 显示范围： 30--180
-                            if (airQuality < 0.1 && airQuality > 0) {
-                                rotate = 0.1 * 75 + 30;
-                            } else {
-                                rotate = airQuality * 75 + 30;
-                            }
-                        } else if (airQuality > 2 && airQuality <= 5) {
-                            // 显示范围： 180--230
-                            rotate = (airQuality - 2) * (50 / 3) + 180
-                        } else if (airQuality > 5 && airQuality < 40) {
-                            // 显示范围： 230--330
-                            rotate = (airQuality - 5) * (100 / 35) + 230
-                        } else if (airQuality >= 40) {
-                            rotate = 330
+                }
+            },
+            filters: {},
+            mounted() {},
+            created() {
+                this.initData()
+            },
+            methods: {
+                initData() {
+                    ajax({
+                        type: "post",
+                        url: "airSticker/get/id",
+                        data: {
+                            id: this.paramsid
                         }
-                        try {
-                            var styleSheets = document.styleSheets[0]
-                            if (styleSheets.insertRule) {
-                                styleSheets.insertRule('.circle-bar:after',
-                                    'transform: rotate(' + rotate +
-                                    'deg) translate(0, 1.58rem);', 0);
-                            } else {
-                                styleSheets.addRule('.circle-bar:after', 'transform: rotate(' +
+                    }).then(res => {
+                        if (res.code == 0) {
+                            this.detail = res.data
+                            var airQuality = res.data.airQuality
+                            var circle_bar = document.querySelector('.circle-bar')
+                            var rotate = 30;
+                            if (airQuality >= 0 && airQuality <= 2) {
+                                // 显示范围： 30--180
+                                if (airQuality < 0.1 && airQuality > 0) {
+                                    rotate = 0.1 * 75 + 30;
+                                } else {
+                                    rotate = airQuality * 75 + 30;
+                                }
+                            } else if (airQuality > 2 && airQuality <= 5) {
+                                // 显示范围： 180--230
+                                rotate = (airQuality - 2) * (50 / 3) + 180
+                            } else if (airQuality > 5 && airQuality < 40) {
+                                // 显示范围： 230--330
+                                rotate = (airQuality - 5) * (100 / 35) + 230
+                            } else if (airQuality >= 40) {
+                                rotate = 330
+                            }
+                            try {
+                                var styleSheets = document.styleSheets[0]
+                                if (styleSheets.insertRule) {
+                                    styleSheets.insertRule('.circle-bar:after',
+                                        'transform: rotate(' + rotate +
+                                        'deg) translate(0, 1.58rem);', 0);
+                                } else {
+                                    styleSheets.addRule('.circle-bar:after', 'transform: rotate(' +
+                                        rotate +
+                                        'deg) translate(0, 1.58rem);', 0);
+                                }
+                            } catch (e) {
+                                console.log(e)
+                            }
+
+
+                            var styleStr = ""
+                            if (airQuality > 0 & airQuality <= 2) {
+                                rotate = rotate - 90
+                                styleStr =
+                                    'linear-gradient(-60deg, #4FC4F7 50%, transparent 50%, transparent), linear-gradient(' +
                                     rotate +
-                                    'deg) translate(0, 1.58rem);', 0);
+                                    'deg, #fff 50%, #4FC4F7 50%, #4FC4F7)'
                             }
-                        } catch (e) {
-                            console.log(e)
+                            if (airQuality > 2 && airQuality <= 40) {
+                                rotate = rotate - 90
+                                styleStr =
+                                    'linear-gradient(90deg, #fff 50%, transparent 50%, transparent), linear-gradient(' +
+                                    rotate +
+                                    'deg, #fff 50%, #4FC4F7 50%, #4FC4F7)'
+                            }
+                            if (airQuality > 40) {
+                                styleStr =
+                                    'linear-gradient(90deg, #fff 50%, transparent 50%, transparent), linear-gradient(240deg, #fff 50%, #4FC4F7 50%, #4FC4F7)'
+
+                            }
+                            circle_bar.style.background = styleStr
                         }
+                    })
+                },
 
 
-                        var styleStr = ""
-                        if (airQuality > 0 & airQuality <= 2) {
-                            rotate = rotate - 90
-                            styleStr =
-                                'linear-gradient(-60deg, #4FC4F7 50%, transparent 50%, transparent), linear-gradient(' +
-                                rotate +
-                                'deg, #fff 50%, #4FC4F7 50%, #4FC4F7)'
-                        }
-                        if (airQuality > 2 && airQuality <= 40) {
-                            rotate = rotate - 90
-                            styleStr =
-                                'linear-gradient(90deg, #fff 50%, transparent 50%, transparent), linear-gradient(' +
-                                rotate +
-                                'deg, #fff 50%, #4FC4F7 50%, #4FC4F7)'
-                        }
-                        if (airQuality > 40) {
-                            styleStr =
-                                'linear-gradient(90deg, #fff 50%, transparent 50%, transparent), linear-gradient(240deg, #fff 50%, #4FC4F7 50%, #4FC4F7)'
-
-                        }
-                        circle_bar.style.background = styleStr
+                onclickLeft() {
+                    if (getQueryString("fromh5")) {
+                        window.history.back(-1)
+                    } else {
+                        Interaction.closePage();
                     }
-                })
-            },
 
+                },
+                onClickRight() {
+                    window.location.href = `historyList.html?fromh5=1&macAddress=${this.detail.macAddress}`
+                },
 
-            onclickLeft() {
-                if(getQueryString("fromh5")){
-                    window.history.back(-1)
-                }else{
-                  Interaction.closePage();  
-                }
-                
-            },
-            onClickRight(){
-                window.location.href=`historyList.html?fromh5=1&macAddress=${this.detail.macAddress}`
-            },
+                dateFormat(date, format) {
+                    if (date) {
+                        date = new Date(date.replace(/-/g, "/"));
 
-            dateFormat(date, format) {
-                if (date) {
-                    date = new Date(date.replace(/-/g, "/"));
+                        var year = date.getFullYear();
+                        var day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
+                        var month = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1;
 
-                    var year = date.getFullYear();
-                    var day = date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
-                    var month = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1;
+                        var minutes = (Array(2).join(0) + date.getMinutes()).slice(-2);
+                        var hours = (Array(2).join(0) + date.getHours()).slice(-2);
+                        var secondes = (Array(2).join(0) + date.getSeconds()).slice(-2);
 
-                    var minutes = (Array(2).join(0) + date.getMinutes()).slice(-2);
-                    var hours = (Array(2).join(0) + date.getHours()).slice(-2);
-                    var secondes = (Array(2).join(0) + date.getSeconds()).slice(-2);
+                        var arrMonthChinese = ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二']
+                        var monthChinese = arrMonthChinese[date.getMonth()]
 
-                    var arrMonthChinese = ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二']
-                    var monthChinese = arrMonthChinese[date.getMonth()]
-
-                    switch (format) {
-                        case 'year':
-                            return year + '年';
-                            // break;
-                        case 'month':
-                            return monthChinese + '月';
-                        case 'year_month':
-                            return year + '-' + month;
-                        case 'yyyy-MM-dd':
-                            return year + '-' + month + '-' + day;
-                        case 'h_m_s':
-                            return {
-                                hours: hours,
+                        switch (format) {
+                            case 'year':
+                                return year + '年';
+                                // break;
+                            case 'month':
+                                return monthChinese + '月';
+                            case 'year_month':
+                                return year + '-' + month;
+                            case 'yyyy-MM-dd':
+                                return year + '-' + month + '-' + day;
+                            case 'h_m_s':
+                                return {
+                                    hours: hours,
                                     minutes: minutes,
                                     secondes: secondes
-                            };
-                        case 'month_day':
-                            return month + '月' + day + '日';
-                        case 'HH:mm':
-                            return hours + ':' + minutes;
-                        case 'MM/DD HH:mm':
-                            return month + '/' + day + ' ' + hours + ':' + minutes;
-                        case '/':
-                            return year + '/' + month + '/' + day + ' ' + hours + ':' + minutes;
-                        default:
-                            return year + '年' + month + '月' + day + '日' + ' ' + hours + ':' + minutes;
+                                };
+                            case 'month_day':
+                                return month + '月' + day + '日';
+                            case 'HH:mm':
+                                return hours + ':' + minutes;
+                            case 'MM/DD HH:mm':
+                                return month + '/' + day + ' ' + hours + ':' + minutes;
+                            case '/':
+                                return year + '/' + month + '/' + day + ' ' + hours + ':' + minutes;
+                            default:
+                                return year + '年' + month + '月' + day + '日' + ' ' + hours + ':' + minutes;
+                        }
                     }
-                }
-            },
-            timestampTodate(date) {
-                if (date) {
-                    var newdate = new Date(date)
+                },
+                timestampTodate(date) {
+                    if (date) {
+                        var newdate = new Date(date)
 
-                    var year = newdate.getFullYear();
-                    var day = newdate.getDate() < 10 ? '0' + newdate.getDate() : newdate.getDate();
-                    var month = newdate.getMonth() + 1 < 10 ? '0' + (newdate.getMonth() + 1) : newdate
-                        .getMonth() + 1;
+                        var year = newdate.getFullYear();
+                        var day = newdate.getDate() < 10 ? '0' + newdate.getDate() : newdate.getDate();
+                        var month = newdate.getMonth() + 1 < 10 ? '0' + (newdate.getMonth() + 1) : newdate
+                            .getMonth() + 1;
 
-                    var minutes = (Array(2).join(0) + newdate.getMinutes()).slice(-2);
-                    var hours = (Array(2).join(0) + newdate.getHours()).slice(-2);
-                    var secondes = (Array(2).join(0) + newdate.getSeconds()).slice(-2);
+                        var minutes = (Array(2).join(0) + newdate.getMinutes()).slice(-2);
+                        var hours = (Array(2).join(0) + newdate.getHours()).slice(-2);
+                        var secondes = (Array(2).join(0) + newdate.getSeconds()).slice(-2);
 
-                    // return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + secondes;
-                    return month + '-' + day + ' ' + hours + ':' + minutes;
+                        // return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + secondes;
+                        return month + '-' + day + ' ' + hours + ':' + minutes;
+                    }
+                },
+                selectlevel(data) {
+                    //空气质量等级：  优： 0-1， 良：1-2，中: 2-5, 较差: 5-10, 差： 10-正无穷大
+                    var level = {
+                        txt: '',
+                        bgClass: '',
+                        imgurl: '',
+                        txtcolor: '',
+                        leveldes: ''
+                    }
+                    if (data >= 0 && data <= 1) {
+                        return level = {
+                            txt: '优',
+                            bgClass: 'bg-green'
+                        }
+                    } else if (data > 1 && data <= 2) {
+                        return level = {
+                            txt: '良',
+                            bgClass: 'bg-Lightblue'
+                        }
+                    } else if (data > 2 && data <= 5) {
+                        return level = {
+                            txt: '中',
+                            bgClass: 'bg-orange'
+                        }
+                    } else if (data > 5 && data <= 10) {
+                        return level = {
+                            txt: '较差',
+                            bgClass: 'bg-purple'
+                        }
+                    } else if (data > 10) {
+                        return level = {
+                            txt: '差',
+                            bgClass: 'bg-red'
+                        }
+                    } else {
+                        return level = {
+                            txt: '--',
+                            bgClass: 'bg-gray'
+                        }
+                    }
                 }
-            },
-            selectlevel(data) {
-                //空气质量等级：  优： 0-1， 良：1-2，中: 2-5, 较差: 5-10, 差： 10-正无穷大
-                var level = {
-                    txt: '',
-                    bgClass: '',
-                    imgurl: '',
-                    txtcolor: '',
-                    leveldes: ''
-                }
-                if (data >= 0 && data <= 1) {
-                    return level = {
-                        txt: '优',
-                        bgClass: 'bg-green'
-                    }
-                } else if (data > 1 && data <= 2) {
-                    return level = {
-                        txt: '良',
-                        bgClass: 'bg-Lightblue'
-                    }
-                } else if (data > 2 && data <= 5) {
-                    return level = {
-                        txt: '中',
-                        bgClass: 'bg-orange'
-                    }
-                } else if (data > 5 && data <= 10) {
-                    return level = {
-                        txt: '较差',
-                        bgClass: 'bg-purple'
-                    }
-                } else if (data > 10) {
-                    return level = {
-                        txt: '差',
-                        bgClass: 'bg-red'
-                    }
-                } else {
-                    return level = {
-                        txt: '--',
-                        bgClass: 'bg-gray'
-                    }
-                }
+
             }
-
-        }
-    })
-</script>
+        })
+    </script>
 
 </html>

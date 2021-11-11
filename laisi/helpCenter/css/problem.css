@@ -4,7 +4,7 @@
 }
 
 .container {
-    background-color: #1e1e2a;
+    background-color: var(--borderColor);
     border-radius: 0.24rem;
 }
 
@@ -32,21 +32,19 @@
 }
 
 .answer .borderbtm {
-    border-bottom: .02rem solid #12121f;
+    border-bottom: .02rem solid var(--bgColor);
 }
 
 .answer .titleBox {
     margin-left: 0.6rem;
     font-size: 0.28rem;
-    color: #BFBFC2;
+    color: var(--textColor);
     line-height: 0.5rem;
-
 }
 
 .answer .infoBox {
     margin-left: 0.6rem;
     font-size: 0.24rem;
-    color: #cfcfd2;
+    color: var(--textColor);
     line-height: 0.4rem;
-
 }

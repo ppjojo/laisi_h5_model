@@ -1,11 +1,11 @@
 * {
     margin: 0;
     padding: 0;
-    color: #cfcfd2;
+    color: var(--textColor);
 }
 
 body {
-    background-color: #12121F;
+    background-color: var(--bgColor);
 }
 
 //头部的logo 按钮
@@ -14,7 +14,7 @@ body {
     width: 100%;
     top: 0em;
     z-index: 99;
-    background-color: #12121F;
+    background-color: var(--bgColor);
     height: 1.32rem;
     padding: 0.2rem 0.4rem;
     box-sizing: border-box;
@@ -34,7 +34,7 @@ body {
             }
             .appD {
                 font-size: 0.24rem;
-                color: #71717f;
+                color: var(--textColor2);
                 line-height: 0.42rem;
             }
         }
@@ -168,7 +168,7 @@ body {
 
 //动态展示部分
 .dynamicBox {
-    background-color: #12121f;
+    background-color: var(--bgColor);
     min-height: 5rem;
     position: relative;
     top: -0.6rem;
@@ -274,7 +274,7 @@ body {
                 div {
                     width: 1.6rem;
                     font-size: 0.28rem;
-                    color: #71717f;
+                    color: var(--textColor2);
                     img {
                         width: 0.28rem;
                         height: 0.26rem;
@@ -312,10 +312,9 @@ body {
         padding-top: 1.5rem;
         .noData-img {
             width: 4rem;
-            height: 2.7rem;
         }
         .noData-p {
-            color: #b3b8bb;
+            color: var(--textColor);
             font-size: 0.28rem;
         }
     }
@@ -349,13 +348,13 @@ body {
             }
             .time {
                 font-size: 0.2rem;
-                color: #71717f;
+                color: var(--textColor2);
                 line-height: 0.35rem;
                 height: 0.35rem;
             }
             .comment {
                 font-size: 0.28rem;
-                color: #71717f;
+                color: var(--textColor2);
                 line-height: 0.4rem;
                 min-height: 0.4rem;
                 word-break: break-all;
@@ -371,7 +370,7 @@ body {
     height: calc(100vh - 1.32rem);
     border-top-left-radius: 0;
     border-top-right-radius: 0;
-    background-color: #000000;
+    background-color: var(--bgColor);
     display: flex;
     align-items: center;
     .videoimg {

@@ -1,11 +1,11 @@
 * {
   margin: 0;
   padding: 0;
-  color: #cfcfd2;
+  color: var(--textColor);
 }
 
 body {
-  background-color: #12121F;
+  background-color: var(--bgColor);
 }
 
 .header {
@@ -14,7 +14,7 @@ body {
   width: 100%;
   top: 0em;
   z-index: 99;
-  background-color: #12121F;
+  background-color: var(--bgColor);
   height: 1.32rem;
   padding: 0.2rem 0.4rem;
   -webkit-box-sizing: border-box;
@@ -43,7 +43,7 @@ body {
 
 .header .content .appInfo .appD {
   font-size: 0.24rem;
-  color: #71717f;
+  color: var(--textColor2);
   line-height: 0.42rem;
 }
 
@@ -195,7 +195,7 @@ body {
 }
 
 .dynamicBox {
-  background-color: #12121f;
+  background-color: var(--bgColor);
   min-height: 5rem;
   position: relative;
   top: -0.6rem;
@@ -325,7 +325,7 @@ body {
 .dynamicBox .dynamicUl li .statisticsBox div {
   width: 1.6rem;
   font-size: 0.28rem;
-  color: #71717f;
+  color: var(--textColor2);
 }
 
 .dynamicBox .dynamicUl li .statisticsBox div img {
@@ -366,11 +366,10 @@ body {
 
 .dynamicBox .noData-box .noData-img {
   width: 4rem;
-  height: 2.7rem;
 }
 
 .dynamicBox .noData-box .noData-p {
-  color: #b3b8bb;
+  color: var(--textColor);
   font-size: 0.28rem;
 }
 
@@ -411,14 +410,14 @@ body {
 
 #commentUl li .detail .time {
   font-size: 0.2rem;
-  color: #71717f;
+  color: var(--textColor2);
   line-height: 0.35rem;
   height: 0.35rem;
 }
 
 #commentUl li .detail .comment {
   font-size: 0.28rem;
-  color: #71717f;
+  color: var(--textColor2);
   line-height: 0.4rem;
   min-height: 0.4rem;
   word-break: break-all;
@@ -431,7 +430,7 @@ body {
   height: calc(100vh - 1.32rem);
   border-top-left-radius: 0;
   border-top-right-radius: 0;
-  background-color: #000000;
+  background-color: var(--bgColor);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

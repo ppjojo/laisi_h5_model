@@ -10,8 +10,8 @@
 }
 
 body {
-  background-color: #12121f;
-  color: #cfcfd2;
+  background-color: var(--bgColor);
+  color: var(--textColor);
   font-size: 0.24rem;
 }
 
@@ -118,7 +118,7 @@ body {
 }
 
 .contain .basicContain .basicBox {
-  background-color: #1e1e2a;
+  background-color: var(--borderColor);
   width: 100%;
   padding: 0.4rem;
   border-radius: 0.24rem;
@@ -223,14 +223,14 @@ body {
 }
 
 .contain .shareBox .item .info {
-  color: #71717f;
+  color: var(--textColor2);
   font-size: 0.24rem;
 }
 
 .contain .listContain {
   border-radius: 0.24rem;
   margin-top: 0.24rem;
-  background-color: #1e1e2a;
+  background-color: var(--borderColor);
   padding: 0 0.24rem;
   font-size: 0.28rem;
 }
@@ -246,7 +246,7 @@ body {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  border-bottom: 1px solid #12121f;
+  border-bottom: 1px solid var(--bgColor);
 }
 
 .contain .listContain .itemBox .itemName {
@@ -283,7 +283,7 @@ body {
 .contain .bodyContain {
   border-radius: 0.24rem;
   margin-top: 0.24rem;
-  background-color: #1e1e2a;
+  background-color: var(--borderColor);
   padding: 0.24rem;
   text-align: center;
 }
@@ -406,7 +406,7 @@ body {
 
 .contain .copyright {
   padding: 0.2rem 0.5rem;
-  color: #71717f;
+  color: var(--textColor2);
   text-align: center;
 }
 
@@ -452,7 +452,7 @@ body {
 
 .contain .iconBox .userBox .nameBox .date {
   font-size: 0.24rem;
-  color: #71717f;
+  color: var(--textColor2);
 }
 
 .contain .iconBox .userBox .img2 {
@@ -578,11 +578,11 @@ body {
 }
 
 .itemContain .itemContent .lineBox {
-  background-color: #1e1e2a;
+  background-color: var(--borderColor);
   width: 100%;
   padding: 0.4rem 0.24rem;
   border-radius: 0.24rem;
-  color: #71717f;
+  color: var(--textColor2);
 }
 
 .itemContain .itemContent .lineBox .lineNum {
@@ -685,12 +685,12 @@ body {
 
 .itemContain .itemContent .lineBox .detailInfo {
   line-height: 0.4rem;
-  color: #cfcfd2;
+  color: var(--textColor);
 }
 
 .itemContain .itemContent .imgBox {
   margin-top: 0.24rem;
-  background-color: #1e1e2a;
+  background-color: var(--borderColor);
   width: 100%;
   padding: 0.4rem 0.24rem;
   border-radius: 0.24rem;

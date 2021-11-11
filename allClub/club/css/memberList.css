@@ -1,5 +1,5 @@
 body {
-    background-color: #12121f;
+    background-color: var(--bgColor);
 }
 
 .van-pull-refresh {
@@ -14,7 +14,7 @@ body {
     padding: 0 0.26rem;
     /* border-bottom: 1px solid #f3f3f3; */
     height: 1.28rem;
-    background-color: #12121f;
+    background-color: var(--bgColor);
 }
 
 .createrHeadPic img {
@@ -93,14 +93,18 @@ body {
     font-size: 0.28rem;
 }
 
+
 /* 申请列表的 */
+
 .applyList .van-swipe-cell .van-button {
     height: 100%;
     position: relative;
     top: -0.3rem;
 }
 
+
 /* 选择成员参与任务的按钮回调 */
+
 .creatMatch {
     background-color: #fcab2e;
     color: #fff;

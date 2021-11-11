@@ -1,34 +1,37 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <title>累计消耗</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <link rel="stylesheet" id="themeCssLink" href="../common/css/default.css">
     <link rel="stylesheet" type="text/css" href="index.css">
 </head>
+
 <body>
     <div class="agr-content">
-        
+
         <p>活动消耗：是指活动过程中所消耗的卡路里。今天，您已消耗<span id="otherAllCalory"></span>千卡的活动卡路里。</p>
         <p>基础消耗：是指静止状态时所消耗的卡路里，一整天内呼吸和血液循环所消耗的卡路里相加可得出基础消耗的值。今天，您已消耗<span id="basicCalory"></span>千卡的基础卡路里。</p>
         <p>累计消耗：活动消耗+基础消耗=累计消耗。今天，您累计消耗<span id="allCalory"></span>千卡的卡路里。</p>
     </div>
 </body>
 <script>
-	function getQueryString(name){
-	    var reg = new RegExp("(^|\\?|&)"+ name +"=([^&]*)(&|$)");
-	    var r = window.location.href.substr(1).match(reg);
-	    // console.log('r',window.location.href)
-	    if(r!=null)  return  unescape(r[2]); return null;
-	}
-	var otherAllCalory=getQueryString("otherAllCalory")||0;
-	var basicCalory  =getQueryString("basicCalory")||0;
-	var allCalory  =getQueryString("allCalory")||0;
-	
-	document.getElementById("otherAllCalory").innerHTML=otherAllCalory;
-	document.getElementById("basicCalory").innerHTML=basicCalory;
-	document.getElementById("allCalory").innerHTML=allCalory;
-	
+    function getQueryString(name) {
+        var reg = new RegExp("(^|\\?|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.href.substr(1).match(reg);
+        // console.log('r',window.location.href)
+        if (r != null) return unescape(r[2]);
+        return null;
+    }
+    var otherAllCalory = getQueryString("otherAllCalory") || 0;
+    var basicCalory = getQueryString("basicCalory") || 0;
+    var allCalory = getQueryString("allCalory") || 0;
+
+    document.getElementById("otherAllCalory").innerHTML = otherAllCalory;
+    document.getElementById("basicCalory").innerHTML = basicCalory;
+    document.getElementById("allCalory").innerHTML = allCalory;
 </script>
+
 </html>

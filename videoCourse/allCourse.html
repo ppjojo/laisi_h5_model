@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
     <link rel="stylesheet" href="font/iconfont.css">
     <link rel="stylesheet" href="../common/css/basic.css">
+
+    <link rel="stylesheet" id="themeCssLink" href="../common/css/default.css">
     <link rel="stylesheet" href="css/index.css">
 
 </head>
@@ -46,7 +48,7 @@
             </div>
 
             <div class="contain" style="overflow-y: auto;">
-                <van-pull-refresh v-model="isLoading" :head-height="90" @refresh="initIndexData" class="monkey-pull-refresh">
+                <van-pull-refresh v-model="refreshing" :head-height="90" @refresh="initIndexData" class="monkey-pull-refresh">
                     <template #pulling="props">
                                     <div class="monkeyBox">
                                         <img class="monkey"
@@ -72,33 +74,67 @@
                                         <p>正在刷新</p>
                                     </div>
                                 </template>
-                    <div class="courseBox" v-if="classList.length>0">
-                        <ul>
-                            <li class="courseDiv" v-for="item in
+
+                    <van-list v-model="loading" :finished="finished" @load="onLoad" :immediate-check=false v-if="chooseLength==0" finished-text="已经到底啦~">
+                        <div class="courseBox">
+                            <ul>
+                                <li class="courseDiv" v-for="item in
                                             classList" @click="courseList(item)">
-                                <img v-if="item.classLableList.length>0" :src="'./img/'+item.classLableList[0].classLabel+'.png'" class="iconlabel" alt="">
-                                <div class="cover" :style="{'backgroundImage':'url('+item.classCover+')'}">
-                                </div>
-                                <div class="content">
-                                    <div>
-                                        <p class="stitle">{{item.className}}</p>
-                                        <p class="detail">
-                                            {{Math.round(item.classDuration/60)}}分钟 · {{item.calory}}千卡 · {{item.classLevelName}}
-                                        </p>
+                                    <img v-if="item.classLableList.length>0" :src="'./img/'+item.classLableList[0].classLabel+'.png'" class="iconlabel" alt="">
+                                    <div class="cover" :style="{'backgroundImage':'url('+item.classCover+')'}">
                                     </div>
-                                    <div class="progress">
-                                        {{item.sumExercise||0}}人练过
+                                    <div class="content">
+                                        <div>
+                                            <p class="stitle">{{item.className}}</p>
+                                            <p class="detail">
+                                                {{Math.round(item.classDuration/60)}}分钟 · {{item.calory}}千卡 · {{item.classLevelName}}
+                                            </p>
+                                        </div>
+                                        <div class="progress">
+                                            {{item.sumExercise||0}}人练过
+                                        </div>
                                     </div>
-                                </div>
 
-                            </li>
-                        </ul>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- <div class="noData-box" style="padding-top: 0;" v-else-if="!refreshing">
+                            <img class="noData-img" src="../common/img/noData.png" />
+                            <p class="noData-p">暂无符合条件的训练课程，换个条件试试吧~</p>
+                        </div> -->
+                    </van-list>
+                    <div v-else>
+                        <div class="courseBox" v-if="classList.length>0">
+                            <ul>
+                                <li class="courseDiv" v-for="item in
+                                            classList" @click="courseList(item)">
+                                    <img v-if="item.classLableList.length>0" :src="'./img/'+item.classLableList[0].classLabel+'.png'" class="iconlabel" alt="">
+                                    <div class="cover" :style="{'backgroundImage':'url('+item.classCover+')'}">
+                                    </div>
+                                    <div class="content">
+                                        <div>
+                                            <p class="stitle">{{item.className}}</p>
+                                            <p class="detail">
+                                                {{Math.round(item.classDuration/60)}}分钟 · {{item.calory}}千卡 · {{item.classLevelName}}
+                                            </p>
+                                        </div>
+                                        <div class="progress">
+                                            {{item.sumExercise||0}}人练过
+                                        </div>
+                                    </div>
+
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="noData-box" style="padding-top: 0;" v-else-if="!refreshing">
+                            <img class="noData-img" src="../common/img/noData.png" />
+                            <p class="noData-p">暂无符合条件的训练课程，换个条件试试吧~</p>
+                        </div>
                     </div>
 
-                    <div class="noData-box" style="padding-top: 0;" v-else-if="!isLoading">
-                        <img class="noData-img" src="../common/img/noData.png" />
-                        <p class="noData-p">暂无符合条件的训练课程，换个条件试试吧~</p>
-                    </div>
+
                 </van-pull-refresh>
             </div>
         </div>
@@ -116,12 +152,16 @@
         el: '#app',
         data() {
             return {
-                isLoading: true,
+                refreshing: true,
                 laberList: [],
                 userId: "",
                 classList: [],
                 chooseLength: 0,
                 classifyName: getQueryString("classifyName") || "",
+                offset: 0,
+                loading: false,
+                finished: false,
+
 
             }
         },
@@ -137,11 +177,24 @@
             this.getLaberList()
         },
         methods: {
+            onLoad() {
+
+                if (this.chooseLength == 0) {
+                    this.loading = true;
+                    this.offset++;
+                    this.getNormalClass()
+                } else {
+                    this.getClassByConditions()
+                }
+            },
             onclickLeft() {
                 Interaction.closePage();
             },
             initIndexData() {
                 if (this.chooseLength == 0) {
+                    this.offset = 0
+                    this.loading = true;
+                    this.finished = false;
                     this.getNormalClass()
                 } else {
                     this.getClassByConditions()
@@ -183,11 +236,25 @@
             getNormalClass() {
                 ajax({
                     url: "community/threeUserCollect/see/all/bigClass/orderBy",
+                    data: {
+                        offset: this.offset,
+                        limit: 10
+                    }
                 }).then(res => {
-                    this.classList = res.data;
-                    setTimeout(() => {
-                        this.isLoading = false;
-                    }, 300);
+
+                    if (res.data.resultList.length == 0) {
+                        this.finished = true
+                        return
+                    }
+                    if (this.offset == 0) {
+                        this.classList = []
+                        this.classList = res.data.resultList
+                    } else {
+                        this.classList = this.classList.concat(res.data.resultList);
+
+                    }
+                    this.refreshing = false;
+                    this.loading = false;
                 }).catch((err) => {
                     console.log(e)
                 })
@@ -205,7 +272,7 @@
                         this.classList = [];
                     }
                     setTimeout(() => {
-                        this.isLoading = false;
+                        this.refreshing = false;
                     }, 300);
                 }).catch((err) => {
                     console.log(err)

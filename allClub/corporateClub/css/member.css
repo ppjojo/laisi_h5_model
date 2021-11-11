@@ -1,7 +1,7 @@
 .ul_class {}
 
 .van-search {
-    background-color: #12121f;
+    background-color: var(--bgColor);
 }
 
 .van-search__content {
@@ -10,7 +10,7 @@
 
 .van-cell,
 .van-collapse-item__content {
-    background-color: #12121f;
+    background-color: var(--bgColor);
     color: #cfcfd2;
 }
 
@@ -88,7 +88,7 @@
 }
 
 .van-popover__action {
-    border-bottom: .02rem solid #12121f;
+    border-bottom: .02rem solid var(--bgColor);
 }
 
 .van-popover--dark .van-popover__content {

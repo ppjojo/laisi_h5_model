@@ -1,330 +1,324 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
-		<title>升级攻略</title>
-		<link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
-		<link rel="stylesheet" href="../common/css/basic.css">
-		<link rel="stylesheet" href="css/pointsLottery.css">
-		<link rel="stylesheet" href="css/font/iconfont.css">
-		<style type="text/css">
-			* {
-				padding: 0;
-				margin: 0;
-			}
 
-			body {
-			}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+    <title>升级攻略</title>
+    <link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
+    <link rel="stylesheet" href="../common/css/basic.css">
+    <link rel="stylesheet" href="css/font/iconfont.css">
+    <link rel="stylesheet" id="themeCssLink" href="../common/css/default.css">
+    <link rel="stylesheet" href="css/pointsLottery.css">
+    <style type="text/css">
+        .bg {
+            height: 87rem;
+            padding-bottom: .4rem;
+        }
+        
+        .bg .bgpic {
+            width: 100%;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            z-index: -1;
+        }
+        
+        .tableBox {
+            margin: .4rem 0.3rem;
+            background: var(--borderColor);
+            border-radius: 8px;
+            width: calc(100% - 0.6rem);
+            box-sizing: border-box;
+            z-index: 90;
+        }
+        /* 成长值奖励列表 */
+        
+        .rewardValueList {
+            margin: 0.3rem;
+            padding-bottom: .3rem;
+            border-radius: 4px;
+        }
+        
+        .rewardValueList .item:nth-child(2n+1) {
+            background-color: #22222f;
+        }
+        
+        .rewardValueList .item:nth-child(2n) {
+            background-color: #272734;
+        }
+        
+        .rewardValueList .item {
+            min-height: 0.8rem;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.24rem;
+            color: var(--textColor2)
+        }
+        
+        .rewardValueList .title {
+            font-size: 0.28rem;
+            color: var(--textColor);
+        }
+        
+        .item div.action {
+            width: 40%;
+            min-height: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .item div.value {
+            width: 20%;
+            min-height: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .item div.desc {
+            width: 40%;
+            min-height: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .tableBox img {
+            margin: .3rem 0 0 .3rem;
+            height: .72rem;
+            width: auto;
+        }
+        
+        .rewardValueList .txt {
+            font-size: .28rem;
+            color: var(--textColor);
+        }
+    </style>
+</head>
 
-			.bg {
-				height: 87rem;
-				padding-bottom: .4rem;
-			}
-
-			.bg .bgpic {
-				width: 100%;
-				height: 100vh;
-				position: fixed;
-				top: 0;
-				z-index: -1;
-			}
-			.tableBox {
-				margin: .4rem 0.3rem;
-				background: #1e1e2a;
-				border-radius: 8px;
-				width: calc(100% - 0.6rem);
-				box-sizing: border-box;
-				z-index: 90;
-			}
-
-			/* 成长值奖励列表 */
-			.rewardValueList {
-				margin: 0.3rem;
-				padding-bottom: .3rem;
-				border-radius: 4px;
-			}
-
-			.rewardValueList .item:nth-child(2n+1) {
-				background-color: #22222f;
-			}
-
-			.rewardValueList .item:nth-child(2n) {
-				background-color: #272734;
-			}
-
-			.rewardValueList .item {
-				min-height: 0.8rem;
-				text-align: center;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				font-size: 0.24rem;
-				color: #71717f;
-			}
-
-			.rewardValueList .title {
-				font-size: 0.28rem;
-				color: #cfcfd2;
-				background-color: rgba(232, 244, 252);
-			}
-
-			.item div.action {
-				width: 40%;
-				min-height: 0.8rem;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-			}
-
-			.item div.value {
-				width: 20%;
-				min-height: 0.8rem;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-			}
-
-			.item div.desc {
-				width: 40%;
-				min-height: 0.8rem;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-			}
-
-			.tableBox img {
-				margin: .3rem 0 0 .3rem;
-				height: .72rem;
-				width: auto;
-			}
-
-			.rewardValueList .txt {
-				font-size: .28rem;
-				color: #CFCFD2;
-			}
-		</style>
-	</head>
-
-	<body>
-		<div id="app" v-cloak>
-			<div class="header">
-				<van-nav-bar title="逗币攻略" @click-left="OnclickLeft" @click-right="onClickRight" left-arrow>
-					<template #left>
+<body>
+    <div id="app" v-cloak>
+        <div class="header">
+            <van-nav-bar title="逗币攻略" @click-left="OnclickLeft" @click-right="onClickRight" safe-area-inset-top fixed>
+                <template #left>
 						<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
 					</template>
-					<template #right>
+                <template #right>
 					</template>
-				</van-nav-bar>
-			</div>
-			<div class="bg" style="font-size: 0;">
+            </van-nav-bar>
+        </div>
+        <div class="bg" style="font-size: 0;">
 
-				<!-- <img class="bgpic" src="img/scorebg.png"> -->
-				<div class="tableBox">
-					<img src="img/xyhfuli_s.png" alt="">
-					<div class="rewardValueList">
-						<div class="txt">
-							连续做逗币任务大于等于3天，即可获得包邮到家备用绳一根。
-						</div>
-					</div>
-				</div>
-				<div class="tableBox">
-					<img src="img/qddk_s.png" alt="">
-					<div class="rewardValueList">
-						<div class="txt">
-							签到首日可领1逗币，连续签到每日可递增1个逗币，连续签到每日可领取逗币上限为7个，若签到中断则重新计算，签到的逗币有效期是一天，其他打卡活动领取逗币的有效期为6天(包含领取当天)。
-						</div>
-					</div>
-				</div>
-				<div class="tableBox">
-					<img src="img/birthdaydk_s.png" alt="">
-					<div class="rewardValueList">
-						<div class="txt">
-							每年赠送1次88积分（如果用户在平台赠送积分后更改生日，则在该年内不会再送第2次积分）。
-						</div>
-					</div>
-				</div>
-				<div class="tableBox">
-					<img src="./img/sqdk_s.png">
-					<div class='rewardValueList'>
-						<div class='item title'>
-							<div class='action'>任务</div>
-							<div class='value'>逗币</div>
-							<div class='desc'>上限</div>
-						</div>
-						<div class='item '>
-							<div class='action'>点赞感兴趣的动态</div>
-							<div class='value'>2</div>
-							<div class='desc'>日上限1次</div>
-						</div>
-						<div class='item '>
-							<div class='action'>收藏感兴趣的动态</div>
-							<div class='value'>2</div>
-							<div class='desc'>日上限1次</div>
-						</div>
-						<div class='item '>
-							<div class='action'>评论感兴趣的动态</div>
-							<div class='value'>2</div>
-							<div class='desc'>日上限1次</div>
-						</div>
-						<div class='item '>
-							<div class='action'>分享感兴趣的动态</div>
-							<div class='value'>3</div>
-							<div class='desc'>日上限1次</div>
-						</div>
-						<div class='item '>
-							<div class='action'>发布一条Vlog</div>
-							<div class='value'>3</div>
-							<div class='desc'>日上限1次</div>
-						</div>
-						<div class='item '>
-							<div class='action'>发布一条图片动态</div>
-							<div class='value'>2</div>
-							<div class='desc'>日上限1次</div>
-						</div>
-						<div class='item '>
-							<div class='action'>发布一条视频动态</div>
-							<div class='value'>3</div>
-							<div class='desc'>日上限1次</div>
-						</div>
-						<div class='item '>
-							<div class='action'>发文字动态</div>
-							<div class='value'>3</div>
-							<div class='desc'>日上限1次</div>
-						</div>
-						<div class='item '>
-							<div class='action'>关注一位友人</div>
-							<div class='value'>2</div>
-							<div class='desc'>日上限1次</div>
-						</div>
-					</div>
-				</div>
+            <!-- <img class="bgpic" src="img/scorebg.png"> -->
+            <div class="tableBox">
+                <img src="img/xyhfuli_s.png" alt="">
+                <div class="rewardValueList">
+                    <div class="txt">
+                        连续做逗币任务大于等于3天，即可获得包邮到家备用绳一根。
+                    </div>
+                </div>
+            </div>
+            <div class="tableBox">
+                <img src="img/qddk_s.png" alt="">
+                <div class="rewardValueList">
+                    <div class="txt">
+                        签到首日可领1逗币，连续签到每日可递增1个逗币，连续签到每日可领取逗币上限为7个，若签到中断则重新计算，签到的逗币有效期是一天，其他打卡活动领取逗币的有效期为6天(包含领取当天)。
+                    </div>
+                </div>
+            </div>
+            <div class="tableBox">
+                <img src="img/birthdaydk_s.png" alt="">
+                <div class="rewardValueList">
+                    <div class="txt">
+                        每年赠送1次88积分（如果用户在平台赠送积分后更改生日，则在该年内不会再送第2次积分）。
+                    </div>
+                </div>
+            </div>
+            <div class="tableBox">
+                <img src="./img/sqdk_s.png">
+                <div class='rewardValueList'>
+                    <div class='item title'>
+                        <div class='action'>任务</div>
+                        <div class='value'>逗币</div>
+                        <div class='desc'>上限</div>
+                    </div>
+                    <div class='item '>
+                        <div class='action'>点赞感兴趣的动态</div>
+                        <div class='value'>2</div>
+                        <div class='desc'>日上限1次</div>
+                    </div>
+                    <div class='item '>
+                        <div class='action'>收藏感兴趣的动态</div>
+                        <div class='value'>2</div>
+                        <div class='desc'>日上限1次</div>
+                    </div>
+                    <div class='item '>
+                        <div class='action'>评论感兴趣的动态</div>
+                        <div class='value'>2</div>
+                        <div class='desc'>日上限1次</div>
+                    </div>
+                    <div class='item '>
+                        <div class='action'>分享感兴趣的动态</div>
+                        <div class='value'>3</div>
+                        <div class='desc'>日上限1次</div>
+                    </div>
+                    <div class='item '>
+                        <div class='action'>发布一条Vlog</div>
+                        <div class='value'>3</div>
+                        <div class='desc'>日上限1次</div>
+                    </div>
+                    <div class='item '>
+                        <div class='action'>发布一条图片动态</div>
+                        <div class='value'>2</div>
+                        <div class='desc'>日上限1次</div>
+                    </div>
+                    <div class='item '>
+                        <div class='action'>发布一条视频动态</div>
+                        <div class='value'>3</div>
+                        <div class='desc'>日上限1次</div>
+                    </div>
+                    <div class='item '>
+                        <div class='action'>发文字动态</div>
+                        <div class='value'>3</div>
+                        <div class='desc'>日上限1次</div>
+                    </div>
+                    <div class='item '>
+                        <div class='action'>关注一位友人</div>
+                        <div class='value'>2</div>
+                        <div class='desc'>日上限1次</div>
+                    </div>
+                </div>
+            </div>
 
-				<div class="tableBox">
-					<img src="./img/kcdk_s.png">
-					<div class='rewardValueList'>
-						<div class='item title'>
-							<div class='action'>任务</div>
-							<div class='value'>逗币</div>
-							<div class='desc'>上限</div>
-						</div>
-						<div class='item '>
-							<div class='action'>快去对课程评论一番吧</div>
-							<div class='value'>3</div>
-							<div class='desc'>日上限1次</div>
-						</div>
-						<div class='item '>
-							<div class='action'>快去收藏课程吧</div>
-							<div class='value'>3</div>
-							<div class='desc'>日上限1次</div>
-						</div>
-						<div class='item '>
-							<div class='action'>快去参与课程体验吧</div>
-							<div class='value'>3</div>
-							<div class='desc'>日上限1次</div>
-						</div>
-						<div class='item '>
-							<div class='action'>快去分享课程吧</div>
-							<div class='value'>5</div>
-							<div class='desc'>日上限1次</div>
-						</div>
-						<div class='item '>
-							<div class='action'>快去参与智能训练计划吧</div>
-							<div class='value'>5</div>
-							<div class='desc'>日上限1次</div>
-						</div>
-					</div>
-				</div>
-				<div class="tableBox">
-					<img src="./img/ssdk_s.png">
-					<div class='rewardValueList'>
-						<div class='item title'>
-							<div class='action'>任务</div>
-							<div class='value'>逗币</div>
-							<div class='desc'>上限</div>
-						</div>
-						<div class='item '>
-							<div class='action'>浏览赛事主页</div>
-							<div class='value'>3</div>
-							<div class='desc'>日上限1次</div>
-						</div>
-						<div class='item '>
-							<div class='action'>创建一个新赛事</div>
-							<div class='value'>4</div>
-							<div class='desc'>日上限1次</div>
-						</div>
-						<div class='item '>
-							<div class='action'>参加一个赛事</div>
-							<div class='value'>3</div>
-							<div class='desc'>日上限1次</div>
-						</div>
-						<div class='item '>
-							<div class='action'>分享一个赛事</div>
-							<div class='value'>4</div>
-							<div class='desc'>日上限1次</div>
-						</div>
-					</div>
-				</div>
-				<div class="tableBox">
-					<img src="img/dbgl_s.png" alt="">
-					<div class="rewardValueList">
-						<div class="txt">
-							用户可以通过在商城购买商品获得逗币奖励，每次10逗币，每日最多1次。
-						</div>
-					</div>
-				</div>
-				<div class="tableBox">
-					<img src="./img/clubdk_s.png">
-					<div class='rewardValueList'>
-						<div class='item title'>
-							<div class='action'>任务</div>
-							<div class='value'>逗币</div>
-							<div class='desc'>上限</div>
-						</div>
-						<div class='item '>
-							<div class='action'>创建一个新俱乐部</div>
-							<div class='value'>4</div>
-							<div class='desc'>日上限1次</div>
-						</div>
-						<div class='item '>
-							<div class='action'>参加一个俱乐部</div>
-							<div class='value'>4</div>
-							<div class='desc'>日上限1次</div>
-						</div>
-						<div class='item '>
-							<div class='action'>在俱乐部内运动一次</div>
-							<div class='value'>5</div>
-							<div class='desc'>日上限1次</div>
-						</div>
-						<div class='item '>
-							<div class='action'>完成一次俱乐部任务</div>
-							<div class='value'>5</div>
-							<div class='desc'>日上限1次</div>
-						</div>
-						<div class='item '>
-							<div class='action'>完成一次俱乐部活动</div>
-							<div class='value'>4</div>
-							<div class='desc'>日上限1次</div>
-						</div>
-						<div class='item '>
-							<div class='action'>完成一次俱乐部线上赛</div>
-							<div class='value'>5</div>
-							<div class='desc'>日上限1次</div>
-						</div>
-						<div class='item '>
-							<div class='action'>发布一条俱乐部任务</div>
-							<div class='value'>4</div>
-							<div class='desc'>日上限1次</div>
-						</div>
-						<div class='item '>
-							<div class='action'>发起一次俱乐部线上赛</div>
-							<div class='value'>4</div>
-							<div class='desc'>日上限1次</div>
-						</div>
-					</div>
-				</div>
-				
-				<!-- <div class="tableBox">
+            <div class="tableBox">
+                <img src="./img/kcdk_s.png">
+                <div class='rewardValueList'>
+                    <div class='item title'>
+                        <div class='action'>任务</div>
+                        <div class='value'>逗币</div>
+                        <div class='desc'>上限</div>
+                    </div>
+                    <div class='item '>
+                        <div class='action'>快去对课程评论一番吧</div>
+                        <div class='value'>3</div>
+                        <div class='desc'>日上限1次</div>
+                    </div>
+                    <div class='item '>
+                        <div class='action'>快去收藏课程吧</div>
+                        <div class='value'>3</div>
+                        <div class='desc'>日上限1次</div>
+                    </div>
+                    <div class='item '>
+                        <div class='action'>快去参与课程体验吧</div>
+                        <div class='value'>3</div>
+                        <div class='desc'>日上限1次</div>
+                    </div>
+                    <div class='item '>
+                        <div class='action'>快去分享课程吧</div>
+                        <div class='value'>5</div>
+                        <div class='desc'>日上限1次</div>
+                    </div>
+                    <div class='item '>
+                        <div class='action'>快去参与智能训练计划吧</div>
+                        <div class='value'>5</div>
+                        <div class='desc'>日上限1次</div>
+                    </div>
+                </div>
+            </div>
+            <div class="tableBox">
+                <img src="./img/ssdk_s.png">
+                <div class='rewardValueList'>
+                    <div class='item title'>
+                        <div class='action'>任务</div>
+                        <div class='value'>逗币</div>
+                        <div class='desc'>上限</div>
+                    </div>
+                    <div class='item '>
+                        <div class='action'>浏览赛事主页</div>
+                        <div class='value'>3</div>
+                        <div class='desc'>日上限1次</div>
+                    </div>
+                    <div class='item '>
+                        <div class='action'>创建一个新赛事</div>
+                        <div class='value'>4</div>
+                        <div class='desc'>日上限1次</div>
+                    </div>
+                    <div class='item '>
+                        <div class='action'>参加一个赛事</div>
+                        <div class='value'>3</div>
+                        <div class='desc'>日上限1次</div>
+                    </div>
+                    <div class='item '>
+                        <div class='action'>分享一个赛事</div>
+                        <div class='value'>4</div>
+                        <div class='desc'>日上限1次</div>
+                    </div>
+                </div>
+            </div>
+            <div class="tableBox">
+                <img src="img/dbgl_s.png" alt="">
+                <div class="rewardValueList">
+                    <div class="txt">
+                        用户可以通过在商城购买商品获得逗币奖励，每次10逗币，每日最多1次。
+                    </div>
+                </div>
+            </div>
+            <div class="tableBox">
+                <img src="./img/clubdk_s.png">
+                <div class='rewardValueList'>
+                    <div class='item title'>
+                        <div class='action'>任务</div>
+                        <div class='value'>逗币</div>
+                        <div class='desc'>上限</div>
+                    </div>
+                    <div class='item '>
+                        <div class='action'>创建一个新俱乐部</div>
+                        <div class='value'>4</div>
+                        <div class='desc'>日上限1次</div>
+                    </div>
+                    <div class='item '>
+                        <div class='action'>参加一个俱乐部</div>
+                        <div class='value'>4</div>
+                        <div class='desc'>日上限1次</div>
+                    </div>
+                    <div class='item '>
+                        <div class='action'>在俱乐部内运动一次</div>
+                        <div class='value'>5</div>
+                        <div class='desc'>日上限1次</div>
+                    </div>
+                    <div class='item '>
+                        <div class='action'>完成一次俱乐部任务</div>
+                        <div class='value'>5</div>
+                        <div class='desc'>日上限1次</div>
+                    </div>
+                    <div class='item '>
+                        <div class='action'>完成一次俱乐部活动</div>
+                        <div class='value'>4</div>
+                        <div class='desc'>日上限1次</div>
+                    </div>
+                    <div class='item '>
+                        <div class='action'>完成一次俱乐部线上赛</div>
+                        <div class='value'>5</div>
+                        <div class='desc'>日上限1次</div>
+                    </div>
+                    <div class='item '>
+                        <div class='action'>发布一条俱乐部任务</div>
+                        <div class='value'>4</div>
+                        <div class='desc'>日上限1次</div>
+                    </div>
+                    <div class='item '>
+                        <div class='action'>发起一次俱乐部线上赛</div>
+                        <div class='value'>4</div>
+                        <div class='desc'>日上限1次</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- <div class="tableBox">
 					<img src="./img/scdk_s.png">
 					<div class='rewardValueList'>
 						<div class='item title'>
@@ -347,81 +341,81 @@
 						</div>
 					</div>
 				</div> -->
-				
-				<div class="tableBox">
-					<img src="./img/phbdk_s.png">
-					<div class='rewardValueList'>
-						<div class='item title'>
-							<div class='action'>任务</div>
-							<div class='value'>逗币</div>
-							<div class='desc'>上限</div>
-						</div>
-						<div class='item '>
-							<div class='action'>浏览一次排行榜</div>
-							<div class='value'>4</div>
-							<div class='desc'>日上限1次</div>
-						</div>
-						<div class='item '>
-							<div class='action'>进入跳绳日榜前100名</div>
-							<div class='value'>5</div>
-							<div class='desc'>日上限1次</div>
-						</div>
-						<div class='item '>
-							<div class='action'>进入跳绳日榜前50名</div>
-							<div class='value'>10</div>
-							<div class='desc'>日上限1次</div>
-						</div>
-						<div class='item '>
-							<div class='action'>进入跳绳日榜前30名</div>
-							<div class='value'>12</div>
-							<div class='desc'>日上限1次</div>
-						</div>
-						<div class='item '>
-							<div class='action'>进入跳绳日榜前20名</div>
-							<div class='value'>15</div>
-							<div class='desc'>日上限1次</div>
-						</div>
-						<div class='item '>
-							<div class='action'>进入跳绳日榜前10名</div>
-							<div class='value'>20</div>
-							<div class='desc'>日上限1次</div>
-						</div>
-						<div class='item '>
-							<div class='action'>进入跳绳日榜前3名</div>
-							<div class='value'>25</div>
-							<div class='desc'>日上限1次</div>
-						</div>
-						<div class='item '>
-							<div class='action'>进入腕力球日榜前100名</div>
-							<div class='value'>5</div>
-							<div class='desc'>日上限1次</div>
-						</div>
-						<div class='item '>
-							<div class='action'>进入腕力球日榜前50名</div>
-							<div class='value'>10</div>
-							<div class='desc'>日上限1次</div>
-						</div>
-						<div class='item '>
-							<div class='action'>进入腕力球日榜前30名</div>
-							<div class='value'>12</div>
-							<div class='desc'>日上限1次</div>
-						</div>
-						<div class='item '>
-							<div class='action'>进入腕力球日榜前20名</div>
-							<div class='value'>15</div>
-							<div class='desc'>日上限1次</div>
-						</div>
-						<div class='item '>
-							<div class='action'>进入腕力球日榜前10名</div>
-							<div class='value'>20</div>
-							<div class='desc'>日上限1次</div>
-						</div>
-						<div class='item '>
-							<div class='action'>进入腕力球日榜前3名</div>
-							<div class='value'>25</div>
-							<div class='desc'>日上限1次</div>
-						</div>
-						<!-- <div class='item '>
+
+            <div class="tableBox">
+                <img src="./img/phbdk_s.png">
+                <div class='rewardValueList'>
+                    <div class='item title'>
+                        <div class='action'>任务</div>
+                        <div class='value'>逗币</div>
+                        <div class='desc'>上限</div>
+                    </div>
+                    <div class='item '>
+                        <div class='action'>浏览一次排行榜</div>
+                        <div class='value'>4</div>
+                        <div class='desc'>日上限1次</div>
+                    </div>
+                    <div class='item '>
+                        <div class='action'>进入跳绳日榜前100名</div>
+                        <div class='value'>5</div>
+                        <div class='desc'>日上限1次</div>
+                    </div>
+                    <div class='item '>
+                        <div class='action'>进入跳绳日榜前50名</div>
+                        <div class='value'>10</div>
+                        <div class='desc'>日上限1次</div>
+                    </div>
+                    <div class='item '>
+                        <div class='action'>进入跳绳日榜前30名</div>
+                        <div class='value'>12</div>
+                        <div class='desc'>日上限1次</div>
+                    </div>
+                    <div class='item '>
+                        <div class='action'>进入跳绳日榜前20名</div>
+                        <div class='value'>15</div>
+                        <div class='desc'>日上限1次</div>
+                    </div>
+                    <div class='item '>
+                        <div class='action'>进入跳绳日榜前10名</div>
+                        <div class='value'>20</div>
+                        <div class='desc'>日上限1次</div>
+                    </div>
+                    <div class='item '>
+                        <div class='action'>进入跳绳日榜前3名</div>
+                        <div class='value'>25</div>
+                        <div class='desc'>日上限1次</div>
+                    </div>
+                    <div class='item '>
+                        <div class='action'>进入腕力球日榜前100名</div>
+                        <div class='value'>5</div>
+                        <div class='desc'>日上限1次</div>
+                    </div>
+                    <div class='item '>
+                        <div class='action'>进入腕力球日榜前50名</div>
+                        <div class='value'>10</div>
+                        <div class='desc'>日上限1次</div>
+                    </div>
+                    <div class='item '>
+                        <div class='action'>进入腕力球日榜前30名</div>
+                        <div class='value'>12</div>
+                        <div class='desc'>日上限1次</div>
+                    </div>
+                    <div class='item '>
+                        <div class='action'>进入腕力球日榜前20名</div>
+                        <div class='value'>15</div>
+                        <div class='desc'>日上限1次</div>
+                    </div>
+                    <div class='item '>
+                        <div class='action'>进入腕力球日榜前10名</div>
+                        <div class='value'>20</div>
+                        <div class='desc'>日上限1次</div>
+                    </div>
+                    <div class='item '>
+                        <div class='action'>进入腕力球日榜前3名</div>
+                        <div class='value'>25</div>
+                        <div class='desc'>日上限1次</div>
+                    </div>
+                    <!-- <div class='item '>
 							<div class='action'>进入健腹轮日榜前100名</div>
 							<div class='value'>5</div>
 							<div class='desc'>日上限1次</div>
@@ -451,176 +445,175 @@
 							<div class='value'>25</div>
 							<div class='desc'>日上限1次</div>
 						</div> -->
-						<div class="txt" style="padding-top: .3rem;padding-bottom: 0;">
-							每日晚上23:59结算产生排行名次，次日可领取所在排行内相应逗币。
-						</div>
-					</div>
-				</div>
-				
-				<div class="tableBox">
-					<img src="./img/sbdk_s.png">
-					<div class='rewardValueList'>
-						<div class='item title'>
-							<div class='action'>任务</div>
-							<div class='value'>逗币</div>
-							<div class='desc'>上限</div>
-						</div>
-						<div class='item '>
-							<div class='action'>绑定任一设备</div>
-							<div class='value'>10</div>
-							<div class='desc'>日上限1次</div>
-						</div>
-						<div class='item '>
-							<div class='action'>使用任一设备</div>
-							<div class='value'>10</div>
-							<div class='desc'>日上限1次</div>
-						</div>
-						<div class='item '>
-							<div class='action'>分享任一设备</div>
-							<div class='value'>10</div>
-							<div class='desc'>日上限1次</div>
-						</div>
-						<div class='item '>
-							<div class='action'>分享任一设备的数据</div>
-							<div class='value'>10</div>
-							<div class='desc'>日上限1次</div>
-						</div>
-					</div>
-				</div>
-				<div class="tableBox">
-					<img src="./img/ydrl_s.png">
-					<div class='rewardValueList'>
-						<div class='item title'>
-							<div class='action'>任务</div>
-							<div class='value'>逗币</div>
-							<div class='desc'>上限</div>
-						</div>
-						<div class='item '>
-							<div class='action'>运动打卡</div>
-							<div class='value'>5</div>
-							<div class='desc'>日上限1次</div>
-						</div>
-						<div class='item '>
-							<div class='action'>分享运动打卡</div>
-							<div class='value'>5</div>
-							<div class='desc'>日上限1次</div>
-						</div>
-					</div>
-				</div>
-				<div class="tableBox">
-					<img src="./img/mbdk_s.png">
-					<div class='rewardValueList'>
-						<div class='item title'>
-							<div class='action'>任务</div>
-							<div class='value'>逗币</div>
-							<div class='desc'>上限</div>
-						</div>
-						<div class='item '>
-							<div class='action'>完成跳绳目标</div>
-							<div class='value'>10</div>
-							<div class='desc'>日上限1次</div>
-						</div>
-						<div class='item '>
-							<div class='action'>完成步行目标</div>
-							<div class='value'>10</div>
-							<div class='desc'>日上限1次</div>
-						</div>
-						<div class='item '>
-							<div class='action'>完成腕力球目标</div>
-							<div class='value'>10</div>
-							<div class='desc'>日上限1次</div>
-						</div>
-						<div class='item '>
-							<div class='action'>完成健腹轮目标</div>
-							<div class='value'>10</div>
-							<div class='desc'>日上限1次</div>
-						</div>
-					</div>
-				</div>
-				<div class="tableBox">
-					<img src="./img/tzdk_s.png">
-					<div class='rewardValueList'>
-						<div class='item title'>
-							<div class='action'>任务</div>
-							<div class='value'>逗币</div>
-							<div class='desc'>上限</div>
-						</div>
-						<div class='item '>
-							<div class='action'>挑战成功</div>
-							<div class='value'>4</div>
-							<div class='desc'>日上限1次</div>
-						</div>
-						<div class='item '>
-							<div class='action'>分享</div>
-							<div class='value'>3</div>
-							<div class='desc'>日上限1次</div>
-						</div>
-						<!-- <div class="txt" style="padding-top: .3rem;padding-bottom: 0;">
+                    <div class="txt" style="padding-top: .3rem;padding-bottom: 0;">
+                        每日晚上23:59结算产生排行名次，次日可领取所在排行内相应逗币。
+                    </div>
+                </div>
+            </div>
+
+            <div class="tableBox">
+                <img src="./img/sbdk_s.png">
+                <div class='rewardValueList'>
+                    <div class='item title'>
+                        <div class='action'>任务</div>
+                        <div class='value'>逗币</div>
+                        <div class='desc'>上限</div>
+                    </div>
+                    <div class='item '>
+                        <div class='action'>绑定任一设备</div>
+                        <div class='value'>10</div>
+                        <div class='desc'>日上限1次</div>
+                    </div>
+                    <div class='item '>
+                        <div class='action'>使用任一设备</div>
+                        <div class='value'>10</div>
+                        <div class='desc'>日上限1次</div>
+                    </div>
+                    <div class='item '>
+                        <div class='action'>分享任一设备</div>
+                        <div class='value'>10</div>
+                        <div class='desc'>日上限1次</div>
+                    </div>
+                    <div class='item '>
+                        <div class='action'>分享任一设备的数据</div>
+                        <div class='value'>10</div>
+                        <div class='desc'>日上限1次</div>
+                    </div>
+                </div>
+            </div>
+            <div class="tableBox">
+                <img src="./img/ydrl_s.png">
+                <div class='rewardValueList'>
+                    <div class='item title'>
+                        <div class='action'>任务</div>
+                        <div class='value'>逗币</div>
+                        <div class='desc'>上限</div>
+                    </div>
+                    <div class='item '>
+                        <div class='action'>运动打卡</div>
+                        <div class='value'>5</div>
+                        <div class='desc'>日上限1次</div>
+                    </div>
+                    <div class='item '>
+                        <div class='action'>分享运动打卡</div>
+                        <div class='value'>5</div>
+                        <div class='desc'>日上限1次</div>
+                    </div>
+                </div>
+            </div>
+            <div class="tableBox">
+                <img src="./img/mbdk_s.png">
+                <div class='rewardValueList'>
+                    <div class='item title'>
+                        <div class='action'>任务</div>
+                        <div class='value'>逗币</div>
+                        <div class='desc'>上限</div>
+                    </div>
+                    <div class='item '>
+                        <div class='action'>完成跳绳目标</div>
+                        <div class='value'>10</div>
+                        <div class='desc'>日上限1次</div>
+                    </div>
+                    <div class='item '>
+                        <div class='action'>完成步行目标</div>
+                        <div class='value'>10</div>
+                        <div class='desc'>日上限1次</div>
+                    </div>
+                    <div class='item '>
+                        <div class='action'>完成腕力球目标</div>
+                        <div class='value'>10</div>
+                        <div class='desc'>日上限1次</div>
+                    </div>
+                    <div class='item '>
+                        <div class='action'>完成健腹轮目标</div>
+                        <div class='value'>10</div>
+                        <div class='desc'>日上限1次</div>
+                    </div>
+                </div>
+            </div>
+            <div class="tableBox">
+                <img src="./img/tzdk_s.png">
+                <div class='rewardValueList'>
+                    <div class='item title'>
+                        <div class='action'>任务</div>
+                        <div class='value'>逗币</div>
+                        <div class='desc'>上限</div>
+                    </div>
+                    <div class='item '>
+                        <div class='action'>挑战成功</div>
+                        <div class='value'>4</div>
+                        <div class='desc'>日上限1次</div>
+                    </div>
+                    <div class='item '>
+                        <div class='action'>分享</div>
+                        <div class='value'>3</div>
+                        <div class='desc'>日上限1次</div>
+                    </div>
+                    <!-- <div class="txt" style="padding-top: .3rem;padding-bottom: 0;">
 							首次挑战成功可领4逗币，连续挑战成功每日可递增2个逗币，连续挑战成功每日可领取逗币上限为30个，若连续挑战成功中断则重新计算，挑战成功的逗币有效期是一天。
 						</div> -->
-					</div>
-				</div>
-				<div class="tableBox">
-					<img src="img/zbyb_s.png" alt="">
-					<div class="rewardValueList">
-						<div class="txt">
-							周报每次分享可获得3逗币，每日上限1次；月报每次分享可获得3逗币，每日上限1次。
-						</div>
-					</div>
-				</div>
-				<div class="tableBox">
-					<img src="img/syzuijia_s.png" alt="">
-					<div class="rewardValueList">
-						<div class="txt">
-							生涯最佳每次分享可获得3逗币，每日上限3次。
-						</div>
-					</div>
-				</div>
-				<div class="tableBox">
-					<img src="img/jsdk_s.png" alt="">
-					<div class="rewardValueList">
-						<div class="txt">
-							用户可以通过观看视频获得更多的逗币，每次100逗币，每日最多1次。
-						</div>
-					</div>
-				</div>
+                </div>
+            </div>
+            <div class="tableBox">
+                <img src="img/zbyb_s.png" alt="">
+                <div class="rewardValueList">
+                    <div class="txt">
+                        周报每次分享可获得3逗币，每日上限1次；月报每次分享可获得3逗币，每日上限1次。
+                    </div>
+                </div>
+            </div>
+            <div class="tableBox">
+                <img src="img/syzuijia_s.png" alt="">
+                <div class="rewardValueList">
+                    <div class="txt">
+                        生涯最佳每次分享可获得3逗币，每日上限3次。
+                    </div>
+                </div>
+            </div>
+            <div class="tableBox">
+                <img src="img/jsdk_s.png" alt="">
+                <div class="rewardValueList">
+                    <div class="txt">
+                        用户可以通过观看视频获得更多的逗币，每次100逗币，每日最多1次。
+                    </div>
+                </div>
+            </div>
 
-				<!-- <div class="tableBox" style="">
+            <!-- <div class="tableBox" style="">
 					<div class="rewardValueList" style="padding-top: 0.3rem;margin-bottom: 0.3rem;">
 						<div class="txt" style="color: red;">
 							每用户每日获取逗币数上限为500个。
 						</div>
 					</div>
 				</div> -->
-			</div>
-		</div>
+        </div>
+    </div>
 
-	</body>
-	<script src="https://oss.laisitech.com/0bb12bf1-cb87-4d2c-a724-8a7c25b7ae04.js "></script>
+</body>
+<script src="https://oss.laisitech.com/0bb12bf1-cb87-4d2c-a724-8a7c25b7ae04.js "></script>
 <script src="https://oss.laisitech.com/6172e6c1-f460-40ac-97ba-31c8526f2e16.js"></script>
-	<script src="../common/js/network.js"></script>
-	<script type="text/javascript">
-		window.onload = function() {}
-		new Vue({
-			el: '#app',
-			data() {
-				return {
-					loading: false,
-					finished: false,
-				}
-			},
-			filters: {},
-			mounted() {},
-			created() {},
-			methods: {
-				OnclickLeft() {
-					window.history.back(-1);
-				},
-				onClickRight() { //显示。。。
-				},
-			}
-		})
-		
-	</script>
+<script src="../common/js/network.js"></script>
+<script type="text/javascript">
+    window.onload = function() {}
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                loading: false,
+                finished: false,
+            }
+        },
+        filters: {},
+        mounted() {},
+        created() {},
+        methods: {
+            OnclickLeft() {
+                window.history.back(-1);
+            },
+            onClickRight() { //显示。。。
+            },
+        }
+    })
+</script>
 
 </html>

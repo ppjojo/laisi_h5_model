@@ -6,8 +6,47 @@
 }
 
 body {
-  background-color: #12121f;
-  color: #cfcfd2;
+  background-color: var(--bgColor);
+  color: var(--textColor);
+}
+
+#logobox {
+  background-color: var(--bgColor);
+  width: 100%;
+  position: fixed;
+  top: 0;
+  padding: .32rem .6rem;
+}
+
+#logobox .logo {
+  width: .8rem;
+  height: .8rem;
+  margin-right: .14rem;
+}
+
+.title {
+  color: var(--textColor);
+  font-size: .36rem;
+}
+
+.desc {
+  color: var(--textColor);
+  font-size: .28rem;
+}
+
+.detail {
+  font-size: .24rem;
+  color: var(--textColor);
+}
+
+#download {
+  height: .5rem;
+  border-radius: .46rem;
+  border: 1px solid #e60012;
+  font-size: .32rem;
+  color: #E60012;
+  text-align: center;
+  padding: 0 .16rem;
 }
 
 .personInfo {
@@ -33,13 +72,13 @@ body {
 }
 
 .personInfo .infoBox .nameBox .name {
-  color: #cfcfd2;
+  color: var(--textColor);
   font-size: 0.32rem;
   line-height: 0.6rem;
 }
 
 .personInfo .infoBox .nameBox .idBox {
-  color: #71717f;
+  color: var(--textColor2);
   font-size: 0.24rem;
   line-height: 0.3rem;
 }
@@ -66,17 +105,17 @@ body {
 }
 
 .personInfo .scoreBox .desc {
-  color: #cfcfd2;
+  color: var(--textColor);
   text-align: center;
   font-size: 0.24rem;
 }
 
 .detailBox {
-  border-top: 0.2rem solid #1e1e2a;
+  border-top: 0.2rem solid var(--borderColor);
 }
 
 .detailBox ul li {
-  border-bottom: 1px solid #1e1e2a;
+  border-bottom: 1px solid var(--borderColor);
   padding: 0.25rem 0.3rem;
 }
 
@@ -90,7 +129,7 @@ body {
 }
 
 .detailBox ul li .box1 .namebox {
-  color: #cfcfd2;
+  color: var(--textColor);
   font-size: 0.32rem;
   line-height: 0.6rem;
 }
@@ -114,12 +153,12 @@ body {
 }
 
 .detailBox ul li .box2 .date {
-  color: #71717f;
+  color: var(--textColor2);
   font-size: 0.24rem;
 }
 
 .detailBox ul li .box2 .useTime {
-  color: #71717f;
+  color: var(--textColor2);
   font-size: 0.24rem;
 }
 /*# sourceMappingURL=competitionRecord.css.map */

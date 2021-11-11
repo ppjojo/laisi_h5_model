@@ -8,9 +8,10 @@
     <!-- 引入样式文件 -->
     <link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
     <link rel="stylesheet" href="../common/css/basic.css">
-    <link rel="stylesheet" href="css/pointsLottery.css">
     <link rel="stylesheet" href="css/package.css">
     <link rel="stylesheet" href="css/font/iconfont.css">
+    <link rel="stylesheet" id="themeCssLink" href="../common/css/default.css">
+    <link rel="stylesheet" href="css/pointsLottery.css">
 
     <style type="text/css">
         .list_ul {
@@ -30,7 +31,7 @@
         }
         
         .van-count-down {
-            color: #999;
+            color: var(--textColor2);
             font-size: .24rem;
         }
         
@@ -42,28 +43,11 @@
             width: 160%;
             top: 0;
         }
-        /* .van-tabs--line .van-tabs__wrap{
-				position: fixed;
-				z-index: 333;
-				top: .92rem;
-				width: 100%;
-			} */
-        /* .van-tab__pane{
-				padding-top: 1.08rem;
-			} */
-        
-        .van-tabs--line .van-tabs__wrap {
-            border-bottom-color: #1e1e2a;
-        }
         
         #coupon .task_finish {
-            border: .02rem solid rgba(113, 113, 127, 1);
-            background: #12121f;
-            color: #71717f;
-        }
-        
-        .van-tabs {
-            z-index: 1;
+            border: 1px solid var(--borderColor);
+            background: var(--bgColor);
+            color: var(--textColor2);
         }
         
         #price .list_ul>li {
@@ -74,94 +58,13 @@
             width: 1.2rem;
             height: 1.2rem;
         }
-        
-        #app {
-            min-height: 100vh;
-            background-color: #12121F;
-        }
-        
-        #app>.header,
-        .van-nav-bar,
-        .monkey-pull-refresh,
-        .DBnotice,
-        .van-tabs__nav,
-        .van-cell-group,
-        .van-cell,
-        #pricechange,
-        .van-action-sheet__gap {
-            background-color: #12121F;
-        }
-        
-        .van-nav-bar .van-icon,
-        .van-nav-bar__title,
-        .van-list__error-text,
-        .van-list__finished-text,
-        .van-list__loading,
-        .van-tab--active,
-        .van-checkbox__label,
-        .van-action-sheet {
-            color: #CFCFD2;
-        }
-        
-        .van-tab,
-        .van-list__finished-text {
-            color: #71717f;
-        }
-        
-        .van-tab--active {
-            font-size: .36rem;
-            position: relative;
-        }
-        
-        .van-tabs__line {
-            display: none;
-        }
-        
-        .van-tab--active::after {
-            content: '';
-            position: absolute;
-            left: 50%;
-            bottom: 0;
-            transform: translate(-50%, -50%);
-            width: 0.4rem;
-            height: 0.14rem;
-            background-position: 100% 100%;
-            background: url(./img/tabselect.png) no-repeat;
-            background-size: 100%;
-        }
-        
-        .van-popup--bottom.van-popup--round {
-            background-color: #1e1e2a;
-        }
-        
-        #pricechange {
-            background-color: #1E1E2A;
-        }
-        
-        .van-checkbox__icon--disabled .van-icon {
-            background-color: #1e1e2a;
-            border-color: #221925;
-        }
-        
-        .van-dialog,
-        .van-button--default {
-            background-color: rgba(41, 41, 52, 1);
-        }
-        
-        [class*=van-hairline]::after {
-            border-color: #12121F;
-        }
-        
-        .van-dialog__message {
-            color: #CFCFD2;
-        }
     </style>
 </head>
 
 <body>
     <div id="app" v-cloak>
         <div class="header">
-            <van-nav-bar title="我的背包" @click-left="OnclickLeft" @click-right="onClickRight" left-arrow>
+            <van-nav-bar title="我的背包" @click-left="OnclickLeft" @click-right="onClickRight" safe-area-inset-top fixed>
                 <template #left>
 						<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
 					</template>
@@ -192,7 +95,7 @@
                 <ul class="list_ul">
                     <li class="ub ub-pj ub-ac" v-for="(item,index) in blindboxlist">
                         <div class="ub ub-ac">
-                            <div class="imgbox" :style="{backgroundColor:blindbg[item.boxType]}">
+                            <div class="imgbox">
                                 <img :src="item.logo" alt="">
                             </div>
                             <div>
@@ -255,7 +158,7 @@
 								<ul class="list_ul">
 									<li class="ub ub-pj ub-ac">
 										<div class="ub ub-ac">
-											<div class="imgbox" :class="{op5:item.type==2?false:true}" :style="{backgroundColor:'#1E1E2A'}">
+											<div class="imgbox" :class="{op5:item.type==2?false:true}" >
 												<img :src="item.type==2?'./img/cashicon.png':item.logo" alt="">
 											</div>
 											<div>
@@ -287,7 +190,7 @@
                     <ul class="list_ul">
                         <li class="ub ub-pj ub-ac" v-for="(item,index) in couponlist">
                             <div class="ub ub-ac">
-                                <div class="imgbox" :class="{op5:!timedown(item.endTime)}" :style="{backgroundColor:blindbg[1]}">
+                                <div class="imgbox" :class="{op5:!timedown(item.endTime)}">
                                     <img :src="item.logo" alt="">
                                 </div>
                                 <div>
@@ -316,29 +219,7 @@
             <van-checkbox v-model="chooseall" @change="toggleAll">全选</van-checkbox>
             <div id="gochange" @click="toChange(priceresult.length>0)" :class="{canchange:priceresult.length>0?true:false}">去兑换</div>
         </div>
-        <!-- <van-pull-refresh v-model="isLoading" :head-height="90" @refresh="initIndexData" class="monkey-pull-refresh">
-				<template #pulling="props">
-					<div class="monkeyBox">
-						<img class="monkey" src="../common/img/monkey.gif" />
-						<p>下拉刷新</p>
-					</div>
-				</template>
-				<template #loosing>
-					<div class="monkeyBox">
-						<img class="monkey" src="../common/img/monkey.gif" />
-						<p>释放刷新</p>
-					</div>
-				</template>
 
-				<template #loading>
-					<div class="monkeyBox">
-						<img class="monkey" src="../common/img/monkey.gif" />
-						<p>正在刷新</p>
-					</div>
-				</template>
-				<van-list v-model="loading" :finished="finished" @load="onLoad">
-				</van-list>
-			</van-pull-refresh> -->
     </div>
 </body>
 <script src="https://oss.laisitech.com/0bb12bf1-cb87-4d2c-a724-8a7c25b7ae04.js "></script>
@@ -368,11 +249,7 @@
                 // pageNum: 1, //分页参数
                 etcmenu: false, //右上角单显示flag
                 nowtime: new Date().getTime(),
-                blindbg: {
-                    1: '#1E1E2A',
-                    2: '#1E1E2A',
-                    3: '#1E1E2A'
-                },
+
                 actions: [{
                     name: "开盒记录"
                 }, {

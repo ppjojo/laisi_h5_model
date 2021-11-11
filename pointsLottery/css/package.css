@@ -1,69 +1,75 @@
 			.task_unfinish,
 			.task_finish {
-				background: linear-gradient(to right,#ff4e3e, #ffaa88);
-				border-radius: .28rem;
-				height: .52rem;
-				line-height: .52rem;
-				font-size: .24rem;
-				color: #fff;
-				padding: .01rem .15rem;
-				text-align: center;
-				font-family: "PingFangSC-Medium";
-				min-width: .96rem;
+			    background: linear-gradient(to right, #ff4e3e, #ffaa88);
+			    border-radius: .28rem;
+			    height: .52rem;
+			    line-height: .52rem;
+			    font-size: .24rem;
+			    color: #fff;
+			    padding: .01rem .15rem;
+			    text-align: center;
+			    font-family: "PingFangSC-Medium";
+			    min-width: .96rem;
 			}
-
+			
 			.task_finish {
-				/* border: 1px solid rgba(209, 209, 209, 1); */
-				background: #1e1e2a;
-				color: #cfcfd2;
+			    background: var(--bgColor);
+			    color: var(--textColor);
 			}
-
+			
 			.list_ul .title {
-				font-family: "PingFangSC-Medium";
-				    overflow: hidden;
-				    white-space: nowrap;
-				    text-overflow: ellipsis;
-					max-width: 3rem;
-					font-weight: bold;
+			    font-family: "PingFangSC-Medium";
+			    overflow: hidden;
+			    white-space: nowrap;
+			    text-overflow: ellipsis;
+			    max-width: 3rem;
+			    font-weight: bold;
 			}
-
+			
 			.van-hairline--top-bottom::after,
 			.van-hairline-unset--top-bottom::after {
-				border-width: 0;
+			    border-width: 0;
 			}
-
+			
 			.list_ul {
-				padding: 0;
-				padding:0 .2rem;
-				/* padding-left: .36rem; */
+			    padding: 0;
+			    padding: 0 .2rem;
+			    /* padding-left: .36rem; */
 			}
-			#price .list_ul{
-				padding-right:0;
+			
+			#price .list_ul {
+			    padding-right: 0;
 			}
+			
 			.list_ul>li,
 			.list_ul .title {
-				margin-bottom: 0;
+			    margin-bottom: 0;
 			}
-
+			
 			.van-checkbox__label {
-				font-size: .28rem;
+			    font-size: .28rem;
 			}
-			#price .van-cell{
-				padding:0 .25rem;
+			
+			#price .van-cell {
+			    padding: 0 .25rem;
 			}
+			
 			.van-cell::after {
-				border-bottom: 0;
+			    border-bottom: 0;
 			}
-			.overtime{
-				height: .52rem;
-				color: #71717F;
-				text-align: center;
-				line-height: .52rem;
-				padding: 0 .2rem;
-				font-size: 0.24rem;
-				border-radius: .26rem;
-				border: .02rem solid rgba(113, 113, 127, 1);
+			
+			.overtime {
+			    width: 1.2rem;
+			    height: .52rem;
+			    color: var(--textColor2);
+			    text-align: center;
+			    line-height: .52rem;
+			    padding: 0 .2rem;
+			    font-size: 0.24rem;
+			    border-radius: .26rem;
+			    border: 1px solid var(--borderColor)
 			}
-			.van-list__finished-text{
-				color: #71717f;
+			
+			.van-list__finished-text {
+			    color: var(--textColor2);
 			}

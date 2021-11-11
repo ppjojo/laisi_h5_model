@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
     <link rel="stylesheet" href="../common/css/basic.css">
     <link rel="stylesheet" href="css/normal.css">
+    <link rel="stylesheet" id="themeCssLink" href="../common/css/default.css">
+
     <style type="text/css">
         #app {
             background-image: url(img/shareBG.png);
@@ -18,7 +20,7 @@
         }
         
         #logobox {
-            background-color: #12121f;
+            background-color: var(--bgColor);
             width: 100%;
             height: 1.44rem;
             position: fixed;
@@ -33,13 +35,18 @@
         }
         
         .title {
-            color: #cfcfd2;
+            color: var(--textColor);
             font-size: .36rem;
+        }
+        
+        .desc {
+            font-size: .24rem;
+            color: var(--textColor);
         }
         
         .detail {
             font-size: .24rem;
-            color: #999;
+            color: var(--textColor2);
         }
         
         #download {
@@ -92,6 +99,7 @@
                 <img class="logo" src="../common/img/logo.png" alt="">
                 <div class="">
                     <div class="title">派健康</div>
+                    <div class="desc"> 运动.健康</div>
                 </div>
             </div>
             <div id="download" class="ub ub-ac ub-ad" @click="goApp">

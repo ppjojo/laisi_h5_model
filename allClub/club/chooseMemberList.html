@@ -2,184 +2,179 @@
 <html lang="zh-cmn-Hans">
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport"
-		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
-	<title>邀请好友</title>
-	<!-- 引入样式文件 -->
-	<link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
-	<link rel="stylesheet" href="../font/iconfont.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+    <title>邀请好友</title>
+    <!-- 引入样式文件 -->
+    <link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
+    <link rel="stylesheet" href="../font/iconfont.css">
 
-	<style type="text/css">
-		body {
-			background-color: #12121f;
-			color: #CFCFD2;
-			height: 100vh;
-		}
-
-		/* 导航栏 */
-		.normalHeader {
-			height: 0.92rem;
-			position: relative;
-			z-index: 100;
-		}
-
-		.normalHeader .van-nav-bar {
-			background-color: #12121f;
-		}
-
-		.normalHeader .van-nav-bar .van-nav-bar__content {
-			color: #CFCFD2;
-		}
-
-		.van-nav-bar__left,  .van-nav-bar__title {
-			color: #CFCFD2;
-		}
-		.van-nav-bar__right{
-			font-size:0.32rem;
-
-		}
-		.normalHeader .van-hairline--bottom::after {
-			border: none;
-		}
-
-		.normalHeader .color999 {
-			color: #999;
-		}
-
-		/* 搜索框 */
-		.searchBox {
-			position: sticky;
-			top: 0.92rem;
-			width: 100%;
-			z-index: 99;
-		}
-
-		.searchBox .van-search .van-icon-search {
-			color: #CFCFD2;
-		}
-
-		.searchBox .van-search .van-search__content {
-			background-color: #1E1E2A;
-		}
-
-		.searchBox .van-search .van-field__control {
-			color: #CFCFD2;
-		}
-
-		/* 索引 */
-		.van-index-anchor {
-			color: #CFCFD2;
-		}
-
-		.van-index-anchor--sticky {
-			background-color: #12121f;
-			top: 2rem;
-		}
-
-		.van-index-bar__sidebar {
-			top: 50%;
-		}
-
-		@supports ((height: constant(safe-area-inset-top)) or (height: env(safe-area-inset-top))) and (-webkit-overflow-scrolling: touch) {
-			.normalHeader {
-				height: 0.92rem;
-				height: calc(0.92rem + constant(safe-area-inset-top));
-				height: calc(0.92rem + env(safe-area-inset-top));
-			}
-
-			.searchBox {
-				top: 0.92rem;
-				top: calc(0.92rem + constant(safe-area-inset-top));
-				top: calc(0.92rem + env(safe-area-inset-top));
-			}
-
-			.van-index-anchor--sticky {
-				top: 2rem;
-				top: calc(2rem + constant(safe-area-inset-top));
-				top: calc(2rem + env(safe-area-inset-top));
-			}
-		}
-
-		.van-cell-group {
-			background-color: #12121f;
-		}
-
-		.van-cell {
-			background-color: #12121f;
-			color: #CFCFD2;
-		}
-
-		.van-cell--clickable:active {
-			background-color: transparent;
-		}
-
-
-		.van-hairline--top-bottom::after,
-		.van-hairline-unset--top-bottom::after {
-			border: none;
-		}
-
-		.van-cell::after {
-			border-color: #1E1E2A;
-		}
-
-		.van-checkbox {
-			margin-right: .2rem;
-		}
-
-
-
-		.van-checkbox__icon--checked .van-icon {
-			background-color: #FF4E3E;
-			border-color: #FF4E3E;
-		}
-
-		.itemBox {
-			display: flex;
-			align-items: center;
-			justify-content: flex-start;
-		}
-
-		.itemBox .headpic {
-			height: 0.8rem;
-			height: 0.8rem;
-			border-radius: 50%;
-			margin-right: 0.2rem;
-		}
-		.itemBox .time{
-			font-size:0.24rem;
-			color:#71717F;
-		}
-		
-    .van-checkbox__icon {
-        font-size: 0.32rem;
-    }
-
-	</style>
+    <style type="text/css">
+        body {
+            background-color: var(--bgColor);
+            color: #CFCFD2;
+            height: 100vh;
+        }
+        /* 导航栏 */
+        
+        .normalHeader {
+            height: 0.92rem;
+            position: relative;
+            z-index: 100;
+        }
+        
+        .normalHeader .van-nav-bar {
+            background-color: var(--bgColor);
+        }
+        
+        .normalHeader .van-nav-bar .van-nav-bar__content {
+            color: #CFCFD2;
+        }
+        
+        .van-nav-bar__left,
+        .van-nav-bar__title {
+            color: #CFCFD2;
+        }
+        
+        .van-nav-bar__right {
+            font-size: 0.32rem;
+        }
+        
+        .normalHeader .van-hairline--bottom::after {
+            border: none;
+        }
+        
+        .normalHeader .color999 {
+            color: #999;
+        }
+        /* 搜索框 */
+        
+        .searchBox {
+            position: sticky;
+            top: 0.92rem;
+            width: 100%;
+            z-index: 99;
+        }
+        
+        .searchBox .van-search .van-icon-search {
+            color: #CFCFD2;
+        }
+        
+        .searchBox .van-search .van-search__content {
+            background-color: #1E1E2A;
+        }
+        
+        .searchBox .van-search .van-field__control {
+            color: #CFCFD2;
+        }
+        /* 索引 */
+        
+        .van-index-anchor {
+            color: #CFCFD2;
+        }
+        
+        .van-index-anchor--sticky {
+            background-color: var(--bgColor);
+            top: 2rem;
+        }
+        
+        .van-index-bar__sidebar {
+            top: 50%;
+        }
+        
+        @supports ((height: constant(safe-area-inset-top)) or (height: env(safe-area-inset-top))) and (-webkit-overflow-scrolling: touch) {
+            .normalHeader {
+                height: 0.92rem;
+                height: calc(0.92rem + constant(safe-area-inset-top));
+                height: calc(0.92rem + env(safe-area-inset-top));
+            }
+            .searchBox {
+                top: 0.92rem;
+                top: calc(0.92rem + constant(safe-area-inset-top));
+                top: calc(0.92rem + env(safe-area-inset-top));
+            }
+            .van-index-anchor--sticky {
+                top: 2rem;
+                top: calc(2rem + constant(safe-area-inset-top));
+                top: calc(2rem + env(safe-area-inset-top));
+            }
+        }
+        
+        .van-cell-group {
+            background-color: var(--bgColor);
+        }
+        
+        .van-cell {
+            background-color: var(--bgColor);
+            color: #CFCFD2;
+        }
+        
+        .van-cell--clickable:active {
+            background-color: transparent;
+        }
+        
+        .van-hairline--top-bottom::after,
+        .van-hairline-unset--top-bottom::after {
+            border: none;
+        }
+        
+        .van-cell::after {
+            border-color: #1E1E2A;
+        }
+        
+        .van-checkbox {
+            margin-right: .2rem;
+        }
+        
+        .van-checkbox__icon--checked .van-icon {
+            background-color: #FF4E3E;
+            border-color: #FF4E3E;
+        }
+        
+        .itemBox {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        
+        .itemBox .headpic {
+            height: 0.8rem;
+            height: 0.8rem;
+            border-radius: 50%;
+            margin-right: 0.2rem;
+        }
+        
+        .itemBox .time {
+            font-size: 0.24rem;
+            color: #71717F;
+        }
+        
+        .van-checkbox__icon {
+            font-size: 0.32rem;
+        }
+    </style>
 </head>
 
 <body>
-	<div id="app" v-cloak>
-		<div class="header normalHeader">
-			<van-nav-bar @click-left="onclickLeft" title="指定成员" @click-right="onClickRight" left-arrow
-				safe-area-inset-top fixed>
-				<template #left>
+    <div id="app" v-cloak>
+        <div class="header normalHeader">
+            <van-nav-bar @click-left="onclickLeft" title="指定成员" @click-right="onClickRight" left-arrow safe-area-inset-top fixed>
+                <template #left>
 					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
 				</template>
-				<template #right>
+                <template #right>
 					<div :class="chooseList.length>0?'':'color999'">确定</div>
 				</template>
-			</van-nav-bar>
-		</div>
-		<!-- <div class="searchBox">
-			<van-search v-model="searchval" @input="initList" shape="round" background="#12121f" placeholder="请输入成员昵称或ID">
+            </van-nav-bar>
+        </div>
+        <!-- <div class="searchBox">
+			<van-search v-model="searchval" @input="initList" shape="round" background="var(--bgColor)" placeholder="请输入成员昵称或ID">
 			</van-search>
 		</div> -->
 
 
-		<van-checkbox-group v-model="chooseList">
-			<!-- <van-cell-group v-show="searchval&&searchList.length>0">
+        <van-checkbox-group v-model="chooseList">
+            <!-- <van-cell-group v-show="searchval&&searchList.length>0">
 				<template>
 					<van-cell v-for="(item,index) in searchList" clickable :key="item.userId"
 						@click="toggle(index,item)">
@@ -195,18 +190,18 @@
 					</van-cell>
 				</template>
 			</van-cell-group> -->
-			<!-- <div v-show="!searchval||searchval==''"> -->
-			<div >
-				<van-cell-group v-model="chooseList">
-					<van-index-bar :index-list="indexList">
-						<template v-if="Object.keys(dataList).length>0" v-for="(item,key,index) in dataList">
+            <!-- <div v-show="!searchval||searchval==''"> -->
+            <div>
+                <van-cell-group v-model="chooseList">
+                    <van-index-bar :index-list="indexList">
+                        <template v-if="Object.keys(dataList).length>0" v-for="(item,key,index) in dataList">
 							<van-index-anchor :index="key.toUpperCase()"></van-index-anchor>
 							<van-cell v-for="(item2,index2) in item" clickable :key="item2.memberId"
 								@click="toggle(index2,item2)">
 								<template #icon>
 									<van-checkbox :name="item2.memberId" ref="checkboxes"></van-checkbox>
 								</template>
-								<template #title>
+                        <template #title>
 									<!-- <div class="itemBox">
 										<img class="headpic" :src="item2.headPictureUrl" alt="">
 										<div class="nickname van-ellipsis">{{item2.nickname}}</div>
@@ -219,87 +214,87 @@
 										</div>
 									</div>
 								</template>
-							</van-cell>
-						</template>
-					</van-index-bar>
-				</van-cell-group>
-			</div>
-		</van-checkbox-group>
-	</div>
+                        </van-cell>
+                        </template>
+                    </van-index-bar>
+                </van-cell-group>
+            </div>
+        </van-checkbox-group>
+    </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
 <script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
 <script src="../../common/js/network.js"></script>
 <script>
-	new Vue({
-		el: '#app',
-		data() {
-			return {
-				chooseList: [],
-				searchval: "",
-				searchList: [],
-				dataList: [],
-				indexList: [],
-				clubId:""
-			}
-		},
-		filters: {},
-		mounted() {},
-		created() {
-			this.searchval=""
-			this.initList()
-		},
-		methods: {
-			initList() {
-				ajax({
-					type: "post",
-					url: "club/memberGroup",
-					data:{
-						clubId:getQueryString('id')
-					},
-				}).then(res => {
-					this.dataList = res.data;
-					this.indexList=[]
-					for (const key in this.dataList) {
-						this.indexList.push(key.toUpperCase())
-					}
-					this.chooseList=window.parent.vm.iframe_peopleList
-					
-				})
-			},
-			toggle(index, mid) {
-				this.$refs.checkboxes.forEach((d, f) => {
-					if (d.name == mid.memberId) {
-						this.$refs.checkboxes[f].toggle();
-					}
-				})
-			},
-			// search() {
-			// 	if (!this.searchval) return;
-			// 	ajax({
-			// 		url: "community/threeCommendRefer/see/all/Refer",
-			// 		data: {
-			// 			key: this.searchval,
-			// 		}
-			// 	}).then(res => {
-			// 		this.searchList = res.data;
-			// 	})
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                chooseList: [],
+                searchval: "",
+                searchList: [],
+                dataList: [],
+                indexList: [],
+                clubId: ""
+            }
+        },
+        filters: {},
+        mounted() {},
+        created() {
+            this.searchval = ""
+            this.initList()
+        },
+        methods: {
+            initList() {
+                ajax({
+                    type: "post",
+                    url: "club/memberGroup",
+                    data: {
+                        clubId: getQueryString('id')
+                    },
+                }).then(res => {
+                    this.dataList = res.data;
+                    this.indexList = []
+                    for (const key in this.dataList) {
+                        this.indexList.push(key.toUpperCase())
+                    }
+                    this.chooseList = window.parent.vm.iframe_peopleList
 
-			// },
-			onclickLeft() {
-				window.parent.vm.iframeShow=false
-			},
-			onClickRight() {
-				if (this.chooseList.length == 0) {
-					return
-				}
-				window.parent.vm.iframe_peopleList=this.chooseList
-				window.parent.vm.iframeShow=false
-				
-			}
+                })
+            },
+            toggle(index, mid) {
+                this.$refs.checkboxes.forEach((d, f) => {
+                    if (d.name == mid.memberId) {
+                        this.$refs.checkboxes[f].toggle();
+                    }
+                })
+            },
+            // search() {
+            // 	if (!this.searchval) return;
+            // 	ajax({
+            // 		url: "community/threeCommendRefer/see/all/Refer",
+            // 		data: {
+            // 			key: this.searchval,
+            // 		}
+            // 	}).then(res => {
+            // 		this.searchList = res.data;
+            // 	})
 
-		}
-	})
+            // },
+            onclickLeft() {
+                window.parent.vm.iframeShow = false
+            },
+            onClickRight() {
+                if (this.chooseList.length == 0) {
+                    return
+                }
+                window.parent.vm.iframe_peopleList = this.chooseList
+                window.parent.vm.iframeShow = false
+
+            }
+
+        }
+    })
 </script>
 
 </html>

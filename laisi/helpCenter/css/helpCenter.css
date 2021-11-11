@@ -4,8 +4,8 @@
 }
 
 body {
-    background: #12121F;
-    color: #CFCFD2;
+    background: var(--bgColor);
+    color: var(--textColor);
 }
 
 .header {
@@ -16,21 +16,19 @@ body {
     height: calc(1rem + env(safe-area-inset-top));
 }
 
-
-
 .van-nav-bar--fixed {
-    background-color: #12121f;
+    background-color: var(--bgColor);
+    ;
 }
 
 .van-nav-bar__title,
 .icon-fanhuianniu {
-    color: #cfcfd2;
+    color: var(--textColor);
 }
 
 .van-hairline--bottom::after {
     border-bottom-width: 0;
 }
-
 
 .topBanner {
     width: 100%;
@@ -82,33 +80,33 @@ body {
 
 .commonQA {
     border-radius: .24rem;
-    background-color: #1E1E2A;
+    background-color: var(--borderColor);
+    ;
     padding: .4rem;
     padding-top: .2rem;
 }
 
 .commonQA .listItem {
-    border-bottom: 1px solid #12121F;
+    border-bottom: 1px solid var(--bgColor);
+    ;
     padding: .24rem 0;
-    color: #CFCFD2;
+    color: var(--textColor);
     font-size: .24rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.commonQA .listItem:last-child{
+.commonQA .listItem:last-child {
     border: none;
 }
 
 .blodTitle {
     border-left: .08rem solid #0b83ed;
     font-size: .28rem;
-    color: #BFBFC2;
+    color: var(--textColor);
     padding-left: .08rem;
 }
-
-
 
 [v-cloak] {
     display: none !important;

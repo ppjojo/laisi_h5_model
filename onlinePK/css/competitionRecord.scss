@@ -1,98 +1,148 @@
 @font-face {
     font-family: "BebasNeue";
-    src:url("../common/font/BebasNeue/BebasNeue.tff") format("truetype");
+    src: url("../common/font/BebasNeue/BebasNeue.tff") format("truetype");
     font-weight: normal;
     font-style: normal;
 }
-body{
-    background-color: #12121f;
-    color: #cfcfd2;
+
+//白字
+$textColor:var(--textColor);
+$textColor2:var(--textColor2);
+$textColorActive:var(--textColorActive);
+//黑色背景
+$bgColor:var(--bgColor);
+//边框色
+$borderColor:var(--borderColor);
+//pop背景
+$popBgColor:var(--popBgColor);
+body {
+    background-color: $bgColor;
+    color: $textColor;
 }
-.personInfo{
+
+#logobox {
+    background-color: $bgColor;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    padding: .32rem .6rem;
+}
+
+#logobox .logo {
+    width: .8rem;
+    height: .8rem;
+    margin-right: .14rem;
+}
+
+.title {
+    color: $textColor;
+    font-size: .36rem;
+}
+
+.desc {
+    color: $textColor;
+    font-size: .28rem;
+}
+
+.detail {
+    font-size: .24rem;
+    color: $textColor;
+}
+
+#download {
+    height: .5rem;
+    border-radius: .46rem;
+    border: 1px solid rgba(230, 0, 18, 1);
+    font-size: .32rem;
+    color: #E60012;
+    text-align: center;
+    padding: 0 .16rem;
+}
+
+.personInfo {
     margin-top: 1rem;
     padding: 0 0.3rem;
-    .infoBox{
+    .infoBox {
         display: flex;
-        .pic{
-            img{
-            width: 1rem;
-            height: 1rem;
-            border-radius:50% ;
-            -webkit-border-radius:50% ;
-            -moz-border-radius:50% ;
-            -ms-border-radius:50% ;
-            -o-border-radius:50% ;
-            margin-right: 0.2rem;
-}
+        .pic {
+            img {
+                width: 1rem;
+                height: 1rem;
+                border-radius: 50%;
+                -webkit-border-radius: 50%;
+                -moz-border-radius: 50%;
+                -ms-border-radius: 50%;
+                -o-border-radius: 50%;
+                margin-right: 0.2rem;
+            }
         }
-        .nameBox{
-            .name{
-                color: #cfcfd2 ;
+        .nameBox {
+            .name {
+                color: $textColor;
                 font-size: 0.32rem;
                 line-height: 0.6rem;
             }
-            .idBox{
-                color: #71717f ;
+            .idBox {
+                color: $textColor2;
                 font-size: 0.24rem;
                 line-height: 0.3rem;
             }
         }
     }
-    .scoreBox{
+    .scoreBox {
         padding: 0.3rem 20%;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        .num{
-            color: #E60012 ;
+        .num {
+            color: #E60012;
             font-family: "BebasNeue";
             font-size: 0.8rem;
             line-height: 1rem;
             height: 1rem;
         }
-        .desc{
-            color: #cfcfd2 ;
+        .desc {
+            color: $textColor;
             text-align: center;
             font-size: 0.24rem;
         }
     }
 }
-.detailBox{
-    border-top: 0.2rem solid #1e1e2a;
-    ul{
-        li{
-            border-bottom: 1px solid #1e1e2a;
+
+.detailBox {
+    border-top: 0.2rem solid $borderColor;
+    ul {
+        li {
+            border-bottom: 1px solid $borderColor;
             padding: 0.25rem 0.3rem;
-            .box1{
+            .box1 {
                 display: flex;
                 justify-content: space-between;
-                .namebox{
-                    color: #cfcfd2;
+                .namebox {
+                    color: $textColor;
                     font-size: 0.32rem;
                     line-height: 0.6rem;
-                    .mode{
+                    .mode {
                         font-size: 0.24rem;
                     }
                 }
-                .score{
-                    color: #E60012 ;
+                .score {
+                    color: #E60012;
                     font-size: 0.32rem;
                 }
             }
-            .box2{
+            .box2 {
                 display: flex;
                 justify-content: space-between;
-                .date{
-                    color: #71717f;
+                .date {
+                    color: $textColor2;
                     font-size: 0.24rem;
-                    
                 }
-                .useTime{
-                    color: #71717f;
+                .useTime {
+                    color: $textColor2;
                     font-size: 0.24rem;
                 }
             }
-            
         }
     }
 }

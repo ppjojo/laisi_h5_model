@@ -13,6 +13,7 @@
     <link href="css/header.css" rel="stylesheet" type="text/css" />
     <link href="css/clubIndex.css" rel="stylesheet" type="text/css" />
     <link href="../club/css/corporateCompetion.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" id="themeCssLink2" href="../../common/css/default.css">
 
     <style type="text/css">
         .taskDiv .van-ellipsis {
@@ -27,37 +28,9 @@
             background-position: center;
         }
         
-        .van-dialog__header,
-        .van-button--default,
-        .van-field__control {
-            color: #cfcfd2;
-        }
-        
-        .van-field__control {
-            color: #71717f;
-            border-radius: .08rem;
-            padding: 0 .1rem;
-        }
-        
-        .van-field__control {
-            background-color: #1e1e2a;
-        }
-        
-        .van-tabs__nav,
-        .van-dialog,
-        .van-button--default {
-            background-color: #12121f!important;
-        }
-        
-        .van-dialog,
-        .van-dialog .van-cell,
-        .van-dialog .van-button--default {
-            background-color: #292934!important;
-        }
-        
         .corporate .deptList .deptInfoBox .deptD .userInfo,
         .corporate .deptList .scoreBox .numD {
-            color: #71717f;
+            color: var(--textColor2);
         }
         
         .redpoint {
@@ -159,7 +132,7 @@
                                 </van-row>
                             </van-list>
                         </div>
-                        <div v-else-if="today.list.length>0&&clubObject.type=='05'" class="corporate" style="background-color: #12121f;margin-bottom:0;">
+                        <div v-else-if="today.list.length>0&&clubObject.type=='05'" class="corporate" style="background-color: var(--bgColor);margin-bottom:0;">
                             <van-row v-for="item in today.list" class="deptList" @click="gotoDeptSportDetail(item)">
                                 <van-col span="16" class="deptInfoBox">
                                     <div class="deptPic">
@@ -223,7 +196,7 @@
                                         </van-list>
                                     </div>
                                     <div v-else-if="item.list.length>0&&clubObject.type=='05'" class="corporate" style="background-color:
-                                                #12121f;margin-bottom:0;">
+                                                var(--bgColor);margin-bottom:0;">
                                         <van-row v-for="sitem in item.list" class="deptList" @click="gotoDeptSportDetail(sitem,item.date)">
                                             <van-col span="16" class="deptInfoBox">
                                                 <div class="deptPic">
@@ -489,20 +462,20 @@
 
         }
     }
-	var vm;
-	var isPageHide = false;
-	window.addEventListener('pageshow', function() {
-	    if (isPageHide&&isIOS) {
-	       if (localStorage.getItem("clubTab")) {
-	           vm.activeTab = parseInt(localStorage.getItem("clubTab"))
-	           vm.refreshDetailData()
-	       }
-	    }
-	});
-	window.addEventListener('pagehide', function() {
-	    isPageHide = true;
-	});
-	
+    var vm;
+    var isPageHide = false;
+    window.addEventListener('pageshow', function() {
+        if (isPageHide && isIOS) {
+            if (localStorage.getItem("clubTab")) {
+                vm.activeTab = parseInt(localStorage.getItem("clubTab"))
+                vm.refreshDetailData()
+            }
+        }
+    });
+    window.addEventListener('pagehide', function() {
+        isPageHide = true;
+    });
+
     new Vue({
         el: '#app',
         data() {
@@ -604,8 +577,8 @@
             if (!this.isShare) {
                 window.addEventListener('scroll', this.scrollFn);
             }
-			vm=this;
-			
+            vm = this;
+
 
         },
         created() {
@@ -614,7 +587,7 @@
             }
             this.clubObject = Object.assign({}, localStorage.getItem("clubObject"))
             this.getClubDetail()
-           
+
             if (localStorage.getItem("clubTab")) {
                 this.activeTab = parseInt(localStorage.getItem("clubTab"))
                 this.refreshDetailData()
@@ -863,7 +836,7 @@
             },
             //获取历史跳绳数据
             getHistorySport(historyObject) {
-				if(!historyObject)return;
+                if (!historyObject) return;
                 var that = this
                 var currentPage = historyObject.page - 1
                 historyObject.done = false

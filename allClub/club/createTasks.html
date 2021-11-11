@@ -1,849 +1,830 @@
 <!DOCTYPE html>
 <html>
 
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport"
-			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
-		<title>创建任务(1/2)</title>
-		<!-- 引入样式文件 -->
-		<link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
-		<link rel="stylesheet" href="css/clubCreateCompetition.css">
-		
-		<link rel="stylesheet" href="../font/iconfont.css">
-		<link href="../clubList_Detail/css/header.css" rel="stylesheet" type="text/css" />
-		<style type="text/css">
-			.van-field--error .van-field__control,
-			.van-field--error .van-field__control::placeholder {
-				color: red;
-				-webkit-text-fill-color: red
-			}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+    <title>创建任务(1/2)</title>
+    <!-- 引入样式文件 -->
+    <link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
+    <link rel="stylesheet" href="css/clubCreateCompetition.css">
 
-			.van-field__control {
-				color: #CFCFD2;
-			}
-			.laberTitle {
-	text-align: left;
-	font-size: 0.32rem;
-	line-height: 1.28rem;
-	padding: 0 0.32rem;
-	padding-right: 0;
-	color: #cfcfd2;
-}
-.laberContent input{
-	font-size: 0.26rem;
-	color: #CFCFD2 ;
-	height: 0.5rem;
-	margin-top: 0.39rem;
-	line-height: 0.5rem;
-}
+    <link rel="stylesheet" href="../font/iconfont.css">
+    <link href="../clubList_Detail/css/header.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        .van-field--error .van-field__control,
+        .van-field--error .van-field__control::placeholder {
+            color: red;
+            -webkit-text-fill-color: red
+        }
+        
+        .van-field__control {
+            color: #CFCFD2;
+        }
+        
+        .laberTitle {
+            text-align: left;
+            font-size: 0.32rem;
+            line-height: 1.28rem;
+            padding: 0 0.32rem;
+            padding-right: 0;
+            color: #cfcfd2;
+        }
+        
+        .laberContent input {
+            font-size: 0.26rem;
+            color: #CFCFD2;
+            height: 0.5rem;
+            margin-top: 0.39rem;
+            line-height: 0.5rem;
+        }
+    </style>
+    <style type="text/css">
+        .van-cell::after {
+            border-bottom: 0;
+        }
+        
+        .clubtype {
+            font-size: .24rem;
+            vertical-align: middle;
+            text-align: center;
+            color: #999;
+        }
+        
+        .clubtype .clubtypeicon {
+            width: .72rem;
+            height: .72rem;
+            border-radius: 100%;
+            margin-bottom: .2rem;
+            background-color: #1e1e2a;
+        }
+        
+        .clubtype .active {
+            background-color: #1182ff;
+        }
+        
+        .clubtag .active {
+            background-color: #ff7518;
+        }
+        
+        .clubtype .clubtypeicon img {
+            width: .48rem;
+        }
+        
+        .chosed .van-cell__value {
+            color: #1F1F1F;
+        }
+        
+        .van-action-sheet__cancel {
+            color: #71717f;
+        }
+        
+        .van-picker__title {
+            font-size: .28rem;
+        }
+        
+        .van-action-sheet__gap {
+            background-color: rgba(30, 30, 42, .5);
+        }
+        
+        .van-picker-column__item {
+            color: #CFCFD2;
+        }
+        
+        .van-picker__toolbar,
+        .van-popup,
+        .van-picker-column,
+        .van-action-sheet__cancel,
+        .van-action-sheet__item {
+            background-color: #292934;
+            color: #cfcfd2;
+        }
+        
+        .van-popup {
+            background-color: var(--bgColor);
+        }
+        
+        .van-picker__mask {
+            display: none;
+        }
+        
+        .van-action-sheet__cancel,
+        .van-action-sheet__item {
+            font-size: .32rem;
+        }
+        
+        .van-action-sheet__item {
+            border-bottom: 1px solid #1e1e2a
+        }
+        
+        .van-picker-column__item--selected {
+            font-size: .4rem;
+        }
+        
+        #zq2 .van-cell__title {
+            flex: 2
+        }
+        
+        #zq2 .van-cell__value span {
+            font-size: .28rem;
+            color: #cfcfd2;
+        }
+        
+        .tasks .laberContent input {
+            text-align: right;
+            font-size: 0.24rem;
+        }
+        
+        .tasks .laberContent .big input {
+            font-size: 0.28rem;
+        }
+        
+        .van-popup {
+            border-radius: .5rem .5rem 0 0;
+        }
+        
+        .van-action-sheet__gap {
+            height: .1rem;
+        }
+        
+        input::-webkit-input-placeholder,
+        .van-cell__right-icon {
+            color: #71717f !important;
+        }
+    </style>
+</head>
 
-		</style>
-		<style type="text/css">
-
-			.van-cell::after {
-				border-bottom: 0;
-			}
-
-			.clubtype {
-				font-size: .24rem;
-				vertical-align: middle;
-				text-align: center;
-				color: #999;
-			}
-
-			.clubtype .clubtypeicon {
-				width: .72rem;
-				height: .72rem;
-				border-radius: 100%;
-				margin-bottom: .2rem;
-				background-color:#1e1e2a;
-			}
-
-			.clubtype .active {
-				background-color: #1182ff;
-			}
-
-			.clubtag .active {
-				background-color: #ff7518;
-			}
-
-			.clubtype .clubtypeicon img {
-				width: .48rem;
-			}
-
-			
-
-			.chosed .van-cell__value {
-				color: #1F1F1F;
-			}
-
-			.van-action-sheet__cancel {
-				color: #71717f;
-			}
-
-			.van-picker__title {
-				font-size: .28rem;
-			}
-
-			.van-action-sheet__gap {
-				background-color: rgba(30, 30, 42, .5);
-			}
-
-			.van-picker-column__item {
-				color: #CFCFD2;
-			}
-
-			.van-picker__toolbar,
-			.van-popup,
-			.van-picker-column,
-			.van-action-sheet__cancel,
-			.van-action-sheet__item {
-				background-color: #292934;
-				color: #cfcfd2;
-			}
-			.van-popup{
-				background-color: #12121f;
-			}
-
-			.van-picker__mask {
-				display: none;
-			}
-
-			.van-action-sheet__cancel,
-			.van-action-sheet__item {
-				font-size: .32rem;
-			}
-
-			.van-action-sheet__item {
-				border-bottom: 1px solid #1e1e2a
-			}
-
-			.van-picker-column__item--selected {
-				font-size: .4rem;
-			}
-
-			#zq2 .van-cell__title {
-				flex: 2
-			}
-
-			#zq2 .van-cell__value span {
-				font-size: .28rem;
-				color: #cfcfd2;
-			}
-
-			.tasks .laberContent input {
-				text-align: right;
-				font-size:0.24rem;
-				
-			}
-			.tasks .laberContent .big input{
-				font-size:0.28rem;
-			}
-
-
-			.van-popup {
-				border-radius: .5rem .5rem 0 0;
-			}
-
-			.van-action-sheet__gap {
-				height: .1rem;
-			}
-
-			input::-webkit-input-placeholder,.van-cell__right-icon {
-				color: #71717f !important;
-			}
-		</style>
-	</head>
-
-	<body>
-		<div id="app" class="normalHeader" v-cloak>
-			<div class="header">
-				<van-nav-bar @click-left="onclickLeft" :title="'创建任务('+flag+'/2)'" left-arrow safe-area-inset-top fixed>
-					<template #left>
+<body>
+    <div id="app" class="normalHeader" v-cloak>
+        <div class="header">
+            <van-nav-bar @click-left="onclickLeft" :title="'创建任务('+flag+'/2)'" left-arrow safe-area-inset-top fixed>
+                <template #left>
 						<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
 					</template>
 
-				</van-nav-bar>
-			</div>
-			<div v-if="flag==1">
-				<div>
-					<div class="laberDiv">
-						任务名称
-					</div>
-					<div style="padding:0 0.2rem 0.2rem 0.2rem;">
-						<van-field v-model="submitform.name" class="club-input"
-							style="min-height:1.6rem;font-size: .28rem;" rows="1" autosize type="textarea"
-							maxlength="20" placeholder="请输入任务名称~" show-word-limit />
-					</div>
-				</div>
-				<div style="margin-bottom: 1.6rem;">
-					<div class="laberDiv">任务说明</div>
-					<div style="padding:0 0.2rem 0.2rem 0.2rem;">
-						<van-field v-model="submitform.introduce" style="font-size: .28rem;border-radius:0.08rem;" class="tasks-input"
-							rows="4" autosize type="textarea" maxlength="50" placeholder="请输入任务说明~" show-word-limit />
-					</div>
-				</div>
-				<van-button round class="submit" block :color="submitform.introduce&&submitform.name?bgc:bgcgrey"
-					@click="goNext1">下一步</van-button>
-			</div>
-			<div v-if="flag==2">
-				<div class="tasks" style="border-bottom:1px solid #1e1e2a">
-					<van-row>
-						<van-col span="7" class="laberTitle">
-							任务目标
-						</van-col>
-						<van-col span="17" class="laberContent">
-							<van-field v-model="submitform.target" :class="submitform.target?'big':''" :error="isSubmit&&!submitform.target?true:false"
-								style="padding-left: 0;" placeholder="请输入跳绳目标个数" is-link />
-						</van-col>
-					</van-row>
-				</div>
-				<div @click="timeshow = true" style="border-bottom:1px solid #1e1e2a">
-					<van-cell title="任务周期" :class="form.zq.indexOf('选择')!=-1?'':'chosed'" is-link :value="form.zq">
-					</van-cell>
-				</div>
-				<div id="zq2" @click="zq2startshow=true" v-if="form.zq2title" style="border-bottom:4px solid #1e1e2a">
-					<van-cell :title="form.zq2title" is-link :value="form.zq2"></van-cell>
-				</div>
-				<div>
-					<van-popup position="bottom"  v-model="zq2show">
-						<van-datetime-picker v-model="currentDate" @change="zq2change" :filter='filter'
-							@cancel="zq2show = false" @confirm="zq2confirm" type="date" title="请选择任务截止时间"
-							:min-date="minDate" :formatter="formatter" />
-					</van-popup>
-				</div>
-				<div>
-					<van-popup position="bottom"  v-model="zq2startshow">
-						<van-datetime-picker v-model="currentDate2" @cancel="zq2startshow = false"
-							@confirm="zq2startconfirm" type="date"
-							:title="submitform.period == '00'?'请选择任务截止时间':'请选择任务开始时间'" :min-date="minDate2"
-							:formatter="formatter" />
-					</van-popup>
-				</div>
-				<van-action-sheet cancel-text="取消" close-on-click-action v-model="timeshow" :round="false"
-					:actions="timeaction" @select="onSelectTime"></van-action-sheet>
+            </van-nav-bar>
+        </div>
+        <div v-if="flag==1">
+            <div>
+                <div class="laberDiv">
+                    任务名称
+                </div>
+                <div style="padding:0 0.2rem 0.2rem 0.2rem;">
+                    <van-field v-model="submitform.name" class="club-input" style="min-height:1.6rem;font-size: .28rem;" rows="1" autosize type="textarea" maxlength="20" placeholder="请输入任务名称~" show-word-limit />
+                </div>
+            </div>
+            <div style="margin-bottom: 1.6rem;">
+                <div class="laberDiv">任务说明</div>
+                <div style="padding:0 0.2rem 0.2rem 0.2rem;">
+                    <van-field v-model="submitform.introduce" style="font-size: .28rem;border-radius:0.08rem;" class="tasks-input" rows="4" autosize type="textarea" maxlength="50" placeholder="请输入任务说明~" show-word-limit />
+                </div>
+            </div>
+            <van-button round class="submit" block :color="submitform.introduce&&submitform.name?bgc:bgcgrey" @click="goNext1">下一步</van-button>
+        </div>
+        <div v-if="flag==2">
+            <div class="tasks" style="border-bottom:1px solid #1e1e2a">
+                <van-row>
+                    <van-col span="7" class="laberTitle">
+                        任务目标
+                    </van-col>
+                    <van-col span="17" class="laberContent">
+                        <van-field v-model="submitform.target" :class="submitform.target?'big':''" :error="isSubmit&&!submitform.target?true:false" style="padding-left: 0;" placeholder="请输入跳绳目标个数" is-link />
+                    </van-col>
+                </van-row>
+            </div>
+            <div @click="timeshow = true" style="border-bottom:1px solid #1e1e2a">
+                <van-cell title="任务周期" :class="form.zq.indexOf('选择')!=-1?'':'chosed'" is-link :value="form.zq">
+                </van-cell>
+            </div>
+            <div id="zq2" @click="zq2startshow=true" v-if="form.zq2title" style="border-bottom:4px solid #1e1e2a">
+                <van-cell :title="form.zq2title" is-link :value="form.zq2"></van-cell>
+            </div>
+            <div>
+                <van-popup position="bottom" v-model="zq2show">
+                    <van-datetime-picker v-model="currentDate" @change="zq2change" :filter='filter' @cancel="zq2show = false" @confirm="zq2confirm" type="date" title="请选择任务截止时间" :min-date="minDate" :formatter="formatter" />
+                </van-popup>
+            </div>
+            <div>
+                <van-popup position="bottom" v-model="zq2startshow">
+                    <van-datetime-picker v-model="currentDate2" @cancel="zq2startshow = false" @confirm="zq2startconfirm" type="date" :title="submitform.period == '00'?'请选择任务截止时间':'请选择任务开始时间'" :min-date="minDate2" :formatter="formatter" />
+                </van-popup>
+            </div>
+            <van-action-sheet cancel-text="取消" close-on-click-action v-model="timeshow" :round="false" :actions="timeaction" @select="onSelectTime"></van-action-sheet>
 
-				<div @click="membershow = true" style="border-bottom:1px solid #1e1e2a">
-					<van-cell title="参与成员" :class="form.cy.indexOf('选择')!=-1?'':'chosed'" is-link :value="form.cy">
-					</van-cell>
-				</div>
-				<van-action-sheet cancel-text="取消" close-on-click-action v-model="membershow" :round="false"
-					:actions="memberaction" @select="onSelectMember"></van-action-sheet>
-				<div>
-					<div class="van-cell"><span>任务标签</span></div>
-					<van-row type="flex" justify="space-around">
-						<van-col span="6">
-							<div class="clubtype clubtag" @click="clubtag = 1">
-								<div class="clubtypeicon ub ub-ac ub-pc" style="margin:0 auto .2rem;"
-									:class="clubtag==1?'active':''">
-									<img :src="clubtag==1?'img/jumpskip.png':'img/jumpskip2.png'" alt="">
-								</div>
-								<div>跳绳</div>
-							</div>
-						</van-col>
-						<van-col span="6"></van-col>
-						<van-col span="6"></van-col>
-						<van-col span="6"></van-col>
-					</van-row>
-				</div>
+            <div @click="membershow = true" style="border-bottom:1px solid #1e1e2a">
+                <van-cell title="参与成员" :class="form.cy.indexOf('选择')!=-1?'':'chosed'" is-link :value="form.cy">
+                </van-cell>
+            </div>
+            <van-action-sheet cancel-text="取消" close-on-click-action v-model="membershow" :round="false" :actions="memberaction" @select="onSelectMember"></van-action-sheet>
+            <div>
+                <div class="van-cell"><span>任务标签</span></div>
+                <van-row type="flex" justify="space-around">
+                    <van-col span="6">
+                        <div class="clubtype clubtag" @click="clubtag = 1">
+                            <div class="clubtypeicon ub ub-ac ub-pc" style="margin:0 auto .2rem;" :class="clubtag==1?'active':''">
+                                <img :src="clubtag==1?'img/jumpskip.png':'img/jumpskip2.png'" alt="">
+                            </div>
+                            <div>跳绳</div>
+                        </div>
+                    </van-col>
+                    <van-col span="6"></van-col>
+                    <van-col span="6"></van-col>
+                    <van-col span="6"></van-col>
+                </van-row>
+            </div>
 
-				<van-button round class="submit" block
-					:color="clubtag&&submitform.period&&submitform.target&&submitform.assignType?bgc:bgcgrey"
-					@click="submitFormData">创建</van-button>
+            <van-button round class="submit" block :color="clubtag&&submitform.period&&submitform.target&&submitform.assignType?bgc:bgcgrey" @click="submitFormData">创建</van-button>
 
-				<van-popup v-model="endTimeShow" position="bottom">
-					<van-picker show-toolbar title="选择任务截止时间" :columns="endTimeColumns" @cancel="endTimeShow = false"
-						@confirm="onendTimeConfirm" />
-				</van-popup>
+            <van-popup v-model="endTimeShow" position="bottom">
+                <van-picker show-toolbar title="选择任务截止时间" :columns="endTimeColumns" @cancel="endTimeShow = false" @confirm="onendTimeConfirm" />
+            </van-popup>
 
-				<van-popup v-model="iframeShow" position="right" :style="{ height: '100%' ,width:'100%'}">
-					<iframe :src="iframeSrc" width="100%" height="96%" frameborder="0"></iframe>
-				</van-popup>
-			</div>
-		</div>
-		</div>
-	</body>
-	<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
-	<script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
-	<script src="../../common/js/network.js"></script>
-	<script src="js/DateTime.js"></script>
-	<script type="text/javascript">
-		function getNextMonday() { //获取当前日期的下一个周一的时间戳
-			var Stamp;
-			Stamp = new Date();
-			var num = 7 - Stamp.getDay() + 1;
-			Stamp.setDate(Stamp.getDate() + num);
+            <van-popup v-model="iframeShow" position="right" :style="{ height: '100%' ,width:'100%'}">
+                <iframe :src="iframeSrc" width="100%" height="96%" frameborder="0"></iframe>
+            </van-popup>
+        </div>
+    </div>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
+<script src="../../common/js/network.js"></script>
+<script src="js/DateTime.js"></script>
+<script type="text/javascript">
+    function getNextMonday() { //获取当前日期的下一个周一的时间戳
+        var Stamp;
+        Stamp = new Date();
+        var num = 7 - Stamp.getDay() + 1;
+        Stamp.setDate(Stamp.getDate() + num);
 
-			var year = Stamp.getFullYear(); //获取完整的年份(4位,1970-????)
-			var month = Stamp.getMonth() + 1; //获取当前月份(0-11,0代表1月)
-			var mvar = '';
-			if (month < 10) {
-				mvar = '0' + month;
-			} else {
-				mvar = month + '';
-			}
-			var day = Stamp.getDate();
-			var dvar = '';
-			if (day < 10) {
-				dvar = '0' + day;
-			} else {
-				dvar = day + '';
-			}
-			var finalDate = year + '/' + mvar + '/' + dvar;
-			return DateTime.getSjc(finalDate);
-		}
+        var year = Stamp.getFullYear(); //获取完整的年份(4位,1970-????)
+        var month = Stamp.getMonth() + 1; //获取当前月份(0-11,0代表1月)
+        var mvar = '';
+        if (month < 10) {
+            mvar = '0' + month;
+        } else {
+            mvar = month + '';
+        }
+        var day = Stamp.getDate();
+        var dvar = '';
+        if (day < 10) {
+            dvar = '0' + day;
+        } else {
+            dvar = day + '';
+        }
+        var finalDate = year + '/' + mvar + '/' + dvar;
+        return DateTime.getSjc(finalDate);
+    }
 
-		function getMonthTimeStamp() { //判断是否过了15号判断获取的时间戳是当前还是下月一号
-			var year = DateTime.timeStamp2String("y"); //获取当前日期的年份
-			var month = DateTime.timeStamp2String("M"); //获取当前日期的月份
-			var day = DateTime.timeStamp2String("d"); //获取当前日期的日
-			if (day <= 15) {
-				return Math.round(new Date());
-			} else {
-				var month2 = parseInt(month) + 1;
-				var year2 = year;
-				if (month2 == 13) {
-					year2 = parseInt(year) + 1;
-					month2 = 1;
-				}
-				var day2 = "01";
-				if (month2 < 10) {
-					month2 = '0' + month2;
-				}
+    function getMonthTimeStamp() { //判断是否过了15号判断获取的时间戳是当前还是下月一号
+        var year = DateTime.timeStamp2String("y"); //获取当前日期的年份
+        var month = DateTime.timeStamp2String("M"); //获取当前日期的月份
+        var day = DateTime.timeStamp2String("d"); //获取当前日期的日
+        if (day <= 15) {
+            return Math.round(new Date());
+        } else {
+            var month2 = parseInt(month) + 1;
+            var year2 = year;
+            if (month2 == 13) {
+                year2 = parseInt(year) + 1;
+                month2 = 1;
+            }
+            var day2 = "01";
+            if (month2 < 10) {
+                month2 = '0' + month2;
+            }
 
-				var t2 = year2 + '/' + month2 + '/' + day2;
-				return DateTime.getSjc(t2);
-			}
-		}
-		var vm;
-		new Vue({
-			el: '#app',
-			data() {
-				return {
-					flag: 1,
-					bgc: "linear-gradient(to right, #FF4e3e, #FFaa88 )",
-					bgcgrey: '#71717F',
-					isCorporate: localStorage.getItem('isCorporate') ? parseInt(localStorage.getItem('isCorporate')) :
-						0,
-					submitform: {
-						clubId: "",
-						name: "",
-						label: "00", //00跳绳
-						period: "", //(00每天,01每周,02每月,03单次任务)
-						target: "",
-						assignType: "", //(00成员报名参加,01全员参加,02指定成员参加)
-						introduce: "", //任务说明
-						creator: "", //创建者
-					},
-					clubtag: '',
-					timeshow: false,
-					membershow: false,
-					timeaction: [{
-						name: '每天（每天完成一次目标）',
-						val: '00'
-					}, {
-						name: '每周',
-						val: '01'
-					}, {
-						name: '每月',
-						val: '02'
-					}],
-					memberaction: [{
-						name: '成员报名参加',
-						val: '00'
-					}, {
-						name: '全员参加',
-						val: '01'
-					}, {
-						name: '指定成员参加',
-						val: '02'
-					}],
-					isSubmit: false,
-					endTimeShow: false,
-					endTimeColumns: [],
-					form: {
-						zq: "选择任务周期",
-						cy: "选择参与成员",
-						zq2: '',
-						zq2title: ''
-					},
-					currentDate: new Date(),
-					currentDate2: new Date(),
-					minDate: null,
-					minDate2: new Date(),
-					zq2show: false,
-					zq2startshow: false,
-					chooseMonth: null,
-					choosetime: null,
-					dayArr: [],
-					iframeSrc: "",
-					iframeShow: false,
-					iframe_peopleList: [],
-					iframe_groupList: []
-				}
-			},
-			created() {
-				vm = this
-				this.submitform.clubId = getQueryString("id");
-				// if (this.flag == 2) {
-				if (this.isCorporate == 1) {
-					//如果是企业的
-					this.memberaction = [{
-						name: '全员参加',
-						val: '01'
-					}, {
-						name: '指定部门参加',
-						val: '03'
-					}, {
-						name: '指定成员参加',
-						val: '02'
-					}];
-					console.log(this.memberaction)
-					this.timeaction = [{
-						name: '每天（每天完成一次目标）',
-						val: '00'
-					}, {
-						name: '每周',
-						val: '01'
-					}, {
-						name: '每月',
-						val: '02'
-					}]
-				}
-				var date = DateTime.timeStamp2String("md2");
-				var date2 = DateTime.timeStamp2String("ymd");
-				this.endTimeColumns.push(date)
-				var todaySJC = DateTime.getSjc(date2);
-				for (var i = 1; i < 30; i++) {
-					this.endTimeColumns.push(DateTime.sjc2time("md2", (todaySJC + 86400000 * i)))
-				}
-				// }
-			},
-			methods: {
-				onclickLeft() {
-					if (this.flag > 1) {
-						this.flag--
-					} else {
-						window.history.back()
-					}
-				},
-				goNext1() {
-					if (!this.submitform.introduce || !this.submitform.name) {
-						return;
-					}
-					this.checkStr(this.submitform.name + this.submitform.introduce)
-				},
-				checkStr(param) {
-					ajax({
-						type: "post",
-						url: "contentSecurity/aliyun/textScan",
-						data: {
-							content: param
-						}
-					}).then(res => {
-						if (res.code == 0) {
-							this.checkSame(param)
-						} else if (res.code == 4001) {
-							this.$toast("输入的内容不合法!");
-						}
-					})
-				},
-				checkSame() {
-					ajax({
-						type: "post",
-						url: "club/checkClubTaskName",
-						data: {
-							clubId: this.submitform.clubId,
-							name: this.submitform.name,
-							introduce: this.submitform.introduce
-						}
-					}).then(res => {
-						if (res.code == 0) {
-							this.submitform.creator = JSON.parse(localStorage.getItem("appInfo")).userId;
-							this.flag = 2
-						} else {
-							this.$toast("任务名称有重复!");
-						}
-					})
-				},
+            var t2 = year2 + '/' + month2 + '/' + day2;
+            return DateTime.getSjc(t2);
+        }
+    }
+    var vm;
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                flag: 1,
+                bgc: "linear-gradient(to right, #FF4e3e, #FFaa88 )",
+                bgcgrey: '#71717F',
+                isCorporate: localStorage.getItem('isCorporate') ? parseInt(localStorage.getItem('isCorporate')) : 0,
+                submitform: {
+                    clubId: "",
+                    name: "",
+                    label: "00", //00跳绳
+                    period: "", //(00每天,01每周,02每月,03单次任务)
+                    target: "",
+                    assignType: "", //(00成员报名参加,01全员参加,02指定成员参加)
+                    introduce: "", //任务说明
+                    creator: "", //创建者
+                },
+                clubtag: '',
+                timeshow: false,
+                membershow: false,
+                timeaction: [{
+                    name: '每天（每天完成一次目标）',
+                    val: '00'
+                }, {
+                    name: '每周',
+                    val: '01'
+                }, {
+                    name: '每月',
+                    val: '02'
+                }],
+                memberaction: [{
+                    name: '成员报名参加',
+                    val: '00'
+                }, {
+                    name: '全员参加',
+                    val: '01'
+                }, {
+                    name: '指定成员参加',
+                    val: '02'
+                }],
+                isSubmit: false,
+                endTimeShow: false,
+                endTimeColumns: [],
+                form: {
+                    zq: "选择任务周期",
+                    cy: "选择参与成员",
+                    zq2: '',
+                    zq2title: ''
+                },
+                currentDate: new Date(),
+                currentDate2: new Date(),
+                minDate: null,
+                minDate2: new Date(),
+                zq2show: false,
+                zq2startshow: false,
+                chooseMonth: null,
+                choosetime: null,
+                dayArr: [],
+                iframeSrc: "",
+                iframeShow: false,
+                iframe_peopleList: [],
+                iframe_groupList: []
+            }
+        },
+        created() {
+            vm = this
+            this.submitform.clubId = getQueryString("id");
+            // if (this.flag == 2) {
+            if (this.isCorporate == 1) {
+                //如果是企业的
+                this.memberaction = [{
+                    name: '全员参加',
+                    val: '01'
+                }, {
+                    name: '指定部门参加',
+                    val: '03'
+                }, {
+                    name: '指定成员参加',
+                    val: '02'
+                }];
+                console.log(this.memberaction)
+                this.timeaction = [{
+                    name: '每天（每天完成一次目标）',
+                    val: '00'
+                }, {
+                    name: '每周',
+                    val: '01'
+                }, {
+                    name: '每月',
+                    val: '02'
+                }]
+            }
+            var date = DateTime.timeStamp2String("md2");
+            var date2 = DateTime.timeStamp2String("ymd");
+            this.endTimeColumns.push(date)
+            var todaySJC = DateTime.getSjc(date2);
+            for (var i = 1; i < 30; i++) {
+                this.endTimeColumns.push(DateTime.sjc2time("md2", (todaySJC + 86400000 * i)))
+            }
+            // }
+        },
+        methods: {
+            onclickLeft() {
+                if (this.flag > 1) {
+                    this.flag--
+                } else {
+                    window.history.back()
+                }
+            },
+            goNext1() {
+                if (!this.submitform.introduce || !this.submitform.name) {
+                    return;
+                }
+                this.checkStr(this.submitform.name + this.submitform.introduce)
+            },
+            checkStr(param) {
+                ajax({
+                    type: "post",
+                    url: "contentSecurity/aliyun/textScan",
+                    data: {
+                        content: param
+                    }
+                }).then(res => {
+                    if (res.code == 0) {
+                        this.checkSame(param)
+                    } else if (res.code == 4001) {
+                        this.$toast("输入的内容不合法!");
+                    }
+                })
+            },
+            checkSame() {
+                ajax({
+                    type: "post",
+                    url: "club/checkClubTaskName",
+                    data: {
+                        clubId: this.submitform.clubId,
+                        name: this.submitform.name,
+                        introduce: this.submitform.introduce
+                    }
+                }).then(res => {
+                    if (res.code == 0) {
+                        this.submitform.creator = JSON.parse(localStorage.getItem("appInfo")).userId;
+                        this.flag = 2
+                    } else {
+                        this.$toast("任务名称有重复!");
+                    }
+                })
+            },
 
 
-				formatter(type, val) {
-					if (type === 'year') {
-						return val + '年';
-					}
-					if (type === 'month') {
-						return val + '月';
-					}
-					if (type === 'day') {
-						return val + (this.dayArr.length == 0 ? '日' : '');
-					}
-					return val;
-				},
-				filter(type, options) {
-					let datetime = this.minDate.getTime() || new Date().getTime();
-					if (type == 'year') {
-						return options;
-					}
-					if (type == 'month') {
-						let arr = [];
-						if (this.submitform.period == '01') { //按周
-							for (let i = 0; i < 12; i++) {
-								if (DateTime.sjc2time("M", datetime + (86400000 * 7) * (i + 1)) == DateTime.sjc2time(
-										"M", datetime) || DateTime.sjc2time("M", datetime + (86400000 * 7) * (i +
-										1)) == DateTime.sjc2time("M", datetime) + 1) {
-									console.log(DateTime.sjc2time("ymd", datetime + (86400000 * 7) * (i + 1)))
-									arr.push(DateTime.sjc2time("M", datetime + (86400000 * 7) * (i + 1)) + '')
-									break;
-								}
-							}
-							var lastM = parseInt(arr[0]);
-							for (var i = 0; i < (12 - lastM); i++) {
-								arr.push(lastM + (i + 1));
-							}
-							console.log(arr)
-							return arr;
-						} else {
-							return options;
-						}
-					}
-					if (type == 'day') {
-						let arr = [];
-						if (this.submitform.period == '00') { //按日不动
-							return options;
-						} else if (this.submitform.period == '01') { //按周
-							if (this.dayArr.length > 0) {
-								return this.dayArr
-							}
-							for (let i = 0; i < 10; i++) {
-								if (DateTime.sjc2time("M", datetime + (86400000 * 7) * (i + 1)) == DateTime.sjc2time(
-										"M", datetime) || DateTime.sjc2time("M", datetime + (86400000 * 7) * (i +
-										1)) == DateTime.sjc2time("M", datetime) + 1) {
-									console.log(DateTime.sjc2time("ymd", datetime + (86400000 * 7) * (i + 1)))
-									arr.push(DateTime.sjc2time("d", datetime + (86400000 * 7) * (i + 1)) + '')
-								}
-							}
-							console.log(arr)
-							return arr;
-						} else {
-							if (this.dayArr.length > 0) {
-								return this.dayArr
-							}
+            formatter(type, val) {
+                if (type === 'year') {
+                    return val + '年';
+                }
+                if (type === 'month') {
+                    return val + '月';
+                }
+                if (type === 'day') {
+                    return val + (this.dayArr.length == 0 ? '日' : '');
+                }
+                return val;
+            },
+            filter(type, options) {
+                let datetime = this.minDate.getTime() || new Date().getTime();
+                if (type == 'year') {
+                    return options;
+                }
+                if (type == 'month') {
+                    let arr = [];
+                    if (this.submitform.period == '01') { //按周
+                        for (let i = 0; i < 12; i++) {
+                            if (DateTime.sjc2time("M", datetime + (86400000 * 7) * (i + 1)) == DateTime.sjc2time(
+                                    "M", datetime) || DateTime.sjc2time("M", datetime + (86400000 * 7) * (i +
+                                    1)) == DateTime.sjc2time("M", datetime) + 1) {
+                                console.log(DateTime.sjc2time("ymd", datetime + (86400000 * 7) * (i + 1)))
+                                arr.push(DateTime.sjc2time("M", datetime + (86400000 * 7) * (i + 1)) + '')
+                                break;
+                            }
+                        }
+                        var lastM = parseInt(arr[0]);
+                        for (var i = 0; i < (12 - lastM); i++) {
+                            arr.push(lastM + (i + 1));
+                        }
+                        console.log(arr)
+                        return arr;
+                    } else {
+                        return options;
+                    }
+                }
+                if (type == 'day') {
+                    let arr = [];
+                    if (this.submitform.period == '00') { //按日不动
+                        return options;
+                    } else if (this.submitform.period == '01') { //按周
+                        if (this.dayArr.length > 0) {
+                            return this.dayArr
+                        }
+                        for (let i = 0; i < 10; i++) {
+                            if (DateTime.sjc2time("M", datetime + (86400000 * 7) * (i + 1)) == DateTime.sjc2time(
+                                    "M", datetime) || DateTime.sjc2time("M", datetime + (86400000 * 7) * (i +
+                                    1)) == DateTime.sjc2time("M", datetime) + 1) {
+                                console.log(DateTime.sjc2time("ymd", datetime + (86400000 * 7) * (i + 1)))
+                                arr.push(DateTime.sjc2time("d", datetime + (86400000 * 7) * (i + 1)) + '')
+                            }
+                        }
+                        console.log(arr)
+                        return arr;
+                    } else {
+                        if (this.dayArr.length > 0) {
+                            return this.dayArr
+                        }
 
-							arr.push(options[0])
-							return arr;
-						}
-					}
-				},
-				zq2change(event) {
-					if (this.submitform.period == '00') {
-						return
-					}
-					let dateArr = event.getValues();
-					let month = parseInt(dateArr[1].replace(/月/, ''));
-					let mindateM = DateTime.sjc2time("M", this.minDate.getTime());
+                        arr.push(options[0])
+                        return arr;
+                    }
+                }
+            },
+            zq2change(event) {
+                if (this.submitform.period == '00') {
+                    return
+                }
+                let dateArr = event.getValues();
+                let month = parseInt(dateArr[1].replace(/月/, ''));
+                let mindateM = DateTime.sjc2time("M", this.minDate.getTime());
 
-					if (month == this.chooseMonth && this.submitform.period == '01') {
-						console.log(this.dayArr)
-						event.setColumnValue(2, this.dayArr);
-						return;
-					}
-					var nowChoose = dateArr[0].replace(/年/, '') + '-' + month + '-' + dateArr[2].replace(/日/, '');
-					nowChoose = new Date(nowChoose).getTime();
-					let arr = [];
-					if (this.submitform.period == '01') { //按周
-						for (let i = 0; i < 100; i++) {
-							if (DateTime.sjc2time("M", this.minDate.getTime() + (86400000 * 7) * (i + 1)) == DateTime
-								.sjc2time("M", nowChoose)) {
-								arr.push(DateTime.sjc2time("d", this.minDate.getTime() + (86400000 * 7) * (i + 1)) +
-									'日')
-							}
-							if (DateTime.sjc2time("M", this.minDate.getTime() + (86400000 * 7) * (i + 1)) > DateTime
-								.sjc2time("M", nowChoose)) {
-								break;
-							}
-						}
+                if (month == this.chooseMonth && this.submitform.period == '01') {
+                    console.log(this.dayArr)
+                    event.setColumnValue(2, this.dayArr);
+                    return;
+                }
+                var nowChoose = dateArr[0].replace(/年/, '') + '-' + month + '-' + dateArr[2].replace(/日/, '');
+                nowChoose = new Date(nowChoose).getTime();
+                let arr = [];
+                if (this.submitform.period == '01') { //按周
+                    for (let i = 0; i < 100; i++) {
+                        if (DateTime.sjc2time("M", this.minDate.getTime() + (86400000 * 7) * (i + 1)) == DateTime
+                            .sjc2time("M", nowChoose)) {
+                            arr.push(DateTime.sjc2time("d", this.minDate.getTime() + (86400000 * 7) * (i + 1)) +
+                                '日')
+                        }
+                        if (DateTime.sjc2time("M", this.minDate.getTime() + (86400000 * 7) * (i + 1)) > DateTime
+                            .sjc2time("M", nowChoose)) {
+                            break;
+                        }
+                    }
 
-					} else if (this.submitform.period == '02') { //按月
-						for (let i = 0; i < 100; i++) {
-							if (DateTime.sjc2time("M", this.minDate.getTime() + (86400000 * 30) * (i + 1)) == DateTime
-								.sjc2time("M", nowChoose)) {
-								arr.push(DateTime.sjc2time("d", this.minDate.getTime() + (86400000 * 30) * (i + 1)) +
-									'日')
-							}
-							if (DateTime.sjc2time("M", this.minDate.getTime() + (86400000 * 30) * (i + 1)) > DateTime
-								.sjc2time("M", nowChoose)) {
-								break;
-							}
-						}
-					}
-					event.setColumnValues(2, arr);
-					event.setColumnValue(2, event.getColumnValues(2)[0]);
-					this.dayArr = arr;
-					let choosetimearr = event.getValues();
-					this.choosetime = new Date(choosetimearr[0].replace(/年/, '') + '-' + choosetimearr[1].replace(/月/,
-						'') + '-' + choosetimearr[2].replace(/日/, '')).getTime();
-					this.chooseMonth = month;
-				},
-				zq2confirm(value) {
-					console.log(value)
-					if (this.submitform.period == '00') {
-						this.form.zq2 = DateTime.sjc2time("md3", new Date(value).getTime());
-					} else {
-						this.form.zq2 = DateTime.sjc2time("md3", this.submitform.taskStartTimestamp) + '-' + DateTime
-							.sjc2time("md3", new Date(value).getTime());
-					}
-					var todayYear = value.getFullYear();
-					var todayMonth = value.getMonth();
-					var todayDay = value.getDate();
-					this.submitform.taskEndTimestamp = (new Date(todayYear, todayMonth, todayDay, '23', '59', '59'))
-						.getTime(); //毫秒
-					this.zq2show = false;
-				},
-				zq2startconfirm(value) {
-					this.zq2startshow = false
-					if (this.submitform.period == '00') {
-						this.form.zq2 = DateTime.sjc2time("md3", new Date(value).getTime());
-						this.submitform.taskStartTimestamp = new Date().getTime();
-						var todayYear = value.getFullYear();
-						var todayMonth = value.getMonth();
-						var todayDay = value.getDate();
-						this.submitform.taskEndTimestamp = (new Date(todayYear, todayMonth, todayDay, '23', '59',
-							'59')).getTime(); //毫秒
-						console.log(this.submitform.taskStartTimestamp, this.submitform.taskEndTimestamp)
-					} else {
-						this.minDate = value;
-						if (this.submitform.period == '02') this.minDate = new Date(value.getTime() + (86400000 *
-						30));
-						this.submitform.taskStartTimestamp = new Date(value).getTime();
-						// this.form.zq2 =DateTime.sjc2time("md3", new Date().getTime()) +'-'+ DateTime.sjc2time("md3", new Date(value).getTime());
-						setTimeout(() => {
-							this.zq2show = true;
-						}, 500)
-					}
-				},
-				onSelectTime(obj, index) { //任务周期回调
-					if (this.isCorporate == 1) {
-						this.submitform.period = obj.val;
-						this.form.zq2 = "";
-						this.submitform.taskStartTimestamp = null;
-						this.submitform.taskEndTimestamp = null;
-						this.minDate = null;
-						this.minDate = this.currentDate;
-						this.dayArr = [];
-						this.form.zq = obj.name;
-						if (obj.val == '00') {
-							this.form.zq2title = '日任务截止时间';
-							// this.minDate = this.currentDate;
-							this.form.zq2 = DateTime.sjc2time("md3", this.currentDate.getTime());
-							var todayYear = (new Date()).getFullYear();
-							var todayMonth = (new Date()).getMonth();
-							var todayDay = (new Date()).getDate();
-							this.submitform.taskStartTimestamp = new Date().getTime();
-							this.submitform.taskEndTimestamp = (new Date(todayYear, todayMonth, todayDay, '23', '59',
-								'59')).getTime(); //毫秒
-							// this.submitform.taskEndTimestamp = new Date().getTime();
-						} else if (obj.val == '01') {
-							this.form.zq2title = '周任务时间';
-							this.submitform.taskStartTimestamp = new Date().getTime();
-							// this.minDate = new Date(this.currentDate.getTime()+86400000*7);
-							this.zq2confirm(new Date(this.submitform.taskStartTimestamp + 86400000 * 7))
-						} else {
-							this.form.zq2title = '月任务时间';
-							this.submitform.taskStartTimestamp = new Date().getTime();
-							// this.minDate = new Date(this.currentDate.getTime()+86400000*30);
-							this.zq2confirm(new Date(this.submitform.taskStartTimestamp + 86400000 * 30))
-						}
-					} else {
-						if (obj.val == '01' || obj.val == '02') {
-							this.submitform.period = obj.val;
-							this.form.zq2 = "";
-							this.submitform.taskStartTimestamp = null;
-							this.submitform.taskEndTimestamp = null;
-							this.minDate = null;
-							this.minDate = this.currentDate;
-							// this.chooseMonth=null;
-							// this.choosetime=null;
-							this.dayArr = [];
-							this.form.zq = obj.name;
-							if (obj.val == '00') {
-								this.form.zq2title = '日任务截止时间';
-								// this.minDate = this.currentDate;
-								this.form.zq2 = DateTime.sjc2time("md3", this.currentDate.getTime());
-								var todayYear = (new Date()).getFullYear();
-								var todayMonth = (new Date()).getMonth();
-								var todayDay = (new Date()).getDate();
-								this.submitform.taskStartTimestamp = new Date().getTime();
-								this.submitform.taskEndTimestamp = (new Date(todayYear, todayMonth, todayDay, '23',
-									'59', '59')).getTime(); //毫秒
-								// this.submitform.taskEndTimestamp = new Date().getTime();
-							} else if (obj.val == '01') {
-								this.form.zq2title = '周任务时间';
-								this.submitform.taskStartTimestamp = new Date().getTime();
-								// this.minDate = new Date(this.currentDate.getTime()+86400000*7);
-								this.zq2confirm(new Date(this.submitform.taskStartTimestamp + 86400000 * 7))
-							} else {
-								this.form.zq2title = '月任务时间';
-								this.submitform.taskStartTimestamp = new Date().getTime();
-								// this.minDate = new Date(this.currentDate.getTime()+86400000*30);
-								this.zq2confirm(new Date(this.submitform.taskStartTimestamp + 86400000 * 30))
-							}
-						} else {
-							this.periodClick(obj.val, obj.name)
-						}
+                } else if (this.submitform.period == '02') { //按月
+                    for (let i = 0; i < 100; i++) {
+                        if (DateTime.sjc2time("M", this.minDate.getTime() + (86400000 * 30) * (i + 1)) == DateTime
+                            .sjc2time("M", nowChoose)) {
+                            arr.push(DateTime.sjc2time("d", this.minDate.getTime() + (86400000 * 30) * (i + 1)) +
+                                '日')
+                        }
+                        if (DateTime.sjc2time("M", this.minDate.getTime() + (86400000 * 30) * (i + 1)) > DateTime
+                            .sjc2time("M", nowChoose)) {
+                            break;
+                        }
+                    }
+                }
+                event.setColumnValues(2, arr);
+                event.setColumnValue(2, event.getColumnValues(2)[0]);
+                this.dayArr = arr;
+                let choosetimearr = event.getValues();
+                this.choosetime = new Date(choosetimearr[0].replace(/年/, '') + '-' + choosetimearr[1].replace(/月/,
+                    '') + '-' + choosetimearr[2].replace(/日/, '')).getTime();
+                this.chooseMonth = month;
+            },
+            zq2confirm(value) {
+                console.log(value)
+                if (this.submitform.period == '00') {
+                    this.form.zq2 = DateTime.sjc2time("md3", new Date(value).getTime());
+                } else {
+                    this.form.zq2 = DateTime.sjc2time("md3", this.submitform.taskStartTimestamp) + '-' + DateTime
+                        .sjc2time("md3", new Date(value).getTime());
+                }
+                var todayYear = value.getFullYear();
+                var todayMonth = value.getMonth();
+                var todayDay = value.getDate();
+                this.submitform.taskEndTimestamp = (new Date(todayYear, todayMonth, todayDay, '23', '59', '59'))
+                    .getTime(); //毫秒
+                this.zq2show = false;
+            },
+            zq2startconfirm(value) {
+                this.zq2startshow = false
+                if (this.submitform.period == '00') {
+                    this.form.zq2 = DateTime.sjc2time("md3", new Date(value).getTime());
+                    this.submitform.taskStartTimestamp = new Date().getTime();
+                    var todayYear = value.getFullYear();
+                    var todayMonth = value.getMonth();
+                    var todayDay = value.getDate();
+                    this.submitform.taskEndTimestamp = (new Date(todayYear, todayMonth, todayDay, '23', '59',
+                        '59')).getTime(); //毫秒
+                    console.log(this.submitform.taskStartTimestamp, this.submitform.taskEndTimestamp)
+                } else {
+                    this.minDate = value;
+                    if (this.submitform.period == '02') this.minDate = new Date(value.getTime() + (86400000 *
+                        30));
+                    this.submitform.taskStartTimestamp = new Date(value).getTime();
+                    // this.form.zq2 =DateTime.sjc2time("md3", new Date().getTime()) +'-'+ DateTime.sjc2time("md3", new Date(value).getTime());
+                    setTimeout(() => {
+                        this.zq2show = true;
+                    }, 500)
+                }
+            },
+            onSelectTime(obj, index) { //任务周期回调
+                if (this.isCorporate == 1) {
+                    this.submitform.period = obj.val;
+                    this.form.zq2 = "";
+                    this.submitform.taskStartTimestamp = null;
+                    this.submitform.taskEndTimestamp = null;
+                    this.minDate = null;
+                    this.minDate = this.currentDate;
+                    this.dayArr = [];
+                    this.form.zq = obj.name;
+                    if (obj.val == '00') {
+                        this.form.zq2title = '日任务截止时间';
+                        // this.minDate = this.currentDate;
+                        this.form.zq2 = DateTime.sjc2time("md3", this.currentDate.getTime());
+                        var todayYear = (new Date()).getFullYear();
+                        var todayMonth = (new Date()).getMonth();
+                        var todayDay = (new Date()).getDate();
+                        this.submitform.taskStartTimestamp = new Date().getTime();
+                        this.submitform.taskEndTimestamp = (new Date(todayYear, todayMonth, todayDay, '23', '59',
+                            '59')).getTime(); //毫秒
+                        // this.submitform.taskEndTimestamp = new Date().getTime();
+                    } else if (obj.val == '01') {
+                        this.form.zq2title = '周任务时间';
+                        this.submitform.taskStartTimestamp = new Date().getTime();
+                        // this.minDate = new Date(this.currentDate.getTime()+86400000*7);
+                        this.zq2confirm(new Date(this.submitform.taskStartTimestamp + 86400000 * 7))
+                    } else {
+                        this.form.zq2title = '月任务时间';
+                        this.submitform.taskStartTimestamp = new Date().getTime();
+                        // this.minDate = new Date(this.currentDate.getTime()+86400000*30);
+                        this.zq2confirm(new Date(this.submitform.taskStartTimestamp + 86400000 * 30))
+                    }
+                } else {
+                    if (obj.val == '01' || obj.val == '02') {
+                        this.submitform.period = obj.val;
+                        this.form.zq2 = "";
+                        this.submitform.taskStartTimestamp = null;
+                        this.submitform.taskEndTimestamp = null;
+                        this.minDate = null;
+                        this.minDate = this.currentDate;
+                        // this.chooseMonth=null;
+                        // this.choosetime=null;
+                        this.dayArr = [];
+                        this.form.zq = obj.name;
+                        if (obj.val == '00') {
+                            this.form.zq2title = '日任务截止时间';
+                            // this.minDate = this.currentDate;
+                            this.form.zq2 = DateTime.sjc2time("md3", this.currentDate.getTime());
+                            var todayYear = (new Date()).getFullYear();
+                            var todayMonth = (new Date()).getMonth();
+                            var todayDay = (new Date()).getDate();
+                            this.submitform.taskStartTimestamp = new Date().getTime();
+                            this.submitform.taskEndTimestamp = (new Date(todayYear, todayMonth, todayDay, '23',
+                                '59', '59')).getTime(); //毫秒
+                            // this.submitform.taskEndTimestamp = new Date().getTime();
+                        } else if (obj.val == '01') {
+                            this.form.zq2title = '周任务时间';
+                            this.submitform.taskStartTimestamp = new Date().getTime();
+                            // this.minDate = new Date(this.currentDate.getTime()+86400000*7);
+                            this.zq2confirm(new Date(this.submitform.taskStartTimestamp + 86400000 * 7))
+                        } else {
+                            this.form.zq2title = '月任务时间';
+                            this.submitform.taskStartTimestamp = new Date().getTime();
+                            // this.minDate = new Date(this.currentDate.getTime()+86400000*30);
+                            this.zq2confirm(new Date(this.submitform.taskStartTimestamp + 86400000 * 30))
+                        }
+                    } else {
+                        this.periodClick(obj.val, obj.name)
+                    }
 
-					}
+                }
 
-				},
-				onSelectMember(obj, index) { //选择成员回调
-					this.submitform.assignType = obj.val;
-					this.form.cy = obj.name;
-					if (obj.val == '02') {
-						this.chooseMemberList();
-					}
-					if (obj.val == '03') {
-						this.iframeSrc = `../corporateClub/chooseGroup.html?id=${this.submitform.clubId}`
-						this.iframeShow = true
-					}
-				},
-				periodClick(value, str) {
-					this.submitform.period = value;
-					this.form.zq = str;
-					this.submitform.taskStartTimestamp = "";
-					this.submitform.taskEndTimestamp = "";
-					if (value == '00') {
-						this.submitform.taskStartTimestamp = null;
-						this.submitform.taskEndTimestamp = null;
-					} else if (value == '01') {
-						this.submitform.taskStartTimestamp = getNextMonday();
-						this.submitform.taskEndTimestamp = null;
-					} else if (value == '02') {
-						this.submitform.taskStartTimestamp = getMonthTimeStamp();
-						this.submitform.taskEndTimestamp = null;
-					} else if (value == '03') {
-						this.endTimeShow = true;
-						this.submitform.taskStartTimestamp = null;
-						this.submitform.taskEndTimestamp = null;
-					}
-				},
-				//单次任务选择时间后回调
-				onendTimeConfirm(value, index) {
-					this.submitform.taskStartTimestamp = null;
-					this.submitform.taskEndTimestamp = "";
-					var date2 = DateTime.timeStamp2String("ymd");
-					var todaySJC = DateTime.getSjc(date2);
-					var endSJC = todaySJC + (index + 1) * 86400000;
-					this.submitform.taskEndTimestamp = endSJC;
-					this.form.zq = "单次任务(" + value + "前)"
-					this.endTimeShow = false;
-				},
-				submitFormData() {
-					var _self = this;
-					if (_self.isClick) {
-						return;
-					}
-					_self.isClick = true
-					this.isSubmit = true;
+            },
+            onSelectMember(obj, index) { //选择成员回调
+                this.submitform.assignType = obj.val;
+                this.form.cy = obj.name;
+                if (obj.val == '02') {
+                    this.chooseMemberList();
+                }
+                if (obj.val == '03') {
+                    this.iframeSrc = `../corporateClub/chooseGroup.html?id=${this.submitform.clubId}`
+                    this.iframeShow = true
+                }
+            },
+            periodClick(value, str) {
+                this.submitform.period = value;
+                this.form.zq = str;
+                this.submitform.taskStartTimestamp = "";
+                this.submitform.taskEndTimestamp = "";
+                if (value == '00') {
+                    this.submitform.taskStartTimestamp = null;
+                    this.submitform.taskEndTimestamp = null;
+                } else if (value == '01') {
+                    this.submitform.taskStartTimestamp = getNextMonday();
+                    this.submitform.taskEndTimestamp = null;
+                } else if (value == '02') {
+                    this.submitform.taskStartTimestamp = getMonthTimeStamp();
+                    this.submitform.taskEndTimestamp = null;
+                } else if (value == '03') {
+                    this.endTimeShow = true;
+                    this.submitform.taskStartTimestamp = null;
+                    this.submitform.taskEndTimestamp = null;
+                }
+            },
+            //单次任务选择时间后回调
+            onendTimeConfirm(value, index) {
+                this.submitform.taskStartTimestamp = null;
+                this.submitform.taskEndTimestamp = "";
+                var date2 = DateTime.timeStamp2String("ymd");
+                var todaySJC = DateTime.getSjc(date2);
+                var endSJC = todaySJC + (index + 1) * 86400000;
+                this.submitform.taskEndTimestamp = endSJC;
+                this.form.zq = "单次任务(" + value + "前)"
+                this.endTimeShow = false;
+            },
+            submitFormData() {
+                var _self = this;
+                if (_self.isClick) {
+                    return;
+                }
+                _self.isClick = true
+                this.isSubmit = true;
 
-					for (var key in this.submitform) {
-						console.log(key + ":" + this.submitform[key]);
-						if (this.submitform[key] === "") {
-							_self.isClick = false;
-							return;
-						}
-					}
-					if (this.submitform.period == '03' && !this.submitform.taskEndTimestamp) {
-						_self.isClick = false;
-						this.$toast("请选择任务的截止时间!");
-						return
-					}
-					this.submitform.target = parseInt(this.submitform.target);
-					if (this.submitform.target > 1000000) {
-						this.$toast("任务目标不大于一百万!");
-						this.submitform.target = "";
-						_self.isClick = false;
-						return
-					}
-					if (this.submitform.target < 1) {
-						this.$toast("任务目标不可小于1!");
-						this.submitform.target = "";
-						_self.isClick = false;
-						return
-					}
+                for (var key in this.submitform) {
+                    console.log(key + ":" + this.submitform[key]);
+                    if (this.submitform[key] === "") {
+                        _self.isClick = false;
+                        return;
+                    }
+                }
+                if (this.submitform.period == '03' && !this.submitform.taskEndTimestamp) {
+                    _self.isClick = false;
+                    this.$toast("请选择任务的截止时间!");
+                    return
+                }
+                this.submitform.target = parseInt(this.submitform.target);
+                if (this.submitform.target > 1000000) {
+                    this.$toast("任务目标不大于一百万!");
+                    this.submitform.target = "";
+                    _self.isClick = false;
+                    return
+                }
+                if (this.submitform.target < 1) {
+                    this.$toast("任务目标不可小于1!");
+                    this.submitform.target = "";
+                    _self.isClick = false;
+                    return
+                }
 
-					if (this.submitform.assignType == "02") {
-						console.log(this.iframe_peopleList)
-						if (this.iframe_peopleList.length == 0) {
-							this.$toast("请先选择俱乐部成员!");
-							this.isClick = false;
-							return;
-						} else {
-							this.submitform.memberIdList = this.iframe_peopleList
-						}
-					} else {
-						this.submitform.memberIdList = [];
-					}
+                if (this.submitform.assignType == "02") {
+                    console.log(this.iframe_peopleList)
+                    if (this.iframe_peopleList.length == 0) {
+                        this.$toast("请先选择俱乐部成员!");
+                        this.isClick = false;
+                        return;
+                    } else {
+                        this.submitform.memberIdList = this.iframe_peopleList
+                    }
+                } else {
+                    this.submitform.memberIdList = [];
+                }
 
-					if (this.submitform.assignType == "03") {
-						if (this.iframe_groupList.length == 0) {
-							this.$toast("请先选择部门!");
-							this.isClick = false;
-							return;
-						} else {
-							this.submitform.clubGroupIdList = this.iframe_groupList
-						}
-					} else {
-						this.submitform.clubGroupIdList = [];
-					}
+                if (this.submitform.assignType == "03") {
+                    if (this.iframe_groupList.length == 0) {
+                        this.$toast("请先选择部门!");
+                        this.isClick = false;
+                        return;
+                    } else {
+                        this.submitform.clubGroupIdList = this.iframe_groupList
+                    }
+                } else {
+                    this.submitform.clubGroupIdList = [];
+                }
 
-					ajax({
-						type: "post",
-						url: "club/saveTask",
-						data: this.submitform,
-					}).then(res => {
-						if (res.code == 0) {
-							this.$toast("任务创建成功！");
-							this.gotoDetail(res.data.taskId);
-						} else if (res.code == 4003) {
-							this.isClick = false;
-							if (this.submitform.period == "00") {
-								this.$toast("每日任务最多可同时创建3个");
-							} else if (this.submitform.period == "01") {
-								this.$toast("每周任务最多可同时创建1个");
-							} else if (this.submitform.period == "02") {
-								this.$toast("每月任务最多可同时创建1个");
-							}
-						} else if (res.code == 3000) {
-							this.isClick = false;
-							this.$toast("任务名已经存在");
-						} else if (res.code == 4001) {
-							this.isClick = false;
-							this.$toast("文本内容违规");
-						} else {
-							this.isClick = false;
-							this.$toast(res.msg);
-						}
-					})
-				},
-				chooseMemberList() {
-					this.form.cy = '指定成员参加';
-					if (this.isCorporate == 1) {
-						this.iframeSrc =
-							`../corporateClub/groupMember.html?clubId=${this.submitform.clubId}&fromchoose=7`
-						this.iframeShow = true
-					} else {
-						this.iframeSrc = `./chooseMemberList.html?id=${getQueryString('id')}`
-						this.iframeShow = true
-					}
-				},
-				gotoDetail(taskId) {
-					window.location.replace(`tasksDetail.html?id=${taskId}&clubId=${this.submitform.clubId}`)
-				}
+                ajax({
+                    type: "post",
+                    url: "club/saveTask",
+                    data: this.submitform,
+                }).then(res => {
+                    if (res.code == 0) {
+                        this.$toast("任务创建成功！");
+                        this.gotoDetail(res.data.taskId);
+                    } else if (res.code == 4003) {
+                        this.isClick = false;
+                        if (this.submitform.period == "00") {
+                            this.$toast("每日任务最多可同时创建3个");
+                        } else if (this.submitform.period == "01") {
+                            this.$toast("每周任务最多可同时创建1个");
+                        } else if (this.submitform.period == "02") {
+                            this.$toast("每月任务最多可同时创建1个");
+                        }
+                    } else if (res.code == 3000) {
+                        this.isClick = false;
+                        this.$toast("任务名已经存在");
+                    } else if (res.code == 4001) {
+                        this.isClick = false;
+                        this.$toast("文本内容违规");
+                    } else {
+                        this.isClick = false;
+                        this.$toast(res.msg);
+                    }
+                })
+            },
+            chooseMemberList() {
+                this.form.cy = '指定成员参加';
+                if (this.isCorporate == 1) {
+                    this.iframeSrc =
+                        `../corporateClub/groupMember.html?clubId=${this.submitform.clubId}&fromchoose=7`
+                    this.iframeShow = true
+                } else {
+                    this.iframeSrc = `./chooseMemberList.html?id=${getQueryString('id')}`
+                    this.iframeShow = true
+                }
+            },
+            gotoDetail(taskId) {
+                window.location.replace(`tasksDetail.html?id=${taskId}&clubId=${this.submitform.clubId}`)
+            }
 
 
-			}
-		})
-	</script>
+        }
+    })
+</script>
 
 </html>

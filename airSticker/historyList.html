@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport"
-    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
     <link rel="icon" href="data:image/ico;base64,aWNv">
     <title>历史数据</title>
     <link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
     <link rel="stylesheet" href="font/iconfont.css">
     <link href="css/histroyList.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" id="themeCssLink" href="../common/css/default.css">
 </head>
 
 <body>
@@ -22,7 +22,7 @@
                 </template>
             </van-nav-bar>
         </div>
-        <div class="main_contaniner" >
+        <div class="main_contaniner">
             <div class="data_container">
                 <!-- 设备名及数据项 -->
                 <p class="devicename" v-html="devicename">----------</p>
@@ -48,7 +48,7 @@
                         <p class="name">累计差(次)</p>
                     </div>
                 </div>
-                
+
             </div>
 
             <!-- echarts -->
@@ -59,10 +59,9 @@
             <!-- 数据列表 -->
             <div class="datalist">
                 <div class="monthlist">
-                    <div class="monthitem" v-for="(monthitem, index) in monthlist" >
+                    <div class="monthitem" v-for="(monthitem, index) in monthlist">
                         <van-swipe-cell ref="monthSwipecell">
-                            <div class="monthitemBox" 
-                                @click.stop="selectMonth(monthitem, index)">
+                            <div class="monthitemBox" @click.stop="selectMonth(monthitem, index)">
                                 <div class="data">
                                     <div class="title">
                                         <img src="images/icon_air.png" alt="">
@@ -73,21 +72,16 @@
                                             <span class="txt-margin">优</span>
                                             <span v-html="monthitem.ex || '0' "></span>次
                                         </div>
-                                        <div class="numitem"><span class="txt-margin">良</span><span
-                                                v-html="monthitem.gd || '0' "></span>次</div>
-                                        <div class="numitem"><span class="txt-margin">中</span><span
-                                                v-html="monthitem.medium || '0' "></span>次</div>
-                                        <div class="numitem"><span class="txt-margin">较差</span><span
-                                                v-html="monthitem.poor || '0' "></span>次</div>
-                                        <div class="numitem"><span class="txt-margin">差</span><span
-                                                v-html="monthitem.bad || '0' "></span>次</div>
+                                        <div class="numitem"><span class="txt-margin">良</span><span v-html="monthitem.gd || '0' "></span>次</div>
+                                        <div class="numitem"><span class="txt-margin">中</span><span v-html="monthitem.medium || '0' "></span>次</div>
+                                        <div class="numitem"><span class="txt-margin">较差</span><span v-html="monthitem.poor || '0' "></span>次</div>
+                                        <div class="numitem"><span class="txt-margin">差</span><span v-html="monthitem.bad || '0' "></span>次</div>
                                     </div>
                                 </div>
                                 <div class="time">
                                     <div class="down">
                                         <p class="month" v-html="monthitem.month || '--' "></p>
-                                        <img :class=" index  == openMonthid ? 'turn': '' " src="images/icon_down.png"
-                                            alt="" />
+                                        <img :class=" index  == openMonthid ? 'turn': '' " src="images/icon_down.png" alt="" />
                                     </div>
                                     <p class="year" v-html="monthitem.year || '----' "></p>
                                 </div>
@@ -101,41 +95,32 @@
 
 
                         <div class="daylist" v-if="index == openMonthid">
-                            <div class="dayitem" v-for="(dayitem, index2) in daylist" 
-                                @click.stop="selectDay(dayitem,index2)">
+                            <div class="dayitem" v-for="(dayitem, index2) in daylist" @click.stop="selectDay(dayitem,index2)">
                                 <div class="dayitem_content">
                                     <div class="daytime">
                                         <span v-html="dayitem.time || '----' "></span>
-                                        <img :class=" dayitem.id == openDayid ? 'turn': '' " src="images/icon_down.png"
-                                            alt="" />
+                                        <img :class=" dayitem.id == openDayid ? 'turn': '' " src="images/icon_down.png" alt="" />
                                     </div>
                                 </div>
 
                                 <div class="day_time_list" v-if="index2 == openDayid">
-                                    <div class="list-item" v-for="(itemdata,index) in day_time_list" >
+                                    <div class="list-item" v-for="(itemdata,index) in day_time_list">
                                         <van-swipe-cell ref="daySwipecell">
                                             <div class="item_data item-box" @click.stop="skip(itemdata)">
                                                 <div class='left'>
                                                     <p class="time" v-html="itemdata.time || '----' "></p>
                                                     <div class="numlist">
                                                         <div class="numitem ppm">
-                                                            <p class="mode" :class="itemdata.bgClass"
-                                                                v-html="itemdata.leveltxt || '--' "></p>
-                                                            <p class='bloddata'><span
-                                                                    v-html="itemdata.num || '0' "></span><span
-                                                                    class="unit">PPM</span></p>
+                                                            <p class="mode" :class="itemdata.bgClass" v-html="itemdata.leveltxt || '--' "></p>
+                                                            <p class='bloddata'><span v-html="itemdata.num || '0' "></span><span class="unit">PPM</span></p>
                                                         </div>
                                                         <div class="numitem">
                                                             <img src="images/icon_temp.png" alt="" />
-                                                            <p class='bloddata'><span
-                                                                    v-html="itemdata.temperature || '0' "></span><span
-                                                                    class="unit">°C</span></p>
+                                                            <p class='bloddata'><span v-html="itemdata.temperature || '0' "></span><span class="unit">°C</span></p>
                                                         </div>
                                                         <div class="numitem">
                                                             <img src="images/icon_humidity.png" alt="" />
-                                                            <p class='bloddata'><span
-                                                                    v-html="itemdata.humidity || '0' "></span><span
-                                                                    class="unit">%</span></p>
+                                                            <p class='bloddata'><span v-html="itemdata.humidity || '0' "></span><span class="unit">%</span></p>
                                                         </div>
                                                     </div>
                                                 </div>

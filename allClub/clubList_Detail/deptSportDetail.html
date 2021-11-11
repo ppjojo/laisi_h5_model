@@ -11,54 +11,51 @@
     <link rel="stylesheet" href="../../common/css/basic.css">
     <link rel="stylesheet" href="../club/css/clubCompetitionDetail.css">
     <link rel="stylesheet" href="../font/iconfont.css">
-	<link href="../clubList_Detail/css/header.css" rel="stylesheet" type="text/css" />
+    <link href="../clubList_Detail/css/header.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" id="themeCssLink2" href="../../common/css/default.css">
     <style type="text/css">
-        
-
-
         .van-pull-refresh {
             margin-bottom: 0rem;
         }
-		.bigNumberSpan{
-			font-weight: normal;
-			font-family: "BebasNeue";
-		}
-        .personnal .personnalList{
-            border:none;
+        
+        .bigNumberSpan {
+            font-weight: normal;
+            font-family: "BebasNeue";
+        }
+        
+        .personnal .personnalList {
+            border: none;
         }
     </style>
 </head>
 
 <body>
     <div id="app" class="normalHeader" v-cloak>
-		<div class="header">
-			<van-nav-bar @click-left="onclickLeft" :title="headTitle" left-arrow safe-area-inset-top fixed>
-				<template #left>
+        <div class="header">
+            <van-nav-bar @click-left="onclickLeft" :title="headTitle" left-arrow safe-area-inset-top fixed>
+                <template #left>
 					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
 				</template>
 
-			</van-nav-bar>
-		</div>
+            </van-nav-bar>
+        </div>
 
         <div class="personnal">
             <van-pull-refresh v-model="personalObject.refreshing" @refresh="onRefresh" class="list-item-box">
-                <van-list v-model="personalObject.loading" :finished="personalObject.finished" finished-text="没有更多了"
-                    @load="onLoad" :immediate-check=false v-if="personalObject.list.length>0">
-                    <van-row v-for="(item,index) in personalObject.list" type="flex" justify="center"
-                        class="personnalList">
+                <van-list v-model="personalObject.loading" :finished="personalObject.finished" finished-text="没有更多了" @load="onLoad" :immediate-check=false v-if="personalObject.list.length>0">
+                    <van-row v-for="(item,index) in personalObject.list" type="flex" justify="center" class="personnalList">
                         <van-col span="3" class="" @click="Interaction.visitPersonalHomepage(item.userId)">
                             <div class="detail_headpic" :style="{'background-image': 'url(' +
                                     item.headPictureUrl + ')'}"></div>
                         </van-col>
-                        <van-col span="7" class="personalName van-ellipsis" @click="Interaction.visitPersonalHomepage(item.userId)">{{
-                                item.nickname |ellipsis5 }}</van-col>
+                        <van-col span="7" class="personalName van-ellipsis" @click="Interaction.visitPersonalHomepage(item.userId)">{{ item.nickname |ellipsis5 }}</van-col>
 
                         <van-col span="6" class="align-right">
                             <span class="bigNumberSpan">{{item.ropeNum||'--'}}</span> 个</van-col>
 
                         <van-col span="8" class="align-right">
                             <span class="bigNumberSpan">{{timestamp2HMS(item.duraMs/1000,"hms")}}</span>
-                            
+
                         </van-col>
 
                     </van-row>
@@ -76,7 +73,7 @@
 <script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
 <script src="../../common/js/network.js"></script>
 <script>
-    window.addEventListener('pageshow', function (event) {
+    window.addEventListener('pageshow', function(event) {
 
     })
     new Vue({
@@ -84,7 +81,7 @@
         data() {
             return {
                 clubId: getQueryString("clubId"),
-                clubGroupId:parseInt(getQueryString("clubGroupId")),
+                clubGroupId: parseInt(getQueryString("clubGroupId")),
                 date: getQueryString("date") || timestampTodate(new Date(), '-'),
                 loading: false,
                 finished: false,
@@ -99,7 +96,7 @@
                 competitionItem: {
                     mode: 2
                 },
-				headTitle:'',
+                headTitle: '',
             }
         },
         filters: {
@@ -114,11 +111,11 @@
         mounted() {},
         created() {
             this.getList()
-            this.headTitle=document.title=(getQueryString("deptName")=="null"?"未分部部门":getQueryString("deptName"))+"运动详情"
+            this.headTitle = document.title = (getQueryString("deptName") == "null" ? "未分部部门" : getQueryString("deptName")) + "运动详情"
         },
-		computed: {
-		    timestamp2HMS: function () {
-		        return function (timestamp, type) {
+        computed: {
+            timestamp2HMS: function() {
+                return function(timestamp, type) {
                     if (isNaN(timestamp)) return '';
                     //timestamp 是秒
                     var h = parseInt(timestamp / 3600)
@@ -134,15 +131,15 @@
                     } else if (type == "s") {
                         return s
                     } else if (type == "hms") {
-                        return h+":"+m+":"+s
+                        return h + ":" + m + ":" + s
                     }
                 }
-		    }
-		},
+            }
+        },
         methods: {
             onclickLeft() {
-				window.history.back(-1)
-			},
+                window.history.back(-1)
+            },
             getList() {
                 var that = this;
                 var nowPageNum = that.personalObject.page;
@@ -151,12 +148,12 @@
                     url: "club/clubGroupTodaySport",
                     data: {
                         clubId: this.clubId,
-                        clubGroupId: this.clubGroupId=='null'?"":this.clubGroupId,
+                        clubGroupId: this.clubGroupId == 'null' ? "" : this.clubGroupId,
                         date: this.date,
                         page: nowPageNum - 1,
                         pageSize: that.personalObject.pageSize
                     },
-                    success: function (res) {
+                    success: function(res) {
                         that.loading = false;
                         if (res.code == 0) {
                             if (nowPageNum == 1) {
@@ -175,7 +172,7 @@
                             that.$toast(res.msg)
                         }
                     },
-                    error: function () {
+                    error: function() {
                         console.log("error")
                     }
                 })

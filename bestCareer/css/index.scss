@@ -15,16 +15,15 @@
 }
 
 //黑字
-$text_color:#595962;
-//白字
-$text_color_white:#CFCFD2;
+$textColor:var(--textColor);
+$textColor2:var(--textColor2);
 //黑色背景
-$bg_color:#12121f;
+$bgColor:var(--bgColor);
 //边框色
-$border_color:#1e1e2a;
+$borderColor:var(--borderColor);
 body {
-    background-color: $bg_color;
-    color: $text_color_white;
+    background-color: $bgColor;
+    color: $textColor;
     min-height: 100vh;
     font-size: 0.28rem;
 }
@@ -61,7 +60,7 @@ body {
         }
         .time {
             font-size: 0.24rem;
-            color: #71717f;
+            color: $textColor2;
             line-height: 0.4rem;
         }
     }
@@ -90,7 +89,7 @@ body {
             }
             .txt {
                 font-size: 0.2rem;
-                color: #71717f;
+                color: $textColor2;
             }
         }
         .dataBox {
@@ -116,7 +115,7 @@ body {
                 }
                 .info {
                     font-size: 0.2rem;
-                    color: #71717f;
+                    color: $textColor2;
                 }
             }
         }
@@ -168,11 +167,11 @@ body {
                     }
                     .info {
                         font-size: 0.28rem;
-                        color: $text_color_white;
+                        color: $textColor;
                     }
                     .time {
                         font-size: 0.2rem;
-                        color: #71717f;
+                        color: $textColor2;
                         height: 0.4rem;
                         line-height: 0.4rem;
                     }
@@ -212,7 +211,7 @@ body {
 }
 
 .desc {
-    color: #71717f;
+    color: $textColor2;
     font-size: 0.24rem;
     text-align: center;
 }

@@ -3,15 +3,35 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,
+            maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
     <!-- <title>动态详情</title> -->
     <!-- 引入样式文件 -->
     <link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
     <link rel="stylesheet" href="css/invitationShare.css">
+    <link rel="stylesheet" id="themeCssLink" href="../common/css/default.css">
     <script src="js/community.js"></script>
     <style>
         .van-popup {
-            background-color: #12121f;
+            background-color: var(--bgColor);
+        }
+        
+        .commentBox {
+            overflow-y: scroll;
+            height: 100%;
+            margin-top: 1rem;
+        }
+        
+        .cpmmentTitle {
+            font-size: 0.36rem;
+            text-align: center;
+            line-height: 1rem;
+            position: absolute;
+            width: 100%;
+            top: 0;
+            z-index: 2;
+            left: 0;
+            background-color: var(--bgColor);
         }
     </style>
 </head>
@@ -37,7 +57,8 @@
                             <div class="content">
                                 <div class="personInfo">
                                     <div class="nickNameBox">
-                                        <p class="nickName">{{item.nickName}} </p>
+                                        <p class="nickName">{{item.nickName}}
+                                        </p>
                                         <div class="viewNum"><img src="img/viewIcon.png" alt="">{{item.readCount}}</div>
                                     </div>
                                     <p class="detail">
@@ -61,24 +82,36 @@
                             <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
                                 <van-list v-model="loading" :finished="finished" @load="onLoad">
                                     <ul id="commentUl">
-                                        <li v-for="(Citem,index) in commmentList">
+                                        <li v-for="(Citem,index) in
+                                                commmentList">
                                             <div class="userImg">
                                                 <img :src="Citem.authorHeader" alt="">
                                             </div>
                                             <div class="detail">
                                                 <div>
-                                                    <p class="nickname">{{Citem.authorName}} </p>
+                                                    <p class="nickname">{{Citem.authorName}}
+                                                    </p>
                                                     <p class="time">{{renderTime2(Citem.createTime)}}</p>
                                                     <p class="comment">
                                                         <span>{{Citem.content}}</span>
-                                                        <span v-for="r in Citem.refers" style="color:steelblue"> @{{r.nickName}}</span>
+                                                        <span v-for="r in
+                                                                Citem.refers" style="color:steelblue">
+                                                                @{{r.nickName}}</span>
                                                     </p>
                                                 </div>
-                                                <div v-if="Citem.comments.length>0" style="background-color: #1e1e2a;padding: 0.1rem;">
-                                                    <div v-for="ccitem in Citem.comments">
-                                                        <span>{{ccitem.authorName}} </span><span style="color:#71717f">回复</span>
-                                                        <span>{{ccitem.receiverName}} </span><span> :{{ccitem.content}}</span>
-                                                        <span v-if="ccitem.refers" v-for="r in ccitem.refers" style="color:steelblue"> @{{r.nickName}}</span>
+                                                <div v-if="Citem.comments.length>0" style="background-color:
+                                                        #1e1e2a;padding:
+                                                        0.1rem;">
+                                                    <div v-for="ccitem in
+                                                            Citem.comments">
+                                                        <span>{{ccitem.authorName}}
+                                                            </span><span style="color:#71717f">回复</span>
+                                                        <span>{{ccitem.receiverName}}
+                                                            </span><span>
+                                                                :{{ccitem.content}}</span>
+                                                        <span v-if="ccitem.refers" v-for="r in
+                                                                ccitem.refers" style="color:steelblue">
+                                                                @{{r.nickName}}</span>
                                                     </div>
                                                     <div v-if="Citem.comments.length>0"><a @click="goApp" style="color:#999">查看全部{{Citem.commentCount}}条回复>></a></div>
                                                 </div>
@@ -117,7 +150,7 @@
                         <img src="img/liked.png" alt="">
                         <div>{{item.likesCount||0}}</div>
                     </div>
-                    <div @click="commentShow = true">
+                    <div @click="commentShow= true">
                         <img src="img/comment.png" alt="">
                         <div>{{item.commentCount||0}}</div>
                     </div>
@@ -126,26 +159,41 @@
                         <div>{{item.forwardCount||0}}</div>
                     </div>
                 </div>
-                <van-popup position="bottom" round :style="{ height: '60%' }" v-model="commentShow">
+                <van-popup position="bottom" title="评论" round :style="{
+                        height: '60%' }" v-model="commentShow">
+                    <div class="cpmmentTitle">评论</div>
                     <div class="commentBox" style="padding: .3rem;" v-if="commmentList.length>0">
                         <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
                             <van-list v-model="loading" :finished="finished" @load="onLoad">
                                 <ul id="commentUl">
-                                    <li v-for="(Citem,index) in commmentList">
+                                    <li v-for="(Citem,index) in
+                                            commmentList">
                                         <div class="userImg">
                                             <img :src="Citem.authorHeader" alt="">
                                         </div>
                                         <div class="detail">
                                             <div>
-                                                <p class="nickname">{{Citem.authorName}} </p>
+                                                <p class="nickname">{{Citem.authorName}}
+                                                </p>
                                                 <p class="time">{{renderTime2(Citem.createTime)}}</p>
-                                                <p class="comment">{{Citem.content}} <span v-for="r in Citem.refers" style="color:steelblue"> @{{r.nickName}}</span></p>
+                                                <p class="comment">{{Citem.content}}
+                                                    <span v-for="r in
+                                                            Citem.refers" style="color:steelblue">
+                                                            @{{r.nickName}}</span></p>
                                             </div>
-                                            <div v-if="Citem.comments.length>0" style="background-color: #1e1e2a;padding: 0.1rem;font-size:0.28rem;">
-                                                <div v-for="ccitem in Citem.comments">
-                                                    <span>{{ccitem.authorName}} </span><span style="color:#71717f">回复</span>
-                                                    <span>{{ccitem.receiverName}} </span><span> :{{ccitem.content}}</span>
-                                                    <span v-if="ccitem.refers" v-for="r in ccitem.refers" style="color:steelblue"> @{{r.nickName}}</span>
+                                            <div v-if="Citem.comments.length>0" style="background-color:
+                                                    #1e1e2a;padding:
+                                                    0.1rem;font-size:0.28rem;">
+                                                <div v-for="ccitem in
+                                                        Citem.comments">
+                                                    <span>{{ccitem.authorName}}
+                                                        </span><span style="color:#71717f">回复</span>
+                                                    <span>{{ccitem.receiverName}}
+                                                        </span><span>
+                                                            :{{ccitem.content}}</span>
+                                                    <span v-if="ccitem.refers" v-for="r in
+                                                            ccitem.refers" style="color:steelblue">
+                                                            @{{r.nickName}}</span>
                                                 </div>
                                                 <div v-if="Citem.comments.length>0"><a @click="goApp" style="color:#999">查看全部{{Citem.commentCount}}条回复>></a></div>
                                             </div>
@@ -164,7 +212,7 @@
         </div>
     </div>
 </body>
-<script src="https://oss.laisitech.com/0bb12bf1-cb87-4d2c-a724-8a7c25b7ae04.js "></script>
+<script src="https://oss.laisitech.com/0bb12bf1-cb87-4d2c-a724-8a7c25b7ae04.js"></script>
 <script src="https://oss.laisitech.com/6172e6c1-f460-40ac-97ba-31c8526f2e16.js"></script>
 <script src="../common/js/network.js"></script>
 <script>
@@ -307,5 +355,6 @@
         }
     })
 </script>
+
 
 </html>

@@ -8,55 +8,11 @@
     <!-- 引入样式文件 -->
     <link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
     <link rel="stylesheet" href="../common/css/basic.css">
-    <link rel="stylesheet" href="css/pointsLottery.css">
     <link rel="stylesheet" href="css/addressedit.css">
     <link rel="stylesheet" href="css/font/iconfont.css">
-    <style type="text/css">
-        #app>.header,
-        .van-nav-bar,
-        .monkey-pull-refresh,
-        .DBnotice,
-        .submit2 {
-            background-color: #12121F;
-        }
-        
-        .van-nav-bar .van-icon,
-        .van-nav-bar__title,
-        .van-list__error-text,
-        .van-list__finished-text,
-        .van-list__loading,
-        .van-dialog__message {
-            color: #CFCFD2;
-        }
-        
-        .submit2 {
-            border: .02rem solid rgba(113, 113, 127, 1);
-            color: #71717f;
-        }
-        
-        input::-webkit-input-placeholder,
-        textarea::-webkit-input-placeholder {
-            color: #71717f!important;
-        }
-        
-        .van-switch {
-            background-color: #1e1e2a;
-        }
-        
-        .van-switch__node {
-            background-color: #71717f;
-            top: .025rem;
-            left: .025rem;
-            width: .4rem;
-            height: .4rem;
-        }
-        
-        .van-dialog,
-        .van-button--default {
-            background-color: #292934;
-            color: #cfcfd2;
-        }
-    </style>
+    <link rel="stylesheet" id="themeCssLink" href="../common/css/default.css">
+    <link rel="stylesheet" href="css/pointsLottery.css">
+
 
 </head>
 <!--  -->
@@ -64,7 +20,7 @@
 <body>
     <div id="app" v-cloak>
         <div class="header">
-            <van-nav-bar title="收货地址" @click-left="OnclickLeft" left-arrow>
+            <van-nav-bar title="收货地址" @click-left="OnclickLeft" safe-area-inset-top fixed>
                 <template #left>
 						<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
 					</template>

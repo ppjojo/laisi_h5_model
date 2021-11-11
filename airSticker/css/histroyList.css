@@ -6,8 +6,8 @@
 }
 
 body {
-  background: #12121f;
-  color: #cfcfd2;
+  background: var(--bgColor);
+  color: var(--textColor);
 }
 
 @font-face {
@@ -19,7 +19,7 @@ body {
 
 .main_contaniner {
   font-size: .3rem;
-  color: #71717f;
+  color: var(--textColor);
   font-family: sans-serif, "micrsoft yahei";
   width: 100%;
   height: auto;
@@ -31,7 +31,7 @@ body {
 }
 
 .main_contaniner .data_container .devicename {
-  color: #999;
+  color: var(--textColor2);
   font-size: .24rem;
 }
 
@@ -68,19 +68,19 @@ body {
 
 .main_contaniner .data_container .datanumlist .datanum .name {
   font-size: .24rem;
-  color: #71717F;
+  color: var(--textColor);
 }
 
 .main_contaniner .data_container .datanumlist .datanum .blodnum {
   font-family: 'BebasNeue';
   font-size: .56rem;
-  color: #cfcfd2;
+  color: var(--textColor);
 }
 
 /* echarts */
 .main_contaniner .charts {
-  border-bottom: 0.16rem #1e1e2a solid;
-  border-top: 0.16rem #1e1e2a solid;
+  border-bottom: 0.16rem var(--borderColor) solid;
+  border-top: 0.16rem var(--borderColor) solid;
 }
 
 .datalist .txt-green {
@@ -101,7 +101,7 @@ body {
 }
 
 .datalist .monthlist .monthitem {
-  border-bottom: 1px solid #1e1e2a;
+  border-bottom: 1px solid var(--borderColor);
 }
 
 .datalist .monthlist .monthitem .monthitemBox {
@@ -121,7 +121,7 @@ body {
 
 .datalist .monthlist .monthitem .monthitemBox .data {
   width: 70%;
-  color: #cfcfd2;
+  color: var(--textColor);
 }
 
 .datalist .monthlist .monthitem .monthitemBox .data .title {
@@ -172,7 +172,7 @@ body {
 }
 
 .datalist .monthlist .monthitem .monthitemBox .time .year {
-  color: #71717f;
+  color: var(--textColor);
   font-size: .24rem;
   line-height: .4rem;
   text-align: right;
@@ -194,7 +194,7 @@ body {
 .datalist .monthlist .monthitem .monthitemBox .time .down p {
   margin: 0;
   font-size: .24rem;
-  color: #cfcfd2;
+  color: var(--textColor);
 }
 
 .datalist .monthlist .monthitem .monthitemBox .time .down img {
@@ -208,18 +208,18 @@ body {
 
 .datalist .monthlist .monthitem .daylist {
   width: 100%;
-  border-top: .15rem #1e1e2a solid;
-  border-bottom: .15rem #1e1e2a solid;
+  border-top: 0.15rem var(--borderColor) solid;
+  border-bottom: 0.15rem var(--borderColor) solid;
 }
 
 .datalist .monthlist .monthitem .daylist .dayitem .dayitem_content {
   padding: 0.3rem;
-  border-top: 1px #1e1e2a solid;
+  border-top: 1px var(--borderColor) solid;
 }
 
 .datalist .monthlist .monthitem .daylist .dayitem .dayitem_content .daytime {
   width: 100%;
-  color: #979797;
+  color: var(--textColor2);
   font-size: .24rem;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -244,7 +244,7 @@ body {
 .datalist .monthlist .monthitem .daylist .dayitem .day_time_list .list-item .item_data {
   width: 100%;
   padding: 0.2rem;
-  border-top: 1px #1e1e2a solid;
+  border-top: 1px var(--borderColor) solid;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -261,7 +261,7 @@ body {
 }
 
 .datalist .monthlist .monthitem .daylist .dayitem .day_time_list .list-item .item_data .left .time {
-  color: #B3B8BB;
+  color: var(--textColor2);
   font-size: .24rem;
   line-height: .5rem;
 }
@@ -299,7 +299,6 @@ body {
 .numitem .mode {
   width: .5rem;
   height: .5rem;
-  /* background-color:#B3B8BB; */
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -344,11 +343,11 @@ body {
   font-size: .48rem;
   margin: 0 5%;
   font-family: 'BebasNeue';
-  color: #cfcfd2;
+  color: var(--textColor);
 }
 
 .numitem .unit {
-  color: #71717f;
+  color: var(--textColor);
   font-size: .2rem;
   font-family: sans-serif, "micrsoft yahei";
 }
@@ -383,15 +382,15 @@ body {
 }
 
 .header .van-nav-bar {
-  background-color: #12121f;
+  background-color: var(--bgColor);
 }
 
 .header .van-nav-bar .van-nav-bar__content {
-  color: #CFCFD2;
+  color: var(--textColor);
 }
 
 .header .van-nav-bar .van-nav-bar__title {
-  color: #CFCFD2;
+  color: var(--textColor);
   font-size: 0.36rem;
 }
 

@@ -1,178 +1,200 @@
 #app {
-	min-height: 100vh;
-	background-color: #12121f;
-	padding-bottom: 1.2rem;
+    min-height: 100vh;
+    padding-bottom: 1.2rem;
 }
 
 #addressBox {
-	background-color: #12121f;
-	/* margin-top: .3rem; */
-	padding: .4rem .3rem;
-	color: #CFCFD2;
-	border-top: .08rem solid #1e1e2a;
-	border-bottom: .08rem solid #1e1e2a;
+    background-color: var(--bgColor);
+    padding: .4rem .3rem;
+    border-top: .08rem solid var(--borderColor);
+    border-bottom: .08rem solid var(--borderColor);
 }
 
 #addressBox .province,
-#addressBox .name,#freight .title {
-	font-size: .28rem;
-	font-family: 'PingFangSC-Regular';
-	max-width: 6.4rem;
+#addressBox .name,
+#freight .title {
+    font-size: .28rem;
+    font-family: 'PingFangSC-Regular';
+    max-width: 6.4rem;
 }
 
 #addressBox .detail {
-	font-size: .4rem;
-	font-family: 'PingFangSC-Medium';
-	max-width: 6.4rem;
-	margin: .3rem 0;
+    font-size: .4rem;
+    font-family: 'PingFangSC-Medium';
+    max-width: 6.4rem;
+    margin: .3rem 0;
 }
 
 #priceBox {
-	background-color: #12121f;
-	margin:0 0 .3rem 0;
-	border-bottom: .08rem solid #1e1e2a;
+    background-color: var(--bgColor);
+    margin: 0 0 .3rem 0;
+    border-bottom: .08rem solid var(--borderColor);
 }
 
 .task_unfinish,
 .task_finish {
-	background: linear-gradient(to right, #ff4e3e, #ffaa88);
-	min-width: .92rem;
-	border-radius: .16rem;
-	height: .52rem;
-	line-height: .52rem;
-	font-size: .24rem;
-	color: #fff;
-	padding: .01rem .15rem;
-	text-align: center;
-	font-family: "PingFangSC-Medium";
+    background: linear-gradient(to right, #ff4e3e, #ffaa88);
+    min-width: .92rem;
+    border-radius: .16rem;
+    height: .52rem;
+    line-height: .52rem;
+    font-size: .24rem;
+    color: #fff;
+    padding: .01rem .15rem;
+    text-align: center;
+    font-family: "PingFangSC-Medium";
 }
 
 .task_finish {
-	/* border: 1px solid rgba(209, 209, 209, 1); */
-	background: #1E1E2A;
-	color: #CFCFD2;
+    background: var(--borderColor);
+    color: var(--textColor);
 }
+
 #submitbox .task_finish {
-	/* border: 1px solid rgba(209, 209, 209, 1); */
-	background: #71717f;
-	color: #fff;
+    /* border: 1px solid rgba(209, 209, 209, 1); */
+    background: var(--textColor2);
+    color: #fff;
 }
-.list_ul{
-	padding-bottom: .3rem;
+
+.list_ul {
+    padding-bottom: .3rem;
 }
-.list_ul>li:last-child{
-	margin-bottom: 0;
+
+.list_ul>li:last-child {
+    margin-bottom: 0;
 }
+
 .list_ul .title {
-	font-family: "PingFangSC-Medium";
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-	max-width: 4rem;
+    font-family: "PingFangSC-Medium";
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 4rem;
 }
-#freight{
-	background-color: #12121f;
-	padding: .36rem .3rem;
-	color: #cfcfd2;
+
+#freight {
+    background-color: var(--bgColor);
+    padding: .36rem .3rem;
+    color: var(--textColor);
 }
-#freight .detail{
-	color: #999;
-	font-size: .28rem;
+
+#freight .detail {
+    color: var(--textColor2);
+    font-size: .28rem;
 }
-#freight .detail2{
-	color: #1f1f1f;
+
+#freight .detail2 {
+    color: #1f1f1f;
 }
-#submitbox{
-	position: fixed;
-	bottom: 0;
-	width: 100%;
-	height: 1.2rem;
-	background-color: #1e1e2a;
-	padding: 0 .3rem;
+
+#submitbox {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 1.2rem;
+    background-color: var(--borderColor);
+    padding: 0 .3rem;
 }
-#submitbox .moneybox{
-	color: #CFCFD2;
-	font-size: .32rem;
+
+#submitbox .moneybox {
+    color: var(--textColor);
+    font-size: .32rem;
 }
-#submitbox span{
-	color: #ff4e3e;
-	font-size: .2rem;
-	font-family: 'PingFangSC-Medium';
+
+#submitbox span {
+    color: #ff4e3e;
+    font-size: .2rem;
+    font-family: 'PingFangSC-Medium';
 }
-#submitbox span:last-child{
-	font-size: .4rem;
+
+#submitbox span:last-child {
+    font-size: .4rem;
 }
-#submitbox .task_unfinish{
-	padding: .01rem .3rem;
+
+#submitbox .task_unfinish {
+    padding: .01rem .3rem;
 }
-.van-button--default{
-	color: #1989FA;
+
+.van-button--default {
+    color: #1989FA;
 }
-.van-dialog__message{
-	color: #030303;
+
+.van-dialog__message {
+    color: #030303;
 }
-#addressChoose{
-	background-color: #292934;
+
+#addressChoose {
+    background-color: var(--popBgColor);
 }
-#addressChoose .title{
-	font-size: .36rem;
-	color: #cfcfd2;
-	text-align: center;
-	padding: .3rem 0;
+
+#addressChoose .title {
+    font-size: .36rem;
+    color: var(--textColor);
+    text-align: center;
+    padding: .3rem 0;
 }
-#addressChoose .van-address-list{
-	padding-top: 0;
+
+#addressChoose .van-address-list {
+    padding-top: 0;
 }
-#addressChoose .van-address-list__bottom{
-	background:#292934;
+
+#addressChoose .van-address-list__bottom {
+    background: var(--popBgColor);
 }
-#addressChoose .van-address-item__address{
-	color:#cfcfd2;
+
+#addressChoose .van-address-item__address {
+    color: var(--textColor);
 }
-#addressChoose .van-address-list{
-	background-color: #292934;
+
+#addressChoose .van-address-list {
+    background-color: var(--popBgColor);
 }
-#addressChoose .van-address-item,.van-cell{
-	background-color: #1e1e2a;
+
+#addressChoose .van-address-item,
+.van-cell {
+    background-color: var(--borderColor);
 }
-#addressChoose .van-radio-group{
-	max-height: 5rem;
-	overflow-y: auto;
-	padding: 0.06rem 0.24rem 2.3rem;
+
+#addressChoose .van-radio-group {
+    max-height: 5rem;
+    overflow-y: auto;
+    padding: 0.06rem 0.24rem 2.3rem;
 }
-#addressChoose .van-address-list__bottom{
-	/* height: 1.28rem; */
+
+#addressChoose .van-address-list__bottom {
+    /* height: 1.28rem; */
 }
-#addressChoose .van-address-list__add{
-	background: linear-gradient(to right, #ff4e3e, #ffaa88);
-	height: .85rem;
-	line-height: .85rem;
-	margin:0!important;
-	border-radius: .5rem;
-	border: none;
-	font-size: .4rem;
+
+#addressChoose .van-address-list__add {
+    background: linear-gradient(to right, #ff4e3e, #ffaa88);
+    height: .85rem;
+    line-height: .85rem;
+    margin: 0!important;
+    border-radius: .5rem;
+    border: none;
+    font-size: .4rem;
 }
-#addressChoose .van-address-item__name,#addressChoose.van-address-item__address{
-	font-size: .28rem;
-	color: #cfcfd2;
+
+#addressChoose .van-address-item__name,
+#addressChoose.van-address-item__address {
+    font-size: .28rem;
+    color: var(--textColor)
 }
-.van-address-item__tag{
-	background-color: #ff4e3e;
-	font-size: .2rem;
-	padding:.05rem .1rem;
-	height: .32rem;
-	line-height: .32rem;
-	border-radius: .1rem;
+
+.van-address-item__tag {
+    background-color: #ff4e3e;
+    font-size: .2rem;
+    padding: .05rem .1rem;
+    height: .32rem;
+    line-height: .32rem;
+    border-radius: .1rem;
 }
+
 @font-face {
-  font-family: 'van-icon-edit';
-  src: url('./iconfont.ttf') format('truetype');
+    font-family: 'van-icon-edit';
+    src: url('./iconfont.ttf') format('truetype');
 }
 
 .van-icon-edit {
-  font-family: 'van-icon-edit';
+    font-family: 'van-icon-edit';
 }
-
-/* .van-icon-edit::before {
-  content: '\e626';
-} */

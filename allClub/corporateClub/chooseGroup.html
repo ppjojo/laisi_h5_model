@@ -2,85 +2,86 @@
 <html lang="zh-cmn-Hans">
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport"
-		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
-	<title>指定团队参加</title>
-	<!-- 引入样式文件 -->
-	<link rel="stylesheet" href="../../common/css/vant-rem-2122.css">
-	<link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
-	<link rel="stylesheet" href="../../common/css/basic.css">
-	<link rel="stylesheet" href="css/normal.css">
-	<link rel="stylesheet" href="css/member.css">
-	<link rel="stylesheet" href="../font/iconfont.css">
-	<link href="../clubList_Detail/css/header.css" rel="stylesheet" type="text/css" />
-	
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+    <title>指定团队参加</title>
+    <!-- 引入样式文件 -->
+    <link rel="stylesheet" href="../../common/css/vant-rem-2122.css">
+    <link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
+    <link rel="stylesheet" href="../../common/css/basic.css">
+    <link rel="stylesheet" href="css/normal.css">
+    <link rel="stylesheet" href="css/member.css">
+    <link rel="stylesheet" href="../font/iconfont.css">
+    <link href="../clubList_Detail/css/header.css" rel="stylesheet" type="text/css" />
 
-	<style type="text/css">
-		.van-collapse-item__wrapper .van-cell {
-			padding: 0;
-		}
 
-		.van-hairline--top-bottom::after,
-		.van-hairline-unset--top-bottom::after {
-			border: none;
-		}
-
-		.van-checkbox {
-			margin-right: .2rem;
-		}
-
-		.van-cell {
-			padding: .1rem 0.32rem;
-			background-color: #12121f;
-			color: #cfcfd2;
-		}
-
-		.van-cell::after {
-			border-bottom-color: #1E1E2A;
-		}
-		.color999{
-			color: #999;
-		}
-		.submit {
-			position: fixed;
-			bottom: 0;
-			left: calc(50% - 3.15rem);
-			opacity: 1;
-			margin: .2rem 0;
-		}
-		.van-field__control{
-			color: #cfcfd2;
-		}
-		input::-webkit-input-placeholder {
-		        color: #71717f!important;
-		      }
-	</style>
+    <style type="text/css">
+        .van-collapse-item__wrapper .van-cell {
+            padding: 0;
+        }
+        
+        .van-hairline--top-bottom::after,
+        .van-hairline-unset--top-bottom::after {
+            border: none;
+        }
+        
+        .van-checkbox {
+            margin-right: .2rem;
+        }
+        
+        .van-cell {
+            padding: .1rem 0.32rem;
+            background-color: var(--bgColor);
+            color: #cfcfd2;
+        }
+        
+        .van-cell::after {
+            border-bottom-color: #1E1E2A;
+        }
+        
+        .color999 {
+            color: #999;
+        }
+        
+        .submit {
+            position: fixed;
+            bottom: 0;
+            left: calc(50% - 3.15rem);
+            opacity: 1;
+            margin: .2rem 0;
+        }
+        
+        .van-field__control {
+            color: #cfcfd2;
+        }
+        
+        input::-webkit-input-placeholder {
+            color: #71717f!important;
+        }
+    </style>
 </head>
 
 <body>
-	<div id="app" class="normalHeader" v-cloak>
-		<div class="header ">
-			<van-nav-bar @click-left="onclickLeft" title="选择团队赛部门" @click-right="onClickRight" left-arrow
-				safe-area-inset-top fixed>
-				<template #left>
+    <div id="app" class="normalHeader" v-cloak>
+        <div class="header ">
+            <van-nav-bar @click-left="onclickLeft" title="选择团队赛部门" @click-right="onClickRight" left-arrow safe-area-inset-top fixed>
+                <template #left>
 					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
 				</template>
-				<template #right>
+                <template #right>
 					<div :class="chooseList.length>0?'':'color999'">确定</div>
 				</template>
-			</van-nav-bar>
-		</div>
-		<van-search v-model="searchval" @input="search" placeholder="请输入部门昵称"></van-search>
-		<div>
-			<van-checkbox-group v-model="chooseList" ref="checkboxGroup">
-				<van-cell-group>
-					<van-cell v-for="(item,index) in searchval?searchList:dataList" clickable :key="item.id"
-						@click="toggle(index)">
-						<template #icon>
+            </van-nav-bar>
+        </div>
+        <van-search v-model="searchval" @input="search" placeholder="请输入部门昵称"></van-search>
+        <div>
+            <van-checkbox-group v-model="chooseList" ref="checkboxGroup">
+                <van-cell-group>
+                    <van-cell v-for="(item,index) in searchval?searchList:dataList" clickable :key="item.id" @click="toggle(index)">
+                        <template #icon>
 							<van-checkbox :name="item.id" ref="checkboxes"></van-checkbox>
 						</template>
-						<template #title>
+                        <template #title>
 							<ul class="ul_class">
 								<li class="ub ub-ac ub-pj">
 									<div style="color: #cfcfd2;">
@@ -90,101 +91,101 @@
 								</li>
 							</ul>
 						</template>
-					</van-cell>
-				</van-cell-group>
-			</van-checkbox-group>
-		</div>
+                    </van-cell>
+                </van-cell-group>
+            </van-checkbox-group>
+        </div>
 
-	</div>
+    </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vant@2.12.2/lib/vant.min.js"></script>
 <script src="../../common/js/network.js"></script>
 <script src="js/tool.js"></script>
 <script>
-	new Vue({
-		el: '#app',
-		data() {
-			return {
-				clubId: getQueryString('id'),
-				iscompetion: parseInt(getQueryString('iscompetion')),
-				loading: true,
-				showPopover: false,
-				chooseList: [],
-				searchval: '',
-				dataList: [],
-				searchList: [],
-				bgc: "linear-gradient(to right, #FF6A88, #FF5136 )",
-				bgcgrey: '#999',
-			}
-		},
-		filters: {},
-		mounted() {},
-		created() {
-			this.initGroup();
-		},
-		methods: {
-			initGroup() {
-				let _self = this;
-				ajax({
-					type: "get",
-					url: "club/queryClubGroup",
-					data: {
-						clubId: _self.clubId
-					}
-				}).then(res => {
-					if (res.code == 0) {
-						this.dataList = res.data;
-						this.chooseList = window.parent.vm.iframe_groupList
-					} else {
-						this.$toast(res.msg);
-					}
-				})
-			},
-			toggle(index) {
-				this.$refs.checkboxes[index].toggle();
-			},
-			search(val) {
-				//字符串方法indexOf
-				var len = this.dataList.length;
-				var arr = [];
-				var reg = new RegExp(val);
-				for (var i = 0; i < len; i++) {
-					//如果字符串中不包含目标字符会返回-1
-					if (reg.test(this.dataList[i].name)) {
-						arr.push(this.dataList[i]);
-					}
-				}
-				this.searchList = arr;
-			},
-			onclickLeft() {
-				window.parent.vm.iframeShow = false
-			},
-			onClickRight() {
-				if (this.chooseList.length == 0) {
-					return
-				}
-				
-				if(this.iscompetion == 1){
-					let groupname = [];
-					this.chooseList.forEach((d, index) => {
-						this.dataList.forEach((e, index2) => {
-							if (d == e.id) {
-								groupname.push(e.name);
-							}
-						})
-					});
-					window.parent.vm.iframe_groupNameList = groupname
-					window.parent.vm.showGroupName()
-				}
-				window.parent.vm.iframe_groupList = this.chooseList
-				window.parent.vm.iframeShow = false
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                clubId: getQueryString('id'),
+                iscompetion: parseInt(getQueryString('iscompetion')),
+                loading: true,
+                showPopover: false,
+                chooseList: [],
+                searchval: '',
+                dataList: [],
+                searchList: [],
+                bgc: "linear-gradient(to right, #FF6A88, #FF5136 )",
+                bgcgrey: '#999',
+            }
+        },
+        filters: {},
+        mounted() {},
+        created() {
+            this.initGroup();
+        },
+        methods: {
+            initGroup() {
+                let _self = this;
+                ajax({
+                    type: "get",
+                    url: "club/queryClubGroup",
+                    data: {
+                        clubId: _self.clubId
+                    }
+                }).then(res => {
+                    if (res.code == 0) {
+                        this.dataList = res.data;
+                        this.chooseList = window.parent.vm.iframe_groupList
+                    } else {
+                        this.$toast(res.msg);
+                    }
+                })
+            },
+            toggle(index) {
+                this.$refs.checkboxes[index].toggle();
+            },
+            search(val) {
+                //字符串方法indexOf
+                var len = this.dataList.length;
+                var arr = [];
+                var reg = new RegExp(val);
+                for (var i = 0; i < len; i++) {
+                    //如果字符串中不包含目标字符会返回-1
+                    if (reg.test(this.dataList[i].name)) {
+                        arr.push(this.dataList[i]);
+                    }
+                }
+                this.searchList = arr;
+            },
+            onclickLeft() {
+                window.parent.vm.iframeShow = false
+            },
+            onClickRight() {
+                if (this.chooseList.length == 0) {
+                    return
+                }
+
+                if (this.iscompetion == 1) {
+                    let groupname = [];
+                    this.chooseList.forEach((d, index) => {
+                        this.dataList.forEach((e, index2) => {
+                            if (d == e.id) {
+                                groupname.push(e.name);
+                            }
+                        })
+                    });
+                    window.parent.vm.iframe_groupNameList = groupname
+                    window.parent.vm.showGroupName()
+                }
+                window.parent.vm.iframe_groupList = this.chooseList
+                window.parent.vm.iframeShow = false
 
 
-			},
+            },
 
-		}
-	})
+        }
+    })
 </script>
 
 </html>

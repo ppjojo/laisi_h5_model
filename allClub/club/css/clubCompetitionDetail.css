@@ -1,11 +1,7 @@
-body {
-    background-color: #12121f;
-}
-
 .detailBox {
     margin-top: 0.2rem;
     padding: 0.28rem;
-    background-color: #12121f;
+    background-color: var(--bgColor);
     border-bottom: 0.08rem solid #1e1e2a;
 }
 
@@ -28,7 +24,6 @@ body {
     text-align: left;
     line-height: 0.6rem;
 }
-
 
 .personnal {
     color: #cfcfd2;
@@ -67,9 +62,7 @@ body {
     width: 0.6rem;
     height: 0.6rem;
     background-size: cover;
-
     border-radius: 50%;
-
 }
 
 .personnal .van-col {
@@ -84,17 +77,15 @@ body {
     font-style: normal;
 }
 
-
 .bigNumberSpan {
     font-size: 0.48rem;
     color: #CFCFD2;
     font-family: 'BebasNeue';
 }
 
-
 .raceInformation {
     margin-top: 0.2rem;
-    background-color: #12121f;
+    background-color: var(--bgColor);
 }
 
 .raceInformationTitle {
@@ -187,12 +178,10 @@ body {
     background-color: #1e1e2a;
     border-radius: 0.1rem;
     width: 49.5%;
-
 }
 
 .middleDiv {
     width: 1%;
-
 }
 
 .rightTeam {
@@ -219,7 +208,6 @@ body {
 
 .van-button--default {
     /* background-color: rgb(238,238,238); */
-
 }
 
 .van-dialog__cancel {
@@ -265,7 +253,6 @@ body {
 .sortPic {
     width: 0.4rem;
     height: 0.46rem;
-
 }
 
 .van-pull-refresh {

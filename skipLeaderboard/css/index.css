@@ -17,20 +17,20 @@
 }
 
 .header .van-nav-bar {
-  background-color: #12121f;
+  background-color: var(--bgColor);
 }
 
 .header .van-nav-bar .van-nav-bar__content {
-  color: #CFCFD2;
+  color: var(--textColor);
 }
 
 .header .van-nav-bar .van-nav-bar__title {
-  color: #CFCFD2;
+  color: var(--textColor);
   font-size: 0.36rem;
 }
 
 .header .van-nav-bar .van-nav-bar__text {
-  color: #CFCFD2;
+  color: var(--textColor);
 }
 
 .header .van-hairline--bottom::after {
@@ -79,8 +79,8 @@
 }
 
 body {
-  background-color: #12121f;
-  color: #CFCFD2;
+  background-color: var(--bgColor);
+  color: var(--textColor);
   min-height: 100vh;
 }
 
@@ -199,13 +199,13 @@ body {
 
 .threeDiv .num {
   font-size: 0.24rem;
-  color: #71717f;
+  color: var(--textColor2);
 }
 
 .threeDiv .bigNumberSpan {
   font-size: 0.48rem;
   font-family: 'BebasNeue';
-  color: #CFCFD2;
+  color: var(--textColor);
 }
 
 .threeDiv .nullImg {
@@ -227,7 +227,7 @@ body {
   border-radius: 0.24rem;
   position: relative;
   width: 100%;
-  background-color: #1e1e2a;
+  background-color: var(--borderColor);
   min-height: calc(100vh - 5.5rem);
 }
 
@@ -243,13 +243,13 @@ body {
 .content-container .allHeader .van-dropdown-menu__bar {
   -webkit-box-shadow: none;
           box-shadow: none;
-  background-color: #1e1e2a;
-  color: #CFCFD2;
+  background-color: var(--borderColor);
+  color: var(--textColor);
   height: 1.08rem;
 }
 
 .content-container .allHeader .van-dropdown-menu__title {
-  color: #CFCFD2;
+  color: var(--textColor);
   font-size: 0.32rem;
 }
 
@@ -281,18 +281,18 @@ body {
 }
 
 .content-container .allHeader .van-popup {
-  background-color: #1e1e2a;
+  background-color: var(--borderColor);
   margin: 0 0.24rem;
   width: calc(100% - 0.48rem);
 }
 
 .content-container .allHeader .van-popup .van-cell {
-  background-color: #1e1e2a;
-  color: #CFCFD2;
+  background-color: var(--borderColor);
+  color: var(--textColor);
 }
 
 .content-container .allHeader .van-cell::after {
-  border-bottom: 1px solid #12121f;
+  border-bottom: 1px solid var(--bgColor);
 }
 
 .content-container .headerBox {
@@ -302,7 +302,7 @@ body {
   width: 100%;
   z-index: 2;
   margin-bottom: 1.92rem;
-  background-color: #1e1e2a;
+  background-color: var(--borderColor);
 }
 
 .content-container .headerBox .tabDiv {
@@ -324,12 +324,12 @@ body {
   width: 25%;
   font-size: .32rem;
   text-align: center;
-  color: #71717f;
+  color: var(--textColor2);
 }
 
 .content-container .headerBox .tabDiv .selected {
   font-size: .36rem;
-  color: #fff;
+  color: var(--textColorActive);
   position: relative;
 }
 
@@ -359,7 +359,7 @@ body {
   -ms-flex-line-pack: center;
       align-content: center;
   z-index: 2;
-  border-bottom: 1px solid #12121f;
+  border-bottom: 1px solid var(--bgColor);
 }
 
 .content-container .headerBox .tabDiv2 p {
@@ -368,11 +368,11 @@ body {
   line-height: 0.96rem;
   text-align: center;
   border-radius: 0.2rem;
-  color: #71717f;
+  color: var(--textColor2);
 }
 
 .content-container .headerBox .tabDiv2 .selected {
-  color: #fff;
+  color: var(--textColorActive);
 }
 
 .content-container .listDiv .listItem {
@@ -389,7 +389,7 @@ body {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  border-bottom: 1px solid #12121f;
+  border-bottom: 1px solid var(--bgColor);
 }
 
 .content-container .listDiv .listItem .rank {
@@ -444,17 +444,17 @@ body {
   width: 40%;
   white-space: nowrap;
   font-size: 0.24rem;
-  color: #71717f;
+  color: var(--textColor2);
 }
 
 .content-container .listDiv .listItem .bigNumberSpan {
   font-size: 0.48rem;
   font-family: 'BebasNeue';
-  color: #CFCFD2;
+  color: var(--textColor);
 }
 
 .content-container .listDiv .isself {
-  border-bottom: 0.16rem solid #12121f;
+  border-bottom: 0.16rem solid var(--bgColor);
   margin: 0;
   padding: 0 0.24rem;
 }
@@ -481,7 +481,7 @@ body {
 }
 
 .noData-box .noData-p {
-  color: #CFCFD2;
+  color: var(--textColor);
   font-size: 0.28rem;
   padding: 0.2rem 0;
 }
@@ -491,7 +491,7 @@ body {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   text-align: center;
-  color: #CFCFD2;
+  color: var(--textColor);
   font-size: .2rem;
   line-height: 0.8rem;
   text-align: center;
