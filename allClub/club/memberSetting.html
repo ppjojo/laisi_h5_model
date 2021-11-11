@@ -12,7 +12,7 @@
     <link rel="stylesheet" type="text/css" href="../clubList_Detail/css/header.css" />
 
     <link rel="stylesheet" type="text/css" href="css/memberSetting.css" />
-    <script src="../corporateClub/js/clipboard.min.js"></script>
+    <link rel="stylesheet" id="themeCssLink2" href="../../common/css/default.css">
 
     <style type="text/css">
         .van-nav-bar .van-icon {
@@ -57,7 +57,7 @@
         .van-list__error-text,
         .van-list__finished-text,
         .van-list__loading {
-            color: #CFCFD2;
+            color: var(--textColor);
         }
     </style>
 
@@ -88,20 +88,20 @@
                     <span style="display: block;">俱乐部简介</span>
                     <van-icon style="display: block;" color="#969799" name="arrow" />
                 </div>
-                <div class="listBox" style="border-bottom: .08rem solid #1E1E2A;">
+                <div class="listBox" style="border-bottom: .08rem solid var(--borderColor);">
                     <span>所在城市</span>
                     <span class="rightBox">
 						{{(submitform.province||"")+(submitform.city||"")+(submitform.county||"")}}
 					</span>
                 </div>
-                <div class="listBox " @click="gotoNickName" v-if="submitform.type=='05'" style="border-bottom: .08rem solid #1E1E2A;">
+                <div class="listBox " @click="gotoNickName" v-if="submitform.type=='05'" style="border-bottom: .08rem solid var(--borderColor);">
                     <span>我在俱乐部的昵称</span>
                     <div class="ub ub-ac">
-                        <div style="font-size: 0.28rem;color: #cfcfd2;">{{submitform.nickname}}</div>
+                        <div style="font-size: 0.28rem;color: var(--textColor);">{{submitform.nickname}}</div>
                         <van-icon style="display: block;" color="#969799" name="arrow" />
                     </div>
                 </div>
-                <div class="listBox " @click="gotomemberList" style="border-bottom: .08rem solid #1E1E2A;">
+                <div class="listBox " @click="gotomemberList" style="border-bottom: .08rem solid var(--borderColor);">
                     <span>成员列表</span>
                     <div class="ub ub-ac">
                         <div style="font-size: 0.24rem;">

@@ -86,8 +86,8 @@ body {
     line-height: 1.24rem;
     font-size: 0.32rem;
     padding: 0 0.3rem;
-    border-bottom: 1px solid #1E1E2A;
-    color: #CFCFD2;
+    border-bottom: 1px solid var(--borderColor);
+    color: var(--textColor);
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -137,14 +137,14 @@ body {
     line-height: 1.24rem;
     font-size: 0.32rem;
     padding: 0 0.3rem;
-    border-bottom: 1px solid #1E1E2A;
+    border-bottom: 1px solid var(--borderColor);
 }
 
 .listBox-content {
     min-height: 1.2rem;
     line-height: 0.5rem;
     font-size: 0.28rem;
-    color: #CFCFD2;
+    color: var(--textColor);
     word-break: break-all;
 }
 
@@ -161,12 +161,12 @@ body {
     height: 1.2rem;
     line-height: 1.2rem;
     font-size: 0.32rem;
-    color: #CFCFD2;
+    color: var(--textColor);
 }
 
 .van-cell__value span {
     font-size: 0.24rem;
-    color: #CFCFD2;
+    color: var(--textColor);
 }
 
 .smallpic {

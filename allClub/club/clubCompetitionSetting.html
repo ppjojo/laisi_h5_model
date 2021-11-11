@@ -1,439 +1,445 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
-		<title>比赛设置</title>
-		<!-- 引入样式文件 -->
-		<link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
-		<link rel="stylesheet" href="css/clubCreateCompetition.css">
-		<link rel="stylesheet" href="../font/iconfont.css">
-	<link href="../clubList_Detail/css/header.css" rel="stylesheet" type="text/css" />
-		<style>
-			.listBox {
-				height:1.24rem;
-				line-height: 1.24rem;
-				font-size: 0.32rem;
-				padding: 0 0.3rem;
-				border-bottom: .02rem solid #1E1E2A;
-				color: #CFCFD2;
-				display:flex;
-				justify-content:space-between;
-				align-items:center;
-			}
-			[class*=van-hairline]::after{
-				border: none;
-			}
-			.van-cell{
-				color: #CFCFD2;
-			}
-			.van-cell__value{
-				color: #1f1f1f;
-			}	
-			
-			.van-cell__value span {
-    font-size: 0.28rem;
-    color: #cfcfd2;
-}
-.listBox span:last-child{
-	font-size: .28rem;
-}
-		</style>
-	</head>
-	<body>
-		<div id="app" class="normalHeader" v-cloak>
-			<div class="header">
-				<van-nav-bar @click-left="onclickLeft" title="比赛设置" left-arrow safe-area-inset-top fixed>
-					<template #left>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+    <title>比赛设置</title>
+    <!-- 引入样式文件 -->
+    <link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
+    <link rel="stylesheet" href="css/clubCreateCompetition.css">
+    <link rel="stylesheet" href="../font/iconfont.css">
+    <link href="../clubList_Detail/css/header.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" id="themeCssLink2" href="../../common/css/default.css">
+    <style>
+        .listBox {
+            height: 1.24rem;
+            line-height: 1.24rem;
+            font-size: 0.32rem;
+            padding: 0 0.3rem;
+            border-bottom: .02rem solid var(--borderColor);
+            color: var(--textColor);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        [class*=van-hairline]::after {
+            border: none;
+        }
+        
+        .van-cell {
+            color: var(--textColor);
+        }
+        
+        .van-cell__value {
+            color: #1f1f1f;
+        }
+        
+        .van-cell__value span {
+            font-size: 0.28rem;
+            color: var(--textColor);
+        }
+        
+        .listBox span:last-child {
+            font-size: .28rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" class="normalHeader" v-cloak>
+        <div class="header">
+            <van-nav-bar @click-left="onclickLeft" title="比赛设置" left-arrow safe-area-inset-top fixed>
+                <template #left>
 						<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
 					</template>
-	
-				</van-nav-bar>
-			</div>
-			<div >
-				<van-collapse v-model="activeNames" accordion>
-					<div style="border-bottom: .02rem solid #1E1E2A">
-						<div class="laberDiv">
-							比赛名称
-						</div>
-						<div style="padding:0 0.2rem 0.2rem 0.2rem;">
-							<van-field v-model="form.mc" :input="titleChange()" class="club-input" style="min-height:1.2rem;" rows="1" autosize type="textarea"
-							 maxlength="16" placeholder="请输入比赛名称吧～" show-word-limit />
-						</div>
-					</div>
-					<div class="listBox">
-						<span>比赛模式:</span>
-						<span  v-if="submitform.mode==2&&submitform.modeValue">{{submitform.modeValue==30?"30秒钟倒计时跳":(parseInt((submitform.modeValue)/60))+"分钟倒计时跳"}}</span>
-						<span  v-else-if="submitform.modeValue">{{submitform.modeValue+"个倒计数跳"}}</span>
-					</div>
-					<div class="listBox">
-						<span>比赛类型:</span>
-						<span >{{submitform.type=="personal"?"个人赛":"团队赛"}}</span>
-					</div>
-					<div class=""  style="border-bottom: .02rem solid #1E1E2A">
-						<van-cell title="开始时间"  :value="form.start"></van-cell>
-					</div>
-					<div class=""  style="border-bottom: .02rem solid #1E1E2A">
-						<van-cell title="结束时间"  :value="form.end"></van-cell>
-					</div>
-					
-					<div class="listBox">
-						<span>比赛奖励:</span>
-						<span v-if="form.jl">{{form.jl}}</span>
-					</div>
-					
-				</van-collapse>
-				<van-button round class="submit" block
-				:color="!form.mc||form.mc==oldname?bgcgrey:bgc" @click="submitFormData">修改</van-button>
-				
-				<van-popup v-model="startTimeShow" position="bottom">
-					<van-picker show-toolbar :columns="startTimeColumns" @cancel="startTimeShow = false" @confirm="onstartTimeConfirm"
-					 @change="onstartTimeChange" />
-				</van-popup>
-			
-				<van-popup v-model="endTimeShow" position="bottom">
-					<van-picker show-toolbar :columns="endTimeColumns" @cancel="endTimeShow = false" @confirm="onendTimeConfirm"
-					 @change="onendTimeChange" />
-				</van-popup>
-			</div>
-		</div>
-	</body>
-	<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+
+            </van-nav-bar>
+        </div>
+        <div>
+            <van-collapse v-model="activeNames" accordion>
+                <div style="border-bottom: .02rem solid var(--borderColor)">
+                    <div class="laberDiv">
+                        比赛名称
+                    </div>
+                    <div style="padding:0 0.2rem 0.2rem 0.2rem;">
+                        <van-field v-model="form.mc" :input="titleChange()" class="club-input" style="min-height:1.2rem;" rows="1" autosize type="textarea" maxlength="16" placeholder="请输入比赛名称吧～" show-word-limit />
+                    </div>
+                </div>
+                <div class="listBox">
+                    <span>比赛模式:</span>
+                    <span v-if="submitform.mode==2&&submitform.modeValue">{{submitform.modeValue==30?"30秒钟倒计时跳":(parseInt((submitform.modeValue)/60))+"分钟倒计时跳"}}</span>
+                    <span v-else-if="submitform.modeValue">{{submitform.modeValue+"个倒计数跳"}}</span>
+                </div>
+                <div class="listBox">
+                    <span>比赛类型:</span>
+                    <span>{{submitform.type=="personal"?"个人赛":"团队赛"}}</span>
+                </div>
+                <div class="" style="border-bottom: .02rem solid var(--borderColor)">
+                    <van-cell title="开始时间" :value="form.start"></van-cell>
+                </div>
+                <div class="" style="border-bottom: .02rem solid var(--borderColor)">
+                    <van-cell title="结束时间" :value="form.end"></van-cell>
+                </div>
+
+                <div class="listBox">
+                    <span>比赛奖励:</span>
+                    <span v-if="form.jl">{{form.jl}}</span>
+                </div>
+
+            </van-collapse>
+            <van-button round class="submit" block :color="!form.mc||form.mc==oldname?bgcgrey:bgc" @click="submitFormData">修改</van-button>
+
+            <van-popup v-model="startTimeShow" position="bottom">
+                <van-picker show-toolbar :columns="startTimeColumns" @cancel="startTimeShow = false" @confirm="onstartTimeConfirm" @change="onstartTimeChange" />
+            </van-popup>
+
+            <van-popup v-model="endTimeShow" position="bottom">
+                <van-picker show-toolbar :columns="endTimeColumns" @cancel="endTimeShow = false" @confirm="onendTimeConfirm" @change="onendTimeChange" />
+            </van-popup>
+        </div>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
 <script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
-	<script src="js/DateTime.js"></script>
-	 
-	<script src="../../common/js/network.js"></script>
-	<script>
-		var handler = function(e) {
-		    e.preventDefault();
-		}
-		new Vue({
-			el: '#app',
-			data() {
-				return {
-					bgc: "linear-gradient(to right, #FF4e3e, #FFaa88 )",
-					bgcgrey: '#71717f',
-					isClick:false,
-					activeNames: 0,
-					matchName: '',
-					oldname:'',
-					isSubmit: false,
-					jlinput: false,
-					startTimeColumns: [],
-					startTimeShow: false,
-					startTime: [],
+<script src="js/DateTime.js"></script>
 
-					endTimeColumns: [],
-					endTimeShow: false,
-					
-					submitform: {
-						endTime: "",
-						gameReward: "",
-						isOfficial:false,
-						isVerify: false,
-						mode: "",
-						modeValue: "",
-						name: "",
-						picUrl: null,
-						repeatTimes:"",
-						startTime: "",
-						type: ""
-					},
-					form: {
-						ms: "",
-						lx: "",
-						mc: "",
-						cs: "",
-						yqm: "",
-						jl: "",
-						start: "",
-						end: ""
-					},
-					submitform:{
-						"startTime": "",
-						"endTime": "",
-						"name": "",
-						"mode": "",//比赛模式: 2(倒计时)/3(倒计数)
-						"type": "",//比赛类型: team(团队赛)/personal(个人赛)
-						"modeValue": "",//倒计时/秒, 倒计数/个
-						"repeatTimes": "",//比赛  -1:表示不限制比赛次数
-						"gameReward": "",//比赛奖励
-						"teamPersonLimit":""//团队人数
-						
-					}
+<script src="../../common/js/network.js"></script>
+<script>
+    var handler = function(e) {
+        e.preventDefault();
+    }
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                bgc: "linear-gradient(to right, #FF4e3e, #FFaa88 )",
+                bgcgrey: 'var(--textColor2)',
+                isClick: false,
+                activeNames: 0,
+                matchName: '',
+                oldname: '',
+                isSubmit: false,
+                jlinput: false,
+                startTimeColumns: [],
+                startTimeShow: false,
+                startTime: [],
 
-				};
-			},
-			watch: {
-				startTimeShow: function (val) {
-				  if(val) {
-				      document.getElementsByTagName('body')[0].addEventListener('touchmove', this.handler, { passive: false });
-				  } else {
-				      document.getElementsByTagName('body')[0].removeEventListener('touchmove', this.handler, { passive: false });
-				  }
-				},
-				endTimeShow: function (val) {
-				  if(val) {
-				      document.getElementsByTagName('body')[0].addEventListener('touchmove', this.handler, { passive: false });
-				  } else {
-				      document.getElementsByTagName('body')[0].removeEventListener('touchmove', this.handler, { passive: false });
-				  }
-				}
-			},
-			created() {
-				this.competitionId = getQueryString("id")
-				this.initData(); //初始化详情
-				var startTime = DateTime.initStart(2);
-				this.startTimeColumns = [{
-						values: Object.keys(startTime),
-					},
-					{
-						values: [],
-					}
-				]
-				this.startTime = startTime;
-				//先初始化结束时间
-				this.initEndTime();
+                endTimeColumns: [],
+                endTimeShow: false,
 
-			},
-			methods: {
-				onclickLeft() {
-				window.history.back(-1)
-			},
-				initData() {
-					var _self = this;
-					ajax({
-						type: "post",
-						url: "club/competition/get/item",
-						data:{
-							id: this.competitionId,
-						},
-						success: function(res) {
-							if (res.code == 0) {
-								_self.submitform = res.data[1];
-								var timeArray=DateTime.needYearOrNot2(_self.submitform.startTime,_self.submitform.endTime);
-								_self.form.start=timeArray[0];
-								_self.form.end=timeArray[1];
-								if(_self.submitform.gameReward=="无奖励"){
-									_self.jlinput=false;
-								}else{
-									_self.jlinput=true;
-								}
-								_self.form.jl=_self.submitform.gameReward;
-								_self.oldname=_self.form.mc=_self.submitform.name;
-								_self.initEndTime(DateTime.sjc2time('ymdhms',_self.submitform.startTime+3600000));
-							}
-						},
-						error: function() {
-							console.log("error")
-						}
-					})
-				},
-				//倒计时的回调
-				onCountTimeConfirm(value, index) {
-					if (value == "60分") {
-						this.form.ms = "1小时倒计时跳";
-					} else {
-						this.form.ms = value + "钟倒计时跳";
-					}
-					this.submitform.mode=2;
-					if(index==0){
-						this.submitform.modeValue=30;
-					}else{
-						this.submitform.modeValue=index*60;
-					}
-					this.countTimeShow = false;
-					this.activeNames=0;
-				},
-				//倒计数的回调
-				onCountNumberConfirm(value, index) {
-					let countNumber = value[0] * 1000 + value[1] * 100 + value[2] * 10 + value[3] * 1;
-					if (countNumber < 50) {
-						this.$toast('倒计数必须不小于50');
-						return;
-					}
-					this.form.ms = countNumber + "个倒计数跳";
-					this.submitform.mode=3;
-					this.submitform.modeValue=countNumber;
-					this.countNumberShow = false;
-					this.activeNames=0;
-				},
-				//比赛次数的回调
-				onplayTimesConfirm(value, index) {
-					this.form.cs = value + "次内取最好成绩"
-					this.submitform.repeatTimes=value;
-					this.playTimesShow = false;
-					this.activeNames=0;
-				},
-				//开始时间的回调
-				onstartTimeConfirm(value, index) {
-					if(value[0]=="立即开始"){
-						var nowTime=DateTime.timeStamp2String('ymdhm');
-						this.form.start = DateTime.timeStamp2String('mdhm');
-						
-						this.submitform.startTime=DateTime.getSjc(nowTime);
-						this.initEndTime(DateTime.sjc2time('ymdhms',DateTime.getSjc(nowTime)+3600000));
-					}else{
-						this.form.start = DateTime.sjc2time('mdhm2',DateTime.getSjc(value[0] + " " + value[1].text))
-						
-						this.submitform.startTime=DateTime.getSjc(value[0] + " " + value[1].text);
-						this.initEndTime(value[0] + " " + value[1].text);
-					}
-					this.form.end = "";
-					this.submitform.endTime="";
-					this.startTimeShow = false;
-					
-				},
-				//开始时间的改变
-				onstartTimeChange(picker, value, index) {
-					picker.setColumnValues(1, this.startTime[value[0]]);
-				},
-				//初始化结束时间
-				initEndTime(time) {
-					var num = 5;
-					//if(!this.submitform.isVerify){
-						//var endTime = DateTime.initEnd(time);
-						num=5;
-					//}else{
-						var endTime = DateTime.initEnd(time,2);
-						num=1
-					//}
-					if (time) {
-						var starth = DateTime.timeStamp2String("h", DateTime.getTime(time))
-						var endh = Number(starth) + num;
-					} else {
-						var starth = DateTime.getHours()
-						var endh = Number(starth) + num;
-					}
-				
-					if(endh>23){
-						this.endTimeColumns = [{
-								values: Object.keys(endTime),
-							},
-							{
-								values: endTime[DateTime.getDateByNum(1, time)],
-							}
-						]
-					}else{
-						this.endTimeColumns = [{
-								values: Object.keys(endTime),
-							},
-							{
-								values: endTime[DateTime.getDateByNum(0, time)],
-							}
-						]
-					}
-					
-					this.endTime = endTime;
-				},
-				//结束时间的回调
-				onendTimeConfirm(value, index) {
-					var _self=this;
-					this.form.end = DateTime.sjc2time('mdhm2',DateTime.getSjc(value[0] + " " + value[1].text))
-					this.submitform.endTime=DateTime.getSjc(value[0] + " " + value[1].text);
-					if(this.submitform.startTime){
-						var timeArray=DateTime.needYearOrNot2(this.submitform.startTime,this.submitform.endTime);
-						this.form.start=timeArray[0];
-						this.form.end=timeArray[1];
-					}
-					this.endTimeShow = false;
-					setTimeout(function(){
-						_self.activeNames=0;
-					},300)
-				},
-				//结束时间的改变
-				onendTimeChange(picker, value, index) {
-					//this.form.end = value[0] + " " + value[1].text;
-					picker.setColumnValues(1, this.endTime[value[0]]);
-				},
-				//团队人数的回调
-				onteamConfirm(value, index) {
-					this.form.lx = "团队赛" + value + "人";
-					this.submitform.type='team';
-					if(value=="不限"){
-						this.submitform.teamPersonLimit=-1;
-					}else{
-						this.submitform.teamPersonLimit=value;
-					}
-					
-					this.teamShow = false;
-					this.activeNames=0;
-				},
-				
-				
-				
-				//最后的创建比赛
-				submitFormData() {
-					var _self=this;
-					if(_self.isClick){
-						return;
-					}
-					_self.isClick=true
-					this.submitform.gameReward=this.form.jl;
-					// this.submitform.isOfficial=false;
-					this.submitform.promoterId=JSON.parse(localStorage.getItem("appInfo")).userId;
-					this.submitform.name=this.form.mc;
-					if(this.form.ms){
-						if(!this.form.mc){
-							this.submitform.name=this.form.ms;
-							this.form.mc =this.form.ms;
-						}
-					}
-					
-					this.isSubmit = true;
-					for(var key in this.submitform){
-						console.log(key+":"+this.submitform[key]);
-						if(this.submitform[key]===""){
-							_self.isClick=false;
-							return;
-						}
-				　　}
-					console.log(this.submitform);
-					ajax({
-						type: "post",
-						url: "club/competition/update/item",
-						data: this.submitform,
-						success: function(res) {
-							_self.isClick=false;
-							if(res.code==0){
-								_self.$toast("比赛修改成功！");
-								setTimeout(function(){
-									_self.successBack();
-								},500)
-							}else{
-								_self.$toast(res.msg);
-							}
-						},
-						error: function() {
-							_self.isClick=false;
-							console.log("error")
-						}
-					})
-					
-				},
-				successBack(){
-					var _self = this;
-					if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) { //判断iPhone|iPad|iPod|iOS
-						try {
-							window.webkit.messageHandlers.lstNative.postMessage({
-								'method': 'clubAutomaticPopBack',
-							})
-						} catch (err) {
-							console.log(err)
-						}
-					
-					} else if (/(Android)/i.test(navigator.userAgent)) { //判断Android
-						window.android.clubAutomaticPopBack();
-					}
-				},
-				titleChange(){
-					this.form.mc=this.form.mc.replace(/[^\u4E00-\u9FA5|\d|\a-zA-Z|\r\n\s,.?!，。#￥$%\`~^？！@…—&$=()\-+/*{}【】\\（）[\]]|\s/g, '')
-				},
-				contentChange(){
-					this.form.jl=this.form.jl.replace(/[^\u4E00-\u9FA5|\d|\a-zA-Z|\r\n\s,.?!，。#￥$%\`~^？！@…—&$=()\-+/*{}【】\\（）[\]]|\s/g, '')
-				}
+                submitform: {
+                    endTime: "",
+                    gameReward: "",
+                    isOfficial: false,
+                    isVerify: false,
+                    mode: "",
+                    modeValue: "",
+                    name: "",
+                    picUrl: null,
+                    repeatTimes: "",
+                    startTime: "",
+                    type: ""
+                },
+                form: {
+                    ms: "",
+                    lx: "",
+                    mc: "",
+                    cs: "",
+                    yqm: "",
+                    jl: "",
+                    start: "",
+                    end: ""
+                },
+                submitform: {
+                    "startTime": "",
+                    "endTime": "",
+                    "name": "",
+                    "mode": "", //比赛模式: 2(倒计时)/3(倒计数)
+                    "type": "", //比赛类型: team(团队赛)/personal(个人赛)
+                    "modeValue": "", //倒计时/秒, 倒计数/个
+                    "repeatTimes": "", //比赛  -1:表示不限制比赛次数
+                    "gameReward": "", //比赛奖励
+                    "teamPersonLimit": "" //团队人数
 
-			}
-		})
-	</script>
+                }
+
+            };
+        },
+        watch: {
+            startTimeShow: function(val) {
+                if (val) {
+                    document.getElementsByTagName('body')[0].addEventListener('touchmove', this.handler, {
+                        passive: false
+                    });
+                } else {
+                    document.getElementsByTagName('body')[0].removeEventListener('touchmove', this.handler, {
+                        passive: false
+                    });
+                }
+            },
+            endTimeShow: function(val) {
+                if (val) {
+                    document.getElementsByTagName('body')[0].addEventListener('touchmove', this.handler, {
+                        passive: false
+                    });
+                } else {
+                    document.getElementsByTagName('body')[0].removeEventListener('touchmove', this.handler, {
+                        passive: false
+                    });
+                }
+            }
+        },
+        created() {
+            this.competitionId = getQueryString("id")
+            this.initData(); //初始化详情
+            var startTime = DateTime.initStart(2);
+            this.startTimeColumns = [{
+                values: Object.keys(startTime),
+            }, {
+                values: [],
+            }]
+            this.startTime = startTime;
+            //先初始化结束时间
+            this.initEndTime();
+
+        },
+        methods: {
+            onclickLeft() {
+                window.history.back(-1)
+            },
+            initData() {
+                var _self = this;
+                ajax({
+                    type: "post",
+                    url: "club/competition/get/item",
+                    data: {
+                        id: this.competitionId,
+                    },
+                    success: function(res) {
+                        if (res.code == 0) {
+                            _self.submitform = res.data[1];
+                            var timeArray = DateTime.needYearOrNot2(_self.submitform.startTime, _self.submitform.endTime);
+                            _self.form.start = timeArray[0];
+                            _self.form.end = timeArray[1];
+                            if (_self.submitform.gameReward == "无奖励") {
+                                _self.jlinput = false;
+                            } else {
+                                _self.jlinput = true;
+                            }
+                            _self.form.jl = _self.submitform.gameReward;
+                            _self.oldname = _self.form.mc = _self.submitform.name;
+                            _self.initEndTime(DateTime.sjc2time('ymdhms', _self.submitform.startTime + 3600000));
+                        }
+                    },
+                    error: function() {
+                        console.log("error")
+                    }
+                })
+            },
+            //倒计时的回调
+            onCountTimeConfirm(value, index) {
+                if (value == "60分") {
+                    this.form.ms = "1小时倒计时跳";
+                } else {
+                    this.form.ms = value + "钟倒计时跳";
+                }
+                this.submitform.mode = 2;
+                if (index == 0) {
+                    this.submitform.modeValue = 30;
+                } else {
+                    this.submitform.modeValue = index * 60;
+                }
+                this.countTimeShow = false;
+                this.activeNames = 0;
+            },
+            //倒计数的回调
+            onCountNumberConfirm(value, index) {
+                let countNumber = value[0] * 1000 + value[1] * 100 + value[2] * 10 + value[3] * 1;
+                if (countNumber < 50) {
+                    this.$toast('倒计数必须不小于50');
+                    return;
+                }
+                this.form.ms = countNumber + "个倒计数跳";
+                this.submitform.mode = 3;
+                this.submitform.modeValue = countNumber;
+                this.countNumberShow = false;
+                this.activeNames = 0;
+            },
+            //比赛次数的回调
+            onplayTimesConfirm(value, index) {
+                this.form.cs = value + "次内取最好成绩"
+                this.submitform.repeatTimes = value;
+                this.playTimesShow = false;
+                this.activeNames = 0;
+            },
+            //开始时间的回调
+            onstartTimeConfirm(value, index) {
+                if (value[0] == "立即开始") {
+                    var nowTime = DateTime.timeStamp2String('ymdhm');
+                    this.form.start = DateTime.timeStamp2String('mdhm');
+
+                    this.submitform.startTime = DateTime.getSjc(nowTime);
+                    this.initEndTime(DateTime.sjc2time('ymdhms', DateTime.getSjc(nowTime) + 3600000));
+                } else {
+                    this.form.start = DateTime.sjc2time('mdhm2', DateTime.getSjc(value[0] + " " + value[1].text))
+
+                    this.submitform.startTime = DateTime.getSjc(value[0] + " " + value[1].text);
+                    this.initEndTime(value[0] + " " + value[1].text);
+                }
+                this.form.end = "";
+                this.submitform.endTime = "";
+                this.startTimeShow = false;
+
+            },
+            //开始时间的改变
+            onstartTimeChange(picker, value, index) {
+                picker.setColumnValues(1, this.startTime[value[0]]);
+            },
+            //初始化结束时间
+            initEndTime(time) {
+                var num = 5;
+                //if(!this.submitform.isVerify){
+                //var endTime = DateTime.initEnd(time);
+                num = 5;
+                //}else{
+                var endTime = DateTime.initEnd(time, 2);
+                num = 1
+                    //}
+                if (time) {
+                    var starth = DateTime.timeStamp2String("h", DateTime.getTime(time))
+                    var endh = Number(starth) + num;
+                } else {
+                    var starth = DateTime.getHours()
+                    var endh = Number(starth) + num;
+                }
+
+                if (endh > 23) {
+                    this.endTimeColumns = [{
+                        values: Object.keys(endTime),
+                    }, {
+                        values: endTime[DateTime.getDateByNum(1, time)],
+                    }]
+                } else {
+                    this.endTimeColumns = [{
+                        values: Object.keys(endTime),
+                    }, {
+                        values: endTime[DateTime.getDateByNum(0, time)],
+                    }]
+                }
+
+                this.endTime = endTime;
+            },
+            //结束时间的回调
+            onendTimeConfirm(value, index) {
+                var _self = this;
+                this.form.end = DateTime.sjc2time('mdhm2', DateTime.getSjc(value[0] + " " + value[1].text))
+                this.submitform.endTime = DateTime.getSjc(value[0] + " " + value[1].text);
+                if (this.submitform.startTime) {
+                    var timeArray = DateTime.needYearOrNot2(this.submitform.startTime, this.submitform.endTime);
+                    this.form.start = timeArray[0];
+                    this.form.end = timeArray[1];
+                }
+                this.endTimeShow = false;
+                setTimeout(function() {
+                    _self.activeNames = 0;
+                }, 300)
+            },
+            //结束时间的改变
+            onendTimeChange(picker, value, index) {
+                //this.form.end = value[0] + " " + value[1].text;
+                picker.setColumnValues(1, this.endTime[value[0]]);
+            },
+            //团队人数的回调
+            onteamConfirm(value, index) {
+                this.form.lx = "团队赛" + value + "人";
+                this.submitform.type = 'team';
+                if (value == "不限") {
+                    this.submitform.teamPersonLimit = -1;
+                } else {
+                    this.submitform.teamPersonLimit = value;
+                }
+
+                this.teamShow = false;
+                this.activeNames = 0;
+            },
+
+
+
+            //最后的创建比赛
+            submitFormData() {
+                var _self = this;
+                if (_self.isClick) {
+                    return;
+                }
+                _self.isClick = true
+                this.submitform.gameReward = this.form.jl;
+                // this.submitform.isOfficial=false;
+                this.submitform.promoterId = JSON.parse(localStorage.getItem("appInfo")).userId;
+                this.submitform.name = this.form.mc;
+                if (this.form.ms) {
+                    if (!this.form.mc) {
+                        this.submitform.name = this.form.ms;
+                        this.form.mc = this.form.ms;
+                    }
+                }
+
+                this.isSubmit = true;
+                for (var key in this.submitform) {
+                    console.log(key + ":" + this.submitform[key]);
+                    if (this.submitform[key] === "") {
+                        _self.isClick = false;
+                        return;
+                    }　　
+                }
+                console.log(this.submitform);
+                ajax({
+                    type: "post",
+                    url: "club/competition/update/item",
+                    data: this.submitform,
+                    success: function(res) {
+                        _self.isClick = false;
+                        if (res.code == 0) {
+                            _self.$toast("比赛修改成功！");
+                            setTimeout(function() {
+                                _self.successBack();
+                            }, 500)
+                        } else {
+                            _self.$toast(res.msg);
+                        }
+                    },
+                    error: function() {
+                        _self.isClick = false;
+                        console.log("error")
+                    }
+                })
+
+            },
+            successBack() {
+                var _self = this;
+                if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) { //判断iPhone|iPad|iPod|iOS
+                    try {
+                        window.webkit.messageHandlers.lstNative.postMessage({
+                            'method': 'clubAutomaticPopBack',
+                        })
+                    } catch (err) {
+                        console.log(err)
+                    }
+
+                } else if (/(Android)/i.test(navigator.userAgent)) { //判断Android
+                    window.android.clubAutomaticPopBack();
+                }
+            },
+            titleChange() {
+                this.form.mc = this.form.mc.replace(/[^\u4E00-\u9FA5|\d|\a-zA-Z|\r\n\s,.?!，。#￥$%\`~^？！@…—&$=()\-+/*{}【】\\（）[\]]|\s/g, '')
+            },
+            contentChange() {
+                this.form.jl = this.form.jl.replace(/[^\u4E00-\u9FA5|\d|\a-zA-Z|\r\n\s,.?!，。#￥$%\`~^？！@…—&$=()\-+/*{}【】\\（）[\]]|\s/g, '')
+            }
+
+        }
+    })
+</script>
+
 </html>

@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="css/clubEchart.css" />
     <link rel="stylesheet" href="../font/iconfont.css">
     <link href="../clubList_Detail/css/header.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" id="themeCssLink2" href="../../common/css/default.css">
 
     <style>
         #app {
@@ -26,7 +27,7 @@
         .van-tabs__line {
             width: 0.48rem !important;
             height: 2px;
-            background-color: #1f1f1f;
+            background-color: var(--bgColor);
             bottom: .2rem;
         }
         
@@ -66,7 +67,7 @@
             text-align: center;
             width: 60%;
             margin: 0 auto .2rem;
-            color: #cfcfd2;
+            color: var(--textColor);
         }
         
         .rankBox .boxs {
@@ -101,7 +102,7 @@
         }
         
         .van-cell::after {
-            border-color: #1E1E2A;
+            border-color: var(--borderColor);
         }
         
         .van-nav-bar .van-icon,
@@ -111,7 +112,7 @@
         .van-list__loading,
         .van-dropdown-menu__title,
         .van-cell {
-            color: #CFCFD2;
+            color: var(--textColor);
         }
         
         .van-tabs__line {
@@ -136,34 +137,34 @@
         }
         
         [class*=van-hairline]::after {
-            border-color: #1E1E2A;
+            border-color: var(--borderColor);
         }
         
         .van-tab--active {
-            color: #CFCFD2 !important;
+            color: var(--textColor) !important;
             font-size: .36rem;
         }
         
         .van-checkbox__icon .van-icon {
-            border: 1px solid #71717f;
+            border: 1px solid var(--textColor2);
         }
         
         .van-checkbox__icon--checked .van-icon,
         .van-address-item .van-radio__icon--checked .van-icon {
             background: #ff4e3e;
-            border-color: #71717f;
+            border-color: var(--textColor2);
             border: none;
         }
         
         .van-action-sheet__gap {
-            background-color: #1e1e2a;
+            background-color: var(--borderColor);
         }
         
         .van-action-sheet__item,
         .van-action-sheet__cancel {
-            border-bottom: 1px solid #1e1e2a;
+            border-bottom: 1px solid var(--borderColor);
             background-color: var(--bgColor);
-            color: #CFCFD2;
+            color: var(--textColor);
         }
         
         .selectBox .selectDiv .selectLeftBox .lable {
@@ -950,7 +951,7 @@
                     title: {
                         text: "部门任务完成率",
                         textStyle: {
-                            color: '#cfcfd2',
+                            color: 'var(--textColor)',
                             fontSize: "14",
                             fontWeight: "normal",
                             height: "50",
@@ -972,7 +973,7 @@
                         },
                         axisLabel: {
                             fontSize: 10,
-                            color: "#71717f",
+                            color: "var(--textColor2)",
                             formatter: val => {
                                 let txt = val
                                 if (val.length > 2) {
@@ -991,21 +992,21 @@
                         splitLine: {
                             show: true,
                             lineStyle: {
-                                color: ['#1e1e2a'],
+                                color: ['var(--borderColor)'],
                                 width: 1,
                                 type: 'solid'
                             }　　
                         },
                         axisLabel: {
                             fontSize: 12,
-                            color: "#71717f",
+                            color: "var(--textColor2)",
                             formatter: '{value}%'
                         }
                     },
                     tooltip: {
                         trigger: "item",
-                        backgroundColor: "#1e1e2a",
-                        color: '#cfcfd2',
+                        backgroundColor: "var(--borderColor)",
+                        color: 'var(--textColor)',
                         borderWidth: 0,
                         axisPointer: {
                             label: {
@@ -1015,7 +1016,7 @@
                             },
                         },
                         formatter: (p) => {
-                                let str = '<span style="color:#cfcfd2">';
+                                let str = '<span style="color:var(--textColor)">';
                                 console.log(p)
                                 str += p.data.toFixed(2) + '%' + '</br>';
                                 str += p.name;
@@ -1058,7 +1059,7 @@
                     title: {
                         text: "部门任务完成量",
                         textStyle: {
-                            color: '#cfcfd2',
+                            color: 'var(--textColor)',
                             fontSize: "14",
                             fontWeight: "normal",
                             height: "50",
@@ -1080,7 +1081,7 @@
                         },
                         axisLabel: {
                             fontSize: 10,
-                            color: "#71717f",
+                            color: "var(--textColor2)",
                             formatter: val => {
                                 let txt = val
                                 if (val.length > 3) {
@@ -1098,14 +1099,14 @@
                         splitLine: {
                             show: true,
                             lineStyle: {
-                                color: ['#1e1e2a'],
+                                color: ['var(--borderColor)'],
                                 width: 1,
                                 type: 'solid'
                             }　　
                         },
                         axisLabel: {
                             fontSize: 12,
-                            color: "#71717f",
+                            color: "var(--textColor2)",
                             formatter: val => {
                                 let txt = val
                                 if (val.length > 6) {
@@ -1117,8 +1118,8 @@
                     },
                     tooltip: {
                         trigger: "axis",
-                        backgroundColor: "#1e1e2a",
-                        color: '#cfcfd2',
+                        backgroundColor: "var(--borderColor)",
+                        color: 'var(--textColor)',
                         borderWidth: 0,
                         axisPointer: {
                             type: 'shadow',
@@ -1189,7 +1190,7 @@
                     title: {
                         text: obj.title,
                         textStyle: {
-                            color: '#cfcfd2',
+                            color: 'var(--textColor)',
                             fontSize: "14",
                             fontWeight: "normal",
                             height: "50",
@@ -1212,7 +1213,7 @@
                         },
                         axisLabel: {
                             fontSize: 10,
-                            color: "#71717f",
+                            color: "var(--textColor2)",
                             formatter: val => {
                                 let txt = val
                                 if (val.length > 2) {
@@ -1231,14 +1232,14 @@
                         splitLine: {
                             show: true,
                             lineStyle: {
-                                color: ['#1e1e2a'],
+                                color: ['var(--borderColor)'],
                                 width: 1,
                                 type: 'solid'
                             }　　
                         },
                         axisLabel: {
                             fontSize: 12,
-                            color: "#71717f",
+                            color: "var(--textColor2)",
                             formatter: function(value, index) {
                                 if ((value + "").length <= 5) return value;
                                 return value.toFixed(3);
@@ -1247,8 +1248,8 @@
                     },
                     tooltip: {
                         trigger: "item",
-                        backgroundColor: "#1e1e2a",
-                        color: '#cfcfd2',
+                        backgroundColor: "var(--borderColor)",
+                        color: 'var(--textColor)',
                         borderWidth: 0,
                         extraCssText: 'width:140px;',
                         axisPointer: {
@@ -1256,12 +1257,12 @@
                             label: {
                                 lineHeight: 20,
                                 backgroundColor: "var(--textColor)",
-                                color: '#cfcfd2',
+                                color: 'var(--textColor)',
                                 padding: [0, 0, 0, 0]
                             },
                         },
                         formatter: (p) => {
-                            let str = '<span style="color:#cfcfd2">';
+                            let str = '<span style="color:var(--textColor)">';
                             console.log(p)
                             let name = p.name;
                             if (name.length > 6) {
@@ -1346,7 +1347,7 @@
                     title: {
                         text: "任务完成率",
                         textStyle: {
-                            color: '#cfcfd2',
+                            color: 'var(--textColor)',
                             fontSize: "14",
                             fontWeight: "normal",
                             height: "50",
@@ -1368,7 +1369,7 @@
                         },
                         axisLabel: {
                             fontSize: 10,
-                            color: "#71717f",
+                            color: "var(--textColor2)",
                             formatter: val => {
                                 let txt = val
                                 if (val.length > 2) {
@@ -1386,20 +1387,20 @@
                         splitLine: {
                             show: true,
                             lineStyle: {
-                                color: ['#1e1e2a'],
+                                color: ['var(--borderColor)'],
                                 width: 1,
                                 type: 'solid'
                             }　　
                         },
                         axisLabel: {
                             fontSize: 12,
-                            color: "#71717f"
+                            color: "var(--textColor2)"
                         }
                     },
                     tooltip: {
                         trigger: "axis",
-                        backgroundColor: "#1e1e2a",
-                        color: '#cfcfd2',
+                        backgroundColor: "var(--borderColor)",
+                        color: 'var(--textColor)',
                         borderWidth: 0,
                         axisPointer: {
                             label: {
@@ -1460,7 +1461,7 @@
                     title: {
                         text: "部门个人排名",
                         textStyle: {
-                            color: '#cfcfd2',
+                            color: 'var(--textColor)',
                             fontSize: "14",
                             fontWeight: "normal",
                             height: "50",
@@ -1475,8 +1476,8 @@
                     color: ['#609CFF', '#70E1AB', '#657798'],
                     tooltip: {
                         trigger: 'item',
-                        backgroundColor: "#1e1e2a",
-                        color: '#cfcfd2',
+                        backgroundColor: "var(--borderColor)",
+                        color: 'var(--textColor)',
                         borderWidth: 0,
                         axisPointer: {
                             type: 'shadow'
@@ -1484,7 +1485,7 @@
                         formatter: (p) => {
 
                             let color = ['#609CFF', '#70E1AB', '#657798'],
-                                str = '<span style="color:#cfcfd2">';
+                                str = '<span style="color:var(--textColor)">';
                             item.dataList[p.dataIndex].forEach((d, i) => {
                                 let namestr = d.nickname;
                                 if (namestr.length > 4) {
@@ -1509,7 +1510,7 @@
                         data: item.Xline,
                         axisLabel: {
                             fontSize: 10,
-                            color: "#71717f",
+                            color: "var(--textColor2)",
                             formatter: val => {
                                 let txt = val
                                 if (val.length > 2) {
@@ -1524,7 +1525,7 @@
                         splitLine: {
                             show: true,
                             lineStyle: {
-                                color: ['#1e1e2a'],
+                                color: ['var(--borderColor)'],
                                 width: 1,
                                 type: 'solid'
                             }　　

@@ -2,124 +2,122 @@
 <html>
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport"
-		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
-	<title>部长设置</title>
-	<!-- 引入样式文件 -->
-	<link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
-	<link rel="stylesheet" href="css/clubCreateCompetition.css">
-	<link rel="stylesheet" href="../font/iconfont.css">
-	<link rel="stylesheet" type="text/css" href="../clubList_Detail/css/header.css" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+    <title>部长设置</title>
+    <!-- 引入样式文件 -->
+    <link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
+    <link rel="stylesheet" href="css/clubCreateCompetition.css">
+    <link rel="stylesheet" href="../font/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="../clubList_Detail/css/header.css" />
+    <link rel="stylesheet" id="themeCssLink2" href="../../common/css/default.css">
 </head>
 
 <body>
-	<div id="app" v-cloak class="normalHeader">
-		<div class="header">
-			<van-nav-bar :title="title" @click-left="onclickLeft" @click-right="onclickRight" left-arrow safe-area-inset-top fixed>
-				<template #left>
+    <div id="app" v-cloak class="normalHeader">
+        <div class="header">
+            <van-nav-bar :title="title" @click-left="onclickLeft" @click-right="onclickRight" left-arrow safe-area-inset-top fixed>
+                <template #left>
 					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
 				</template>
-			</van-nav-bar>
-		</div>
-		<div v-if="flag==1">
-			<div class="laberDiv">
-				俱乐部名称
-			</div>
-			<div style="padding:0 0.2rem 0.2rem 0.2rem;">
-				<van-field v-model="submitform.name" class="club-input" style="min-height:1.7rem;" rows="2" autosize
-					type="textarea" maxlength="16" placeholder="请输入俱乐部名称~" show-word-limit />
-			</div>
-		</div>
-		<div v-if="flag==2">
-			<div class="laberDiv">
-				俱乐部简介
+            </van-nav-bar>
+        </div>
+        <div v-if="flag==1">
+            <div class="laberDiv">
+                俱乐部名称
+            </div>
+            <div style="padding:0 0.2rem 0.2rem 0.2rem;">
+                <van-field v-model="submitform.name" class="club-input" style="min-height:1.7rem;" rows="2" autosize type="textarea" maxlength="16" placeholder="请输入俱乐部名称~" show-word-limit />
+            </div>
+        </div>
+        <div v-if="flag==2">
+            <div class="laberDiv">
+                俱乐部简介
 
-			</div>
-			<div style="padding:0 0.2rem 0.2rem 0.2rem;">
-				<van-field v-model="submitform.introduce" class="club-input" rows="5" autosize type="textarea"
-					maxlength="100" placeholder="请输入俱乐部简介~" show-word-limit />
-			</div>
-		</div>
-		<van-button round class="submit" block :color="submitform.name!=oldName||submitform.introduce!=oldIntroduce?bgc:bgcgrey" @click="onclickRight">修改</van-button>
-	</div>
+            </div>
+            <div style="padding:0 0.2rem 0.2rem 0.2rem;">
+                <van-field v-model="submitform.introduce" class="club-input" rows="5" autosize type="textarea" maxlength="100" placeholder="请输入俱乐部简介~" show-word-limit />
+            </div>
+        </div>
+        <van-button round class="submit" block :color="submitform.name!=oldName||submitform.introduce!=oldIntroduce?bgc:bgcgrey" @click="onclickRight">修改</van-button>
+    </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
 <script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
 <script src="../../common/js/network.js"></script>
 <script type="text/javascript">
-	new Vue({
-		el: '#app',
-		data() {
-			return {
-				bgc: "linear-gradient(to left, #FFAA88, #FF4E3E )",
-				bgcgrey: '#71717f',
-				flag: getQueryString("flag"), //1俱乐部名称2//俱乐部简介
-				title: getQueryString("flag") == 1 ? '俱乐部名称' : '俱乐部简介',
-				submitform: JSON.parse(localStorage.getItem('clubObject')) || {},
-				isClick: false,
-				oldName:"",
-				oldIntroduce:"",
-			};
-		},
-		mounted() {
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                bgc: "linear-gradient(to left, #FFAA88, #FF4E3E )",
+                bgcgrey: 'var(--textColor2)',
+                flag: getQueryString("flag"), //1俱乐部名称2//俱乐部简介
+                title: getQueryString("flag") == 1 ? '俱乐部名称' : '俱乐部简介',
+                submitform: JSON.parse(localStorage.getItem('clubObject')) || {},
+                isClick: false,
+                oldName: "",
+                oldIntroduce: "",
+            };
+        },
+        mounted() {
 
-		},
-		created() {
-			this.oldName=this.submitform.name
-			this.oldIntroduce=this.submitform.introduce
-		},
-		methods: {
-			onclickLeft() {
-				window.history.back(-1)
-			},
-			onclickRight() {
-				var _this = this;
-				if (this.isClick) return;
-				if ((this.submitform.name==this.oldName && this.flag == 1) || (this.submitform.introduce==this.oldIntroduce && this.flag == 2)) {
-					return;
-				}
-				this.isClick = true;
-				this.checkStr(this.flag == 1 ? this.submitform.name : this.submitform.introduce)
+        },
+        created() {
+            this.oldName = this.submitform.name
+            this.oldIntroduce = this.submitform.introduce
+        },
+        methods: {
+            onclickLeft() {
+                window.history.back(-1)
+            },
+            onclickRight() {
+                var _this = this;
+                if (this.isClick) return;
+                if ((this.submitform.name == this.oldName && this.flag == 1) || (this.submitform.introduce == this.oldIntroduce && this.flag == 2)) {
+                    return;
+                }
+                this.isClick = true;
+                this.checkStr(this.flag == 1 ? this.submitform.name : this.submitform.introduce)
 
-			},
-			checkStr(param) {
-				ajax({
-					type: "post",
-					url: "contentSecurity/aliyun/textScan",
-					data: {
-						content: param
-					}
-				}).then(res => {
-					if (res.code == 0) {
-						this.submitForm()
-					} else if (res.code == 4001) {
-						this.$toast("输入的内容不合法!");
-						this.isClick = false;
-					}
-				})
-			},
-			submitForm() {
-				ajax({
-					type: "post",
-					url: "club/updateClub",
-					data: this.submitform,
+            },
+            checkStr(param) {
+                ajax({
+                    type: "post",
+                    url: "contentSecurity/aliyun/textScan",
+                    data: {
+                        content: param
+                    }
+                }).then(res => {
+                    if (res.code == 0) {
+                        this.submitForm()
+                    } else if (res.code == 4001) {
+                        this.$toast("输入的内容不合法!");
+                        this.isClick = false;
+                    }
+                })
+            },
+            submitForm() {
+                ajax({
+                    type: "post",
+                    url: "club/updateClub",
+                    data: this.submitform,
 
-				}).then(res => {
-					if (res.code == 0) {
-						this.$toast("俱乐部设置成功！");
-						setTimeout(function () {
-							window.history.back(-1)
-						}, 1000)
-					} else if (res.code == 3000) {
-						this.$toast("该俱乐部名称已存在！~");
-						this.isClick = false;
-					} else {
-						this.$toast(res.msg);
-						this.isClick = false;
-					}
-				})
-			}
-		}
-	})
+                }).then(res => {
+                    if (res.code == 0) {
+                        this.$toast("俱乐部设置成功！");
+                        setTimeout(function() {
+                            window.history.back(-1)
+                        }, 1000)
+                    } else if (res.code == 3000) {
+                        this.$toast("该俱乐部名称已存在！~");
+                        this.isClick = false;
+                    } else {
+                        this.$toast(res.msg);
+                        this.isClick = false;
+                    }
+                })
+            }
+        }
+    })
 </script>

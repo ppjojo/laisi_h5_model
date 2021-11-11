@@ -96,7 +96,7 @@ body {
 }
 
 .headerBox .infoBox .clubDescript {
-  color: #cfcfd2;
+  color: #cfcfd2 !important;
 }
 
 .headerBox .infoBox .clubDescript .clubName {

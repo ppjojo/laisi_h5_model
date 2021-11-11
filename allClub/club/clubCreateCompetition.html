@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/clubCreateCompetition.css">
     <link rel="stylesheet" href="../font/iconfont.css">
     <link href="../clubList_Detail/css/header.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" id="themeCssLink2" href="../../common/css/default.css">
 
     <style type="text/css">
         .van-radio--horizontal {
@@ -47,11 +48,11 @@
         }
         
         .van-radio__label {
-            color: #cfcfd2;
+            color: var(--textColor);
         }
         
         .van-radio__icon .van-icon {
-            border-color: #71717f;
+            border-color: var(--textColor2);
         }
         
         .van-radio__icon--checked .van-icon {
@@ -60,11 +61,11 @@
         
         textarea::placeholder {
             font-size: .24rem;
-            color: #71717f!important;
+            color: var(--textColor2)!important;
         }
         
         .van-cell__right-icon {
-            color: #71717f;
+            color: var(--textColor2);
         }
         
         .van-popup {
@@ -84,7 +85,7 @@
             </van-nav-bar>
         </div>
         <div v-if="flag==1">
-            <div style="border-bottom: 1px solid #1e1e2a;padding-bottom: .3rem;">
+            <div style="border-bottom: 1px solid var(--borderColor);padding-bottom: .3rem;">
                 <div>
                     <div class="laberDiv van-ellipsis">
                         比赛名称
@@ -94,7 +95,7 @@
                     </div>
                 </div>
             </div>
-            <div style="border-bottom: 1px solid #1e1e2a">
+            <div style="border-bottom: 1px solid var(--borderColor)">
                 <div class="laberDiv">
                     比赛模式
                 </div>
@@ -104,17 +105,17 @@
                         <van-radio name="3">倒计数跳</van-radio>
                     </van-radio-group>
                 </div>
-                <div style="margin-left: .5rem;border-top: 1px solid #1e1e2a;" v-if="submitform.mode==2" @click="countTimeShow = true">
+                <div style="margin-left: .5rem;border-top: 1px solid var(--borderColor);" v-if="submitform.mode==2" @click="countTimeShow = true">
                     <van-cell title="倒计时长" :class="form.ms.indexOf('请选择')!=-1?'':'chosed'" is-link :value="form.ms">
                     </van-cell>
                 </div>
-                <div style="margin-left: .5rem;border-top: 1px solid #1e1e2a;" v-else-if="submitform.mode==3" @click="countNumberShow = true">
+                <div style="margin-left: .5rem;border-top: 1px solid var(--borderColor);" v-else-if="submitform.mode==3" @click="countNumberShow = true">
                     <van-cell title="倒计数跳个数" :class="form.ms.indexOf('请选择')!=-1?'':'chosed'" is-link :value="form.ms">
                     </van-cell>
                 </div>
             </div>
 
-            <div style="border-bottom: 1px solid #1e1e2a">
+            <div style="border-bottom: 1px solid var(--borderColor)">
                 <div class="laberDiv">
                     比赛类型
                 </div>
@@ -124,7 +125,7 @@
                         <van-radio name="team">团体赛</van-radio>
                     </van-radio-group>
                 </div>
-                <div v-if="submitform.type=='team'" @click="clickTeam" style="margin-left: .5rem ;border-top: 1px solid #1e1e2a;">
+                <div v-if="submitform.type=='team'" @click="clickTeam" style="margin-left: .5rem ;border-top: 1px solid var(--borderColor);">
                     <van-cell :title="isCorporate==1?'团体赛部门':'团体赛人数'" :class="form.lx.indexOf('请选择')!=-1?'':'chosed'" is-link :value="form.lx"></van-cell>
                 </div>
             </div>
@@ -145,15 +146,15 @@
         </div>
 
         <div v-else-if="flag==2">
-            <div @click="playTimesShow = true" style="border-bottom: .02rem solid #1e1e2a;">
+            <div @click="playTimesShow = true" style="border-bottom: .02rem solid var(--borderColor);">
                 <van-cell title="比赛次数" :class="form.cs==''?'':'chosed'" is-link :value="form.cs||'请选择比赛次数'">
                 </van-cell>
             </div>
-            <div @click="startTimeShow = true" style="border-bottom: .02rem solid #1e1e2a;">
+            <div @click="startTimeShow = true" style="border-bottom: .02rem solid var(--borderColor);">
                 <van-cell title="开始时间" :class="form.start==''?'':'chosed'" is-link :value="form.start||'请选择开始时间'">
                 </van-cell>
             </div>
-            <div @click="endTimeShow = true" style="border-bottom: .02rem solid #1e1e2a;">
+            <div @click="endTimeShow = true" style="border-bottom: .02rem solid var(--borderColor);">
                 <van-cell title="结束时间" :class="form.end==''?'':'chosed'" is-link :value="form.end||'请选择结束时间'">
                 </van-cell>
             </div>
@@ -169,7 +170,7 @@
                     </van-radio-group>
                 </div>
             </div>
-            <div v-if="jlinput" style="border-bottom: .008rem solid #1e1e2a;padding-bottom: .3rem;">
+            <div v-if="jlinput" style="border-bottom: .008rem solid var(--borderColor);padding-bottom: .3rem;">
                 <div style="">
                     <div class="laberDiv">
                         自定义奖励
@@ -220,7 +221,7 @@
                 flag: 1,
                 bgc: "linear-gradient(to right, #FF4e3e, #FFaa88 )",
                 clubId: getQueryString("id"),
-                bgcgrey: '#71717F',
+                bgcgrey: 'var(--textColor2)',
                 isClick: false,
                 matchName: '',
                 isCorporate: localStorage.getItem('isCorporate') ? parseInt(localStorage.getItem('isCorporate')) : 0,

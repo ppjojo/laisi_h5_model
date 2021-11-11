@@ -2,176 +2,170 @@
 <html>
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport"
-		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
-	<title>发通知</title>
-	<!-- 引入样式文件 -->
-	<link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
-	<link rel="stylesheet" href="css/clubCreateCompetition.css">
-	<link rel="stylesheet" href="../font/iconfont.css">
-	<link rel="stylesheet" type="text/css" href="../clubList_Detail/css/header.css" />
-	<style type="text/css">
-		
-
-		.van-nav-bar__text {
-			color: #999;
-		}
-
-		.border-bottom {
-			border-bottom: 1px solid #f3f3f3;
-		}
-
-		.title {
-			height: 1.12rem;
-			line-height: 0.72rem;
-			font-size: 0.28rem;
-		}
-
-		.title .van-field__word-limit {
-			position: absolute;
-			bottom: 0.1rem;
-			right: 0.1rem;
-		}
-
-		.content-input {
-			min-height: 3rem;
-			font-size: 0.28rem;
-			line-height: 0.6rem;
-			position: relative;
-			padding: 0 0.32rem;
-		}
-
-		.laberDiv {
-			text-align: left;
-			font-size: 0.32rem;
-			line-height: 1rem;
-			padding: 0 0.32rem;
-			/* font-weight: bold; */
-		}
-
-		
-	</style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+    <title>发通知</title>
+    <!-- 引入样式文件 -->
+    <link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
+    <link rel="stylesheet" href="css/clubCreateCompetition.css">
+    <link rel="stylesheet" href="../font/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="../clubList_Detail/css/header.css" />
+    <link rel="stylesheet" id="themeCssLink2" href="../../common/css/default.css">
+    <style type="text/css">
+        .van-nav-bar__text {
+            color: var(--textColor2);
+        }
+        
+        .border-bottom {
+            border-bottom: 1px solid #f3f3f3;
+        }
+        
+        .title {
+            height: 1.12rem;
+            line-height: 0.72rem;
+            font-size: 0.28rem;
+        }
+        
+        .title .van-field__word-limit {
+            position: absolute;
+            bottom: 0.1rem;
+            right: 0.1rem;
+        }
+        
+        .content-input {
+            min-height: 3rem;
+            font-size: 0.28rem;
+            line-height: 0.6rem;
+            position: relative;
+            padding: 0 0.32rem;
+        }
+        
+        .laberDiv {
+            text-align: left;
+            font-size: 0.32rem;
+            line-height: 1rem;
+            padding: 0 0.32rem;
+            /* font-weight: bold; */
+        }
+    </style>
 </head>
 
 <body>
-	<div id="app" v-cloak class="normalHeader">
-		<div class="header">
-			<van-nav-bar title="发通知"  @click-left="onclickLeft" @click-right="onclickRight" safe-area-inset-top fixed>
-				<template #left>
+    <div id="app" v-cloak class="normalHeader">
+        <div class="header">
+            <van-nav-bar title="发通知" @click-left="onclickLeft" @click-right="onclickRight" safe-area-inset-top fixed>
+                <template #left>
 					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
 				</template>
-				<template #right>
-					<div :style="{color:(title.length>0&&content.length>0)?'#cfcfd2':'#999'}">发送</div>
+                <template #right>
+					<div :style="{color:(title.length>0&&content.length>0)?'var(--textColor)':'#999'}">发送</div>
 				</template>
-			</van-nav-bar>
-		</div>
-		
+            </van-nav-bar>
+        </div>
 
-		<div >
-			<div class="laberDiv">
-				通知标题
-			</div>
-			<div style="padding:0 0.2rem 0.2rem 0.2rem;">
-				<van-field v-model="title"  class="club-input" style="min-height:1.7rem;" rows="2"
-					autosize type="textarea" maxlength="16" placeholder="请输入通知标题~" show-word-limit />
-			</div>
-			<div class="laberDiv">
-				通知内容
-			</div>
-			<div style="padding:0 0.2rem 0.2rem 0.2rem;">
-				<van-field v-model="content"  class="club-input" style="min-height:2.7rem;"
-					rows="4" autosize type="textarea" maxlength="100" placeholder="请输入通知内容~" show-word-limit />
-			</div>
-		
 
-		</div>
-	</div>
+        <div>
+            <div class="laberDiv">
+                通知标题
+            </div>
+            <div style="padding:0 0.2rem 0.2rem 0.2rem;">
+                <van-field v-model="title" class="club-input" style="min-height:1.7rem;" rows="2" autosize type="textarea" maxlength="16" placeholder="请输入通知标题~" show-word-limit />
+            </div>
+            <div class="laberDiv">
+                通知内容
+            </div>
+            <div style="padding:0 0.2rem 0.2rem 0.2rem;">
+                <van-field v-model="content" class="club-input" style="min-height:2.7rem;" rows="4" autosize type="textarea" maxlength="100" placeholder="请输入通知内容~" show-word-limit />
+            </div>
+
+
+        </div>
+    </div>
 
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
 <script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
 <script src="../../common/js/network.js"></script>
 <script type="text/javascript">
-	new Vue({
-		el: '#app',
-		data() {
-			return {
-				title: "",
-				content: "",
-				parentId: "",
-				isSubmit: false,
-			};
-		},
-	
-		created() {
-			this.parentId = getQueryString("id");
-			this.flag = getQueryString("flag"); //1俱乐部通知  2或者空 是任务通知
-		},
-		methods: {
-			onclickLeft() {
-				window.history.back(-1);
-			},
-			onclickRight() {
-				this.saveNotice()
-			},
-			saveNotice() {
-				var _self = this;
-				_self.isSubmit = true;
-				if (!this.title) {
-					return;
-				} else if (!this.content) {
-					
-					return;
-				}
-				var url = "club/saveClubNotice";
-				var data = {
-					title: _self.title,
-					content: _self.content,
-				};
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                title: "",
+                content: "",
+                parentId: "",
+                isSubmit: false,
+            };
+        },
 
-				if (_self.flag == 1) {
-					url = "club/saveClubNotice";
-					data.clubId = _self.parentId;
-				} else {
-					url = "club/saveTaskNotice"
-					data.taskId = _self.parentId;
-				}
-				ajax({
-					type: "post",
-					url: url,
-					data: data,
-					success: function (res) {
-						if (res.code == 0) {
-							_self.$toast("通知创建成功！");
-							setTimeout(function () {
-								
-									window.history.back(-1);
-								
+        created() {
+            this.parentId = getQueryString("id");
+            this.flag = getQueryString("flag"); //1俱乐部通知  2或者空 是任务通知
+        },
+        methods: {
+            onclickLeft() {
+                window.history.back(-1);
+            },
+            onclickRight() {
+                this.saveNotice()
+            },
+            saveNotice() {
+                var _self = this;
+                _self.isSubmit = true;
+                if (!this.title) {
+                    return;
+                } else if (!this.content) {
 
-							}, 500)
-						} else {
-							_self.$toast(res.msg);
-						}
-					},
-					error: function () {
-						console.log("error")
-					}
-				})
-			},
-			successBack() {
-				var _self = this;
-				if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) { //判断iPhone|iPad|iPod|iOS
-					window.webkit.messageHandlers.lstNative.postMessage({
-						'method': 'clubAutomaticPopBack',
-					})
-				} else if (/(Android)/i.test(navigator.userAgent)) { //判断Android
-					window.android.clubAutomaticPopBack();
-				}
-			},
-			
-		}
-	})
+                    return;
+                }
+                var url = "club/saveClubNotice";
+                var data = {
+                    title: _self.title,
+                    content: _self.content,
+                };
+
+                if (_self.flag == 1) {
+                    url = "club/saveClubNotice";
+                    data.clubId = _self.parentId;
+                } else {
+                    url = "club/saveTaskNotice"
+                    data.taskId = _self.parentId;
+                }
+                ajax({
+                    type: "post",
+                    url: url,
+                    data: data,
+                    success: function(res) {
+                        if (res.code == 0) {
+                            _self.$toast("通知创建成功！");
+                            setTimeout(function() {
+
+                                window.history.back(-1);
+
+
+                            }, 500)
+                        } else {
+                            _self.$toast(res.msg);
+                        }
+                    },
+                    error: function() {
+                        console.log("error")
+                    }
+                })
+            },
+            successBack() {
+                var _self = this;
+                if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) { //判断iPhone|iPad|iPod|iOS
+                    window.webkit.messageHandlers.lstNative.postMessage({
+                        'method': 'clubAutomaticPopBack',
+                    })
+                } else if (/(Android)/i.test(navigator.userAgent)) { //判断Android
+                    window.android.clubAutomaticPopBack();
+                }
+            },
+
+        }
+    })
 </script>
 
 </html>

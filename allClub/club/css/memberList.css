@@ -34,14 +34,14 @@ body {
 
 .createrName {
     font-size: 0.32rem;
-    color: #cfcfd2;
+    color: var(--textColor);
     line-height: 0.6rem;
     height: 0.6rem;
 }
 
 .activityTime {
     font-size: 0.24rem;
-    color: #71717f;
+    color: var(--textColor2);
 }
 
 .van-tag-ower {
@@ -54,11 +54,10 @@ body {
 
 .acceptStatus {
     width: 1.24rem;
-    height: 0.48rem;
     line-height: 0.5rem;
     font-size: 0.24rem;
     border-radius: .24rem;
-    color: #999;
+    color: var(--textColor2);
     text-align: center;
     border: 1px solid rgba(153, 153, 153, 1);
     position: relative;

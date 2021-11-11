@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="css/corporateCompetion.css">
     <link rel="stylesheet" href="../font/iconfont.css">
     <link href="../clubList_Detail/css/header.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" id="themeCssLink2" href="../../common/css/default.css">
     <style>
         #app {
             min-height: 100vh;
@@ -48,7 +49,7 @@
         }
         
         .van-notice-bar .van-notice-bar__right-icon {
-            color: #71717f;
+            color: var(--textColor2);
         }
         
         .van-notice-bar .van-notice-bar__left-icon {
@@ -63,14 +64,14 @@
         }
         
         .van-action-sheet__gap {
-            background-color: #1e1e2a;
+            background-color: var(--borderColor);
         }
         
         .van-action-sheet__item,
         .van-action-sheet__cancel {
-            border-bottom: 1px solid #1e1e2a;
+            border-bottom: 1px solid var(--borderColor);
             background-color: var(--bgColor);
-            color: #CFCFD2;
+            color: var(--textColor);
         }
         
         .van-picker-column__item--selected {
@@ -160,9 +161,9 @@
                                 </div>
 
                             </van-col>
-                            <van-col span="8" class="finishNumber" style="color: #71717f;padding-right:0.05rem;">{{taskItem.doneMemberList.length}}人完成任务</van-col>
+                            <van-col span="8" class="finishNumber" style="color: var(--textColor2);padding-right:0.05rem;">{{taskItem.doneMemberList.length}}人完成任务</van-col>
                             <van-col span="1" class="finishIcon">
-                                <van-icon color="#71717f" name="arrow" />
+                                <van-icon color="var(--textColor2)" name="arrow" />
                             </van-col>
                         </van-row>
                     </div>
@@ -170,8 +171,8 @@
                 <div style="font-size: .28rem;padding: .4rem .3rem;" class="memberList
 										ub ub-ac ub-pj" @click="gotoMemberGroup(taskItem.clubGroupVoList)" v-else-if="taskItem.task.assignType=='03'">
                     <div>参与部门</div>
-                    <div class="ub ub-ac" style="color: #71717f;"><span>{{taskItem.clubGroupCount}}个部门参加任务</span>
-                        <van-icon color="#71717f" name="arrow" />
+                    <div class="ub ub-ac" style="color: var(--textColor2);"><span>{{taskItem.clubGroupCount}}个部门参加任务</span>
+                        <van-icon color="var(--textColor2)" name="arrow" />
                     </div>
                 </div>
                 <div class="memberDetailList" style="padding-bottom:2rem;">
@@ -216,7 +217,7 @@
                                     <div class="name">
                                         {{item.name?item.name:'未分部部门'}}
                                     </div>
-                                    <div class="userInfo" style="color: #71717f;">
+                                    <div class="userInfo" style="color: var(--textColor2);">
                                         <span>分部长:<span class="van-ellipsis" style="width:
 																		1.5rem;display: inline-flex;"><div class="van-ellipsis">{{item.subMinisterName||'--'}}</div></span> 成员:{{item.totalNumber}}人
                                         </span>
@@ -228,12 +229,12 @@
                                     <span class="num">{{item.completionRate}}</span>
                                     <span class="unit">%</span>
                                 </div>
-                                <div class="numD" style="color: #71717f;">
+                                <div class="numD" style="color: var(--textColor2);">
                                     完成率
                                 </div>
                             </van-col>
                             <van-col span="1" class="iconBox">
-                                <van-icon name="arrow" color="#71717f" size="0.3rem" />
+                                <van-icon name="arrow" color="var(--textColor2)" size="0.3rem" />
                             </van-col>
                         </van-row>
 

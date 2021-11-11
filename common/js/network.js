@@ -24,7 +24,7 @@ if (document.getElementById("themeCssLink")) {
 }
 if (document.getElementById("themeCssLink2")) {
     //document.getElementById("themeCssLink").href = host + "h5/h5V3/common/css/dark.css"
-    document.getElementById("themeCssLink2").href = "../../common/css/dark.css"
+    //document.getElementById("themeCssLink2").href = "../../common/css/dark.css"
 
 }
 

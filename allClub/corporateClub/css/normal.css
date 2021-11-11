@@ -8,11 +8,7 @@ body {
 
 @font-face {
     font-family: "OPPOSans-B";
-    src: url("OPPOSans-B.woff2") format("woff2"),
-        url("OPPOSans-B.woff") format("woff"),
-        url("OPPOSans-B.ttf") format("truetype"),
-        url("OPPOSans-B.eot") format("embedded-opentype"),
-        url("OPPOSans-B.svg") format("svg");
+    src: url("OPPOSans-B.woff2") format("woff2"), url("OPPOSans-B.woff") format("woff"), url("OPPOSans-B.ttf") format("truetype"), url("OPPOSans-B.eot") format("embedded-opentype"), url("OPPOSans-B.svg") format("svg");
     font-weight: normal;
     font-style: normal;
 }
@@ -24,18 +20,16 @@ body {
     font-style: normal;
 }
 
-
-
 .van-nav-bar__title {
-    color: #cfcfd2;
+    color: var(--textColor);
 }
 
 .van-nav-bar__text {
-    color: #cfcfd2;
+    color: var(--textColor);
 }
 
 .van-nav-bar .van-icon {
-    color: #cfcfd2;
+    color: var(--textColor);
 }
 
 .van-hairline--bottom::after {
@@ -45,7 +39,7 @@ body {
 .van-nav-bar__left,
 .van-nav-bar__right {
     font-size: .32rem;
-    color: #cfcfd2;
+    color: var(--textColor);
 }
 
 .van-nav-bar {
@@ -121,13 +115,12 @@ body {
     justify-content: space-around;
 }
 
-
 [v-cloak] {
     display: none !important;
 }
 
 .van-checkbox__icon .van-icon {
-    border: 1px solid #71717f;
+    border: 1px solid var(--textColor2);
 }
 
 .van-checkbox__icon--checked .van-icon,
@@ -135,7 +128,7 @@ body {
     /* background: linear-gradient(to right, #FF6A88, #FF5136);
 	border-color: #FF6A88; */
     background: #ff4e3e;
-    border-color: #71717f;
+    border-color: var(--textColor2);
     border: none;
 }
 
@@ -207,7 +200,7 @@ body {
 }
 
 .van-tab {
-    color: #999;
+    color: var(--textColor2);
     font-size: .32rem;
     font-family: "PingFangSC-Medium";
 }

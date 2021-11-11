@@ -90,7 +90,7 @@
                     <img style="width: .48rem;height: .48rem;" src="./img/volume.png" alt="">
                     <span class="noticeContent">{{clubObject.notice.title||""}}</span>
                 </div>
-                <span class="icon iconfont icon-tongyong-gengduo" style="font-size: 0.32rem;color: #71717f;"></span>
+                <span class="icon iconfont icon-tongyong-gengduo" style="font-size: 0.32rem;color: var(--textColor2);"></span>
             </div>
 
             <div class="memberBox">
@@ -105,12 +105,12 @@
                         <div class="numP">{{clubObject.memberNumber||0}}人</div>
                         <span class="icon iconfont
                                 icon-tongyong-gengduo" style="font-size:
-                                0.32rem;color: #71717f;"></span>
+                                0.32rem;color: var(--textColor2);"></span>
                     </div>
                 </div>
             </div>
             <div class="tabBox">
-                <van-tabs v-model:active="activeTab" sticky title-active-color="#cfcfd2" @change="tabChange" swipeable color="#71717f">
+                <van-tabs v-model:active="activeTab" sticky title-active-color="var(--textColor)" @change="tabChange" swipeable color="var(--textColor2)">
                     <van-tab title="今日运动" class="todaySport">
                         <div class="todayBox" v-if="today.list.length>0&&clubObject.type!='05'">
                             <van-list v-model:loading="today.loading" :finished="today.finished" finished-text="没有更多了" @load="getTodaySport">
@@ -343,10 +343,10 @@
         <div class="containBox2" v-else>
             <div style="height:
                     1rem;border-bottom:
-                    0.08rem solid #1e1e2a;">
+                    0.08rem solid var(--borderColor);">
                 <div class="memberBox" style="border-bottom:
                         0.08rem solid
-                        #1e1e2a;">
+                        var(--borderColor);">
                     <div class="title">成员</div>
                     <div class="memberListDiv" @click="goMemberlist()">
                         <div class="memberPersonPic">
@@ -357,7 +357,7 @@
                         </div>
                         <div class="memberPersonNum">
                             <div class="numP">{{clubObject.memberNumber||0}}人</div>
-                            <van-icon name="arrow" color="#71717f" size="0.3rem"></van-icon>
+                            <van-icon name="arrow" color="var(--textColor2)" size="0.3rem"></van-icon>
                             <!-- <img class="iconRight" src="img/iconRight.png" alt=""> -->
                         </div>
                     </div>
@@ -405,7 +405,7 @@
 
             </div>
         </div>
-        <van-dialog v-model="reqShow" confirm-button-text="加入" confirm-button-color="#cfcfd2" title="申请加入" show-cancel-button @confirm="joinClubReq(3)">
+        <van-dialog v-model="reqShow" confirm-button-text="加入" confirm-button-color="var(--textColor)" title="申请加入" show-cancel-button @confirm="joinClubReq(3)">
             <van-field v-model="reqNum" placeholder="请输入邀请码" style="margin:
                         0.2rem 0;"></van-field>
         </van-dialog>

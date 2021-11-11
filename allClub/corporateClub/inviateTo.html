@@ -12,10 +12,9 @@
     <link rel="stylesheet" href="css/groupList.css">
     <link rel="stylesheet" href="../font/iconfont.css">
     <link href="../clubList_Detail/css/header.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" id="themeCssLink2" href="../../common/css/default.css">
 
     <style type="text/css">
-        #app {}
-        
         .cardList {
             font-size: .32rem;
             padding: .2rem 0;
@@ -29,7 +28,7 @@
         
         .cardList>li .detail {
             font-size: .24rem;
-            color: #71717f;
+            color: var(--textColor2);
         }
         
         .cardList>li .headpic {
@@ -37,7 +36,7 @@
             height: .72rem;
             border-radius: .1rem;
             margin-right: .2rem;
-            background-color: #292934;
+            background-color: var(--popBgColor);
         }
         
         .cardList>li>div {
@@ -50,16 +49,16 @@
         }
         
         .van-uploader__upload {
-            background-color: #1e1e2a;
+            background-color: var(--borderColor);
         }
         
         .van-uploader__upload-icon {
-            color: #292934;
+            color: var(--popBgColor);
             font-size: .75rem;
         }
         
         .van-field__control {
-            color: #cfcfd2;
+            color: var(--textColor);
         }
     </style>
 </head>
@@ -78,13 +77,13 @@
             </van-nav-bar>
         </div>
         <van-loading type="spinner" vertical v-show="overlayShow"></van-loading>
-        <van-dialog v-model="createshow" :before-close="beforeClose" @confirm="submitCreate" cancel-button-color="#cfcfd2" title="创建分组" confirm-button-text="创建" show-cancel-button>
+        <van-dialog v-model="createshow" :before-close="beforeClose" @confirm="submitCreate" cancel-button-color="var(--textColor)" title="创建分组" confirm-button-text="创建" show-cancel-button>
             <div style="padding: .5rem;">
                 <div class="ub ub-ver ub-pc">
                     <van-uploader v-model="createGroupObj.fileList" upload-icon="plus" :deletable="false" :max-count="1" :after-read="afterRead2"></van-uploader>
                 </div>
-                <div style="color: #71717f;font-size: .24rem;text-align: center;">选择组别形象</div>
-                <van-field style="background-color: #1e1e2a;margin-top: .48rem;border-radius: .1rem;height: .64rem;padding: .1rem .32rem;color: #CFCFD2;" maxlength="16" v-model="createGroupObj.name" placeholder="请输入组别名称" />
+                <div style="color: var(--textColor2);font-size: .24rem;text-align: center;">选择组别形象</div>
+                <van-field style="background-color: var(--borderColor);margin-top: .48rem;border-radius: .1rem;height: .64rem;padding: .1rem .32rem;color: var(--textColor);" maxlength="16" v-model="createGroupObj.name" placeholder="请输入组别名称" />
             </div>
         </van-dialog>
         <ul class="cardList">

@@ -68,17 +68,17 @@
 }
 
 .van-nav-bar .van-icon {
-    color: #cfcfd2;
+    color: var(--textColor);
 }
 
 .van-nav-bar__title {
     /* font-size: .36rem; */
-    color: #cfcfd2;
+    color: var(--textColor);
     font-weight: unset;
 }
 
 .border-bottom {
-    border-bottom: 1px solid #1E1E2A;
+    border-bottom: 1px solid var(--borderColor);
 }
 
 .van-cell {
@@ -87,7 +87,7 @@
     line-height: 1.24rem;
     padding: 0 0.3rem;
     background-color: var(--bgColor);
-    color: #CFCFD2;
+    color: var(--textColor);
 }
 
 .van-cell-group {
@@ -113,7 +113,7 @@
 }
 
 .van-field__control {
-    color: #CFCFD2;
+    color: var(--textColor);
     font-size: .28rem;
 }
 
@@ -122,7 +122,7 @@
     font-size: 0.32rem;
     line-height: 1rem;
     padding: 0 0.32rem;
-    color: #CFCFD2;
+    color: var(--textColor);
     /* font-weight: bold; */
 }
 
@@ -141,7 +141,7 @@
 /* 任务说明 */
 
 .tasks-input {
-    background-color: #1e1e2a;
+    background-color: var(--borderColor);
     font-size: 0.32rem;
     line-height: 0.6rem;
     position: relative;
@@ -149,13 +149,13 @@
 }
 
 .van-field__word-limit {
-    color: #71717f;
+    color: var(--textColor2);
     margin-bottom: .08rem;
 }
 
 textarea::placeholder {
     font-size: .24rem;
-    color: #71717f !important;
+    color: var(--textColor2) !important;
 }
 
 .tasks-input .van-field__word-limit {
@@ -168,7 +168,7 @@ textarea::placeholder {
 /* 俱乐部简介 */
 
 .club-input {
-    background-color: #1E1E2A;
+    background-color: var(--borderColor);
     font-size: 0.32rem;
     line-height: 0.6rem;
     position: relative;
@@ -211,7 +211,7 @@ textarea::placeholder {
 
 .van-uploader__upload {
     border: none;
-    background-color: #1E1E2A;
+    background-color: var(--borderColor);
     width: 2.4rem;
     height: 2.4rem;
     border-radius: 0.24rem;
@@ -219,7 +219,7 @@ textarea::placeholder {
 
 .van-uploader__upload-icon {
     font-size: 1.28rem;
-    color: #292934;
+    color: var(--popBgColor);
 }
 
 
@@ -241,12 +241,12 @@ textarea::placeholder {
 
 .van-cell__value span {
     font-size: 0.24rem;
-    color: #71717f;
+    color: var(--textColor2);
 }
 
 .chosed .van-cell__value span {
     font-size: 0.28rem;
-    color: #cfcfd2;
+    color: var(--textColor);
 }
 
 .van-switch {

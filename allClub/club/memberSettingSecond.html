@@ -2,55 +2,55 @@
 <html>
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport"
-		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
-	<title>俱乐部简介</title>
-	<!-- 引入样式文件 -->
-	<link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
-	<link rel="stylesheet" href="../font/iconfont.css">
-	<link rel="stylesheet" type="text/css" href="../clubList_Detail/css/header.css" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+    <title>俱乐部简介</title>
+    <!-- 引入样式文件 -->
+    <link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
+    <link rel="stylesheet" href="../font/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="../clubList_Detail/css/header.css" />
+    <link rel="stylesheet" id="themeCssLink2" href="../../common/css/default.css">
 
 </head>
 
 <body>
-	<div id="app" class="page normalHeader" v-cloak>
-		<div class="header">
-			<van-nav-bar @click-left="onclickLeft" title="俱乐部简介" left-arrow safe-area-inset-top fixed>
-				<template #left>
+    <div id="app" class="page normalHeader" v-cloak>
+        <div class="header">
+            <van-nav-bar @click-left="onclickLeft" title="俱乐部简介" left-arrow safe-area-inset-top fixed>
+                <template #left>
 					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
 				</template>
-			</van-nav-bar>
-		</div>
+            </van-nav-bar>
+        </div>
 
-		<div style="font-size: .32rem;line-height: .44rem;padding: 0.3rem;">
-			{{submitform.introduce}}
-		</div>
-	</div>
+        <div style="font-size: .32rem;line-height: .44rem;padding: 0.3rem;">
+            {{submitform.introduce}}
+        </div>
+    </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
 <script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
 <script src="../../common/js/network.js"></script>
 <script type="text/javascript">
-	new Vue({
-		el: '#app',
-		data() {
-			return {
-				submitform: JSON.parse(localStorage.getItem('clubForm')) || {},
-				isClick: false
-			};
-		},
-		mounted() {
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                submitform: JSON.parse(localStorage.getItem('clubForm')) || {},
+                isClick: false
+            };
+        },
+        mounted() {
 
-		},
-		created() {
+        },
+        created() {
 
-		},
-		methods: {
-			onclickLeft() {
-				localStorage.removeItem('clubForm');
-				window.history.back(-1);
-			},
-		}
-	})
+        },
+        methods: {
+            onclickLeft() {
+                localStorage.removeItem('clubForm');
+                window.history.back(-1);
+            },
+        }
+    })
 </script>

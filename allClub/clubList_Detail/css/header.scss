@@ -111,13 +111,11 @@ body {
     padding: 0 .1rem;
 }
 
-.van-field__control {
-    background-color: $bgColor;
-}
-
+// .van-field__control {
+//     background-color: $bgColor;
+// }
 .van-tabs__nav,
-.van-dialog,
-.van-button--default {
+.van-dialog {
     background-color: $bgColor!important;
 }
 

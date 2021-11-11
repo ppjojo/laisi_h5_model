@@ -7,15 +7,15 @@
 
 .van-notice-bar {
     background-color: var(--bgColor);
-    color: #cfcfd2;
-    border-bottom: 1px solid #1e1e2a;
+    color: var(--textColor);
+    border-bottom: 1px solid var(--borderColor);
 }
 
 .deatilBox {
     /* margin-top: 0.2rem; */
     padding: 0.24rem;
     background-color: var(--bgColor);
-    border-bottom: .08rem solid #1e1e2a;
+    border-bottom: .08rem solid var(--borderColor);
 }
 
 .deatilBox .laberTitle {
@@ -23,7 +23,7 @@
     text-align: justify;
     line-height: 0.6rem;
     height: 0.6rem;
-    color: #cfcfd2;
+    color: var(--textColor);
 }
 
 .deatilBox .laberTitle i {
@@ -33,7 +33,7 @@
 
 .deatilBox .laberContent {
     font-size: 0.28rem;
-    color: #71717f;
+    color: var(--textColor2);
     text-align: left;
     line-height: 0.6rem;
 }
@@ -45,11 +45,11 @@
     /* margin-top: 0.2rem; */
     background-color: var(--bgColor);
     padding: 0 0.24rem;
-    border-bottom: .08rem solid #1e1e2a;
+    border-bottom: .08rem solid var(--borderColor);
 }
 
 .memberList .memberTitle {
-    color: #cfcfd2;
+    color: var(--textColor);
     font-size: 0.32rem;
     line-height: 0.5rem;
     margin-top: 0.2rem;
@@ -57,7 +57,7 @@
 
 .memberList .finishNumber {
     font-size: 0.28rem;
-    color: #cfcfd2;
+    color: var(--textColor);
     line-height: 1.28rem;
     text-align: right;
 }
@@ -103,19 +103,19 @@
 }
 
 .memberDetailList .van-row {
-    border-bottom: 1px solid #1e1e2a;
+    border-bottom: 1px solid var(--borderColor);
     padding: 0 0.24rem;
 }
 
 .memberDetailList .schedule {
     font-size: 0.28rem;
-    color: #cfcfd2;
+    color: var(--textColor);
     line-height: 0.88rem;
 }
 
 .memberDetailList .finishStatus {
     font-size: 0.24rem;
-    color: #cfcfd2;
+    color: var(--textColor);
     line-height: 0.88rem;
     text-align: right;
 }
@@ -173,7 +173,7 @@
 
 .btn_box .creatMatch2 {
     background-image: none;
-    background-color: #71717f;
+    background-color: var(--textColor2);
 }
 
 .van-button::before {
@@ -191,7 +191,7 @@
 
 .van-action-sheet__name {
     font-size: 0.28rem;
-    color: #cfcfd2;
+    color: var(--textColor);
 }
 
 .van-action-sheet__name.active {
@@ -221,7 +221,7 @@
 }
 
 .noPeople-div .noPeopleP {
-    color: #71717f;
+    color: var(--textColor2);
     font-size: 0.28rem;
     margin: 0;
     padding: 0;

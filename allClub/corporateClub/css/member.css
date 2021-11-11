@@ -5,17 +5,17 @@
 }
 
 .van-search__content {
-    background-color: #1e1e2a;
+    background-color: var(--borderColor);
 }
 
 .van-cell,
 .van-collapse-item__content {
     background-color: var(--bgColor);
-    color: #cfcfd2;
+    color: var(--textColor);
 }
 
 .van-cell::after {
-    border-bottom-color: #1E1E2A;
+    border-bottom-color: var(--borderColor);
 }
 
 .van-collapse-item__title--disabled,
@@ -35,13 +35,13 @@
 }
 
 .ul_class li .nickname {
-    color: #cfcfd2;
+    color: var(--textColor);
     font-size: .32rem;
     max-width: 3.5rem;
 }
 
 .time {
-    color: #71717f;
+    color: var(--textColor2);
     font-size: .24rem;
 }
 
@@ -59,7 +59,7 @@
 .ul_class li .btn_member {
     width: 1.24rem;
     height: .48rem;
-    background-color: #1e1e2a;
+    background-color: var(--borderColor);
     border-radius: .24rem;
     font-size: .24rem;
     border: .02rem solid #FF4E3E;
@@ -69,8 +69,8 @@
 }
 
 .ul_class li .btn_member_gray {
-    border: .02rem solid #999;
-    color: #999;
+    border: .02rem solid var(--textColor2);
+    color: var(--textColor2);
 }
 
 .van-nav-bar__content {
@@ -92,16 +92,16 @@
 }
 
 .van-popover--dark .van-popover__content {
-    background-color: #292934;
+    background-color: var(--popBgColor);
     overflow: hidden;
 }
 
 .van-popover--dark .van-popover__arrow {
-    color: #292934;
+    color: var(--popBgColor);
 }
 
 .van-icon-search {
-    color: #cfcfd2;
+    color: var(--textColor);
 }
 
 .van-search__content {

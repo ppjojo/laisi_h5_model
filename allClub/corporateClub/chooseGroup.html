@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="css/member.css">
     <link rel="stylesheet" href="../font/iconfont.css">
     <link href="../clubList_Detail/css/header.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" id="themeCssLink2" href="../../common/css/default.css">
 
 
     <style type="text/css">
@@ -32,15 +33,15 @@
         .van-cell {
             padding: .1rem 0.32rem;
             background-color: var(--bgColor);
-            color: #cfcfd2;
+            color: var(--textColor);
         }
         
         .van-cell::after {
-            border-bottom-color: #1E1E2A;
+            border-bottom-color: var(--borderColor);
         }
         
         .color999 {
-            color: #999;
+            color: var(--textColor2);
         }
         
         .submit {
@@ -52,11 +53,11 @@
         }
         
         .van-field__control {
-            color: #cfcfd2;
+            color: var(--textColor);
         }
         
         input::-webkit-input-placeholder {
-            color: #71717f!important;
+            color: var(--textColor2)!important;
         }
     </style>
 </head>
@@ -84,10 +85,10 @@
                         <template #title>
 							<ul class="ul_class">
 								<li class="ub ub-ac ub-pj">
-									<div style="color: #cfcfd2;">
+									<div style="color: var(--textColor);">
 										{{item.id=='wfb'?'未分部部门':item.name}}
 									</div>
-									<div class="ub ub-ac" style="font-size: .24rem;color: #71717f;">({{item.totalNumber}}人)<van-icon color="#71717f" style="margin-left:0.1rem;"  name="arrow-down" /></div>
+									<div class="ub ub-ac" style="font-size: .24rem;color: var(--textColor2);">({{item.totalNumber}}人)<van-icon color="var(--textColor2)" style="margin-left:0.1rem;"  name="arrow-down" /></div>
 								</li>
 							</ul>
 						</template>

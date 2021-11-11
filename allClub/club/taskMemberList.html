@@ -2,68 +2,66 @@
 <html>
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport"
-		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
-	<title>成员列表</title>
-	<script type="text/javascript">
-
-	</script>
-	<link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
-	<link rel="stylesheet" href="css/memberList.css">
-	<link rel="stylesheet" href="../font/iconfont.css">
-	<link href="../clubList_Detail/css/header.css" rel="stylesheet" type="text/css" />
-	<style>
-		.memberList .van-row {
-			margin-bottom: 0;
-		}
-
-		.createrHeadPic .detail_headpic {
-			top: .1rem;
-		}
-	</style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+    <title>成员列表</title>
+    <script type="text/javascript">
+    </script>
+    <link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
+    <link rel="stylesheet" href="css/memberList.css">
+    <link rel="stylesheet" href="../font/iconfont.css">
+    <link href="../clubList_Detail/css/header.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" id="themeCssLink2" href="../../common/css/default.css">
+    <style>
+        .memberList .van-row {
+            margin-bottom: 0;
+        }
+        
+        .createrHeadPic .detail_headpic {
+            top: .1rem;
+        }
+    </style>
 
 </head>
 
 <body>
-	<div id="app" class="normalHeader" v-cloak>
-		<div class="header">
-			<van-nav-bar @click-left="onclickLeft" title="参与成员" left-arrow safe-area-inset-top fixed>
-				<template #left>
+    <div id="app" class="normalHeader" v-cloak>
+        <div class="header">
+            <van-nav-bar @click-left="onclickLeft" title="参与成员" left-arrow safe-area-inset-top fixed>
+                <template #left>
 					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
 				</template>
 
-			</van-nav-bar>
-		</div>
-		<div class=" memberList" v-if="memberList.length>0 ">
-			<van-row v-for="item in memberList">
-				<van-col span="4" class="createrHeadPic">
-					<div class="detail_headpic" @click="Interaction.visitPersonalHomepage(item.memberId)"
-						:style="{'background-image': 'url(' + item.headPictureUrl + ')'}"></div>
-				</van-col>
-				<van-col span="15">
-					<div class="createrName" @click="Interaction.visitPersonalHomepage(item.memberId)">
-						{{item.nickname}}
-					</div>
-					<div class="activityTime">
-						<span>加入时间:</span>
-						<span>{{renderTime(item.joinTime)}}</span>
-					</div>
-				</van-col>
-				<van-col span="5" v-if="item.assignType=='00'">
-					<div class="acceptStatus">已报名</div>
-				</van-col>
-				<van-col span="5" v-else-if="item.assignType=='02'">
-					<div class="acceptStatus">已接受</div>
-				</van-col>
-			</van-row>
-		</div>
-		<div class="noData-box" v-else-if="upFinished">
-			<img class="noData-img" src="./img/noData.png" />
-			<p class="noData-p">暂无数据</p>
-		</div>
-	</div>
-	</div>
+            </van-nav-bar>
+        </div>
+        <div class=" memberList" v-if="memberList.length>0 ">
+            <van-row v-for="item in memberList">
+                <van-col span="4" class="createrHeadPic">
+                    <div class="detail_headpic" @click="Interaction.visitPersonalHomepage(item.memberId)" :style="{'background-image': 'url(' + item.headPictureUrl + ')'}"></div>
+                </van-col>
+                <van-col span="15">
+                    <div class="createrName" @click="Interaction.visitPersonalHomepage(item.memberId)">
+                        {{item.nickname}}
+                    </div>
+                    <div class="activityTime">
+                        <span>加入时间:</span>
+                        <span>{{renderTime(item.joinTime)}}</span>
+                    </div>
+                </van-col>
+                <van-col span="5" v-if="item.assignType=='00'">
+                    <div class="acceptStatus">已报名</div>
+                </van-col>
+                <van-col span="5" v-else-if="item.assignType=='02'">
+                    <div class="acceptStatus">已接受</div>
+                </van-col>
+            </van-row>
+        </div>
+        <div class="noData-box" v-else-if="upFinished">
+            <img class="noData-img" src="./img/noData.png" />
+            <p class="noData-p">暂无数据</p>
+        </div>
+    </div>
+    </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
 <script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
@@ -71,60 +69,60 @@
 <script src="js/DateTime.js"></script>
 <script src="../../common/js/network.js"></script>
 <script type="text/javascript">
-	new Vue({
-		el: '#app',
-		data() {
-			return {
-				taskId: getQueryString("id") || "",
-				memberList :[],
-				upFinished:false
-			}
-		},
-		created() {
-			this.taskMemberList();
-		},
-		methods: {
-			onclickLeft() {
-				window.history.back(-1);
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                taskId: getQueryString("id") || "",
+                memberList: [],
+                upFinished: false
+            }
+        },
+        created() {
+            this.taskMemberList();
+        },
+        methods: {
+            onclickLeft() {
+                window.history.back(-1);
 
-			},
-			taskMemberList() {
-				ajax({
-					type: "post",
-					url: "club/taskMemberList",
-					data: {
-						taskId: this.taskId,
-					}
-				}).then(res => {
-					if (res.code == 0) {
-						this.memberList = res.data;
-						this.upFinished = true;
-					} else {
-						this.$toast(res.msg);
-					}
-				})
-			},
-			//2019-11-20T02:22:58.000+0000 转换2019-11-20 11:11:59
-			renderTime(utc_datetime) {
-				var T_pos = utc_datetime.indexOf('T');
-				var Z_pos = utc_datetime.indexOf('.');
-				var year_month_day = utc_datetime.substr(0, T_pos);
-				var hour_minute_second = utc_datetime.substr(T_pos + 1, Z_pos - T_pos - 1);
-				var new_datetime = year_month_day + " " + hour_minute_second; // 2017-03-31 08:02:06
+            },
+            taskMemberList() {
+                ajax({
+                    type: "post",
+                    url: "club/taskMemberList",
+                    data: {
+                        taskId: this.taskId,
+                    }
+                }).then(res => {
+                    if (res.code == 0) {
+                        this.memberList = res.data;
+                        this.upFinished = true;
+                    } else {
+                        this.$toast(res.msg);
+                    }
+                })
+            },
+            //2019-11-20T02:22:58.000+0000 转换2019-11-20 11:11:59
+            renderTime(utc_datetime) {
+                var T_pos = utc_datetime.indexOf('T');
+                var Z_pos = utc_datetime.indexOf('.');
+                var year_month_day = utc_datetime.substr(0, T_pos);
+                var hour_minute_second = utc_datetime.substr(T_pos + 1, Z_pos - T_pos - 1);
+                var new_datetime = year_month_day + " " + hour_minute_second; // 2017-03-31 08:02:06
 
-				// 处理成为时间戳
-				var timestamp = DateTime.getTime(new_datetime);
-				// 增加8个小时，北京时间比utc时间多八个时区
-				var timestamp = timestamp + 8 * 60 * 60 * 1000;
+                // 处理成为时间戳
+                var timestamp = DateTime.getTime(new_datetime);
+                // 增加8个小时，北京时间比utc时间多八个时区
+                var timestamp = timestamp + 8 * 60 * 60 * 1000;
 
-				// 时间戳转为时间
-				var beijing_datetime = DateTime.sjc2time("ymd3", timestamp);
-				return beijing_datetime;
+                // 时间戳转为时间
+                var beijing_datetime = DateTime.sjc2time("ymd3", timestamp);
+                return beijing_datetime;
 
-			},
+            },
 
-		}
-	})
+        }
+    })
 </script>
 
 </html>

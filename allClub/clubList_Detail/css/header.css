@@ -110,13 +110,8 @@ body {
   padding: 0 .1rem;
 }
 
-.van-field__control {
-  background-color: var(--bgColor);
-}
-
 .van-tabs__nav,
-.van-dialog,
-.van-button--default {
+.van-dialog {
   background-color: var(--bgColor) !important;
 }
 

@@ -2,149 +2,149 @@
 <html lang="zh-cmn-Hans">
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport"
-		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
-	<title></title>
-	<!-- 引入样式文件 -->
-	<link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
-	<link rel="stylesheet" href="../../common/css/basic.css">
-	<link rel="stylesheet" href="css/normal.css">
-	<link rel="stylesheet" href="../font/iconfont.css">
-	<link href="../clubList_Detail/css/header.css" rel="stylesheet" type="text/css" />
-	<style type="text/css">
-		.process {
-			padding: .4rem .3rem;
-			/* border-top: .02rem solid #1E1E2A; */
-			border-bottom: .02rem solid #1E1E2A;
-			height: 1.2rem;
-			font-size: .28rem;
-			color: #CFCFD2;
-		}
-
-		.processul li {
-			padding: .4rem .3rem;
-			height: 1.2rem;
-			/* border-top: .02rem solid #1E1E2A;
-			border-bottom: .02rem solid #1E1E2A; */
-			font-size: .28rem;
-			color: #CFCFD2;
-		}
-
-		.processul li .van-ellipsis {
-			max-width: 1.4rem;
-		}
-
-		.processul .headpic {
-			width: .6rem;
-			height: .6rem;
-			border-radius: 100%;
-			margin-right: .2rem;
-		}
-
-		.processul li>div:last-child {
-			text-align: right;
-		}
-
-		.processul li>div:nth-child(2) {
-			text-align: center;
-		}
-	</style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+    <title></title>
+    <!-- 引入样式文件 -->
+    <link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
+    <link rel="stylesheet" href="../../common/css/basic.css">
+    <link rel="stylesheet" href="css/normal.css">
+    <link rel="stylesheet" href="../font/iconfont.css">
+    <link href="../clubList_Detail/css/header.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" id="themeCssLink2" href="../../common/css/default.css">
+    <style type="text/css">
+        .process {
+            padding: .4rem .3rem;
+            /* border-top: .02rem solid var(--borderColor); */
+            border-bottom: .02rem solid var(--borderColor);
+            height: 1.2rem;
+            font-size: .28rem;
+            color: var(--textColor);
+        }
+        
+        .processul li {
+            padding: .4rem .3rem;
+            height: 1.2rem;
+            /* border-top: .02rem solid var(--borderColor);
+			border-bottom: .02rem solid var(--borderColor); */
+            font-size: .28rem;
+            color: var(--textColor);
+        }
+        
+        .processul li .van-ellipsis {
+            max-width: 1.4rem;
+        }
+        
+        .processul .headpic {
+            width: .6rem;
+            height: .6rem;
+            border-radius: 100%;
+            margin-right: .2rem;
+        }
+        
+        .processul li>div:last-child {
+            text-align: right;
+        }
+        
+        .processul li>div:nth-child(2) {
+            text-align: center;
+        }
+    </style>
 </head>
 
 <body>
-	<div id="app" class="normalHeader" v-cloak>
-		<div class="header">
-			<van-nav-bar @click-left="OnclickLeft" :title="title" left-arrow safe-area-inset-top fixed>
-				<template #left>
+    <div id="app" class="normalHeader" v-cloak>
+        <div class="header">
+            <van-nav-bar @click-left="OnclickLeft" :title="title" left-arrow safe-area-inset-top fixed>
+                <template #left>
 					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
 				</template>
 
-			</van-nav-bar>
-		</div>
+            </van-nav-bar>
+        </div>
 
-		<div class="process ub ub-ac ub-pj">
-			<div>进度</div>
-			<div style="font-size: .27rem;">今日完成率{{rate}}%</div>
-		</div>
-		<ul class="processul">
-			<li class="ub ub-ac ub-ad" v-for="item in dataList">
-				<div class="ub ub-ac ub-f1">
-					<img class="headpic" :src="item.headPictureUrl" alt="">
-					<div class="van-ellipsis">{{item.nickname}}</div>
-				</div>
-				<div class="ub-f1">{{item.is_done=="N"?"未完成":"已完成"}}</div>
-				<div class="ub-f1">累计完成{{item.times||0}}次</div>
-			</li>
-		</ul>
-	</div>
+        <div class="process ub ub-ac ub-pj">
+            <div>进度</div>
+            <div style="font-size: .27rem;">今日完成率{{rate}}%</div>
+        </div>
+        <ul class="processul">
+            <li class="ub ub-ac ub-ad" v-for="item in dataList">
+                <div class="ub ub-ac ub-f1">
+                    <img class="headpic" :src="item.headPictureUrl" alt="">
+                    <div class="van-ellipsis">{{item.nickname}}</div>
+                </div>
+                <div class="ub-f1">{{item.is_done=="N"?"未完成":"已完成"}}</div>
+                <div class="ub-f1">累计完成{{item.times||0}}次</div>
+            </li>
+        </ul>
+    </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
 <script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
 <script src="../../common/js/network.js"></script>
 <script src="js/tool.js"></script>
 <script>
-	window.addEventListener('pageshow', function (event) {
-		console.log("PageShow Event  " + event.persisted);
-		console.log(event)
-		if (isIOS) {
+    window.addEventListener('pageshow', function(event) {
+        console.log("PageShow Event  " + event.persisted);
+        console.log(event)
+        if (isIOS) {
 
-		}
-	})
-	new Vue({
-		el: '#app',
-		data() {
-			return {
-				loading: false,
-				finished: false,
-				taskId: getQueryString("taskId") || "",
-				clubId: getQueryString("clubId") || "",
-				clubGroupId: getQueryString("clubGroupId") || "",
-				rate: getQueryString("rate") || "",
-				gname: getQueryString("name") || "未分部部门",
-				title: '',
-				dataList: []
-			}
-		},
-		filters: {},
-		mounted() {},
-		created() {
-			this.title = document.title = this.gname + '任务详情';
-			if (this.clubGroupId == 'null') this.clubGroupId = '';
-			this.initData()
-		},
-		methods: {
-			initData() {
-				let _self = this;
-				ajax({
-					type: "get",
-					url: "club/clubGroupTaskDetail",
-					data: {
-						clubId: _self.clubId,
-						clubGroupId: _self.clubGroupId,
-						taskId: _self.taskId,
-						page: 0,
-						pageSize: 999
-					},
-					success: function (res) {
-						if (res.code == 0) {
-							_self.dataList = res.data.doneMemberList;
-						} else {
-							_self.$toast(res.msg);
-						}
-					},
-					error: function () {
-						console.log("error")
-					}
-				})
-			},
-			OnclickLeft() {
-				window.history.back(-1);
-			},
-			onClickRight() { //显示。。。
-			},
-		}
-	})
+        }
+    })
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                loading: false,
+                finished: false,
+                taskId: getQueryString("taskId") || "",
+                clubId: getQueryString("clubId") || "",
+                clubGroupId: getQueryString("clubGroupId") || "",
+                rate: getQueryString("rate") || "",
+                gname: getQueryString("name") || "未分部部门",
+                title: '',
+                dataList: []
+            }
+        },
+        filters: {},
+        mounted() {},
+        created() {
+            this.title = document.title = this.gname + '任务详情';
+            if (this.clubGroupId == 'null') this.clubGroupId = '';
+            this.initData()
+        },
+        methods: {
+            initData() {
+                let _self = this;
+                ajax({
+                    type: "get",
+                    url: "club/clubGroupTaskDetail",
+                    data: {
+                        clubId: _self.clubId,
+                        clubGroupId: _self.clubGroupId,
+                        taskId: _self.taskId,
+                        page: 0,
+                        pageSize: 999
+                    },
+                    success: function(res) {
+                        if (res.code == 0) {
+                            _self.dataList = res.data.doneMemberList;
+                        } else {
+                            _self.$toast(res.msg);
+                        }
+                    },
+                    error: function() {
+                        console.log("error")
+                    }
+                })
+            },
+            OnclickLeft() {
+                window.history.back(-1);
+            },
+            onClickRight() { //显示。。。
+            },
+        }
+    })
 </script>
 
 </html>

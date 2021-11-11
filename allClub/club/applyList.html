@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/memberList.css">
     <link rel="stylesheet" href="../font/iconfont.css">
     <link href="../clubList_Detail/css/header.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" id="themeCssLink2" href="../../common/css/default.css">
     <style type="text/css">
         .noData-img {
             height: auto !important;
@@ -21,7 +22,7 @@
         .popbox>div {
             font-size: .32rem;
             text-align: center;
-            border-bottom: .02rem solid #1e1e2a;
+            border-bottom: .02rem solid var(--borderColor);
             height: 1.12rem;
             line-height: 1.12rem;
         }
@@ -42,7 +43,7 @@
         
         .cardList>li .detail {
             font-size: .24rem;
-            color: #71717f;
+            color: var(--textColor2);
         }
         
         .cardList>li .headpic {
@@ -51,7 +52,7 @@
             border-radius: .1rem;
             overflow: hidden;
             margin-right: .2rem;
-            background-color: #1e1e2a;
+            background-color: var(--borderColor);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -73,10 +74,9 @@
         
         .acceptStatus {
             width: 1.32rem;
-            height: .48rem;
             line-height: .5rem;
-            border-color: #71717f;
-            color: #71717f;
+            border-color: var(--textColor2);
+            color: var(--textColor2);
             top: .3rem;
         }
         
@@ -96,16 +96,16 @@
         }
         
         .van-uploader__upload {
-            background-color: #1e1e2a;
+            background-color: var(--borderColor);
         }
         
         .van-uploader__upload-icon {
-            color: #292934;
+            color: var(--popBgColor);
             font-size: 1rem;
         }
         
         .van-field__control {
-            color: #cfcfd2;
+            color: var(--textColor);
         }
     </style>
 </head>
@@ -126,7 +126,7 @@
                 <ul class="cardList">
                     <li @click="createshow = true">
                         <div class="ub ub-ac">
-                            <div class="headpic ub ub-ac ub-pc" style="background-color: #1e1e2a;"><img style="width: .46rem;height: .46rem;" class="" src="../corporateClub/img/plusicon.png" /></div>
+                            <div class="headpic ub ub-ac ub-pc" style="background-color: var(--borderColor);"><img style="width: .46rem;height: .46rem;" class="" src="../corporateClub/img/plusicon.png" /></div>
                             <div class="">
                                 <div class="van-ellipsis">新建分部门</div>
                             </div>
@@ -147,14 +147,14 @@
                 </ul>
             </div>
         </van-popup>
-        <van-dialog v-model="createshow" :before-close="beforeClose" @confirm="submitCreate" :confirm-button-color="createGroupObj.fileList.length==0||!createGroupObj.name?'#71717f':''" cancel-button-color="#71717f" :title="createGroupObj.id?'编辑分部':'创建分部'" :confirm-button-text="createGroupObj.id?'编辑':'创建'"
-            show-cancel-button>
+        <van-dialog v-model="createshow" :before-close="beforeClose" @confirm="submitCreate" :confirm-button-color="createGroupObj.fileList.length==0||!createGroupObj.name?'var(--textColor2)':''" cancel-button-color="var(--textColor2)" :title="createGroupObj.id?'编辑分部':'创建分部'"
+            :confirm-button-text="createGroupObj.id?'编辑':'创建'" show-cancel-button>
             <div style="padding: .5rem;">
                 <div class="ub ub-ver ub-pc">
                     <van-uploader v-model="createGroupObj.fileList" upload-icon="plus" :deletable="false" :max-count="1" :after-read="afterRead2"></van-uploader>
                 </div>
-                <div style="color: #71717f;font-size: .24rem;text-align: center;">选择部门形象</div>
-                <van-field style="background-color: #1e1e2a;margin-top: .48rem;border-radius: .1rem;height: .64rem;padding: .1rem .32rem;" maxlength="16" v-model="createGroupObj.name" placeholder="请输入分部名称" />
+                <div style="color: var(--textColor2);font-size: .24rem;text-align: center;">选择部门形象</div>
+                <van-field style="background-color: var(--borderColor);margin-top: .48rem;border-radius: .1rem;height: .64rem;padding: .1rem .32rem;" maxlength="16" v-model="createGroupObj.name" placeholder="请输入分部名称" />
             </div>
         </van-dialog>
         <div>

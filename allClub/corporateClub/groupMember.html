@@ -2,77 +2,79 @@
 <html lang="zh-cmn-Hans">
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport"
-		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
-	<title></title>
-	<!-- 引入样式文件 -->
-	<link rel="stylesheet" href="../../common/css/vant-rem-2122.css">
-	<link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
-	<link rel="stylesheet" href="../../common/css/basic.css">
-	<link rel="stylesheet" href="css/normal.css">
-	<link rel="stylesheet" href="css/member.css">
-	<link rel="stylesheet" href="../font/iconfont.css">
-	<link href="../clubList_Detail/css/header.css" rel="stylesheet" type="text/css" />
-	<style type="text/css">
-		.van-collapse-item__wrapper .van-cell {
-			padding: 0;
-		}
-
-		.van-popover--dark .van-popover__arrow {
-			color: #1f1f1f;
-		}
-		.van-field__control{
-			color: #cfcfd2;
-		}
-		.van-cell::after {
-			border-bottom: none;
-		}
-
-		.van-hairline--top-bottom::after,
-		.van-hairline-unset--top-bottom::after {
-			border: none;
-		}
-
-		.van-icon-arrow-down,
-		.van-icon-arrow-up {
-			color: #999;
-		}
-
-		.van-checkbox {
-			margin-right: .2rem;
-		}
-
-		.submit {
-			position: fixed;
-			bottom: 0;
-			left: calc(50% - 3.15rem);
-			opacity: 1;
-			margin: .2rem 0;
-		}
-
-		.boldtitle {
-			font-weight: bold;
-		}
-		
-		.searchval{
-			padding: 0 .32rem;
-		}
-		.van-popup{
-			border-radius:0.2rem;
-		}
-	</style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+    <title></title>
+    <!-- 引入样式文件 -->
+    <link rel="stylesheet" href="../../common/css/vant-rem-2122.css">
+    <link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
+    <link rel="stylesheet" href="../../common/css/basic.css">
+    <link rel="stylesheet" href="css/normal.css">
+    <link rel="stylesheet" href="css/member.css">
+    <link rel="stylesheet" href="../font/iconfont.css">
+    <link href="../clubList_Detail/css/header.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" id="themeCssLink2" href="../../common/css/default.css">
+    <style type="text/css">
+        .van-collapse-item__wrapper .van-cell {
+            padding: 0;
+        }
+        
+        .van-popover--dark .van-popover__arrow {
+            color: #1f1f1f;
+        }
+        
+        .van-field__control {
+            color: var(--textColor);
+        }
+        
+        .van-cell::after {
+            border-bottom: none;
+        }
+        
+        .van-hairline--top-bottom::after,
+        .van-hairline-unset--top-bottom::after {
+            border: none;
+        }
+        
+        .van-icon-arrow-down,
+        .van-icon-arrow-up {
+            color: var(--textColor2);
+        }
+        
+        .van-checkbox {
+            margin-right: .2rem;
+        }
+        
+        .submit {
+            position: fixed;
+            bottom: 0;
+            left: calc(50% - 3.15rem);
+            opacity: 1;
+            margin: .2rem 0;
+        }
+        
+        .boldtitle {
+            font-weight: bold;
+        }
+        
+        .searchval {
+            padding: 0 .32rem;
+        }
+        
+        .van-popup {
+            border-radius: 0.2rem;
+        }
+    </style>
 </head>
 
 <body>
-	<div id="app" class="normalHeader" v-cloak>
-		<div class="header">
-			<van-nav-bar :title="title" @click-left="onclickLeft" @click-right="onClickRight" left-arrow
-				safe-area-inset-top fixed>
-				<template #left>
+    <div id="app" class="normalHeader" v-cloak>
+        <div class="header">
+            <van-nav-bar :title="title" @click-left="onclickLeft" @click-right="onClickRight" left-arrow safe-area-inset-top fixed>
+                <template #left>
 					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
 				</template>
-				<template #right>
+                <template #right>
 					<div v-if="fromwhere==1"><img style="height:.44rem" src="img/inviteicon.png"></div>
 					<div v-else-if="fromwhere==7"> 确定</div>
 					<div v-else-if="fromwhere==3||fromwhere==6">
@@ -82,26 +84,26 @@
 								<template #reference>
 									<span class="icon iconfont icon-shezhi"  style="font-size:0.48rem;"></span>
 								</template>
-							</van-popover>
-						</div>
-						<div v-else-if="settingflag==2||settingflag==3" @click="changeMember">
-							{{settingflag==2?'变更':'移除'}}({{memberResult.length}})</div>
-					</div>
-				</template>
+                </van-popover>
+        </div>
+        <div v-else-if="settingflag==2||settingflag==3" @click="changeMember">
+            {{settingflag==2?'变更':'移除'}}({{memberResult.length}})</div>
+    </div>
+    </template>
 
-			</van-nav-bar>
-		</div>
-		<van-search v-model="searchval.searchKey" @input="search" v-if="fromwhere!=5" placeholder="请输入成员昵称或ID">
-		</van-search>
-		<van-checkbox-group  v-model="memberResult" ref="checkboxGroup">
-			<van-cell-group v-show="searchval.searchKey&&searchList.length>0">
-				<template  v-if="searchList.length>0">
+    </van-nav-bar>
+    </div>
+    <van-search v-model="searchval.searchKey" @input="search" v-if="fromwhere!=5" placeholder="请输入成员昵称或ID">
+    </van-search>
+    <van-checkbox-group v-model="memberResult" ref="checkboxGroup">
+        <van-cell-group v-show="searchval.searchKey&&searchList.length>0">
+            <template v-if="searchList.length>0">
 					<van-cell class="searchval" v-for="(memItem,index) in searchList" clickable :key="memItem.memberId"
 						@click="toggle(index,null,memItem)">
 						<template #icon v-if="showEXP(memItem)">
 							<van-checkbox :name="memItem.memberId" ref="checkboxes"></van-checkbox>
 						</template>
-						<template #title>
+            <template #title>
 							<ul class="ul_class">
 								<li class="ub ub-ac ub-pj">
 									<div class="ub ub-ac">
@@ -125,35 +127,30 @@
 								</li>
 							</ul>
 						</template>
-					</van-cell>
-				</template>
-			</van-cell-group>
-			<div v-show="!searchval.searchKey||searchval.searchKey==''">
-				<ul v-if="fromwhere!=5" class="ul_class" style="padding: .2rem .32rem;">
-					<li class="ub ub-ac ub-pj">
-						<div class="ub ub-ac">
-							<img class="headpic" @click.stop="gotoUserIndex(ministerInfo.memberId)"
-								v-if="ministerInfo.headPictureUrl" :src="ministerInfo.headPictureUrl" alt="">
-							<div>
-								<div class="ub ub-ac">
-									<div class="nickname van-ellipsis">
-										{{ministerInfo.clubGroupNickname||ministerInfo.accountNickname}}</div>
-									<div class="badage">部长</div>
-								</div>
-								<div class="time">加入时间：{{DateTime.sjc2time('ymd',ministerInfo.createTime)}}</div>
-							</div>
-						</div>
-						<div v-if="(fromwhere!=2||fromwhere!=4)&&memberStatus(false,ministerInfo)&&settingflag==1"
-							@click="takeFocus(ministerInfo)" class="btn_member"
-							:class="{btn_member_gray:memberStatus(1,ministerInfo)}">{{memberStatus(2,ministerInfo)}}
-						</div>
-					</li>
-				</ul>
-				<van-collapse v-model="activeNames" @change="loadMember">
-					<van-collapse-item title-class="boldtitle" :title="item.id!='wfb'?item.name:'未分部部门'"
-						:disabled="item.totalNumber==0||fromwhere==5" :name="item.id+'+'+index"
-						v-for="(item,index) in dataList">
-						<template #right-icon>
+            </van-cell>
+            </template>
+        </van-cell-group>
+        <div v-show="!searchval.searchKey||searchval.searchKey==''">
+            <ul v-if="fromwhere!=5" class="ul_class" style="padding: .2rem .32rem;">
+                <li class="ub ub-ac ub-pj">
+                    <div class="ub ub-ac">
+                        <img class="headpic" @click.stop="gotoUserIndex(ministerInfo.memberId)" v-if="ministerInfo.headPictureUrl" :src="ministerInfo.headPictureUrl" alt="">
+                        <div>
+                            <div class="ub ub-ac">
+                                <div class="nickname van-ellipsis">
+                                    {{ministerInfo.clubGroupNickname||ministerInfo.accountNickname}}</div>
+                                <div class="badage">部长</div>
+                            </div>
+                            <div class="time">加入时间：{{DateTime.sjc2time('ymd',ministerInfo.createTime)}}</div>
+                        </div>
+                    </div>
+                    <div v-if="(fromwhere!=2||fromwhere!=4)&&memberStatus(false,ministerInfo)&&settingflag==1" @click="takeFocus(ministerInfo)" class="btn_member" :class="{btn_member_gray:memberStatus(1,ministerInfo)}">{{memberStatus(2,ministerInfo)}}
+                    </div>
+                </li>
+            </ul>
+            <van-collapse v-model="activeNames" @change="loadMember">
+                <van-collapse-item title-class="boldtitle" :title="item.id!='wfb'?item.name:'未分部部门'" :disabled="item.totalNumber==0||fromwhere==5" :name="item.id+'+'+index" v-for="(item,index) in dataList">
+                    <template #right-icon>
 							<div class="ub ub-ac" v-if="fromwhere!=5">
 								<div class="time">({{item.totalNumber}}人)</div>
 								<van-icon
@@ -161,8 +158,8 @@
 							</div>
 							<div id="" v-else></div>
 						</template>
-						<van-cell-group>
-							<template v-if="item.member.length>0">
+                    <van-cell-group>
+                        <template v-if="item.member.length>0">
 								<van-cell v-for="(memItem,index2) in item.member" clickable :key="memItem.memberId"
 									@click="toggle(index2,item,memItem)">
 									<template #icon v-if="showEXP(memItem,item)">
@@ -170,7 +167,7 @@
 											:disabled="settingflag==3&&memItem.isMinister=='Y'" ref="checkboxes">
 										</van-checkbox>
 									</template>
-									<template #title>
+                        <template #title>
 										<ul class="ul_class">
 											<li class="ub ub-ac ub-pj">
 												<div class="ub ub-ac">
@@ -197,537 +194,541 @@
 											</li>
 										</ul>
 									</template>
-								</van-cell>
-							</template>
-						</van-cell-group>
-					</van-collapse-item>
-				</van-collapse>
-			</div>
-		</van-checkbox-group>
-	</div>
+                        </van-cell>
+                        </template>
+                    </van-cell-group>
+                </van-collapse-item>
+            </van-collapse>
+        </div>
+    </van-checkbox-group>
+    </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vant@2.12.2/lib/vant.min.js"></script>
 <script src="../../common/js/network.js"></script>
 <script src="js/tool.js"></script>
 <script>
-	window.addEventListener('pageshow', function (event) {
-		console.log("PageShow Event  " + event.persisted);
-		console.log(event)
-		if (isIOS) {
-			if (localStorage.getItem('haschange')) {
-				window.initGroup();
-				window.clearActiveName();
-				localStorage.removeItem('haschange');
-			}
-		}
-	})
-	new Vue({
-		el: '#app',
-		data() {
-			return {
-				//1成员视角（和分部长从首页进入）2单选选择分部长3部长成员管理4单选装让部长5任务看部门6分部长进来成员管理-1路人进来7指定成员参加8没有按钮9分部长装让
-				fromwhere: parseInt(getQueryString('fromchoose')),
-				showcheckbox: false,
-				settingflag: 1, //1icon2变更3移除
-				clubId: getQueryString('clubId'),
-				clubGroupId: parseInt(getQueryString('clubGroupId')),
-				memberNumber: getQueryString('memberNumber'),
-				userId: JSON.parse(localStorage.getItem("appInfo")).userId,
-				subMinisterId: '',
-				title: "成员列表",
-				loading: true,
-				showPopover: false,
-				memberResult: [],
-				searchval: {
-					searchKey: '',
-					clubId: getQueryString('clubId'),
-					userId: JSON.parse(localStorage.getItem("appInfo")).userId
-				},
-				searchList: [],
-				actions: [{
-					text: '邀请成员'
-				}, {
-					text: '移除成员'
-				}, {
-					text: '变更组别'
-				}],
-				activeNames: [],
-				List: [],
-				dataList: [{
-					title: '产品组',
-					count: 11,
-					member: [],
-					id: 1
-				}],
-				ministerInfo: {
-					accountNickname: '',
-					memberId: '',
-					headPictureUrl: '',
-					clubGroupNickname: '',
-					createTime: '2021-01-18T01:54:34.000+0000'
-				},
-				bgc: "linear-gradient(to right, #FF6A88, #FF5136 )",
-				bgcgrey: '#999',
-			}
-		},
-		filters: {},
-		mounted() {},
-		created() {
-			this.title = this.fromwhere == 1 ? '成员列表' : this.fromwhere == 2 ? '分部长选择' : this.fromwhere == 5 ?
-				'参与部门' : this.fromwhere ==
-				7 ? '指定成员参加' : this.fromwhere == 9 ? '分部长转让' : this.fromwhere == 3 ? ('成员列表' + '(' + this
-					.memberNumber + ')') : '成员列表';
-			if (this.fromwhere == 6) {
-				this.title = '成员管理';
-				this.actions = [{
-					text: '邀请成员'
-				}, {
-					text: '移除成员'
-				}, ]
-			}
-			if (this.fromwhere != 5 && this.fromwhere != 7) {
-				this.initGroup();
-				this.getMinisterInfo();
-			} else {
-				document.title = this.fromwhere == 5 ? '参与部门' : '指定成员参加';
-				if (this.fromwhere == 5) {
-					let list = JSON.parse(localStorage.getItem('groupList'));
-					list.forEach(d => {
-						if (!d.id) {
-							d.id = "wfb";
-							d.name = "未分部部门";
-						}
-						d.member = [];
-					})
-					this.dataList = list;
-					localStorage.removeItem('groupList');
-				} else {
-					this.initGroup();
-					this.getMinisterInfo();
-				}
-			}
-			window.initGroup = this.initGroup;
-			window.clearActiveName = this.clearActiveName;
-		},
-		methods: {
-			initGroup() {
-				let _self = this;
-				ajax({
-					type: "get",
-					url: "club/queryClubGroup",
-					data: {
-						clubId: _self.clubId,
-						ts: new Date().getTime()
-					},
-					success: function (res) {
-						if (res.code == 0) {
-							if (!res.data[res.data.length - 1].id) {
-								res.data[res.data.length - 1].id = "wfb";
-								res.data[res.data.length - 1].name = "未分部部门";
-							}
-							res.data.forEach(d => {
-								d.member = [];
-							})
-							if (_self.fromwhere == 6 || _self.fromwhere == 9) {
-								let arr = [],
-									arr2 = [];
-								res.data.forEach(d => {
-									if (d.subMinisterId == _self.userId) {
-										_self.subMinisterId = d.subMinisterId;
-										arr.push(d);
-									} else {
-										arr2.push(d);
-									}
-								});
-								if (_self.fromwhere == 6) {
-									arr2.unshift(arr[0]);
-									_self.dataList = arr2;
-								} else {
-									_self.dataList = arr;
-								}
-							} else {
-								_self.dataList = res.data;
-							}
-						} else {
-							_self.$toast(res.msg);
-						}
-					},
-					error: function () {
-						console.log("error")
-					}
-				})
-			},
-			showEXP(memItem) {
-				return this.showcheckbox && (this.settingflag == 3 && memItem.isMinister != 'Y' && this
-						.fromwhere == 3) ||
-					(this.settingflag == 3 && memItem.isMinister != 'Y' && (this.fromwhere == 6 && this
-						.clubGroupId == memItem.clubGroupId &&
-						memItem.memberId != this.userId)) || (this.settingflag == 2) || (this.fromwhere == 7)
-			},
-			initGroupMember(gid, index) {
-				let _self = this;
-				ajax({
-					type: "get",
-					url: "club/clubGroupInfo",
-					data: {
-						clubId: _self.clubId,
-						clubGroupId: gid == 'wfb' ? -1 : gid
-					},
-					success: function (res) {
-						if (res.code == 0) {
-							_self.dataList[index].member = res.data.clubGroupList;
-						} else {
-							_self.$toast(res.msg);
-						}
-					},
-					error: function () {
-						console.log("error")
-					}
-				})
-			},
-			loadMember(action) { //异步加载各组人员
-				if (this.fromwhere == 5) return;
-				console.log(action);
-				if (action.length > 0) {
-					let groupid = action[action.length - 1].split("+")[0];
-					let index = parseInt(action[action.length - 1].split("+")[1]);
-					if (!this.List.includes(groupid)) {
-						this.List.push(groupid);
-						//加载list
-						this.initGroupMember(groupid, index);
-					}
-				}
-			},
-			toggle(index, item, mid) {
-				if (this.fromwhere == 2 || this.fromwhere == 9) {
-					if (mid.isSubMinister == "Y" && this.fromwhere == 9 && mid.memberId == this.userId) {
-						this.$toast("分部长不可转让给自己！");
-						return;
-					}
-					if (mid.isSubMinister == "Y") {
-						this.$toast("不可设置为其他分部在职分部长！");
-						return;
-					}
-					if (mid.clubGroupId == this.clubGroupId && mid.isSubMinister == "Y" && this.fromwhere == 2) {
-						this.$toast("该成员已经是该部门分部长了！");
-						return;
-					}
-					if (mid.clubGroupId != this.clubGroupId && (mid.clubGroupId)) {
-						this.$toast("不可设置其他部门成员为分部长！");
-						return;
-					}
-					//选择分部长
-					this.chooseSubMinister(mid.memberId)
-				} else if (this.fromwhere == 4) { //装让部长
-					if (mid.isSubMinister == "Y") {
-						this.$toast("部长不可转让给分部长");
-						return;
-					}
-					if (mid.isMinister == "Y") {
-						this.$toast("您已经是部长了");
-						return;
-					}
-					this.$dialog.confirm({
-						// title: '标题',
-						message: '您确定要转让部长给 ' + (mid.clubGroupNickname || mid.accountNickname) + ' 吗？'
-					}).then(() => {
-						this.transferMinister(mid.memberId);
-					}).catch(() => {
+    window.addEventListener('pageshow', function(event) {
+        console.log("PageShow Event  " + event.persisted);
+        console.log(event)
+        if (isIOS) {
+            if (localStorage.getItem('haschange')) {
+                window.initGroup();
+                window.clearActiveName();
+                localStorage.removeItem('haschange');
+            }
+        }
+    })
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                //1成员视角（和分部长从首页进入）2单选选择分部长3部长成员管理4单选装让部长5任务看部门6分部长进来成员管理-1路人进来7指定成员参加8没有按钮9分部长装让
+                fromwhere: parseInt(getQueryString('fromchoose')),
+                showcheckbox: false,
+                settingflag: 1, //1icon2变更3移除
+                clubId: getQueryString('clubId'),
+                clubGroupId: parseInt(getQueryString('clubGroupId')),
+                memberNumber: getQueryString('memberNumber'),
+                userId: JSON.parse(localStorage.getItem("appInfo")).userId,
+                subMinisterId: '',
+                title: "成员列表",
+                loading: true,
+                showPopover: false,
+                memberResult: [],
+                searchval: {
+                    searchKey: '',
+                    clubId: getQueryString('clubId'),
+                    userId: JSON.parse(localStorage.getItem("appInfo")).userId
+                },
+                searchList: [],
+                actions: [{
+                    text: '邀请成员'
+                }, {
+                    text: '移除成员'
+                }, {
+                    text: '变更组别'
+                }],
+                activeNames: [],
+                List: [],
+                dataList: [{
+                    title: '产品组',
+                    count: 11,
+                    member: [],
+                    id: 1
+                }],
+                ministerInfo: {
+                    accountNickname: '',
+                    memberId: '',
+                    headPictureUrl: '',
+                    clubGroupNickname: '',
+                    createTime: '2021-01-18T01:54:34.000+0000'
+                },
+                bgc: "linear-gradient(to right, #FF6A88, #FF5136 )",
+                bgcgrey: '#999',
+            }
+        },
+        filters: {},
+        mounted() {},
+        created() {
+            this.title = this.fromwhere == 1 ? '成员列表' : this.fromwhere == 2 ? '分部长选择' : this.fromwhere == 5 ?
+                '参与部门' : this.fromwhere ==
+                7 ? '指定成员参加' : this.fromwhere == 9 ? '分部长转让' : this.fromwhere == 3 ? ('成员列表' + '(' + this
+                    .memberNumber + ')') : '成员列表';
+            if (this.fromwhere == 6) {
+                this.title = '成员管理';
+                this.actions = [{
+                    text: '邀请成员'
+                }, {
+                    text: '移除成员'
+                }, ]
+            }
+            if (this.fromwhere != 5 && this.fromwhere != 7) {
+                this.initGroup();
+                this.getMinisterInfo();
+            } else {
+                document.title = this.fromwhere == 5 ? '参与部门' : '指定成员参加';
+                if (this.fromwhere == 5) {
+                    let list = JSON.parse(localStorage.getItem('groupList'));
+                    list.forEach(d => {
+                        if (!d.id) {
+                            d.id = "wfb";
+                            d.name = "未分部部门";
+                        }
+                        d.member = [];
+                    })
+                    this.dataList = list;
+                    localStorage.removeItem('groupList');
+                } else {
+                    this.initGroup();
+                    this.getMinisterInfo();
+                }
+            }
+            window.initGroup = this.initGroup;
+            window.clearActiveName = this.clearActiveName;
+        },
+        methods: {
+            initGroup() {
+                let _self = this;
+                ajax({
+                    type: "get",
+                    url: "club/queryClubGroup",
+                    data: {
+                        clubId: _self.clubId,
+                        ts: new Date().getTime()
+                    },
+                    success: function(res) {
+                        if (res.code == 0) {
+                            if (!res.data[res.data.length - 1].id) {
+                                res.data[res.data.length - 1].id = "wfb";
+                                res.data[res.data.length - 1].name = "未分部部门";
+                            }
+                            res.data.forEach(d => {
+                                d.member = [];
+                            })
+                            if (_self.fromwhere == 6 || _self.fromwhere == 9) {
+                                let arr = [],
+                                    arr2 = [];
+                                res.data.forEach(d => {
+                                    if (d.subMinisterId == _self.userId) {
+                                        _self.subMinisterId = d.subMinisterId;
+                                        arr.push(d);
+                                    } else {
+                                        arr2.push(d);
+                                    }
+                                });
+                                if (_self.fromwhere == 6) {
+                                    arr2.unshift(arr[0]);
+                                    _self.dataList = arr2;
+                                } else {
+                                    _self.dataList = arr;
+                                }
+                            } else {
+                                _self.dataList = res.data;
+                            }
+                        } else {
+                            _self.$toast(res.msg);
+                        }
+                    },
+                    error: function() {
+                        console.log("error")
+                    }
+                })
+            },
+            showEXP(memItem) {
+                return this.showcheckbox && (this.settingflag == 3 && memItem.isMinister != 'Y' && this
+                        .fromwhere == 3) ||
+                    (this.settingflag == 3 && memItem.isMinister != 'Y' && (this.fromwhere == 6 && this
+                        .clubGroupId == memItem.clubGroupId &&
+                        memItem.memberId != this.userId)) || (this.settingflag == 2) || (this.fromwhere == 7)
+            },
+            initGroupMember(gid, index) {
+                let _self = this;
+                ajax({
+                    type: "get",
+                    url: "club/clubGroupInfo",
+                    data: {
+                        clubId: _self.clubId,
+                        clubGroupId: gid == 'wfb' ? -1 : gid
+                    },
+                    success: function(res) {
+                        if (res.code == 0) {
+                            _self.dataList[index].member = res.data.clubGroupList;
+                        } else {
+                            _self.$toast(res.msg);
+                        }
+                    },
+                    error: function() {
+                        console.log("error")
+                    }
+                })
+            },
+            loadMember(action) { //异步加载各组人员
+                if (this.fromwhere == 5) return;
+                console.log(action);
+                if (action.length > 0) {
+                    let groupid = action[action.length - 1].split("+")[0];
+                    let index = parseInt(action[action.length - 1].split("+")[1]);
+                    if (!this.List.includes(groupid)) {
+                        this.List.push(groupid);
+                        //加载list
+                        this.initGroupMember(groupid, index);
+                    }
+                }
+            },
+            toggle(index, item, mid) {
+                if (this.fromwhere == 2 || this.fromwhere == 9) {
+                    if (mid.isSubMinister == "Y" && this.fromwhere == 9 && mid.memberId == this.userId) {
+                        this.$toast("分部长不可转让给自己！");
+                        return;
+                    }
+                    if (mid.isSubMinister == "Y") {
+                        this.$toast("不可设置为其他分部在职分部长！");
+                        return;
+                    }
+                    if (mid.clubGroupId == this.clubGroupId && mid.isSubMinister == "Y" && this.fromwhere == 2) {
+                        this.$toast("该成员已经是该部门分部长了！");
+                        return;
+                    }
+                    if (mid.clubGroupId != this.clubGroupId && (mid.clubGroupId)) {
+                        this.$toast("不可设置其他部门成员为分部长！");
+                        return;
+                    }
+                    //选择分部长
+                    this.chooseSubMinister(mid.memberId)
+                } else if (this.fromwhere == 4) { //装让部长
+                    if (mid.isSubMinister == "Y") {
+                        this.$toast("部长不可转让给分部长");
+                        return;
+                    }
+                    if (mid.isMinister == "Y") {
+                        this.$toast("您已经是部长了");
+                        return;
+                    }
+                    this.$dialog.confirm({
+                        // title: '标题',
+                        message: '您确定要转让部长给 ' + (mid.clubGroupNickname || mid.accountNickname) + ' 吗？'
+                    }).then(() => {
+                        this.transferMinister(mid.memberId);
+                    }).catch(() => {
 
-					});
-				} else {
-					this.$refs.checkboxes.forEach((d, f) => {
-						if (d.name == mid.memberId) {
-							this.$refs.checkboxes[f].toggle();
-						}
-					})
-				}
+                    });
+                } else {
+                    this.$refs.checkboxes.forEach((d, f) => {
+                        if (d.name == mid.memberId) {
+                            this.$refs.checkboxes[f].toggle();
+                        }
+                    })
+                }
 
-			},
-			onSelect(action, index) {
-				console.log(action);
-				if (action.text == '变更组别') {
-					this.showcheckbox = true;
-					this.settingflag = 2;
-				} else if (action.text == '移除成员') {
-					this.showcheckbox = true;
-					this.settingflag = 3;
-				} else {
-					window.location.href = 'inviteList.html?clubId=' + this.clubId + "&isMinister=" + (this
-							.fromwhere == 3 ? 1 : 0) +
-						"&clubGroupId=" + this.clubGroupId;
-				}
-			},
-			clearActiveName() { //情空
-				this.activeNames = [];
-				this.List = [];
-				this.settingflag = 1;
-			},
-			changeMember() {
-				if (this.memberResult.length == 0) return;
-				if (this.settingflag == 2) { //变更
-					localStorage.setItem('memberResult', JSON.stringify(this.memberResult));
-					window.location.href = 'inviateTo.html?isMinister=' + (this.fromwhere == 3 ? 1 : 0) +
-						'&clubId=' + this.clubId +
-						'&flag=1';
-				} else {
-					let arr = [];
-					this.memberResult.forEach(d => {
-						let obj = {
-							clubId: this.clubId,
-							memberId: d
-						}
-						this.dataList.forEach(e => {
-							e.member.forEach(f => {
-								if (f.memberId == d) {
-									obj.name = f.clubGroupNickname || f.accountNickname;
-								}
-							})
-						})
-						arr.push(obj);
-					});
-					let namestr = [],
-						len = arr.length >= 4 ? 3 : arr.length;
-					for (let i = 0; i < len; i++) {
-						namestr.push(arr[i].name)
-					}
-					namestr = arr.length > 3 ? (namestr.toString() + '等人') : namestr.toString()
-					this.$dialog.confirm({
-						// title: '标题',
-						confirmButtonText:"移除",
-						message: '确定将' + namestr + '移除俱乐部吗？'
-					}).then(() => {
-						this.deleteMember(arr);
-					}).catch(() => {
+            },
+            onSelect(action, index) {
+                console.log(action);
+                if (action.text == '变更组别') {
+                    this.showcheckbox = true;
+                    this.settingflag = 2;
+                } else if (action.text == '移除成员') {
+                    this.showcheckbox = true;
+                    this.settingflag = 3;
+                } else {
+                    window.location.href = 'inviteList.html?clubId=' + this.clubId + "&isMinister=" + (this
+                            .fromwhere == 3 ? 1 : 0) +
+                        "&clubGroupId=" + this.clubGroupId;
+                }
+            },
+            clearActiveName() { //情空
+                this.activeNames = [];
+                this.List = [];
+                this.settingflag = 1;
+            },
+            changeMember() {
+                if (this.memberResult.length == 0) return;
+                if (this.settingflag == 2) { //变更
+                    localStorage.setItem('memberResult', JSON.stringify(this.memberResult));
+                    window.location.href = 'inviateTo.html?isMinister=' + (this.fromwhere == 3 ? 1 : 0) +
+                        '&clubId=' + this.clubId +
+                        '&flag=1';
+                } else {
+                    let arr = [];
+                    this.memberResult.forEach(d => {
+                        let obj = {
+                            clubId: this.clubId,
+                            memberId: d
+                        }
+                        this.dataList.forEach(e => {
+                            e.member.forEach(f => {
+                                if (f.memberId == d) {
+                                    obj.name = f.clubGroupNickname || f.accountNickname;
+                                }
+                            })
+                        })
+                        arr.push(obj);
+                    });
+                    let namestr = [],
+                        len = arr.length >= 4 ? 3 : arr.length;
+                    for (let i = 0; i < len; i++) {
+                        namestr.push(arr[i].name)
+                    }
+                    namestr = arr.length > 3 ? (namestr.toString() + '等人') : namestr.toString()
+                    this.$dialog.confirm({
+                        // title: '标题',
+                        confirmButtonText: "移除",
+                        message: '确定将' + namestr + '移除俱乐部吗？'
+                    }).then(() => {
+                        this.deleteMember(arr);
+                    }).catch(() => {
 
-					});
-				}
-			},
-			deleteObj(arry) {
-				var newAeey = [];
-				for (var i = 0; i < arry.length; i++) {
-					if (arry[i] != undefined) newAeey.push(arry[i])
-				}
-				return newAeey
-			},
-			gotoUserIndex(memberId) {
-				if (this.fromwhere == 1 || this.fromwhere == 8 || this.fromwhere == -1) {
-					Interaction.visitPersonalHomepage(memberId)
-				}
-			},
-			deleteMember(arr) {
-				var _self = this;
-				// return;
-				ajax({
-					type: "post",
-					url: "club/deleteMember",
-					data: {clubMemberList:arr},
-					success: function (res) {
-						if (res.code == 0) {
-							_self.$toast("成员删除成功");
-							_self.settingflag = 1;
-							_self.dataList.forEach(d => {
-								let len = d.member.length;
-								if (len > 0) {
-									arr.forEach(e => {
-										d.member.forEach((f, i) => {
-											if (f.memberId == e.memberId) {
-												delete d.member[i];
-											}
-										})
-									})
-									d.member = _self.deleteObj(d.member);
-									console.log(d.member)
-								}
-							})
-						} else {
-							_self.$toast(res.msg);
-						}
-					},
-					error: function () {
-						console.log("error")
-					}
-				})
-			},
-			chooseSubMinister(mid) {
-				let _self = this;
-				if (mid == this.ministerInfo.memberId) {
-					_self.$toast("部长不能成为分部长！");
-					return;
-				}
-				let param = {
-					clubId: _self.clubId,
-					clubGroupId: _self.clubGroupId,
-					memberId: mid,
-					isSubMinister: "Y"
-				}
-				if (_self.fromwhere == 2) {
-					param = {clubMemberList:[param]};
-				}
-				ajax({
-					type: "post",
-					url: _self.fromwhere == 2 ? 'club/updateClubGroupMember' : "club/transferSubMinister",
-					data: param,
-					success: function (res) {
-						if (res.code == 0) {
-							_self.$toast("设置分部长成功！");
-							setTimeout(() => {
-								if (_self.fromwhere != 2) {
-									localStorage.setItem('transfered', 1);
-								}
-								// Interaction.closePage();
-								window.history.back(-1);
-							}, 1000)
-						} else {
-							_self.$toast(res.msg);
-						}
-					},
-					error: function () {
-						console.log("error")
-					}
-				})
-			},
-			transferMinister(mid) {
-				var _self = this;
-				ajax({
-					type: "post",
-					url: "club/transferMinister",
-					data: {
-						clubId: _self.clubId,
-						memberId: mid,
-						ministerId: JSON.parse(localStorage.getItem("appInfo")).userId
-					},
-					success: function (res) {
-						if (res.code == 0) {
-							_self.$toast("部长转让成功");
-							setTimeout(function () {
-								// window.history.back(-1);
-								localStorage.setItem('transfered', 1);
-								// Interaction.closePage();
-								window.history.back(-1);
+                    });
+                }
+            },
+            deleteObj(arry) {
+                var newAeey = [];
+                for (var i = 0; i < arry.length; i++) {
+                    if (arry[i] != undefined) newAeey.push(arry[i])
+                }
+                return newAeey
+            },
+            gotoUserIndex(memberId) {
+                if (this.fromwhere == 1 || this.fromwhere == 8 || this.fromwhere == -1) {
+                    Interaction.visitPersonalHomepage(memberId)
+                }
+            },
+            deleteMember(arr) {
+                var _self = this;
+                // return;
+                ajax({
+                    type: "post",
+                    url: "club/deleteMember",
+                    data: {
+                        clubMemberList: arr
+                    },
+                    success: function(res) {
+                        if (res.code == 0) {
+                            _self.$toast("成员删除成功");
+                            _self.settingflag = 1;
+                            _self.dataList.forEach(d => {
+                                let len = d.member.length;
+                                if (len > 0) {
+                                    arr.forEach(e => {
+                                        d.member.forEach((f, i) => {
+                                            if (f.memberId == e.memberId) {
+                                                delete d.member[i];
+                                            }
+                                        })
+                                    })
+                                    d.member = _self.deleteObj(d.member);
+                                    console.log(d.member)
+                                }
+                            })
+                        } else {
+                            _self.$toast(res.msg);
+                        }
+                    },
+                    error: function() {
+                        console.log("error")
+                    }
+                })
+            },
+            chooseSubMinister(mid) {
+                let _self = this;
+                if (mid == this.ministerInfo.memberId) {
+                    _self.$toast("部长不能成为分部长！");
+                    return;
+                }
+                let param = {
+                    clubId: _self.clubId,
+                    clubGroupId: _self.clubGroupId,
+                    memberId: mid,
+                    isSubMinister: "Y"
+                }
+                if (_self.fromwhere == 2) {
+                    param = {
+                        clubMemberList: [param]
+                    };
+                }
+                ajax({
+                    type: "post",
+                    url: _self.fromwhere == 2 ? 'club/updateClubGroupMember' : "club/transferSubMinister",
+                    data: param,
+                    success: function(res) {
+                        if (res.code == 0) {
+                            _self.$toast("设置分部长成功！");
+                            setTimeout(() => {
+                                if (_self.fromwhere != 2) {
+                                    localStorage.setItem('transfered', 1);
+                                }
+                                // Interaction.closePage();
+                                window.history.back(-1);
+                            }, 1000)
+                        } else {
+                            _self.$toast(res.msg);
+                        }
+                    },
+                    error: function() {
+                        console.log("error")
+                    }
+                })
+            },
+            transferMinister(mid) {
+                var _self = this;
+                ajax({
+                    type: "post",
+                    url: "club/transferMinister",
+                    data: {
+                        clubId: _self.clubId,
+                        memberId: mid,
+                        ministerId: JSON.parse(localStorage.getItem("appInfo")).userId
+                    },
+                    success: function(res) {
+                        if (res.code == 0) {
+                            _self.$toast("部长转让成功");
+                            setTimeout(function() {
+                                // window.history.back(-1);
+                                localStorage.setItem('transfered', 1);
+                                // Interaction.closePage();
+                                window.history.back(-1);
 
-							}, 1000)
-						} else {
-							_self.$toast(res.msg);
-						}
-					},
-					error: function () {
-						console.log("error")
-					}
-				})
-			},
-			getMinisterInfo() {
-				let _self = this;
-				ajax({
-					type: "get",
-					url: "club/isMinisterInfo",
-					data: {
-						clubId: _self.clubId
-					},
-					success: function (res) {
-						if (res.code == 0) {
-							res.data.data.relation = res.data.relation;
-							_self.ministerInfo = res.data.data;
-						} else {
-							_self.$toast(res.msg);
-						}
-					},
-					error: function () {
-						console.log("error")
-					}
-				})
-			},
-			memberStatus(flag, item) { //1返回是否灰色布尔值2返回后面数值
-				if (!flag && item.memberId == this.userId) return false;
-				if (flag == 1) {
-					if (item.relation == 2 || item.relation == 3 || item.relation == 5 || item.relation == 7) {
-						return true;
-					} else {
-						return false;
-					}
-				} else {
-					if (item.relation == 2) {
-						return "已关注";
-					} else if (item.relation == 3) {
-						return "相互关注";
-					} else if (item.relation == 5) {
-						return "已拉黑";
-					} else if (item.relation == 7) {
-						return "相互拉黑";
-					} else {
-						return "关注"
-					}
-				}
-			},
-			takeFocus(item) {
-				if (item.relation == 2 || item.relation == 3 || item.relation == 5 || item.relation == 7) {
-					return;
-				} else {
-					var _self = this;
-					ajax({
-						type: "post",
-						url: "community-core/interest/add",
-						data: {
-							targetId: item.memberId,
-						},
-						success: function (res) {
-							if (res.code == 0) {
-								item.relation = 2;
-								// _self.$forceUpdate()
-							} else {
-								_self.$toast(res.msg);
-							}
-						},
-						error: function () {
-							console.log("error")
-						}
-					})
-				}
-			},
-			search: debounce(function (e) {
-				let _self = this;;
-				if (!_self.searchval.searchKey) return;
-				ajax({
-					type: "get",
-					url: "club/searchUsers",
-					data: _self.searchval,
-					success: function (res) {
-						if (res.code == 0) {
-							_self.searchList = res.data;
-						} else {
-							_self.$toast(res.msg);
-						}
-					},
-					error: function () {
-						console.log("error")
-					}
-				})
-			}),
-			onclickLeft() {
-				if (this.fromwhere == 7) {
-					window.parent.vm.iframeShow = false
-				} else {
-					window.history.back(-1);
-				}
+                            }, 1000)
+                        } else {
+                            _self.$toast(res.msg);
+                        }
+                    },
+                    error: function() {
+                        console.log("error")
+                    }
+                })
+            },
+            getMinisterInfo() {
+                let _self = this;
+                ajax({
+                    type: "get",
+                    url: "club/isMinisterInfo",
+                    data: {
+                        clubId: _self.clubId
+                    },
+                    success: function(res) {
+                        if (res.code == 0) {
+                            res.data.data.relation = res.data.relation;
+                            _self.ministerInfo = res.data.data;
+                        } else {
+                            _self.$toast(res.msg);
+                        }
+                    },
+                    error: function() {
+                        console.log("error")
+                    }
+                })
+            },
+            memberStatus(flag, item) { //1返回是否灰色布尔值2返回后面数值
+                if (!flag && item.memberId == this.userId) return false;
+                if (flag == 1) {
+                    if (item.relation == 2 || item.relation == 3 || item.relation == 5 || item.relation == 7) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    if (item.relation == 2) {
+                        return "已关注";
+                    } else if (item.relation == 3) {
+                        return "相互关注";
+                    } else if (item.relation == 5) {
+                        return "已拉黑";
+                    } else if (item.relation == 7) {
+                        return "相互拉黑";
+                    } else {
+                        return "关注"
+                    }
+                }
+            },
+            takeFocus(item) {
+                if (item.relation == 2 || item.relation == 3 || item.relation == 5 || item.relation == 7) {
+                    return;
+                } else {
+                    var _self = this;
+                    ajax({
+                        type: "post",
+                        url: "community-core/interest/add",
+                        data: {
+                            targetId: item.memberId,
+                        },
+                        success: function(res) {
+                            if (res.code == 0) {
+                                item.relation = 2;
+                                // _self.$forceUpdate()
+                            } else {
+                                _self.$toast(res.msg);
+                            }
+                        },
+                        error: function() {
+                            console.log("error")
+                        }
+                    })
+                }
+            },
+            search: debounce(function(e) {
+                let _self = this;;
+                if (!_self.searchval.searchKey) return;
+                ajax({
+                    type: "get",
+                    url: "club/searchUsers",
+                    data: _self.searchval,
+                    success: function(res) {
+                        if (res.code == 0) {
+                            _self.searchList = res.data;
+                        } else {
+                            _self.$toast(res.msg);
+                        }
+                    },
+                    error: function() {
+                        console.log("error")
+                    }
+                })
+            }),
+            onclickLeft() {
+                if (this.fromwhere == 7) {
+                    window.parent.vm.iframeShow = false
+                } else {
+                    window.history.back(-1);
+                }
 
 
-			},
-			onClickRight() { //显示。。。
-				if (this.fromwhere == 1) { //邀请
-					window.location.href = 'inviteList.html?clubId=' + this.clubId + "&isMinister=0&clubGroupId=" +
-						this.clubGroupId;
-				} else if (this.fromwhere == 7) {
-					if (this.memberResult.length == 0) {
-						return
-					}
-					window.parent.vm.iframe_peopleList = this.memberResult
-					window.parent.vm.iframeShow = false
-				}
-			}
+            },
+            onClickRight() { //显示。。。
+                if (this.fromwhere == 1) { //邀请
+                    window.location.href = 'inviteList.html?clubId=' + this.clubId + "&isMinister=0&clubGroupId=" +
+                        this.clubGroupId;
+                } else if (this.fromwhere == 7) {
+                    if (this.memberResult.length == 0) {
+                        return
+                    }
+                    window.parent.vm.iframe_peopleList = this.memberResult
+                    window.parent.vm.iframeShow = false
+                }
+            }
 
-		}
-	})
+        }
+    })
 </script>
 
 </html>

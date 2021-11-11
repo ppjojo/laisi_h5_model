@@ -1,186 +1,169 @@
 <!DOCTYPE html>
 <html lang="zh-cmn-Hans">
 
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0,
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,
             maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
-        <title></title>
-        <!-- 引入样式文件 -->
-        <link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
-        <link rel="stylesheet" href="../../common/css/basic.css">
-        <link rel="stylesheet" href="css/clubCompetitionDetail.css">
-        <link rel="stylesheet" href="../font/iconfont.css">
-	<link href="../clubList_Detail/css/header.css" rel="stylesheet" type="text/css" />
-        
-        <style type="text/css">
-            .van-pull-refresh{
-                margin-bottom: 0rem;
-            }
-			.personnalList>.align-right:last-child{
-				padding-left: .15rem;
-			}
-		</style>
-    </head>
+    <title></title>
+    <!-- 引入样式文件 -->
+    <link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
+    <link rel="stylesheet" href="../../common/css/basic.css">
+    <link rel="stylesheet" href="css/clubCompetitionDetail.css">
+    <link rel="stylesheet" href="../font/iconfont.css">
+    <link href="../clubList_Detail/css/header.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" id="themeCssLink2" href="../../common/css/default.css">
 
-    <body>
-        <div id="app" class="normalHeader" v-cloak>
-            <div class="header">
-                <van-nav-bar @click-left="onclickLeft" :title="getQueryString('deptName')+'比赛详情'" left-arrow safe-area-inset-top fixed>
-                    <template #left>
+    <style type="text/css">
+        .van-pull-refresh {
+            margin-bottom: 0rem;
+        }
+        
+        .personnalList>.align-right:last-child {
+            padding-left: .15rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" class="normalHeader" v-cloak>
+        <div class="header">
+            <van-nav-bar @click-left="onclickLeft" :title="getQueryString('deptName')+'比赛详情'" left-arrow safe-area-inset-top fixed>
+                <template #left>
                         <span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
                     </template>
-    
-                </van-nav-bar>
-            </div>
-            <div class="personnal">
-                <van-pull-refresh v-model="personalObject.refreshing"
-                    @refresh="onRefresh" class="list-item-box">
-                    <van-list v-model="personalObject.loading"
-                        :finished="personalObject.finished"
-                        finished-text="没有更多了"
-                        @load="onLoad"
-                        :immediate-check=false>
-                        <van-row v-for="(item,index) in personalObject.list"
-                            type="flex" justify="center" class="personnalList"
-                            :class="(item.userId==JSON.parse(localStorage.getItem('appInfo')).userId)&&index==0?'self':''">
-                            <van-col span="3" class="ranking">
-                                <img v-if="item.rank==1" class="sortPic"
-                                    src="./img/no1.png" />
-                                <img v-else-if="item.rank==2" class="sortPic"
-                                    src="./img/no2.png" />
-                                <img v-else-if="item.rank==3" class="sortPic"
-                                    src="./img/no3.png" />
-                                <span v-else>{{item.rank}}</span>
-                            </van-col>
-                            <van-col span="3" class=""
-                                @click="Interaction.visitPersonalHomepage(item.userId)">
-                                <div class="detail_headpic"
-                                    :style="{'background-image': 'url(' +
-                                    item.headerPicUrl + ')'}"></div>
-                            </van-col>
-                            <van-col span="6" class="personalName"
-                                @click="Interaction.visitPersonalHomepage(item.userId)">{{
-                                item.nickName | ellipsis5 }}</van-col>
-                            <van-col span="6" class="align-right"><span
-                                    class="bigNumberSpan">{{item.repeatNumber||'--'}}</span>次</van-col>
-                            <van-col span="6" class="align-right"
-                                v-if="mode==2">
-                                <span class="bigNumberSpan">{{item.bestValue||'--'}}</span>个</van-col>
-                            <van-col span="6" class="align-right"
-                                v-else-if="mode==3&&item.bestValue">
-                                <span class="bigNumberSpan">{{parseInt(item.bestValue/60)}}</span>分
-                                <span class="bigNumberSpan">{{(item.bestValue%60<10?('0'+item.bestValue%60):item.bestValue%60)}}</span>秒
-                            </van-col>
-                            <van-col span="6" class="align-right" v-else><span
-                                    class="bigNumberSpan">--</span>分<span
-                                    class="bigNumberSpan">--</span>秒</van-col>
-                        </van-row>
-                    </van-list>
-                </van-pull-refresh>
-            </div>
 
+            </van-nav-bar>
         </div>
-    </body>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+        <div class="personnal">
+            <van-pull-refresh v-model="personalObject.refreshing" @refresh="onRefresh" class="list-item-box">
+                <van-list v-model="personalObject.loading" :finished="personalObject.finished" finished-text="没有更多了" @load="onLoad" :immediate-check=false>
+                    <van-row v-for="(item,index) in personalObject.list" type="flex" justify="center" class="personnalList" :class="(item.userId==JSON.parse(localStorage.getItem('appInfo')).userId)&&index==0?'self':''">
+                        <van-col span="3" class="ranking">
+                            <img v-if="item.rank==1" class="sortPic" src="./img/no1.png" />
+                            <img v-else-if="item.rank==2" class="sortPic" src="./img/no2.png" />
+                            <img v-else-if="item.rank==3" class="sortPic" src="./img/no3.png" />
+                            <span v-else>{{item.rank}}</span>
+                        </van-col>
+                        <van-col span="3" class="" @click="Interaction.visitPersonalHomepage(item.userId)">
+                            <div class="detail_headpic" :style="{'background-image': 'url(' +
+                                    item.headerPicUrl + ')'}"></div>
+                        </van-col>
+                        <van-col span="6" class="personalName" @click="Interaction.visitPersonalHomepage(item.userId)">{{ item.nickName | ellipsis5 }}</van-col>
+                        <van-col span="6" class="align-right"><span class="bigNumberSpan">{{item.repeatNumber||'--'}}</span>次</van-col>
+                        <van-col span="6" class="align-right" v-if="mode==2">
+                            <span class="bigNumberSpan">{{item.bestValue||'--'}}</span>个</van-col>
+                        <van-col span="6" class="align-right" v-else-if="mode==3&&item.bestValue">
+                            <span class="bigNumberSpan">{{parseInt(item.bestValue/60)}}</span>分
+                            <span class="bigNumberSpan">{{(item.bestValue%60<10?('0'+item.bestValue%60):item.bestValue%60)}}</span>秒
+                        </van-col>
+                        <van-col span="6" class="align-right" v-else><span class="bigNumberSpan">--</span>分<span class="bigNumberSpan">--</span>秒</van-col>
+                    </van-row>
+                </van-list>
+            </van-pull-refresh>
+        </div>
+
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
 <script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
-    <script src="../../common/js/network.js"></script>
-    <script>
-		window.addEventListener('pageshow', function(event) {
-			
-		})
-		new Vue({
-			el: '#app',
-			data() {
-				return {
-					loading: false,
+<script src="../../common/js/network.js"></script>
+<script>
+    window.addEventListener('pageshow', function(event) {
+
+    })
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                loading: false,
+                finished: false,
+                personalObject: {
+                    loading: false,
                     finished: false,
-                    personalObject:{
-						loading: false,
-                        finished: false,
-                        refreshing:true,
-						list:[],
-						page: 1,
-						pageSize: 20,
-                    },
-                    clubId:getQueryString("clubId"),
-                        competitionId:getQueryString("competitionId"),
-                        clubGroupId:getQueryString("clubGroupId"),
-                    mode:getQueryString("mode"),
-				}
-			},
-			filters: {
-			    ellipsis5(value) {
-			        if (!value) return '';
-			        if (value.length > 5) {
-			            return value.slice(0, 5) + '...';
-			        }
-			        return value;
-			    }
-			},
-			mounted() {
-			},
-			created() {
-                this.getList()
-			},
-			methods: {
-				onclickLeft() {
-					window.history.back(-1);
+                    refreshing: true,
+                    list: [],
+                    page: 1,
+                    pageSize: 20,
                 },
-                getList(){
-                    var that = this;
-                    var nowPageNum=that.personalObject.page-1;
-                    ajax({
+                clubId: getQueryString("clubId"),
+                competitionId: getQueryString("competitionId"),
+                clubGroupId: getQueryString("clubGroupId"),
+                mode: getQueryString("mode"),
+            }
+        },
+        filters: {
+            ellipsis5(value) {
+                if (!value) return '';
+                if (value.length > 5) {
+                    return value.slice(0, 5) + '...';
+                }
+                return value;
+            }
+        },
+        mounted() {},
+        created() {
+            this.getList()
+        },
+        methods: {
+            onclickLeft() {
+                window.history.back(-1);
+            },
+            getList() {
+                var that = this;
+                var nowPageNum = that.personalObject.page - 1;
+                ajax({
                     type: "post",
                     url: "club/competition/detail/clubGroupPlay",
                     data: {
-                        clubId:that.clubId,
-                        competitionId:that.competitionId,
-                        clubGroupId: that.clubGroupId=='null'?"":that.clubGroupId,
+                        clubId: that.clubId,
+                        competitionId: that.competitionId,
+                        clubGroupId: that.clubGroupId == 'null' ? "" : that.clubGroupId,
                         page: nowPageNum,
                         pageSize: that.personalObject.pageSize
                     },
-                    success: function (res) {
-						that.personalObject.loading = false;
+                    success: function(res) {
+                        that.personalObject.loading = false;
                         that.loading = false;
-						// that.personalObject.loading = false;
+                        // that.personalObject.loading = false;
                         if (res.code == 0) {
-                            if(nowPageNum==0){
-							    that.personalObject.list = res.data.content
-							}else{
-								 that.personalObject.list = that.personalObject.list.concat(res.data.content);
+                            if (nowPageNum == 0) {
+                                that.personalObject.list = res.data.content
+                            } else {
+                                that.personalObject.list = that.personalObject.list.concat(res.data.content);
                             }
                             //如果获取的数据足够 that.personalObject.finished=true
-                            if(res.data.total<=(nowPageNum+1)*that.personalObject.pageSize){
-								that.personalObject.finished=true;
-							} 
-                            
+                            if (res.data.total <= (nowPageNum + 1) * that.personalObject.pageSize) {
+                                that.personalObject.finished = true;
+                            }
+
                         } else {
                             that.$toast(res.msg)
                         }
                     },
-                    error: function () {
+                    error: function() {
                         console.log("error")
                     }
                 })
-                },
-				onRefresh() {
-					this.personalObject.finished = false;
-					this.personalObject.loading = true;
-					this.onLoad();
-				},
-				onLoad() {
-					if (this.personalObject.refreshing) {
-						this.personalObject.list = []
-                        this.personalObject.refreshing = false
-                        this.personalObject.page=1
-					}else{
-                        this.personalObject.page++;
-                    }
-                    this.getList();
-					
-				},
-			}
-		})
-	</script>
+            },
+            onRefresh() {
+                this.personalObject.finished = false;
+                this.personalObject.loading = true;
+                this.onLoad();
+            },
+            onLoad() {
+                if (this.personalObject.refreshing) {
+                    this.personalObject.list = []
+                    this.personalObject.refreshing = false
+                    this.personalObject.page = 1
+                } else {
+                    this.personalObject.page++;
+                }
+                this.getList();
+
+            },
+        }
+    })
+</script>
+
 </html>

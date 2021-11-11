@@ -8,10 +8,10 @@
 }
 
 .cardList>li {
-    /* background-color: #1e1e2a; */
+    /* background-color: var(--borderColor); */
     border-radius: .2rem;
     margin-bottom: .2rem;
-    color: #cfcfd2;
+    color: var(--textColor);
 }
 
 .cardList>li>div {

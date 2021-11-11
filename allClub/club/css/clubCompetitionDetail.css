@@ -2,7 +2,7 @@
     margin-top: 0.2rem;
     padding: 0.28rem;
     background-color: var(--bgColor);
-    border-bottom: 0.08rem solid #1e1e2a;
+    border-bottom: 0.08rem solid var(--borderColor);
 }
 
 .detailBox .laberTitle {
@@ -10,7 +10,7 @@
     text-align: justify;
     line-height: 0.6rem;
     height: 0.6rem;
-    color: #cfcfd2;
+    color: var(--textColor);
 }
 
 .detailBox .laberTitle i {
@@ -20,13 +20,13 @@
 
 .detailBox .laberContent {
     font-size: 0.28rem;
-    color: #71717f;
+    color: var(--textColor2);
     text-align: left;
     line-height: 0.6rem;
 }
 
 .personnal {
-    color: #cfcfd2;
+    color: var(--textColor);
     font-size: 0.28rem;
     line-height: 1.2rem;
     text-align: left;
@@ -40,7 +40,7 @@
 
 .personnal .personnalList {
     padding: 0 0.2rem;
-    border-bottom: 1px solid #1e1e2a;
+    border-bottom: 1px solid var(--borderColor);
 }
 
 .personnal .personnalList:last-child {
@@ -53,7 +53,7 @@
 
 .personnal .ranking {
     font-size: 0.36rem;
-    color: #cfcfd2;
+    color: var(--textColor);
     display: flex;
     align-items: center;
 }
@@ -79,7 +79,7 @@
 
 .bigNumberSpan {
     font-size: 0.48rem;
-    color: #CFCFD2;
+    color: var(--textColor);
     font-family: 'BebasNeue';
 }
 
@@ -90,13 +90,13 @@
 
 .raceInformationTitle {
     font-size: 0.32rem;
-    color: #cfcfd2;
+    color: var(--textColor);
     text-align: center;
     line-height: 1rem;
 }
 
 .teamTitle {
-    color: #cfcfd2;
+    color: var(--textColor);
     font-size: 0.32rem;
     line-height: 0.7rem;
     text-align: left;
@@ -112,7 +112,7 @@
 }
 
 .team {
-    color: #cfcfd2;
+    color: var(--textColor);
     font-size: 0.28rem;
     line-height: 0.96rem;
     text-align: center;
@@ -160,7 +160,7 @@
 
 .btn_box .creatMatch2 {
     background-image: none;
-    background-color: #71717f;
+    background-color: var(--textColor2);
 }
 
 .scoreList-box {
@@ -175,7 +175,7 @@
 
 .leftTeam {
     position: relative;
-    background-color: #1e1e2a;
+    background-color: var(--borderColor);
     border-radius: 0.1rem;
     width: 49.5%;
 }
@@ -186,7 +186,7 @@
 
 .rightTeam {
     position: relative;
-    background-color: #1e1e2a;
+    background-color: var(--borderColor);
     border-radius: 0.1rem;
     width: 49.5%;
 }

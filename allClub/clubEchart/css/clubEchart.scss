@@ -1,50 +1,41 @@
 .selectBox {
-    border-top: 0.1rem solid #1e1e2a;
-    border-bottom: 0.1rem solid #1e1e2a;
-
+    border-top: 0.1rem solid var(--borderColor);
+    border-bottom: 0.1rem solid var(--borderColor);
     .selectDiv {
         &:last-child {
             border-bottom: none;
         }
-
         height: 1.2rem;
         display: flex;
         justify-content: space-between;
-        border-bottom: 1px solid #1e1e2a;
+        border-bottom: 1px solid var(--borderColor);
         align-items: center;
-
         .selectLeftBox {
             display: flex;
             align-items: center;
-
             img {
                 width: 0.5rem;
             }
-
             .lable {
                 font-size: 0.32rem;
-                color: #cfcfd2;
+                color: var(--textColor);
             }
-
             .title {
                 font-size: 0.28rem;
-                color: #71717f;
+                color: var(--textColor2);
             }
-
             .titleActive {
                 font-size: 0.32rem;
-                color: #CFCFD2;
+                color: var(--textColor);
             }
-
             .titleActive2 {
                 font-size: 0.32rem;
-                color: #cfcfd2;
+                color: var(--textColor);
             }
         }
-
         .icon {
             font-size: 0.3rem;
-            color: #71717f;
+            color: var(--textColor2);
         }
     }
 }
@@ -54,15 +45,14 @@
     display: flex;
     padding: 0 0.3rem;
     align-items: center;
-    color: #cfcfd2;
+    color: var(--textColor);
     font-size: 0.32rem;
-    border-bottom: 0.1rem solid #1e1e2a;
+    border-bottom: 0.1rem solid var(--borderColor);
 }
-
 
 .echartBox {
     height: 5.04rem;
     width: 100%;
     padding: 0 0.3rem;
-    border-bottom: 0.1rem solid #1e1e2a;
+    border-bottom: 0.1rem solid var(--borderColor);
 }
