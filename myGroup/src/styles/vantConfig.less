@@ -2,7 +2,7 @@
 @black: #000;
 @white: #fff;
 //app3.0的的背景色
-@bgcolor: #12121f;
+@bgcolor: var(--bgColor);
 @gray-1: #f7f8fa;
 @gray-2: #f2f3f5;
 @gray-3: #ebedf0;
@@ -10,11 +10,11 @@
 @gray-5: #c8c9cc;
 @gray-6: #969799;
 @gray-7: #646566;
-@gray-8: #1e1e2a;
-@gray-9: #292934;
-@gray-10: #CFCFD2;
-@gray-11: #1e1e2a;
-@gray-12: #71717f;
+@gray-8: #71717f;
+@gray-9: var(--popBgColor);
+@gray-10: var(--textColor);
+@gray-11: var(--borderColor);
+@gray-12: var(--textColor2);
 @red: #FF4E3E;
 @blue: #1989fa;
 @orange: #ff976a;
@@ -567,10 +567,10 @@
 @picker-title-line-height: @line-height-md;
 @picker-action-padding: 0 @padding-md;
 @picker-action-font-size: @font-size-md;
-@picker-confirm-action-color: @white;
-@picker-cancel-action-color: @white;
+@picker-confirm-action-color: var(--popColor);
+@picker-cancel-action-color: var(--popColor);
 @picker-option-font-size: @font-size-lg;
-@picker-option-text-color: @white;
+@picker-option-text-color: var(--popColor);
 @picker-option-disabled-opacity: 0.3;
 @picker-loading-icon-color: @blue;
 @picker-loading-mask-color: rgba(255, 255, 255, 0.9);
@@ -621,7 +621,7 @@
 @radio-transition-duration: @animation-duration-fast;
 @radio-label-margin: @padding-xs;
 @radio-label-color: @text-color;
-@radio-checked-icon-color: @blue;
+@radio-checked-icon-color: @red;
 @radio-disabled-icon-color: @gray-5;
 @radio-disabled-label-color: @gray-5;
 @radio-disabled-background-color: @border-color;

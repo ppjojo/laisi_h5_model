@@ -500,7 +500,7 @@ export default {
 <style scoped>
 .nullDataBox {
   padding-top: 0.5rem;
-  border-top: 0.02rem solid #1e1e2a;
+  border-top: 0.02rem solid var(--borderColor);
 }
 
 .van-nav-bar {

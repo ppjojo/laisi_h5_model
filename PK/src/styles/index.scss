@@ -376,5 +376,5 @@ $borderColor:var(--borderColor);
 }
 
 .van-picker__toolbar {
-    border-bottom: 1px solid #1e1e2a;
+    border-bottom: 1px solid $borderColor;
 }

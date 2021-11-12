@@ -1,8 +1,7 @@
+
 // Color Palette
 @black: #000;
 @white: #fff;
-//app3.0的的背景色
-@bgcolor: var(--bgColor);
 @gray-1: #f7f8fa;
 @gray-2: #f2f3f5;
 @gray-3: #ebedf0;
@@ -10,24 +9,20 @@
 @gray-5: #c8c9cc;
 @gray-6: #969799;
 @gray-7: #646566;
-@gray-8: #71717f;
-@gray-9: var(--popBgColor);
-@gray-10: var(--textColor);
-@gray-11: var(--borderColor);
-@gray-12: var(--textColor2);
-@red: #FF4E3E;
+@gray-8: #323233;
+@red: #ee0a24;
 @blue: #1989fa;
 @orange: #ff976a;
 @orange-dark: #ed6a0c;
 @orange-light: #fffbe8;
-@green: #34C759;
+@green: #07c160;
 
 // Gradient Colors
 @gradient-red: linear-gradient(to right, #ff6034, #ee0a24);
 @gradient-orange: linear-gradient(to right, #ffd01e, #ff8917);
 
 // Component Colors
-@text-color: @gray-10;
+@text-color: @gray-8;
 @active-color: @gray-2;
 @active-opacity: 0.7;
 @disabled-opacity: 0.5;
@@ -47,17 +42,17 @@
 @font-size-xs: 10px;
 @font-size-sm: 12px;
 @font-size-md: 14px;
-@font-size-lg: 18px;
+@font-size-lg: 16px;
 @font-weight-bold: 500;
 @line-height-xs: 14px;
 @line-height-sm: 18px;
 @line-height-md: 20px;
 @line-height-lg: 22px;
 @base-font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue',
-    Helvetica, Segoe UI, Arial, Roboto, 'PingFang SC', 'miui', 'Hiragino Sans GB',
-    'Microsoft Yahei', sans-serif;
+  Helvetica, Segoe UI, Arial, Roboto, 'PingFang SC', 'miui', 'Hiragino Sans GB',
+  'Microsoft Yahei', sans-serif;
 @price-integer-font-family: Avenir-Heavy, PingFang SC, Helvetica Neue, Arial,
-    sans-serif;
+  sans-serif;
 
 // Animation
 @animation-duration-base: 0.3s;
@@ -66,7 +61,7 @@
 @animation-timing-function-leave: ease-in;
 
 // Border
-@border-color: @gray-8;
+@border-color: @gray-3;
 @border-width-base: 1px;
 @border-radius-sm: 2px;
 @border-radius-md: 4px;
@@ -140,16 +135,16 @@
 @button-large-height: 50px;
 @button-default-height: 44px;
 @button-default-line-height: 1.2;
-@button-default-font-size: @font-size-md;
+@button-default-font-size: @font-size-lg;
 @button-default-color: @text-color;
-@button-default-background-color: @gray-9;
-@button-default-border-color: @gray-11;
+@button-default-background-color: @white;
+@button-default-border-color: @border-color;
 @button-primary-color: @white;
-@button-primary-background-color: @blue;
-@button-primary-border-color: @blue;
-@button-success-color: @white;
-@button-success-background-color: @green;
-@button-success-border-color: @green;
+@button-primary-background-color: @green;
+@button-primary-border-color: @green;
+@button-info-color: @white;
+@button-info-background-color: @blue;
+@button-info-border-color: @blue;
 @button-danger-color: @white;
 @button-danger-background-color: @red;
 @button-danger-border-color: @red;
@@ -226,10 +221,10 @@
 @cell-line-height: 24px;
 @cell-vertical-padding: 10px;
 @cell-horizontal-padding: @padding-md;
-@cell-text-color: @gray-10;
-@cell-background-color: @bgcolor;
+@cell-text-color: @text-color;
+@cell-background-color: @white;
 @cell-border-color: @border-color;
-@cell-active-color: @bgcolor;
+@cell-active-color: @active-color;
 @cell-required-color: @red;
 @cell-label-color: @gray-6;
 @cell-label-font-size: @font-size-sm;
@@ -243,11 +238,14 @@
 @cell-large-label-font-size: @font-size-md;
 
 // CellGroup
-@cell-group-background-color: @bgcolor;
+@cell-group-background-color: @white;
 @cell-group-title-color: @gray-6;
 @cell-group-title-padding: @padding-md @padding-md @padding-xs;
 @cell-group-title-font-size: @font-size-md;
 @cell-group-title-line-height: 16px;
+@cell-group-inset-padding: 0 @padding-md;
+@cell-group-inset-border-radius: @border-radius-lg;
+@cell-group-inset-title-padding: @padding-md @padding-md @padding-xs @padding-xl;
 
 // Checkbox
 @checkbox-size: 20px;
@@ -255,10 +253,10 @@
 @checkbox-transition-duration: @animation-duration-fast;
 @checkbox-label-margin: @padding-xs;
 @checkbox-label-color: @text-color;
-@checkbox-checked-icon-color: @red;
-@checkbox-disabled-icon-color: @gray-10;
-@checkbox-disabled-label-color: @gray-10;
-@checkbox-disabled-background-color: @gray-10;
+@checkbox-checked-icon-color: @blue;
+@checkbox-disabled-icon-color: @gray-5;
+@checkbox-disabled-label-color: @gray-5;
+@checkbox-disabled-background-color: @border-color;
 
 // Circle
 @circle-size: 100px;
@@ -334,26 +332,24 @@
 
 // Dialog
 @dialog-width: 320px;
-@dialog-small-screen-width: 85%;
+@dialog-small-screen-width: 90%;
 @dialog-font-size: @font-size-lg;
 @dialog-transition: @animation-duration-base;
 @dialog-border-radius: 16px;
-@dialog-background-color: @gray-9;
+@dialog-background-color: @white;
 @dialog-header-font-weight: @font-weight-bold;
 @dialog-header-line-height: 24px;
 @dialog-header-padding-top: 26px;
 @dialog-header-isolated-padding: @padding-lg 0;
 @dialog-message-padding: @padding-lg;
 @dialog-message-font-size: @font-size-md;
-@dialog-message-color: @gray-10;
 @dialog-message-line-height: @line-height-md;
 @dialog-message-max-height: 60vh;
-@dialog-has-title-message-text-color: @gray-10;
+@dialog-has-title-message-text-color: @gray-7;
 @dialog-has-title-message-padding-top: @padding-xs;
-@dialog-button-height: 44px;
+@dialog-button-height: 48px;
 @dialog-round-button-height: 36px;
-@dialog-confirm-button-text-color: @gray-10;
-@dialog-confirm-button-border-color: @gray-11;
+@dialog-confirm-button-text-color: @red;
 
 // Divider
 @divider-margin: @padding-md 0;
@@ -396,13 +392,13 @@
 @field-input-text-color: @text-color;
 @field-input-error-text-color: @red;
 @field-input-disabled-text-color: @gray-5;
-@field-placeholder-text-color: @gray-12;
+@field-placeholder-text-color: @gray-5;
 @field-icon-size: 16px;
 @field-clear-icon-size: 16px;
-@field-clear-icon-color: @gray-8;
+@field-clear-icon-color: @gray-5;
 @field-right-icon-color: @gray-6;
 @field-error-message-color: @red;
-@field-error-message-text-color: 12px;
+@field-error-message-font-size: 12px;
 @field-text-area-min-height: 60px;
 @field-word-limit-color: @gray-7;
 @field-word-limit-font-size: @font-size-sm;
@@ -417,19 +413,19 @@
 @grid-item-text-color: @gray-7;
 @grid-item-text-font-size: @font-size-sm;
 
-// ActionBar
-@action-bar-background-color: @white;
-@action-bar-height: 50px;
-@action-bar-icon-width: 48px;
-@action-bar-icon-height: 100%;
-@action-bar-icon-color: @text-color;
-@action-bar-icon-size: 18px;
-@action-bar-icon-font-size: @font-size-xs;
-@action-bar-icon-active-color: @active-color;
-@action-bar-icon-text-color: @gray-7;
-@action-bar-button-height: 40px;
-@action-bar-button-warning-color: @gradient-orange;
-@action-bar-button-danger-color: @gradient-red;
+// GoodsAction
+@goods-action-background-color: @white;
+@goods-action-height: 50px;
+@goods-action-icon-width: 48px;
+@goods-action-icon-height: 100%;
+@goods-action-icon-color: @text-color;
+@goods-action-icon-size: 18px;
+@goods-action-icon-font-size: @font-size-xs;
+@goods-action-icon-active-color: @active-color;
+@goods-action-icon-text-color: @gray-7;
+@goods-action-button-height: 40px;
+@goods-action-button-warning-color: @gradient-orange;
+@goods-action-button-danger-color: @gradient-red;
 
 // IndexAnchor
 @index-anchor-z-index: 1;
@@ -448,8 +444,20 @@
 @index-bar-index-line-height: @line-height-xs;
 @index-bar-index-active-color: @red;
 
+// Info
+@info-size: 16px;
+@info-color: @white;
+@info-padding: 0 3px;
+@info-font-size: @font-size-sm;
+@info-font-weight: @font-weight-bold;
+@info-border-width: @border-width-base;
+@info-background-color: @red;
+@info-dot-color: @red;
+@info-dot-size: 8px;
+@info-font-family: -apple-system-font, Helvetica Neue, Arial, sans-serif;
+
 // Image
-@image-placeholder-text-color: @gray-12;
+@image-placeholder-text-color: @gray-6;
 @image-placeholder-font-size: @font-size-md;
 @image-placeholder-background-color: @background-color;
 @image-loading-icon-size: 32px;
@@ -470,7 +478,6 @@
 @image-preview-close-icon-z-index: 1;
 
 // List
-@list-icon-margin-right: 5px;
 @list-text-color: @gray-6;
 @list-text-font-size: @font-size-md;
 @list-text-line-height: 50px;
@@ -483,23 +490,23 @@
 @loading-spinner-animation-duration: 0.8s;
 
 // NavBar
-@nav-bar-height: 50px;
-@nav-bar-background-color: @bgcolor;
-@nav-bar-arrow-size: 20px;
-@nav-bar-icon-color: @gray-10;
-@nav-bar-text-color: @gray-10;
+@nav-bar-height: 46px;
+@nav-bar-background-color: @white;
+@nav-bar-arrow-size: 16px;
+@nav-bar-icon-color: @blue;
+@nav-bar-text-color: @blue;
 @nav-bar-title-font-size: @font-size-lg;
-@nav-bar-title-text-color: @gray-10;
+@nav-bar-title-text-color: @text-color;
 @nav-bar-z-index: 1;
 
 // NoticeBar
 @notice-bar-height: 40px;
 @notice-bar-padding: 0 @padding-md;
 @notice-bar-wrapable-padding: @padding-xs @padding-md;
-@notice-bar-text-color: @text-color;
+@notice-bar-text-color: @orange-dark;
 @notice-bar-font-size: @font-size-md;
 @notice-bar-line-height: 24px;
-@notice-bar-background-color: @bgcolor;
+@notice-bar-background-color: @orange-light;
 @notice-bar-icon-size: 16px;
 @notice-bar-icon-min-width: 24px;
 
@@ -548,6 +555,11 @@
 @pagination-desc-color: @gray-7;
 @pagination-disabled-opacity: @disabled-opacity;
 
+// Panel
+@panel-background-color: @white;
+@panel-header-value-color: @red;
+@panel-footer-padding: @padding-xs @padding-md;
+
 // PasswordInput
 @password-input-height: 50px;
 @password-input-margin: 0 @padding-md;
@@ -561,16 +573,16 @@
 @password-input-dot-color: @black;
 
 // Picker
-@picker-background-color: @gray-9;
+@picker-background-color: @white;
 @picker-toolbar-height: 44px;
 @picker-title-font-size: @font-size-lg;
 @picker-title-line-height: @line-height-md;
 @picker-action-padding: 0 @padding-md;
 @picker-action-font-size: @font-size-md;
-@picker-confirm-action-color: var(--popColor);
-@picker-cancel-action-color: var(--popColor);
+@picker-confirm-action-color: @text-link-color;
+@picker-cancel-action-color: @gray-6;
 @picker-option-font-size: @font-size-lg;
-@picker-option-text-color: var(--popColor);
+@picker-option-text-color: @black;
 @picker-option-disabled-opacity: 0.3;
 @picker-loading-icon-color: @blue;
 @picker-loading-mask-color: rgba(255, 255, 255, 0.9);
@@ -591,7 +603,7 @@
 @popover-dark-action-disabled-text-color: @gray-6;
 
 // Popup
-@popup-background-color: @gray-9;
+@popup-background-color: @white;
 @popup-transition: transform @animation-duration-base;
 @popup-round-border-radius: 16px;
 @popup-close-icon-size: 22px;
@@ -621,7 +633,7 @@
 @radio-transition-duration: @animation-duration-fast;
 @radio-label-margin: @padding-xs;
 @radio-label-color: @text-color;
-@radio-checked-icon-color: @red;
+@radio-checked-icon-color: @blue;
 @radio-disabled-icon-color: @gray-5;
 @radio-disabled-label-color: @gray-5;
 @radio-disabled-background-color: @border-color;
@@ -652,13 +664,13 @@
 
 // Search
 @search-padding: 10px @padding-sm;
-@search-background-color: @bgcolor;
-@search-content-background-color: @gray-11;
+@search-background-color: @white;
+@search-content-background-color: @gray-1;
 @search-input-height: 34px;
 @search-label-padding: 0 5px;
 @search-label-color: @text-color;
 @search-label-font-size: @font-size-md;
-@search-left-icon-color: @gray-11;
+@search-left-icon-color: @gray-6;
 @search-action-padding: 0 @padding-xs;
 @search-action-text-color: @text-color;
 @search-action-font-size: @font-size-md;
@@ -765,17 +777,23 @@
 
 // Switch
 @switch-size: 30px;
-@switch-width: 1rem;
-@switch-height: 0.46rem;
-@switch-node-size: 0.32rem;
+@switch-width: 2em;
+@switch-height: 1em;
+@switch-node-size: 1em;
 @switch-node-background-color: @white;
 @switch-node-box-shadow: 0 3px 1px 0 rgba(0, 0, 0, 0.05),
-    0 2px 2px 0 rgba(0, 0, 0, 0.1), 0 3px 3px 0 rgba(0, 0, 0, 0.05);
-@switch-background-color: @bgcolor;
-@switch-on-background-color: @green;
+  0 2px 2px 0 rgba(0, 0, 0, 0.1), 0 3px 3px 0 rgba(0, 0, 0, 0.05);
+@switch-background-color: @white;
+@switch-on-background-color: @blue;
 @switch-transition-duration: @animation-duration-base;
 @switch-disabled-opacity: @disabled-opacity;
-@switch-border: @border-width-base solid @gray-8;
+@switch-border: @border-width-base solid rgba(0, 0, 0, 0.1);
+
+// SwitchCell
+@switch-cell-padding-top: @cell-vertical-padding - 1px;
+@switch-cell-padding-bottom: @cell-vertical-padding - 1px;
+@switch-cell-large-padding-top: @cell-large-vertical-padding - 1px;
+@switch-cell-large-padding-bottom: @cell-large-vertical-padding - 1px;
 
 // Tabbar
 @tabbar-height: 50px;
@@ -870,7 +888,6 @@
 @uploader-file-name-margin-top: @padding-xs;
 @uploader-file-name-font-size: @font-size-sm;
 @uploader-file-name-text-color: @gray-7;
-@uploader-mask-text-color: @white;
 @uploader-mask-background-color: fade(@gray-8, 88%);
 @uploader-mask-icon-size: 22px;
 @uploader-mask-message-font-size: @font-size-sm;
@@ -878,3 +895,8 @@
 @uploader-loading-icon-size: 22px;
 @uploader-loading-icon-color: @white;
 @uploader-disabled-opacity: @disabled-opacity;
+
+// Sku
+@sku-item-background-color: @background-color;
+@sku-icon-gray-color: @gray-4;
+@sku-upload-mask-color: rgba(50, 50, 51, 0.8);

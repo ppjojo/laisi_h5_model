@@ -11,6 +11,12 @@
   z-index: 100;
 }
 
+#app {
+  background-color: var(--bgColor);
+  color: var(--textColor);
+  min-height: 100vh;
+}
+
 .van-hairline--bottom::after {
   border: none;
 }
@@ -45,7 +51,7 @@
 }
 
 .myGroupList .labelTitle {
-  color: #CFCFD2;
+  color: var(--textColor);
   font-size: 0.36rem;
   padding: 0.24rem 0;
 }
@@ -69,7 +75,7 @@
 .myGroupList .groupBox ul li .groupInfo {
   margin-left: 2rem;
   padding-bottom: 0.32rem;
-  border-bottom: 1px solid #1E1E2A;
+  border-bottom: 1px solid var(--borderColor);
 }
 
 .myGroupList .groupBox ul li .groupInfo .nameBox {
@@ -79,7 +85,7 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  color: #CFCFD2;
+  color: var(--textColor);
   font-size: 0.32rem;
   line-height: 0.7rem;
 }
@@ -92,7 +98,7 @@
 }
 
 .myGroupList .groupBox ul li .groupInfo .desc {
-  color: #71717f;
+  color: var(--textColor2);
   font-size: 0.28rem;
   line-height: 0.35rem;
   overflow: hidden;
@@ -135,7 +141,7 @@
 
 .nullDataBox p {
   font-size: 0.28rem;
-  color: #71717f;
+  color: var(--textColor2);
   line-height: 1rem;
   margin: 0;
   padding: 0;
@@ -146,7 +152,7 @@
 }
 
 .createGroup .labelTitle {
-  color: #CFCFD2;
+  color: var(--textColor);
   font-size: 0.32rem;
   padding: 0.4rem 0;
 }
@@ -163,7 +169,7 @@
   -moz-border-radius: 12px;
   -ms-border-radius: 12px;
   -o-border-radius: 12px;
-  background-color: #1E1E2A;
+  background-color: var(--borderColor);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -177,7 +183,7 @@
 
 .createGroup .uploaderBox .uploadLoadIconBox .van-icon-plus {
   font-size: 1.28rem;
-  color: #292934;
+  color: var(--popBgColor);
 }
 
 .createGroup .uploaderBox .uploadLoadIconBox .uploadLoadIconBG {
@@ -194,7 +200,7 @@
 }
 
 .createGroup .uploaderTxt {
-  color: #71717f;
+  color: var(--textColor2);
   font-size: 0.28rem;
   line-height: 1rem;
   text-align: center;
@@ -206,7 +212,7 @@
   margin-top: 1.5rem;
   height: 0.8rem;
   line-height: 0.8rem;
-  background-color: #71717f;
+  background-color: var(--textColor2);
   color: #fff;
   font-size: 0.4rem;
 }
@@ -229,7 +235,7 @@
   margin: 0 auto;
   width: 0.8rem;
   height: 0.8rem;
-  background-color: #1E1E2A;
+  background-color: var(--borderColor);
   border-radius: 50%;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
@@ -244,7 +250,7 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  color: #71717f;
+  color: var(--textColor2);
 }
 
 .createGroup .labelBox li .embedImgBox .embedImg {
@@ -259,7 +265,7 @@
 }
 
 .createGroup .labelBox li .labelTxt {
-  color: #71717f;
+  color: var(--textColor2);
   font-size: 0.28rem;
   line-height: 0.6rem;
   text-align: center;
@@ -387,10 +393,10 @@
 }
 
 .groupIndex .containBox {
-  color: #CFCFD2;
+  color: var(--textColor);
   position: relative;
   z-index: 99;
-  background-color: #12121f;
+  background-color: var(--bgColor);
   border-radius: 0.5rem 0.5rem 0 0;
   top: 4rem;
   position: absolute;
@@ -398,16 +404,16 @@
 }
 
 .groupIndex .containBox .icon-tongyong-gengduo {
-  color: #71717f;
+  color: var(--textColor2);
 }
 
 .groupIndex .containBox .noticeBox {
   border-radius: 0.5rem 0.5rem 0 0;
-  border-bottom: 1px #1e1e2a solid;
+  border-bottom: 1px var(--borderColor) solid;
   padding: 0 0.3rem;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  background-color: #12121f;
+  background-color: var(--bgColor);
   z-index: 2;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -452,7 +458,7 @@
 
 .groupIndex .containBox .memberBox {
   border-radius: 0.5rem 0.5rem 0 0;
-  background-color: #12121f;
+  background-color: var(--bgColor);
   padding: 0.24rem 0.24rem;
 }
 
@@ -510,7 +516,7 @@
 
 .groupIndex .containBox .memberBox .memberListDiv .memberPersonNum .numP {
   font-size: 0.28rem;
-  color: #71717f;
+  color: var(--textColor2);
 }
 
 .groupIndex .containBox .memberBox .memberListDiv .memberPersonNum .iconRight {
@@ -520,7 +526,7 @@
 
 .groupIndex .containBox .sportBox {
   padding-bottom: 1.5rem;
-  border-top: 4px solid #1e1e2a;
+  border-top: 4px solid var(--borderColor);
 }
 
 .groupIndex .containBox .sportBox .dateBox {
@@ -548,7 +554,7 @@
 .groupIndex .containBox .sportBox .personBox ul li {
   padding: 0.3rem;
   padding-bottom: 0.15rem;
-  border-top: 1px solid #1e1e2a;
+  border-top: 1px solid var(--borderColor);
 }
 
 .groupIndex .containBox .sportBox .personBox ul li .personInfoBox {
@@ -589,7 +595,7 @@
 }
 
 .groupIndex .containBox .sportBox .personBox ul li .personInfoBox .personInfo .idInfo {
-  color: #71717f;
+  color: var(--textColor2);
   font-size: 0.2rem;
 }
 
@@ -663,8 +669,6 @@
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
-  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(18, 18, 31, 0)), to(#12121f));
-  background-image: linear-gradient(to bottom, rgba(18, 18, 31, 0), #12121f);
 }
 
 .groupIndex .containBox .btn_box .btn {
@@ -680,7 +684,7 @@
 }
 
 .groupSetting {
-  color: #CFCFD2;
+  color: var(--textColor);
 }
 
 .groupSetting .cellbox {
@@ -695,7 +699,7 @@
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  border-bottom: 1px solid #1e1e2a;
+  border-bottom: 1px solid var(--borderColor);
 }
 
 .groupSetting .cellbox .title {
@@ -704,7 +708,7 @@
 
 .groupSetting .cellbox .iconfont {
   font-size: .3rem;
-  color: #71717f;
+  color: var(--textColor2);
 }
 
 .groupSetting .cellbox .rightBox {
@@ -722,7 +726,7 @@
 .groupSetting .cellbox .detail {
   font-size: .28rem;
   white-space: nowrap;
-  color: #71717f;
+  color: var(--textColor2);
 }
 
 .groupSetting .cellbox .groupMember {
@@ -751,7 +755,7 @@
   width: .92rem;
   height: .92rem;
   margin-bottom: .1rem;
-  background-color: #1e1e2a;
+  background-color: var(--borderColor);
 }
 
 .groupSetting .cellbox .groupMember .imgbox div.headImg {
@@ -793,7 +797,7 @@
 }
 
 .groupSetting .cellbox .labelBox .labelItem {
-  color: #71717f;
+  color: var(--textColor2);
   font-size: 0.2rem;
   line-height: 0.32rem;
   padding: 0 0.08rem;
@@ -816,7 +820,7 @@
 }
 
 .groupSetting .border-bottom2 {
-  border-bottom: 0.08rem solid #1e1e2a;
+  border-bottom: 0.08rem solid var(--borderColor);
 }
 
 .groupSetting .quit {
@@ -847,7 +851,7 @@
 }
 
 .groupMember .ul_class li .time {
-  color: #71717f;
+  color: var(--textColor2);
   font-size: .24rem;
 }
 
@@ -864,7 +868,7 @@
 
 .groupMember .ul_class li .btn_member {
   width: 1.24rem;
-  background-color: #12121f;
+  background-color: var(--bgColor);
   border-radius: .24rem;
   font-size: .24rem;
   border: 1px solid #FF4E3E;
@@ -874,8 +878,8 @@
 }
 
 .groupMember .ul_class li .btn_member_gray {
-  border: 1px solid #71717f;
-  color: #71717f;
+  border: 1px solid var(--textColor2);
+  color: var(--textColor2);
 }
 
 .groupMember .van-search__content {
@@ -887,19 +891,19 @@
 }
 
 .multChangePage .club-input {
-  background-color: #1e1e2a !important;
+  background-color: var(--borderColor) !important;
   border-radius: .08rem;
 }
 
 .changeNickname /deep/ #changeName .van-field__control {
-  color: #CFCFD2;
+  color: var(--textColor);
   text-align: center !important;
 }
 
 .changeNickname #changeName {
   width: 85%;
   margin: 0 auto;
-  border-bottom: 1px solid #1e1e2a;
+  border-bottom: 1px solid var(--borderColor);
   text-align: center;
 }
 
@@ -946,7 +950,7 @@
       -ms-flex-pack: justify;
           justify-content: space-between;
   font-size: 0.28rem;
-  background-color: #1e1e2a;
+  background-color: var(--borderColor);
   height: 0.72rem;
   border-radius: 0.36rem;
   padding: 0 0.1rem;
@@ -964,13 +968,13 @@
 }
 
 .memberDataDetail .chooseBox .peopleBox .iconfont {
-  color: #71717f;
+  color: var(--textColor2);
 }
 
 .memberDataDetail .chooseBox .dateBox {
   font-size: 0.24rem;
-  color: #71717f;
-  background-color: #1e1e2a;
+  color: var(--textColor2);
+  background-color: var(--borderColor);
   height: 0.72rem;
   border-radius: 0.36rem;
   display: -webkit-box;
@@ -995,7 +999,7 @@
 }
 
 .memberDataDetail .dataBox .dataItem {
-  background-color: #1e1e2a;
+  background-color: var(--borderColor);
   padding: 0.4rem 0.4rem 0.1rem;
   border-radius: 8px;
   margin-bottom: 0.24rem;
@@ -1059,7 +1063,7 @@
 }
 
 .memberDataDetail .dataBox .dataItem .detail .detailItem .numDesc {
-  color: #71717f;
+  color: var(--textColor2);
   font-size: 0.2rem;
   line-height: 0.4rem;
 }
@@ -1114,6 +1118,6 @@
 }
 
 .van-picker__toolbar {
-  border-bottom: 1px solid #1e1e2a;
+  border-bottom: 1px solid var(--borderColor);
 }
 /*# sourceMappingURL=group.css.map */

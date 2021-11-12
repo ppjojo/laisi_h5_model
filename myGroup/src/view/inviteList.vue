@@ -282,7 +282,7 @@ export default {
 .invitebox {
   padding: 0.4rem 0.4rem;
   font-size: 0.2rem;
-  color: #71717f;
+  color: var(--textColor2);
   border-bottom: 0.02rem solid #f5f5f5;
 }
 
@@ -294,7 +294,7 @@ export default {
   top: 60%;
 }
 .van-cell::after {
-  border: 1px solid #1e1e2a;
+  border: 1px solid var(--borderColor);
 }
 </style>
 <style >

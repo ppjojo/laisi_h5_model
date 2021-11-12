@@ -12,14 +12,19 @@
     z-index: 100;
 }
 
-//黑字
-$text_color:#71717f;
-//白字
-$text_color_white:#CFCFD2;
+$textColor:var(--textColor);
+$textColor2:var(--textColor2);
 //黑色背景
-$bg_color:#12121f;
+$bgColor:var(--bgColor);
 //边框色
-$border_color:#1e1e2a;
+$borderColor:var(--borderColor);
+$popBgColor:var(--popBgColor);
+#app {
+    background-color: $bgColor;
+    color: $textColor;
+    min-height: 100vh;
+}
+
 .van-hairline--bottom::after {
     border: none;
 }
@@ -57,7 +62,7 @@ $border_color:#1e1e2a;
 .myGroupList {
     padding: 0 0.24rem;
     .labelTitle {
-        color: #CFCFD2;
+        color: $textColor;
         font-size: 0.36rem;
         padding: 0.24rem 0;
     }
@@ -78,11 +83,11 @@ $border_color:#1e1e2a;
                 .groupInfo {
                     margin-left: 2rem;
                     padding-bottom: 0.32rem;
-                    border-bottom: 1px solid #1E1E2A;
+                    border-bottom: 1px solid $borderColor;
                     .nameBox {
                         display: flex;
                         align-items: center;
-                        color: #CFCFD2;
+                        color: $textColor;
                         font-size: 0.32rem;
                         line-height: 0.7rem;
                         .name {
@@ -93,7 +98,7 @@ $border_color:#1e1e2a;
                         }
                     }
                     .desc {
-                        color: $text_color;
+                        color: $textColor2;
                         font-size: 0.28rem;
                         line-height: 0.35rem;
                         overflow: hidden;
@@ -133,7 +138,7 @@ $border_color:#1e1e2a;
     }
     p {
         font-size: 0.28rem;
-        color: $text_color;
+        color: $textColor2;
         line-height: 1rem;
         margin: 0;
         padding: 0;
@@ -143,7 +148,7 @@ $border_color:#1e1e2a;
 .createGroup {
     padding: 0 0.3rem;
     .labelTitle {
-        color: #CFCFD2;
+        color: $textColor;
         font-size: 0.32rem;
         padding: 0.4rem 0;
     }
@@ -157,13 +162,13 @@ $border_color:#1e1e2a;
             -moz-border-radius: 12px;
             -ms-border-radius: 12px;
             -o-border-radius: 12px;
-            background-color: #1E1E2A;
+            background-color: $borderColor;
             display: flex;
             justify-content: center;
             align-items: center;
             .van-icon-plus {
                 font-size: 1.28rem;
-                color: #292934;
+                color: $popBgColor;
             }
             .uploadLoadIconBG {
                 background-size: cover;
@@ -188,7 +193,7 @@ $border_color:#1e1e2a;
         padding: 0.08rem 0.16rem;
     }
     .uploaderTxt {
-        color: $text_color;
+        color: $textColor2;
         font-size: 0.28rem;
         line-height: 1rem;
         text-align: center;
@@ -199,7 +204,7 @@ $border_color:#1e1e2a;
         margin-top: 1.5rem;
         height: 0.8rem;
         line-height: 0.8rem;
-        background-color: #71717f;
+        background-color: $textColor2;
         color: #fff;
         font-size: 0.4rem;
     }
@@ -219,7 +224,7 @@ $border_color:#1e1e2a;
                 margin: 0 auto;
                 width: 0.8rem;
                 height: 0.8rem;
-                background-color: #1E1E2A;
+                background-color: $borderColor;
                 border-radius: 50%;
                 -webkit-border-radius: 50%;
                 -moz-border-radius: 50%;
@@ -228,7 +233,7 @@ $border_color:#1e1e2a;
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                color: $text_color;
+                color: $textColor2;
                 .embedImg {
                     width: 0.6rem;
                     height: 0.6rem;
@@ -240,7 +245,7 @@ $border_color:#1e1e2a;
                 }
             }
             .labelTxt {
-                color: $text_color;
+                color: $textColor2;
                 font-size: 0.28rem;
                 line-height: 0.6rem;
                 text-align: center;
@@ -350,12 +355,12 @@ $border_color:#1e1e2a;
     }
     .containBox {
         .icon-tongyong-gengduo {
-            color: #71717f;
+            color: $textColor2;
         }
-        color: $text_color_white;
+        color: $textColor;
         position: relative;
         z-index: 99;
-        background-color: $bg_color;
+        background-color: $bgColor;
         border-radius: 0.5rem 0.5rem 0 0;
         // overflow: hidden;
         top: 4rem;
@@ -363,10 +368,10 @@ $border_color:#1e1e2a;
         width: 100%;
         .noticeBox {
             border-radius: 0.5rem 0.5rem 0 0;
-            border-bottom: 1px $border_color solid;
+            border-bottom: 1px $borderColor solid;
             padding: 0 0.3rem;
             box-sizing: border-box;
-            background-color: $bg_color;
+            background-color: $bgColor;
             z-index: 2;
             display: flex;
             justify-content: space-between;
@@ -394,7 +399,7 @@ $border_color:#1e1e2a;
         }
         .memberBox {
             border-radius: 0.5rem 0.5rem 0 0;
-            background-color: $bg_color;
+            background-color: $bgColor;
             padding: 0.24rem 0.24rem;
             .title {
                 height: 0.7rem;
@@ -427,7 +432,7 @@ $border_color:#1e1e2a;
                     align-items: center;
                     .numP {
                         font-size: 0.28rem;
-                        color: #71717f;
+                        color: $textColor2;
                     }
                     .iconRight {
                         width: 0.25rem;
@@ -438,7 +443,7 @@ $border_color:#1e1e2a;
         }
         .sportBox {
             padding-bottom: 1.5rem;
-            border-top: 4px solid $border_color;
+            border-top: 4px solid $borderColor;
             .dateBox {
                 height: 1.2rem;
                 display: flex;
@@ -457,7 +462,7 @@ $border_color:#1e1e2a;
                     li {
                         padding: 0.3rem;
                         padding-bottom: 0.15rem;
-                        border-top: 1px solid $border_color;
+                        border-top: 1px solid $borderColor;
                         .personInfoBox {
                             display: flex;
                             align-items: center;
@@ -480,7 +485,7 @@ $border_color:#1e1e2a;
                                     line-height: 0.35rem;
                                 }
                                 .idInfo {
-                                    color: $text_color;
+                                    color: $textColor2;
                                     font-size: 0.2rem;
                                 }
                             }
@@ -542,7 +547,7 @@ $border_color:#1e1e2a;
             -webkit-box-pack: center;
             -ms-flex-pack: center;
             justify-content: center;
-            background-image: linear-gradient(to bottom, rgba(18, 18, 31, 0), rgba(18, 18, 31, 1));
+            // background-image: linear-gradient(to bottom, rgba(18, 18, 31, 0), rgba(18, 18, 31, 1));
             .btn {
                 color: #fff;
                 width: 6.3rem;
@@ -558,20 +563,20 @@ $border_color:#1e1e2a;
 }
 
 .groupSetting {
-    color: $text_color_white;
+    color: $textColor;
     .cellbox {
         padding: .3rem;
         min-height: 1.2rem;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        border-bottom: 1px solid $border_color;
+        border-bottom: 1px solid $borderColor;
         .title {
             font-size: .32rem;
         }
         .iconfont {
             font-size: .3rem;
-            color: $text_color;
+            color: $textColor2;
         }
         .rightBox {
             display: flex;
@@ -581,7 +586,7 @@ $border_color:#1e1e2a;
         .detail {
             font-size: .28rem;
             white-space: nowrap;
-            color: $text_color;
+            color: $textColor2;
         }
         .groupMember {
             text-align: center;
@@ -596,7 +601,7 @@ $border_color:#1e1e2a;
                 width: .92rem;
                 height: .92rem;
                 margin-bottom: .1rem;
-                background-color: $border_color;
+                background-color: $borderColor;
                 div.headImg {
                     width: .92rem;
                     height: .92rem;
@@ -626,7 +631,7 @@ $border_color:#1e1e2a;
             align-items: center;
             justify-content: flex-end;
             .labelItem {
-                color: #71717f;
+                color: $textColor2;
                 font-size: 0.2rem;
                 line-height: 0.32rem;
                 padding: 0 0.08rem;
@@ -647,7 +652,7 @@ $border_color:#1e1e2a;
         }
     }
     .border-bottom2 {
-        border-bottom: .08rem solid $border_color;
+        border-bottom: .08rem solid $borderColor;
     }
     .quit {
         color: #FF4E3E;
@@ -674,7 +679,7 @@ $border_color:#1e1e2a;
                 max-width: 3.5rem;
             }
             .time {
-                color: $text_color;
+                color: $textColor2;
                 font-size: .24rem;
             }
             .badage {
@@ -690,7 +695,7 @@ $border_color:#1e1e2a;
             .btn_member {
                 width: 1.24rem;
                 // height: .48rem;
-                background-color: $bg_color;
+                background-color: $bgColor;
                 border-radius: .24rem;
                 font-size: .24rem;
                 border: 1px solid #FF4E3E;
@@ -699,8 +704,8 @@ $border_color:#1e1e2a;
                 color: #FF4E3E;
             }
             .btn_member_gray {
-                border: 1px solid $text_color;
-                color: $text_color;
+                border: 1px solid $textColor2;
+                color: $textColor2;
             }
         }
     }
@@ -714,20 +719,20 @@ $border_color:#1e1e2a;
         padding: .3rem;
     }
     .club-input {
-        background-color: $border_color !important;
+        background-color: $borderColor !important;
         border-radius: .08rem;
     }
 }
 
 .changeNickname {
     /deep/ #changeName .van-field__control {
-        color: #CFCFD2;
+        color: $textColor;
         text-align: center !important;
     }
     #changeName {
         width: 85%;
         margin: 0 auto;
-        border-bottom: 1px solid #1e1e2a;
+        border-bottom: 1px solid $borderColor;
         text-align: center;
     }
     .infomation {
@@ -757,7 +762,7 @@ $border_color:#1e1e2a;
             align-items: center;
             justify-content: space-between;
             font-size: 0.28rem;
-            background-color: $border_color;
+            background-color: $borderColor;
             height: 0.72rem;
             border-radius: 0.36rem;
             padding: 0 0.1rem;
@@ -772,13 +777,13 @@ $border_color:#1e1e2a;
                 margin-right: 0.1rem;
             }
             .iconfont {
-                color: $text_color;
+                color: $textColor2;
             }
         }
         .dateBox {
             font-size: 0.24rem;
-            color: $text_color;
-            background-color: $border_color;
+            color: $textColor2;
+            background-color: $borderColor;
             height: 0.72rem;
             border-radius: 0.36rem;
             display: flex;
@@ -794,7 +799,7 @@ $border_color:#1e1e2a;
     .dataBox {
         margin-top: 0.4rem;
         .dataItem {
-            background-color: $border_color;
+            background-color: $borderColor;
             padding: 0.4rem 0.4rem 0.1rem;
             border-radius: 8px;
             margin-bottom: 0.24rem;
@@ -833,7 +838,7 @@ $border_color:#1e1e2a;
                         font-family: "BebasNeue";
                     }
                     .numDesc {
-                        color: $text_color;
+                        color: $textColor2;
                         font-size: 0.2rem;
                         line-height: 0.4rem;
                     }
@@ -881,5 +886,5 @@ $border_color:#1e1e2a;
 }
 
 .van-picker__toolbar {
-    border-bottom: 1px solid #1e1e2a;
+    border-bottom: 1px solid $borderColor;
 }

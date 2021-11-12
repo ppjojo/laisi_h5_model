@@ -147,7 +147,7 @@
 
             </div>
             <div class="detailItem">
-              <div class="numBox">{{recordData[key].bfr||'- -'}}</div>
+              <div class="numBox">{{recordData[key].bfr.toFixed(1)||'- -'}}</div>
               <div class="numDesc">体脂(%)</div>
             </div>
           </div>
