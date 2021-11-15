@@ -16,7 +16,7 @@
 }
 
 #calendarBox .dateTitle .van-icon {
-    color: #71717f
+    color: var(--textColor2)
 }
 
 #calendarBox .dateList {
@@ -34,7 +34,7 @@
 }
 
 #calendarBox .dateList .monthbox .title {
-    color: #71717f;
+    color: var(--textColor2);
     font-size: .24rem;
     margin-right: .1rem;
     width: .6rem
@@ -57,7 +57,7 @@
     text-align: center;
     height: 1.28rem;
     line-height: 1.28rem;
-    color: #71717f;
+    color: var(--textColor2);
     font-size: .32rem;
     position: relative
 }

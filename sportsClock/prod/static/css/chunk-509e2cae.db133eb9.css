@@ -42,7 +42,7 @@
 
 .van-popover--dark .van-popover__content {
     background-color: var(--popBgColor);
-    color: #71717f
+    color: var(--textColor2)
 }
 
 .van-popover--dark .van-popover__arrow {

@@ -261,7 +261,7 @@ export default {
     text-align: center;
     height: 1.28rem;
     line-height: 1.28rem;
-    color: #71717f;
+    color: var(--textColor2);
     font-size: 0.32rem;
     position: relative;
 

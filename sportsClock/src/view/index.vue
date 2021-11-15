@@ -37,7 +37,7 @@
       </div>
       <div style="margin:0 auto .2rem;text-align: center;">
         <img class="" style="width: 2.5rem;" :src="require('@i/none.png')" alt="">
-        <div style="font-size: .28rem;color:#71717F;">{{flag==2?'您还没有运动，先去运动吧～':'无运动打卡记录'}}</div>
+        <div style="font-size: .28rem;color:var(--textColor2);">{{flag==2?'您还没有运动，先去运动吧～':'无运动打卡记录'}}</div>
       </div>
     </div>
     <div class="infobox" v-else-if="flag==3||flag==4">
@@ -304,7 +304,7 @@ export default {
 }
 .van-popover--dark .van-popover__content {
   background-color: var(--popBgColor);
-  color: #71717f;
+  color: var(--textColor2);
 }
 .van-popover--dark .van-popover__arrow {
   color: var(--popBgColor);

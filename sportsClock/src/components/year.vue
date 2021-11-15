@@ -121,7 +121,7 @@ export default {
     color: var(--textColor);
     font-size: 0.48rem;
     .van-icon {
-      color: #71717f;
+      color: var(--textColor2);
     }
   }
 
@@ -134,7 +134,7 @@ export default {
     .monthbox {
       margin-bottom: 0.24rem;
       .title {
-        color: #71717f;
+        color: var(--textColor2);
         font-size: 0.24rem;
         margin-right: 0.1rem;
         width: 0.6rem;

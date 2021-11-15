@@ -207,7 +207,7 @@ export default {
           width: 0.08rem;
           height: 0.08rem;
           border-radius: 50%;
-          background-color: #71717f;
+          background-color: var(--textColor2);
           left: calc(50% - 0.04rem);
           bottom: -0.2rem;
         }
@@ -237,7 +237,7 @@ export default {
     }
 
     .greystate {
-      color: #71717f;
+      color: var(--textColor2);
     }
   }
 }
