@@ -22,21 +22,24 @@ themeChange();
 function themeChange() {
     if (localStorage.getItem("appInfo")) {
         var appInfo = JSON.parse(localStorage.getItem("appInfo"));
-        if (appInfo.theme == 'black') {
-            if (document.getElementById("themeCssLink")) {
-                document.getElementById("themeCssLink").href = "../common/css/theme_black.css"
-            } else if (document.getElementById("themeCssLink2")) {
-                document.getElementById("themeCssLink2").href = "../../common/css/theme_black.css"
-            }
-
-        } else if (appInfo.theme == 'white') {
-            if (document.getElementById("themeCssLink")) {
-                document.getElementById("themeCssLink").href = "../common/css/theme_white.css"
-            } else if (document.getElementById("themeCssLink2")) {
-                document.getElementById("themeCssLink2").href = "../../common/css/theme_white.css"
-            }
-
+        theme = appInfo.theme
+    } else if (getQueryString("theme")) {
+        theme = getQueryString("theme")
+    }
+    if (theme == 'black') {
+        if (document.getElementById("themeCssLink")) {
+            document.getElementById("themeCssLink").href = "../common/css/theme_black.css"
+        } else if (document.getElementById("themeCssLink2")) {
+            document.getElementById("themeCssLink2").href = "../../common/css/theme_black.css"
         }
+
+    } else if (theme == 'white') {
+        if (document.getElementById("themeCssLink")) {
+            document.getElementById("themeCssLink").href = "../common/css/theme_white.css"
+        } else if (document.getElementById("themeCssLink2")) {
+            document.getElementById("themeCssLink2").href = "../../common/css/theme_white.css"
+        }
+
     }
 }
 

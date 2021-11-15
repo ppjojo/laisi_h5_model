@@ -51,17 +51,17 @@ var pictureReview = (fileObject, cb) => {
         });
 };
 var textReview = (str, cb) => {
-    request({
-        url: "contentSecurity/aliyun/textScan",
-        method: "post",
-        data: {
-            content: str
-        },
-    }).then(res => {
-        cb(res);
-    })
-}
-//获取url后面的参数 仅在request里面使用
+        request({
+            url: "contentSecurity/aliyun/textScan",
+            method: "post",
+            data: {
+                content: str
+            },
+        }).then(res => {
+            cb(res);
+        })
+    }
+    //获取url后面的参数 仅在request里面使用
 var getQueryString = (name) => {
     var reg = new RegExp("(^|\\?|&)" + name + "=([^&]*)(&|$)");
     var r = window.location.href.substr(1).match(reg);
@@ -363,6 +363,8 @@ var DateTime = {
 
 
 
+
+
 export {
     isAndroid,
     isIOS,
@@ -370,5 +372,5 @@ export {
     pictureReview,
     textReview,
     getQueryString,
-    DateTime
+    DateTime,
 };

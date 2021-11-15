@@ -396,7 +396,7 @@ $borderColor:var(--borderColor);
         display: flex;
         justify-content: center;
         padding: 0.66rem 0;
-        // background-image: linear-gradient(to bottom, rgba(18, 18, 31, 0.1), rgba(18, 18, 31, 0.8));
+        background-image: var(--linearColor);
         .btn {
             border: none;
             color: #fff;

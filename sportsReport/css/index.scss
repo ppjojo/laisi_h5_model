@@ -32,11 +32,12 @@ body {
     background-color: transparent !important;
     .van-nav-bar {
         background-color: transparent;
-        color: $bgColor;
+        color: #000;
         .van-nav-bar__content {
             // 
         }
         .van-nav-bar__title {
+            color: #000;
             font-size: 0.36rem;
         }
     }
@@ -54,16 +55,13 @@ body {
         height: calc(0.92rem + env(safe-area-inset-top));
         .van-nav-bar {
             background-color: $bgColor;
-            .van-nav-bar__content {
-                color: $textColor2;
-            }
+            color: $textColor;
+            .van-nav-bar__content {}
             .van-nav-bar__title {
-                color: $textColor2;
                 font-size: 0.36rem;
+                color: $textColor;
             }
-            .van-nav-bar__text {
-                color: $textColor2;
-            }
+            .van-nav-bar__text {}
         }
         .van-hairline--bottom::after {
             border: none;
@@ -338,7 +336,7 @@ body {
             line-height: 1rem;
         }
         .itemList {
-            background-color: #292934;
+            background-color: var(--borderColor);
             border-radius: 4px;
             .itemTitle {
                 margin: 0 0.24rem;

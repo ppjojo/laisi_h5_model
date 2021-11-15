@@ -27,6 +27,10 @@
   border: none;
 }
 
+.comListBox .van-tabs__nav {
+  background-color: var(--bgColor);
+}
+
 .comListBox .van-tabs__wrap {
   position: fixed;
   width: 100%;

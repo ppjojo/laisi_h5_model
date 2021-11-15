@@ -400,19 +400,23 @@
                 if (rate > 1) {
                     rate = 1
                 }
+                var theme = ""
                 if (localStorage.getItem("appInfo")) {
                     var appInfo = JSON.parse(localStorage.getItem("appInfo"));
-                    if (appInfo.theme == 'black') {
-                        var colorValue = `rgba(18,18,31,${rate})`
-                        document.getElementsByClassName("van-nav-bar")[0].style.color = `rgb(${255-48*rate},${255-48*rate},${255-45*rate})`
-                        document.getElementsByClassName("van-nav-bar__title")[0].style.color = `rgb(${255-48*rate},${255-48*rate},${255-45*rate})`
+                    theme = appInfo.theme
+                } else if (getQueryString('theme')) {
+                    theme = getQueryString('theme')
+                }
+                if (theme == 'black') {
+                    var colorValue = `rgba(18,18,31,${rate})`
+                    document.getElementsByClassName("van-nav-bar")[0].style.color = `rgb(${255-48*rate},${255-48*rate},${255-45*rate})`
+                    document.getElementsByClassName("van-nav-bar__title")[0].style.color = `rgb(${255-48*rate},${255-48*rate},${255-45*rate})`
 
-                    } else if (appInfo.theme == 'white') {
-                        var colorValue = `rgba(255,255,255,${rate})`
-                        document.getElementsByClassName("van-nav-bar")[0].style.color = `rgb(${255-255*rate},${255-255*rate},${255-255*rate})`
-                        document.getElementsByClassName("van-nav-bar__title")[0].style.color = `rgb(${255-255*rate},${255-255*rate},${255-255*rate})`
+                } else if (theme == 'white') {
+                    var colorValue = `rgba(255,255,255,${rate})`
+                    document.getElementsByClassName("van-nav-bar")[0].style.color = `rgb(${255-255*rate},${255-255*rate},${255-255*rate})`
+                    document.getElementsByClassName("van-nav-bar__title")[0].style.color = `rgb(${255-255*rate},${255-255*rate},${255-255*rate})`
 
-                    }
                 }
                 document.getElementsByClassName("van-nav-bar")[0].style.background = colorValue
                 document.getElementsByClassName("van-nav-bar__title")[0].style.opacity = rate;

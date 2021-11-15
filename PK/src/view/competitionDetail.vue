@@ -687,14 +687,37 @@ export default {
       if (rate > 1) {
         rate = 1;
       }
-      var colorValue = `rgba(18,18,31,${rate})`;
+      var theme = "";
+      if (localStorage.getItem("appInfo")) {
+        var appInfo = JSON.parse(localStorage.getItem("appInfo"));
+        theme = appInfo.theme;
+      } else if (getQueryString("theme")) {
+        theme = getQueryString("theme");
+      }
+
+      if (theme == "black") {
+        var colorValue = `rgba(18,18,31,${rate})`;
+        document.getElementsByClassName("van-nav-bar")[0].style.color = `rgb(${
+          255 - 48 * rate
+        },${255 - 48 * rate},${255 - 45 * rate})`;
+        document.getElementsByClassName(
+          "van-nav-bar__title"
+        )[0].style.color = `rgb(${255 - 48 * rate},${255 - 48 * rate},${
+          255 - 45 * rate
+        })`;
+      } else if (theme == "white") {
+        var colorValue = `rgba(255,255,255,${rate})`;
+        document.getElementsByClassName("van-nav-bar")[0].style.color = `rgb(${
+          255 - 255 * rate
+        },${255 - 255 * rate},${255 - 255 * rate})`;
+        document.getElementsByClassName(
+          "van-nav-bar__title"
+        )[0].style.color = `rgb(${255 - 255 * rate},${255 - 255 * rate},${
+          255 - 255 * rate
+        })`;
+      }
       document.getElementsByClassName("van-nav-bar")[0].style.background =
         colorValue;
-      // document.getElementsByClassName("van-nav-bar__title")[0].style.opacity =
-      //   rate;
-      document.getElementsByClassName("van-nav-bar")[0].style.color = `rgb(${
-        255 - 48 * rate
-      },${255 - 48 * rate},${255 - 45 * rate})`;
     },
     destroyed() {
       window.removeEventListener("scroll", this.scrollFn); // 销毁监听

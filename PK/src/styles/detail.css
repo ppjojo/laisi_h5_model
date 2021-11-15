@@ -524,6 +524,7 @@
       -ms-flex-pack: center;
           justify-content: center;
   padding: 0.66rem 0;
+  background-image: var(--linearColor);
 }
 
 .detailBox .btn_box .btn {

@@ -35,6 +35,9 @@ $borderColor:var(--borderColor);
 }
 
 .comListBox {
+    .van-tabs__nav {
+        background-color: $bgColor;
+    }
     .van-tabs__wrap {
         position: fixed;
         width: 100%;

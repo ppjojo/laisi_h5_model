@@ -31,12 +31,10 @@ body {
     background-color: transparent !important;
     .van-nav-bar {
         background-color: transparent;
-        .van-nav-bar__content {
-            color: #fff;
-        }
+        color: #fff;
+        .van-nav-bar__content {}
         .van-nav-bar__title {
             opacity: 0;
-            color: #fff;
             font-size: 0.36rem;
         }
     }

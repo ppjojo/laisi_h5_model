@@ -480,11 +480,23 @@
                 if (rate > 1) {
                     rate = 1
                 }
-                var colorValue = `rgba(18,18,31,${rate})`
+                var theme = ""
+                if (localStorage.getItem("appInfo")) {
+                    var appInfo = JSON.parse(localStorage.getItem("appInfo"));
+                    theme = appInfo.theme
+                } else if (getQueryString('theme')) {
+                    theme = getQueryString('theme')
+                }
+                if (theme == 'black') {
+                    var colorValue = `rgba(18,18,31,${rate})`
+                    document.getElementsByClassName("van-nav-bar__title")[0].style.color = `rgb(${18+237*rate},${18+237*rate},${31+224*rate})`
+                    document.getElementsByClassName("van-nav-bar")[0].style.color = `rgb(${18+237*rate},${18+237*rate},${31+224*rate})`
+
+                } else if (theme == 'white') {
+                    var colorValue = `rgba(255,255,255,${rate})`
+                }
                 document.getElementsByClassName("van-nav-bar")[0].style.background = colorValue
-                document.getElementsByClassName("van-nav-bar__title")[0].style.color = `rgb(${18+237*rate},${18+237*rate},${31+224*rate})`
-                document.getElementsByClassName("van-nav-bar")[0].style.color =
-                    `rgb(${18+237*rate},${18+237*rate},${31+224*rate})`
+
 
             },
             destroyed() {
@@ -626,25 +638,25 @@
                         top: 0,
                         left: "45%"
                     },
-                    tooltip: {
-                        axisPointer: {
-                            label: {
-                                lineHeight: 20,
-                                backgroundColor: "#ffffff",
-                                padding: [0, 0, 0, 0]
-                            },
-                        },
-                        formatter: (p) => {
-                            let str
-                            if (parseInt(p.data / 1000 / 60) > 0) {
-                                str = parseInt(p.data / 1000 / 60) + "分" + '</br>';
-                            } else {
-                                str = parseInt(p.data / 1000) + "秒" + '</br>';
-                            }
-                            str += p.name;
-                            return str;
-                        }
-                    },
+                    // tooltip: {
+                    //     axisPointer: {
+                    //         label: {
+                    //             lineHeight: 20,
+                    //             backgroundColor: "#ffffff",
+                    //             padding: [0, 0, 0, 0]
+                    //         },
+                    //     },
+                    //     formatter: (p) => {
+                    //         let str
+                    //         if (parseInt(p.data / 1000 / 60) > 0) {
+                    //             str = parseInt(p.data / 1000 / 60) + "分" + '</br>';
+                    //         } else {
+                    //             str = parseInt(p.data / 1000) + "秒" + '</br>';
+                    //         }
+                    //         str += p.name;
+                    //         return str;
+                    //     }
+                    // },
                     yAxis: {
                         type: "category",
                         data: keys,
@@ -714,20 +726,20 @@
                         top: 0,
                         left: "45%"
                     },
-                    tooltip: {
-                        axisPointer: {
-                            label: {
-                                lineHeight: 20,
-                                backgroundColor: "#ffffff",
-                                padding: [0, 0, 0, 0]
-                            },
-                        },
-                        formatter: (p) => {
-                            let str = parseInt(p.data / 1000) + "kcal" + '</br>';
-                            str += p.name;
-                            return str;
-                        }
-                    },
+                    // tooltip: {
+                    //     axisPointer: {
+                    //         label: {
+                    //             lineHeight: 20,
+                    //             backgroundColor: "#ffffff",
+                    //             padding: [0, 0, 0, 0]
+                    //         },
+                    //     },
+                    //     formatter: (p) => {
+                    //         let str = parseInt(p.data / 1000) + "kcal" + '</br>';
+                    //         str += p.name;
+                    //         return str;
+                    //     }
+                    // },
                     yAxis: {
                         type: "category",
                         data: keys,
@@ -808,20 +820,20 @@
                         top: "0%",
                         left: "45%"
                     },
-                    tooltip: {
-                        axisPointer: {
-                            label: {
-                                lineHeight: 20,
-                                backgroundColor: "#ffffff",
-                                padding: [0, 0, 0, 0]
-                            },
-                        },
-                        formatter: (p) => {
-                            let str = parseInt(p.data) + "步" + '</br>';
-                            str += p.name;
-                            return str;
-                        }
-                    },
+                    // tooltip: {
+                    //     axisPointer: {
+                    //         label: {
+                    //             lineHeight: 20,
+                    //             backgroundColor: "#ffffff",
+                    //             padding: [0, 0, 0, 0]
+                    //         },
+                    //     },
+                    //     formatter: (p) => {
+                    //         let str = parseInt(p.data) + "步" + '</br>';
+                    //         str += p.name;
+                    //         return str;
+                    //     }
+                    // },
 
                     yAxis: {
                         type: "category",

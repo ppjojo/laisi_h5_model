@@ -257,6 +257,9 @@ $popBgColor:var(--popBgColor);
 .groupIndex {
     .header {
         background-color: transparent !important;
+        .van-nav-bar {
+            color: #fff;
+        }
         .van-nav-bar__title {
             color: #fff;
             opacity: 0;

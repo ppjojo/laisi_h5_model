@@ -275,6 +275,10 @@
   background-color: transparent !important;
 }
 
+.groupIndex .header .van-nav-bar {
+  color: #fff;
+}
+
 .groupIndex .header .van-nav-bar__title {
   color: #fff;
   opacity: 0;
