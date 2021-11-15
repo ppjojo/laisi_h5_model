@@ -115,7 +115,7 @@ body {
 }
 
 .courseBox .title .titleInfo, .courseBox-bg .title .titleInfo {
-  color: #71717f;
+  color: var(--textColor2);
   font-size: 0.2rem;
 }
 
@@ -138,7 +138,7 @@ body {
 
 .courseBox .title2 .btn_viewMore, .courseBox-bg .title2 .btn_viewMore {
   font-size: 0.24rem;
-  color: #71717f;
+  color: var(--textColor2);
   line-height: 0.6rem;
 }
 
@@ -183,7 +183,7 @@ body {
 }
 
 .courseBox .courseDiv .content .detail, .courseBox-bg .courseDiv .content .detail {
-  color: #71717f;
+  color: var(--textColor2);
   font-size: 0.24rem;
   line-height: 0.4rem;
 }
@@ -191,7 +191,7 @@ body {
 .courseBox .courseDiv .content .progress, .courseBox-bg .courseDiv .content .progress {
   font-size: 0.24rem;
   line-height: 0.48rem;
-  color: #71717f;
+  color: var(--textColor2);
   margin-top: 0.5rem;
 }
 
@@ -224,11 +224,11 @@ body {
 }
 
 .courseBox-bg .courseDiv .content .stitle {
-  color: var(--textColor);
+  color: #fff !important;
 }
 
 .courseBox-bg .courseDiv .content .detail {
-  color: var(--textColor);
+  color: #f5f5f5 !important;
 }
 
 .allContain {
@@ -282,7 +282,7 @@ body {
 .classificationBox .classificationDiv .classificationList .typeList .typeItem {
   background-color: var(--borderColor);
   font-size: 0.24rem;
-  color: #71717f;
+  color: var(--textColor2);
   line-height: 0.48rem;
   padding: 0 0.2rem;
   border-radius: 0.24rem;
@@ -303,15 +303,11 @@ body {
 .courseList .header .van-nav-bar {
   background-color: rgba(255, 255, 255, 0);
   z-index: 10;
-}
-
-.courseList .header .van-nav-bar .van-nav-bar__content {
   color: #fff;
 }
 
 .courseList .header .van-nav-bar .van-nav-bar__title {
   opacity: 0;
-  color: #fff;
   font-size: 0.36rem;
   margin-left: 15%;
   max-width: 50%;
@@ -366,7 +362,7 @@ body {
 .courseList .topBox .infoBox .discript {
   font-size: 0.24rem;
   line-height: 0.4rem;
-  color: var(--textColor);
+  color: #cfcfd2 !important;
   text-overflow: -o-ellipsis-lastline;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -388,6 +384,7 @@ body {
       -ms-flex-align: center;
           align-items: center;
   padding: 0.2rem 0;
+  color: #cfcfd2 !important;
 }
 
 .courseList .topBox .infoBox .classifyBox .classifyDiv {
@@ -433,8 +430,8 @@ body {
 .courseList .topBox .infoBox .information .needTitle1 {
   font-size: 0.28rem;
   line-height: 0.4rem;
-  color: var(--textColor);
   display: table-row;
+  color: #cfcfd2 !important;
 }
 
 .courseList .topBox .infoBox .information .need2 {
@@ -447,7 +444,7 @@ body {
 .courseList .topBox .infoBox .information .needTitle2 {
   font-size: 0.28rem;
   line-height: 0.4rem;
-  color: var(--textColor);
+  color: #cfcfd2 !important;
 }
 
 .courseList .topBox .infoBox .information .needBox3 {
@@ -464,7 +461,7 @@ body {
 .courseList .topBox .infoBox .information .needTitle3 {
   font-size: 0.28rem;
   line-height: 0.4rem;
-  color: var(--textColor);
+  color: #cfcfd2 !important;
   display: table-row;
 }
 
@@ -504,7 +501,7 @@ body {
 .courseList .tabBox .tabTitle .tabName {
   font-size: 0.36rem;
   line-height: 0.88rem;
-  color: #71717f;
+  color: var(--textColor2);
 }
 
 .courseList .tabBox .tabTitle .tabName span {
@@ -614,7 +611,7 @@ body {
 
 .courseList .listBox .courseList ul .liBox .rightBox .itemDiscript .need {
   font-size: 0.24rem;
-  color: #71717f;
+  color: var(--textColor2);
   line-height: 0.4rem;
 }
 
@@ -624,7 +621,7 @@ body {
 }
 
 .courseList .listBox .courseList .info {
-  color: #71717f;
+  color: var(--textColor2);
   font-size: 0.24rem;
   text-align: center;
   padding: 0.2rem 0;
@@ -635,6 +632,7 @@ body {
   position: fixed;
   bottom: 0;
   width: 100%;
+  left: 0;
   z-index: 10;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -642,8 +640,7 @@ body {
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
-  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.1)), to(rgba(0, 0, 0, 0.5)));
-  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.5));
+  background-image: var(--linearColor);
 }
 
 .courseList .listBox .courseList .btn_box .btn {
@@ -702,7 +699,7 @@ body {
 }
 
 .courseList .commentBox .info {
-  color: #71717f;
+  color: var(--textColor2);
   font-size: 0.2rem;
   text-align: center;
   padding: 0.2rem 0;
@@ -754,7 +751,7 @@ body {
 
 .courseList .commentBox .basicBox .infoBox .detail .time {
   font-size: 0.2rem;
-  color: #71717f;
+  color: var(--textColor2);
   line-height: 0.3rem;
   height: 0.3rem;
 }
@@ -815,7 +812,7 @@ body {
 }
 
 .courseList .commentBox .commentDiv .commentBck .commentBckItem .name {
-  color: #71717f;
+  color: var(--textColor2);
 }
 
 .courseList .commentBox .commentDiv .commentBck .more {
@@ -836,13 +833,13 @@ body {
   color: var(--textColor);
   font-size: 0.28rem;
   padding: 0.2rem 0;
-  color: #71717f;
+  color: var(--textColor2);
 }
 
 .courseList .commentBox .van-list__error-text,
 .courseList .commentBox .van-list__finished-text,
 .courseList .commentBox .van-list__loading {
-  color: #71717f;
+  color: var(--textColor2);
   font-size: 0.2rem;
   text-align: center;
   padding: 0.2rem 0;
@@ -959,11 +956,11 @@ body {
 }
 
 .van-dialog {
-  background-color: #292934;
+  background-color: var(--popBgColor);
 }
 
 .van-dialog .van-button--default {
-  background-color: #292934;
+  background-color: var(--popBgColor);
 }
 
 .van-dialog .van-hairline--left::after {
@@ -980,9 +977,9 @@ body {
 
 .van-action-sheet .van-action-sheet__cancel,
 .van-action-sheet .van-action-sheet__item {
-  background-color: #292934;
+  background-color: var(--popBgColor);
   color: var(--textColor);
-  border-bottom: 1px solid var(--bgColor);
+  border-bottom: 1px solid var(--borderColor);
 }
 
 .van-action-sheet .van-action-sheet__gap {
@@ -992,7 +989,7 @@ body {
 
 .van-list__finished-text {
   font-size: 0.24rem;
-  color: #71717f;
+  color: var(--textColor2);
 }
 
 .normalHeader .header {
@@ -1102,34 +1099,34 @@ body {
 }
 
 textarea::-webkit-input-placeholder {
-  color: #71717f !important;
+  color: var(--textColor2) !important;
 }
 
 textarea:-ms-input-placeholder {
-  color: #71717f !important;
+  color: var(--textColor2) !important;
 }
 
 textarea::-ms-input-placeholder {
-  color: #71717f !important;
+  color: var(--textColor2) !important;
 }
 
 textarea::placeholder {
-  color: #71717f !important;
+  color: var(--textColor2) !important;
 }
 
 input::-webkit-input-placeholder {
-  color: #71717f !important;
+  color: var(--textColor2) !important;
 }
 
 input:-ms-input-placeholder {
-  color: #71717f !important;
+  color: var(--textColor2) !important;
 }
 
 input::-ms-input-placeholder {
-  color: #71717f !important;
+  color: var(--textColor2) !important;
 }
 
 input::placeholder {
-  color: #71717f !important;
+  color: var(--textColor2) !important;
 }
 /*# sourceMappingURL=index.css.map */

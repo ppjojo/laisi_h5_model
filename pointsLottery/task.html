@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
     <link rel="stylesheet" href="../common/css/basic.css">
     <link rel="stylesheet" href="css/font/iconfont.css">
-    <link rel="stylesheet" id="themeCssLink" href="../common/css/default.css">
+    <link rel="stylesheet" id="themeCssLink" href="../common/css/theme_white.css">
     <link rel="stylesheet" href="css/pointsLottery.css">
     <style type="text/css">
         .task_unfinish,
@@ -228,21 +228,10 @@
                     //return;
                     isEffective = 0
                 }
-                // {
-                //     method = "LSH5APP_Push_Action"   //原生与js交互：跳转类型
-                //     actionType = "跳转类型"  类型： 
-                //      "LSH5APP_BrowseCommunity"//去社区浏览，
-                //     "LSH5APP_BrowseCourse"//去课程浏览，
-                //     "LSH5APP_BrowsePKGame"//去赛事浏览，
-                //     "LSH5APP_BrowseClub"//去俱乐部浏览，
-                //     "LSH5APP_BrowseShopMall"//去商城浏览，
-                //     "LSH5APP_BrowseChallenge"//去挑战页面浏览，
-                //     "LSH5APP_BrowseRankList"//去排行榜页面浏览
-                //      "LSTH5APP_GoMyDeviceVC"//我的设备
-                // }
                 var actionType = "",
                     actionNum = num;
                 var _self = this;
+                var deviceType = "skipping";
                 switch (type) {
                     case "02":
                         // _self.Community();
@@ -266,6 +255,7 @@
                         break;
                     case "08":
                         actionType = "LSH5APP_BrowseRankList";
+                        if (actionNum == "0802" || actionNum == "0808" || actionNum == "0809" || actionNum == "0810" || actionNum == "0811" || actionNum == "0812") deviceType = "wristball"
                         break;
                     case "09":
                         actionType = "LSTH5APP_GoMyDeviceVC";
@@ -287,31 +277,29 @@
                         actionType = false;
                         break;
                 }
-                console.log(actionNum)
+                console.log(deviceType)
                 if (!actionType) return;
                 try {
                     //LSTH5APP_BrowseVideoAction
                     if (isIOS) {
                         localStorage.setItem('coinchange', 1);
                         window.webkit.messageHandlers.lstNative.postMessage({
-                            "method": "LSH5APP_Push_Action",
-                            "actionType": actionType,
-                            "actionNum": actionNum,
-                            isEffective: isEffective
+                            method: "LSH5APP_Push_Action",
+                            actionType: actionType,
+                            actionNum: actionNum,
+                            isEffective: isEffective,
+                            type: deviceType
                         });
 
                     } else if (isAndroid) {
                         window.android.LSH5APP_Push_Action(JSON.stringify({
                             actionType: actionType,
                             actionNum: actionNum,
-                            isEffective: isEffective
+                            isEffective: isEffective,
+                            type: deviceType
                         }))
                     }
-                    // if(actionType == 'LSTH5APP_BrowseVideoAction'){
-                    // 	setTimeout(function(){
-                    // 		_self.initData();
-                    // 	},32000);
-                    // }
+
                 } catch (e) {
                     console.log(e)
                 }

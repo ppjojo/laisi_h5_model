@@ -9,7 +9,7 @@
     <!-- 引入样式文件 -->
     <link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
     <link rel="stylesheet" href="font/iconfont.css">
-    <link rel="stylesheet" id="themeCssLink" href="../common/css/default.css">
+    <link rel="stylesheet" id="themeCssLink" href="../common/css/theme_white.css">
     <link rel="stylesheet" href="css/index.css">
 
 </head>
@@ -27,10 +27,10 @@
 						</div>
 						<div @click="goCollect()" style="margin-right: 0.4rem;">
 							<span class="icon iconfont icon-shoucangdongtai"
-								v-if="classDetail.isNotCollect"
-								style="font-size: 0.45rem;"></span>
-							<span class="icon iconfont icon-shoucangxing2" v-else
+                            v-if="classDetail.isNotCollect" style="font-size: 0.45rem;"></span>
+                                <span class="icon iconfont icon-shoucangxing2" v-else
 								style="font-size: 0.45rem;color:#FF4E3E;"></span>
+							
 						</div>
 						<div @click="sharePage()">
 							<span class="icon iconfont icon-fenxianganniu"
@@ -308,7 +308,8 @@
                     },
                     smallClass: [],
                     duration: 0,
-                    calory: 0
+                    calory: 0,
+                    isNotCollect: 1
 
                 },
                 commentDetail: {
@@ -399,11 +400,22 @@
                 if (rate > 1) {
                     rate = 1
                 }
-                var colorValue = `rgba(18,18,31,${rate})`
+                if (localStorage.getItem("appInfo")) {
+                    var appInfo = JSON.parse(localStorage.getItem("appInfo"));
+                    if (appInfo.theme == 'black') {
+                        var colorValue = `rgba(18,18,31,${rate})`
+                        document.getElementsByClassName("van-nav-bar")[0].style.color = `rgb(${255-48*rate},${255-48*rate},${255-45*rate})`
+                        document.getElementsByClassName("van-nav-bar__title")[0].style.color = `rgb(${255-48*rate},${255-48*rate},${255-45*rate})`
+
+                    } else if (appInfo.theme == 'white') {
+                        var colorValue = `rgba(255,255,255,${rate})`
+                        document.getElementsByClassName("van-nav-bar")[0].style.color = `rgb(${255-255*rate},${255-255*rate},${255-255*rate})`
+                        document.getElementsByClassName("van-nav-bar__title")[0].style.color = `rgb(${255-255*rate},${255-255*rate},${255-255*rate})`
+
+                    }
+                }
                 document.getElementsByClassName("van-nav-bar")[0].style.background = colorValue
                 document.getElementsByClassName("van-nav-bar__title")[0].style.opacity = rate;
-                document.getElementsByClassName("van-nav-bar")[0].style.color =
-                    `rgb(${255-48*rate},${255-48*rate},${255-45*rate})`
 
             },
             destroyed() {

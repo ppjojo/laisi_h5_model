@@ -6,4 +6,5 @@
     --popBgColor: #fff;
     --popColor: #000;
     --textColorActive: #000;
+    --linearColor: linear-gradient(to bottom, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.5));
 }

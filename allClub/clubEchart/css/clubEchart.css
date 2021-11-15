@@ -1,84 +1,82 @@
 .selectBox {
-    border-top: 0.1rem solid var(--borderColor);
-    border-bottom: 0.1rem solid var(--borderColor);
+  border-top: 0.1rem solid var(--borderColor);
+  border-bottom: 0.1rem solid var(--borderColor);
 }
 
 .selectBox .selectDiv {
-    height: 1.2rem;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: justify;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-    border-bottom: 1px solid var(--borderColor);
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
+  height: 1.2rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  border-bottom: 1px solid var(--borderColor);
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .selectBox .selectDiv:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 .selectBox .selectDiv .selectLeftBox {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .selectBox .selectDiv .selectLeftBox img {
-    width: 0.5rem;
+  width: 0.5rem;
 }
 
 .selectBox .selectDiv .selectLeftBox .lable {
-    font-size: 0.32rem;
-    color: var(--textColor);
+  font-size: 0.32rem;
+  color: var(--textColor);
 }
 
 .selectBox .selectDiv .selectLeftBox .title {
-    font-size: 0.28rem;
-    color: var(--textColor2);
+  font-size: 0.28rem;
+  color: var(--textColor2);
 }
 
 .selectBox .selectDiv .selectLeftBox .titleActive {
-    font-size: 0.32rem;
-    color: var(--textColor);
+  font-size: 0.32rem;
+  color: var(--textColor);
 }
 
 .selectBox .selectDiv .selectLeftBox .titleActive2 {
-    font-size: 0.32rem;
-    color: var(--textColor);
+  font-size: 0.32rem;
+  color: var(--textColor);
 }
 
 .selectBox .selectDiv .icon {
-    font-size: 0.3rem;
-    color: var(--textColor2);
+  font-size: 0.3rem;
+  color: var(--textColor2);
 }
 
 .scoreDetailBox {
-    height: 1.2rem;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    padding: 0 0.3rem;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    color: var(--textColor);
-    font-size: 0.32rem;
-    border-bottom: 0.1rem solid var(--borderColor);
+  height: 1.2rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 0 0.3rem;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: var(--textColor);
+  font-size: 0.32rem;
+  border-bottom: 0.1rem solid var(--borderColor);
 }
 
 .echartBox {
-    height: 5.04rem;
-    width: 100%;
-    padding: 0 0.3rem;
-    border-bottom: 0.1rem solid var(--borderColor);
+  height: 5.04rem;
+  width: 100%;
+  padding: 0 0.3rem;
+  border-bottom: 0.1rem solid var(--borderColor);
 }
-
-
 /*# sourceMappingURL=clubEchart.css.map */

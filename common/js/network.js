@@ -17,16 +17,30 @@ window.onresize = function() {
     document.documentElement.style.fontSize =
         document.documentElement.clientWidth / 7.5 + "px";
 };
-if (document.getElementById("themeCssLink")) {
-    //document.getElementById("themeCssLink").href = host + "h5/h5V3/common/css/dark.css"
-    document.getElementById("themeCssLink").href = "../common/css/dark.css"
+themeChange();
+//主题切换
+function themeChange() {
+    if (localStorage.getItem("appInfo")) {
+        var appInfo = JSON.parse(localStorage.getItem("appInfo"));
+        if (appInfo.theme == 'black') {
+            if (document.getElementById("themeCssLink")) {
+                document.getElementById("themeCssLink").href = "../common/css/theme_black.css"
+            } else if (document.getElementById("themeCssLink2")) {
+                document.getElementById("themeCssLink2").href = "../../common/css/theme_black.css"
+            }
 
-}
-if (document.getElementById("themeCssLink2")) {
-    //document.getElementById("themeCssLink").href = host + "h5/h5V3/common/css/dark.css"
-    //document.getElementById("themeCssLink2").href = "../../common/css/dark.css"
+        } else if (appInfo.theme == 'white') {
+            if (document.getElementById("themeCssLink")) {
+                document.getElementById("themeCssLink").href = "../common/css/theme_white.css"
+            } else if (document.getElementById("themeCssLink2")) {
+                document.getElementById("themeCssLink2").href = "../../common/css/theme_white.css"
+            }
 
+        }
+    }
 }
+
+
 
 
 //接口请求统一处理
@@ -46,7 +60,7 @@ let ajax = (config) => {
                 console.log("gettoken success")
                 var appInfo = JSON.parse(localStorage.getItem("appInfo"));
                 config.data.userId = appInfo.userId
-
+                themeChange();
                 resolve(config);
                 clearInterval(tokenInterval);
             }

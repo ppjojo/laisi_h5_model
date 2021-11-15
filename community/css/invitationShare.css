@@ -1,502 +1,500 @@
 * {
-    margin: 0;
-    padding: 0;
-    color: var(--textColor);
+  margin: 0;
+  padding: 0;
+  color: var(--textColor);
 }
 
 body {
-    background-color: var(--bgColor);
+  background-color: var(--bgColor);
 }
 
 .header {
-    position: -webkit-sticky;
-    position: sticky;
-    width: 100%;
-    top: 0em;
-    z-index: 99;
-    background-color: var(--bgColor);
-    height: 1.32rem;
-    padding: 0.2rem 0.4rem;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
+  position: -webkit-sticky;
+  position: sticky;
+  width: 100%;
+  top: 0em;
+  z-index: 99;
+  background-color: var(--bgColor);
+  height: 1.32rem;
+  padding: 0.2rem 0.4rem;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 .header .logo {
-    width: 0.84rem;
-    height: 0.84rem;
-    float: left;
+  width: 0.84rem;
+  height: 0.84rem;
+  float: left;
 }
 
 .header .content {
-    margin-left: 1rem;
+  margin-left: 1rem;
 }
 
 .header .content .appInfo {
-    width: 50%;
-    float: left;
+  width: 50%;
+  float: left;
 }
 
 .header .content .appInfo .appName {
-    font-size: 0.36rem;
-    line-height: 0.42rem;
+  font-size: 0.36rem;
+  line-height: 0.42rem;
 }
 
 .header .content .appInfo .appD {
-    font-size: 0.24rem;
-    color: var(--textColor2);
-    line-height: 0.42rem;
+  font-size: 0.24rem;
+  color: var(--textColor2);
+  line-height: 0.42rem;
 }
 
 .header .content .btn a {
-    float: right;
-    width: 1.36rem;
-    height: 0.48rem;
-    background-color: #e60012;
-    color: #fff;
-    font-size: 12px;
-    line-height: 0.48rem;
-    text-align: center;
-    border-radius: 0.24rem;
-    -webkit-border-radius: 0.24rem;
-    -moz-border-radius: 0.24rem;
-    -ms-border-radius: 0.24rem;
-    -o-border-radius: 0.24rem;
-    margin-top: 0.2rem;
+  float: right;
+  width: 1.36rem;
+  height: 0.48rem;
+  background-color: #e60012;
+  color: #fff;
+  font-size: 12px;
+  line-height: 0.48rem;
+  text-align: center;
+  border-radius: 0.24rem;
+  -webkit-border-radius: 0.24rem;
+  -moz-border-radius: 0.24rem;
+  -ms-border-radius: 0.24rem;
+  -o-border-radius: 0.24rem;
+  margin-top: 0.2rem;
 }
 
 .personBox {
-    height: 4.4rem;
-    padding: 0.2rem 0.4rem;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    background-size: cover;
+  height: 4.4rem;
+  padding: 0.2rem 0.4rem;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  background-size: cover;
 }
 
 .personBox .info {
-    height: 2.4rem;
+  height: 2.4rem;
 }
 
 .personBox .info .picBox {
-    position: relative;
-    float: left;
+  position: relative;
+  float: left;
 }
 
 .personBox .info .picBox .pic {
-    width: 1.6rem;
-    height: 1.6rem;
-    border-radius: 50%;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    -ms-border-radius: 50%;
-    -o-border-radius: 50%;
-    border: 2px solid #fff;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  border: 2px solid #fff;
 }
 
 .personBox .info .picBox .sexIcon {
-    width: 0.38rem;
-    height: 0.38rem;
-    position: absolute;
-    right: 0;
-    bottom: 0.3rem;
+  width: 0.38rem;
+  height: 0.38rem;
+  position: absolute;
+  right: 0;
+  bottom: 0.3rem;
 }
 
 .personBox .info .content {
-    margin-left: 1.8rem;
+  margin-left: 1.8rem;
 }
 
 .personBox .info .content .personInfo {
-    width: 100%;
-    float: left;
+  width: 100%;
+  float: left;
 }
 
 .personBox .info .content .personInfo .nameBox {
-    height: 0.6rem;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
+  height: 0.6rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .personBox .info .content .personInfo .nameBox .nickName {
-    font-size: 0.32rem;
-    color: #fff;
-    line-height: 0.6rem;
+  font-size: 0.32rem;
+  color: #fff;
+  line-height: 0.6rem;
 }
 
 .personBox .info .content .personInfo .nameBox .level {
-    margin-left: 0.2rem;
-    font-size: 10px;
-    color: #fff;
-    text-align: right;
-    line-height: 0.37rem;
-    background-image: url(../img/people_level.png);
-    width: 0.7rem;
-    height: 0.37rem;
-    position: relative;
-    top: 0.11rem;
-    background-size: contain;
-    line-height: 0.37rem;
-    padding-right: 0.1rem;
-    background-size: 100% 100%;
-    text-align: left;
-    text-indent: 0.5rem;
+  margin-left: 0.2rem;
+  font-size: 10px;
+  color: #fff;
+  text-align: right;
+  line-height: 0.37rem;
+  background-image: url(../img/people_level.png);
+  width: 0.7rem;
+  height: 0.37rem;
+  position: relative;
+  top: 0.11rem;
+  background-size: contain;
+  line-height: 0.37rem;
+  padding-right: 0.1rem;
+  background-size: 100% 100%;
+  text-align: left;
+  text-indent: 0.5rem;
 }
 
 .personBox .info .content .personInfo .detail {
-    font-size: 0.24rem;
-    color: #fff;
-    line-height: 0.5rem;
+  font-size: 0.24rem;
+  color: #fff;
+  line-height: 0.5rem;
 }
 
 .personBox .info .content .personInfo .address {
-    font-size: 0.24rem;
-    color: #fff;
-    line-height: 0.42rem;
+  font-size: 0.24rem;
+  color: #fff;
+  line-height: 0.42rem;
 }
 
 .personBox .info .content .btn {
-    float: right;
-    width: 1.04rem;
-    height: 0.4rem;
-    background-color: #e60012;
-    color: #fff;
-    font-size: 0.24rem;
-    line-height: 0.4rem;
-    text-align: center;
-    border-radius: 0.2rem;
-    -webkit-border-radius: 0.2rem;
-    -moz-border-radius: 0.2rem;
-    -ms-border-radius: 0.2rem;
-    -o-border-radius: 0.2rem;
-    margin-top: 0.2rem;
+  float: right;
+  width: 1.04rem;
+  height: 0.4rem;
+  background-color: #e60012;
+  color: #fff;
+  font-size: 0.24rem;
+  line-height: 0.4rem;
+  text-align: center;
+  border-radius: 0.2rem;
+  -webkit-border-radius: 0.2rem;
+  -moz-border-radius: 0.2rem;
+  -ms-border-radius: 0.2rem;
+  -o-border-radius: 0.2rem;
+  margin-top: 0.2rem;
 }
 
 .personBox .countBox {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: justify;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 .personBox .countBox .numbox {
-    width: 1.6rem;
-    text-align: center;
+  width: 1.6rem;
+  text-align: center;
 }
 
 .personBox .countBox .numbox .num {
-    font-size: 0.4rem;
-    color: #fff;
+  font-size: 0.4rem;
+  color: #fff;
 }
 
 .personBox .countBox .numbox .descript {
-    font-size: 0.28rem;
-    color: #fff;
+  font-size: 0.28rem;
+  color: #fff;
 }
 
 .dynamicBox {
-    background-color: var(--bgColor);
-    min-height: 5rem;
-    position: relative;
-    top: -0.6rem;
-    border-top-left-radius: 0.6rem;
-    border-top-right-radius: 0.6rem;
+  background-color: var(--bgColor);
+  min-height: 5rem;
+  position: relative;
+  top: -0.6rem;
+  border-top-left-radius: 0.6rem;
+  border-top-right-radius: 0.6rem;
 }
 
 .dynamicBox .dynamicUl li {
-    padding: 0.6rem 0.3rem;
-    border-bottom: 1px solid var(--borderColor);
+  padding: 0.6rem 0.3rem;
+  border-bottom: 1px solid #1e1e2a;
 }
 
 .dynamicBox .dynamicUl li .info {
-    height: 0.8rem;
+  height: 0.8rem;
 }
 
 .dynamicBox .dynamicUl li .info .pic {
-    width: 0.8rem;
-    height: 0.8rem;
-    float: left;
-    border-radius: 50%;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    -ms-border-radius: 50%;
-    -o-border-radius: 50%;
+  width: 0.8rem;
+  height: 0.8rem;
+  float: left;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
 }
 
 .dynamicBox .dynamicUl li .info .content {
-    margin-left: 1rem;
+  margin-left: 1rem;
 }
 
 .dynamicBox .dynamicUl li .info .content .personInfo {
-    width: 100%;
-    float: left;
+  width: 100%;
+  float: left;
 }
 
 .dynamicBox .dynamicUl li .info .content .personInfo .nickNameBox {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: justify;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 .dynamicBox .dynamicUl li .info .content .personInfo .nickNameBox .nickName {
-    font-size: 0.32rem;
-    line-height: 0.4rem;
+  font-size: 0.32rem;
+  line-height: 0.4rem;
 }
 
 .dynamicBox .dynamicUl li .info .content .personInfo .nickNameBox .viewNum {
-    font-size: 0.2rem;
-    line-height: 0.4rem;
+  font-size: 0.2rem;
+  line-height: 0.4rem;
 }
 
 .dynamicBox .dynamicUl li .info .content .personInfo .nickNameBox .viewNum img {
-    width: 0.2rem;
-    height: 0.2rem;
-    margin-right: 0.1rem;
+  width: 0.2rem;
+  height: 0.2rem;
+  margin-right: 0.1rem;
 }
 
 .dynamicBox .dynamicUl li .info .content .personInfo .detail {
-    font-size: 0.2rem;
-    line-height: 0.4rem;
+  font-size: 0.2rem;
+  line-height: 0.4rem;
 }
 
 .dynamicBox .dynamicUl li .contentBox {
-    font-size: 0.32rem;
-    line-height: 0.45rem;
-    text-overflow: -o-ellipsis-lastline;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    line-clamp: 3;
-    -webkit-box-orient: vertical;
-    margin: 0.3rem 0;
+  font-size: 0.32rem;
+  line-height: 0.45rem;
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  margin: 0.3rem 0;
 }
 
 .dynamicBox .dynamicUl li .contentBox_d {
-    font-size: 0.32rem;
-    line-height: 0.45rem;
-    margin: 0.3rem 0;
+  font-size: 0.32rem;
+  line-height: 0.45rem;
+  margin: 0.3rem 0;
 }
 
 .dynamicBox .dynamicUl li .imgBox {
-    zoom: 1;
+  zoom: 1;
 }
 
 .dynamicBox .dynamicUl li .imgBox:after {
-    height: 0;
-    visibility: hidden;
-    display: block;
-    clear: both;
-    content: "";
+  height: 0;
+  visibility: hidden;
+  display: block;
+  clear: both;
+  content: "";
 }
 
 .dynamicBox .dynamicUl li .imgBox div {
-    width: 32%;
-    float: left;
-    margin-right: 2%;
-    height: 2.2rem;
-    background-size: cover;
-    background-position: center;
-    margin-bottom: 0.2rem;
-    border-radius: 3px;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    -ms-border-radius: 3px;
-    -o-border-radius: 3px;
+  width: 32%;
+  float: left;
+  margin-right: 2%;
+  height: 2.2rem;
+  background-size: cover;
+  background-position: center;
+  margin-bottom: 0.2rem;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
 }
 
 .dynamicBox .dynamicUl li .imgBox div:nth-child(3n) {
-    margin-right: 0%;
+  margin-right: 0%;
 }
 
 .dynamicBox .dynamicUl li .statisticsBox {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: start;
-    -ms-flex-pack: start;
-    justify-content: flex-start;
-    padding: 0.3rem 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  padding: 0.3rem 0;
 }
 
 .dynamicBox .dynamicUl li .statisticsBox div {
-    width: 1.6rem;
-    font-size: 0.28rem;
-    color: var(--textColor2);
+  width: 1.6rem;
+  font-size: 0.28rem;
+  color: var(--textColor2);
 }
 
 .dynamicBox .dynamicUl li .statisticsBox div img {
-    width: 0.28rem;
-    height: 0.26rem;
-    margin-right: 0.1rem;
+  width: 0.28rem;
+  height: 0.26rem;
+  margin-right: 0.1rem;
 }
 
 .dynamicBox .dynamicUl li .commentBox div {
-    margin-bottom: 0.2rem;
-    display: list-item;
-    font-size: 0.28rem;
-    line-height: 0.5rem;
+  margin-bottom: 0.2rem;
+  display: list-item;
+  font-size: 0.28rem;
+  line-height: 0.5rem;
 }
 
 .dynamicBox .dynamicUl li .commentBox div .commentNickName {
-    font-size: 0.28rem;
-    color: #727272;
-    line-height: 0.5rem;
+  font-size: 0.28rem;
+  color: #727272;
+  line-height: 0.5rem;
 }
 
 .dynamicBox .dynamicUl li .commentBox div .commentContent {
-    font-size: 0.28rem;
-    line-height: 0.5rem;
-    word-break: break-all;
+  font-size: 0.28rem;
+  line-height: 0.5rem;
+  word-break: break-all;
 }
 
 .dynamicBox .dynamicUl li .commentBox .viewMore {
-    font-size: 0.28rem;
-    color: #999999;
-    margin: 0;
+  font-size: 0.28rem;
+  color: #999999;
+  margin: 0;
 }
 
 .dynamicBox .noData-box {
-    text-align: center;
-    padding-top: 1.5rem;
+  text-align: center;
+  padding-top: 1.5rem;
 }
 
 .dynamicBox .noData-box .noData-img {
-    width: 4rem;
+  width: 4rem;
 }
 
 .dynamicBox .noData-box .noData-p {
-    color: var(--textColor);
-    font-size: 0.28rem;
+  color: var(--textColor);
+  font-size: 0.28rem;
 }
 
 #commentUl {
-    padding-top: 0.1rem;
+  padding-top: 0.1rem;
 }
 
 #commentUl li {
-    margin-bottom: 0.3rem;
-    padding: 0;
+  margin-bottom: 0.3rem;
+  padding: 0;
 }
 
 #commentUl li .userImg {
-    float: left;
+  float: left;
 }
 
 #commentUl li .userImg img {
-    width: 0.56rem;
-    height: 0.56rem;
-    position: relative;
-    top: -0.2rem;
-    border-radius: 50%;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    -ms-border-radius: 50%;
-    -o-border-radius: 50%;
+  width: 0.56rem;
+  height: 0.56rem;
+  position: relative;
+  top: -0.2rem;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
 }
 
 #commentUl li .detail {
-    margin-left: 0.76rem;
+  margin-left: 0.76rem;
 }
 
 #commentUl li .detail .nickname {
-    font-size: 0.26rem;
-    line-height: 0.4rem;
-    min-height: 0.4rem;
+  font-size: 0.26rem;
+  line-height: 0.4rem;
+  min-height: 0.4rem;
 }
 
 #commentUl li .detail .time {
-    font-size: 0.2rem;
-    color: var(--textColor2);
-    line-height: 0.35rem;
-    height: 0.35rem;
+  font-size: 0.2rem;
+  color: var(--textColor2);
+  line-height: 0.35rem;
+  height: 0.35rem;
 }
 
 #commentUl li .detail .comment {
-    font-size: 0.28rem;
-    color: var(--textColor2);
-    line-height: 0.4rem;
-    min-height: 0.4rem;
-    word-break: break-all;
+  font-size: 0.28rem;
+  color: var(--textColor2);
+  line-height: 0.4rem;
+  min-height: 0.4rem;
+  word-break: break-all;
 }
 
 .videobox {
-    top: 0;
-    width: 100%;
-    overflow-y: hidden;
-    height: calc(100vh - 1.32rem);
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    background-color: var(--bgColor);
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
+  top: 0;
+  width: 100%;
+  overflow-y: hidden;
+  height: calc(100vh - 1.32rem);
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  background-color: var(--bgColor);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .videobox .videoimg {
-    width: 100%;
+  width: 100%;
 }
 
 .videobox .play_icon {
-    width: 1.12rem;
-    height: 1.12rem;
-    position: absolute;
-    top: calc(50% - .56rem);
-    left: calc(50% - .56rem);
+  width: 1.12rem;
+  height: 1.12rem;
+  position: absolute;
+  top: calc(50% - .56rem);
+  left: calc(50% - .56rem);
 }
 
 .videobox .authorInfo {
-    position: absolute;
-    left: 0;
-    bottom: 1rem;
-    font-size: .28rem;
-    font-family: PingFangSC-Regular;
-    color: #fff;
-    padding: .3rem;
-    width: 80%;
+  position: absolute;
+  left: 0;
+  bottom: 1rem;
+  font-size: .28rem;
+  font-family: PingFangSC-Regular;
+  color: #fff;
+  padding: .3rem;
+  width: 80%;
 }
 
 .videobox .authorInfo .headInfo {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    margin-bottom: .3rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: .3rem;
 }
 
 .videobox .authorInfo .headInfo img {
-    width: .72rem;
-    height: .72rem;
-    border-radius: 50%;
-    margin-right: .3rem;
+  width: .72rem;
+  height: .72rem;
+  border-radius: 50%;
+  margin-right: .3rem;
 }
 
 .videobox .navbox {
-    position: absolute;
-    right: .32rem;
-    bottom: 3rem;
-    text-align: center;
-    font-size: .28rem;
-    color: #fff;
+  position: absolute;
+  right: .32rem;
+  bottom: 3rem;
+  text-align: center;
+  font-size: .28rem;
+  color: #fff;
 }
 
 .videobox .navbox div {
-    margin-bottom: .48rem;
+  margin-bottom: .48rem;
 }
 
 .videobox .navbox img {
-    width: .46rem;
-    height: .46rem;
-    margin-bottom: .12rem;
+  width: .46rem;
+  height: .46rem;
+  margin-bottom: .12rem;
 }
-
-
 /*# sourceMappingURL=invitationShare.css.map */
