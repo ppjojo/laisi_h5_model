@@ -419,18 +419,22 @@ body {
   border: none;
 }
 
-.nullbox {
+.noDataBox {
   text-align: center;
   padding-top: 3rem;
 }
 
-.nullbox img {
-  width: 50%;
+.noDataBox .noDataImg {
+  width: 4rem;
+  height: 4rem;
+  background-image: var(--noData);
+  background-size: cover;
+  margin: 0 auto;
 }
 
-.nullbox p {
+.noDataBox .noDataInfo {
   color: var(--textColor2);
+  line-height: 0.8rem;
   font-size: 0.28rem;
-  line-height: 0.4rem;
 }
 /*# sourceMappingURL=index.css.map */

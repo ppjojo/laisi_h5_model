@@ -86,8 +86,8 @@
 
 
                     </div>
-                    <div class="noData-box" v-else-if="!refreshing">
-                        <img class="noData-img" src="../common/img/noData.png" />
+                    <div class="noDataBox" v-if="noDataStatus">
+                        <div class="noDataImg"></div>
                     </div>
                 </div>
 
@@ -127,6 +127,7 @@
                     en: "total"
                 }],
                 secondType: "number",
+                noDataStatus: false,
                 //skipping :number activeTime
                 //wristball: "maxRate", //maxRate maxStrength count
 
@@ -226,10 +227,12 @@
                     setTimeout(() => {
                         this.refreshing = false
                     }, 500);
+                    this.noDataStatus = false
                     this.listData = [{}, {}, {}, {}]
                     if (res.code == 0) {
                         if (res.data.length == 1 && res.data[0].value == 0) {
                             this.listData = [{}, {}, {}, {}]
+                            this.noDataStatus = true
                             return
                         }
                         if (this.userType == 'skipping') {

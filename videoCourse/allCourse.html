@@ -95,11 +95,6 @@
                                 </li>
                             </ul>
                         </div>
-
-                        <!-- <div class="noData-box" style="padding-top: 0;" v-else-if="!refreshing">
-                            <img class="noData-img" src="../common/img/noData.png" />
-                            <p class="noData-p">暂无符合条件的训练课程，换个条件试试吧~</p>
-                        </div> -->
                     </van-list>
                     <div v-else>
                         <div class="courseBox" v-if="classList.length>0">
@@ -125,9 +120,9 @@
                             </ul>
                         </div>
 
-                        <div class="noData-box" style="padding-top: 0;" v-else-if="!refreshing">
-                            <img class="noData-img" src="../common/img/noData.png" />
-                            <p class="noData-p">暂无符合条件的训练课程，换个条件试试吧~</p>
+                        <div class="noDataBox" style="padding-top: 0;" v-else-if="!refreshing">
+                            <div class="noDataImg"></div>
+                            <p class="noDataInfo">暂无符合条件的训练课程，换个条件试试吧~</p>
                         </div>
                     </div>
 

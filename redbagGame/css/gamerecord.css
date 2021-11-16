@@ -131,10 +131,6 @@
 
 .recordList li:first-child {}
 
-.noData-box {
-    padding: 1rem 0;
-}
-
 .van-list__error-text,
 .van-list__finished-text,
 .van-list__loading,

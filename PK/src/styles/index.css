@@ -97,13 +97,23 @@
   z-index: 5;
 }
 
-.comListBox .noData-box {
+.comListBox .noDataBox {
   text-align: center;
   padding-top: 2.5rem;
 }
 
-.comListBox .noData-box .noData-img {
+.comListBox .noDataBox .noDataImg {
   width: 4rem;
+  height: 4rem;
+  background-image: var(--noData);
+  background-size: cover;
+  margin: 0 auto;
+}
+
+.comListBox .noDataBox .noDataInfo {
+  color: var(--textColor2);
+  line-height: 0.8rem;
+  font-size: 0.28rem;
 }
 
 .creatMatch-img-box img {

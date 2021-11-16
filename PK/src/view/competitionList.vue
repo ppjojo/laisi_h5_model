@@ -36,8 +36,8 @@
               <ListItem v-for="item in tabItem.list" @getJoinStatus="getJoinStatus" :item="item">
               </ListItem>
             </van-list>
-            <div class="noData-box" v-else-if="tabItem.finished">
-              <img class="noData-img" src="../img/noData.png" />
+            <div class="noDataBox" v-else-if="tabItem.finished">
+              <div class="noDataImg"></div>
             </div>
           </van-pull-refresh>
         </van-tab>

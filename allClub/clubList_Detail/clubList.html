@@ -55,8 +55,9 @@
                         </div>
                     </div>
                 </li>
-                <div class="nulldataDiv" v-if="list.length==0">
-                    <img src="../../common/img/noData.png" alt=""> 未找到相关内容哦，换个词试试吧！
+                <div class="noDataBox" v-if="list.length==0">
+                    <div class="noDataImg"></div>
+                    <p class="noDataInfo">未找到相关内容哦，换个词试试吧！</p>
                 </div>
             </ul>
             <van-pull-refresh v-model="refreshing" :head-height="90" @refresh="onRefresh" class="monkey-pull-refresh" v-else>
@@ -106,8 +107,9 @@
                         </li>
                     </ul>
                 </van-list>
-                <div class="nulldataDiv" v-else-if="finished">
-                    <img src="../../common/img/noData.png" alt=""> 暂无数据
+                <div class="noDataBox" v-else-if="finished">
+                    <div class="noDataImg"></div>
+                    <p class="noDataInfo">暂无数据</p>
                 </div>
             </van-pull-refresh>
 

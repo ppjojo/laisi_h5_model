@@ -244,8 +244,8 @@
                   "></div>
               </div>
             </van-list>
-            <div class="noData-box" v-else-if="finished">
-              <img class="noData-img" src="../img/noData.png" />
+            <div class="noDataBox" v-else-if="finished">
+              <div class="noDataImg"></div>
             </div>
           </van-pull-refresh>
         </div>
@@ -353,7 +353,7 @@
               </div>
               <div v-else>
                 <div class="noTeam-div">
-                  <img class="noTeamPic" src="../img/noData.png" />
+                  <div class="noTeamPic"></div>
                 </div>
               </div>
             </div>

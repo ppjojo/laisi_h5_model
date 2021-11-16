@@ -452,9 +452,9 @@
     left: calc( 50% - 2rem);
 }
 
-.noData-box {
+.noDataBox {
     padding-top: 0;
-    margin: 2rem auto 0;
+    margin: 3rem auto 0;
     padding: .4rem;
     background-color: #fff;
     width: 80%;

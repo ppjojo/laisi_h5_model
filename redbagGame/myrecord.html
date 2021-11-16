@@ -131,9 +131,9 @@
                         </li>
                     </ul>
                 </van-list>
-                <div class="noData-box" v-if="dataList.length==0&&!loading">
-                    <img class="noData-img" src="../common/img/noData.png" />
-                    <p class="noData-p">还没有任何明细记录哦～</p>
+                <div class="noDataBox" style="padding-top:0.5rem;" v-if="dataList.length==0&&!loading">
+                    <div class="noDataImg"></div>
+                    <p class="noDataInfo">还没有任何明细记录哦～</p>
                 </div>
             </van-pull-refresh>
 

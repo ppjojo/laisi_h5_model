@@ -820,16 +820,17 @@ body {
   line-height: 0.5rem;
 }
 
-.courseList .commentBox .noData-box {
+.courseList .commentBox .noDataBox {
   text-align: center;
   padding-top: 0.5rem;
 }
 
-.courseList .commentBox .noData-box .noData-img {
+.courseList .commentBox .noDataBox .noDataImg {
   width: 4rem;
+  background-image: var(--noData);
 }
 
-.courseList .commentBox .noData-box .noData-p {
+.courseList .commentBox .noDataBox .noDataInfo {
   color: var(--textColor);
   font-size: 0.28rem;
   padding: 0.2rem 0;
@@ -1033,69 +1034,23 @@ body {
   top: 0.48rem;
 }
 
-.allCourse .noData-box {
+.noDataBox {
   text-align: center;
   padding-top: 3rem;
 }
 
-.allCourse .noData-box .noData-img {
+.noDataBox .noDataImg {
   width: 4rem;
+  height: 4rem;
+  background-image: var(--noData);
+  background-size: cover;
+  margin: 0 auto;
 }
 
-.allCourse .noData-box .noData-p {
-  color: #b3b8bb;
+.noDataBox .noDataInfo {
+  color: var(--textColor2);
+  line-height: 0.8rem;
   font-size: 0.28rem;
-}
-
-.myCourse {
-  padding: 0rem 0.3rem;
-}
-
-.myCourse ul li {
-  width: calc(100% + 2px);
-}
-
-.myCourse .van-swipe-cell__right {
-  right: -1px;
-}
-
-.myCourse .van-swipe-cell__right .delBox {
-  width: 1.36rem;
-  height: 100%;
-  position: relative;
-  text-align: center;
-  vertical-align: middle;
-  background-color: #E60012;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.myCourse .van-swipe-cell__right .delBox img {
-  width: 0.56rem;
-  height: 0.56rem;
-}
-
-.myCourse .noData-box {
-  text-align: center;
-  padding-top: 3rem;
-}
-
-.myCourse .noData-box .noData-img {
-  width: 4rem;
-}
-
-.myCourse .noData-box .noData-p {
-  color: #999;
-  font-size: 0.28rem;
-  line-height: 0.4rem;
-  margin-top: 0.2rem;
 }
 
 textarea::-webkit-input-placeholder {

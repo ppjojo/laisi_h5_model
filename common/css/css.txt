@@ -1,1 +1,24 @@
 vant-rem 2.12 :https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css
+
+
+.noDataBox {
+    text-align: center;
+    padding-top: 3rem;
+    .noDataImg {
+        width: 4rem;
+        height: 4rem;
+        background-image: var(--noData);
+        background-size: cover;
+        margin: 0 auto;
+    }
+    .noDataInfo {
+        color: var(--textColor2);
+        line-height: 0.8rem;
+        font-size: 0.28rem;
+    }
+}
+
+<div class="noDataBox" style="padding-top: 0;" >
+                            <div class="noDataImg"></div>
+                            <p class="noDataInfo">暂无符合条件的训练课程，换个条件试试吧~</p>
+                        </div>

@@ -12,8 +12,8 @@
 
     <style type="text/css">
         body {
-            background-color: var(--bg_color);
-            color: #CFCFD2;
+            background-color: var(--bgColor);
+            color: var(--textColor);
             height: 100vh;
         }
         /* 导航栏 */
@@ -25,15 +25,15 @@
         }
         
         .normalHeader .van-nav-bar {
-            background-color: var(--bg_color);
+            background-color: var(--bgColor);
         }
         
         .normalHeader .van-nav-bar .van-nav-bar__content {
-            color: var(--text_color_white);
+            color: var(--textColor);
         }
         
         .normalHeader .van-nav-bar .van-nav-bar__title {
-            color: var(--text_color_white);
+            color: var(--textColor);
         }
         
         .normalHeader .van-hairline--bottom::after {
@@ -41,7 +41,7 @@
         }
         
         .normalHeader .color999 {
-            color: #999;
+            color: var(--textCol2);
         }
         /* 搜索框 */
         
@@ -53,28 +53,28 @@
         }
         
         .van-search {
-            background-color: var(--bg_color);
+            background-color: var(--bgColor);
         }
         
         .searchBox .van-search .van-icon-search {
-            color: var(--text_color_white);
+            color: var(--textColor);
         }
         
         .searchBox .van-search .van-search__content {
-            background-color: var(--border_color);
+            background-color: var(--borderColor);
         }
         
         .searchBox .van-search .van-field__control {
-            color: var(--text_color_white);
+            color: var(--textColor);
         }
         /* 索引 */
         
         .van-index-anchor {
-            color: var(--text_color_white);
+            color: var(--textColor);
         }
         
         .van-index-anchor--sticky {
-            background-color: var(--bg_color);
+            background-color: var(--bgColor);
             top: 2rem;
         }
         
@@ -105,12 +105,12 @@
         }
         
         .van-cell-group {
-            background-color: var(--bg_color);
+            background-color: var(--bgColor);
         }
         
         .van-cell {
-            background-color: var(--bg_color);
-            color: #CFCFD2;
+            background-color: var(--bgColor);
+            color: var(--textColor);
         }
         
         .van-cell--clickable:active {
@@ -123,7 +123,7 @@
         }
         
         .van-cell::after {
-            border-color: var(--border_color);
+            border-color: var(--borderColor);
         }
         
         .van-checkbox {
@@ -148,19 +148,23 @@
             margin-right: 0.2rem;
         }
         
-        .nullBox {
+        .noDataBox {
+            padding-top: 3rem;
             text-align: center;
         }
         
-        .nullBox img {
+        .noDataImg {
             width: 4rem;
-            padding-top: 2rem;
+            height: 4rem;
+            background-image: var(--noData);
+            background-size: cover;
+            margin: 0 auto;
         }
         
-        .nullBox p {
-            color: var(--text_color_white);
+        .noDataInfo {
+            color: var(--textColor2);
+            line-height: 0.8rem;
             font-size: 0.28rem;
-            line-height: 0.4rem;
         }
     </style>
 </head>
@@ -223,9 +227,9 @@
                 </van-cell-group>
             </div>
             <div v-else-if="finished">
-                <div class="nullBox">
-                    <img src="../common/img/noData.png" alt="">
-                    <p>没有搜索到相关关注，换个词试试；</p>
+                <div class="noDataBox">
+                    <div class="noDataImg"></div>
+                    <p class="noDataInfo">没有搜索到相关关注，换个词试试；</p>
                 </div>
             </div>
         </van-checkbox-group>

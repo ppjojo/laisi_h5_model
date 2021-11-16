@@ -171,9 +171,9 @@
                                 <van-icon v-else name="arrow" size="15" />
                             </li>
                         </ul>
-                        <div class="noData-box" v-if="dataList[menuactive].length==0&&!loading">
-                            <img class="noData-img" src="../../common/img/noData.png" />
-                            <p class="noData-p">您还没有参加任何活动呢，赶快去参与吧～</p>
+                        <div class="noDataBox" v-if="dataList[menuactive].length==0&&!loading">
+                            <div class="noDataImg"></div>
+                            <p class="noDataInfo">您还没有参加任何活动呢，赶快去参与吧～</p>
                         </div>
                     </van-list>
                 </van-pull-refresh>

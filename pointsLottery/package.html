@@ -116,9 +116,9 @@
                         </div>
                     </li>
                 </ul>
-                <div class="noData-box" v-if="!blindboxlist||blindboxlist.length==0">
-                    <img class="noData-img" src="../common/img/noData.png" />
-                    <p class="noData-p">还未拥有盲盒或盲盒已全部打开哦！</p>
+                <div class="noDataBox" v-if="!blindboxlist||blindboxlist.length==0">
+                    <div class="noDataImg"></div>
+                    <p class="noDataInfo">还未拥有盲盒或盲盒已全部打开哦！</p>
                 </div>
             </van-tab>
             <van-tab title="奖品" id="price" style="padding-bottom: 1.3rem;">
@@ -180,9 +180,9 @@
 							</template>
                     </van-cell>
                 </van-cell-group>
-                <div class="noData-box" style="padding-top: 2.2rem;" v-if="(!pricelist||pricelist.length==0)&&(!pricelist2||pricelist2.length==0)">
-                    <img class="noData-img" src="../common/img/noData.png" />
-                    <p class="noData-p">还没有奖品哦！努力兑换吧！</p>
+                <div class="noDataBox" style="padding-top: 2.2rem;" v-if="(!pricelist||pricelist.length==0)&&(!pricelist2||pricelist2.length==0)">
+                    <div class="noDataImg"></div>
+                    <p class="noDataInfo">还没有奖品哦！努力兑换吧！</p>
                 </div>
             </van-tab>
             <van-tab title="优惠券" id="coupon">
@@ -209,9 +209,9 @@
                         </li>
                     </ul>
                 </van-list>
-                <div class="noData-box" v-if="couponlist.length==0">
-                    <img class="noData-img" src="../common/img/noData.png" />
-                    <p class="noData-p">还没有优惠券哦！努力兑换吧！</p>
+                <div class="noDataBox" v-if="couponlist.length==0">
+                    <div class="noDataImg"></div>
+                    <p class="noDataInfo">还没有优惠券哦！努力兑换吧！</p>
                 </div>
             </van-tab>
         </van-tabs>
@@ -222,15 +222,13 @@
 
     </div>
 </body>
-<script src="https://oss.laisitech.com/0bb12bf1-cb87-4d2c-a724-8a7c25b7ae04.js "></script>
-<script src="https://oss.laisitech.com/6172e6c1-f460-40ac-97ba-31c8526f2e16.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/svgaplayerweb@2.3.1/build/svga.min.js"></script>
 <script src="../common/js/network.js"></script>
 <script src="js/tool.js"></script>
 <script>
     window.addEventListener('pageshow', function(event) {
-        console.log("PageShow Event  " + event.persisted);
-        console.log(event)
         if (isIOS) {
             if (localStorage.getItem('ordersuccess')) {
                 window.reflashFuc();

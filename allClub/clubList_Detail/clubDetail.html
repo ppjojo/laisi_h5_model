@@ -165,9 +165,9 @@
                                 </van-col>
                             </van-row>
                         </div>
-                        <div v-else-if="today.list.length==0&&today.done" class="nullDataBox">
-                            <img src="../../common/img/noData.png" alt="">
-                            <p>今日运动暂无数据</p>
+                        <div class="noDataBox" style="padding-top:0.1rem;" v-else-if="today.list.length==0&&today.done">
+                            <div class="noDataImg" style="width:3rem;height:3rem;"></div>
+                            <p class="noDataInfo" style="font-size:0.24rem;">今日运动暂无数据</p>
                         </div>
 
                         <div class="historyBox">
@@ -230,8 +230,9 @@
                                             </van-col>
                                         </van-row>
                                     </div>
-                                    <div v-else-if="item.list.length==0&&item.done" class="nullDataBox">
-                                        <img src="../../common/img/noData.png" alt="">
+                                    <div class="noDataBox" style="padding-top:0.1rem;" v-else-if="item.list.length==0&&item.done">
+                                        <div class="noDataImg" style="width:3rem;height:3rem;"></div>
+                                        <!-- <p class="noDataInfo" style="font-size:0.24rem;">今日运动暂无数据</p> -->
                                     </div>
 
 
@@ -295,8 +296,9 @@
                                     </div>
                                 </van-list>
                             </div>
-                            <div v-if="taskObject.join.list.length==0&&taskObject.unJoin.list.length==0" class="nullDataBox">
-                                <img src="../../common/img/noData.png" alt="">
+                            <div class="noDataBox" style="padding-top:1rem;" v-if="taskObject.join.list.length==0&&taskObject.unJoin.list.length==0">
+                                <div class="noDataImg" style="width:3rem;height:3rem;"></div>
+                                <!-- <p class="noDataInfo" style="font-size:0.24rem;">今日运动暂无数据</p> -->
                             </div>
                         </div>
                     </van-tab>
@@ -329,8 +331,9 @@
                                     </div>
                                 </van-list>
                             </div>
-                            <div v-else-if="competitionObject.unJoin.list.length==0&&competitionObject.join.list.length==0&&(!(competitionObject.unJoin.loading)&&!(competitionObject.join.loading))" class="nullDataBox">
-                                <img src="../../common/img/noData.png" alt="">
+                            <div class="noDataBox" style="padding-top:1rem;" v-else-if="competitionObject.unJoin.list.length==0&&competitionObject.join.list.length==0&&(!(competitionObject.unJoin.loading)&&!(competitionObject.join.loading))">
+                                <div class="noDataImg" style="width:3rem;height:3rem;"></div>
+                                <!-- <p class="noDataInfo" style="font-size:0.24rem;">今日运动暂无数据</p> -->
                             </div>
                         </div>
                     </van-tab>

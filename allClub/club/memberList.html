@@ -9,6 +9,7 @@
     </script>
     <link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
     <link rel="stylesheet" href="css/memberList.css">
+    <link rel="stylesheet" href="../../common/css/basic.css">
     <link rel="stylesheet" href="../font/iconfont.css">
     <link rel="stylesheet" type="text/css" href="../clubList_Detail/css/header.css" />
     <link rel="stylesheet" id="themeCssLink2" href="../../common/css/theme_white.css">
@@ -21,10 +22,6 @@
         
         [class*=van-hairline]::after {
             border-color: var(--borderColor);
-        }
-        
-        #app {
-            min-height: 100vh;
         }
     </style>
 </head>
@@ -81,9 +78,9 @@
                         </van-col>
                     </van-row>
                 </van-list>
-                <div class="noData-box" v-else-if="finished">
-                    <img class="noData-img" src="../../common/img/noData.png" />
-                    <p class="noData-p">赶快去邀请志同道合的小伙伴吧～</p>
+                <div class="noDataBox">
+                    <div class="noDataImg"></div>
+                    <p class="noDataInfo">赶快去邀请志同道合的小伙伴吧～</p>
                 </div>
             </van-pull-refresh>
         </div>

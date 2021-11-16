@@ -70,9 +70,9 @@
             </ul>
           </div>
         </div>
-        <div v-if="joinList.length==0&&createList.length==0&&isFinish" class="nullDataBox">
-          <img :src="require('../img/noData.png')" alt="">
-          <p>暂时还未加入任何小组哦,快去创建加入吧~</p>
+        <div class="noDataBox" v-if="joinList.length==0&&createList.length==0&&isFinish">
+          <div class="noDataImg"></div>
+          <p class="noDataInfo">暂时还未加入任何小组哦,快去创建加入吧~</p>
         </div>
       </div>
     </van-pull-refresh>

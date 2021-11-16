@@ -160,9 +160,9 @@
 
     </div>
 
-    <div v-if="!recordData.skipRecord&&!recordData.balanceRecord&&!recordData.stepRecord&&!recordData.abrollerRecord&&!recordData.wristBallRecord" class="nullDataBox" style="padding-top:2rem;">
-      <img style="width:4rem" :src="require('../img/noData.png')" alt="">
-      <p>暂无相关数据</p>
+    <div class="noDataBox" style="padding-top:2rem;" v-if="!recordData.skipRecord&&!recordData.balanceRecord&&!recordData.stepRecord&&!recordData.abrollerRecord&&!recordData.wristBallRecord">
+      <div class="noDataImg"></div>
+      <p class="noDataInfo">暂无相关数据</p>
     </div>
 
     <van-popup v-model="dateshow" position="bottom" style="z-index: 9999;">

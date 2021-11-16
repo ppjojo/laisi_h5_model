@@ -150,9 +150,9 @@
 
             </li>
           </ul>
-          <div v-if="userIdData.length==0" class="nullDataBox">
-            <img style="width:2rem" :src="require('../img/noData.png')" alt="">
-            <p>当日无运动</p>
+          <div class="noDataBox" v-if="userIdData.length==0" style="padding-top:0.5rem;">
+            <div class="noDataImg"></div>
+            <p class="noDataInfo">当日无运动</p>
           </div>
         </div>
       </div>

@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/clubCompetitionDetail.css">
     <link rel="stylesheet" href="css/corporateCompetion.css">
     <link rel="stylesheet" href="../font/iconfont.css">
+    <link rel="stylesheet" href="../../common/css/basic.css">
     <link href="../clubList_Detail/css/header.css" rel="stylesheet" type="text/css" />
 
     <link rel="stylesheet" id="themeCssLink2" href="../../common/css/theme_white.css">
@@ -113,8 +114,8 @@
                                 </van-col>
                             </van-row>
                         </van-list>
-                        <div style="text-align:center;" v-else-if="upFinished1">
-                            <img style="width:4rem;margin-top:1rem;" src="../../common/img/noData.png" />
+                        <div class="noDataBox" v-else-if="upFinished1" style="padding-top: 1rem;">
+                            <div class="noDataImg"></div>
                         </div>
                     </van-pull-refresh>
                     <div class="btn_box">

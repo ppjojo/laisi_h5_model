@@ -50,10 +50,9 @@ body {
 .header .content .btn a {
   float: right;
   width: 1.36rem;
-  height: 0.48rem;
   background-color: #e60012;
   color: #fff;
-  font-size: 12px;
+  font-size: 0.24rem;
   line-height: 0.48rem;
   text-align: center;
   border-radius: 0.24rem;
@@ -359,16 +358,20 @@ body {
   margin: 0;
 }
 
-.dynamicBox .noData-box {
+.dynamicBox .noDataBox {
   text-align: center;
   padding-top: 1.5rem;
 }
 
-.dynamicBox .noData-box .noData-img {
+.dynamicBox .noDataBox .noDataImg {
   width: 4rem;
+  height: 4rem;
+  background-image: var(--noData);
+  background-size: cover;
+  margin: 0 auto;
 }
 
-.dynamicBox .noData-box .noData-p {
+.dynamicBox .noDataBox .noDataInfo {
   color: var(--textColor);
   font-size: 0.28rem;
 }

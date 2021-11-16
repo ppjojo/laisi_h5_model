@@ -132,18 +132,20 @@ $popBgColor:var(--popBgColor);
     }
 }
 
-.nullDataBox {
-    padding-top: 3rem;
+.noDataBox {
     text-align: center;
-    img {
+    padding-top: 3rem;
+    .noDataImg {
         width: 4rem;
+        height: 4rem;
+        background-image: var(--noData);
+        background-size: cover;
+        margin: 0 auto;
     }
-    p {
+    .noDataInfo {
+        color: var(--textColor2);
+        line-height: 0.8rem;
         font-size: 0.28rem;
-        color: $textColor2;
-        line-height: 1rem;
-        margin: 0;
-        padding: 0;
     }
 }
 

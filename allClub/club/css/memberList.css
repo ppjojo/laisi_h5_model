@@ -77,21 +77,6 @@ body {
     top: 0.36rem;
 }
 
-.noData-box {
-    text-align: center;
-    padding-top: 3.5rem;
-}
-
-.noData-box .noData-img {
-    width: 4rem;
-    height: 2.7rem;
-}
-
-.noData-box .noData-p {
-    color: #B3B8BB;
-    font-size: 0.28rem;
-}
-
 
 /* 申请列表的 */
 
@@ -114,10 +99,6 @@ body {
     height: 1rem;
     font-size: 0.4rem;
     line-height: 1rem;
-}
-
-.noData-img {
-    height: auto !important;
 }
 
 .van-index-anchor {

@@ -317,9 +317,9 @@
 
         </div>
         <van-loading class="loadingBox" v-else-if="!finished"></van-loading>
-        <div class="nullbox" v-else-if="finished">
-            <img src="../common/img/noData.png" alt="">
-            <p>暂无运动月报</p>
+        <div class="noDataBox" v-else-if="finished">
+            <div class="noDataImg"></div>
+            <p class="noDataInfo">暂无运动月报</p>
         </div>
     </div>
 </body>

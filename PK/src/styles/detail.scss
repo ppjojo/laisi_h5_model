@@ -162,12 +162,21 @@ $borderColor:var(--borderColor);
                 font-family: 'BebasNeue';
             }
         }
-        .noData-box {
+        .noDataBox {
             text-align: center;
-            padding-top: 0.5rem;
-        }
-        .noData-box .noData-img {
-            width: 4rem;
+            padding-top: .5rem;
+            .noDataImg {
+                width: 4rem;
+                height: 4rem;
+                background-image: var(--noData);
+                background-size: cover;
+                margin: 0 auto;
+            }
+            .noDataInfo {
+                color: var(--textColor2);
+                line-height: 0.8rem;
+                font-size: 0.28rem;
+            }
         }
         //团队赛
         .team {
@@ -382,6 +391,10 @@ $borderColor:var(--borderColor);
                     text-align: center;
                     .noTeamPic {
                         width: 1.8rem;
+                        height: 1.8rem;
+                        background-image: var(--noData);
+                        background-size: cover;
+                        margin: 0 auto;
                     }
                 }
             }

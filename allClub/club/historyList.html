@@ -7,6 +7,7 @@
     <title>参与历史</title>
     <link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
     <link rel="stylesheet" href="../font/iconfont.css">
+    <link rel="stylesheet" href="../../common/css/basic.css">
     <link href="../clubList_Detail/css/header.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" id="themeCssLink2" href="../../common/css/theme_white.css">
 
@@ -36,15 +37,6 @@
         .van-cell:not(:last-child)::after {
             left: 0;
         }
-        
-        .noData-box {
-            text-align: center;
-        }
-        
-        .noData-box .noData-img {
-            height: auto;
-            margin-top: 2.5rem;
-        }
     </style>
 </head>
 
@@ -64,9 +56,10 @@
                 <van-list v-model="loading" :finished="finished" finished-text="没有更多了" :offset="offset" @load="LoadList" :immediate-check=false v-if="historyList.length>0">
                     <van-cell v-for="item in historyList" :title="'['+(item.type=='00'?'任务':item.type=='01'?'比赛':item.type=='02'?'活动':'')+']'+item.name" is-link @click="gotoDetail(item)"></van-cell>
                 </van-list>
-                <div class="noData-box" v-else-if="finished">
-                    <img class="noData-img" style="width: 4rem;" src="../../common/img/noData.png" />
+                <div class="noDataBox" v-else-if="finished">
+                    <div class="noDataImg"></div>
                 </div>
+
             </van-pull-refresh>
         </div>
     </div>

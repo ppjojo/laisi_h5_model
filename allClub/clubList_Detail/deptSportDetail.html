@@ -60,9 +60,9 @@
 
                     </van-row>
                 </van-list>
-                <div v-else-if="personalObject.list.length==0&&personalObject.finished" class="noData-box">
-                    <img class="noData-img" src="../../common/img/noData.png" alt="">
-                    <p class="noData-p">部门暂时无人参与运动</p>
+                <div v-else-if="personalObject.list.length==0&&personalObject.finished" class="noDataBox">
+                    <div class="noDataImg"></div>
+                    <p class="noDataInfo">部门暂时无人参与运动</p>
                 </div>
             </van-pull-refresh>
         </div>

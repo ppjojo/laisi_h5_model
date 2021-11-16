@@ -111,10 +111,6 @@
     border-top: .02rem solid var(--borderColor);
 }
 
-.noData-box {
-    padding-top: .5rem;
-}
-
 .list_ul {
     /* padding:0 .3rem; */
 }
@@ -140,8 +136,4 @@
 .list_ul li .detail1 {
     color: var(--textColor);
     font-size: .36rem;
-}
-
-.noData-box .noData-p {
-    color: var(--textColor2);
 }

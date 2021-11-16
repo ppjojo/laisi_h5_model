@@ -21,6 +21,8 @@ $borderColor:var(--borderColor);
     height: 0.92rem;
     position: relative;
     z-index: 100;
+    height: calc(1rem + constant(safe-area-inset-top));
+    height: calc(1rem + env(safe-area-inset-top));
     .van-nav-bar {
         background-color: $bgColor;
         .van-nav-bar__content {
@@ -37,44 +39,6 @@ $borderColor:var(--borderColor);
     .van-hairline--bottom::after {
         border: none;
     }
-}
-
-@supports ((height: constant(safe-area-inset-top)) or (height: env(safe-area-inset-top))) and (-webkit-overflow-scrolling: touch) {
-    .header {
-        height: 1rem;
-        height: calc(1rem + constant(safe-area-inset-top));
-        height: calc(1rem + env(safe-area-inset-top));
-    }
-}
-
-
-/*猴子的下拉加载*/
-
-
-/* .van-pull-refresh__track{
-	transform: translate3d(0,100px,0);
-} */
-
-.monkey-pull-refresh .van-pull-refresh__head {
-    line-height: 0;
-    height: 90px !important;
-}
-
-.monkey-pull-refresh .monkeyBox .monkey {
-    width: 60px;
-    height: 60px;
-    line-height: 0;
-    padding: 0;
-    margin: 0;
-}
-
-.monkey-pull-refresh .monkeyBox p {
-    height: 10px;
-    font-size: 12px;
-    text-align: center;
-    line-height: 20px;
-    padding: 0;
-    margin: 0;
 }
 
 * {
@@ -400,16 +364,20 @@ body {
     min-height: calc(100vh - 2.5rem);
 }
 
-.noData-box {
+.noDataBox {
     text-align: center;
     padding: 0.5rem 0;
-    .noData-img {
+    .noDataImg {
         width: 4rem;
+        height: 4rem;
+        background-image: var(--noData);
+        background-size: cover;
+        margin: 0 auto;
     }
-    .noData-p {
-        color: $textColor;
+    .noDataInfo {
+        color: var(--textColor);
+        line-height: 0.8rem;
         font-size: 0.28rem;
-        padding: 0.2rem 0;
     }
 }
 

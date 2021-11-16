@@ -11,7 +11,7 @@
     <link href="../clubList_Detail/css/header.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" id="themeCssLink2" href="../../common/css/theme_white.css">
     <style type="text/css">
-        .noData-img {
+        .noDataImg {
             height: auto !important;
         }
         
@@ -186,9 +186,9 @@
 					</template> -->
                 </van-swipe-cell>
             </div>
-            <div class="noData-box" v-else-if="memberList.length<=0&&upFinished">
-                <img class="noData-img" src="../../common/img/noData.png" />
-                <!-- <p class="noData-p">暂无数据</p> -->
+            <div class="noDataBox" v-else-if="memberList.length<=0&&upFinished">
+                <div class="noDataImg"></div>
+                <!-- <p class="noDataInfo">暂无数据</p> -->
             </div>
         </div>
     </div>
