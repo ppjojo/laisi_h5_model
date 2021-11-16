@@ -451,6 +451,7 @@
                 competitionNameShow: false,
                 competitionNameList: [],
                 competitionList: [],
+                noDataImgUrl: ""
             };
         },
         filters: {},
@@ -463,7 +464,20 @@
             this.initGroup();
             this.initCompetition();
         },
-        created() {},
+        created() {
+            var theme = "";
+            if (localStorage.getItem("appInfo")) {
+                var appInfo = JSON.parse(localStorage.getItem("appInfo"));
+                theme = appInfo.theme;
+            } else if (getQueryString("theme")) {
+                theme = getQueryString("theme");
+            }
+            if (theme = "black") {
+                this.noDataImgUrl = "../../common/img/noData_black.png"
+            } else {
+                this.noDataImgUrl = "../../common/img/noData_white.png"
+            }
+        },
         methods: {
             initGroup() {
                 let _self = this;
@@ -1042,7 +1056,7 @@
                     option.graphic = [{
                         type: 'image',
                         style: {
-                            image: '../../common/img/noData.png',
+                            image: this.noDataImgUrl,
                             x: 80,
                             y: 30,
                             width: 200,
@@ -1327,7 +1341,7 @@
                     option.graphic = [{
                         type: 'image',
                         style: {
-                            image: '../../common/img/noData.png',
+                            image: this.noDataImgUrl,
                             x: 80,
                             y: 30,
                             width: 200,
@@ -1441,7 +1455,7 @@
                     option.graphic = [{
                         type: 'image',
                         style: {
-                            image: '../../common/img/noData.png',
+                            image: this.noDataImgUrl,
                             x: 80,
                             y: 30,
                             width: 200,
@@ -1537,7 +1551,7 @@
                     option.graphic = [{
                         type: 'image',
                         style: {
-                            image: '../../common/img/noData.png',
+                            image: this.noDataImgUrl,
                             x: 80,
                             y: 30,
                             width: 200,

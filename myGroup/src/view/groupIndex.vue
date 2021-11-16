@@ -522,11 +522,6 @@ export default {
 @import "@s/group.scss";
 </style>
 <style scoped>
-.nullDataBox {
-  padding-top: 0.5rem;
-  border-top: 0.02rem solid var(--borderColor);
-}
-
 .van-nav-bar {
   background-color: transparent;
   z-index: 999;

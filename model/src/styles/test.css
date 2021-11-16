@@ -105,22 +105,4 @@
   margin-right: 0.2rem;
   height: 0.32rem;
 }
-
-.myGroupList .nullDataBox {
-  margin-top: 3.5rem;
-  background-color: #fff;
-  text-align: center;
-}
-
-.myGroupList .nullDataBox img {
-  width: 4rem;
-}
-
-.myGroupList .nullDataBox p {
-  font-size: 0.25rem;
-  color: #999;
-  line-height: 1rem;
-  margin: 0;
-  padding: 0;
-}
 /*# sourceMappingURL=test.css.map */

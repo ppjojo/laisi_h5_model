@@ -58,9 +58,9 @@
       </li>
       <div v-if="historyList.length>0" class="finishtxt">全部成绩都在这里了</div>
     </ul>
-    <div v-if="historyList.length==0&&isFinish" class="nullDataBox">
-      <img :src="require('@i/noData.png')" alt="">
-      <p>还没有挑战的记录哟！快去挑战吧！</p>
+    <div class="noDataBox" v-if="historyList.length==0&&isFinish" style="padding-top: 0;">
+      <div class="noDataImg"></div>
+      <p class="noDataInfo">还没有挑战的记录哟！快去挑战吧！</p>
     </div>
   </div>
 </template>
@@ -309,17 +309,20 @@ export default {
   padding: 0.4rem;
 }
 
-.nullDataBox {
-  img {
-    width: 3.8rem;
-    margin: 0.2rem auto;
-    display: block;
+.noDataBox {
+  text-align: center;
+  padding-top: 0rem;
+  .noDataImg {
+    width: 4rem;
+    height: 4rem;
+    background-image: var(--noData);
+    background-size: cover;
+    margin: 0 auto;
   }
-
-  p {
+  .noDataInfo {
     color: var(--textColor2);
+    line-height: 0.8rem;
     font-size: 0.28rem;
-    text-align: center;
   }
 }
 
