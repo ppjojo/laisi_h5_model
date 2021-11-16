@@ -1,20 +1,11 @@
 /*猴子的下拉加载*/
 
-
-/* .van-pull-refresh__track{
-	transform: translate3d(0,100px,0);
-} */
-
 .monkey-pull-refresh .van-pull-refresh__head {
     line-height: 0;
     height: 90px!important;
 }
 
-.monkey-pull-refresh .monkeyBox {
-    /* display: flex;
-    justify-content: center;
-    align-items: center; */
-}
+.monkey-pull-refresh .monkeyBox {}
 
 .monkey-pull-refresh .monkeyBox .monkey {
     width: 60px;

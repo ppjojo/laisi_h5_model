@@ -40,7 +40,8 @@
     padding: .4rem;
 }
 
-.detail {
+.wallet .detail {
+    color: #fff;
     font-size: .32rem;
 }
 
@@ -70,6 +71,10 @@
 }
 
 .recordboxDiv {
+    color: var(--textColor);
+}
+
+#recordbox .detail {
     color: var(--textColor);
 }
 

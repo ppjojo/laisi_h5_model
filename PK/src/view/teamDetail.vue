@@ -29,21 +29,21 @@
         <van-pull-refresh v-model="refreshing" :head-height="90" @refresh="onRefresh" class="monkey-pull-refresh">
           <template #pulling="props">
             <div class="monkeyBox">
-              <img class="monkey" src="../img/monkey.gif" />
+              <div class="monkey"></div>
               <p>下拉刷新</p>
             </div>
           </template>
           <!-- 释放提示 -->
           <template #loosing>
             <div class="monkeyBox">
-              <img class="monkey" src="../img/monkey.gif" />
+              <div class="monkey"></div>
               <p>释放刷新</p>
             </div>
           </template>
           <!-- 加载提示 -->
           <template #loading>
             <div class="monkeyBox">
-              <img class="monkey" src="../img/monkey.gif" />
+              <div class="monkey"></div>
               <p>正在刷新</p>
             </div>
           </template>

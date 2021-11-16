@@ -75,9 +75,12 @@
 .comListBox .monkey-pull-refresh .monkeyBox .monkey {
   width: 60px;
   height: 60px;
+  margin: 0 auto;
+  background-size: cover;
+  background-position: 100% 100%;
+  background-image: var(--monkey);
   line-height: 0;
   padding: 0;
-  margin: 0;
 }
 
 .comListBox .monkey-pull-refresh .monkeyBox p {

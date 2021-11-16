@@ -9,6 +9,8 @@
   height: 1rem;
   position: relative;
   z-index: 100;
+  height: calc(1rem + constant(safe-area-inset-top));
+  height: calc(1rem + env(safe-area-inset-top));
 }
 
 #app {
@@ -1111,14 +1113,6 @@
   -ms-border-radius: 50%;
   -o-border-radius: 50%;
   margin-right: 0.2rem;
-}
-
-@supports ((height: constant(safe-area-inset-top)) or (height: env(safe-area-inset-top))) and (-webkit-overflow-scrolling: touch) {
-  .header {
-    height: 1rem;
-    height: calc(1rem + constant(safe-area-inset-top));
-    height: calc(1rem + env(safe-area-inset-top));
-  }
 }
 
 .van-picker__toolbar {

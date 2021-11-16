@@ -13,14 +13,14 @@
     <van-pull-refresh v-model="isLoading" @refresh="getList" class="monkey-pull-refresh" :head-height="90">
       <template #pulling="props">
         <div class="monkeyBox">
-          <img class="monkey" :src="require('../img/monkey.gif')" />
+          <div class="monkey"></div>
           <p>下拉刷新</p>
         </div>
       </template>
       <!-- 释放提示 -->
       <template #loosing>
         <div class="monkeyBox">
-          <img class="monkey" :src="require('../img/monkey.gif')" />
+          <div class="monkey"></div>
           <p>释放刷新</p>
         </div>
       </template>
@@ -28,7 +28,7 @@
       <!-- 加载提示 -->
       <template #loading>
         <div class="monkeyBox">
-          <img class="monkey" :src="require('../img/monkey.gif')" />
+          <div class="monkey"></div>
           <p>正在刷新</p>
         </div>
       </template>
@@ -188,7 +188,10 @@ export default {
   height: 60px;
   line-height: 0;
   padding: 0;
-  margin: 0;
+  margin: 0 auto;
+  background-size: cover;
+  background-position: 100% 100%;
+  background-image: var(--monkey);
 }
 
 .monkey-pull-refresh .monkeyBox p {

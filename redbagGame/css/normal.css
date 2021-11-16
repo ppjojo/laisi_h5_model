@@ -29,7 +29,7 @@ body {
     background-color: #F24023;
 }
 
-#app>.header {
+.header {
     position: relative;
     height: 0.92rem;
     position: relative;
