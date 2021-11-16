@@ -1,67 +1,53 @@
 /*猴子的下拉加载*/
+
+
 /* .van-pull-refresh__track{
 	transform: translate3d(0,100px,0);
 } */
+
 .monkey-pull-refresh .van-pull-refresh__head {
-	line-height: 0;
-	height: 90px!important;
+    line-height: 0;
+    height: 90px!important;
 }
 
-.monkey-pull-refresh .monkeyBox {}
+.monkey-pull-refresh .monkeyBox {
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+}
 
 .monkey-pull-refresh .monkeyBox .monkey {
-	width: 60px;
-	height: 60px;
-	line-height: 0;
-	padding: 0;
-	margin: 0;
+    width: 60px;
+    height: 60px;
+    line-height: 0;
+    padding: 0;
+    margin: 0 auto;
+    background-size: cover;
+    background-position: 100% 100%;
+    background-image: var(--monkey);
 }
 
 .monkey-pull-refresh .monkeyBox p {
-	height: 10px;
-	font-size: 12px;
-	text-align: center;
-	line-height: 20px;
-	padding: 0;
-	margin: 0;
+    height: 10px;
+    font-size: 12px;
+    text-align: center;
+    line-height: 20px;
+    padding: 0;
+    margin: 0;
 }
 
 .noData-box {
-	text-align: center;
-	padding-top: 2rem;
+    text-align: center;
+    padding-top: 2rem;
 }
 
 .noData-box .noData-img {
-	width: 4rem;
-	/* height: 2.7rem; */
+    width: 4rem;
+    /* height: 2.7rem; */
 }
 
 .noData-box .noData-p {
-	color: #999;
-	font-size: .28rem;
-	line-height:0.8rem;
+    color: var(--textColor2);
+    font-size: .28rem;
+    line-height: 0.8rem;
 }
-
-/*
-<template #pulling="props">
-	<div class="monkeyBox">
-		<img class="monkey" src="../common/img/monkey.gif" />
-		<p>下拉刷新</p>
-	</div>
-</template>
-<!-- 释放提示 -->
-<template #loosing>
-	<div class="monkeyBox">
-		<img class="monkey" src="../common/img/monkey.gif"/>
-		<p>释放刷新</p>
-	</div>
-</template>
-
-<!-- 加载提示 -->
-<template #loading>
-	<div class="monkeyBox">
-		<img class="monkey" src="../common/img/monkey.gif" />
-		<p>正在刷新</p>
-	</div>
-</template>
-*/

@@ -8,9 +8,9 @@
     <!-- 引入样式文件 -->
     <link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
     <link rel="stylesheet" href="../common/css/basic.css">
+    <link rel="stylesheet" id="themeCssLink" href="../common/css/theme_white.css">
     <link rel="stylesheet" href="css/normal.css">
     <link rel="stylesheet" href="css/myrecord.css">
-    <link rel="stylesheet" href="css/balancedetail.css">
 
     <style type="text/css">
         .wallet .detail span {
@@ -31,18 +31,18 @@
         .van-nav-bar,
         .monkey-pull-refresh,
         .DBnotice {
-            background-color: #12121F;
+            background-color: var(--bgColor);
         }
         
         .van-nav-bar .van-icon,
         .van-nav-bar__title,
         .van-list__error-text,
         .van-list__finished-text {
-            color: #CFCFD2;
+            color: var(--textColor);
         }
         
         .van-list__finished-text {
-            color: #71717f;
+            color: var(--textColor2);
         }
         
         .withdrawalBox {
@@ -68,9 +68,9 @@
 </head>
 
 <body>
-    <div id="app" :style="{paddingTop:isIOS?'.15rem':'.92rem'}" v-cloak>
+    <div id="app" v-cloak>
         <div class="header">
-            <van-nav-bar title="我的钱包" @click-left="OnclickLeft" left-arrow>
+            <van-nav-bar title="我的钱包" @click-left="OnclickLeft" left-arrow safe-area-inset-top fixed>
                 <template #right>
 						<!-- <div>余额明细</div> -->
 					</template>
@@ -91,20 +91,20 @@
         </div>
         <!-- 记录 -->
         <div id="recordbox">
-            <div class="ub ub-ac ub-pj" style="background-color: #12121F;padding-bottom: .32rem;border-bottom: .02rem solid #1E1E2A;" v-if="dataList.length>0">
+            <div class="ub ub-ac ub-pj recordboxDiv" style="padding-bottom: .32rem;" v-if="dataList.length>0">
                 <div class="detail">全部余额明细</div>
             </div>
             <van-pull-refresh v-model="isLoading" :head-height="90" @refresh="initIndexData" class="monkey-pull-refresh" style="min-height:calc( 100vh - 5.3rem );">
                 <template #pulling="props">
 						<div class="monkeyBox">
-							<img class="monkey" src="../common/img/monkey.gif" />
+                            <div class="monkey"> </div>
 							<p>下拉刷新</p>
 						</div>
 					</template>
                 <!-- 释放提示 -->
                 <template #loosing>
 						<div class="monkeyBox">
-							<img class="monkey" src="../common/img/monkey.gif" />
+                            <div class="monkey"> </div>
 							<p>释放刷新</p>
 						</div>
 					</template>
@@ -112,7 +112,7 @@
                 <!-- 加载提示 -->
                 <template #loading>
 						<div class="monkeyBox">
-							<img class="monkey" src="../common/img/monkey.gif" />
+                            <div class="monkey"> </div>
 							<p>正在刷新</p>
 						</div>
 					</template>

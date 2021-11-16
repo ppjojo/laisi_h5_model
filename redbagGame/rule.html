@@ -79,9 +79,9 @@
 </head>
 
 <body>
-    <div id="app" :style="{paddingTop:isIOS?'.3rem':'.92rem'}" v-cloak>
+    <div id="app" v-cloak>
         <div class="header">
-            <van-nav-bar title="活动规则" @click-left="OnclickLeft" @click-right="onClickRight" left-arrow>
+            <van-nav-bar title="活动规则" @click-left="OnclickLeft" @click-right="onClickRight" left-arrow safe-area-inset-top fixed>
                 <template #right>
 					</template>
             </van-nav-bar>

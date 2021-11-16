@@ -10,38 +10,25 @@
     <link rel="stylesheet" href="../common/css/basic.css">
     <link rel="stylesheet" href="css/normal.css">
     <link rel="stylesheet" href="css/withdrawal.css">
+    <link rel="stylesheet" id="themeCssLink" href="../common/css/theme_white.css">
 
     <style type="text/css">
-        #app>.header,
-        .van-nav-bar,
-        .monkey-pull-refresh,
-        .DBnotice {
-            background-color: #12121F;
-        }
-        
-        .van-nav-bar .van-icon,
-        .van-nav-bar__title,
-        .van-list__error-text,
-        .van-list__finished-text {
-            color: #CFCFD2;
-        }
-        
         .van-dialog,
         .van-button--default {
-            background-color: #292934;
-            color: #cfcfd2;
+            background-color: var(--popBgColor);
+            color: var(--textColor);
         }
         
         [class*=van-hairline]::after {
-            border-color: #1E1E2A;
+            border-color: var(--borderColor);
         }
     </style>
 </head>
 
 <body>
-    <div id="app" :style="{paddingTop:isIOS?'.15rem':'.92rem'}" v-cloak>
+    <div id="app" v-cloak>
         <div class="header">
-            <van-nav-bar title="提现" @click-left="OnclickLeft" @click-right="onClickRight" left-arrow>
+            <van-nav-bar title="提现" @click-left="OnclickLeft" @click-right="onClickRight" left-arrow safe-area-inset-top fixed>
             </van-nav-bar>
         </div>
         <van-number-keyboard @input="chargeNum" :show="keyboardShow" theme="custom" extra-key="." close-button-text="完成" @show="OnShow" @hide="OnHide" :maxlength="10" @delete="onDelete" @blur="keyboardShow = false">

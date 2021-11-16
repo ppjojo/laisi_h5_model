@@ -28,7 +28,7 @@
 <body>
     <div id="app" v-cloak>
         <div class="header">
-            <van-nav-bar :title="isSuccess==1?'兑换成功':'兑换失败'" @click-left="OnclickLeft" left-arrow>
+            <van-nav-bar :title="isSuccess==1?'兑换成功':'兑换失败'" @click-left="OnclickLeft" left-arrow safe-area-inset-top fixed>
             </van-nav-bar>
         </div>
         <div id="demoCanvas" style=""></div>

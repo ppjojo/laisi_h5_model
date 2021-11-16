@@ -25,9 +25,9 @@
 </head>
 
 <body style="background-color: #F24023;">
-    <div id="app" :style="{paddingTop:isIOS?'.15rem':'.92rem'}" v-cloak>
+    <div id="app" v-cloak>
         <div class="header">
-            <van-nav-bar title="本组战况" @click-left="OnclickLeft" left-arrow>
+            <van-nav-bar title="本组战况" @click-left="OnclickLeft" left-arrow safe-area-inset-top fixed>
             </van-nav-bar>
         </div>
         <div class="ybbox">
@@ -77,7 +77,7 @@
                     <!-- 加载提示 -->
                     <template #loading>
 						<div class="monkeyBox">
-							<!-- <img class="monkey" src="../common/img/monkey.gif" /> --> 
+							<van-loading color="#fff" />
 							<p>正在刷新</p>
 						</div>
 					</template>
