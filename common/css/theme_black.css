@@ -8,6 +8,9 @@
     --textColorActive: #fff;
     --specialBgColor: #12121f;
     --specialBorderColor: #1e1e2a;
+    /* 运动日历的灰色字体 在日历上 */
+    --sportsClock_textColor2: #71717f;
+    --sportsClock_weekTextColor: #71717f;
     --linearColor: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.5));
     --monkey: url("https://lstest3.laisitech.com/h5/h5V3/common/img/monkey_black.gif");
     --noData: url("https://lstest3.laisitech.com/h5/h5V3/common/img/noData_black.png");

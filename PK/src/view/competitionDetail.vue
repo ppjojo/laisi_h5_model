@@ -690,7 +690,7 @@ export default {
       var theme = "";
       if (localStorage.getItem("appInfo")) {
         var appInfo = JSON.parse(localStorage.getItem("appInfo"));
-        theme = appInfo.theme;
+        theme = appInfo.theme || "black";
       } else if (getQueryString("theme")) {
         theme = getQueryString("theme");
       }

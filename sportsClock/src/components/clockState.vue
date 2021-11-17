@@ -25,7 +25,9 @@
         现在去运动！
       </div>
       <div>
-        <img class="" style="width: 1.9rem;" :src="require('@i/none.png')" alt="">
+        <div class="noDataBox" style="padding-top: 0;">
+          <div class="noDataImg"></div>
+        </div>
       </div>
     </div>
     <div class="bottomBtn" @click="bottomBTN">
@@ -134,6 +136,22 @@ export default {
     text-align: center;
     background: linear-gradient(to right, #ff4e3e, #ffaa88);
     border-radius: 0.4rem;
+  }
+}
+.noDataBox {
+  text-align: center;
+  padding-top: 3rem;
+  .noDataImg {
+    width: 2rem;
+    height: 2rem;
+    background-image: var(--noData);
+    background-size: cover;
+    margin: 0 auto;
+  }
+  .noDataInfo {
+    color: var(--textColor2);
+    line-height: 0.8rem;
+    font-size: 0.28rem;
   }
 }
 </style>

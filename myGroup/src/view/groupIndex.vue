@@ -293,13 +293,14 @@ export default {
     scrollFn() {
       var t = document.documentElement.scrollTop || document.body.scrollTop;
       var rate = t / 100;
-      var theme = "";
+
       if (rate > 1) {
         rate = 1;
       }
+      var theme = "";
       if (localStorage.getItem("appInfo")) {
         var appInfo = JSON.parse(localStorage.getItem("appInfo"));
-        theme = appInfo.theme;
+        theme = appInfo.theme || "black";
       } else if (this.$route.query.theme) {
         theme = this.$route.query.theme;
       }

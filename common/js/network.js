@@ -20,24 +20,24 @@ window.onresize = function() {
 themeChange();
 //主题切换
 function themeChange() {
+    var theme = "black"
     if (localStorage.getItem("appInfo")) {
         var appInfo = JSON.parse(localStorage.getItem("appInfo"));
-        theme = appInfo.theme
+        theme = appInfo.theme || "black"
     } else if (getQueryString("theme")) {
         theme = getQueryString("theme")
     }
-    if (theme == 'black') {
-        if (document.getElementById("themeCssLink")) {
-            document.getElementById("themeCssLink").href = "../common/css/theme_black.css"
-        } else if (document.getElementById("themeCssLink2")) {
-            document.getElementById("themeCssLink2").href = "../../common/css/theme_black.css"
-        }
-
-    } else if (theme == 'white') {
+    if (theme == 'white') {
         if (document.getElementById("themeCssLink")) {
             document.getElementById("themeCssLink").href = "../common/css/theme_white.css"
         } else if (document.getElementById("themeCssLink2")) {
             document.getElementById("themeCssLink2").href = "../../common/css/theme_white.css"
+        }
+    } else if (theme == 'black') {
+        if (document.getElementById("themeCssLink")) {
+            document.getElementById("themeCssLink").href = "../common/css/theme_black.css"
+        } else if (document.getElementById("themeCssLink2")) {
+            document.getElementById("themeCssLink2").href = "../../common/css/theme_black.css"
         }
 
     }

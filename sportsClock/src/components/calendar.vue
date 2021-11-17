@@ -8,7 +8,7 @@
     </div>
     <div class="dateList ub-ad">
       <!-- 1-7 -->
-      <div class="wh_content_item greystate" v-for="tag in textTop">
+      <div class="wh_content_item greystate2" v-for="tag in textTop">
         <div class="wh_top_tag">{{tag}}</div>
       </div>
       <div class="wh_content_item" v-for="(item,index) in list" @click="dayDetail(index)">
@@ -106,7 +106,6 @@ export default {
         if (isToday) {
           this.todayGreen();
         }
-        console.log(arr);
       });
     },
     todayGreen() {
@@ -237,7 +236,10 @@ export default {
     }
 
     .greystate {
-      color: var(--textColor2);
+      color: var(--sportsClock_textColor2);
+    }
+    .greystate2 {
+      color: var(--sportsClock_weekTextColor);
     }
   }
 }

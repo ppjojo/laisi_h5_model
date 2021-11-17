@@ -36,7 +36,9 @@
         <div>当日未达到目标运动量！请继续加油哦！</div>
       </div>
       <div style="margin:0 auto .2rem;text-align: center;">
-        <img class="" style="width: 2.5rem;" :src="require('@i/none.png')" alt="">
+        <div class="noDataBox" style="padding-top: 0;">
+          <div class="noDataImg" style="width: 2.5rem;"></div>
+        </div>
         <div style="font-size: .28rem;color:var(--textColor2);">{{flag==2?'您还没有运动，先去运动吧～':'无运动打卡记录'}}</div>
       </div>
     </div>
@@ -335,7 +337,8 @@ export default {
   }
 
   .sportItem {
-    background-color: var(--borderColor);
+    background-color: var(--specialBorderColor);
+    box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.06);
     font-size: 0.24rem;
     color: var(--textColor);
     border-radius: 0.16rem;
@@ -412,11 +415,7 @@ export default {
 .updateclock {
   height: 1.84rem;
   width: 100%;
-  background: linear-gradient(
-    to bottom,
-    rgba(18, 18, 31, 0) 10%,
-    rgba(18, 18, 31, 1)
-  );
+  background: var(--linearColor);
   position: fixed;
   bottom: 0;
 
@@ -456,4 +455,21 @@ export default {
 // .van-hairline--top-bottom::after, .van-hairline-unset--top-bottom::after{
 // 	border-color: #595962;
 // }
+
+.noDataBox {
+  text-align: center;
+  padding-top: 3rem;
+  .noDataImg {
+    width: 2rem;
+    height: 2rem;
+    background-image: var(--noData);
+    background-size: cover;
+    margin: 0 auto;
+  }
+  .noDataInfo {
+    color: var(--textColor2);
+    line-height: 0.8rem;
+    font-size: 0.28rem;
+  }
+}
 </style>
