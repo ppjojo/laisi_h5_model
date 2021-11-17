@@ -7,7 +7,7 @@
     <title>派健康运动周报</title>
     <link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
     <link rel="stylesheet" href="font/iconfont.css">
-    <link rel="stylesheet" id="themeCssLink" href="../common/css/theme_white.css">
+    <link rel="stylesheet" id="themeCssLink" href="../common/css/theme_black.css">
     <link rel="stylesheet" href="css/index.css">
 
 
@@ -468,7 +468,7 @@
             var theme = "";
             if (localStorage.getItem("appInfo")) {
                 var appInfo = JSON.parse(localStorage.getItem("appInfo"));
-                theme = appInfo.theme;
+                theme = appInfo.theme || "black"
             } else if (getQueryString("theme")) {
                 theme = getQueryString("theme");
             }
@@ -494,7 +494,7 @@
                 var theme = ""
                 if (localStorage.getItem("appInfo")) {
                     var appInfo = JSON.parse(localStorage.getItem("appInfo"));
-                    theme = appInfo.theme
+                    theme = appInfo.theme || "black"
                 } else if (getQueryString('theme')) {
                     theme = getQueryString('theme')
                 }
