@@ -15,7 +15,7 @@
 }
 
 body {
-  background-color: var(--bgColor);
+  background-color: var(--specialBgColor);
   color: var(--textColor2);
 }
 
@@ -179,7 +179,7 @@ body {
 }
 
 .contain .dataBox {
-  background-color: var(--borderColor);
+  background-color: var(--specialBorderColor);
   margin: 0 0.24rem;
   padding: 0.4rem;
   margin-bottom: 0.24rem;
@@ -192,6 +192,8 @@ body {
 }
 
 .contain .dataBox .boxTitle {
+  color: var(--textColor);
+  font-weight: bold;
   font-size: 0.32rem;
   line-height: 0.48rem;
   height: 0.48rem;
@@ -394,7 +396,7 @@ body {
 }
 
 .historyListBox .historyListDiv .itemList {
-  background-color: var(--borderColor);
+  background-color: var(--specialBorderColor);
   border-radius: 4px;
 }
 
@@ -412,7 +414,7 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  border-bottom: 1px solid var(--bgColor);
+  border-bottom: 1px solid var(--specialBgColor);
 }
 
 .historyListBox .historyListDiv .itemList .itemTitle:last-child {

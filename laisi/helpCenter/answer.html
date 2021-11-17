@@ -12,7 +12,11 @@
     <link rel="stylesheet" href="font/iconfont.css">
     <link rel="stylesheet" type="text/css" href="css/problem.css">
     <link rel="stylesheet" id="themeCssLink2" href="../../common/css/theme_white.css">
-
+    <style>
+        body {
+            background: var(--specialBgColor);
+        }
+    </style>
 </head>
 
 <body>
@@ -27,11 +31,11 @@
         </div>
         <div class="answer">
             <div class="container">
-                <div class="borderbtm " style="padding:0.2rem">
+                <div class="borderbtm " style="padding:0.2rem 0">
                     <div class="icon">Q</div>
                     <div class="titleBox"> {{title}}</div>
                 </div>
-                <div style="padding:0.2rem">
+                <div style="padding:0.2rem 0">
                     <div class="icon bgGreen">A</div>
                     <div class="infoBox" v-html="operationManual">
                     </div>

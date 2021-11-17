@@ -4,8 +4,9 @@
 }
 
 .container {
-    background-color: var(--borderColor);
+    background-color: var(--specialBorderColor);
     border-radius: 0.24rem;
+    padding: 0.2rem;
 }
 
 .answer {
@@ -32,7 +33,7 @@
 }
 
 .answer .borderbtm {
-    border-bottom: .02rem solid var(--bgColor);
+    border-bottom: .02rem solid var(--borderColor);
 }
 
 .answer .titleBox {

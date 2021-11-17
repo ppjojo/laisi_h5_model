@@ -6,6 +6,8 @@
     --popBgColor: #292934;
     --popColor: #fff;
     --textColorActive: #fff;
+    --specialBgColor: #12121f;
+    --specialBorderColor: #1e1e2a;
     --linearColor: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.5));
     --monkey: url("https://lstest3.laisitech.com/h5/h5V3/common/img/monkey_black.gif");
     --noData: url("https://lstest3.laisitech.com/h5/h5V3/common/img/noData_black.png");

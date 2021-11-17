@@ -345,6 +345,7 @@
                 endTime: localStorage.getItem("report_endTime"),
                 sheetImageStatus: false,
                 finished: false,
+                badDataColor: "#666",
                 reportData: {
                     headPictureUrl: "",
                     nickName: "",
@@ -463,7 +464,20 @@
         filters: {
 
         },
-        created() {},
+        created() {
+            var theme = "";
+            if (localStorage.getItem("appInfo")) {
+                var appInfo = JSON.parse(localStorage.getItem("appInfo"));
+                theme = appInfo.theme;
+            } else if (getQueryString("theme")) {
+                theme = getQueryString("theme");
+            }
+            if (theme == 'black') {
+                this.badDataColor = "#71717f"
+            } else {
+                this.badDataColor = "#666"
+            }
+        },
         mounted() {
             this.initData()
             window.sheetImageHideHeader = this.sheetImageHideHeader;
@@ -610,7 +624,7 @@
                             if (item.type == "steps") {
                                 setTimeout(() => {
                                     this.getStepEchart(item)
-                                }, 1000)
+                                }, 200)
                             }
                         });
                         this.finished = true;
@@ -772,7 +786,7 @@
             },
             //步数
             getStepEchart(item) {
-
+                var vm = this
                 var list = item.stepMaps
                 if (!list) return
                 var myChart = echarts.init(document.getElementById("stepEchart"));
@@ -856,7 +870,7 @@
                                     }]
                                 }
                                 if (params.value < item.targetStep) {
-                                    color = "#71717F"
+                                    color = vm.badDataColor
                                 }
 
                                 return color
