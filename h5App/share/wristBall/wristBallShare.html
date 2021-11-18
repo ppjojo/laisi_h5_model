@@ -2,87 +2,86 @@
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport"
-		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
-	<link rel="icon" href="data:image/ico;base64,aWNv">
-	<title>腕力球分享</title>
-	<link href="../css/share.css?t=20200825" rel="stylesheet" type="text/css" />
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+    <link rel="icon" href="data:image/ico;base64,aWNv">
+    <title>腕力球分享</title>
+    <link href="../css/share.css?t=20200825" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
-	<div class="contain">
-		<div class='datacontain'>
-			<!-- 用户信息 -->
-			<div class='userinfo'>
-				<div class="imgcontainer">
-					<img id='userimg' class='userimg' src="" alt="" />
-				</div>
-				<div class="infos">
-					<p id='username' class=" name">---</p>
-					<p id='endtime' class="ftDin">---</p>
-				</div>
-			</div>
+    <div class="contain">
+        <div class='datacontain'>
+            <!-- 用户信息 -->
+            <div class='userinfo'>
+                <div class="imgcontainer">
+                    <img id='userimg' class='userimg' src="" alt="" />
+                </div>
+                <div class="infos">
+                    <p id='username' class=" name">---</p>
+                    <p id='endtime' class="ftDin">---</p>
+                </div>
+            </div>
 
 
-			<!-- 各项数据区域 -->
-			<div class="datalist">
-				<div class='sumdata'>
-					<div class='numdiv'>
-						<p class='num' id='numData'>---</p>
-						<p class="typetxt" id='leveltxt'>圈数(万圈)</p>
-					</div>
-				</div>
-				<div class='alldataitems'>
-					<div style="display: flex;justify-content: space-between;width: 100%;">
-						<div class="dataitem">
-							<p class="num txt-left">
-								<span class='data' id='time'>00:00</span>
-							</p>
-							<p class="title">时长</p>
-						</div>
-						<div class="dataitem txt-center">
-							<p class="num"><span class='data' id='avgNumber'>--</span></p>
-							<p class="title">平均转速(rpm)</p>
-						</div>
-						<div class="dataitem  txt-right">
-							<p class="num"><span class='data' id='reinsNum'>--</span></p>
-							<p class="title">平均力量(kg)</p>
-						</div>
-					</div>
-					<div style="display: flex;justify-content: space-between;width: 100%;">
-						<div class="dataitem txt-left">
-							<p class="num"><span class='data' id='cal'>--</span></p>
-							<p class="title">消耗(千卡)</p>
-						</div>
-						<div class="dataitem txt-center">
-							<p class="num"><span class='data' id='mostFreq'>--</span></p>
-							<p class="title">最大转速(rpm)</p>
-						</div>
-						<div class="dataitem txt-right">
-							<p class="num"><span class='data' id='mostHolding'>--</span></p>
-							<p class="title">最大力量(kg)</p>
-						</div>
-					</div>
-				</div>
+            <!-- 各项数据区域 -->
+            <div class="datalist">
+                <div class='sumdata'>
+                    <div class='numdiv'>
+                        <p class='num' id='numData'>---</p>
+                        <p class="typetxt" id='leveltxt'>圈数(万圈)</p>
+                    </div>
+                </div>
+                <div class='alldataitems'>
+                    <div style="display: flex;justify-content: space-between;width: 100%;">
+                        <div class="dataitem">
+                            <p class="num txt-left">
+                                <span class='data' id='time'>00:00</span>
+                            </p>
+                            <p class="title">时长</p>
+                        </div>
+                        <div class="dataitem txt-center">
+                            <p class="num"><span class='data' id='avgNumber'>--</span></p>
+                            <p class="title">平均转速(rpm)</p>
+                        </div>
+                        <div class="dataitem  txt-right">
+                            <p class="num"><span class='data' id='reinsNum'>--</span></p>
+                            <p class="title">平均力量(kg)</p>
+                        </div>
+                    </div>
+                    <div style="display: flex;justify-content: space-between;width: 100%;">
+                        <div class="dataitem txt-left">
+                            <p class="num"><span class='data' id='cal'>--</span></p>
+                            <p class="title">消耗(千卡)</p>
+                        </div>
+                        <div class="dataitem txt-center">
+                            <p class="num"><span class='data' id='mostFreq'>--</span></p>
+                            <p class="title">最大转速(rpm)</p>
+                        </div>
+                        <div class="dataitem txt-right">
+                            <p class="num"><span class='data' id='mostHolding'>--</span></p>
+                            <p class="title">最大力量(kg)</p>
+                        </div>
+                    </div>
+                </div>
 
-			</div>
-		</div>
-		<div class="footer">
-			<div id="Winfo" class="">
-				<p>派健康</p>
-				<p>智能腕力球Q20</p>
-			</div>
-			<img id='codeimg' src='../img/codeimg.png' alt='' />
-		</div>
+            </div>
+        </div>
+        <div class="footer">
+            <div id="Winfo" class="">
+                <p>派健康</p>
+                <p>智能腕力球Q20</p>
+            </div>
+            <img id='codeimg' src='../img/codeimg.png' alt='' />
+        </div>
 
 
 
-	</div>
+    </div>
 </body>
 
-<script src="../../../common/js/PhicJquery.js" type="text/javascript"></script>
+<script src="js/PhicJquery.js" type="text/javascript"></script>
 <script src="../../../common/js/network.js"></script>
 <script src="js/wristBallShare.js" type="text/javascript"></script>
 

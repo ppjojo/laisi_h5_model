@@ -15,7 +15,14 @@
 
 body {
   background-color: var(--bgColor);
-  color: var(--textColor);
+  color: var(--bestCareer_textColor);
+  min-height: 100vh;
+  font-size: 0.28rem;
+}
+
+.body2 {
+  background-color: var(--specialBgColor);
+  color: var(--bestCareer_textColor);
   min-height: 100vh;
   font-size: 0.28rem;
 }
@@ -65,7 +72,7 @@ body {
 
 .topBox .personalInfo .time {
   font-size: 0.24rem;
-  color: var(--textColor2);
+  color: var(--bestCareer_textColor2);
   line-height: 0.4rem;
 }
 
@@ -81,6 +88,7 @@ body {
   background-size: 100% 100%;
   position: relative;
   margin-bottom: 0.24rem;
+  border-radius: 5px;
 }
 
 .totalBox .itemBox .labelBox, .totalBox .itemBox2 .labelBox {
@@ -105,7 +113,7 @@ body {
 
 .totalBox .itemBox .labelBox .txt, .totalBox .itemBox2 .labelBox .txt {
   font-size: 0.2rem;
-  color: var(--textColor2);
+  color: var(--bestCareer_textColor2);
 }
 
 .totalBox .itemBox .dataBox, .totalBox .itemBox2 .dataBox {
@@ -145,7 +153,7 @@ body {
 
 .totalBox .itemBox .dataBox .dataItem .info, .totalBox .itemBox2 .dataBox .dataItem .info {
   font-size: 0.2rem;
-  color: var(--textColor2);
+  color: var(--bestCareer_textColor2);
 }
 
 .totalBox .itemBox2 {
@@ -153,6 +161,7 @@ body {
 }
 
 .detailBox {
+  color: var(--textColor);
   padding: 0 0.3rem;
   padding-top: 4.5rem;
   text-align: center;
@@ -265,7 +274,7 @@ body {
 }
 
 .desc {
-  color: var(--textColor2);
+  color: var(--sportsClock_weekTextColor);
   font-size: 0.24rem;
   text-align: center;
 }

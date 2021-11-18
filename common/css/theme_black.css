@@ -21,4 +21,7 @@
     /* 排行榜的图片 */
     --skipLeaderboard_topBgImg: url("https://lstest3.laisitech.com/h5/h5V3/common/img/skipLeaderboard/nobg_black.png");
     --skipLeaderboard_topNullImg: url("https://lstest3.laisitech.com/h5/h5V3/common/img/skipLeaderboard/null_black.png");
+    /* 生涯最佳 */
+    --bestCareer_textColor: #cfcfd2;
+    --bestCareer_textColor2: #71717f;
 }

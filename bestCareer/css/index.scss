@@ -15,14 +15,21 @@
 }
 
 //黑字
-$textColor:var(--textColor);
-$textColor2:var(--textColor2);
+$textColor:var(--bestCareer_textColor);
+$textColor2:var(--bestCareer_textColor2);
 //黑色背景
 $bgColor:var(--bgColor);
 //边框色
 $borderColor:var(--borderColor);
 body {
     background-color: $bgColor;
+    color: $textColor;
+    min-height: 100vh;
+    font-size: 0.28rem;
+}
+
+.body2 {
+    background-color: var(--specialBgColor);
     color: $textColor;
     min-height: 100vh;
     font-size: 0.28rem;
@@ -76,6 +83,7 @@ body {
         background-size: 100% 100%;
         position: relative;
         margin-bottom: 0.24rem;
+        border-radius: 5px;
         .labelBox {
             display: flex;
             align-items: center;
@@ -127,6 +135,7 @@ body {
 }
 
 .detailBox {
+    color: var(--textColor);
     padding: 0 0.3rem;
     padding-top: 4.5rem;
     text-align: center;
@@ -167,11 +176,11 @@ body {
                     }
                     .info {
                         font-size: 0.28rem;
-                        color: $textColor;
+                        color: var(--textColor);
                     }
                     .time {
                         font-size: 0.2rem;
-                        color: $textColor2;
+                        color: var(--textColor2);
                         height: 0.4rem;
                         line-height: 0.4rem;
                     }
@@ -211,7 +220,7 @@ body {
 }
 
 .desc {
-    color: $textColor2;
+    color: var(--sportsClock_weekTextColor);
     font-size: 0.24rem;
     text-align: center;
 }
