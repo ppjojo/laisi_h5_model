@@ -1,21 +1,20 @@
 <template>
   <div id="clockstate" v-cloak>
     <div class="">
-      <img v-if="state" class="stateImg" :src="require('@i/clockstate1.png')" alt="">
-      <img v-else class="stateImg" :src="require('@i/clockstate2.png')" alt="">
+      <div v-if="state" class="stateImg_success"></div>
+      <div v-else class="stateImg stateImg_fail"></div>
     </div>
     <div v-if="state">
-      <div class="" style="width: 2.8rem;color: #959598;font-size: .24rem;margin: .34rem auto;">
+      <div class="" style="width: 2.8rem;color: #959598;font-size: .24rem;margin: .4rem auto;">
         你已累计运动打卡{{maxday}}天啦～
         继续加油呀！
       </div>
       <div>
-        <img class="" style="width: 4rem;margin-bottom: .32rem;" :src="require('@i/clockaward.png')" alt="">
+        <div class="clockaward"></div>
       </div>
       <div class="unit ub ub-ad">
-        <div class="ub ub-aend">
-          <div class="num">5</div>
-          <div style="padding-bottom: .2rem;padding-left: .1rem;">逗币</div>
+        <div class="numBox">
+          <div class=""><span class="numDiv">5</span><span>逗币</span></div>
         </div>
       </div>
     </div>
@@ -114,14 +113,33 @@ export default {
   position: relative;
   height: 100%;
   width: 5.66rem;
-  .stateImg {
+  .stateImg_success {
     width: 2.6rem;
+    height: 0.6rem;
+    margin: 0 auto;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-image: var(--sportsClock_clockstate_success);
+  }
+  .stateImg_fail {
+    @extend .stateImg_success;
+    background-image: var(--sportsClock_clockstate_fail);
+  }
+  .clockaward {
+    width: 4rem;
+    height: 0.4rem;
+    margin-bottom: 0.25rem;
+    margin-top: 0.3rem;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-image: var(--sportsClock_clockaward);
   }
   .unit {
     color: var(--textColor);
     font-size: 0.28rem;
-    .num {
+    .numDiv {
       font-size: 0.8rem;
+      font-family: "BebasNeue";
     }
   }
   .bottomBtn {

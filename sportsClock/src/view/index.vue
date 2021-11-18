@@ -55,7 +55,7 @@
           <div class="">
             运动时长
           </div>
-          <div>
+          <div class="sportItemNum">
             {{formatSeconds(sportObj.takeMs||0)}}
           </div>
         </div>
@@ -64,7 +64,7 @@
             运动消耗
           </div>
           <div>
-            {{(sportObj.burn/1000).toFixed(2)||0}}<span>kcal</span>
+            <span class="sportItemNum">{{(sportObj.burn/1000).toFixed(2)||0}}</span><span>kcal</span>
           </div>
         </div>
       </div>
@@ -307,6 +307,7 @@ export default {
 .van-popover--dark .van-popover__content {
   background-color: var(--popBgColor);
   color: var(--textColor2);
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.06);
 }
 .van-popover--dark .van-popover__arrow {
   color: var(--popBgColor);
@@ -326,13 +327,12 @@ export default {
       font-size: 0.28rem;
       margin-bottom: 0.32rem;
     }
-
-    div:nth-child(2) {
+    span {
+      font-size: 0.24rem;
+    }
+    .sportItemNum {
       font-size: 0.48rem;
-
-      span {
-        font-size: 0.24rem;
-      }
+      font-family: "BebasNeue";
     }
   }
 

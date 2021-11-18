@@ -28,7 +28,7 @@ export default {
   width: 0.16rem;
   height: 0.16rem;
   border-radius: 0.04rem;
-  background-color: var(--borderColor);
+  background-color: var(--sportsClock_boxBgColor);
 }
 .isactive {
   background-color: rgba(142, 210, 176, 1);

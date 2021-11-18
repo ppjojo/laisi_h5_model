@@ -24,7 +24,7 @@ $borderColor:var(--borderColor);
     height: calc(1rem + constant(safe-area-inset-top));
     height: calc(1rem + env(safe-area-inset-top));
     .van-nav-bar {
-        background-color: $bgColor;
+        background-color: var(--specialBgColor);
         .van-nav-bar__content {
             color: $textColor;
         }
@@ -50,7 +50,7 @@ $borderColor:var(--borderColor);
 }
 
 body {
-    background-color: $bgColor;
+    background-color: var(--specialBgColor);
     color: $textColor;
     min-height: 100vh;
 }
@@ -58,7 +58,7 @@ body {
 .threeDiv {
     width: 100%;
     height: 3.3rem;
-    background-image: url(../img/nobg.png);
+    background-image: var(--skipLeaderboard_topBgImg);
     background-size: cover;
     background-position: 100% 100%;
     position: relative;
@@ -161,8 +161,12 @@ body {
     .nullImg {
         width: 1.2rem;
         position: absolute;
+        height: 1.8rem;
         top: 0.74rem;
         left: calc(50% - 0.6rem);
+        background-size: 100% 100%;
+        background-image: var(--skipLeaderboard_topNullImg);
+        ;
     }
 }
 
@@ -178,7 +182,7 @@ body {
     border-radius: 0.24rem;
     position: relative;
     width: 100%;
-    background-color: $borderColor;
+    background-color: var(--specialBorderColor);
     min-height: calc(100vh - 5.5rem);
     .allHeader {
         position: absolute;
@@ -189,7 +193,7 @@ body {
         margin-bottom: 1.08rem;
         .van-dropdown-menu__bar {
             box-shadow: none;
-            background-color: $borderColor;
+            background-color: var(--specialBorderColor);
             color: $textColor;
             height: 1.08rem;
         }
@@ -240,7 +244,7 @@ body {
         width: 100%;
         z-index: 2;
         margin-bottom: 1.92rem;
-        background-color: $borderColor;
+        background-color: var(--specialBorderColor);
         .tabDiv {
             width: 100%;
             height: 0.96rem;
@@ -279,7 +283,7 @@ body {
             justify-content: center;
             align-content: center;
             z-index: 2;
-            border-bottom: 1px solid $bgColor;
+            border-bottom: 1px solid var(--specialBgColor);
             p {
                 width: 1.8rem;
                 font-size: 0.28rem;
@@ -301,7 +305,7 @@ body {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            border-bottom: 1px solid $bgColor;
+            border-bottom: 1px solid var(--specialBgColor);
             .rank {
                 text-align: center;
                 font-size: 0.36rem;
@@ -346,10 +350,9 @@ body {
             }
         }
         .isself {
-            border-bottom: 0.16rem solid $bgColor;
+            border-bottom: 0.16rem solid var(--specialBgColor);
             margin: 0;
             padding: 0 0.24rem;
-            // border-top: 1px solid $bgColor;
         }
     }
     .dataBox {

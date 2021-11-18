@@ -3,9 +3,11 @@
     <div id="" v-if="bgw" class="sporticon">
       <img :src="url" alt="">
     </div>
-    <div v-else class="sporticon2 ub ub-ac">
-      <img :src="url" alt="">
-      <div>
+    <div v-else class="sporticon2">
+      <div class="imgBox">
+        <img :src="url" alt="">
+      </div>
+      <div class="numBox">
         <span class="num">{{typeUtilStr(itemObj,name,'unit')}}</span><span>{{typeUtilStr(itemObj,name,'val')}}</span>
       </div>
     </div>
@@ -80,13 +82,25 @@ export default {
   font-size: 0.48rem !important;
 }
 .sporticon2 {
-  img {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  .imgBox {
     width: 0.56rem;
     height: 0.56rem;
+    border-radius: 50%;
     margin-right: 0.16rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--borderColor);
+    img {
+      width: 0.4rem;
+      height: 0.4rem;
+    }
   }
 
-  div {
+  .numBox {
     color: var(--textColor);
     font-size: 0.43rem;
     white-space: nowrap;

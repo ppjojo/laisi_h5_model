@@ -87,7 +87,7 @@ import nCalendar from "@c/calendar";
 import year from "@c/year";
 import returnIcon from "@c/returnIcon";
 import { getQueryString } from "@u/tool";
-import { NavBar, Icon, Popup, Picker, DatetimePicker } from "vant";
+import { NavBar, Icon, Sticky, Popup, Picker, DatetimePicker } from "vant";
 import {
   getMonthDeviceTotal,
   getYearDeviceTotal,
@@ -103,6 +103,7 @@ export default {
     [DatetimePicker.name]: DatetimePicker,
     [Picker.name]: Picker,
     year,
+    [Sticky.name]: Sticky,
   },
 
   data() {
@@ -281,11 +282,17 @@ export default {
 }
 
 .finishList {
+  padding: 0 0.48rem;
   flex-wrap: wrap;
 
-  > .listItem {
-    width: 48%;
-    padding: 0.28rem 0.3rem;
+  .listItem {
+    width: 40%;
+    padding: 0.24rem 0;
+    &:nth-child(2n) {
+      .sporticon2 {
+        // justify-content: flex-end;
+      }
+    }
   }
 }
 
@@ -305,7 +312,7 @@ export default {
   .percentoutbox {
     width: 100%;
     border-radius: 0.12rem;
-    background-color: rgba(30, 30, 42, 1);
+    background-color: var(--sportsClock_boxBgColor);
     height: 0.16rem;
     position: relative;
 
@@ -354,4 +361,9 @@ export default {
     font-size: 0.56rem;
   }
 }
+// .van-sticky--fixed {
+//   top: 1rem;
+//   top: calc(1rem + constant(safe-area-inset-top));
+//   top: calc(1rem + env(safe-area-inset-top));
+// }
 </style>

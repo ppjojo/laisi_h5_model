@@ -18,7 +18,7 @@
 }
 
 .header .van-nav-bar {
-  background-color: var(--bgColor);
+  background-color: var(--specialBgColor);
 }
 
 .header .van-nav-bar .van-nav-bar__content {
@@ -46,7 +46,7 @@
 }
 
 body {
-  background-color: var(--bgColor);
+  background-color: var(--specialBgColor);
   color: var(--textColor);
   min-height: 100vh;
 }
@@ -54,7 +54,7 @@ body {
 .threeDiv {
   width: 100%;
   height: 3.3rem;
-  background-image: url(../img/nobg.png);
+  background-image: var(--skipLeaderboard_topBgImg);
   background-size: cover;
   background-position: 100% 100%;
   position: relative;
@@ -178,8 +178,11 @@ body {
 .threeDiv .nullImg {
   width: 1.2rem;
   position: absolute;
+  height: 1.8rem;
   top: 0.74rem;
   left: calc(50% - 0.6rem);
+  background-size: 100% 100%;
+  background-image: var(--skipLeaderboard_topNullImg);
 }
 
 .main-container {
@@ -194,7 +197,7 @@ body {
   border-radius: 0.24rem;
   position: relative;
   width: 100%;
-  background-color: var(--borderColor);
+  background-color: var(--specialBorderColor);
   min-height: calc(100vh - 5.5rem);
 }
 
@@ -210,7 +213,7 @@ body {
 .content-container .allHeader .van-dropdown-menu__bar {
   -webkit-box-shadow: none;
           box-shadow: none;
-  background-color: var(--borderColor);
+  background-color: var(--specialBorderColor);
   color: var(--textColor);
   height: 1.08rem;
 }
@@ -269,7 +272,7 @@ body {
   width: 100%;
   z-index: 2;
   margin-bottom: 1.92rem;
-  background-color: var(--borderColor);
+  background-color: var(--specialBorderColor);
 }
 
 .content-container .headerBox .tabDiv {
@@ -326,7 +329,7 @@ body {
   -ms-flex-line-pack: center;
       align-content: center;
   z-index: 2;
-  border-bottom: 1px solid var(--bgColor);
+  border-bottom: 1px solid var(--specialBgColor);
 }
 
 .content-container .headerBox .tabDiv2 p {
@@ -356,7 +359,7 @@ body {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  border-bottom: 1px solid var(--bgColor);
+  border-bottom: 1px solid var(--specialBgColor);
 }
 
 .content-container .listDiv .listItem .rank {
@@ -421,7 +424,7 @@ body {
 }
 
 .content-container .listDiv .isself {
-  border-bottom: 0.16rem solid var(--bgColor);
+  border-bottom: 0.16rem solid var(--specialBgColor);
   margin: 0;
   padding: 0 0.24rem;
 }
