@@ -6,8 +6,7 @@
   margin-bottom: 0.24rem;
   color: #fff;
   text-align: left;
-  padding: 0 0.16rem;
-  padding-top: 1.14rem;
+  padding: 0.3rem 0.16rem;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   position: relative;
@@ -49,7 +48,7 @@
 
 .pkDescript {
   font-size: 0.2rem;
-  line-height: 0.6rem;
+  line-height: 0.5rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -59,13 +58,15 @@
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
+  color: #cfcfd2;
 }
 
 .pkDescript span {
-  margin-right: 0.16rem;
+  margin-right: 0.12rem;
 }
 
 .pkPromoter {
+  color: #cfcfd2;
   font-size: 0.2rem;
 }
 
@@ -73,15 +74,14 @@
   font-size: 12px;
   line-height: 0.36rem;
   position: absolute;
-  left: 0;
-  top: 0.2rem;
+  left: 0.17rem;
+  bottom: 0.3rem;
   padding: 0 0.1rem;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   text-align: center;
   background-color: #E50012;
-  border-top-right-radius: 0.18rem;
-  border-bottom-right-radius: 0.18rem;
+  border-radius: 0.18rem;
 }
 
 .pkTime_ing {
@@ -89,7 +89,6 @@
   background-color: transparent;
   border: 1px solid #cfcfd2;
   color: #cfcfd2;
-  border-left: none;
 }
 
 .pkTime_todo {

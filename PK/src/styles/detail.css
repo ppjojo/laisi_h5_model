@@ -751,4 +751,15 @@
   width: 0.6rem;
   height: 0.6rem;
 }
+
+.van-action-sheet .van-action-sheet__name {
+  font-size: 0.32rem;
+}
+
+.van-action-sheet .van-action-sheet__cancel,
+.van-action-sheet .van-action-sheet__item {
+  background-color: var(--popBgColor);
+  color: var(--textColor);
+  border-bottom: 1px solid var(--borderColor);
+}
 /*# sourceMappingURL=detail.css.map */

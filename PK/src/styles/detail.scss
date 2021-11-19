@@ -584,3 +584,15 @@ $borderColor:var(--borderColor);
         }
     }
 }
+
+.van-action-sheet {
+    .van-action-sheet__name {
+        font-size: 0.32rem;
+    }
+    .van-action-sheet__cancel,
+    .van-action-sheet__item {
+        background-color: var(--popBgColor);
+        color: $textColor;
+        border-bottom: 1px solid $borderColor;
+    }
+}

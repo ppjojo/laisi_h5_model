@@ -1211,8 +1211,4 @@ export default {
 </script>
 <style lang="scss">
 @import "@/styles/detail.scss";
-
-.van-action-sheet__item {
-  border-bottom: 1px solid #1e1e2a;
-}
 </style>
