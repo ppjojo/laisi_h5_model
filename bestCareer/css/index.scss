@@ -43,6 +43,7 @@ body {
     position: absolute;
     top: 0;
     left: 0;
+    color: var(--textColor);
     .personalInfo {
         text-align: center;
         padding-top: 0.7rem;
@@ -67,7 +68,7 @@ body {
         }
         .time {
             font-size: 0.24rem;
-            color: $textColor2;
+            color: var(--textColor2);
             line-height: 0.4rem;
         }
     }

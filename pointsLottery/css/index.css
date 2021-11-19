@@ -9,7 +9,7 @@
 
 .van-action-sheet__cancel:active,
 .van-action-sheet__item:active {
-    background-color: #292934
+    background-color: transparent
 }
 
 .list_ul li {
@@ -442,9 +442,4 @@
         transform: translateX(-50%);
         opacity: 0;
     }
-}
-
-.van-action-sheet__cancel:active,
-.van-action-sheet__item:active {
-    background-color: #292934!important;
 }

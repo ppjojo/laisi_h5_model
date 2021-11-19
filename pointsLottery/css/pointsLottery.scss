@@ -127,7 +127,7 @@ body {
 .van-cell {
     background-color: $bgColor;
     .van-cell--clickable:active {
-        background-color: $bgColor;
+        background-color: transparent;
     }
     .van-cell::after {
         border-bottom: 1px solid $borderColor;
@@ -432,7 +432,7 @@ body {
     }
     .van-action-sheet__item,
     .van-action-sheet__cancel {
-        border-bottom: 1px solid $bgColor;
+        border-bottom: 1px solid var(--borderColor);
         background-color: $popBgColor;
         color: $textColor;
     }
@@ -441,7 +441,7 @@ body {
     }
     .van-action-sheet__cancel:active,
     .van-action-sheet__item:active {
-        background-color: $popBgColor
+        background-color: transparent
     }
 }
 

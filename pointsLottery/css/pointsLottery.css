@@ -138,7 +138,7 @@ body {
 }
 
 .van-cell .van-cell--clickable:active {
-  background-color: var(--bgColor);
+  background-color: transparent;
 }
 
 .van-cell .van-cell::after {
@@ -467,7 +467,7 @@ body {
 
 .van-action-sheet .van-action-sheet__item,
 .van-action-sheet .van-action-sheet__cancel {
-  border-bottom: 1px solid var(--bgColor);
+  border-bottom: 1px solid var(--borderColor);
   background-color: var(--popBgColor);
   color: var(--textColor);
 }
@@ -478,7 +478,7 @@ body {
 
 .van-action-sheet .van-action-sheet__cancel:active,
 .van-action-sheet .van-action-sheet__item:active {
-  background-color: var(--popBgColor);
+  background-color: transparent;
 }
 
 .van-sticky--fixed {

@@ -63,5 +63,5 @@
 }
 
 .cff {
-    color: #fff;
+    color: var(--popColor);
 }
