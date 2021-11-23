@@ -349,11 +349,28 @@
                 return pic
             },
             returnbg(type, active) {
+                var theme = "black"
+                if (localStorage.getItem("appInfo")) {
+                    var appInfo = JSON.parse(localStorage.getItem("appInfo"));
+                    theme = appInfo.theme || "black"
+                } else if (getQueryString("theme")) {
+                    theme = getQueryString("theme");
+                }
                 if (active == 2) return '#f5f5f5';
                 if (type == '00') { //renwu
-                    return '#EAF2FF';
+                    if (theme == "black") {
+                        return '#E7F1FF';
+                    } else {
+                        return '#ECF3FF';
+                    }
+
                 } else {
-                    return '#FEF5D1';
+                    if (theme == "black") {
+                        return '#FFF5D0';
+                    } else {
+                        return '#FDF6E2';
+                    }
+
                 }
             },
             sjc2time(sjc) {

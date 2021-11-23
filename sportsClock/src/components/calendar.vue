@@ -226,7 +226,7 @@ export default {
           width: 0.08rem;
           height: 0.08rem;
           border-radius: 50%;
-          background-color: var(--textColor2);
+          background-color: var(--sportsClock_weekTextColor);
           left: calc(50% - 0.04rem);
           bottom: -0.2rem;
         }

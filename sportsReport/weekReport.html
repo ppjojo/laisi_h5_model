@@ -345,7 +345,9 @@
                 endTime: localStorage.getItem("report_endTime"),
                 sheetImageStatus: false,
                 finished: false,
-                badDataColor: "#666",
+                badDataColor: "#71717f",
+                lineColor: "#71717f",
+                theme: "black",
                 reportData: {
                     headPictureUrl: "",
                     nickName: "",
@@ -465,7 +467,7 @@
 
         },
         created() {
-            var theme = "";
+            var theme = "black";
             if (localStorage.getItem("appInfo")) {
                 var appInfo = JSON.parse(localStorage.getItem("appInfo"));
                 theme = appInfo.theme || "black"
@@ -473,9 +475,13 @@
                 theme = getQueryString("theme");
             }
             if (theme == 'black') {
+                this.theme = "black"
                 this.badDataColor = "#71717f"
+                this.lineColor = "#71717f"
             } else {
-                this.badDataColor = "#666"
+                this.theme = "white"
+                this.badDataColor = "#ddd"
+                this.lineColor = "#999"
             }
         },
         mounted() {
@@ -669,12 +675,12 @@
                         axisLine: {
                             show: true,
                             lineStyle: {
-                                color: "#71717F"
+                                color: this.lineColor
                             }
                         },
                         axisLabel: {
                             fontSize: 10,
-                            color: "#71717F",
+                            color: this.lineColor
                         }
                     },
                     yAxis: {
@@ -745,12 +751,12 @@
                         axisLine: {
                             show: true,
                             lineStyle: {
-                                color: "#71717F"
+                                color: this.lineColor
                             }
                         },
                         axisLabel: {
                             fontSize: 10,
-                            color: "#71717F",
+                            color: this.lineColor
                         }
                     },
                     yAxis: {
@@ -834,12 +840,12 @@
                         axisLine: {
                             show: true,
                             lineStyle: {
-                                color: "#71717F"
+                                color: this.lineColor
                             }
                         },
                         axisLabel: {
                             fontSize: 10,
-                            color: "#71717F",
+                            color: this.lineColor
                         }
                     },
                     yAxis: {
@@ -884,7 +890,7 @@
                                 normal: {
                                     lineStyle: {
                                         type: 'dashed',
-                                        color: '#595962',
+                                        color: this.lineColor,
                                     },
                                     label: {
                                         show: false,

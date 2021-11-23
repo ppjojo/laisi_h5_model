@@ -19,8 +19,9 @@ window.onresize = function() {
 };
 themeChange();
 //主题切换
+var theme = "black"
+
 function themeChange() {
-    var theme = "black"
     if (localStorage.getItem("appInfo")) {
         var appInfo = JSON.parse(localStorage.getItem("appInfo"));
         theme = appInfo.theme || "black"
@@ -462,7 +463,7 @@ var Interaction = {
         this.appNative("sharePage", {
             title: info.title,
             description: info.description,
-            url: info.url,
+            url: info.url + '&theme=' + theme,
         });
     },
     //H5调原生分享模板，链接分享模板，模板中又存在截图分享功能
@@ -474,7 +475,7 @@ var Interaction = {
         this.appNative("LSTH5APP_UrlAndSheetImageShareModel", {
             shareTitle: info.shareTitle,
             shareContent: info.shareContent,
-            shareUrl: info.shareUrl,
+            shareUrl: info.shareUrl + '&theme=' + theme,
         });
     },
 

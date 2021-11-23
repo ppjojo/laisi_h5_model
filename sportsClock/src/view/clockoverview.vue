@@ -186,7 +186,6 @@ export default {
       this.$router.go(-1);
     },
     onClickRight() {
-      //跳转创建小组
       this.sharePage();
     },
     goGroupIndex(item) {
@@ -233,6 +232,13 @@ export default {
       return val;
     },
     sharePage() {
+      var theme = "black";
+      if (localStorage.getItem("appInfo")) {
+        var appInfo = JSON.parse(localStorage.getItem("appInfo"));
+        theme = appInfo.theme || "black";
+      } else if (getQueryString("theme")) {
+        theme = getQueryString("theme");
+      }
       this.$interaction.appNative("LSTH5APP_UrlAndSheetImageShareModel", {
         shareTitle: "运动日历打卡",
         isShareUrl: false,
@@ -243,7 +249,9 @@ export default {
           "&userId=" +
           this.userId +
           "&nickname=" +
-          this.nickname,
+          this.nickname +
+          "&theme=" +
+          theme,
       });
     },
     sheetImageHideHeader() {
@@ -262,7 +270,7 @@ export default {
     text-align: center;
     height: 1.28rem;
     line-height: 1.28rem;
-    color: var(--textColor2);
+    color: var(--sportsClock_weekTextColor);
     font-size: 0.32rem;
     position: relative;
 

@@ -22,9 +22,18 @@
         }
         
         .listItem img {
+            width: 1.2rem;
+        }
+        
+        .box {
             width: 1.8rem;
+            height: 1.8rem;
+            background-color: var(--borderColor);
             border-radius: 4px;
             margin-right: .2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
     </style>
 </head>
@@ -41,7 +50,7 @@
         </div>
         <div class="list">
             <div class="listItem " v-for="(item,index) in dataList" @click="clickQuestion(item)">
-                <div><img :src="item.picUrl" alt=""></div>
+                <div class="box"><img :src="item.picUrl" alt=""></div>
                 <div>{{item.deviceTypeDetail}}</div>
             </div>
         </div>

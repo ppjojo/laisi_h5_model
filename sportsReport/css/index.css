@@ -62,15 +62,15 @@ body {
 }
 
 .nullheader .van-nav-bar__content {
-  color: #fff;
+  color: var(--popColor) !important;
 }
 
 .nullheader .van-nav-bar__title {
-  color: #fff;
+  color: var(--popColor) !important;
 }
 
 .nullheader .van-nav-bar__text {
-  color: #fff;
+  color: var(--popColor) !important;
 }
 
 .loadingBox {
@@ -96,13 +96,13 @@ body {
 }
 
 .listBox .weekItem .title, .listBox .monthItem .title {
-  color: var(--bgColor);
+  color: #12121f !important;
   font-size: 0.4rem;
   margin-bottom: 0.28rem;
 }
 
 .listBox .weekItem .date, .listBox .monthItem .date {
-  color: var(--bgColor);
+  color: #12121f !important;
   font-size: 0.32rem;
 }
 
@@ -231,7 +231,7 @@ body {
 
 .contain .dataBox .text_data {
   font-size: 0.56rem;
-  color: var(--textColor2);
+  color: var(--textColor);
   font-family: "BebasNeue";
   line-height: 0.6rem;
 }
@@ -243,7 +243,7 @@ body {
 
 .contain .dataBox .text_data_small {
   font-size: 0.24rem;
-  color: var(--textColor2);
+  color: var(--textColor);
   line-height: 0.35rem;
 }
 
@@ -403,7 +403,7 @@ body {
 .historyListBox .historyListDiv .itemList .itemTitle {
   margin: 0 0.24rem;
   height: 0.88rem;
-  color: var(--textColor2);
+  color: var(--textColor);
   font-size: 0.32rem;
   display: -webkit-box;
   display: -ms-flexbox;
