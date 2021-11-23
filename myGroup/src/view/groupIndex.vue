@@ -37,7 +37,7 @@
     </div>
 
     <div class="containBox">
-      <div class="noticeBox" @click="goNotice()">
+      <div class="noticeBox" @click="goNotice()" v-if="groupItem.content">
         <div class="noticeBoxLeft">
           <img class="iconNotice" :src="require('../img/iconNotice.png')" alt="">
           <van-notice-bar class="noticeContent" :text="groupItem.content||''" />
@@ -150,7 +150,7 @@
 
             </li>
           </ul>
-          <div class="noDataBox" v-if="userIdData.length==0" style="padding-top:0.5rem;">
+          <div class="noDataBox" v-if="userIdData.length==0" style="padding-top:0rem;">
             <div class="noDataImg"></div>
             <p class="noDataInfo">当日无运动</p>
           </div>

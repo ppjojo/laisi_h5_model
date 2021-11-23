@@ -1180,6 +1180,11 @@ export default {
           this.joinStatusAndTimesRemain();
 
           this.$toast("报名成功！");
+          if (isIOS) {
+            // window.webkit.messageHandlers.lstNative.postMessage(skipItem);
+          } else {
+            window.android.LSTH5APP_JoinCompetitionAddCoin();
+          }
         }
         this.signClick = false;
       });

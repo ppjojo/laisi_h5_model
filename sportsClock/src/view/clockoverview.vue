@@ -7,7 +7,7 @@
           <span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
         </template>
         <template #right>
-          <img style="width: .48rem;" :src="require('@i/navshare.png')" alt="">
+          <span class="icon iconfont icon-fenxianganniu" style="font-size: 0.48rem;" />
         </template>
       </van-nav-bar>
     </div>

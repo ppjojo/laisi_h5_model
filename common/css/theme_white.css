@@ -25,4 +25,7 @@
     /* 生涯最佳 */
     --bestCareer_textColor: #fff;
     --bestCareer_textColor2: #fff;
+    /* challenge */
+    --challenge_btnBgColor: #ddd;
+    --challenge_btnTextColor: #666;
 }

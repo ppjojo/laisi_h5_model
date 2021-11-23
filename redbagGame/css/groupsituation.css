@@ -1,101 +1,122 @@
 .ybbox {
-	border: .08rem solid #FCBD3F;
-	border-radius: .72rem;
-	width: 6.9rem;
-	margin: 1.5rem auto .3rem;
-	padding: .7rem 1rem .4rem;
-	position: relative;
-	background-color: #F24023;
+    border: .08rem solid #FCBD3F;
+    border-radius: .72rem;
+    width: 6.9rem;
+    margin: 1.5rem auto .3rem;
+    padding: .7rem 1rem .4rem;
+    position: relative;
+    background-color: #F24023;
 }
 
 .ybbox img {
-	position: absolute;
-	width: 5.3rem;
-	top: -1.1rem;
-	left: calc(50% - 2.65rem);
+    position: absolute;
+    width: 5.3rem;
+    top: -1.1rem;
+    left: calc(50% - 2.65rem);
 }
 
 .ybbox .detail {
-	font-size: .28rem;
-	color: #fff;
-	text-align: center;
-	margin-bottom: .2rem;
+    font-size: .28rem;
+    color: #fff;
+    text-align: center;
+    margin-bottom: .2rem;
 }
 
 .ybbox .detail2 {
-	font-size: .64rem;
-	color: #fae181;
-	font-family: DINCondensed-Bold;
-	text-align: center;
-	height: .9rem;
-	line-height: .9rem;
+    font-size: .64rem;
+    color: #fae181;
+    font-family: DINCondensed-Bold;
+    text-align: center;
+    height: .9rem;
+    line-height: .9rem;
 }
-.van-hairline--top-bottom::after, .van-hairline-unset--top-bottom::after{
-	border: none;
+
+.van-hairline--top-bottom::after,
+.van-hairline-unset--top-bottom::after {
+    border: none;
 }
-.van-tabs__nav{
-	background-color: transparent;
+
+.van-tabs__nav {
+    background-color: transparent;
 }
-.van-tabs__line{
-	width: .48rem!important;
-	background-color: #fff!important;
+
+.van-tabs__line {
+    width: .48rem!important;
+    background-color: #fff!important;
 }
-.van-tab{
-	color: #cdcdcd;
-	font-size: .32rem;
+
+.van-tab {
+    color: #cdcdcd;
+    font-size: .32rem;
 }
-.van-tab--active{
-	color: #fff;
-	font-size: .36rem;
+
+.van-tab--active {
+    color: #fff;
+    font-size: .36rem;
 }
-.rankList{
-	color: #fff;
-	font-size: .32rem;
+
+.rankList {
+    color: #fff;
+    font-size: .32rem;
 }
-.rankList .self{
-	border-top: 1px solid  #F57965;
-	border-bottom:  1px solid  #F57965;
+
+.rankList .self {
+    border-top: 1px solid #F57965;
+    border-bottom: 1px solid #F57965;
 }
-.rankList ul{
-	padding: 0 .3rem;
-	margin-top: .3rem;
+
+.rankList ul {
+    padding: 0 .3rem;
+    margin-top: .3rem;
 }
-.rankList .rankpic{
-	width: .64rem;
-	height: .64rem;
+
+.rankList .rankpic {
+    width: .64rem;
+    height: .64rem;
 }
-.rankList .headpic{
-	width: .8rem;
-	height: .8rem;
-	border-radius: 100%;
-	margin-right: .2rem;
+
+.rankList .headpic {
+    width: .8rem;
+    height: .8rem;
+    border-radius: 100%;
+    margin-right: .2rem;
 }
-.rankList .nickName{
-	font-size: .28rem;
-	max-width: 2.8rem;
-	margin-bottom: .1rem;
+
+.rankList .nickName {
+    font-size: .28rem;
+    max-width: 2.8rem;
+    margin-bottom: .1rem;
 }
-.rankList .self .nickName{
-	color: #FCD63F;
+
+.rankList .self .nickName {
+    color: #FCD63F;
 }
-.rankList .time{
-	font-size: .24rem;
-	color: #cdcdcd;
+
+.rankList .time {
+    font-size: .24rem;
+    color: #cdcdcd;
 }
-.rankList li{
-	padding: .26rem 0rem;
+
+.rankList li {
+    padding: .26rem 0rem;
 }
-.rankList li>div:first-child{
-	width: 20%;
+
+.rankList li>div:first-child {
+    width: 20%;
 }
-.rankList li>div:nth-child(2){
-	width: 55%;
+
+.rankList li>div:nth-child(2) {
+    width: 55%;
 }
-.rankList li>div:last-child{
-	width: 25%;
-	text-align: right;
-	padding-left: .1rem;
+
+.rankList li>div:last-child {
+    width: 25%;
+    text-align: right;
+    padding-left: .1rem;
 }
-.van-list__error-text, .van-list__finished-text, .van-list__loading{
-	color:#fff;
+
+.van-list__error-text,
+.van-list__finished-text,
+.van-list__loading {
+    color: #fff;
 }

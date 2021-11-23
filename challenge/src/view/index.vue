@@ -343,8 +343,8 @@ export default {
 }
 
 .greyBtn {
-  background: var(--textColor2);
-  color: var(--textColor);
+  background: var(--challenge_btnBgColor);
+  color: var(--challenge_btnTextColor);
 }
 
 .van-dialog__message {

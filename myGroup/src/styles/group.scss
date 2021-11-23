@@ -33,32 +33,32 @@ $popBgColor:var(--popBgColor);
 
 //健身
 .js {
-    background-color: rgba(142, 210, 176, 0.2) !important;
-    color: #26B350 !important;
+    background-color: rgba(30, 179, 105, 0.2) !important;
+    color: #1eb369 !important;
 }
 
 //跳绳
 .ts {
-    background-color: rgba(255, 170, 136, 0.2) !important;
-    color: #FF8D3F !important;
+    background-color: rgba(255, 130, 80, 0.2) !important;
+    color: #ff8250 !important;
 }
 
 //减肥
 .jf {
-    background-color: rgba(125, 179, 255, 0.2) !important;
-    color: #7C87F8 !important;
+    background-color: rgba(65, 144, 255, 0.2) !important;
+    color: #4190ff !important;
 }
 
 //减脂
 .jz {
-    background-color: rgba(125, 179, 255, 0.2) !important;
-    color: #F86C6C !important;
+    background-color: rgba(255, 195, 10, 0.2) !important;
+    color: #ffc30a !important;
 }
 
 //腕力球
 .wlq {
-    background-color: rgba(125, 179, 255, 0.2) !important;
-    color: #66ABFF !important;
+    background-color: rgba(65, 144, 255, 0.2) !important;
+    color: #4190ff !important;
 }
 
 .myGroupList {
@@ -759,6 +759,8 @@ $popBgColor:var(--popBgColor);
 }
 
 .memberDataDetail {
+    background-color: var(--specialBgColor)!important;
+    color: $textColor;
     padding: 0.3rem;
     .chooseBox {
         display: flex;
@@ -769,7 +771,7 @@ $popBgColor:var(--popBgColor);
             align-items: center;
             justify-content: space-between;
             font-size: 0.28rem;
-            background-color: $borderColor;
+            background-color: var(--specialBorderColor);
             height: 0.72rem;
             border-radius: 0.36rem;
             padding: 0 0.1rem;
@@ -790,7 +792,7 @@ $popBgColor:var(--popBgColor);
         .dateBox {
             font-size: 0.24rem;
             color: $textColor2;
-            background-color: $borderColor;
+            background-color: var(--specialBorderColor);
             height: 0.72rem;
             border-radius: 0.36rem;
             display: flex;
@@ -806,7 +808,7 @@ $popBgColor:var(--popBgColor);
     .dataBox {
         margin-top: 0.4rem;
         .dataItem {
-            background-color: $borderColor;
+            background-color: var(--specialBorderColor);
             padding: 0.4rem 0.4rem 0.1rem;
             border-radius: 8px;
             margin-bottom: 0.24rem;

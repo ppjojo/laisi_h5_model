@@ -161,7 +161,7 @@
 
 @font-face {
     font-family: "DINCondensed-Bold";
-    src: url("../../common/font/DINCondensed-Bold/DINCondensed-Bold.woff2") format("woff2"), url("../../common/font/DINCondensed-Bold/DINCondensed-Bold.woff") format("woff"), url("../../common/font/DINCondensed-Bold/DINCondensed-Bold.ttf") format("truetype"), url("../../common/font/DINCondensed-Bold/DINCondensed-Bold.eot") format("embedded-opentype"), url("../../common/font/DINCondensed-Bold/DINCondensed-Bold.svg") format("svg");
+    src: url("../../common/font/DINCondensed-Bold/DINCondensed-Bold.ttf") format("truetype");
     font-weight: normal;
     font-style: normal;
 }

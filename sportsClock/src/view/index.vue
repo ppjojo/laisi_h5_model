@@ -215,14 +215,14 @@ export default {
       insertSportData({}).then((res) => {
         this.isClick = false;
         this.clockState = res.code == "0";
-        this.clockShow = true;
         if (!this.clockState) {
           this.flag = 2;
         } else {
+          this.monthObj.sportClockSum++;
           this.getList();
           this.$refs.calendar.calindarList(null, true);
-          // this.calindarList()
         }
+        this.clockShow = true;
       });
     },
     reClick() {
@@ -242,7 +242,6 @@ export default {
         this.getList();
         this.$refs.calendar.calindarList();
         this.$toast("更新打卡成功");
-        // this.calindarList()
       });
     },
     clickBeforeDay(stamp, todayFlag) {
@@ -270,7 +269,6 @@ export default {
     fatherSetMonthObj(obj) {
       this.$nextTick(() => {
         this.monthObj = Object.assign(this.monthObj, obj);
-        // console.log(this.monthObj)
       });
     },
     fatherPickYearMonth() {

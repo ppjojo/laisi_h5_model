@@ -78,7 +78,6 @@ html {
     font-size: .24rem;
     text-align: left;
     white-space: nowrap;
-
 }
 
 .userinfo p.name {
@@ -88,14 +87,18 @@ html {
     white-space: nowrap;
 }
 
+
 /* 超出省略显示 */
+
 .ellipsis {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
 }
 
+
 /* 各项数据信息 */
+
 .datacontain .datalist {
     width: 100%;
     padding: 0 0.4rem;
@@ -119,14 +122,6 @@ html {
     margin-top: 30%;
     width: 100%;
     text-align: center;
-
-}
-
-@font-face {
-    font-family: "DINCondensed-Bold";
-    src: url("../../../common/font/DINCondensed-Bold/DINCondensed-Bold.ttf") format("truetype");
-    font-weight: normal;
-    font-style: normal;
 }
 
 @font-face {
@@ -144,7 +139,6 @@ html {
 .numdiv .typetxt {
     font-size: .24rem;
 }
-
 
 .datalist .alldataitems {
     width: 100%;
@@ -198,10 +192,11 @@ html {
     margin-top: 0.5rem;
     position: relative;
     padding: 0 0.4rem;
-
 }
 
+
 /* 二维码区域 */
+
 #codeimg {
     width: 2.6rem;
     height: 2.6rem;
