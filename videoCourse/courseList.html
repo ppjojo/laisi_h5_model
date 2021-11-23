@@ -509,10 +509,10 @@
 
                         } else {
                             if (item.likeStatus) {
-                                item.dadCommendLikeCount--;
+                                item.sonLikeCount--;
                                 this.$toast("已取消")
                             } else {
-                                item.dadCommendLikeCount++;
+                                item.sonLikeCount++;
                                 this.$toast("点赞成功")
                             }
 
@@ -703,9 +703,9 @@
                     that.$dialog.confirm({
                         message: '使用本功能，请先绑定手机号',
                         confirmButtonText: "确定",
-                        confirmButtonColor: "#CFCFD2",
+                        // confirmButtonColor: "#CFCFD2",
                         width: "300",
-                        cancelButtonColor: "#CFCFD2"
+                        // cancelButtonColor: "#CFCFD2"
                     }).then(() => {
                         if (isIOS) {
                             window.webkit.messageHandlers.lstNative.postMessage({
@@ -768,13 +768,14 @@
                             this.onRefresh();
                             this.isClick = false;
                         }
-                        ajax({
-                            type: "post",
-                            url: "integral/add/integral",
-                            data: {
-                                actionType: "0301"
-                            }
-                        })
+                        this.classDetail.commendCount++
+                            ajax({
+                                type: "post",
+                                url: "integral/add/integral",
+                                data: {
+                                    actionType: "0301"
+                                }
+                            })
 
                     })
                 })

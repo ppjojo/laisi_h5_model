@@ -393,3 +393,15 @@ body {
     line-height: 0.8rem;
     text-align: center;
 }
+
+.van-overlay {
+    z-index: 99;
+    background-color: rgba(0, 0, 0, .5);
+    // background-color: transparent;
+    .wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+    }
+}

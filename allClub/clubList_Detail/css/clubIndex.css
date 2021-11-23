@@ -170,6 +170,7 @@ body {
       -ms-flex-align: center;
           align-items: center;
   height: 1.2rem;
+  border-radius: 0.6rem 0.6rem 0 0;
 }
 
 .containBox .noticeBox .noticeBoxLeft {
@@ -201,6 +202,7 @@ body {
 
 .containBox .memberBox {
   background-color: var(--bgColor);
+  border-radius: 0.6rem 0.6rem 0 0;
   padding: 0.3rem 0.3rem;
 }
 

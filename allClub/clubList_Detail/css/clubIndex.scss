@@ -151,6 +151,7 @@ body {
         justify-content: space-between;
         align-items: center;
         height: 1.2rem;
+        border-radius: 0.6rem 0.6rem 0 0;
         .noticeBoxLeft {
             display: flex;
             justify-content: flex-start;
@@ -172,6 +173,7 @@ body {
     }
     .memberBox {
         background-color: $bgColor;
+        border-radius: 0.6rem 0.6rem 0 0;
         padding: 0.3rem 0.3rem;
         .title {
             height: 0.7rem;

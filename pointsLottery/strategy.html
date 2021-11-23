@@ -32,6 +32,8 @@
         
         .tableBox {
             margin: .4rem 0.3rem;
+            padding-top: 0.3rem;
+            padding-left: 0.3rem;
             background: var(--specialBorderColor);
             border-radius: 8px;
             width: calc(100% - 0.6rem);
@@ -41,8 +43,7 @@
         /* 成长值奖励列表 */
         
         .rewardValueList {
-            margin: 0.3rem;
-            padding-bottom: .3rem;
+            padding: .3rem 0;
             border-radius: 4px;
         }
         
@@ -93,10 +94,25 @@
             justify-content: center;
         }
         
+        .tableBox .titleImgBox {
+            position: relative;
+            z-index: 1;
+        }
+        
         .tableBox img {
-            margin: .3rem 0 0 .3rem;
-            height: .72rem;
+            height: 0.72rem;
             width: auto;
+        }
+        
+        .tableBox .titleImgBox .titleText {
+            position: absolute;
+            top: 0.15rem;
+            left: 0.2rem;
+            z-index: 2;
+            width: 100%;
+            font-size: 0.4rem;
+            height: 100%;
+            color: var(--textColor);
         }
         
         .rewardValueList .txt {
@@ -118,10 +134,11 @@
             </van-nav-bar>
         </div>
         <div class="bg" style="font-size: 0;">
-
-            <!-- <img class="bgpic" src="img/scorebg.png"> -->
             <div class="tableBox">
-                <img src="img/xyhfuli_s.png" alt="">
+                <div class="titleImgBox">
+                    <img src="./img/strategy/newUser.png" alt="">
+                    <div class="titleText">新用户福利</div>
+                </div>
                 <div class="rewardValueList">
                     <div class="txt">
                         连续做逗币任务大于等于3天，即可获得包邮到家备用绳一根。
@@ -129,7 +146,10 @@
                 </div>
             </div>
             <div class="tableBox">
-                <img src="img/qddk_s.png" alt="">
+                <div class="titleImgBox">
+                    <img src="./img/strategy/sign.png" alt="">
+                    <div class="titleText">签到&有效期</div>
+                </div>
                 <div class="rewardValueList">
                     <div class="txt">
                         签到首日可领1逗币，连续签到每日可递增1个逗币，连续签到每日可领取逗币上限为7个，若签到中断则重新计算，签到的逗币有效期是一天，其他打卡活动领取逗币的有效期为6天(包含领取当天)。
@@ -137,7 +157,10 @@
                 </div>
             </div>
             <div class="tableBox">
-                <img src="img/birthdaydk_s.png" alt="">
+                <div class="titleImgBox">
+                    <img src="./img/strategy/birthday.png" alt="">
+                    <div class="titleText">生日</div>
+                </div>
                 <div class="rewardValueList">
                     <div class="txt">
                         每年赠送1次88积分（如果用户在平台赠送积分后更改生日，则在该年内不会再送第2次积分）。
@@ -145,7 +168,10 @@
                 </div>
             </div>
             <div class="tableBox">
-                <img src="./img/sqdk_s.png">
+                <div class="titleImgBox">
+                    <img src="./img/strategy/community.png" alt="">
+                    <div class="titleText">社区打卡</div>
+                </div>
                 <div class='rewardValueList'>
                     <div class='item title'>
                         <div class='action'>任务</div>
@@ -201,7 +227,10 @@
             </div>
 
             <div class="tableBox">
-                <img src="./img/kcdk_s.png">
+                <div class="titleImgBox">
+                    <img src="./img/strategy/course.png" alt="">
+                    <div class="titleText">课程打卡</div>
+                </div>
                 <div class='rewardValueList'>
                     <div class='item title'>
                         <div class='action'>任务</div>
@@ -236,7 +265,10 @@
                 </div>
             </div>
             <div class="tableBox">
-                <img src="./img/ssdk_s.png">
+                <div class="titleImgBox">
+                    <img src="./img/strategy/pk.png" alt="">
+                    <div class="titleText">赛事打卡</div>
+                </div>
                 <div class='rewardValueList'>
                     <div class='item title'>
                         <div class='action'>任务</div>
@@ -266,7 +298,10 @@
                 </div>
             </div>
             <div class="tableBox">
-                <img src="img/dbgl_s.png" alt="">
+                <div class="titleImgBox">
+                    <img src="./img/strategy/shop.png" alt="">
+                    <div class="titleText">购买商品</div>
+                </div>
                 <div class="rewardValueList">
                     <div class="txt">
                         用户可以通过在商城购买商品获得逗币奖励，每次10逗币，每日最多1次。
@@ -274,7 +309,10 @@
                 </div>
             </div>
             <div class="tableBox">
-                <img src="./img/clubdk_s.png">
+                <div class="titleImgBox">
+                    <img src="./img/strategy/club.png" alt="">
+                    <div class="titleText">俱乐部打卡</div>
+                </div>
                 <div class='rewardValueList'>
                     <div class='item title'>
                         <div class='action'>任务</div>
@@ -349,7 +387,10 @@
 				</div> -->
 
             <div class="tableBox">
-                <img src="./img/phbdk_s.png">
+                <div class="titleImgBox">
+                    <img src="./img/strategy/skipLeaderboard.png" alt="">
+                    <div class="titleText">排行榜打卡</div>
+                </div>
                 <div class='rewardValueList'>
                     <div class='item title'>
                         <div class='action'>任务</div>
@@ -458,7 +499,10 @@
             </div>
 
             <div class="tableBox">
-                <img src="./img/sbdk_s.png">
+                <div class="titleImgBox">
+                    <img src="./img/strategy/device.png" alt="">
+                    <div class="titleText">设备打卡</div>
+                </div>
                 <div class='rewardValueList'>
                     <div class='item title'>
                         <div class='action'>任务</div>
@@ -488,7 +532,10 @@
                 </div>
             </div>
             <div class="tableBox">
-                <img src="./img/ydrl_s.png">
+                <div class="titleImgBox">
+                    <img src="./img/strategy/sportClock.png" alt="">
+                    <div class="titleText">运动日历打卡</div>
+                </div>
                 <div class='rewardValueList'>
                     <div class='item title'>
                         <div class='action'>任务</div>
@@ -508,7 +555,10 @@
                 </div>
             </div>
             <div class="tableBox">
-                <img src="./img/mbdk_s.png">
+                <div class="titleImgBox">
+                    <img src="./img/strategy/target.png" alt="">
+                    <div class="titleText">目标打卡</div>
+                </div>
                 <div class='rewardValueList'>
                     <div class='item title'>
                         <div class='action'>任务</div>
@@ -538,7 +588,10 @@
                 </div>
             </div>
             <div class="tableBox">
-                <img src="./img/tzdk_s.png">
+                <div class="titleImgBox">
+                    <img src="./img/strategy/challenge.png" alt="">
+                    <div class="titleText">每日挑战</div>
+                </div>
                 <div class='rewardValueList'>
                     <div class='item title'>
                         <div class='action'>任务</div>
@@ -561,7 +614,10 @@
                 </div>
             </div>
             <div class="tableBox">
-                <img src="img/zbyb_s.png" alt="">
+                <div class="titleImgBox">
+                    <img src="./img/strategy/sportReport.png" alt="">
+                    <div class="titleText">周报&月报</div>
+                </div>
                 <div class="rewardValueList">
                     <div class="txt">
                         周报每次分享可获得3逗币，每日上限1次；月报每次分享可获得3逗币，每日上限1次。
@@ -569,7 +625,10 @@
                 </div>
             </div>
             <div class="tableBox">
-                <img src="img/syzuijia_s.png" alt="">
+                <div class="titleImgBox">
+                    <img src="./img/strategy/bestCareer.png" alt="">
+                    <div class="titleText">生涯最佳</div>
+                </div>
                 <div class="rewardValueList">
                     <div class="txt">
                         生涯最佳每次分享可获得3逗币，每日上限3次。
@@ -577,7 +636,10 @@
                 </div>
             </div>
             <div class="tableBox">
-                <img src="img/jsdk_s.png" alt="">
+                <div class="titleImgBox">
+                    <img src="./img/strategy/surperise.png" alt="">
+                    <div class="titleText">惊喜打卡</div>
+                </div>
                 <div class="rewardValueList">
                     <div class="txt">
                         用户可以通过观看视频获得更多的逗币，每次100逗币，每日最多1次。

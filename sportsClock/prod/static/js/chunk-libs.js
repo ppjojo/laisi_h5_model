@@ -157,6 +157,17 @@ eval("// Imports\nvar ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../.
 
 /***/ }),
 
+/***/ "./node_modules/@vue/cli-service/node_modules/css-loader/dist/cjs.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/less-loader/dist/cjs.js?!./node_modules/vant/es/sticky/index.less":
+/*!******************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/@vue/cli-service/node_modules/css-loader/dist/cjs.js??ref--11-oneOf-3-1!./node_modules/postcss-loader/src??ref--11-oneOf-3-2!./node_modules/less-loader/dist/cjs.js??ref--11-oneOf-3-3!./node_modules/vant/es/sticky/index.less ***!
+  \******************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("// Imports\nvar ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../@vue/cli-service/node_modules/css-loader/dist/runtime/api.js */ \"./node_modules/@vue/cli-service/node_modules/css-loader/dist/runtime/api.js\");\nexports = ___CSS_LOADER_API_IMPORT___(false);\n// Module\nexports.push([module.i, \".van-sticky--fixed {\\n  position: fixed;\\n  top: 0;\\n  right: 0;\\n  left: 0;\\n  z-index: 99;\\n}\\n\", \"\"]);\n// Exports\nmodule.exports = exports;\n\n\n//# sourceURL=webpack:///./node_modules/vant/es/sticky/index.less?./node_modules/@vue/cli-service/node_modules/css-loader/dist/cjs.js??ref--11-oneOf-3-1!./node_modules/postcss-loader/src??ref--11-oneOf-3-2!./node_modules/less-loader/dist/cjs.js??ref--11-oneOf-3-3");
+
+/***/ }),
+
 /***/ "./node_modules/@vue/cli-service/node_modules/css-loader/dist/cjs.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/less-loader/dist/cjs.js?!./node_modules/vant/es/style/base.less":
 /*!****************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/@vue/cli-service/node_modules/css-loader/dist/cjs.js??ref--11-oneOf-3-1!./node_modules/postcss-loader/src??ref--11-oneOf-3-2!./node_modules/less-loader/dist/cjs.js??ref--11-oneOf-3-3!./node_modules/vant/es/style/base.less ***!
@@ -1065,6 +1076,41 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _sty
 
 /***/ }),
 
+/***/ "./node_modules/vant/es/sticky/index.js":
+/*!**********************************************!*\
+  !*** ./node_modules/vant/es/sticky/index.js ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _utils_dom_style__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/dom/style */ \"./node_modules/vant/es/utils/dom/style.js\");\n/* harmony import */ var _utils_format_unit__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/format/unit */ \"./node_modules/vant/es/utils/format/unit.js\");\n/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils */ \"./node_modules/vant/es/utils/index.js\");\n/* harmony import */ var _utils_dom_scroll__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../utils/dom/scroll */ \"./node_modules/vant/es/utils/dom/scroll.js\");\n/* harmony import */ var _mixins_bind_event__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../mixins/bind-event */ \"./node_modules/vant/es/mixins/bind-event.js\");\n\n\n\n\n\n\nvar _createNamespace = Object(_utils__WEBPACK_IMPORTED_MODULE_2__[\"createNamespace\"])('sticky'),\n    createComponent = _createNamespace[0],\n    bem = _createNamespace[1];\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (createComponent({\n  mixins: [Object(_mixins_bind_event__WEBPACK_IMPORTED_MODULE_4__[\"BindEventMixin\"])(function (bind, isBind) {\n    if (!this.scroller) {\n      this.scroller = Object(_utils_dom_scroll__WEBPACK_IMPORTED_MODULE_3__[\"getScroller\"])(this.$el);\n    }\n\n    if (this.observer) {\n      var method = isBind ? 'observe' : 'unobserve';\n      this.observer[method](this.$el);\n    }\n\n    bind(this.scroller, 'scroll', this.onScroll, true);\n    this.onScroll();\n  })],\n  props: {\n    zIndex: [Number, String],\n    container: null,\n    offsetTop: {\n      type: [Number, String],\n      default: 0\n    }\n  },\n  data: function data() {\n    return {\n      fixed: false,\n      height: 0,\n      transform: 0\n    };\n  },\n  computed: {\n    offsetTopPx: function offsetTopPx() {\n      return Object(_utils_format_unit__WEBPACK_IMPORTED_MODULE_1__[\"unitToPx\"])(this.offsetTop);\n    },\n    style: function style() {\n      if (!this.fixed) {\n        return;\n      }\n\n      var style = {};\n\n      if (Object(_utils__WEBPACK_IMPORTED_MODULE_2__[\"isDef\"])(this.zIndex)) {\n        style.zIndex = this.zIndex;\n      }\n\n      if (this.offsetTopPx && this.fixed) {\n        style.top = this.offsetTopPx + \"px\";\n      }\n\n      if (this.transform) {\n        style.transform = \"translate3d(0, \" + this.transform + \"px, 0)\";\n      }\n\n      return style;\n    }\n  },\n  watch: {\n    fixed: function fixed(isFixed) {\n      this.$emit('change', isFixed);\n    }\n  },\n  created: function created() {\n    var _this = this;\n\n    // compatibility: https://caniuse.com/#feat=intersectionobserver\n    if (!_utils__WEBPACK_IMPORTED_MODULE_2__[\"isServer\"] && window.IntersectionObserver) {\n      this.observer = new IntersectionObserver(function (entries) {\n        // trigger scroll when visibility changed\n        if (entries[0].intersectionRatio > 0) {\n          _this.onScroll();\n        }\n      }, {\n        root: document.body\n      });\n    }\n  },\n  methods: {\n    onScroll: function onScroll() {\n      var _this2 = this;\n\n      if (Object(_utils_dom_style__WEBPACK_IMPORTED_MODULE_0__[\"isHidden\"])(this.$el)) {\n        return;\n      }\n\n      this.height = this.$el.offsetHeight;\n      var container = this.container,\n          offsetTopPx = this.offsetTopPx;\n      var scrollTop = Object(_utils_dom_scroll__WEBPACK_IMPORTED_MODULE_3__[\"getScrollTop\"])(window);\n      var topToPageTop = Object(_utils_dom_scroll__WEBPACK_IMPORTED_MODULE_3__[\"getElementTop\"])(this.$el);\n\n      var emitScrollEvent = function emitScrollEvent() {\n        _this2.$emit('scroll', {\n          scrollTop: scrollTop,\n          isFixed: _this2.fixed\n        });\n      }; // The sticky component should be kept inside the container element\n\n\n      if (container) {\n        var bottomToPageTop = topToPageTop + container.offsetHeight;\n\n        if (scrollTop + offsetTopPx + this.height > bottomToPageTop) {\n          var distanceToBottom = this.height + scrollTop - bottomToPageTop;\n\n          if (distanceToBottom < this.height) {\n            this.fixed = true;\n            this.transform = -(distanceToBottom + offsetTopPx);\n          } else {\n            this.fixed = false;\n          }\n\n          emitScrollEvent();\n          return;\n        }\n      }\n\n      if (scrollTop + offsetTopPx > topToPageTop) {\n        this.fixed = true;\n        this.transform = 0;\n      } else {\n        this.fixed = false;\n      }\n\n      emitScrollEvent();\n    }\n  },\n  render: function render() {\n    var h = arguments[0];\n    var fixed = this.fixed;\n    var style = {\n      height: fixed ? this.height + \"px\" : null\n    };\n    return h(\"div\", {\n      \"style\": style\n    }, [h(\"div\", {\n      \"class\": bem({\n        fixed: fixed\n      }),\n      \"style\": this.style\n    }, [this.slots()])]);\n  }\n}));\n\n//# sourceURL=webpack:///./node_modules/vant/es/sticky/index.js?");
+
+/***/ }),
+
+/***/ "./node_modules/vant/es/sticky/index.less":
+/*!************************************************!*\
+  !*** ./node_modules/vant/es/sticky/index.less ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("// style-loader: Adds some css to the DOM by adding a <style> tag\n\n// load the styles\nvar content = __webpack_require__(/*! !../../../@vue/cli-service/node_modules/css-loader/dist/cjs.js??ref--11-oneOf-3-1!../../../postcss-loader/src??ref--11-oneOf-3-2!../../../less-loader/dist/cjs.js??ref--11-oneOf-3-3!./index.less */ \"./node_modules/@vue/cli-service/node_modules/css-loader/dist/cjs.js?!./node_modules/postcss-loader/src/index.js?!./node_modules/less-loader/dist/cjs.js?!./node_modules/vant/es/sticky/index.less\");\nif(content.__esModule) content = content.default;\nif(typeof content === 'string') content = [[module.i, content, '']];\nif(content.locals) module.exports = content.locals;\n// add the styles to the DOM\nvar add = __webpack_require__(/*! ../../../vue-style-loader/lib/addStylesClient.js */ \"./node_modules/vue-style-loader/lib/addStylesClient.js\").default\nvar update = add(\"601f3c9c\", content, false, {\"sourceMap\":false,\"shadowMode\":false});\n// Hot Module Replacement\nif(false) {}\n\n//# sourceURL=webpack:///./node_modules/vant/es/sticky/index.less?");
+
+/***/ }),
+
+/***/ "./node_modules/vant/es/sticky/style/less.js":
+/*!***************************************************!*\
+  !*** ./node_modules/vant/es/sticky/style/less.js ***!
+  \***************************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _style_base_less__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../style/base.less */ \"./node_modules/vant/es/style/base.less\");\n/* harmony import */ var _style_base_less__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_style_base_less__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _index_less__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../index.less */ \"./node_modules/vant/es/sticky/index.less\");\n/* harmony import */ var _index_less__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_index_less__WEBPACK_IMPORTED_MODULE_1__);\n\n\n\n//# sourceURL=webpack:///./node_modules/vant/es/sticky/style/less.js?");
+
+/***/ }),
+
 /***/ "./node_modules/vant/es/style/base.less":
 /*!**********************************************!*\
   !*** ./node_modules/vant/es/style/base.less ***!
@@ -1252,6 +1298,18 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 
 "use strict";
 eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"getScroller\", function() { return getScroller; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"getScrollTop\", function() { return getScrollTop; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"setScrollTop\", function() { return setScrollTop; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"getRootScrollTop\", function() { return getRootScrollTop; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"setRootScrollTop\", function() { return setRootScrollTop; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"getElementTop\", function() { return getElementTop; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"getVisibleHeight\", function() { return getVisibleHeight; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"getVisibleTop\", function() { return getVisibleTop; });\nfunction isWindow(val) {\n  return val === window;\n} // get nearest scroll element\n// https://github.com/youzan/vant/issues/3823\n\n\nvar overflowScrollReg = /scroll|auto/i;\nfunction getScroller(el, root) {\n  if (root === void 0) {\n    root = window;\n  }\n\n  var node = el;\n\n  while (node && node.tagName !== 'HTML' && node.tagName !== 'BODY' && node.nodeType === 1 && node !== root) {\n    var _window$getComputedSt = window.getComputedStyle(node),\n        overflowY = _window$getComputedSt.overflowY;\n\n    if (overflowScrollReg.test(overflowY)) {\n      return node;\n    }\n\n    node = node.parentNode;\n  }\n\n  return root;\n}\nfunction getScrollTop(el) {\n  var top = 'scrollTop' in el ? el.scrollTop : el.pageYOffset; // iOS scroll bounce cause minus scrollTop\n\n  return Math.max(top, 0);\n}\nfunction setScrollTop(el, value) {\n  if ('scrollTop' in el) {\n    el.scrollTop = value;\n  } else {\n    el.scrollTo(el.scrollX, value);\n  }\n}\nfunction getRootScrollTop() {\n  return window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;\n}\nfunction setRootScrollTop(value) {\n  setScrollTop(window, value);\n  setScrollTop(document.body, value);\n} // get distance from element top to page top or scroller top\n\nfunction getElementTop(el, scroller) {\n  if (isWindow(el)) {\n    return 0;\n  }\n\n  var scrollTop = scroller ? getScrollTop(scroller) : getRootScrollTop();\n  return el.getBoundingClientRect().top + scrollTop;\n}\nfunction getVisibleHeight(el) {\n  if (isWindow(el)) {\n    return el.innerHeight;\n  }\n\n  return el.getBoundingClientRect().height;\n}\nfunction getVisibleTop(el) {\n  if (isWindow(el)) {\n    return 0;\n  }\n\n  return el.getBoundingClientRect().top;\n}\n\n//# sourceURL=webpack:///./node_modules/vant/es/utils/dom/scroll.js?");
+
+/***/ }),
+
+/***/ "./node_modules/vant/es/utils/dom/style.js":
+/*!*************************************************!*\
+  !*** ./node_modules/vant/es/utils/dom/style.js ***!
+  \*************************************************/
+/*! exports provided: isHidden */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"isHidden\", function() { return isHidden; });\nfunction isHidden(el) {\n  var style = window.getComputedStyle(el);\n  var hidden = style.display === 'none'; // offsetParent returns null in the following situations:\n  // 1. The element or its parent element has the display property set to none.\n  // 2. The element has the position property set to fixed\n\n  var parentHidden = el.offsetParent === null && style.position !== 'fixed';\n  return hidden || parentHidden;\n}\n\n//# sourceURL=webpack:///./node_modules/vant/es/utils/dom/style.js?");
 
 /***/ }),
 

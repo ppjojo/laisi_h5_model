@@ -998,9 +998,10 @@ export default {
       var m = (Array(2).join(0) + Math.floor((time - h * 60 * 60) / 60)).slice(
         -2
       );
+
       var s = (Array(2).join(0) + (time - h * 60 * 60 - m * 60)).slice(-2);
+
       if (Math.floor(time / 60 / 60)) {
-        // return h + 'h' + m + 'min' + s +'s'
         if (
           !Math.floor((time - h * 60 * 60) / 60) &&
           !(time - h * 60 * 60 - m * 60)
@@ -1040,7 +1041,7 @@ export default {
         !Math.floor(time / 60 / 60) &&
         Math.floor((time - h * 60 * 60) / 60)
       ) {
-        if (time - h * 60 * 60 - m * 60) {
+        if (time - h * 60 * 60 - m * 60 >= 0) {
           return (
             "<span class='bigNumberSpan'>" +
             Math.floor((time - h * 60 * 60) / 60) +

@@ -15,6 +15,7 @@
     --sportsClock_textColor2: #ddd;
     --sportsClock_weekTextColor: #999;
     --sportsClock_boxBgColor: #ddd;
+    --sportsClock_isToday2Color: #F3BBB4;
     --sportsClock_clockstate_fail: url("https://lstest3.laisitech.com/h5/h5V3/common/img/sportsClock/clockstate_fail_white.png");
     --sportsClock_clockstate_success: url("https://lstest3.laisitech.com/h5/h5V3/common/img/sportsClock/clockstate_success_white.png");
     --sportsClock_clockaward: url("https://lstest3.laisitech.com/h5/h5V3/common/img/sportsClock/clockaward_white.png");

@@ -35,9 +35,9 @@
         <img class="" :src="require('@i/sportunfinish.png')" alt="">
         <div>当日未达到目标运动量！请继续加油哦！</div>
       </div>
-      <div style="margin:0 auto .2rem;text-align: center;">
-        <div class="noDataBox" style="padding-top: 0;">
-          <div class="noDataImg" style="width: 2.5rem;"></div>
+      <div style="margin-bottom:0.5rem;text-align: center;">
+        <div class="noDataBox" style="padding-top: 0;margin-bottom:0.5rem;">
+          <div class="noDataImg" style="width: 2.5rem;height:2.5rem;"></div>
         </div>
         <div style="font-size: .28rem;color:var(--textColor2);">{{flag==2?'您还没有运动，先去运动吧～':'无运动打卡记录'}}</div>
       </div>
@@ -191,10 +191,14 @@ export default {
       }).then((res) => {
         //获取当天设备信息
         if (res.code == "0") {
+          this.sportObj = {};
           this.sportObj = Object.assign(this.sportObj, res.data);
-          //this.sportObj.deviceDetail.steps={number:4188}
           this.flag = this.sportObj.isFinishDays == 1 ? 4 : 3;
           this.$forceUpdate();
+          if (!res.data) {
+            this.monthObj.sportClockSum = 0;
+            this.flag = 2;
+          }
         } else if (res.code == "1") {
           //打卡失败 相当于未打卡
           this.flag = 1;
@@ -243,7 +247,7 @@ export default {
     },
     clickBeforeDay(stamp, todayFlag) {
       //点击了过去的某个时间
-      console.log(this.currentZero, stamp);
+
       this.checkTime = stamp;
       this.getList();
       this.todayFlag = todayFlag;

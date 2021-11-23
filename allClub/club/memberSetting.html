@@ -110,7 +110,7 @@
                     </div>
                 </div>
                 <div class="listBox" @click="historyList">
-                    <span style="display: block;">参与历史</span>
+                    <span style="display: block;">我的参与</span>
                     <van-icon style="display: block;" color="#969799" name="arrow" />
                 </div>
             </div>
@@ -175,11 +175,13 @@
             },
             //参与历史
             historyList() {
-                if (this.submitform.type == '05') {
-                    window.location.href = "../corporateClub/myJoin.html?id=" + this.clubId
-                } else {
-                    window.location.href = "historyList.html?id=" + this.clubId
-                }
+                window.location.href = "../corporateClub/myJoin.html?id=" + this.clubId
+                    // return
+                    // if (this.submitform.type == '05') {
+                    //     window.location.href = "../corporateClub/myJoin.html?id=" + this.clubId
+                    // } else {
+                    //     window.location.href = "historyList.html?id=" + this.clubId
+                    // }
 
             },
             quitClubReady() {

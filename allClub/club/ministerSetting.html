@@ -353,11 +353,13 @@
             },
             //参与历史
             historyList() {
-                if (this.submitform.type == '05') {
-                    window.location.href = "../corporateClub/myJoin.html?id=" + this.clubId
-                } else {
-                    window.location.href = "historyList.html?id=" + this.clubId;
-                }
+                window.location.href = "../corporateClub/myJoin.html?id=" + this.clubId
+                    //return
+                    // if (this.submitform.type == '05') {
+                    //     window.location.href = "../corporateClub/myJoin.html?id=" + this.clubId
+                    // } else {
+                    //     window.location.href = "historyList.html?id=" + this.clubId;
+                    // }
             },
             goToDownload() {
                 let editor = this.submitform.self.isMinister == "Y" ? 1 : 2;

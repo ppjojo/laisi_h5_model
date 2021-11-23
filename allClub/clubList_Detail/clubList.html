@@ -236,9 +236,9 @@
                     that.$dialog.confirm({
                         message: '使用本功能，请先绑定手机号',
                         confirmButtonText: "确定",
-                        confirmButtonColor: "#007AFF",
+                        // confirmButtonColor: "#007AFF",
                         width: "300",
-                        cancelButtonColor: "#FF453A"
+                        // cancelButtonColor: "#FF453A"
                     }).then(() => {
                         if (isIOS) {
                             window.webkit.messageHandlers.lstNative.postMessage({

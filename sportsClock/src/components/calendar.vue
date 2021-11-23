@@ -11,9 +11,9 @@
       <div class="wh_content_item greystate2" v-for="tag in textTop">
         <div class="wh_top_tag">{{tag}}</div>
       </div>
-      <div class="wh_content_item" v-for="(item,index) in list" @click="dayDetail(index)">
-        <div class="wh_item_date" :class="{greystate:item.otherMonth!='nowMonth',isToday:(item.isToday||clickIndex==index),isToday2:(item.isToday&&clickIndex!=null)}">
-          <span>{{item.id}}</span>
+      <div class="wh_content_item" v-for="(item,index) in list" @click="dayDetail2(index,item)">
+        <div class="wh_item_date" :class="{greystate:item.otherMonth!='nowMonth',isToday:(clickIndex==item.id&&(item.otherMonth=='othermonth'||item.otherMonth=='nowMonth')),isToday2:(item.isToday&&clickIndex!=item.id)}">
+          <div>{{item.id}}</div>
           <!--这里是控制异常、正常的那个小圆点-->
           <div class="spot" v-if="item.timeStamp<=nowZero" :class="{successdot:item.finished}"></div>
         </div>
@@ -50,6 +50,7 @@ export default {
       nowDate: new Date().getTime(),
       nowZero: new Date(new Date().toLocaleDateString()).getTime(),
       clickIndex: null,
+      nowMonth: "",
     };
   },
   filters: {},
@@ -58,26 +59,41 @@ export default {
   },
   created() {
     this.dateTitleStr(new Date(), "ym");
+    this.nowMonth = new Date().getMonth() + 1;
   },
   methods: {
-    dayDetail(index) {
+    dayDetail2(index, item) {
       //过往某一天
-      if (
-        this.list[index].isToday ||
-        this.list[index].timeStamp > this.nowDate ||
-        this.showOnly
-      ) {
+      if (item.isToday || item.timeStamp > this.nowDate || this.showOnly) {
         //如果点的是今天或者今天以后的没反应
-        if (this.list[index].isToday && this.clickIndex != null) {
+        if (item.isToday && this.clickIndex != null) {
           //重新点回来
           this.clickIndex = null;
-          this.$parent.clickBeforeDay(this.list[index].timeStamp, true);
+          this.$parent.clickBeforeDay(item.timeStamp, true);
         }
         return;
       }
-      this.$parent.clickBeforeDay(this.list[index].timeStamp, false);
-      this.clickIndex = index;
+      this.$parent.clickBeforeDay(item.timeStamp, false);
+      this.clickIndex = item.id;
     },
+    // dayDetail(index, item) {
+    //   //过往某一天
+    //   if (
+    //     this.list[index].isToday ||
+    //     this.list[index].timeStamp > this.nowDate ||
+    //     this.showOnly
+    //   ) {
+    //     //如果点的是今天或者今天以后的没反应
+    //     if (this.list[index].isToday && this.clickIndex != null) {
+    //       //重新点回来
+    //       this.clickIndex = null;
+    //       this.$parent.clickBeforeDay(this.list[index].timeStamp, true);
+    //     }
+    //     return;
+    //   }
+    //   this.$parent.clickBeforeDay(this.list[index].timeStamp, false);
+    //   this.clickIndex = index;
+    // },
     calindarList(arr, isToday) {
       if (!arr) arr = this.list;
       let timeObj = {
@@ -100,9 +116,13 @@ export default {
           //给上小绿点
           arr.forEach((e) => {
             if (d.checkTime == e.timeStamp) e.finished = true;
+            if (e.isToday && !this.clickIndex) {
+              this.clickIndex = e.id;
+            }
           });
         });
         this.list = arr;
+        // console.log(this.list);
         if (isToday) {
           this.todayGreen();
         }
@@ -110,7 +130,9 @@ export default {
     },
     todayGreen() {
       this.list.forEach((d) => {
-        if (d.isToday) d.finished = true;
+        if (d.isToday) {
+          d.finished = true;
+        }
       });
       this.$forceUpdate();
     },
@@ -120,16 +142,7 @@ export default {
     },
     getList(date) {
       let arr = timeUtil.getMonthList(date ? date : new Date());
-      // console.log(arr)
       this.calindarList(arr);
-    },
-    goGroupIndex(item) {
-      this.$router.push({
-        path: "/groupIndex",
-        query: {
-          id: item,
-        },
-      });
     },
     dateTitleStr(date, id) {
       this.dateTitle = timeUtil.getTimeStr(date, id);
@@ -152,8 +165,15 @@ export default {
         } else {
           month += 1;
         }
+        // if (month >= this.nowMonth) {
+        //   // alert(22);
+        // }
       }
-      this.$parent.getList(null, new Date(year + "/" + month + "/1").getTime());
+
+      this.$parent.getList(
+        null,
+        new Date(year + "/" + month + "/" + parseInt(this.clickIndex)).getTime()
+      );
       this.dateTitleStr(new Date(year + "/" + month + "/1"), "ym");
       this.getList(new Date(year + "/" + month + "/1"));
     },
@@ -223,15 +243,17 @@ export default {
         flex-wrap: wrap;
         border-radius: 100%;
         width: 0.48rem;
-        height: 0.48rem;
+        // height: 0.48rem;
         line-height: 0.48rem;
         align-items: center;
         justify-content: center;
-        padding-right: 0.05rem;
+        text-align: center;
+        // padding-right: 0.05rem;
       }
 
       .isToday2 {
-        background-color: #70292b;
+        @extend .isToday;
+        background-color: var(--sportsClock_isToday2Color);
       }
     }
 

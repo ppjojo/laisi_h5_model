@@ -168,7 +168,7 @@
         }
         
         .selectBox .selectDiv .selectLeftBox .lable {
-            max-width: 1.7rem;
+            /* max-width: 1.7rem; */
             white-space: nowrap;
         }
     </style>
@@ -451,7 +451,10 @@
                 competitionNameShow: false,
                 competitionNameList: [],
                 competitionList: [],
-                noDataImgUrl: ""
+                noDataImgUrl: "",
+                textColor: "",
+                textColor2: "",
+                borderColor: ""
             };
         },
         filters: {},
@@ -465,16 +468,22 @@
             this.initCompetition();
         },
         created() {
-            var theme = "";
+            var theme = "black";
             if (localStorage.getItem("appInfo")) {
                 var appInfo = JSON.parse(localStorage.getItem("appInfo"));
                 theme = appInfo.theme;
             } else if (getQueryString("theme")) {
                 theme = getQueryString("theme");
             }
-            if (theme = "black") {
+            if (theme == "black") {
+                this.textColor = "#cfcfd2"
+                this.borderColor = "#1e1e2a"
+                this.textColor2 = "#71717f"
                 this.noDataImgUrl = "../../common/img/noData_black.png"
             } else {
+                this.textColor = "#222"
+                this.borderColor = "#f5f5f5"
+                this.textColor2 = "#666"
                 this.noDataImgUrl = "../../common/img/noData_white.png"
             }
         },
@@ -726,7 +735,6 @@
             },
             confirmTask(id) { //多选确定
                 let _self = this;
-                console.log(_self.taskResult, id)
                 if (!id) this.$refs.item.toggle();
                 if (this.taskResult.length == 0 && !id) return;
                 if (this.taskResult.length == 1 || id) {
@@ -774,8 +782,6 @@
             },
             confirmGroup() { //多选部门
                 let _self = this;
-                console.log(_self.groupResult)
-                    // this.$refs.itemgroup.toggle();
                 if (_self.groupResult.length == 1) {
                     //单拉一个部门
                     this.ministerSingleDept()
@@ -786,8 +792,6 @@
             confirmTaskType(flag) { //多选部门
                 if (!flag) return;
                 let _self = this;
-                console.log(_self.taskTypeResult)
-                    // this.$refs.itemtaskType.toggle();
                 if (_self.groupResult.length == 1) {
                     //单拉一个部门
                     this.ministerSingleDept()
@@ -851,15 +855,13 @@
                 this.$refs.groupcheckboxes[index].toggle();
             },
             taskChoose(name) { //多选任务
-                // console.log(name)
                 if (name.includes('') && name[0] != '') {
                     if (name.length == 1) return;
                     this.taskTitle = '全 部'
                     this.taskGroupList.forEach((d, i) => {
-                            if (i == 0) this.$refs.checkboxes[i].toggle(true)
-                            else this.$refs.checkboxes[i].toggle(false);
-                        })
-                        // console.log(this.taskResult)
+                        if (i == 0) this.$refs.checkboxes[i].toggle(true)
+                        else this.$refs.checkboxes[i].toggle(false);
+                    })
                 } else if (name.length > 1 && name.includes('') && name[0] == '') {
                     this.$refs.checkboxes[0].toggle(false)
                     let arr = [];
@@ -901,8 +903,6 @@
                 }
             },
             taskTypeChoose(name) { //多选任务类型
-                console.log(name)
-                console.log(name.includes(null) && name.length > 1)
                 if (name.includes(null) && name.length > 1) {
                     name.forEach((i, d) => {
                         if (i == null) {
@@ -965,7 +965,7 @@
                     title: {
                         text: "部门任务完成率",
                         textStyle: {
-                            color: 'var(--textColor)',
+                            color: this.textColor,
                             fontSize: "14",
                             fontWeight: "normal",
                             height: "50",
@@ -987,7 +987,7 @@
                         },
                         axisLabel: {
                             fontSize: 10,
-                            color: "var(--textColor2)",
+                            color: this.textColor2,
                             formatter: val => {
                                 let txt = val
                                 if (val.length > 2) {
@@ -1006,21 +1006,21 @@
                         splitLine: {
                             show: true,
                             lineStyle: {
-                                color: ['var(--borderColor)'],
+                                color: [this.borderColor],
                                 width: 1,
                                 type: 'solid'
                             }　　
                         },
                         axisLabel: {
                             fontSize: 12,
-                            color: "var(--textColor2)",
+                            color: this.textColor2,
                             formatter: '{value}%'
                         }
                     },
                     tooltip: {
                         trigger: "item",
-                        backgroundColor: "var(--borderColor)",
-                        color: 'var(--textColor)',
+                        backgroundColor: this.borderColor,
+                        color: this.textColor,
                         borderWidth: 0,
                         axisPointer: {
                             label: {
@@ -1030,8 +1030,7 @@
                             },
                         },
                         formatter: (p) => {
-                                let str = '<span style="color:var(--textColor)">';
-                                console.log(p)
+                                let str = `<span style="color:${this.textColor}">`;
                                 str += p.data.toFixed(2) + '%' + '</br>';
                                 str += p.name;
                                 str += '</span>'
@@ -1059,8 +1058,8 @@
                             image: this.noDataImgUrl,
                             x: 80,
                             y: 30,
-                            width: 200,
-                            height: 200
+                            width: 150,
+                            height: 150
                         }
                     }]
                 }
@@ -1073,7 +1072,7 @@
                     title: {
                         text: "部门任务完成量",
                         textStyle: {
-                            color: 'var(--textColor)',
+                            color: this.textColor,
                             fontSize: "14",
                             fontWeight: "normal",
                             height: "50",
@@ -1095,7 +1094,7 @@
                         },
                         axisLabel: {
                             fontSize: 10,
-                            color: "var(--textColor2)",
+                            color: this.textColor2,
                             formatter: val => {
                                 let txt = val
                                 if (val.length > 3) {
@@ -1113,14 +1112,14 @@
                         splitLine: {
                             show: true,
                             lineStyle: {
-                                color: ['var(--borderColor)'],
+                                color: [this.borderColor],
                                 width: 1,
                                 type: 'solid'
                             }　　
                         },
                         axisLabel: {
                             fontSize: 12,
-                            color: "var(--textColor2)",
+                            color: this.textColor2,
                             formatter: val => {
                                 let txt = val
                                 if (val.length > 6) {
@@ -1132,8 +1131,8 @@
                     },
                     tooltip: {
                         trigger: "axis",
-                        backgroundColor: "var(--borderColor)",
-                        color: 'var(--textColor)',
+                        backgroundColor: this.borderColor,
+                        color: this.textColor,
                         borderWidth: 0,
                         axisPointer: {
                             type: 'shadow',
@@ -1175,10 +1174,9 @@
             memberNum(item, flag, type, mode) { //1线上赛来2成员跳绳总个数
                 var myChart = null;
                 let obj = {
-                        title: "",
-                        colorBottom: ''
-                    }
-                    // console.log(item)
+                    title: "",
+                    colorBottom: ''
+                }
                 if (this.tabActive == 1 && flag == 1) {
                     myChart = echarts.init(document.getElementById("competitionChart"));
                     if (this.competitionParam.type == "team") {
@@ -1193,7 +1191,6 @@
                     obj.colorBottom = "#43A7F9";
                     myChart = echarts.init(document.getElementById("memberNum2"));
                 } else {
-                    // console.log(item)
                     obj.title = this.minister == 1 || (flag == 1 || this.taskSingle) ? "成员跳绳总个数(万个)" :
                         "各任务跳绳总个数(万个)";
                     obj.colorBottom = this.taskSingle ? "#F94351" : "#33D467";
@@ -1204,7 +1201,7 @@
                     title: {
                         text: obj.title,
                         textStyle: {
-                            color: 'var(--textColor)',
+                            color: this.textColor,
                             fontSize: "14",
                             fontWeight: "normal",
                             height: "50",
@@ -1227,7 +1224,7 @@
                         },
                         axisLabel: {
                             fontSize: 10,
-                            color: "var(--textColor2)",
+                            color: this.textColor2,
                             formatter: val => {
                                 let txt = val
                                 if (val.length > 2) {
@@ -1246,14 +1243,14 @@
                         splitLine: {
                             show: true,
                             lineStyle: {
-                                color: ['var(--borderColor)'],
+                                color: [this.borderColor],
                                 width: 1,
                                 type: 'solid'
                             }　　
                         },
                         axisLabel: {
                             fontSize: 12,
-                            color: "var(--textColor2)",
+                            color: this.textColor2,
                             formatter: function(value, index) {
                                 if ((value + "").length <= 5) return value;
                                 return value.toFixed(3);
@@ -1262,22 +1259,21 @@
                     },
                     tooltip: {
                         trigger: "item",
-                        backgroundColor: "var(--borderColor)",
-                        color: 'var(--textColor)',
+                        backgroundColor: this.borderColor,
+                        color: this.textColor,
                         borderWidth: 0,
                         extraCssText: 'width:140px;',
                         axisPointer: {
                             type: 'shadow',
                             label: {
                                 lineHeight: 20,
-                                backgroundColor: "var(--textColor)",
-                                color: 'var(--textColor)',
+                                backgroundColor: this.textColor,
+                                color: this.textColor,
                                 padding: [0, 0, 0, 0]
                             },
                         },
                         formatter: (p) => {
-                            let str = '<span style="color:var(--textColor)">';
-                            console.log(p)
+                            let str = `<span style="color:${this.textColor}">`;
                             let name = p.name;
                             if (name.length > 6) {
                                 let namestr = name.substr(0, 6);
@@ -1344,8 +1340,8 @@
                             image: this.noDataImgUrl,
                             x: 80,
                             y: 30,
-                            width: 200,
-                            height: 200
+                            width: 150,
+                            height: 150
                         }
                     }]
                 }
@@ -1361,7 +1357,7 @@
                     title: {
                         text: "任务完成率",
                         textStyle: {
-                            color: 'var(--textColor)',
+                            color: this.textColor,
                             fontSize: "14",
                             fontWeight: "normal",
                             height: "50",
@@ -1377,13 +1373,13 @@
                     },
                     xAxis: {
                         type: "category",
-                        data: item.dept || ["1bu", "2bu", "3bu", "4bu", "5bu", "6bu", "7bu"],
+                        data: item.dept,
                         axisLine: {
                             show: false,
                         },
                         axisLabel: {
                             fontSize: 10,
-                            color: "var(--textColor2)",
+                            color: this.textColor2,
                             formatter: val => {
                                 let txt = val
                                 if (val.length > 2) {
@@ -1401,20 +1397,20 @@
                         splitLine: {
                             show: true,
                             lineStyle: {
-                                color: ['var(--borderColor)'],
+                                color: [this.borderColor],
                                 width: 1,
                                 type: 'solid'
                             }　　
                         },
                         axisLabel: {
                             fontSize: 12,
-                            color: "var(--textColor2)"
+                            color: this.textColor2,
                         }
                     },
                     tooltip: {
                         trigger: "axis",
-                        backgroundColor: "var(--borderColor)",
-                        color: 'var(--textColor)',
+                        backgroundColor: this.borderColor,
+                        color: this.textColor,
                         borderWidth: 0,
                         axisPointer: {
                             label: {
@@ -1458,8 +1454,8 @@
                             image: this.noDataImgUrl,
                             x: 80,
                             y: 30,
-                            width: 200,
-                            height: 200
+                            width: 150,
+                            height: 150
                         }
                     }]
                 }
@@ -1467,15 +1463,14 @@
             },
             //分部长-部门个人排名
             deptPersonRank(item) {
-                console.log(item)
-                    // 基于准备好的dom，初始化echarts实例
+                // 基于准备好的dom，初始化echarts实例
                 var myChart = echarts.init(document.getElementById("deptPersonRank"));
                 var num = 0;
                 var option = {
                     title: {
                         text: "部门个人排名",
                         textStyle: {
-                            color: 'var(--textColor)',
+                            color: this.textColor,
                             fontSize: "14",
                             fontWeight: "normal",
                             height: "50",
@@ -1490,8 +1485,8 @@
                     color: ['#609CFF', '#70E1AB', '#657798'],
                     tooltip: {
                         trigger: 'item',
-                        backgroundColor: "var(--borderColor)",
-                        color: 'var(--textColor)',
+                        backgroundColor: this.borderColor,
+                        color: this.textColor,
                         borderWidth: 0,
                         axisPointer: {
                             type: 'shadow'
@@ -1499,7 +1494,7 @@
                         formatter: (p) => {
 
                             let color = ['#609CFF', '#70E1AB', '#657798'],
-                                str = '<span style="color:var(--textColor)">';
+                                str = `<span style="color:${this.textColor}">`;
                             item.dataList[p.dataIndex].forEach((d, i) => {
                                 let namestr = d.nickname;
                                 if (namestr.length > 4) {
@@ -1510,7 +1505,6 @@
                                     '<span style="display:inline-block;margin-right:4px;border-radius:10px;width:10px;height:10px;background-color:' +
                                     color[i] + ';"></span>' + namestr + ":" + d.ropeNum + "</br>";
                             })
-                            console.log(p);
                             str += '</span>'
                             return str;
                         }
@@ -1524,7 +1518,7 @@
                         data: item.Xline,
                         axisLabel: {
                             fontSize: 10,
-                            color: "var(--textColor2)",
+                            color: this.textColor2,
                             formatter: val => {
                                 let txt = val
                                 if (val.length > 2) {
@@ -1539,7 +1533,7 @@
                         splitLine: {
                             show: true,
                             lineStyle: {
-                                color: ['var(--borderColor)'],
+                                color: [this.borderColor],
                                 width: 1,
                                 type: 'solid'
                             }　　
@@ -1554,8 +1548,8 @@
                             image: this.noDataImgUrl,
                             x: 80,
                             y: 30,
-                            width: 200,
-                            height: 200
+                            width: 150,
+                            height: 150
                         }
                     }]
                 }

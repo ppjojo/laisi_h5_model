@@ -705,6 +705,7 @@
                 })
             },
             refreshDetailData() {
+                this.getClubDetailAgain()
                 if (this.activeTab == 0) {
                     this.today.page = 1;
                     // this.getTodaySport()
@@ -731,6 +732,18 @@
                     url: "integral/add/integral",
                     data: {
                         actionType: "0503"
+                    }
+                })
+            },
+            getClubDetailAgain() {
+                ajax({
+                    url: "club/clubDetail",
+                    data: {
+                        clubId: this.clubId,
+                    }
+                }).then(res => {
+                    if (res.code == 0) {
+                        this.clubObject = res.data
                     }
                 })
             },

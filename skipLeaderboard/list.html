@@ -95,6 +95,11 @@
             <p class="bottomTip">{{bottomTipMsg}}</p>
 
         </div>
+        <van-overlay :show="loadingShow" @click="loadingShow = false">
+            <div class="wrapper">
+                <van-loading />
+            </div>
+        </van-overlay>
     </div>
 </body>
 
@@ -106,6 +111,7 @@
         el: '#app',
         data() {
             return {
+                loadingShow: false,
                 userType: (getQueryString("type") || "skipping").toLowerCase(), //skipping跳绳   steps跑步  wristball腕力球 wheel健腹轮
                 refreshing: false,
                 listData: [],
@@ -217,6 +223,7 @@
                 this.getList()
             },
             getList() {
+                this.loadingShow = true
                 ajax({
                     url: this.apiUrl,
                     data: {
@@ -229,6 +236,7 @@
                     }, 500);
                     this.noDataStatus = false
                     this.listData = [{}, {}, {}, {}]
+                    this.loadingShow = false
                     if (res.code == 0) {
                         if (res.data.length == 1 && res.data[0].value == 0) {
                             this.listData = [{}, {}, {}, {}]
