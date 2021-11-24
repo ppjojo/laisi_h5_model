@@ -16,26 +16,6 @@
     <link rel="stylesheet" id="themeCssLink2" href="../../common/css/theme_black.css">
 
     <style>
-        #app {
-            overflow-x: hidden;
-        }
-        
-        .van-tab {
-            font-size: 0.32rem;
-        }
-        
-        .van-tabs__line {
-            width: 0.48rem !important;
-            height: 2px;
-            background-color: var(--bgColor);
-            bottom: .2rem;
-        }
-        
-        .van-tabs--line .van-tabs__wrap {
-            padding-bottom: 0.12rem;
-            height: 1rem;
-        }
-        
         .van-dropdown-menu__bar {
             box-shadow: none;
         }
@@ -56,6 +36,10 @@
         
         .van-dropdown-menu__item {
             justify-content: start
+        }
+        
+        .van-dropdown-item .van-popup {
+            background-color: var(--bgColor)
         }
         
         .echartBox:last-child {
@@ -94,9 +78,7 @@
         
         .submit {}
         
-        #app,
         .van-dropdown-menu__bar,
-        .van-popup,
         .van-cell {
             background-color: var(--bgColor);
         }
@@ -105,13 +87,7 @@
             border-color: var(--borderColor);
         }
         
-        .van-nav-bar .van-icon,
-        .van-nav-bar__title,
-        .van-list__error-text,
-        .van-list__finished-text,
-        .van-list__loading,
-        .van-dropdown-menu__title,
-        .van-cell {
+        .van-dropdown-menu__title {
             color: var(--textColor);
         }
         
@@ -982,9 +958,15 @@
                     xAxis: {
                         type: "category",
                         data: item.dept || ["1bu", "2bu", "3bu", "4bu", "5bu", "6bu", "7bu"],
-                        axisLine: {
-                            show: false,
-                        },
+                        // axisLine: {
+                        //     show: false,
+                        // },
+                        // axisLine: {
+                        //     show: true,
+                        //     lineStyle: {
+                        //         color: "red"
+                        //     }
+                        // },
                         axisLabel: {
                             fontSize: 10,
                             color: this.textColor2,
@@ -1003,6 +985,7 @@
                         axisLine: {
                             show: false,
                         },
+
                         splitLine: {
                             show: true,
                             lineStyle: {

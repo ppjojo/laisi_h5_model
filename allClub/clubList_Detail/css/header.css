@@ -121,10 +121,6 @@ body {
   border: 1px solid var(--borderColor);
 }
 
-.van-overlay {
-  background-color: rgba(18, 18, 31, 0.7);
-}
-
 .van-picker {
   background-color: var(--bgColor);
 }

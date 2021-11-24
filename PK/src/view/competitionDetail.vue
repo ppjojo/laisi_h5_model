@@ -505,6 +505,7 @@ export default {
 
   data() {
     return {
+      theme: "black",
       type: getQueryString("type"),
       currentUserId: "",
       DateTime: DateTime,
@@ -696,6 +697,7 @@ export default {
       }
 
       if (theme == "black") {
+        this.theme = "black";
         var colorValue = `rgba(18,18,31,${rate})`;
         document.getElementsByClassName("van-nav-bar")[0].style.color = `rgb(${
           255 - 48 * rate
@@ -706,6 +708,7 @@ export default {
           255 - 45 * rate
         })`;
       } else if (theme == "white") {
+        this.theme = "white";
         var colorValue = `rgba(255,255,255,${rate})`;
         document.getElementsByClassName("van-nav-bar")[0].style.color = `rgb(${
           255 - 255 * rate
@@ -827,9 +830,10 @@ export default {
         this.$interaction.sharePage({
           title: `我在派健康参与了比赛【${this.competitionItem.name}】,快来和我battle吧`,
           description: "派健康--爱自己，爱生活",
+          actionType: 3,
           url:
             defaultSettings.host +
-            `h5/h5V3/PK/#/competitionDetail?id=${this.competitionItem.id}&type=${this.type}&isShare=1`,
+            `h5/h5V3/PK/#/competitionDetail?id=${this.competitionItem.id}&type=${this.type}&isShare=1&theme=${this.theme}`,
         });
       } else if (obj.type == 2) {
         this.destroyed();

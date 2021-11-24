@@ -37,7 +37,7 @@ body {
     text-align: center;
     color: $textColor;
     z-index: 9999;
-    background-color: #292934;
+    background-color: var(--borderColor);
 }
 
 //课程主页

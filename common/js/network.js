@@ -459,11 +459,24 @@ var Interaction = {
 
     //H5调用原生的方法传入标题描述地址进行分享
     sharePage: function(info) {
+        //1 shareCourese //分享课程
+        //2 shareClub //分享俱乐部
+        //3 sharePKGame //分享PK赛
+
         if (!info) return;
+        let actionType = ""
+        if (info.actionType == 1) {
+            actionType = "shareCourese"
+        } else if (info.actionType == 2) {
+            actionType = "shareClub"
+        } else if (info.actionType == 3) {
+            actionType = "sharePKGame"
+        }
         this.appNative("sharePage", {
             title: info.title,
             description: info.description,
             url: info.url + '&theme=' + theme,
+            actionType: actionType
         });
     },
     //H5调原生分享模板，链接分享模板，模板中又存在截图分享功能

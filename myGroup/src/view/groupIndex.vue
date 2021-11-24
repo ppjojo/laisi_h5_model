@@ -215,6 +215,7 @@ export default {
         labelId: "",
         isInviteConfirm: 0,
       },
+      theme: "black",
     };
   },
   filters: {},
@@ -305,6 +306,7 @@ export default {
         theme = this.$route.query.theme;
       }
       if (theme == "black") {
+        this.theme = "black";
         var colorValue = `rgba(18,18,31,${rate})`;
         document.getElementsByClassName("van-nav-bar")[0].style.color = `rgb(${
           255 - 48 * rate
@@ -315,6 +317,7 @@ export default {
           255 - 45 * rate
         })`;
       } else if (theme == "white") {
+        this.theme = "white";
         var colorValue = `rgba(255,255,255,${rate})`;
         document.getElementsByClassName("van-nav-bar")[0].style.color = `rgb(${
           255 - 255 * rate
@@ -346,11 +349,7 @@ export default {
       this.$interaction.sharePage({
         title: this.groupItem.name,
         description: this.groupItem.slogon,
-        url:
-          defaultSettings.host +
-          "h5/h5V3/myGroup/#/groupIndex?id=" +
-          this.groupId +
-          "&isShare=1",
+        url: `${defaultSettings.host}h5/h5V3/myGroup/#/groupIndex?id=${this.groupId}&isShare=1&theme=${this.theme}`,
       });
     },
     goInto() {

@@ -75,6 +75,18 @@ var interaction = {
     //H5调用原生的方法传入标题描述地址进行分享
     sharePage: function(info) {
         if (!info) return;
+        //1 shareCourese //分享课程
+        //2 shareClub //分享俱乐部
+        //3 sharePKGame //分享PK赛
+
+        let actionType = ""
+        if (info.actionType == 1) {
+            actionType = "shareCourese"
+        } else if (info.actionType == 2) {
+            actionType = "shareClub"
+        } else if (info.actionType == 3) {
+            actionType = "sharePKGame"
+        }
         try {
             if (isIOS) {
                 window.webkit.messageHandlers.lstNative.postMessage({
@@ -82,12 +94,14 @@ var interaction = {
                     title: info.title,
                     description: info.description,
                     url: info.url,
+                    actionType: actionType
                 });
             } else if (isAndroid) {
                 window.android.sharePage(JSON.stringify({
                     title: info.title,
                     description: info.description,
                     url: info.url,
+                    actionType: actionType
                 }));
             }
         } catch (e) {

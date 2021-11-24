@@ -6,8 +6,8 @@
           <span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
         </template>
         <template #right>
-          <div v-if="edit&&labelArray.length>0" :style="{color:'#cfcfd2',fontSize:'.32rem'}">完成</div>
-          <div v-if="edit&&labelArray.length==0" :style="{color:'#595962',fontSize:'.32rem'}">完成</div>
+          <div v-if="edit&&labelArray.length>0" class="overColor">完成</div>
+          <div v-if="edit&&labelArray.length==0" class="notColor">完成</div>
         </template>
       </van-nav-bar>
     </div>
@@ -269,6 +269,14 @@ export default {
 <style scoped="scoped">
 .van-cell {
   border-radius: 0.05rem;
+}
+.overColor {
+  color: var(--textColor);
+  font-size: 0.32rem;
+}
+.notColor {
+  color: var(--textColor2);
+  font-size: 0.32rem;
 }
 
 /deep/ textarea::-webkit-input-placeholder {
