@@ -31,21 +31,24 @@
             color: var(--textColor2);
         }
         
-        .cardList>li .headpic {
+        .headpicBox {
+            display: flex;
+            align-items: center;
+            justify-content: center;
             width: .72rem;
             height: .72rem;
             border-radius: .1rem;
             margin-right: .2rem;
-            background-color: var(--popBgColor);
+            background-color: var(--borderColor);
+        }
+        
+        .headpicBox .headpic {
+            width: 100%;
+            height: 100%;
         }
         
         .cardList>li>div {
             border-bottom: none;
-        }
-        
-        .headpicBox {
-            display: flex;
-            align-items: center;
         }
         
         .van-uploader__upload {
@@ -90,7 +93,11 @@
             <li v-for="(item,index) in dataList" @click="chooseThisGroup(item)">
                 <!-- 分组名称 -->
                 <div class="ub ub-ac">
-                    <div class="headpicBox"><img class="headpic" :src="item.id!=-1?item.image:'img/notgroup.png'" /></div>
+                    <div class="headpicBox">
+                        <img v-if="item.id!=-1" class="headpic" :src="item.image" />
+                        <img v-else class="headpic" style="width:80%;height:80%;" src="img/notgroup2.png" />
+
+                    </div>
                     <div class="">
                         <div class="van-ellipsis">{{item.name}}</div>
                         <div class="detail">

@@ -1,14 +1,15 @@
 #app {
-    background-color: var(--bgColor);
+    background-color: var(--specialBgColor);
+    min-height: 100vh;
 }
 
 .cardList {
-    /* padding: .2rem .3rem; */
+    padding: .2rem .3rem;
     font-size: .32rem;
 }
 
 .cardList>li {
-    /* background-color: var(--borderColor); */
+    background-color: var(--specialBorderColor);
     border-radius: .2rem;
     margin-bottom: .2rem;
     color: var(--textColor);
@@ -27,6 +28,7 @@
     width: .72rem;
     height: .72rem;
     border-radius: .1rem;
+    background-color: var(--specialBgColor);
 }
 
 .cardList>li>div {

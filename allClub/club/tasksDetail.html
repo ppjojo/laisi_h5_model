@@ -212,7 +212,10 @@
                             </van-col>
                             <van-col span="14" class="deptInfoBox">
                                 <div class="deptPic">
-                                    <img :src="item.image?item.image:'../corporateClub/img/notgroup.png'" alt="">
+                                    <div v-if="item.image" :style="{'background-image':'url('+item.image+')'}">
+                                    </div>
+                                    <div v-else style="background-image:url(../corporateClub/img/notgroup2.png);background-size:80% 80%;">
+                                    </div>
                                 </div>
                                 <div class="deptD">
                                     <div class="name">

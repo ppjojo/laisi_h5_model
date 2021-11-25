@@ -70,6 +70,16 @@
   -o-border-radius: 50%;
 }
 
+.corporate .deptList .deptInfoBox .deptPic div {
+  border-radius: 50%;
+  width: .6rem;
+  height: .6rem;
+  background-size: cover;
+  background-position: center;
+  background-color: var(--borderColor);
+  background-repeat: no-repeat;
+}
+
 .corporate .deptList .deptInfoBox .deptD {
   margin-left: 0.1rem;
   padding: 0.1rem 0;
@@ -87,6 +97,7 @@
 }
 
 .corporate .deptList .deptInfoBox .deptD .userInfo {
+  color: var(--textColor2);
   font-size: 0.2rem;
   line-height: 0.35rem;
   display: -webkit-box;
@@ -126,6 +137,7 @@
 }
 
 .corporate .deptList .scoreBox .numD {
+  color: var(--textColor2);
   text-align: right;
   font-size: 0.2rem;
   line-height: 0.4rem;
