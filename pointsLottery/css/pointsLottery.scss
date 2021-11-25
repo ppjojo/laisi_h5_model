@@ -262,7 +262,7 @@ body {
 
 #gochange {
     height: .52rem;
-    color: $bgColor;
+    color: #fff;
     line-height: .52rem;
     text-align: center;
     border-radius: .26rem;
@@ -473,16 +473,32 @@ textarea::-webkit-input-placeholder {
 }
 
 .van-switch {
+    width: 1rem;
+    height: .48rem;
     background-color: $borderColor;
+    border: none;
     .van-switch__node {
-        background-color: $textColor2;
-        top: .025rem;
-        left: .025rem;
+        background-color: var(--bestCareer_textColor2);
+        top: .02rem;
+        left: .02rem;
         width: .4rem;
         height: .4rem;
     }
 }
 
+.van-switch--on {
+    background-color: #34c759!important;
+    .van-switch__node {
+        background-color: #fff;
+        transform: translateX(.55rem);
+    }
+}
+
 .van-address-item__edit {
-    color: #cfcfd2!important;
+    color: var(--textColor)
+}
+
+.van-dialog__confirm,
+.van-dialog__cancel {
+    color: $textColor;
 }

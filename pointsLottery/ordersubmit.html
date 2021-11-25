@@ -25,6 +25,18 @@
         .list_ul {
             padding: .4rem .3rem;
         }
+        
+        .van-address-list .van-address-item .van-cell {
+            background-color: transparent;
+        }
+        
+        .van-icon-arrow {
+            color: var(--textColor2)
+        }
+        
+        .van-popup__close-icon {
+            color: var(--textColor)
+        }
     </style>
 
 </head>
@@ -46,7 +58,7 @@
             <div class="province van-ellipsis">{{chooseAdd.province + chooseAdd.city +chooseAdd.county}}<span v-if="chooseAdd.isDefault==1" class="van-tag van-tag--round van-tag--danger van-address-item__tag">默认</span></div>
             <div class="ub ub-ac ub-pj">
                 <div class="detail van-ellipsis">{{chooseAdd.address + chooseAdd.buildingNo||""}}</div>
-                <van-icon name="arrow" color="#71717f" size="18" />
+                <van-icon name="arrow" size="18" />
             </div>
             <div class="name van-ellipsis">{{chooseAdd.receiver}} {{chooseAdd.phoneNumber}}</div>
         </div>
@@ -54,7 +66,7 @@
             <div class="province van-ellipsis">暂无收货地址</div>
             <div class="ub ub-ac ub-pj">
                 <div class="detail van-ellipsis">新建收货地址</div>
-                <van-icon name="arrow" color="#71717f" size="18" />
+                <van-icon name="arrow" size="18" />
             </div>
             <div class="name van-ellipsis">&nbsp;</div>
         </div>
@@ -201,6 +213,9 @@
                     success: function(res) {
                         if (res.code == 0) {
                             _self.addresslist = res.data;
+                            if (_self.addresslist.length == 0) {
+                                _self.addressshow = false
+                            }
                             var addressEdit = localStorage.getItem("addressEdit");
                             _self.addresslist.forEach((item, index) => {
                                 item.name = item.receiver;

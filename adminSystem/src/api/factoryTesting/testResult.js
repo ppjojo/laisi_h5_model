@@ -8,3 +8,14 @@ export function listItem(data) {
     })
 }
 
+export function exportTestResult(data) {
+    return request({
+        url: '/factory/exportTestResult',
+        headers: {
+            "Content-Type": "multipart/form-data",
+        },
+        method: 'post',
+        responseType: "blob",
+        data
+    })
+}

@@ -29,25 +29,6 @@
     margin-top: .3rem;
 }
 
-.van-switch--on {
-    background-color: #34c759!important;
-}
-
-.van-switch__node {
-    width: .45rem;
-    height: .45rem;
-}
-
-.van-switch--on .van-switch__node {
-    transform: translateX(.55rem);
-    background-color: #fff;
-}
-
-.van-switch {
-    width: 1rem;
-    height: .48rem;
-}
-
 #switch .van-field__label {
     width: 6rem;
     color: var(--textColor2);
