@@ -57,7 +57,7 @@
 
         </ul>
       </div>
-      <van-button round class="nextStep" v-if="!edit" block @click="create(labelArray.length>0)" :color="labelArray.length>0?bgc:bgcgrey">创建
+      <van-button round class="nextStep" v-if="!edit" block @click="create(labelArray.length>0)" :color="labelArray.length>0?bgc:''">创建
       </van-button>
 
       <!-- <van-loading type="spinner" vertical v-show="overlayShow"></van-loading> -->
@@ -93,7 +93,6 @@ export default {
       labelId: this.$route.query.labelId || "",
       edit: this.$route.query.edit || null,
       bgc: "linear-gradient(to left, #FFAA88, #FF4E3E )",
-      bgcgrey: "#74747E",
       previewImg: "",
       overlayShow: false,
       isClick: false,

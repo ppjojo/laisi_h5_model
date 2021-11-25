@@ -208,7 +208,7 @@ $popBgColor:var(--popBgColor);
         margin-top: 1.5rem;
         height: 0.8rem;
         line-height: 0.8rem;
-        background-color: $textColor2;
+        background-color: var(--sportsClock_weekTextColor);
         color: #fff;
         font-size: 0.4rem;
     }
@@ -654,6 +654,10 @@ $popBgColor:var(--popBgColor);
         .van-icon {
             display: block;
         }
+        .van-switch {
+            border: none;
+            background-color: var(--challenge_btnBgColor);
+        }
         .van-switch--on {
             border: none;
         }
@@ -755,6 +759,8 @@ $popBgColor:var(--popBgColor);
         height: 0.8rem;
         margin: 1.2rem auto;
         font-size: .4rem;
+        background-color: var(--sportsClock_weekTextColor);
+        color: #fff;
     }
 }
 

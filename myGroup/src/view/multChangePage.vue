@@ -7,7 +7,7 @@
           <span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
         </template>
         <template v-if="isCurrentUser" #right>
-          <div :style="{color:!same?'#CFCFD2':'#71717f'}">{{righttxt}}</div>
+          <div :class="!same?'notsame':'same'">{{righttxt}}</div>
         </template>
       </van-nav-bar>
     </div>
@@ -158,5 +158,11 @@ export default {
 </script>
 <style scoped lang="scss">
 @import "@s/group.scss";
+.notsame {
+  color: var(--textColor);
+}
+.same {
+  color: var(--sportsClock_weekTextColor);
+}
 </style>
 

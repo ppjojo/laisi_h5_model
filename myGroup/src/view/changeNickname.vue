@@ -13,7 +13,7 @@
     <div id="changeName">
       <van-field v-model="nickname" maxlength="8" clearable placeholder="请输入昵称"></van-field>
     </div>
-    <van-button round class="submit" block @click="changeName(nickname)" :color="nickname!=oldNickName&&nickname!=''?bgc:bgcgrey">完成
+    <van-button round class="submit" block @click="changeName(nickname)" :color="nickname!=oldNickName&&nickname!=''?bgc:''">完成
     </van-button>
   </div>
 </template>
@@ -35,7 +35,6 @@ export default {
   data() {
     return {
       bgc: "linear-gradient(to right, #FF4E3E, #FFaa88 )",
-      bgcgrey: "#999",
       nickname: this.$route.query.name || "",
       groupId: parseInt(this.$route.query.id),
       clubid: "",

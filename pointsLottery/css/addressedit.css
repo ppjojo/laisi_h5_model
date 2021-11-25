@@ -1,82 +1,85 @@
-#app {
-	min-height: 100vh;
-	background-color: #12121f;
-}
-html{
-	background-color: #f5f5f5;
-}
 .header {
-	margin-bottom: .3rem;
+    margin-bottom: .3rem;
 }
 
 .van-field__label {
-	color: #71717f;
+    color: var(--textColor2);
 }
 
 .van-picker__confirm,
 .van-picker__cancel {
-	color: #CFCFD2;
+    color: var(--textColor);
 }
 
 .van-picker-column__item--selected {
-	font-size: .4rem;
+    font-size: .4rem;
 }
 
 .van-cell {
-	min-height: 1.2rem;
-	line-height: .8rem;
-	background-color: #12121F;
+    min-height: 1.2rem;
+    line-height: .8rem;
+    background-color: var(--bgColor);
 }
 
 .van-field__control--custom {
-	margin-top: .2rem;
+    margin-top: .2rem;
 }
 
 #switch {
-	margin-top: .3rem;
+    margin-top: .3rem;
 }
 
 .van-switch--on {
-	background-color: #34c759!important;
+    background-color: #34c759!important;
 }
 
 .van-switch__node {
-	width: .45rem;
-	height: .45rem;
+    width: .45rem;
+    height: .45rem;
 }
 
 .van-switch--on .van-switch__node {
-	transform: translateX(.55rem);
-	background-color:#fff;
+    transform: translateX(.55rem);
+    background-color: #fff;
 }
 
 .van-switch {
-	width: 1rem;
-	height: .48rem;
+    width: 1rem;
+    height: .48rem;
 }
 
 #switch .van-field__label {
-	width: 6rem;
-	color: #71717f;
-	font-size: .32rem;
-	margin-right: 0;
+    width: 6rem;
+    color: var(--textColor2);
+    font-size: .32rem;
+    margin-right: 0;
+}
 
+.van-field__control {
+    color: var(--textColor);
 }
-.van-field__control{
-	color: #CFCFD2;
+
+.van-picker {
+    background-color: var(--popBgColor);
 }
-.van-picker{
-	background-color: #1E1E2A;
+
+.van-picker-column__item {
+    color: var(--textColor);
 }
-.van-picker-column__item{
-	color: #CFCFD2;
+
+.van-picker__toolbar {
+    border-bottom: 1px solid var(--borderColor);
+    /* background-color: var(--borderColor); */
 }
-.van-picker__toolbar{
-	background-color: #1E1E2A;
+
+.van-picker__mask {
+    background-image: none;
 }
-.van-picker__mask{
-	background-image: none;
-}
+
 .submit {
-	margin-top: .6rem;
+    margin-top: .6rem;
+}
+
+.van-cell::after {
+    border-bottom: 1px solid var(--borderColor);
 }

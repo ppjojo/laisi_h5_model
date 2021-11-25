@@ -58,6 +58,10 @@
             width: 1.2rem;
             height: 1.2rem;
         }
+        
+        .van-button__text {
+            color: var(--textColor);
+        }
     </style>
 </head>
 
@@ -317,20 +321,15 @@
                         if (res.code == 0) {
                             _self.pricelist = [];
                             _self.pricelist2 = [];
-                            let hasRedbag = false;
                             res.data.forEach((item, index) => {
                                 if (!_self.timedown(item.endTime) || item.type == 2) { //失效的
                                     _self.pricelist2.push(item);
-                                    hasRedbag = true;
                                 } else {
                                     item.sortIndex = index;
                                     _self.pricelist.push(item);
                                 }
                             });
-                            if (hasRedbag) {
-                                //判断是否需要更新版本
-                                _self.toastUpversion();
-                            }
+
                         } else {
                             _self.$toast(res.msg);
                         }
@@ -339,31 +338,6 @@
                         console.log("error")
                     }
                 })
-            },
-            toastUpversion() {
-                var appInfo = JSON.parse(localStorage.getItem("appInfo"));
-                var version = appInfo.appVersion;
-                version = version.split(".");
-                let needtoast = false;
-                // version[version.length-1] = 1145
-                if (isIOS) {
-                    if (parseInt(version[version.length - 1]) < 1150) {
-                        needtoast = true;
-                    }
-                } else if (isAndroid) {
-                    if (parseInt(version[version.length - 1]) < 1129) {
-                        needtoast = true;
-                    }
-                }
-                if (needtoast) {
-                    this.$dialog.alert({
-                        title: '有新版本啦！',
-                        confirmButtonText: '我知道了',
-                        message: '开盒奖金已至我的钱包，提现需更新',
-                    }).then(() => {
-                        // on close
-                    });
-                }
             },
             //activity/UserBag/myVouchers
             getcoupon() { //获取盲盒
@@ -516,8 +490,6 @@
                         width: '5.4rem',
                         confirmButtonText: '去兑换',
                         cancelButtonText: '取消',
-                        confirmButtonColor: '#CFCFD2',
-                        cancelButtonColor: '#CFCFD2',
                         message: '暂无包邮券，快去兑换呀！',
                     }).then(() => {
                         // on close

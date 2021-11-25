@@ -111,7 +111,8 @@
 										<div>
 											<div class="ub ub-ac">
 												<div class="nickname van-ellipsis">
-													{{memItem.clubGroupNickname||memItem.accountNickname}}{{memItem.clubGroupNickname?('('+memItem.accountNickname+')'):''}}
+													{{memItem.clubGroupNickname||memItem.accountNickname}}
+                                                    <!-- {{memItem.clubGroupNickname?('('+memItem.accountNickname+')'):''}} -->
 												</div>
 												<div v-if="memItem.isMinister=='Y'||memItem.isSubMinister=='Y'"
 													class="badage">{{memItem.isMinister=="Y"?"部长":"分部长"}}</div>

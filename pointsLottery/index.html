@@ -22,6 +22,10 @@
             left: calc(50% - 3.375rem);
             z-index: 0;
         }
+        
+        .van-button__text {
+            color: var(--textColor);
+        }
     </style>
 
 </head>
@@ -264,8 +268,6 @@
                     width: '5.4rem',
                     confirmButtonText: '去做任务',
                     cancelButtonText: '先不去',
-                    confirmButtonColor: '#CFCFD2',
-                    cancelButtonColor: '#CFCFD2',
                     message: '连续3天完成≥1个逗币任务即可获得包邮券和备用绳各一份哦！',
                 }).then(() => {
                     // on close
@@ -278,8 +280,6 @@
                     width: '5.4rem',
                     confirmButtonText: '去兑换',
                     cancelButtonText: '先不去',
-                    confirmButtonColor: '#CFCFD2',
-                    cancelButtonColor: '#CFCFD2',
                     message: '恭喜完成3天连续逗币任务，可以兑换礼品了哦～',
                 }).then(() => {
                     // on close

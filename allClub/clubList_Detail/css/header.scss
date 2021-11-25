@@ -154,11 +154,7 @@ body {
 }
 
 .van-switch {
-    background-color: $bgColor;
-    border: 0.02rem solid $textColor2;
-}
-
-.van-switch--on {
+    background-color: var(--challenge_btnBgColor);
     border: none;
 }
 

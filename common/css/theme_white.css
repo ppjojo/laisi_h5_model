@@ -28,4 +28,6 @@
     /* challenge */
     --challenge_btnBgColor: #ddd;
     --challenge_btnTextColor: #666;
+    /*逗币*/
+    --pointsLottery_taskColor: #999;
 }

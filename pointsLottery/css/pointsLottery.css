@@ -172,7 +172,7 @@ body {
 }
 
 .van-tabs .van-tab {
-  color: var(--textColor2);
+  color: var(--sportsClock_weekTextColor);
   font-size: .32rem;
 }
 
@@ -298,7 +298,7 @@ body {
   text-align: center;
   border-radius: .26rem;
   font-size: .24rem;
-  background-color: var(--textColor2);
+  background-color: var(--pointsLottery_taskColor);
   margin-right: .3rem;
   padding: 0 .2rem;
 }
@@ -319,7 +319,7 @@ body {
   background: linear-gradient(to right, #ff4e3e, #ffaa88);
   border: none;
   font-size: .36rem;
-  color: var(--textColor);
+  color: #fff;
   height: .88rem;
   line-height: .88rem;
   width: 6.3rem;
@@ -368,7 +368,7 @@ body {
 }
 
 .bottomBtngrey {
-  background: var(--textColor2);
+  background: var(--pointsLottery_taskColor);
 }
 
 #popbg {
