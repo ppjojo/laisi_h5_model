@@ -591,7 +591,7 @@ body {
         z-index: 4;
         .info {
             color: $textColor2;
-            font-size: 0.2rem;
+            font-size: 0.24rem;
             text-align: center;
             padding: 0.2rem 0;
         }
@@ -715,6 +715,12 @@ body {
         background-color: $bgColor;
         padding-bottom: calc(0.16rem + constant(safe-area-inset-bottom));
         padding-bottom: calc(0.16rem + env(safe-area-inset-bottom));
+        .canSend {
+            color: $textColor;
+        }
+        .notCanSend {
+            color: var(--pointsLottery_taskColor);
+        }
         .van-cell {
             background-color: $borderColor;
             padding: 0.03rem 0.2rem;

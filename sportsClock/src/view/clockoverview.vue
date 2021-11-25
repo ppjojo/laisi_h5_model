@@ -115,7 +115,7 @@ export default {
       checkTime: new Date().getTime(),
       YMshow: false,
       tabIndex: 1, //1月度2年度
-      columns: [2021, 2022, 2023],
+      columns: [],
       sheetImageStatus: false,
       monthObj: {
         skipping: "",
@@ -143,10 +143,12 @@ export default {
     if (getQueryString("isShare2")) {
       this.tabIndex = parseInt(getQueryString("tabIndex"));
     }
+    for (var i = new Date().getFullYear(); i > 2020; i--) {
+      this.columns.push(i);
+    }
   },
   methods: {
     getList(flag, checkTime) {
-      console.log(checkTime);
       if (!flag) flag = this.tabIndex;
       if (flag == 1) {
         this.monthAPI(checkTime);
@@ -188,14 +190,7 @@ export default {
     onClickRight() {
       this.sharePage();
     },
-    goGroupIndex(item) {
-      this.$router.push({
-        path: "/groupIndex",
-        query: {
-          id: item,
-        },
-      });
-    },
+
     fatherSetMonthObj(obj, index) {
       this.rate[index] = obj.standardRate;
       this.$forceUpdate();

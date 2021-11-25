@@ -2,9 +2,9 @@
   <div id="calendarBox" v-cloak>
     <!-- 顶部日期 -->
     <div class="ub ub-ac ub-pj dateTitle">
-      <van-icon name="arrow-left" size="15" />
+      <van-icon name="arrow-left" @click="changeYear(1)" size="15" />
       <div @click="openFatherPickYear()">{{dateTitle}}</div>
-      <van-icon name="arrow" size="15" />
+      <van-icon name="arrow" @click="changeYear(2)" size="15" />
     </div>
     <div class="dateList">
       <div class="monthbox ub ub-ac" v-for="mitem in monthList">
@@ -105,6 +105,26 @@ export default {
       } else {
         return 30;
       }
+    },
+    changeYear(flag) {
+      //1减一 2加一
+      let year = parseInt(this.dateTitle);
+
+      if (flag == 1) {
+        if (year > 2021) {
+          year -= 1;
+        } else {
+          return;
+        }
+      } else {
+        if (year < new Date().getFullYear()) {
+          year += 1;
+        } else {
+          return;
+        }
+      }
+      this.$parent.getList(null, new Date(year, 0, 1).getTime());
+      this.dateTitle = year;
     },
   },
   watch: {

@@ -33,7 +33,7 @@
         <div class="weekBox" v-if="reportData.takeMs||reportData.burn||reportData.reportRecordDto.length>0">
             <div class="topPic">
                 <img class="bg" src="./img/week_topPic.png" alt="">
-                <img class="black" src="./img/black.png" alt="">
+                <img class="black" :src="'./img/'+theme+'.png'" alt="">
             </div>
             <div class="infoBox" v-if="reportData.headPictureUrl">
                 <img class="headerpic" :src="reportData.headPictureUrl" alt="">

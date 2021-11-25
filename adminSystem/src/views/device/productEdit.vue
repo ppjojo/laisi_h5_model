@@ -117,7 +117,11 @@ export default {
   props: {
     formItem: Object,
   },
-
+  watch: {
+    formItem() {
+      this.form = this.formItem;
+    },
+  },
   filters: {
     statusFilter(status) {
       const statusMap = {

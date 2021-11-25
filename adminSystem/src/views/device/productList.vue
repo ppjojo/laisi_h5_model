@@ -110,6 +110,7 @@ export default {
     },
     btn_edit(row) {
       this.form = Object.assign({}, row);
+      console.log(this.form);
       this.dialogVisible = true;
       this.dialogTitle = "编辑";
     },

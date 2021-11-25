@@ -192,7 +192,7 @@
 												style="font-size: 0.3rem;"></span>
 										</template>
                                 </van-field>
-                                <span class="icon iconfont icon-duihua-fasong" @click="submitCommentFirst" :style="{'color':comment_message?'#cfcfd2':'#71717f'}" style="font-size: 0.48rem;padding-left: 0.24rem;margin-bottom:0.04rem;"></span>
+                                <span class="icon iconfont icon-duihua-fasong" @click="submitCommentFirst" :class="comment_message?'canSend':'notCanSend'" style="font-size: 0.48rem;padding-left: 0.24rem;margin-bottom:0.04rem;"></span>
                             </div>
 
                         </div>
@@ -275,7 +275,7 @@
 									style="font-size: 0.3rem;"></span>
 							</template>
                     </van-field>
-                    <span class="icon iconfont icon-duihua-fasong" @click="submitCommentFirst" :style="{'color':comment_message?'#cfcfd2':'#71717f'}" style="font-size: 0.48rem;padding-left: 0.24rem;"></span>
+                    <span class="icon iconfont icon-duihua-fasong" @click="submitCommentFirst" :class="comment_message?'canSend':'notCanSend'" style="font-size: 0.48rem;padding-left: 0.24rem;"></span>
                 </div>
 
             </van-popup>

@@ -653,6 +653,13 @@ export default {
     if (this.isShare != 1) {
       this.joinStatusAndTimesRemain();
     }
+    var theme = "";
+    if (localStorage.getItem("appInfo")) {
+      var appInfo = JSON.parse(localStorage.getItem("appInfo"));
+      this.theme = appInfo.theme || "black";
+    } else if (getQueryString("theme")) {
+      this.theme = getQueryString("theme");
+    }
   },
   methods: {
     goApp() {
@@ -688,16 +695,8 @@ export default {
       if (rate > 1) {
         rate = 1;
       }
-      var theme = "";
-      if (localStorage.getItem("appInfo")) {
-        var appInfo = JSON.parse(localStorage.getItem("appInfo"));
-        theme = appInfo.theme || "black";
-      } else if (getQueryString("theme")) {
-        theme = getQueryString("theme");
-      }
 
-      if (theme == "black") {
-        this.theme = "black";
+      if (this.theme == "black") {
         var colorValue = `rgba(18,18,31,${rate})`;
         document.getElementsByClassName("van-nav-bar")[0].style.color = `rgb(${
           255 - 48 * rate
@@ -707,8 +706,7 @@ export default {
         )[0].style.color = `rgb(${255 - 48 * rate},${255 - 48 * rate},${
           255 - 45 * rate
         })`;
-      } else if (theme == "white") {
-        this.theme = "white";
+      } else if (this.theme == "white") {
         var colorValue = `rgba(255,255,255,${rate})`;
         document.getElementsByClassName("van-nav-bar")[0].style.color = `rgb(${
           255 - 255 * rate

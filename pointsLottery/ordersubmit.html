@@ -218,9 +218,10 @@
                             }
                             var addressEdit = localStorage.getItem("addressEdit");
                             _self.addresslist.forEach((item, index) => {
+                                console.log(item)
                                 item.name = item.receiver;
                                 item.tel = item.phoneNumber;
-                                // item.address = item.address + item.buildingNo;
+                                item.address = item.province + item.city + item.county + item.address + item.buildingNo;
                                 if (addressEdit == item.id) {
                                     _self.chooseAdd = item;
                                     localStorage.removeItem("addressEdit");

@@ -154,4 +154,22 @@ export default {
   },
 };
 </script>
+<style >
+.el-tabs__item {
+  height: 60px !important;
+  padding: 0;
+  width: 100px !important;
+}
 
+.tabTitle {
+  height: 100%;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  background-size: 100% 150%;
+  background-repeat: no-repeat;
+  background-position: center;
+  /* background-color: #000; */
+}
+</style>

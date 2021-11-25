@@ -35,6 +35,9 @@ $borderColor:var(--borderColor);
 }
 
 .comListBox {
+    .van-tab {
+        color: var(--pointsLottery_taskColor);
+    }
     .van-tabs__nav {
         background-color: $bgColor;
     }
@@ -53,6 +56,7 @@ $borderColor:var(--borderColor);
         // margin-top: calc(1rem + env(safe-area-inset-top));
     }
     .van-tab--active {
+        color: var(--textColor);
         &::after {
             content: '';
             position: absolute;
@@ -221,7 +225,7 @@ $borderColor:var(--borderColor);
         margin: 1.5rem auto;
         height: 0.8rem;
         line-height: 0.8rem;
-        background-color: var(--textColor2);
+        background-color: var(--challenge_btnBgColor);
         color: #fff;
         font-size: 0.4rem;
     }

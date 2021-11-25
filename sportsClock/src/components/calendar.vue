@@ -165,9 +165,11 @@ export default {
         } else {
           month += 1;
         }
-        // if (month >= this.nowMonth) {
-        //   // alert(22);
-        // }
+      }
+
+      let nowYear = parseInt(this.dateTitle);
+      if (nowYear < year || year < 2021) {
+        return;
       }
 
       this.$parent.getList(
