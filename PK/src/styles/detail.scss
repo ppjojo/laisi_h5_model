@@ -422,7 +422,7 @@ $borderColor:var(--borderColor);
         }
         .btn2 {
             background-image: none;
-            background-color: $textColor2;
+            background-color: var(--challenge_btnBgColor);
         }
     }
     .officialRulePopup {

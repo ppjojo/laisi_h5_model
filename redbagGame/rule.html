@@ -16,13 +16,6 @@
             background-color: #F24023;
         }
         
-        #app {
-            color: #fff;
-            padding-bottom: 1rem;
-            height: calc( 100vh - .92rem);
-            overflow-y: scroll;
-        }
-        
         .wbox {
             background-color: #fff;
             border-radius: .2rem;
@@ -81,7 +74,7 @@
 <body>
     <div id="app" v-cloak>
         <div class="header">
-            <van-nav-bar title="活动规则" @click-left="OnclickLeft" @click-right="onClickRight" left-arrow safe-area-inset-top fixed>
+            <van-nav-bar title="活动规则" @click-left="OnclickLeft" @click-right="onClickRight" left-arrow safe-area-inset-top fixed style="background-color:#F24023;">
                 <template #right>
 					</template>
             </van-nav-bar>

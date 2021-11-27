@@ -22,6 +22,7 @@ themeChange();
 var theme = "black"
 
 function themeChange() {
+
     if (localStorage.getItem("appInfo")) {
         var appInfo = JSON.parse(localStorage.getItem("appInfo"));
         theme = appInfo.theme || "black"

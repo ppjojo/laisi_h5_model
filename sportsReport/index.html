@@ -61,6 +61,7 @@
         mounted() {
             this.lastWeek = this.getLastWeek(new Date().getTime())
             this.lastMonth = this.getLastMonth(new Date().getTime())
+            ajax({})
         },
         methods: {
             onclickLeft() {

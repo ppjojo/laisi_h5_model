@@ -1,11 +1,11 @@
 * {
   margin: 0;
   padding: 0;
-  color: var(--textColor);
 }
 
 body {
   background-color: var(--bgColor);
+  color: var(--textColor);
 }
 
 .header {
@@ -246,13 +246,20 @@ body {
 }
 
 .dynamicBox .dynamicUl li .info .content .personInfo .nickNameBox .viewNum {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   font-size: 0.2rem;
   line-height: 0.4rem;
 }
 
-.dynamicBox .dynamicUl li .info .content .personInfo .nickNameBox .viewNum img {
-  width: 0.2rem;
-  height: 0.2rem;
+.dynamicBox .dynamicUl li .info .content .personInfo .nickNameBox .viewNum i {
   margin-right: 0.1rem;
 }
 
@@ -325,11 +332,18 @@ body {
   width: 1.6rem;
   font-size: 0.28rem;
   color: var(--textColor2);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
-.dynamicBox .dynamicUl li .statisticsBox div img {
-  width: 0.28rem;
-  height: 0.26rem;
+.dynamicBox .dynamicUl li .statisticsBox div i {
   margin-right: 0.1rem;
 }
 
@@ -465,6 +479,7 @@ body {
 }
 
 .videobox .authorInfo .headInfo {
+  color: #fff;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

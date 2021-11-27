@@ -218,11 +218,11 @@
             },
             modifyRoute(type, num) {
                 var isEffective = 1 //1有效可打卡 0无效不可打卡
-                    // if (this.nowIndex < this.menuactive) {
-                    //     this.$toast('未到任务时间点哦');
-                    //     isEffective = 0
-                    //     return;
-                    // }
+                if (this.nowIndex < this.menuactive) {
+                    this.$toast('未到任务时间点哦');
+                    isEffective = 0
+                    return;
+                }
                 if (this.nowIndex > this.menuactive) {
                     //this.$toast('该任务已失效');
                     //return;

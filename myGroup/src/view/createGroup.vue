@@ -30,12 +30,12 @@
     <div class="createGroup" v-if="flag==2">
       <div class="labelTitle">小组名称</div>
       <div>
-        <van-field v-model="groupItem.name" style="background-color: #1E1E2A;" rows="1" autosize type="textarea" maxlength="16" placeholder="请为您的小组取个响亮的名称吧～" show-word-limit />
+        <van-field v-model="groupItem.name" style="background-color: var(--borderColor);" rows="1" autosize type="textarea" maxlength="16" placeholder="请为您的小组取个响亮的名称吧～" show-word-limit />
       </div>
       <div class="labelTitle" style="margin-top: 0.5rem;">小组口号</div>
       <div>
         <!-- @focus="fieldFocus" @blur="fieldBlur" -->
-        <van-field v-model="groupItem.slogon" rows="5" autosize style="background-color: #1E1E2A;" type="textarea" maxlength="100" placeholder="为你的小组取一个响亮的口号吧~" show-word-limit />
+        <van-field v-model="groupItem.slogon" rows="5" autosize style="background-color: var(--borderColor);" type="textarea" maxlength="100" placeholder="为你的小组取一个响亮的口号吧~" show-word-limit />
       </div>
 
       <van-button round class="nextStep" block @click="goNext2()" :color="groupItem.name&&groupItem.slogon?bgc:bgcgrey">下一步

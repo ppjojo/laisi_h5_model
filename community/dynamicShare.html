@@ -5,10 +5,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0,
             maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
-    <!-- <title>动态详情</title> -->
+    <title>动态详情</title>
     <!-- 引入样式文件 -->
     <link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
     <link rel="stylesheet" href="css/invitationShare.css">
+    <link rel="stylesheet" href="iconfont/iconfont.css">
     <link rel="stylesheet" id="themeCssLink" href="../common/css/theme_black.css">
     <script src="js/community.js"></script>
     <style>
@@ -59,7 +60,9 @@
                                     <div class="nickNameBox">
                                         <p class="nickName">{{item.nickName}}
                                         </p>
-                                        <div class="viewNum"><img src="img/viewIcon.png" alt="">{{item.readCount}}</div>
+                                        <div class="viewNum">
+                                            <i class="iconfont icon-denglu-xianshimima"></i> {{item.readCount}}
+                                        </div>
                                     </div>
                                     <p class="detail">
                                         <span>{{renderTime(item.createTime||"")}}</span>
@@ -74,9 +77,9 @@
                             </div>
                         </div>
                         <div class="statisticsBox">
-                            <div> <img src="img/liked.png" alt="">{{item.likesCount}}</div>
-                            <div> <img src="img/comment.png" alt="">{{item.totalComment}}</div>
-                            <div> <img src="img/collected.png" alt="">{{item.marksCount}}</div>
+                            <div> <i class="iconfont icon-dongtaidianzan"></i>{{item.likesCount}}</div>
+                            <div><i class="iconfont icon-dongtaipinglun"></i>{{item.totalComment}}</div>
+                            <div> <i class="iconfont icon-dongtaishoucang"></i>{{item.marksCount}}</div>
                         </div>
                         <div class="commentBox" v-if="commmentList.length>0">
                             <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
@@ -147,15 +150,15 @@
                 <!-- 点赞导航栏 -->
                 <div class="navbox">
                     <div>
-                        <img src="img/liked.png" alt="">
+                        <i class="iconfont icon-dongtaidianzan"></i>
                         <div>{{item.likesCount||0}}</div>
                     </div>
                     <div @click="commentShow= true">
-                        <img src="img/comment.png" alt="">
+                        <i class="iconfont icon-dongtaipinglun"></i>
                         <div>{{item.commentCount||0}}</div>
                     </div>
                     <div>
-                        <img src="img/collected.png" alt="">
+                        <i class="iconfont icon-dongtaishoucang"></i>
                         <div>{{item.forwardCount||0}}</div>
                     </div>
                 </div>

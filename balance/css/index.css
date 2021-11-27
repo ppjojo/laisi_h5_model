@@ -423,8 +423,33 @@ body {
           justify-content: space-between;
 }
 
-.contain .iconBox .img1 {
-  width: 2.4rem;
+.contain .iconBox .left {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+.contain .iconBox .left .img1 {
+  width: 1rem;
+}
+
+.contain .iconBox .left .appInfo {
+  margin-left: 0.2rem;
+  color: var(--textColor2);
+}
+
+.contain .iconBox .left .appInfo .title {
+  font-size: 0.3rem;
+}
+
+.contain .iconBox .left .appInfo .info {
+  font-size: 0.24rem;
 }
 
 .contain .iconBox .userBox {

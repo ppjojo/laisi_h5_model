@@ -4,10 +4,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
-    <!-- <title>社区邀请</title> -->
+    <title>社区邀请</title>
     <!-- 引入样式文件 -->
     <link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
     <link rel="stylesheet" href="css/invitationShare.css">
+    <link rel="stylesheet" href="iconfont/iconfont.css">
     <link rel="stylesheet" id="themeCssLink" href="../common/css/theme_black.css">
     <script src="js/community.js"></script>
 
@@ -90,9 +91,9 @@
                                     <div v-for="pic in item.mediaUrl.split(',')" :style="{'backgroundImage':'url('+pic+')'}"></div>
                                 </div>
                                 <div class="statisticsBox">
-                                    <div> <img src="img/liked.png" alt="">{{item.likesCount}}</div>
-                                    <div> <img src="img/comment.png" alt="">{{item.commentCount}}</div>
-                                    <div> <img src="img/collected.png" alt="">{{item.marksCount}}</div>
+                                    <div> <i class="iconfont icon-dongtaidianzan"></i>{{item.likesCount}}</div>
+                                    <div><i class="iconfont icon-dongtaipinglun"></i>{{item.totalComment}}</div>
+                                    <div> <i class="iconfont icon-dongtaishoucang"></i>{{item.marksCount}}</div>
                                 </div>
                                 <div class="commentBox" v-if="item.commentDetails&&item.commentDetails.length>0">
                                     <div v-for="commentItem in item.commentDetails">
