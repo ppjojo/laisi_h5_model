@@ -57,7 +57,8 @@
             <div class="imgBox">
                 <div class="title"><img src="img/icon_standard.png">蛋白质参考标准</div>
                 <div class="info" v-html="bodyData.definition"></div>
-                <div class="standard_table"><img src="img/item_form_protein.png"></div>
+                <div class="standard_table">
+                    <img :src="'img/'+themeChange()+'/protein.png'" /></div>
             </div>
         </div>
     </div>

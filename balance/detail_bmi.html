@@ -61,7 +61,9 @@
             <div class="imgBox">
                 <div class="title"><img src="img/icon_standard.png">BMI参考标准</div>
                 <div class="info" v-html="bodyData.definition"></div>
-                <div class="standard_table"><img src="img/item_form_bmi.png"></div>
+                <div class="standard_table">
+                    <img :src="'img/'+themeChange()+'/bmi.png'">
+                </div>
             </div>
         </div>
     </div>
@@ -83,6 +85,7 @@
             },
             created() {
                 this.initData();
+
             },
             methods: {
 

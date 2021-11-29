@@ -61,72 +61,73 @@
             <div class="imgBox">
                 <div class="title"><img src="img/icon_standard.png">体脂参考标准</div>
                 <div class="info" v-html="bodyData.definition"></div>
-                <div class="standard_table"><img src="img/item_form_bodyfat.png"></div>
+                <div class="standard_table">
+                    <img :src="'img/'+themeChange()+'/bodyfat.png'">
+                </div>
             </div>
         </div>
-    </div>
-    <script src="../common/js/network.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
-    <script>
-        new Vue({
-            el: '#app',
-            data() {
-                return {
-                    memberId: getQueryString("memberId"), //成员id
-                    measureId: getQueryString("measureId"), //数据id
-                    deviceType: getQueryString("deviceType"), //设备类型 区分是不是非智能体脂秤
-                    bodyData: {
-                        range: []
-                    },
-                    leftNum: 0,
-                };
-            },
-            created() {
-                this.initData();
-            },
-            methods: {
-
-                initData() {
-                    var that = this
-                    ajax({
-                        type: "get",
-                        url: getQueryString('deviceType') == 'blebalance' ?
-                            "bleBalance/h5/data/body/detail/accredited/bodyBfr" : "balance/share/h5/data/body/detail/accredited/bodyBfr",
-                        data: {
-                            memberId: this.memberId,
-                            measureId: this.measureId,
+        <script src="../common/js/network.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+        <script>
+            new Vue({
+                el: '#app',
+                data() {
+                    return {
+                        memberId: getQueryString("memberId"), //成员id
+                        measureId: getQueryString("measureId"), //数据id
+                        deviceType: getQueryString("deviceType"), //设备类型 区分是不是非智能体脂秤
+                        bodyData: {
+                            range: []
                         },
-                        success: function(res) {
-                            if (res.code == 0) {
-                                that.bodyData = res.data;
-                                var number = parseFloat(res.data.bodyFat);
-                                var index01 = res.data.range[0];
-                                var index02 = res.data.range[1];
-                                var index03 = res.data.range[2];
-                                if (number < index01) {
-                                    that.leftNum = ((number - 0) / (index01 - 0)) * 25
-                                } else if (number < index02) {
-                                    that.leftNum = ((number - index01) / (index02 - index01)) * 25 + 25
-                                } else if (number < index03) {
-                                    that.leftNum = ((number - index02) / (index03 - index02)) * 25 + 50
-                                } else {
-                                    that.leftNum = ((number - index03) / (50 - index03)) * 25 + 75
-                                }
-                                if (that.leftNum < 0) {
-                                    that.leftNum = 0
-                                } else if (that.leftNum > 98) {
-                                    that.leftNum = 98
-                                }
-                            }
-                        },
-                        error: function(err) {
-                            console.log("error")
-                        }
-                    })
+                        leftNum: 0,
+                    };
                 },
-            }
-        })
-    </script>
+                created() {
+                    this.initData();
+                },
+                methods: {
+
+                    initData() {
+                        var that = this
+                        ajax({
+                            type: "get",
+                            url: getQueryString('deviceType') == 'blebalance' ?
+                                "bleBalance/h5/data/body/detail/accredited/bodyBfr" : "balance/share/h5/data/body/detail/accredited/bodyBfr",
+                            data: {
+                                memberId: this.memberId,
+                                measureId: this.measureId,
+                            },
+                            success: function(res) {
+                                if (res.code == 0) {
+                                    that.bodyData = res.data;
+                                    var number = parseFloat(res.data.bodyFat);
+                                    var index01 = res.data.range[0];
+                                    var index02 = res.data.range[1];
+                                    var index03 = res.data.range[2];
+                                    if (number < index01) {
+                                        that.leftNum = ((number - 0) / (index01 - 0)) * 25
+                                    } else if (number < index02) {
+                                        that.leftNum = ((number - index01) / (index02 - index01)) * 25 + 25
+                                    } else if (number < index03) {
+                                        that.leftNum = ((number - index02) / (index03 - index02)) * 25 + 50
+                                    } else {
+                                        that.leftNum = ((number - index03) / (50 - index03)) * 25 + 75
+                                    }
+                                    if (that.leftNum < 0) {
+                                        that.leftNum = 0
+                                    } else if (that.leftNum > 98) {
+                                        that.leftNum = 98
+                                    }
+                                }
+                            },
+                            error: function(err) {
+                                console.log("error")
+                            }
+                        })
+                    },
+                }
+            })
+        </script>
 </body>
 
 </html>

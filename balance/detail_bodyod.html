@@ -70,7 +70,8 @@
             <div class="imgBox">
                 <div class="title"><img src="img/icon_standard.png">肥胖度参考标准</div>
                 <div class="info" v-html="bodyData.definition"></div>
-                <div class="standard_table"><img src="img/item_form_bodyod.png"></div>
+                <div class="standard_table">
+                    <img :src="'img/'+themeChange()+'/bodyod.png'" /></div>
             </div>
         </div>
     </div>

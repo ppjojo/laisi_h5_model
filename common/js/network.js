@@ -22,7 +22,6 @@ themeChange();
 var theme = "black"
 
 function themeChange() {
-
     if (localStorage.getItem("appInfo")) {
         var appInfo = JSON.parse(localStorage.getItem("appInfo"));
         theme = appInfo.theme || "black"
@@ -41,12 +40,9 @@ function themeChange() {
         } else if (document.getElementById("themeCssLink2")) {
             document.getElementById("themeCssLink2").href = "../../common/css/theme_black.css"
         }
-
     }
+    return theme
 }
-
-
-
 
 //接口请求统一处理
 let ajax = (config) => {

@@ -173,7 +173,7 @@
 
 .btn_box .creatMatch2 {
     background-image: none;
-    background-color: var(--textColor2);
+    background-color: var(--challenge_btnBgColor);
 }
 
 .van-button::before {
