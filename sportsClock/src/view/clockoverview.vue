@@ -227,26 +227,11 @@ export default {
       return val;
     },
     sharePage() {
-      var theme = "black";
-      if (localStorage.getItem("appInfo")) {
-        var appInfo = JSON.parse(localStorage.getItem("appInfo"));
-        theme = appInfo.theme || "black";
-      } else if (getQueryString("theme")) {
-        theme = getQueryString("theme");
-      }
       this.$interaction.appNative("LSTH5APP_UrlAndSheetImageShareModel", {
         shareTitle: "运动日历打卡",
         isShareUrl: false,
         shareContent: "",
-        shareUrl:
-          "sportsClock/#/clockoverview?isShare2=1&tabIndex=" +
-          this.tabIndex +
-          "&userId=" +
-          this.userId +
-          "&nickname=" +
-          this.nickname +
-          "&theme=" +
-          theme,
+        shareUrl: `sportsClock/#/clockoverview?isShare2=1&tabIndex=${this.tabIndex}&userId=${this.userId}&nickname=${this.nickname}`,
       });
     },
     sheetImageHideHeader() {

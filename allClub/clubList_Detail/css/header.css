@@ -101,7 +101,6 @@ body {
 }
 
 .van-field__control {
-  color: var(--textColor2);
   border-radius: .08rem;
   padding: 0 .1rem;
 }
@@ -226,10 +225,6 @@ input::placeholder {
 
 .van-search__content {
   background-color: var(--borderColor);
-}
-
-.van-field__control {
-  color: var(--textColor2);
 }
 
 .van-icon-clear {

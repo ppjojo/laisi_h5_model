@@ -14,19 +14,18 @@ body {
 
 body {
     font-family: microsoft yahei, Arial, sans-serif;
-    font-size: .15rem;
+    font-size: .3rem;
     background-color: var(--bgColor);
     color: var(--textColor);
 }
 
 .agr-content {
-    width: 87%;
     margin: auto;
-    padding: .2rem 0;
+    padding: .24rem;
 }
 
 .agr-content p {
     /* text-indent: .28rem; */
     margin: 0;
-    line-height: 0.3rem;
+    line-height: 0.5rem;
 }
