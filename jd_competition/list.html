@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+    <title>京东云运动杯跳绳大赛-75派</title>
+    <link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
+    <link rel="stylesheet" href="font/iconfont.css">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+
+<body class="listHtml">
+    <div id="app" v-cloak>
+        <div class="header">
+            <van-nav-bar @click-left="onclickLeft" title="京东云运动杯跳绳大赛-75派" left-arrow safe-area-inset-top fixed>
+                <template #left>
+                    <span class="iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
+                </template>
+
+            </van-nav-bar>
+        </div>
+        <div class="tabBox">
+            <van-sticky>
+                <div class="tabTitle">
+                    <div class="tabName" :class="tabSelected==1?'selected':''" @click="tabSelected=1">排名赛
+                    </div>
+                    <div class="tabName" :class="tabSelected==2?'selected':''" @click="tabSelected=2;">打卡赛
+                    </div>
+                </div>
+            </van-sticky>
+            <div class="listBox">
+                <div v-if="tabSelected==1">
+                    <div class="itemBox" style="background-image:url(./img/list1.png)" @click="goDetail(1)">
+                        <div class="itemName">儿童组(12周岁及以下)</div>
+                        <div class="itemDesc">1分钟倒计时跳 &nbsp 不分男女儿童组个人赛</div>
+                        <div class="itemDesc">比赛时间内取最优</div>
+                    </div>
+                    <div class="itemBox" style="background-image:url(./img/list2.png)" @click="goDetail(1)">
+                        <div class="itemName">青少年男子组(13至18周岁)</div>
+                        <div class="itemDesc">1分钟倒计时跳 &nbsp 青少年男子组个人赛</div>
+                        <div class="itemDesc">比赛时间内取最优</div>
+                    </div>
+                    <div class="itemBox" style="background-image:url(./img/list3.png)" @click="goDetail(1)">
+                        <div class="itemName">青少年女子组(13至18周岁)</div>
+                        <div class="itemDesc">1分钟倒计时跳 &nbsp 青少年女子组个人赛</div>
+                        <div class="itemDesc">比赛时间内取最优</div>
+                    </div>
+                    <div class="itemBox" style="background-image:url(./img/list4.png)" @click="goDetail(1)">
+                        <div class="itemName">成年男子组(19周岁及以上)</div>
+                        <div class="itemDesc">1分钟倒计时跳 &nbsp 成年男子组个人赛</div>
+                        <div class="itemDesc">比赛时间内取最优</div>
+                    </div>
+                    <div class="itemBox" style="background-image:url(./img/list5.png)" @click="goDetail(1)">
+                        <div class="itemName">成年女子组(19周岁及以上)</div>
+                        <div class="itemDesc">1分钟倒计时跳 &nbsp 成年男子组个人赛</div>
+                        <div class="itemDesc">比赛时间内取最优</div>
+                    </div>
+
+                </div>
+                <div v-else>
+                    <div class="itemBox" style="background-image:url(./img/list6.png)" @click="goDetail(2)">
+                        <div class="itemName">800个倒计数-打卡赛</div>
+                        <div class="itemDesc">800个倒计数 &nbsp 不分男女</div>
+                        <div class="itemDesc">每日完成800个累积打卡20天</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <van-popup v-model="idcardShow" round position="center">
+            <div class="idcardBox">
+                <div class="title">请输入身份信息</div>
+                <div class="info">
+                    *请输入正确的身份信息，否则会影响您的最终成绩
+                </div>
+                <div>
+                    <div class="formItemBox">
+                        <van-field v-model="form.name" placeholder="请输入您的姓名" />
+                    </div>
+                    <div class="formItemBox">
+                        <van-field v-model="form.sex" readonly @click="showPicker=true" placeholder="请选择性别" />
+                    </div>
+                    <div class="formItemBox">
+                        <van-field v-model="form.idCardNumber" v-model="digit" maxlength="18" placeholder="请输入正确的身份证号码" />
+                    </div>
+                    <div :class="canNext?'formBtnSuccess':'formBtn'" @click="submit()">
+                        确认
+                    </div>
+                </div>
+            </div>
+        </van-popup>
+
+        <van-popup v-model="showPicker" round position="bottom">
+            <van-picker show-toolbar :columns="sex" @cancel="showPicker = false" @confirm="onConfirm" />
+        </van-popup>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
+    <script src="../common/js/network.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    tabSelected: 1,
+                    idcardShow: false,
+                    form: {
+                        name: "",
+                        sex: '男',
+                        idCardNumber: ""
+                    },
+                    sex: [
+                        '男',
+                        '女'
+                    ],
+                    showPicker: false,
+                    canNext: false,
+                }
+            },
+            watch: {
+                form: {
+                    handler: function(val, oldval) {
+                        if (this.form.name && this.form.sex && this.form.idCardNumber && this.form.idCardNumber.length == 18) {
+                            this.canNext = true
+                        } else {
+                            this.canNext = false
+                        }
+                    },
+                    deep: true,
+                },
+            },
+
+            mounted() {
+                this.init()
+            },
+            created() {
+
+            },
+            methods: {
+                onclickLeft() {
+                    window.history.back(-1)
+                },
+
+                init() {
+
+                },
+                goDetail(flag) {
+                    if (flag == 1) {
+                        this.idcardShow = true;
+                        this.form = {
+                            name: "",
+                            sex: '男',
+                            idCardNumber: ""
+                        }
+                        this.canNext = false
+                    } else {
+                        window.location.href = `detail.html?id=60`
+                    }
+                },
+                onConfirm(values, index) {
+                    this.form.sex = values;
+                    this.showPicker = false;
+                },
+                submit() {
+                    if (!this.canNext) return;
+                    let realSex = this.form.idCardNumber[16] % 2 == 0 ? '女' : '男';
+                    if (this.form.sex != realSex) {
+                        return this.$toast("输入性别有误哦")
+                    }
+                    alert("提交数据")
+                    window.location.href = `detail.html?id=10`
+
+                }
+
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,709 @@
+@charset "UTF-8";
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  font-family: "PingFangSC-Regular", sans-serif;
+}
+
+@font-face {
+  font-family: "BebasNeue";
+  src: url("../../common/font/BebasNeue/BebasNeue.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  color: #222222;
+  height: 100vh;
+  font-size: 0.24rem;
+}
+
+.header {
+  height: 0.92rem;
+  position: relative;
+  z-index: 100;
+  height: calc(0.92rem + constant(safe-area-inset-top));
+  height: calc(0.92rem + env(safe-area-inset-top));
+}
+
+.header .van-nav-bar {
+  background-color: #fff;
+}
+
+.header .van-nav-bar .van-nav-bar__content {
+  color: #1F1F1F;
+}
+
+.header .van-nav-bar .van-nav-bar__title {
+  color: #1F1F1F;
+}
+
+.header .van-hairline--bottom::after {
+  border: none;
+}
+
+.indexHtml {
+  background-color: #55A7FF;
+}
+
+.indexHtml .contain {
+  position: relative;
+}
+
+.indexHtml .contain .joinBtn {
+  position: fixed;
+  right: 0.24rem;
+  top: 60%;
+  width: 1.12rem;
+  height: 1.12rem;
+  border-radius: 50%;
+  z-index: 2;
+}
+
+.indexHtml .contain .btnBox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  width: 100%;
+  height: 1.6rem;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0)), to(white));
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), white);
+  padding: 0 0.4rem;
+}
+
+.indexHtml .contain .btnBox .btn, .indexHtml .contain .btnBox .btnccc, .indexHtml .contain .btnBox .btnblue {
+  width: 3.1rem;
+  height: 0.88rem;
+  border-radius: 0.44rem;
+  font-size: 0.4rem;
+  line-height: 0.88rem;
+  background-image: -webkit-gradient(linear, left top, right top, from(#FF4E3E), to(#FFAA88));
+  background-image: linear-gradient(to right, #FF4E3E, #FFAA88);
+  color: #fff;
+  text-align: center;
+}
+
+.indexHtml .contain .btnBox .btnccc {
+  background-image: none;
+  background-color: #ccc;
+  font-size: 0.32rem;
+  line-height: 0.4rem;
+  padding: 0.04rem 0;
+}
+
+.indexHtml .contain .btnBox .btnblue {
+  background-image: -webkit-gradient(linear, left top, right top, from(#187DFF), to(#7DB3FF));
+  background-image: linear-gradient(to right, #187DFF, #7DB3FF);
+}
+
+.indexHtml .contain .topBgImg {
+  width: 100%;
+}
+
+.indexHtml .contain .infoList {
+  padding: 0 0.36rem;
+  padding-bottom: 1.5rem;
+}
+
+.indexHtml .contain .infoList .infoBox, .indexHtml .contain .infoList .infoAward {
+  position: relative;
+  border-radius: 10px;
+  background-color: #fff;
+  -webkit-box-shadow: 0px 1px 3px 0px #0c4d94;
+          box-shadow: 0px 1px 3px 0px #0c4d94;
+  padding: 0.6rem 0.46rem;
+  color: #2261AB;
+  margin-bottom: 0.8rem;
+}
+
+.indexHtml .contain .infoList .infoBox .infoTitle, .indexHtml .contain .infoList .infoAward .infoTitle {
+  position: absolute;
+  text-align: center;
+  width: 2.5rem;
+  background-image: -webkit-gradient(linear, left top, right top, from(#7DBBFF), to(#2B7AEC));
+  background-image: linear-gradient(to right, #7DBBFF, #2B7AEC);
+  color: #fff;
+  font-size: 0.36rem;
+  line-height: 0.52rem;
+  top: -0.26rem;
+  left: calc(50% - 1.25rem);
+  border-radius: 0.26rem;
+}
+
+.indexHtml .contain .infoList .infoBox .infoItem, .indexHtml .contain .infoList .infoAward .infoItem {
+  margin-bottom: 0.2rem;
+}
+
+.indexHtml .contain .infoList .infoBox .infoItem:last-child, .indexHtml .contain .infoList .infoAward .infoItem:last-child {
+  margin-bottom: 0;
+}
+
+.indexHtml .contain .infoList .infoBox .infoItem .title, .indexHtml .contain .infoList .infoAward .infoItem .title {
+  font-size: 0.32rem;
+  line-height: 0.5rem;
+  margin-bottom: 0.15rem;
+}
+
+.indexHtml .contain .infoList .infoBox .infoItem .desc, .indexHtml .contain .infoList .infoAward .infoItem .desc {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  font-size: 0.24rem;
+  line-height: 0.45rem;
+  margin-bottom: 0.1rem;
+}
+
+.indexHtml .contain .infoList .infoBox .skipGirl, .indexHtml .contain .infoList .infoAward .skipGirl {
+  position: absolute;
+  bottom: -0.5rem;
+  right: 0.5rem;
+}
+
+.indexHtml .contain .infoList .infoBox .skipGirl img, .indexHtml .contain .infoList .infoAward .skipGirl img {
+  width: 1.5rem;
+}
+
+.indexHtml .contain .infoList .infoAward {
+  padding: 0.3rem;
+}
+
+.indexHtml .contain .infoList .infoAward .infoItem {
+  margin: 0.4rem 0;
+}
+
+.indexHtml .contain .infoList .infoAward .infoItem .title {
+  text-align: center;
+}
+
+.indexHtml .contain .infoList .infoAward .infoItem .desc .awardList {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+}
+
+.indexHtml .contain .infoList .infoAward .infoItem .desc .awardList .awardItem {
+  text-align: center;
+}
+
+.indexHtml .contain .infoList .infoAward .infoItem .desc .awardList .awardItem img {
+  width: 1.4rem;
+  height: 1.4rem;
+  border-radius: 50%;
+}
+
+.indexHtml .contain .infoList .infoAward .infoItem .desc .awardList .awardItem .awardTitle {
+  font-size: 0.24rem;
+}
+
+.indexHtml .contain .infoList .infoAward .infoItem .desc .awardList .awardItem .awardDesc {
+  font-size: 0.2rem;
+}
+
+.indexHtml .contain .infoList .infoAward .awardIntroduce {
+  margin: 0.5rem;
+  background-color: #F1F9FF;
+  color: #0D478B;
+  font-size: 0.24rem;
+  padding: 0.4rem;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.indexHtml .contain .infoList .shareBox {
+  padding: 0.2rem 0.3rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  border-radius: 10px;
+  background-color: #fff;
+  -webkit-box-shadow: 0px 1px 3px 0px #0c4d94;
+          box-shadow: 0px 1px 3px 0px #0c4d94;
+  color: #0D478B;
+}
+
+.indexHtml .contain .infoList .shareBox div {
+  font-size: 0.32rem;
+}
+
+.indexHtml .contain .infoList .shareBox img {
+  width: 1.4rem;
+  height: 1.4rem;
+}
+
+.indexHtml .competitionListBox {
+  padding-bottom: calc(0.1rem + constant(safe-area-inset-bottom));
+  padding-bottom: calc(0.1rem + env(safe-area-inset-bottom));
+}
+
+.indexHtml .competitionListBox .itemBox {
+  height: 1.44rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 0 0.48rem;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.indexHtml .competitionListBox .itemBox:last-child {
+  border-bottom: none;
+}
+
+.indexHtml .competitionListBox .itemBox .name {
+  color: #222;
+  font-size: 0.32rem;
+  max-width: 80%;
+}
+
+.indexHtml .competitionListBox .itemBox .status {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  color: #666;
+  font-size: 0.28rem;
+}
+
+.listHtml {
+  background-color: #f5f5f5;
+}
+
+.listHtml .tabBox {
+  position: relative;
+  z-index: 4;
+}
+
+.listHtml .tabBox .van-sticky--fixed {
+  background-color: #fff;
+  top: 0.915rem;
+  top: calc(0.915rem + constant(safe-area-inset-top));
+  top: calc(0.915rem + env(safe-area-inset-top));
+}
+
+.listHtml .tabBox .tabTitle {
+  background-color: #fff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 0.88rem;
+}
+
+.listHtml .tabBox .tabTitle .tabName {
+  font-size: 0.32rem;
+  line-height: 0.88rem;
+  color: #999;
+  width: 50%;
+  text-align: center;
+}
+
+.listHtml .tabBox .tabTitle .selected {
+  font-size: .32rem;
+  color: #222;
+  position: relative;
+}
+
+.listHtml .tabBox .tabTitle .selected::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 0.4rem;
+  height: 0.14rem;
+  background-position: 100% 100%;
+  background: url(../img/tabselect.png) no-repeat;
+  background-size: 100%;
+}
+
+.listHtml .tabBox .listBox {
+  padding: 0.24rem;
+}
+
+.listHtml .tabBox .listBox .itemBox {
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+  margin-bottom: 0.24rem;
+  height: 2.7rem;
+  border-radius: 10px;
+  padding: 0.16rem;
+}
+
+.listHtml .tabBox .listBox .itemBox .itemName {
+  color: #fff;
+  font-size: 0.36rem;
+  line-height: 0.8rem;
+}
+
+.listHtml .tabBox .listBox .itemBox .itemDesc {
+  color: #CFCFD2;
+  font-size: 0.2rem;
+  line-height: 0.4rem;
+}
+
+.listHtml .idcardBox {
+  padding: 0.4rem 0.32rem;
+  width: 5.4rem;
+}
+
+.listHtml .idcardBox .title {
+  font-size: 0.32rem;
+  color: #222;
+  text-align: center;
+  line-height: 0.6rem;
+}
+
+.listHtml .idcardBox .info {
+  font-size: 0.2rem;
+  color: #FF4E3E;
+  text-align: center;
+  line-height: 0.5rem;
+}
+
+.listHtml .idcardBox input::-webkit-input-placeholder {
+  color: #999;
+  font-size: 0.24rem;
+}
+
+.listHtml .idcardBox input:-ms-input-placeholder {
+  color: #999;
+  font-size: 0.24rem;
+}
+
+.listHtml .idcardBox input::-ms-input-placeholder {
+  color: #999;
+  font-size: 0.24rem;
+}
+
+.listHtml .idcardBox input::placeholder {
+  color: #999;
+  font-size: 0.24rem;
+}
+
+.listHtml .idcardBox input::-webkit-input-placeholder {
+  /* placeholder颜色 */
+  color: #999;
+  /* placeholder字体大小 */
+  font-size: 0.24rem;
+}
+
+.listHtml .idcardBox .formItemBox {
+  background-color: #f5f5f5;
+  margin-bottom: 0.32rem;
+}
+
+.listHtml .idcardBox .formItemBox .van-field__control {
+  font-size: 0.28rem;
+}
+
+.listHtml .idcardBox .formItemBox .van-cell {
+  background-color: #f5f5f5;
+  line-height: 0.4rem;
+  padding: 0.12rem 0.2rem;
+}
+
+.listHtml .idcardBox .formBtn, .listHtml .idcardBox .formBtnSuccess {
+  width: 100%;
+  border-radius: 4px;
+  background-color: #DDDDDD;
+  font-size: 0.32rem;
+  color: #fff;
+  text-align: center;
+  line-height: 0.7rem;
+}
+
+.listHtml .idcardBox .formBtnSuccess {
+  background-image: -webkit-gradient(linear, left top, right top, from(#FF4E3E), to(#FFAA88));
+  background-image: linear-gradient(to right, #FF4E3E, #FFAA88);
+}
+
+.detailHtml .contain .topBgImg {
+  width: 100%;
+}
+
+.detailHtml .contain .detailInfo {
+  position: relative;
+  top: -1rem;
+  border-radius: 10px;
+  background-color: #fff;
+  -webkit-box-shadow: 0px 3px 10px 2px rgba(0, 0, 0, 0.06);
+          box-shadow: 0px 3px 10px 2px rgba(0, 0, 0, 0.06);
+  padding: 0.2rem 0.4rem;
+  margin: 0 0.24rem;
+}
+
+.detailHtml .contain .detailInfo .infoItem {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  font-size: 0.28rem;
+  line-height: 0.5rem;
+  margin-bottom: 0.1rem;
+}
+
+.detailHtml .contain .detailInfo .infoItem span {
+  color: #999;
+}
+
+.detailHtml .contain .userList {
+  position: relative;
+  top: -1rem;
+  border-radius: 10px;
+  background-color: #fff;
+}
+
+.detailHtml .contain .userList .van-pull-refresh {
+  min-height: calc(100vh - 9.4rem);
+}
+
+.detailHtml .contain .userList .userItem {
+  width: 100%;
+  height: 1.2rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 0 0.24rem;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.detailHtml .contain .userList .userItem .rank {
+  max-width: 15%;
+  width: 10%;
+  font-size: 0.36rem;
+  font-weight: "BebasNeue";
+  text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.detailHtml .contain .userList .userItem .rank img {
+  width: 0.42rem;
+}
+
+.detailHtml .contain .userList .userItem .name {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  max-width: 35%;
+  width: 35%;
+  font-size: 0.28rem;
+  word-break: break-all;
+}
+
+.detailHtml .contain .userList .userItem .name img {
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  margin-right: 0.1rem;
+  float: left;
+}
+
+.detailHtml .contain .userList .userItem .time {
+  width: 25%;
+  max-width: 25%;
+  font-size: 0.24rem;
+  text-align: center;
+}
+
+.detailHtml .contain .userList .userItem .score {
+  width: 25%;
+  max-width: 25%;
+  text-align: right;
+}
+
+.detailHtml .contain .userList .userItem .score span {
+  font-size: 0.48rem;
+  font-weight: "BebasNeue";
+}
+
+.detailHtml .contain .userList .userItemHeader {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.detailHtml .contain .userList .userItemHeader .rank {
+  text-align: left;
+  font-size: 0.24rem;
+}
+
+.detailHtml .contain .userList .userItemHeader .name {
+  display: block;
+  font-size: 0.24rem;
+  text-align: center;
+}
+
+.detailHtml .contain .userList .userItemHeader .time {
+  font-size: 0.24rem;
+}
+
+.detailHtml .contain .userList .userItemHeader .score {
+  font-size: 0.24rem;
+}
+
+.detailHtml .contain .btnBox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  width: 100%;
+  height: 1.6rem;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0)), to(white));
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), white);
+  padding: 0 0.4rem;
+}
+
+.detailHtml .contain .btnBox .btn, .detailHtml .indexHtml .contain .btnBox .btnblue, .indexHtml .detailHtml .contain .btnBox .btnblue, .detailHtml .contain .btnBox .btnccc {
+  width: 6.7rem;
+  height: 0.88rem;
+  border-radius: 0.44rem;
+  font-size: 0.4rem;
+  line-height: 0.88rem;
+  background-image: -webkit-gradient(linear, left top, right top, from(#FF4E3E), to(#FFAA88));
+  background-image: linear-gradient(to right, #FF4E3E, #FFAA88);
+  color: #fff;
+  text-align: center;
+}
+
+.detailHtml .contain .btnBox .btnccc {
+  background-image: none;
+  background-color: #ccc;
+  font-size: 0.32rem;
+  line-height: 0.4rem;
+  padding: 0.04rem 0;
+}
+
+.detailHtml .van-popup {
+  background-color: transparent;
+}
+
+.detailHtml .qrcodeBox {
+  padding: 0.24rem;
+}
+
+.detailHtml .qrcodeBox .qrImg {
+  width: 4.88rem;
+}
+
+.detailHtml .qrcodeBox .qrBtn {
+  height: 1.2rem;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 1rem;
+  left: 50%;
+  margin-left: -0.5rem;
+}
+
+.monkey-pull-refresh .van-pull-refresh__head {
+  line-height: 0;
+  height: 90px !important;
+}
+
+.monkey-pull-refresh .monkeyBox .monkey {
+  width: 60px;
+  height: 60px;
+  line-height: 0;
+  padding: 0;
+  margin: 0 auto;
+  background-size: cover;
+  background-position: 100% 100%;
+  background-image: url(../../common/img/monkey_white.gif);
+}
+
+.monkey-pull-refresh .monkeyBox p {
+  height: 10px;
+  font-size: 12px;
+  text-align: center;
+  line-height: 20px;
+  padding: 0;
+  margin: 0;
+}
+
+.noDataBox {
+  text-align: center;
+  padding-top: 2.5rem;
+}
+
+.noDataBox .noDataImg {
+  width: 4rem;
+  height: 4rem;
+  background-image: url(../../common/img/noData_white.png);
+  background-size: cover;
+  margin: 0 auto;
+}
+
+.noDataBox .noDataInfo {
+  color: #666;
+  line-height: 0.8rem;
+  font-size: 0.28rem;
+}
+/*# sourceMappingURL=index.css.map */

@@ -1,0 +1,189 @@
+@charset "UTF-8";
+* {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+body {
+  background-color: #9ACAFF;
+  font-size: 0.32rem;
+}
+
+.header .van-nav-bar {
+  background-color: transparent;
+  z-index: 99;
+}
+
+.header .van-nav-bar .van-nav-bar__title {
+  color: #fff;
+  opacity: 0;
+}
+
+.header .van-nav-bar .van-icon {
+  color: #fff;
+}
+
+.header .van-hairline--bottom::after {
+  border: none;
+}
+
+.contain .topBgImg {
+  width: 100%;
+}
+
+.contain .formBox {
+  position: relative;
+  top: -0.96rem;
+}
+
+.contain .formBox input::-webkit-input-placeholder {
+  color: #999;
+  font-size: 0.28rem;
+}
+
+.contain .formBox input:-ms-input-placeholder {
+  color: #999;
+  font-size: 0.28rem;
+}
+
+.contain .formBox input::-ms-input-placeholder {
+  color: #999;
+  font-size: 0.28rem;
+}
+
+.contain .formBox input::placeholder {
+  color: #999;
+  font-size: 0.28rem;
+}
+
+.contain .formBox input::-webkit-input-placeholder {
+  /* placeholder颜色 */
+  color: #999;
+  /* placeholder字体大小 */
+  font-size: 0.28rem;
+}
+
+.contain .formBox .inputBox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 0 0.4rem;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  justify-items: flex-start;
+  border-bottom: 1px solid #98C3ED;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  height: 0.96rem;
+}
+
+.contain .formBox .inputBox .title, .contain .formBox .inputBox .listBox .item, .listBox .contain .formBox .inputBox .item {
+  color: #323739;
+  width: 1.4rem;
+  font-size: 0.32rem;
+}
+
+.contain .formBox .inputBox input {
+  padding-left: 0.2rem;
+  background-color: transparent;
+  color: #222;
+  width: calc(100% - 1.4rem);
+}
+
+.contain .formBox .formBtn, .contain .formBox .formBtnSuccess {
+  width: 100%;
+  border-radius: 0.44rem;
+  background-color: #DDDDDD;
+  font-size: 0.32rem;
+  color: #fff;
+  text-align: center;
+  line-height: 0.88rem;
+  width: 6.3rem;
+  margin: 0 auto;
+  margin-top: 0.44rem;
+}
+
+.contain .formBox .formBtnSuccess {
+  background-image: -webkit-gradient(linear, left top, right top, from(#FF4E3E), to(#FFAA88));
+  background-image: linear-gradient(to right, #FF4E3E, #FFAA88);
+}
+
+.listBox {
+  width: 6.7rem;
+  position: relative;
+  border-radius: 10px;
+  background-color: #fff;
+  margin: 0 auto;
+  margin-bottom: 0.8rem;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-size: 0.28rem;
+}
+
+.listBox .infoTitle {
+  position: absolute;
+  text-align: center;
+  width: 3.2rem;
+  background-image: -webkit-gradient(linear, left top, right top, from(#7DBBFF), to(#2B7AEC));
+  background-image: linear-gradient(to right, #7DBBFF, #2B7AEC);
+  color: #fff;
+  font-size: 0.36rem;
+  line-height: 0.52rem;
+  top: -0.26rem;
+  left: calc(50% - 1.6rem);
+  border-radius: 0.26rem;
+}
+
+.listBox .title, .listBox .item {
+  padding: 0 0.3rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  color: #999;
+  background-color: #E7F3FF;
+  text-align: center;
+  height: 1.1rem;
+  line-height: 0.7rem;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.listBox .title .rank, .listBox .item .rank {
+  width: 20%;
+}
+
+.listBox .title .nickName, .listBox .item .nickName {
+  width: 40%;
+}
+
+.listBox .title .userId, .listBox .item .userId {
+  width: 40%;
+}
+
+.listBox .item {
+  border-radius: 0;
+  color: #222;
+  height: 0.7rem;
+}
+
+.listBox .item:nth-child(2n) {
+  background-color: #E7F3FF;
+}
+
+.listBox .item:nth-child(2n+1) {
+  background-color: #F3F9FF;
+}
+
+.listBox .item:last-child {
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+/*# sourceMappingURL=report.css.map */

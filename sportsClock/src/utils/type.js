@@ -6,12 +6,12 @@ export default {
         if (d == 'runout' || d == 'runin' || d == 'ride' || d == 'onFoot' || d == 'mountaineering' || d == 'walkIn' ||
             d == 'steps' || d == 'walk') {
             return (this.toThousands((item.number) || item.distance) + '      ' + this.returnUnit(item, d))
-        } else if (d == 'skipping' || d == 'wristball' || d == 'wheel' || d ==
-            'ropeSkipping') {
+        } else if (d == 'skipping' || d == 'wristball' || d == 'wheel') {
             return (this.toThousands(item.number || item.distance) + this.returnUnit(item, d) + '\xa0\xa0\xa0' + this
                 .formatSeconds(item.takeMs ||
                     item.timeSpend || 0))
-        } else if (d == 'rideIndoor') {
+        } else if (d == 'rideIndoor' || d ==
+            'ropeSkipping') {
             return this.formatSeconds(item.takeMs || item.timeSpend || 0);
         } else {
             return this.returnUnit(item, d)

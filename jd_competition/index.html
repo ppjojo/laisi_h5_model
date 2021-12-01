@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+    <title>京东云运动杯跳绳大赛-75派</title>
+    <link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
+    <link rel="stylesheet" href="font/iconfont.css">
+    <link rel="stylesheet" href="css/index.css">
+    <script src="https://cdn.bootcdn.net/ajax/libs/vConsole/3.8.1/vconsole.min.js"></script>
+    <script>
+        var vConsole = new VConsole();
+    </script>
+</head>
+
+<body class="indexHtml">
+    <div id="app" v-cloak>
+        <div class="header">
+            <van-nav-bar @click-left="onclickLeft" title="京东云运动杯跳绳大赛-75派" @click-right="onclickRight" left-arrow safe-area-inset-top fixed>
+                <template #left>
+                    <span class="iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
+                </template>
+                <template #right>
+                    <span class="iconfont icon-fenxianganniu" style="font-size: 0.5rem;" />
+                </template>
+            </van-nav-bar>
+        </div>
+        <div class="contain">
+            <!-- 未报名 -->
+            <div v-if="status==1">
+                <img class="joinBtn" @click="goList()" src="./img/joinBtn.png" alt="">
+            </div>
+            <!-- 报名 未开始 -->
+            <div class="btnBox" v-if="status==2">
+                <div class="btn">报名详情</div>
+                <div class="btnccc">已报名<br> (06:20:10)
+                </div>
+            </div>
+            <!-- 报名 已开始 -->
+            <div class="btnBox" v-if="status==3">
+                <div class="btnblue">已报名</div>
+                <div class="btn">报名详情</div>
+            </div>
+            <img class="topBgImg" src="./img/indexBg.png" alt="">
+            <div class="infoList">
+
+                <div class="infoBox">
+                    <div class="infoTitle">比赛项目</div>
+                    <div class="infoItem">
+                        <div class="title">项目一：60s倒计时</div>
+                        <div class="desc">1、<span>儿童组：(12周岁及以下)，不分男女，60s倒计时</span></div>
+                        <div class="desc">2、<span>青少年组：(13至18周岁)，男子组和女子组个人赛，60s倒计时</span></div>
+                        <div class="desc">3、<span>成年组：(19周岁及以上)，男子组和女子组个人赛，60s倒计时</span></div>
+                    </div>
+                    <div class="infoItem">
+                        <div class="title">项目二：倒计数800个打卡赛</div>
+                        <div class="desc">1、<span>不分男女：倒计数800个</span></div>
+                    </div>
+                </div>
+
+                <div class="infoBox">
+                    <div class="infoTitle">比赛信息</div>
+                    <div class="infoItem">
+                        <div class="title">报名时间</div>
+                        <div class="desc">2021年12月18日00:00-2021年12月24 23:59:59</div>
+                    </div>
+                    <div class="infoItem">
+                        <div class="title">比赛时间</div>
+                        <div class="desc">排名赛：<span>2021年12月25日00:00至<br>2022年1月4日23:59:59</span></div>
+                        <div class="desc">打卡赛：<span>2021年12月25日00:00至<br>2022年1月13日23:59:59</span></div>
+                    </div>
+                    <div class="infoItem">
+                        <div class="title">组织机构</div>
+                        <div class="desc">主办单位：京东运动</div>
+                        <div class="desc">承办单位：75派</div>
+                        <div class="desc">支持单位：75派、野小兽、raynigel</div>
+                    </div>
+                    <div class="skipGirl">
+                        <img src="./img/girl.png" alt="">
+                    </div>
+                </div>
+
+                <div class="infoAward">
+                    <div class="infoTitle">比赛奖品</div>
+                    <div class="infoItem">
+                        <div class="title">排名赛</div>
+                        <div class="desc">
+                            <div class="awardList">
+                                <div class="awardItem">
+                                    <img src="./img/award1.png" alt="">
+                                    <div class="awardTittle">一等奖</div>
+                                    <div class="awardDesc">红色筋膜枪(1个)</div>
+                                </div>
+                                <div class="awardItem">
+                                    <img src="./img/award2.png" alt="">
+                                    <div class="awardTittle">二等奖</div>
+                                    <div class="awardDesc">体脂秤(2个)</div>
+                                </div>
+                                <div class="awardItem">
+                                    <img src="./img/award3.png" alt="">
+                                    <div class="awardTittle">三等奖</div>
+                                    <div class="awardDesc">按摩四件套(5个)</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="infoItem">
+                        <div class="title">打卡赛</div>
+                        <div class="desc">
+                            <div class="awardList">
+                                <div class="awardItem">
+                                    <img src="./img/award4.png" alt="">
+                                    <div class="awardDesc">运动修复套装(含按摩膏+面膜)</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="infoItem">
+                        <div class="title">集赞奖品</div>
+                        <div class="desc">
+                            <div class="awardList">
+                                <div class="awardItem">
+                                    <img src="./img/award5.png" alt="">
+                                    <div class="awardDesc">环形夹腿器(蓝粉随机发)</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="awardIntroduce">
+                        <div style="margin-bottom:0.2rem;">奖品人员名单公布时间</div>
+                        <div>排名赛：2022年1月6日00:00</div>
+                        <div>打卡赛：2022年1月17日00:00</div>
+                        <div style="margin-top:0.4rem;margin-bottom:0.2rem">奖品寄出时间</div>
+                        <div>公布奖品人员名单后3个工作日内</div>
+                    </div>
+
+                </div>
+
+                <div class="infoBox">
+                    <div class="infoTitle">参赛办法</div>
+                    <div class="infoItem">
+                        <div class="desc">1、<span>参赛资格：<br>所有参赛者必须身体健康且适合参加本项运动
+                       </span></div>
+                        <div class="desc">2、<span>比赛用绳：<br>
+                            75派全系列智能跳绳；野小兽：SR5S；
+                            Raynigel：T20、T30
+                       </span></div>
+                        <div class="desc">3、<span>注册报名：<br>
+                            派健康app报名：下载派健康app—通过派健康app活动页按照流程进行报名—准备参赛设备—参赛—排名赛结束进行排名；打卡赛完成获得奖品；
+                        </span></div>
+                        <div class="desc">4、<span>集赞：<br>
+                                报名成功后分享活动页面至微信朋友圈且集赞满100个（分享后的24小时内发私信截图发送给派小俊进行
+                                审核）将获得环形夹腿器一个。
+                        </span></div>
+                    </div>
+                </div>
+
+                <div class="infoBox">
+                    <div class="infoTitle">竞赛规则</div>
+                    <div class="infoItem">
+                        <div class="desc">
+                            1、1分钟倒计时单摇跳，赛事截止时间之前，每天不限时间次数都可以参与跳绳，只取最好成绩进行排名，按照个数由多到少排名，个数相同的，那么按最好成绩的完成时间来排名。
+                        </div>
+                        <div class="desc">
+                            2、800个倒计数跳（打卡赛），完成一次800个定数计时赛算作打卡成功，同时记录该次用时，每天可以不限次完成（只展示当天最快用时），累计完成20天算完成打卡赛，并记录每个人的完成打卡总耗时（排名打卡天数相同时根据每日最短总耗时之和排名，打卡天数和耗时如果都相同那么就按总跳绳个数再识别）。
+                        </div>
+                        <div class="desc">
+                            3、本次比赛严禁弄虚作假，如在比赛中存在弄虚作假，投机取巧直接取消所有比赛成绩； 经费：比赛不收取参赛费，运动员因参加比赛产生得购买参赛设备、保险等费用需用户自行承担。
+                        </div>
+                        <div class="desc">
+                            4、所有报名者将视为已了解本次活动细节，且了解运动活动可能带来的损伤和伤害，并确认自己适合参与本次活动，自愿承担所有责任和风险，造成任何伤害与组织者无关。
+                        </div>
+                    </div>
+                </div>
+
+                <div class="shareBox" v-if="isShare">
+                    <div class="">
+                        长按二维码<br> 加入派健康，和我一起来pk
+                    </div>
+                    <img src="./img/code.png" alt="">
+                </div>
+            </div>
+        </div>
+
+        <van-popup v-model="listShow" round position="bottom">
+            <div class="competitionListBox">
+                <div class="itemBox">
+                    <div class="name van-ellipsis">倒计时1min儿童组-排名赛</div>
+                    <div class="status">
+                        报名详情<span class="iconfont icon-tongyong-gengduo" />
+                    </div>
+                </div>
+                <div class="itemBox">
+                    <div class="name van-ellipsis">倒计数800个-打卡赛-排名赛</div>
+                    <div class="status">
+                        去报名<span class="iconfont icon-tongyong-gengduo" />
+                    </div>
+                </div>
+
+            </div>
+        </van-popup>
+
+
+        <van-dialog v-model="unbindShow" width="280px" cancel-button-color="#222" confirm-button-color="#222" title="请先绑定跳绳设备" @confirm="confirm" show-cancel-button>
+            <div style="padding:0.24rem 0.5rem;text-align:center;line-height:0.5rem;">
+                若无跳绳设备，可<a style="color:red;" href="https://item.m.jd.com/product/69776979349.html?&utm_source=iosapp&utm_medium=appshare&utm_campaign=t_335139774&utm_term=CopyURL&ad_od=share&gx=RnFgljULbWXZn9TAFyyv7MAebIlyIik">前往购买</a>智能跳绳哦
+            </div>
+        </van-dialog>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
+    <script src="../common/js/network.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data() {
+                return {
+                    status: 1, //1 未报名  2报名 未开始 3报名 已开始
+                    isShare: getQueryString("isShare") || 0,
+                    listShow: false,
+                    unbindShow: false
+                }
+            },
+
+            mounted() {
+                this.init()
+            },
+            created() {
+
+            },
+            methods: {
+                goApp() {
+                    var openApp = function(linkUrl) {
+                        var a = document.createElement("a");
+                        a.setAttribute("href", linkUrl);
+                        a.setAttribute("id", "js_a");
+                        //防止反复添加
+                        if (document.getElementById("js_a")) {
+                            document.body.removeChild(document.getElementById("js_a"));
+                        }
+                        document.body.appendChild(a);
+                        a.click();
+                    };
+                    let linkUrl = "";
+                    if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+                        linkUrl = `https://lstemp.laisitech.com/?actionType=goToAppHomeTabBar`;
+
+                        openApp(linkUrl);
+                    } else if (/(Android)/i.test(navigator.userAgent)) {
+                        linkUrl = `app://rehealth/mainPage`;
+                        if (openApp(linkUrl)) {} else {
+                            linkUrl =
+                                "https://a.app.qq.com/o/simple.jsp?pkgname=com.lstech.rehealth";
+                            openApp(linkUrl);
+                        }
+                    }
+                },
+                onclickLeft() {
+                    Interaction.closePage();
+                },
+                //分享
+                onclickRight() {
+                    Interaction.sharePage({
+                        title: "jd",
+                        description: "jd",
+                        url: host + "h5/h5V3/jd_competition/index.html?isShare=1&userId=" + JSON.parse(localStorage.getItem('appInfo')).userId,
+                    })
+                },
+                init() {
+
+                },
+                goList() {
+                    ajax({
+                        url: "device/get/bound/device",
+                    }).then((res) => {
+                        let unbind = true;
+                        if (res.code == 0) {
+                            res.data.forEach((item) => {
+                                if (item.deviceType == "skipping") {
+                                    window.location.href = `list.html`
+                                    this.unbindShow = false;
+                                    unbind = false
+                                    return;
+                                }
+                            });
+                            if (unbind) {
+                                this.unbindShow = true
+                            }
+                        }
+                    });
+                },
+                confirm() {
+                    if (isIOS) {
+                        window.webkit.messageHandlers.lstNative.postMessage({
+                            method: "LSH5APP_Push_Action",
+                            actionType: "LSTH5APP_GoMyDeviceVC",
+                        });
+
+                    } else if (isAndroid) {
+                        window.android.LSH5APP_Push_Action(JSON.stringify({
+                            actionType: "LSTH5APP_GoMyDeviceVC",
+                        }))
+                    }
+                }
+
+
+            }
+        })
+    </script>
+</body>
+
+</html>
