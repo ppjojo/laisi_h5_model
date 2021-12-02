@@ -511,7 +511,7 @@ export default {
       DateTime: DateTime,
       competitionId: getQueryString("id"),
       isShare: getQueryString("isShare"),
-      fromList: 1,
+      isFromList: getQueryString("isFromList"),
       competitionItem: {
         type: "personal",
       },
@@ -629,16 +629,8 @@ export default {
       ],
     };
   },
-  beforeRouteEnter(to, from, next) {
-    next((vm) => {
-      //vm为vue的实例,代替this
-      if (!from.meta.index) {
-        vm.fromList = 0;
-      }
-    });
-  },
+
   beforeRouteLeave(to, from, next) {
-    this.destroyed();
     next(); //一定不要忘记写
   },
   filters: {},
@@ -695,7 +687,12 @@ export default {
       if (rate > 1) {
         rate = 1;
       }
-
+      if (localStorage.getItem("appInfo")) {
+        var appInfo = JSON.parse(localStorage.getItem("appInfo"));
+        this.theme = appInfo.theme || "black";
+      } else if (getQueryString("theme")) {
+        this.theme = getQueryString("theme");
+      }
       if (this.theme == "black") {
         var colorValue = `rgba(18,18,31,${rate})`;
         document.getElementsByClassName("van-nav-bar")[0].style.color = `rgb(${
@@ -724,8 +721,7 @@ export default {
       window.removeEventListener("scroll", this.scrollFn); // 销毁监听
     },
     onclickLeft() {
-      this.destroyed();
-      if (this.fromList) {
+      if (this.isFromList) {
         this.$router.go(-1);
       } else {
         this.$interaction.closePage();

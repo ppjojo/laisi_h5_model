@@ -285,6 +285,7 @@ export default {
         query: {
           id: this.itemDetail.id,
           type: this.type,
+          isFromList:1
         },
       });
     },

@@ -825,6 +825,7 @@ export default {
           query: {
             id: res.data[1].id,
             type: this.type,
+            isFromList: 1,
           },
         });
       });

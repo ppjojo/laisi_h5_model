@@ -78,11 +78,11 @@ export default {
     bottomBTN() {
       if (this.state) {
         //打卡
-        this.$interaction.appNative("LSTH5APP_UrlAndSheetImageShareModel", {
-          shareTitle: "运动日历打卡",
+        this.$interaction.appNative("sharePage", {
+          title: "运动日历打卡",
           isShareUrl: true,
-          shareContent: "派健康-爱自己，爱生活",
-          shareUrl:
+          description: "派健康-爱自己，爱生活",
+          url:
             "sportsClock/#/index?isShare2=1&userId=" +
             JSON.parse(localStorage.getItem("appInfo")).userId,
         });

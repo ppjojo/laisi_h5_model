@@ -23,42 +23,48 @@
         <div class="contain">
             <img class="topBgImg" src="./img/indexBg.png" alt="">
 
-            <div class="detailInfo" v-if="status==0">
+            <div class="detailInfo" v-if="competitionItem.competitionState==2">
                 <div class="infoItem">
-                    比赛名称：<span>800个倒计数打卡赛</span>
+                    比赛名称：<span>{{competitionItem.name}}</span>
                 </div>
                 <div class="infoItem">
-                    比赛模式：<span>800个倒计数</span>
+                    比赛模式：<span v-if="competitionItem.mode==2">{{competitionItem.modeValue==60?'一分钟':competitionItem.modeValue}}倒计时跳</span>
+                    <span v-else>{{competitionItem.modeValue}}个倒计时跳</span>
                 </div>
                 <div class="infoItem">
-                    已 报 名：<span>10人</span>
+                    已 报 名：<span>{{competitionItem.attendCount}}人</span>
                 </div>
                 <div class="infoItem">
-                    比赛次数：<span>不限次数，累积打卡20天</span>
+                    比赛次数：<span v-if="competitionItem.mode==2">不限次数取最好成绩</span>
+                    <span v-else>不限次数，累积打卡20天</span>
                 </div>
                 <div class="infoItem">
-                    比赛时间：<span>2021/12/25 00:00 至<br>
-                        2022/01/04 23:59:59</span>
+                    比赛时间：
+                    <span v-if="competitionItem.mode==2">2021/12/25 00:00 至<br>2022/01/04 23:59:59</span>
+                    <span v-else>2021/12/25 00:00 至<br>2022/01/13 23:59:59</span>
                 </div>
                 <div class="infoItem">
-                    录取名次：<span>累积打卡满20天<br>
-                        运动修复套装*1(内含按摩摩膏+面膜)</span>
+                    录取名次：<span></span>
+                    <span v-if="competitionItem.mode==2">等产品的补充</span>
+                    <span v-else>等产品的补充</span>
                 </div>
             </div>
 
-            <div class="userList" v-if="status==1">
-                <div class="userItem userItemHeader">
-                    <div class="rank">排名</div>
-                    <div class="name van-ellipsis">参赛成员</div>
-                    <div class="time">最好成绩时间</div>
-                    <div class="score">每日最短<br>用时之和</div>
-                </div>
-                <!-- <div class="userItem userItemHeader">
-                    <div class="rank">排名</div>
-                    <div class="name van-ellipsis">参赛成员</div>
-                    <div class="time">累积打卡天数</div>
-                    <div class="score">跳绳个数</div>
-                </div> -->
+            <div class="userList" v-if="competitionItem.competitionState!=2">
+                <van-sticky>
+                    <div class="userItem userItemHeader" v-if="competitionItem.mode==2">
+                        <div class="rank">排名</div>
+                        <div class="name van-ellipsis">参赛成员</div>
+                        <div class="time">最好成绩时间</div>
+                        <div class="score">跳绳个数</div>
+                    </div>
+                    <div class="userItem userItemHeader" v-if="competitionItem.mode==3">
+                        <div class="rank">排名</div>
+                        <div class="name van-ellipsis">参赛成员</div>
+                        <div class="time">累积打卡天数</div>
+                        <div class="score">每日最短<br>用时之和</div>
+                    </div>
+                </van-sticky>
                 <van-pull-refresh v-model="refreshing" :head-height="90" @refresh="onRefresh" class="monkey-pull-refresh">
                     <template #pulling="props">
                       <div class="monkeyBox">
@@ -81,22 +87,24 @@
                       </div>
                     </template>
 
-                    <van-list v-model="loading" v-if="list.length>0" :finished="finished" finished-text="没有更多了" @load="onLoad" :immediate-check=false>
-                        <div class="userItem">
+                    <van-list v-model="loading" v-if="list.length>0" :finished="finished" @load="onLoad" :immediate-check=false>
+                        <div class="userItem" v-for="item in list">
                             <div class="rank">
-                                <!-- <img src="./img/no1.png" alt="">
-                                <img src="./img/no2.png" alt="">
-                                <img src="./img/no3.png" alt=""> -->
-                                4
+                                <img src="./img/no1.png" v-if="item.rank==1" alt="">
+                                <img src="./img/no2.png" v-else-if="item.rank==2" alt="">
+                                <img src="./img/no3.png" v-else-if="item.rank==3" alt="">
+                                <span v-else>{{item.rank}}</span>
                             </div>
                             <div class="name ">
-                                <img src="./img/girl.png" alt="">
+                                <img :src="item.headerPicUrl" alt="">
                                 <div class="van-ellipsis">
-                                    正在刷新正在刷新正在刷新正在刷新正在刷新正在刷新正在刷新
+                                    {{item.nickName}}
                                 </div>
                             </div>
-                            <div class="time">1</div>
-                            <div class="score"><span>11</span>个</div>
+                            <div class="time" v-if="competitionItem.mode==2">{{sjc2time('ymd', item.bestValueDay) }}</div>
+                            <div class="score" v-if="competitionItem.mode==2"><span>{{item.bestValue}}</span>个</div>
+                            <div class="time" v-if="competitionItem.mode==3">{{item.bestValueDay||0}}</div>
+                            <div class="score" v-if="competitionItem.mode==3"><span>{{parseInt(item.bestValue/60)}}</span>m<span>{{item.bestValue%60}}</span>s</div>
                         </div>
                     </van-list>
                     <div class="noDataBox" v-else-if="finished">
@@ -108,14 +116,15 @@
 
 
 
-            <div class="btnBox" v-if="status==0">
-                <div class="btn" @click="join">
+            <div class="btnBox">
+                <div class="btn" @click="join" v-if="competitionItem.signUpState==0">
                     确认报名
                 </div>
-            </div>
-            <div class="btnBox" v-if="status==1">
-                <div class="btn" @click="play">
+                <div class="btn" @click="play" v-else-if="competitionItem.competitionState==1">
                     去跳绳
+                </div>
+                <div class="btn btnccc" @click="play" v-else-if="competitionItem.competitionState==2">
+                    已报名
                 </div>
             </div>
         </div>
@@ -135,22 +144,42 @@
             data() {
                 return {
                     showQrcode: false,
-                    status: 1, //0 比赛未开始 1 比赛已开始 
-                    page: 1,
-                    pageSize: 10,
-                    list: [{}, {}],
+                    id: getQueryString("id"),
+                    competitionItem: {
+                        mode: "",
+                        modeValue: "",
+                        id: getQueryString("id")
+                    },
+                    page: 0,
+                    pageSize: 100,
+                    list: [],
                     loading: false,
-                    finished: false,
+                    finished: true,
                     refreshing: false,
                 }
             },
             mounted() {
-                this.init()
+                this.initDetail()
             },
             created() {
 
             },
             methods: {
+                //传入时间戳获取日期
+                sjc2time(id, sjc) {
+                    var datetime = new Date(sjc);
+                    var year = datetime.getFullYear();
+                    var month = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() + 1;
+                    var month2 = datetime.getMonth() + 1 < 10 ? datetime.getMonth() + 1 : datetime.getMonth() + 1;
+                    var date = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();
+                    var date2 = datetime.getDate() < 10 ? datetime.getDate() : datetime.getDate();
+                    var hour = datetime.getHours() < 10 ? "0" + datetime.getHours() : datetime.getHours();
+                    var minute = datetime.getMinutes() < 10 ? "0" + datetime.getMinutes() : datetime.getMinutes();
+                    var second = datetime.getSeconds() < 10 ? "0" + datetime.getSeconds() : datetime.getSeconds();
+                    if (id == "ymd") {
+                        return year + "/" + month + "/" + date;
+                    }
+                },
                 onclickLeft() {
                     window.history.back(-1)
                 },
@@ -159,6 +188,7 @@
                         this.page = 0
                         this.list = [];
                         this.refreshing = false;
+                        this.init()
                     } else {
                         this.page++
                     }
@@ -169,43 +199,61 @@
                     this.loading = true;
                     this.onLoad();
                 },
+                initDetail() {
+                    ajax({
+                        url: "jingdongPk/competition/getCompetitionById",
+                        data: {
+                            competitionId: this.id,
+                        }
+                    }).then(res => {
+                        if (res.code == 0) {
+                            this.competitionItem = res.data
+                            if (this.competitionItem.competitionState != 2) {
+                                this.init()
+                            }
 
+                        }
+                    })
+                },
                 init() {
                     ajax({
                         url: "jingdongPk/competitorStatistic/rankItem",
                         data: {
                             competitionId: this.id,
-                            page: this.page,
-                            pageSize: this.pageSize
                         }
                     }).then(res => {
                         this.loading = false;
                         if (res.code == 0) {
-                            if (this.page == 1) {
-                                this.list = res.data
-                            } else {
-                                this.list = this.list.concat(res.data)
-                            }
-                            if (0) {
-                                this.finished = true;
-                            }
+                            this.list = res.data.rankItem
+                            this.finished = true;
                         }
                     })
 
                 },
                 join() {
-                    this.showQrcode = true
+                    ajax({
+                        type: "post",
+                        url: "jingdongPk/competitor/participate",
+                        data: {
+                            competitionId: this.id
+                        }
+                    }).then((res) => {
+                        if (res.code == 0) {
+                            this.showQrcode = true
+                        }
+                    });
+
                 },
                 play() {
                     var skipItem = {
                         method: "LSTH5APP_SelectDeviceAndPushToSport", //H5调起原生选择设备，并跳转到对应设备类型的运动页，目前3.0后有：跳绳、健腹轮、腕力球
                         deviceType: "skipping", //skipping、wristball、wheel 、steps
-                        mode: 2, //倒计时2、倒计数3，按照原先跳绳PK类型定义的值",
-                        modeValue: 60, //按照原先跳绳的类型传值
+                        mode: this.competitionItem.mode, //倒计时2、倒计数3，按照原先跳绳PK类型定义的值",
+                        modeValue: this.competitionItem.modeValue, //按照原先跳绳的类型传值
                         jumpCount: -1, //按照原先跳绳的类型传值
-                        category: 1, //1：PK赛，2俱乐部比赛,
+                        category: 7, //1：PK赛，2俱乐部比赛,
                         isPK: 1, //0不是，1是，表示是否是PK类型的运动，是的话去pk运动页面，不是去普通运动页面
-                        dataId: 1,
+                        dataId: this.competitionItem.id,
                     };
                     try {
                         if (isIOS) {

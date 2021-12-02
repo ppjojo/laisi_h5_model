@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <title>累计消耗</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-    <link rel="stylesheet" id="themeCssLink" href="../common/css/theme_black.css">
+    <link rel="stylesheet" id="themeCssLink2" href="../../common/css/theme_black.css">
     <link rel="stylesheet" type="text/css" href="index.css">
 </head>
 
@@ -19,13 +19,6 @@
 </body>
 <script src="../../common/js/network.js"></script>
 <script>
-    function getQueryString(name) {
-        var reg = new RegExp("(^|\\?|&)" + name + "=([^&]*)(&|$)");
-        var r = window.location.href.substr(1).match(reg);
-        // console.log('r',window.location.href)
-        if (r != null) return unescape(r[2]);
-        return null;
-    }
     var otherAllCalory = getQueryString("otherAllCalory") || 0;
     var basicCalory = getQueryString("basicCalory") || 0;
     var allCalory = getQueryString("allCalory") || 0;
@@ -33,6 +26,9 @@
     document.getElementById("otherAllCalory").innerHTML = otherAllCalory;
     document.getElementById("basicCalory").innerHTML = basicCalory;
     document.getElementById("allCalory").innerHTML = allCalory;
+</script>
+<script>
+    ajax({})
 </script>
 
 </html>

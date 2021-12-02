@@ -3,7 +3,7 @@
 }
 
 .van-field__label {
-    color: var(--textColor2);
+    color: var(--textColor);
 }
 
 .van-picker__confirm,
@@ -31,7 +31,7 @@
 
 #switch .van-field__label {
     width: 6rem;
-    color: var(--textColor2);
+    color: var(--textColor);
     font-size: .32rem;
     margin-right: 0;
 }

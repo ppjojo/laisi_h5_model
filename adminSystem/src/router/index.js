@@ -756,7 +756,7 @@ const constantRoutes = [{
                 component: () =>
                     import ('@/views/factoryTesting/stationConfiguration'),
                 meta: {
-                    title: '站位管理'
+                    title: '站位配置'
                 }
             },
             {

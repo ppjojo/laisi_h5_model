@@ -82,7 +82,7 @@
                         <van-field v-model="form.sex" readonly @click="showPicker=true" placeholder="请选择性别" />
                     </div>
                     <div class="formItemBox">
-                        <van-field v-model="form.idCardNumber" v-model="digit" maxlength="18" placeholder="请输入正确的身份证号码" />
+                        <van-field v-model="form.identityId" v-model="digit" maxlength="18" placeholder="请输入正确的身份证号码" />
                     </div>
                     <div :class="canNext?'formBtnSuccess':'formBtn'" @click="submit()">
                         确认
@@ -109,7 +109,7 @@
                     form: {
                         name: "",
                         sex: '男',
-                        idCardNumber: ""
+                        identityId: ""
                     },
                     sex: [
                         '男',
@@ -117,12 +117,14 @@
                     ],
                     showPicker: false,
                     canNext: false,
+                    pmItem: {},
+                    dkItem: {},
                 }
             },
             watch: {
                 form: {
                     handler: function(val, oldval) {
-                        if (this.form.name && this.form.sex && this.form.idCardNumber && this.form.idCardNumber.length == 18) {
+                        if (this.form.name && this.form.sex && this.form.identityId && this.form.identityId.length == 18) {
                             this.canNext = true
                         } else {
                             this.canNext = false
@@ -133,7 +135,7 @@
             },
 
             mounted() {
-                this.init()
+                //this.init()
             },
             created() {
 
@@ -145,19 +147,35 @@
 
                 init() {
 
+
                 },
                 goDetail(flag) {
-                    if (flag == 1) {
-                        this.idcardShow = true;
-                        this.form = {
-                            name: "",
-                            sex: '男',
-                            idCardNumber: ""
+                    ajax({
+                        url: "jingdongPk/competition/getCompetitionByUserId",
+                    }).then((res) => {
+                        if (res.code == 0) {
+                            this.pmItem = Object.assign({}, res.data.timeDownCompetition);
+                            this.dkItem = Object.assign({}, res.data.numDownCompetition);
+                            if (flag == 1) {
+                                if (this.pmItem.signUpState) {
+                                    this.$toast("不可重复报名哦")
+                                } else {
+                                    this.idcardShow = true;
+                                    this.form = {
+                                        name: "",
+                                        sex: '男',
+                                        identityId: ""
+                                    }
+                                    this.canNext = false
+                                }
+                            } else {
+                                window.location.href = `detail.html?id=${this.dkItem.id}`
+                            }
+
                         }
-                        this.canNext = false
-                    } else {
-                        window.location.href = `detail.html?id=60`
-                    }
+                    });
+
+
                 },
                 onConfirm(values, index) {
                     this.form.sex = values;
@@ -165,12 +183,26 @@
                 },
                 submit() {
                     if (!this.canNext) return;
-                    let realSex = this.form.idCardNumber[16] % 2 == 0 ? '女' : '男';
+                    let realSex = this.form.identityId[16] % 2 == 0 ? '女' : '男';
                     if (this.form.sex != realSex) {
                         return this.$toast("输入性别有误哦")
                     }
-                    alert("提交数据")
-                    window.location.href = `detail.html?id=10`
+                    if (localStorage.getItem("appInfo")) {
+                        var appInfo = JSON.parse(localStorage.getItem("appInfo"));
+                        this.form.phoneNumber = appInfo.phoneNumber
+                        this.form.userId = appInfo.userId
+                    }
+                    ajax({
+                        url: "jingdongPk/competitor/addCompetitor",
+                        type: "post",
+                        data: this.form
+                    }).then((res) => {
+                        if (res.code == 0) {
+                            window.location.href = `detail.html?id=${res.data}`
+                        }
+                    });
+
+
 
                 }
 

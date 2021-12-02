@@ -33,14 +33,14 @@
             </div>
             <!-- 报名 未开始 -->
             <div class="btnBox" v-if="status==2">
-                <div class="btn">报名详情</div>
+                <div class="btn" @click="listShow=true">报名详情</div>
                 <div class="btnccc">已报名<br> (06:20:10)
                 </div>
             </div>
             <!-- 报名 已开始 -->
             <div class="btnBox" v-if="status==3">
-                <div class="btnblue">已报名</div>
-                <div class="btn">报名详情</div>
+                <div class="btnblue" @click="listShow=true">赛况直播</div>
+                <div class="btn">去跳绳</div>
             </div>
             <img class="topBgImg" src="./img/indexBg.png" alt="">
             <div class="infoList">
@@ -185,16 +185,18 @@
 
         <van-popup v-model="listShow" round position="bottom">
             <div class="competitionListBox">
-                <div class="itemBox">
-                    <div class="name van-ellipsis">倒计时1min儿童组-排名赛</div>
+                <div class="itemBox" @click="goDetail(pmItem)">
+                    <div class="name van-ellipsis">{{this.pmItem.name+'-'||""}}排名赛</div>
                     <div class="status">
-                        报名详情<span class="iconfont icon-tongyong-gengduo" />
+                        {{this.pmItem.signUpState? (this.pmItem.competitionState==0?'排名详情':this.pmItem.competitionState==1?'比赛详情':this.pmItem.competitionState==2?'报名详情':""):'去报名'}}
+                        <span class="iconfont icon-tongyong-gengduo" />
                     </div>
                 </div>
-                <div class="itemBox">
-                    <div class="name van-ellipsis">倒计数800个-打卡赛-排名赛</div>
+                <div class="itemBox" @click="goDetail(dkItem)">
+                    <div class="name van-ellipsis">{{this.dkItem.name}}-打卡赛</div>
                     <div class="status">
-                        去报名<span class="iconfont icon-tongyong-gengduo" />
+                        {{this.dkItem.signUpState? (this.dkItem.competitionState==0?'排名详情':this.dkItem.competitionState==1?'比赛详情':this.dkItem.competitionState==2?'报名详情':""):'去报名'}}
+                        <span class="iconfont icon-tongyong-gengduo" />
                     </div>
                 </div>
 
@@ -213,21 +215,35 @@
     <script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
     <script src="../common/js/network.js"></script>
     <script>
+        var vm;
+        var isPageHide = false;
+        window.addEventListener('pageshow', function() {
+            if (isPageHide && isIOS) {
+                vm.init()
+            }
+        });
+        window.addEventListener('pagehide', function() {
+            isPageHide = true;
+        });
         new Vue({
             el: '#app',
             data() {
                 return {
-                    status: 1, //1 未报名  2报名 未开始 3报名 已开始
+                    status: 1, //1 未报名  2报名 未开始 3报名 已开始 4 未报名 已开始
                     isShare: getQueryString("isShare") || 0,
                     listShow: false,
-                    unbindShow: false
+                    unbindShow: false,
+                    pmItem: {},
+                    dkItem: {}
                 }
             },
 
             mounted() {
-                this.init()
+
             },
             created() {
+                vm = this
+                this.init()
 
             },
             methods: {
@@ -269,7 +285,30 @@
                     })
                 },
                 init() {
+                    ajax({
+                        url: "jingdongPk/competition/getCompetitionByUserId",
+                    }).then((res) => {
+                        if (res.code == 0) {
+                            //signUpState 是否报名 0 未报名 1 报名
+                            //competitionState 0 结束 1 正在进行中 2 未开始
+                            this.pmItem = Object.assign({}, res.data.timeDownCompetition);
+                            this.dkItem = Object.assign({}, res.data.numDownCompetition);
+                            if (!this.pmItem.signUpState && !this.dkItem.signUpState) {
+                                this.status = 1
+                                if (!this.dkItem.competitionState != 2) {
+                                    this.status = 4
+                                }
+                            } else {
+                                if (this.pmItem.competitionState != 2 && this.dkItem.competitionState != 2) {
+                                    this.status = 2
+                                } else {
+                                    this.status = 3
+                                }
+                            }
 
+
+                        }
+                    });
                 },
                 goList() {
                     ajax({
@@ -303,9 +342,21 @@
                             actionType: "LSTH5APP_GoMyDeviceVC",
                         }))
                     }
+                },
+                goDetail(item) {
+                    this.listShow = false
+                    if (item.signUpState == 1) {
+                        window.location.href = `detail.html?id=${item.id}`
+                    } else {
+                        if (item.competitionState == 2) {
+                            window.location.href = `list.html`
+                        } else {
+                            this.$toast("比赛已经开始")
+                        }
+
+                    }
+
                 }
-
-
             }
         })
     </script>

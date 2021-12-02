@@ -441,7 +441,7 @@ body {
     }
     .van-action-sheet__cancel:active,
     .van-action-sheet__item:active {
-        background-color: transparent
+        background-color: $popBgColor;
     }
 }
 

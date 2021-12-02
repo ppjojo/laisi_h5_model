@@ -12,7 +12,7 @@
         <div class="wh_top_tag">{{tag}}</div>
       </div>
       <div class="wh_content_item" v-for="(item,index) in list" @click="dayDetail2(index,item)">
-        <div class="wh_item_date" :class="{greystate:item.otherMonth!='nowMonth',isToday:(clickIndex==item.id&&(item.otherMonth=='othermonth'||item.otherMonth=='nowMonth')),isToday2:(item.isToday&&clickIndex!=item.id)}">
+        <div class="wh_item_date" :class="{greystate:item.otherMonth!='nowMonth',isToday2:(item.isToday&&clickIndex!=item.timeStamp),isToday:clickIndex==item.timeStamp}">
           <div>{{item.id}}</div>
           <!--这里是控制异常、正常的那个小圆点-->
           <div class="spot" v-if="item.timeStamp<=nowZero" :class="{successdot:item.finished}"></div>
@@ -64,17 +64,11 @@ export default {
   methods: {
     dayDetail2(index, item) {
       //过往某一天
-      if (item.isToday || item.timeStamp > this.nowDate || this.showOnly) {
-        //如果点的是今天或者今天以后的没反应
-        if (item.isToday && this.clickIndex != null) {
-          //重新点回来
-          this.clickIndex = null;
-          this.$parent.clickBeforeDay(item.timeStamp, true);
-        }
+      if (item.timeStamp > this.nowDate || this.showOnly) {
         return;
       }
       this.$parent.clickBeforeDay(item.timeStamp, false);
-      this.clickIndex = item.id;
+      this.clickIndex = item.timeStamp;
     },
     // dayDetail(index, item) {
     //   //过往某一天
@@ -117,7 +111,7 @@ export default {
           arr.forEach((e) => {
             if (d.checkTime == e.timeStamp) e.finished = true;
             if (e.isToday && !this.clickIndex) {
-              this.clickIndex = e.id;
+              this.clickIndex = e.timeStamp;
             }
           });
         });

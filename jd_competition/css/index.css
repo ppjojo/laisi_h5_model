@@ -77,10 +77,12 @@ body {
   left: 0;
   z-index: 2;
   width: 100%;
-  height: 1.6rem;
+  min-height: 1.6rem;
   background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0)), to(white));
   background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), white);
   padding: 0 0.4rem;
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 .indexHtml .contain .btnBox .btn, .indexHtml .contain .btnBox .btnccc, .indexHtml .contain .btnBox .btnblue {
@@ -281,7 +283,7 @@ body {
 .indexHtml .competitionListBox .itemBox .name {
   color: #222;
   font-size: 0.32rem;
-  max-width: 80%;
+  max-width: 70%;
 }
 
 .indexHtml .competitionListBox .itemBox .status {
@@ -458,6 +460,10 @@ body {
   background-image: linear-gradient(to right, #FF4E3E, #FFAA88);
 }
 
+.detailHtml .contain {
+  padding-bottom: 1rem;
+}
+
 .detailHtml .contain .topBgImg {
   width: 100%;
 }
@@ -491,6 +497,13 @@ body {
   top: -1rem;
   border-radius: 10px;
   background-color: #fff;
+}
+
+.detailHtml .contain .userList .van-sticky--fixed {
+  background-color: #fff;
+  top: 0.915rem;
+  top: calc(0.915rem + constant(safe-area-inset-top));
+  top: calc(0.915rem + env(safe-area-inset-top));
 }
 
 .detailHtml .contain .userList .van-pull-refresh {
@@ -551,8 +564,8 @@ body {
 }
 
 .detailHtml .contain .userList .userItem .name img {
-  width: 0.6rem;
-  height: 0.6rem;
+  width: 0.7rem;
+  height: 0.7rem;
   border-radius: 50%;
   margin-right: 0.1rem;
   float: left;
@@ -573,7 +586,7 @@ body {
 
 .detailHtml .contain .userList .userItem .score span {
   font-size: 0.48rem;
-  font-weight: "BebasNeue";
+  font-family: "BebasNeue";
 }
 
 .detailHtml .contain .userList .userItemHeader {
@@ -619,6 +632,8 @@ body {
   background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 0)), to(white));
   background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), white);
   padding: 0 0.4rem;
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 .detailHtml .contain .btnBox .btn, .detailHtml .indexHtml .contain .btnBox .btnblue, .indexHtml .detailHtml .contain .btnBox .btnblue, .detailHtml .contain .btnBox .btnccc {
@@ -636,9 +651,6 @@ body {
 .detailHtml .contain .btnBox .btnccc {
   background-image: none;
   background-color: #ccc;
-  font-size: 0.32rem;
-  line-height: 0.4rem;
-  padding: 0.04rem 0;
 }
 
 .detailHtml .van-popup {
@@ -690,12 +702,12 @@ body {
 
 .noDataBox {
   text-align: center;
-  padding-top: 2.5rem;
+  padding-top: 1.5rem;
 }
 
 .noDataBox .noDataImg {
-  width: 4rem;
-  height: 4rem;
+  width: 3rem;
+  height: 3rem;
   background-image: url(../../common/img/noData_white.png);
   background-size: cover;
   margin: 0 auto;
