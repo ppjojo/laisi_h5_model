@@ -9,19 +9,19 @@
     --specialBgColor: #f5f5f5;
     --specialBorderColor: #fff;
     --linearColor: linear-gradient(to bottom, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.5));
-    --monkey: url("https://lstest3.laisitech.com/h5/h5V3/common/img/monkey_white.gif");
-    --noData: url("https://lstest3.laisitech.com/h5/h5V3/common/img/noData_white.png");
+    --monkey: url("https://lsprod3.laisitech.com/h5/h5V3/common/img/monkey_white.gif");
+    --noData: url("https://lsprod3.laisitech.com/h5/h5V3/common/img/noData_white.png");
     /* 运动日历的灰色字体 在日历上 */
     --sportsClock_textColor2: #ddd;
     --sportsClock_weekTextColor: #999;
     --sportsClock_boxBgColor: #ddd;
     --sportsClock_isToday2Color: #F3BBB4;
-    --sportsClock_clockstate_fail: url("https://lstest3.laisitech.com/h5/h5V3/common/img/sportsClock/clockstate_fail_white.png");
-    --sportsClock_clockstate_success: url("https://lstest3.laisitech.com/h5/h5V3/common/img/sportsClock/clockstate_success_white.png");
-    --sportsClock_clockaward: url("https://lstest3.laisitech.com/h5/h5V3/common/img/sportsClock/clockaward_white.png");
+    --sportsClock_clockstate_fail: url("https://lsprod3.laisitech.com/h5/h5V3/common/img/sportsClock/clockstate_fail_white.png");
+    --sportsClock_clockstate_success: url("https://lsprod3.laisitech.com/h5/h5V3/common/img/sportsClock/clockstate_success_white.png");
+    --sportsClock_clockaward: url("https://lsprod3.laisitech.com/h5/h5V3/common/img/sportsClock/clockaward_white.png");
     /* 排行榜的图片 */
-    --skipLeaderboard_topBgImg: url("https://lstest3.laisitech.com/h5/h5V3/common/img/skipLeaderboard/nobg_white.png");
-    --skipLeaderboard_topNullImg: url("https://lstest3.laisitech.com/h5/h5V3/common/img/skipLeaderboard/null_white.png");
+    --skipLeaderboard_topBgImg: url("https://lsprod3.laisitech.com/h5/h5V3/common/img/skipLeaderboard/nobg_white.png");
+    --skipLeaderboard_topNullImg: url("https://lsprod3.laisitech.com/h5/h5V3/common/img/skipLeaderboard/null_white.png");
     /* 生涯最佳 */
     --bestCareer_textColor: #fff;
     --bestCareer_textColor2: #fff;

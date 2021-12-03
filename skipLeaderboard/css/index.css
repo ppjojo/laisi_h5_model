@@ -1,3 +1,4 @@
+@charset "UTF-8";
 [v-cloak] {
   display: none !important;
 }
@@ -13,29 +14,61 @@
   height: 0.92rem;
   position: relative;
   z-index: 100;
-  height: calc(1rem + constant(safe-area-inset-top));
-  height: calc(1rem + env(safe-area-inset-top));
 }
 
 .header .van-nav-bar {
-  background-color: var(--specialBgColor);
+  background-color: #12121f;
 }
 
 .header .van-nav-bar .van-nav-bar__content {
-  color: var(--textColor);
+  color: #CFCFD2;
 }
 
 .header .van-nav-bar .van-nav-bar__title {
-  color: var(--textColor);
+  color: #CFCFD2;
   font-size: 0.36rem;
 }
 
 .header .van-nav-bar .van-nav-bar__text {
-  color: var(--textColor);
+  color: #CFCFD2;
 }
 
 .header .van-hairline--bottom::after {
   border: none;
+}
+
+@supports ((height: constant(safe-area-inset-top)) or (height: env(safe-area-inset-top))) and (-webkit-overflow-scrolling: touch) {
+  .header {
+    height: 1rem;
+    height: calc(1rem + constant(safe-area-inset-top));
+    height: calc(1rem + env(safe-area-inset-top));
+  }
+}
+
+/*猴子的下拉加载*/
+/* .van-pull-refresh__track{
+	transform: translate3d(0,100px,0);
+} */
+.monkey-pull-refresh .van-pull-refresh__head {
+  line-height: 0;
+  height: 90px !important;
+}
+
+.monkey-pull-refresh .monkeyBox .monkey {
+  width: 60px;
+  height: 60px;
+  line-height: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.monkey-pull-refresh .monkeyBox p {
+  height: 10px;
+  font-size: 12px;
+  text-align: center;
+  line-height: 20px;
+  padding: 0;
+  margin: 0;
 }
 
 * {
@@ -46,15 +79,15 @@
 }
 
 body {
-  background-color: var(--specialBgColor);
-  color: var(--textColor);
+  background-color: #12121f;
+  color: #CFCFD2;
   min-height: 100vh;
 }
 
 .threeDiv {
   width: 100%;
   height: 3.3rem;
-  background-image: var(--skipLeaderboard_topBgImg);
+  background-image: url(../img/nobg.png);
   background-size: cover;
   background-position: 100% 100%;
   position: relative;
@@ -166,23 +199,20 @@ body {
 
 .threeDiv .num {
   font-size: 0.24rem;
-  color: var(--textColor2);
+  color: #71717f;
 }
 
 .threeDiv .bigNumberSpan {
   font-size: 0.48rem;
   font-family: 'BebasNeue';
-  color: var(--textColor);
+  color: #CFCFD2;
 }
 
 .threeDiv .nullImg {
   width: 1.2rem;
   position: absolute;
-  height: 1.8rem;
   top: 0.74rem;
   left: calc(50% - 0.6rem);
-  background-size: 100% 100%;
-  background-image: var(--skipLeaderboard_topNullImg);
 }
 
 .main-container {
@@ -197,7 +227,7 @@ body {
   border-radius: 0.24rem;
   position: relative;
   width: 100%;
-  background-color: var(--specialBorderColor);
+  background-color: #1e1e2a;
   min-height: calc(100vh - 5.5rem);
 }
 
@@ -213,13 +243,13 @@ body {
 .content-container .allHeader .van-dropdown-menu__bar {
   -webkit-box-shadow: none;
           box-shadow: none;
-  background-color: var(--specialBorderColor);
-  color: var(--textColor);
+  background-color: #1e1e2a;
+  color: #CFCFD2;
   height: 1.08rem;
 }
 
 .content-container .allHeader .van-dropdown-menu__title {
-  color: var(--textColor);
+  color: #CFCFD2;
   font-size: 0.32rem;
 }
 
@@ -251,18 +281,18 @@ body {
 }
 
 .content-container .allHeader .van-popup {
-  background-color: var(--borderColor);
+  background-color: #1e1e2a;
   margin: 0 0.24rem;
   width: calc(100% - 0.48rem);
 }
 
 .content-container .allHeader .van-popup .van-cell {
-  background-color: var(--borderColor);
-  color: var(--textColor);
+  background-color: #1e1e2a;
+  color: #CFCFD2;
 }
 
 .content-container .allHeader .van-cell::after {
-  border-bottom: 1px solid var(--bgColor);
+  border-bottom: 1px solid #12121f;
 }
 
 .content-container .headerBox {
@@ -272,7 +302,7 @@ body {
   width: 100%;
   z-index: 2;
   margin-bottom: 1.92rem;
-  background-color: var(--specialBorderColor);
+  background-color: #1e1e2a;
 }
 
 .content-container .headerBox .tabDiv {
@@ -294,12 +324,12 @@ body {
   width: 25%;
   font-size: .32rem;
   text-align: center;
-  color: var(--sportsClock_weekTextColor);
+  color: #71717f;
 }
 
 .content-container .headerBox .tabDiv .selected {
   font-size: .36rem;
-  color: var(--textColorActive);
+  color: #fff;
   position: relative;
 }
 
@@ -329,7 +359,7 @@ body {
   -ms-flex-line-pack: center;
       align-content: center;
   z-index: 2;
-  border-bottom: 1px solid var(--specialBgColor);
+  border-bottom: 1px solid #12121f;
 }
 
 .content-container .headerBox .tabDiv2 p {
@@ -338,11 +368,11 @@ body {
   line-height: 0.96rem;
   text-align: center;
   border-radius: 0.2rem;
-  color: var(--sportsClock_weekTextColor);
+  color: #71717f;
 }
 
 .content-container .headerBox .tabDiv2 .selected {
-  color: var(--textColorActive);
+  color: #fff;
 }
 
 .content-container .listDiv .listItem {
@@ -359,7 +389,7 @@ body {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  border-bottom: 1px solid var(--specialBgColor);
+  border-bottom: 1px solid #12121f;
 }
 
 .content-container .listDiv .listItem .rank {
@@ -414,17 +444,17 @@ body {
   width: 40%;
   white-space: nowrap;
   font-size: 0.24rem;
-  color: var(--textColor2);
+  color: #71717f;
 }
 
 .content-container .listDiv .listItem .bigNumberSpan {
   font-size: 0.48rem;
   font-family: 'BebasNeue';
-  color: var(--textColor);
+  color: #CFCFD2;
 }
 
 .content-container .listDiv .isself {
-  border-bottom: 0.16rem solid var(--specialBgColor);
+  border-bottom: 0.16rem solid #12121f;
   margin: 0;
   padding: 0 0.24rem;
 }
@@ -441,23 +471,19 @@ body {
   min-height: calc(100vh - 2.5rem);
 }
 
-.noDataBox {
+.noData-box {
   text-align: center;
   padding: 0.5rem 0;
 }
 
-.noDataBox .noDataImg {
+.noData-box .noData-img {
   width: 4rem;
-  height: 4rem;
-  background-image: var(--noData);
-  background-size: cover;
-  margin: 0 auto;
 }
 
-.noDataBox .noDataInfo {
-  color: var(--textColor);
-  line-height: 0.8rem;
+.noData-box .noData-p {
+  color: #CFCFD2;
   font-size: 0.28rem;
+  padding: 0.2rem 0;
 }
 
 .bottomTip {
@@ -465,27 +491,9 @@ body {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   text-align: center;
-  color: var(--textColor);
+  color: #CFCFD2;
   font-size: .2rem;
   line-height: 0.8rem;
   text-align: center;
-}
-
-.van-overlay {
-  z-index: 99;
-  background-color: rgba(0, 0, 0, 0.5);
-}
-
-.van-overlay .wrapper {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  height: 100%;
 }
 /*# sourceMappingURL=index.css.map */
