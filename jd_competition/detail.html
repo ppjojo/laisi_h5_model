@@ -159,6 +159,7 @@
                 }
             },
             mounted() {
+                window.initCompetitionDetail = this.initDetail;
                 this.initDetail()
             },
             created() {
@@ -239,6 +240,7 @@
                         }
                     }).then((res) => {
                         if (res.code == 0) {
+                            this.initDetail()
                             this.showQrcode = true
                         }
                     });
@@ -251,7 +253,7 @@
                         mode: this.competitionItem.mode, //倒计时2、倒计数3，按照原先跳绳PK类型定义的值",
                         modeValue: this.competitionItem.modeValue, //按照原先跳绳的类型传值
                         jumpCount: -1, //按照原先跳绳的类型传值
-                        category: 7, //1：PK赛，2俱乐部比赛,
+                        category: 8, //1：PK赛，2俱乐部比赛,
                         isPK: 1, //0不是，1是，表示是否是PK类型的运动，是的话去pk运动页面，不是去普通运动页面
                         dataId: this.competitionItem.id,
                     };

@@ -111,8 +111,8 @@
                     </li>
                 </ul>
             </van-list>
-            <div id="recordbox" class="">
-                <div class="noDataBox" style="padding-top: 0.8rem;" v-if="dataList.length==0&&!loading">
+            <div id="recordbox" v-if="dataList.length==0&&!loading">
+                <div class="noDataBox" style="padding-top: 0.8rem;">
                     <div class="noDataImg" style="background-image:url('../common/img/noData_white.png')"></div>
                     <p class="noDataInfo">还没有任何记录哦～</p>
                 </div>

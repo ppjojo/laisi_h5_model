@@ -33,14 +33,14 @@
             </div>
             <!-- 报名 未开始 -->
             <div class="btnBox" v-if="status==2">
-                <div class="btn" @click="listShow=true">报名详情</div>
-                <div class="btnccc">已报名<br> (06:20:10)
-                </div>
+                <div class="btn" @click="goNext">报名详情</div>
+                <!-- <div class="btnccc">已报名<br> (06:20:10)
+                </div> -->
             </div>
             <!-- 报名 已开始 -->
             <div class="btnBox" v-if="status==3">
-                <div class="btnblue" @click="listShow=true">赛况直播</div>
-                <div class="btn">去跳绳</div>
+                <div class="btn" @click="goNext">赛况直播</div>
+                <!-- <div class="btn">去跳绳</div> -->
             </div>
             <img class="topBgImg" src="./img/indexBg.png" alt="">
             <div class="infoList">
@@ -185,17 +185,17 @@
 
         <van-popup v-model="listShow" round position="bottom">
             <div class="competitionListBox">
-                <div class="itemBox" @click="goDetail(pmItem)">
-                    <div class="name van-ellipsis">{{this.pmItem.name+'-'||""}}排名赛</div>
+                <div class="itemBox" @click="goDetail(pmItem)" v-if="pmItem.signUpState==1||(pmItem.signUpState==0&&pmItem.competitionState==2)">
+                    <div class="name van-ellipsis">倒计时1min-排名赛</div>
                     <div class="status">
-                        {{this.pmItem.signUpState? (this.pmItem.competitionState==0?'排名详情':this.pmItem.competitionState==1?'比赛详情':this.pmItem.competitionState==2?'报名详情':""):'去报名'}}
+                        {{pmItem.signUpState? (pmItem.competitionState==0?'排名详情':pmItem.competitionState==1?'比赛详情':pmItem.competitionState==2?'报名详情':""):'去报名'}}
                         <span class="iconfont icon-tongyong-gengduo" />
                     </div>
                 </div>
-                <div class="itemBox" @click="goDetail(dkItem)">
-                    <div class="name van-ellipsis">{{this.dkItem.name}}-打卡赛</div>
+                <div class="itemBox" @click="goDetail(dkItem)" v-if="dkItem.signUpState==1||(dkItem.signUpState==0&&dkItem.competitionState==2)">
+                    <div class="name van-ellipsis">倒计数800个-打卡赛</div>
                     <div class="status">
-                        {{this.dkItem.signUpState? (this.dkItem.competitionState==0?'排名详情':this.dkItem.competitionState==1?'比赛详情':this.dkItem.competitionState==2?'报名详情':""):'去报名'}}
+                        {{dkItem.signUpState? (dkItem.competitionState==0?'排名详情':dkItem.competitionState==1?'比赛详情':dkItem.competitionState==2?'报名详情':""):'去报名'}}
                         <span class="iconfont icon-tongyong-gengduo" />
                     </div>
                 </div>
@@ -229,7 +229,7 @@
             el: '#app',
             data() {
                 return {
-                    status: 1, //1 未报名  2报名 未开始 3报名 已开始 4 未报名 已开始
+                    status: 0, //1 未报名  2报名 未开始 3报名 已开始 4 未报名 已开始
                     isShare: getQueryString("isShare") || 0,
                     listShow: false,
                     unbindShow: false,
@@ -292,7 +292,15 @@
                             //signUpState 是否报名 0 未报名 1 报名
                             //competitionState 0 结束 1 正在进行中 2 未开始
                             this.pmItem = Object.assign({}, res.data.timeDownCompetition);
+
+                            // this.pmItem={}
+                            // this.pmItem.signUpState = 0
+                            // this.pmItem.competitionState = 2
+
                             this.dkItem = Object.assign({}, res.data.numDownCompetition);
+                            //this.dkItem = {}
+                            // this.dkItem.signUpState = 1
+                            // this.dkItem.competitionState = 2
                             if (!this.pmItem.signUpState && !this.dkItem.signUpState) {
                                 this.status = 1
                                 if (!this.dkItem.competitionState != 2) {
@@ -342,6 +350,36 @@
                             actionType: "LSTH5APP_GoMyDeviceVC",
                         }))
                     }
+                },
+                goNext() {
+                    //都报名了
+                    if (this.dkItem.signUpState == 1 && this.pmItem.signUpState == 1) {
+                        this.listShow = true
+                        return
+                    }
+
+                    //比赛未开始
+                    if (this.dkItem.competitionState == 2 || this.pmItem.competitionState == 2) {
+                        this.listShow = true
+                        return
+                    }
+                    //只报了打卡赛
+                    if (this.dkItem.signUpState == 1) {
+                        window.location.href = `detail.html?id=${this.dkItem.id}`
+                        return
+                    }
+                    //只报了排名赛
+                    if (this.pmItem.signUpState == 1) {
+                        window.location.href = `detail.html?id=${this.pmItem.id}`
+                        return
+                    }
+
+                    //比赛开始了
+                    if (this.dkItem.competitionState == 1 || this.pmItem.competitionState == 1) {
+                        this.$toast("比赛已经开始")
+                        return
+                    }
+
                 },
                 goDetail(item) {
                     this.listShow = false
