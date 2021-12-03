@@ -36,6 +36,7 @@
 </template>
 
 <script>
+const defaultSettings = require("../settings.js");
 import { NavBar, Icon } from "vant";
 
 export default {
@@ -83,8 +84,10 @@ export default {
           isShareUrl: true,
           description: "派健康-爱自己，爱生活",
           url:
-            "sportsClock/#/index?isShare2=1&userId=" +
-            JSON.parse(localStorage.getItem("appInfo")).userId,
+            defaultSettings.host +
+            `h5/h5V3/sportsClock/#/index?isShare2=1&userId=${
+              JSON.parse(localStorage.getItem("appInfo")).userId
+            }&theme=${JSON.parse(localStorage.getItem("appInfo")).theme}`,
         });
       } else {
         this.$interaction.closePage();

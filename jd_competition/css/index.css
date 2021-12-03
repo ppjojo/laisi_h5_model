@@ -488,6 +488,10 @@ body {
   margin-bottom: 0.1rem;
 }
 
+.detailHtml .contain .detailInfo .infoItem div {
+  min-width: 1.5rem;
+}
+
 .detailHtml .contain .detailInfo .infoItem span {
   color: #999;
 }

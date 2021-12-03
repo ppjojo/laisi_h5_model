@@ -25,28 +25,32 @@
 
             <div class="detailInfo" v-if="competitionItem.competitionState==2">
                 <div class="infoItem">
-                    比赛名称：<span>{{competitionItem.name}}</span>
+                    <div>比赛名称：</div>
+                    <span>{{competitionItem.name}}</span>
                 </div>
                 <div class="infoItem">
-                    比赛模式：<span v-if="competitionItem.mode==2">{{competitionItem.modeValue==60?'一分钟':competitionItem.modeValue}}倒计时跳</span>
+                    <div>比赛模式：</div>
+                    <span v-if="competitionItem.mode==2">{{competitionItem.modeValue==60?'一分钟':competitionItem.modeValue}}倒计时跳</span>
                     <span v-else>{{competitionItem.modeValue}}个倒计时跳</span>
                 </div>
                 <div class="infoItem">
-                    已 报 名：<span>{{competitionItem.attendCount}}人</span>
+                    <div>已 报 名：</div>
+                    <span>{{competitionItem.attendCount}}人</span>
                 </div>
                 <div class="infoItem">
-                    比赛次数：<span v-if="competitionItem.mode==2">不限次数取最好成绩</span>
+                    <div>比赛次数：</div>
+                    <span v-if="competitionItem.mode==2">不限次数取最好成绩</span>
                     <span v-else>不限次数，累积打卡20天</span>
                 </div>
                 <div class="infoItem">
-                    比赛时间：
+                    <div>比赛时间：</div>
                     <span v-if="competitionItem.mode==2">2021/12/25 00:00 至<br>2022/01/04 23:59:59</span>
                     <span v-else>2021/12/25 00:00 至<br>2022/01/13 23:59:59</span>
                 </div>
                 <div class="infoItem">
-                    录取名次：<span></span>
-                    <span v-if="competitionItem.mode==2">等产品的补充</span>
-                    <span v-else>等产品的补充</span>
+                    <div>录取名次：</div>
+                    <span v-if="competitionItem.mode==2">一等奖红色筋膜枪（*1）<br>二等奖体脂秤（*2）<br>三等奖 按摩四件套（*5）</span>
+                    <span v-else>累积打卡满20天运动修护套装*1(内含按摩摩膏+面膜)</span>
                 </div>
             </div>
 
@@ -101,8 +105,8 @@
                                     {{item.nickName}}
                                 </div>
                             </div>
-                            <div class="time" v-if="competitionItem.mode==2">{{sjc2time('ymd', item.bestValueDay) }}</div>
-                            <div class="score" v-if="competitionItem.mode==2"><span>{{item.bestValue}}</span>个</div>
+                            <div class="time" v-if="competitionItem.mode==2">{{sjc2time('ymd', item.bestValueTime) }}</div>
+                            <div class="score" v-if="competitionItem.mode==2"><span>{{item.bestValue||"--"}}</span>个</div>
                             <div class="time" v-if="competitionItem.mode==3">{{item.bestValueDay||0}}</div>
                             <div class="score" v-if="competitionItem.mode==3"><span>{{parseInt(item.bestValue/60)}}</span>m<span>{{item.bestValue%60}}</span>s</div>
                         </div>
@@ -168,6 +172,7 @@
             methods: {
                 //传入时间戳获取日期
                 sjc2time(id, sjc) {
+                    if (!sjc) return "--"
                     var datetime = new Date(sjc);
                     var year = datetime.getFullYear();
                     var month = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() + 1;

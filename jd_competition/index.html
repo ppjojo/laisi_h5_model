@@ -130,7 +130,7 @@
                     <div class="awardIntroduce">
                         <div style="margin-bottom:0.2rem;">奖品人员名单公布时间</div>
                         <div>排名赛：2022年1月6日00:00</div>
-                        <div>打卡赛：2022年1月17日00:00</div>
+                        <div>打卡赛：2022年1月15日00:00</div>
                         <div style="margin-top:0.4rem;margin-bottom:0.2rem">奖品寄出时间</div>
                         <div>公布奖品人员名单后3个工作日内</div>
                     </div>
@@ -303,11 +303,11 @@
                             // this.dkItem.competitionState = 2
                             if (!this.pmItem.signUpState && !this.dkItem.signUpState) {
                                 this.status = 1
-                                if (!this.dkItem.competitionState != 2) {
+                                if (this.dkItem.competitionState != 2) {
                                     this.status = 4
                                 }
                             } else {
-                                if (this.pmItem.competitionState != 2 && this.dkItem.competitionState != 2) {
+                                if (this.pmItem.competitionState == 2 || this.dkItem.competitionState == 2) {
                                     this.status = 2
                                 } else {
                                     this.status = 3
