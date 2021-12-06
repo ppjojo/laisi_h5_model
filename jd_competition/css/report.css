@@ -120,20 +120,21 @@ body {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   font-size: 0.28rem;
+  min-height: 3rem;
 }
 
 .listBox .infoTitle {
   position: absolute;
   text-align: center;
-  width: 3.2rem;
   background-image: -webkit-gradient(linear, left top, right top, from(#7DBBFF), to(#2B7AEC));
   background-image: linear-gradient(to right, #7DBBFF, #2B7AEC);
   color: #fff;
   font-size: 0.36rem;
   line-height: 0.52rem;
   top: -0.26rem;
-  left: calc(50% - 1.6rem);
   border-radius: 0.26rem;
+  width: 4rem;
+  left: calc(50% - 2rem);
 }
 
 .listBox .title, .listBox .item {
