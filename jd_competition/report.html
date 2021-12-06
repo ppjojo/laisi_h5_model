@@ -23,7 +23,7 @@
                 <div>
                     <div class="inputBox">
                         <div class="title">收货人</div>
-                        <input type="text" v-model="form.name" placeholder="收货人姓名">
+                        <input type="text" v-model="form.receiver" placeholder="收货人姓名">
                     </div>
                     <div class="inputBox">
                         <div class="title">手机号码</div>
@@ -37,18 +37,22 @@
 
                     <div class="inputBox">
                         <div class="title">详细地址</div>
-                        <input type="text" v-model="form.address" placeholder="请填写详细地址">
+                        <input type="text" v-model="form.address2" placeholder="请填写详细地址">
                     </div>
                 </div>
-                <div class="formBtn formBtnSuccess">
+                <div class="formBtn formBtnSuccess" v-if="!isSubmit" @click="submit">
+                    提交地址
+                </div>
+                <div class="formBtn" v-else>
                     地址已提交
                 </div>
 
             </div>
 
 
-            <div class="listBox">
-                <div class="infoTitle">儿童组获奖名单</div>
+            <div class="listBox" v-for="(item, index) in list">
+                <div class="infoTitle" v-if="mode==2">{{listName[index]}}</div>
+                <div class="infoTitle" v-if="mode==3">打卡赛获奖名单</div>
                 <div class="listDiv">
                     <div class="title">
                         <div class="rank">排名</div>
@@ -56,65 +60,10 @@
                         <div class="userId">用户ID</div>
                     </div>
                     <div>
-                        <div class="item" v-for="(item ,index) in likeList">
-                            <div class="rank">{{item.rank}}</div>
-                            <div class="nickName">{{item.nickname}}</div>
-                            <div class="userId">{{item.uid}}</div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <div class="listBox">
-                <div class="infoTitle">青少年组获奖名单</div>
-                <div class="listDiv">
-                    <div class="title">
-                        <div class="rank">排名</div>
-                        <div class="nickName">昵称</div>
-                        <div class="userId">用户ID</div>
-                    </div>
-                    <div>
-                        <div class="item" v-for="(item ,index) in likeList">
-                            <div class="rank">{{item.rank}}</div>
-                            <div class="nickName">{{item.nickname}}</div>
-                            <div class="userId">{{item.uid}}</div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <div class="listBox">
-                <div class="infoTitle">成年组获奖名单</div>
-                <div class="listDiv">
-                    <div class="title">
-                        <div class="rank">排名</div>
-                        <div class="nickName">昵称</div>
-                        <div class="userId">用户ID</div>
-                    </div>
-                    <div>
-                        <div class="item" v-for="(item ,index) in likeList">
-                            <div class="rank">{{item.rank}}</div>
-                            <div class="nickName">{{item.nickname}}</div>
-                            <div class="userId">{{item.uid}}</div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="listBox">
-                <div class="infoTitle">打卡赛获奖名单</div>
-                <div class="listDiv">
-                    <div class="title">
-                        <div class="rank">排名</div>
-                        <div class="nickName">昵称</div>
-                        <div class="userId">用户ID</div>
-                    </div>
-                    <div>
-                        <div class="item" v-for="(item ,index) in likeList">
-                            <div class="rank">{{item.rank}}</div>
-                            <div class="nickName">{{item.nickname}}</div>
-                            <div class="userId">{{item.uid}}</div>
+                        <div class="item" v-for="(sitem ,index) in item.rankItem">
+                            <div class="rank">{{sitem.rank}}</div>
+                            <div class="nickName van-ellipsis">{{sitem.nickName}}</div>
+                            <div class="userId">{{sitem.userId}}</div>
                         </div>
 
                     </div>
@@ -122,6 +71,7 @@
             </div>
 
         </div>
+
         <van-popup v-model="areaShow" position="bottom">
             <van-area :area-list="areaList" @confirm="areaConfirm" @cancel="areaShow=false" />
         </van-popup>
@@ -139,74 +89,32 @@
         data() {
             return {
                 userId: "",
+                mode: getQueryString("mode") || 2,
                 areaShow: false,
                 form: {
-                    winType: "",
-                    winRank: "",
                     name: "",
                     phoneNumber: "",
-                    province: "",
-                    city: "",
-                    county: "",
-                    town: "",
-                    address: ""
+                    address: "",
+                    receiver: ""
                 },
                 isSubmit: 0,
                 address1: "",
-                likeList: [{
-                    rank: 1,
-                    "uid": 10001920,
-                    "nickname": "永不放弃"
-                }, {
-                    rank: 2,
-                    "uid": 10034010,
-                    "nickname": "娜是一阵风\uD83C\uDF40"
-                }, {
-                    rank: 3,
-                    "uid": 10325404,
-                    "nickname": "立早章"
-                }, {
-                    rank: 4,
-                    "uid": 10009623,
-                    "nickname": "长桥"
-                }, {
-                    rank: 5,
-                    "uid": 10378155,
-                    "nickname": "夏风✨"
-                }, {
-                    rank: 6,
-                    "uid": 10426468,
-                    "nickname": "咕唧咕唧"
-                }, {
-                    rank: 7,
-                    "uid": 10509100,
-                    "nickname": "封劭然"
-                }, {
-                    rank: 8,
-                    "uid": 10063753,
-                    "nickname": "babyavv"
-                }, {
-                    rank: 9,
-                    "uid": 10826377,
-                    "nickname": "Claireeee"
-                }, {
-                    rank: 10,
-                    "uid": 10016619,
-                    "nickname": "水石头"
-                }],
+                list: [],
+                listName: [
+                    "儿童组获奖名单",
+                    "青少年组男子获奖名单",
+                    "青少年组女子获奖名单",
+                    "成年组男子获奖名单",
+                    "成年组女子获奖名单"
+                ]
 
             };
         },
 
         created() {
-            try {
-                ajax({})
-                setTimeout(() => {
-                    this.status()
-                }, 100)
-            } catch (e) {
-                console.log(e)
-            }
+            this.init()
+            this.status()
+
         },
         mounted() {
             window.addEventListener('scroll', this.scrollFn);
@@ -239,62 +147,36 @@
                 this.address1 = this.form.province + this.form.city + this.form.county;
                 this.areaShow = false;
             },
-            status() {
-                var that = this
+            init() {
                 ajax({
-                    type: "post",
-                    url: "community-core/guiness/winnerSubmmit",
+                    url: "jingdongPk/competitorStatistic/rankItemWinner",
                     data: {
-                        userId: JSON.parse(localStorage.getItem("appInfo")).userId
-                    },
-                    success: function(res) {
-                        if (res.code == 0) {
-                            that.isSubmit = res.data;
-                        } else {
-                            that.$toast(res.msg)
-                        }
-                    },
-                    error: function() {
-
+                        mode: this.mode
+                    }
+                }).then(res => {
+                    if (res.code == 0) {
+                        this.list = res.data
+                    } else {
+                        this.list = []
+                    }
+                })
+            },
+            status() {
+                ajax({
+                    url: "jingdongPk/competitionWinner/getWinnerAddress",
+                    data: {
+                        mode: this.mode
+                    }
+                }).then(res => {
+                    if (res.code == 0) {
+                        this.isSubmit = res.data;
+                    } else {
+                        this.$toast(res.msg)
                     }
                 })
             },
             submit() {
-                var that = this
-                var userId = JSON.parse(localStorage.getItem("appInfo")).userId;
-                var likeStatus = false;
-                var winStatus = false;
-                var rank = null;
-                this.likeList.forEach(item => {
-                    if (item.uid == userId) {
-                        likeStatus = true;
-                        rank = item.rank;
-                        return
-                    }
-                });
-                this.winList.forEach(item => {
-                    if (item.uid == userId) {
-                        winStatus = true;
-                        return
-                    }
-                });
-
-
-                if (likeStatus && winStatus) {
-                    this.form.winType = "all";
-                    this.form.winRank = rank;
-                } else if (likeStatus && !winStatus) {
-                    this.form.winType = "topic";
-                    this.form.winRank = rank;
-                } else if (!likeStatus && winStatus) {
-                    this.form.winType = "normal";
-                } else if (!likeStatus && !winStatus) {
-                    this.$toast("您没有中奖哦！")
-                    return
-                }
-                this.form.userId = JSON.parse(localStorage.getItem("appInfo")).userId
-
-                if (!this.form.name || !this.form.phoneNumber || !this.form.province || !this.form.address) {
+                if (!this.form.receiver || !this.form.phoneNumber || !this.form.province || !this.form.address2) {
                     this.$toast("请先完善地址信息！")
                     return
                 }
@@ -304,51 +186,28 @@
                 }
 
                 this.$dialog.confirm({
-                        message: '确定收货地址为:' + this.address1 + this.form.address,
-                        cancelButtonText: "修改",
-                        cancelButtonColor: "#222",
-                        confirmButtonColor: "#222"
+                    message: '确定收货地址为:' + this.address1 + this.form.address2,
+                    cancelButtonText: "修改",
+                    cancelButtonColor: "#222",
+                    confirmButtonColor: "#222"
+
+                }).then(() => {
+                    this.form.mode = this.mode
+                    this.form.address = this.address1 + this.form.address2
+                    ajax({
+                        type: "post",
+                        url: "jingdongPk/postAddressInfo/addAddress",
+                        data: this.form,
+                    }).then(res => {
+                        if (res.code == 0) {
+                            this.$toast("收货地址提交成功！")
+                        } else {
+                            this.$toast(res.msg)
+                        }
 
                     })
-                    .then(() => {
-
-                        ajax({
-                            type: "post",
-                            url: "community-core/guiness/addWinnerInfo",
-                            data: this.form,
-                            success: function(res) {
-                                if (res.code == 0) {
-                                    that.$toast("收货地址提交成功！")
-                                    that.form = {
-                                        userId: "",
-                                        winType: "",
-                                        winRank: "",
-                                        name: "",
-                                        phoneNumber: "",
-                                        province: "",
-                                        city: "",
-                                        county: "",
-                                        town: "",
-                                        address: ""
-                                    }
-                                } else {
-                                    that.$toast(res.msg)
-                                }
-                            },
-                            error: function() {
-
-                            }
-                        })
-
-                    })
-                    .catch(() => {
-                        // on cancel
-                    });
-
+                })
             },
-
-
-
         }
     })
 </script>
