@@ -95,8 +95,10 @@
         filters: {},
         mounted() {},
         created() {
-            if (host == "https://lstest3.laisitech.com/") {
-                var vConsole = new VConsole();
+            if (localStorage.getItem("appInfo")) {
+                if (JSON.parse(localStorage.getItem("appInfo")).userId == 10008515) {
+                    var vConsole = new VConsole();
+                }
             }
             this.getList()
         },

@@ -285,7 +285,7 @@ export default {
         query: {
           id: this.itemDetail.id,
           type: this.type,
-          isFromList:1
+          isFromList: 1,
         },
       });
     },
@@ -315,16 +315,20 @@ export default {
     },
     getOrderToCreate() {
       boundDeviceCount().then((res) => {
-        let type = this.type == "steps" ? "watch" : this.type;
-        let unbind = true;
-        res.data.forEach((item) => {
-          if (item.deviceType == type) {
-            this.getOrderToCreate2();
-            unbind = false;
-            return;
+        if (res.code == 0) {
+          let type = this.type == "steps" ? "watch" : this.type;
+          let unbind = true;
+          res.data.forEach((item) => {
+            if (item.deviceType == type) {
+              unbind = false;
+              this.getOrderToCreate2();
+              return;
+            }
+          });
+          if (unbind) {
+            this.$toast("请先绑定设备");
           }
-        });
-        if (unbind) {
+        } else if (res.code == 1000) {
           this.$toast("请先绑定设备");
         }
       });

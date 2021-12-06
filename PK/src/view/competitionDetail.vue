@@ -631,6 +631,7 @@ export default {
   },
 
   beforeRouteLeave(to, from, next) {
+    this.destroyed();
     next(); //一定不要忘记写
   },
   filters: {},
@@ -1114,7 +1115,7 @@ export default {
     },
     teamSelect(obj) {
       this.teamId_choose = obj.teamId;
-      this.sign();
+      this.getCountRemain();
     },
     //进入团队赛详情
     gotoTeamDetail() {
@@ -1139,16 +1140,20 @@ export default {
 
     getPowertoSign() {
       boundDeviceCount().then((res) => {
-        let type = this.type == "steps" ? "watch" : this.type;
-        let unbind = true;
-        res.data.forEach((item) => {
-          if (item.deviceType == type) {
-            this.getPowertoSign2();
-            unbind = false;
-            return;
+        if (res.code == 0) {
+          let type = this.type == "steps" ? "watch" : this.type;
+          let unbind = true;
+          res.data.forEach((item) => {
+            if (item.deviceType == type) {
+              unbind = false;
+              this.getPowertoSign2();
+              return;
+            }
+          });
+          if (unbind) {
+            this.$toast("请先绑定设备");
           }
-        });
-        if (unbind) {
+        } else if (res.code == 1000) {
           this.$toast("请先绑定设备");
         }
       });
