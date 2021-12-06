@@ -42,6 +42,11 @@
                 <div class="btn" @click="goNext">赛况直播</div>
                 <!-- <div class="btn">去跳绳</div> -->
             </div>
+            <!-- 未报名 已开始 -->
+            <div class="btnBox" v-if="status==4">
+                <div class="btn" @click="goNext">赛况直播</div>
+            </div>
+
             <img class="topBgImg" src="./img/indexBg.png" alt="">
             <div class="infoList">
 
@@ -374,9 +379,9 @@
                         return
                     }
 
-                    //比赛开始了
+                    //都没报名 比赛开始了
                     if (this.dkItem.competitionState == 1 || this.pmItem.competitionState == 1) {
-                        this.$toast("比赛已经开始")
+                        this.$toast("你没有报名比赛哦")
                         return
                     }
 
