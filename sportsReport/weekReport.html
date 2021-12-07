@@ -306,7 +306,7 @@
                 </div>
 
                 <!-- 分享才会显示 -->
-                <div class="shareBox" v-if="isShare==1">
+                <div class="shareBox" v-if="isShare==1&&!isApp">
                     <div class="button" @click="goAPP">加入派健康一起运动吧！</div>
                 </div>
 
@@ -343,6 +343,7 @@
                 isShare: getQueryString("isShare") || 0,
                 startTime: localStorage.getItem("report_startTime"),
                 endTime: localStorage.getItem("report_endTime"),
+                isApp: getQueryString("isApp"),
                 sheetImageStatus: false,
                 finished: false,
                 badDataColor: "#71717f",
