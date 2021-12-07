@@ -304,7 +304,12 @@ export default {
       if (rate > 1) {
         rate = 1;
       }
-
+      if (localStorage.getItem("appInfo")) {
+        var appInfo = JSON.parse(localStorage.getItem("appInfo"));
+        this.theme = appInfo.theme || "black";
+      } else if (this.$route.query.theme) {
+        this.theme = this.$route.query.theme;
+      }
       if (this.theme == "black") {
         var colorValue = `rgba(18,18,31,${rate})`;
         document.getElementsByClassName("van-nav-bar")[0].style.color = `rgb(${

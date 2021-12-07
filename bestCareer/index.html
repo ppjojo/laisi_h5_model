@@ -390,7 +390,7 @@
         <div v-else>
             <div class="topBox" style="backgroundImage: url('./img/topBg_white.png');">
                 <div class="personalInfo">
-                    <div class="headerPicBox">
+                    <div class="headerPicBox headerPicBox_white">
                         <img class="headerPic" :src="userInfo.headPictureUrl" alt="">
                     </div>
                     <div class="nickName">{{userInfo.nickName}}</div>
@@ -861,16 +861,29 @@
             } else {
                 this.getTotal()
             }
-
             if (localStorage.getItem("appInfo")) {
                 var appInfo = JSON.parse(localStorage.getItem("appInfo"));
                 this.theme = appInfo.theme || "black"
             } else if (getQueryString('theme')) {
                 this.theme = getQueryString('theme')
             }
-
+            this.getTheme()
         },
         methods: {
+            getTheme() {
+                ajax({
+                    url: "newHomePage/share/v2/common/best/career/record",
+                }).then(res => {
+                    if (localStorage.getItem("appInfo")) {
+                        var appInfo = JSON.parse(localStorage.getItem("appInfo"));
+                        this.theme = appInfo.theme || "black"
+                    } else if (getQueryString('theme')) {
+                        this.theme = getQueryString('theme')
+                    }
+                }).catch(err => {
+
+                })
+            },
             goApp() {
                 var openApp = function(linkUrl) {
                     var a = document.createElement("a");

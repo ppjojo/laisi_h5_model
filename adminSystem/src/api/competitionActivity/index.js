@@ -19,7 +19,7 @@ export function teacherList(params) {
 //学校下的学生列表
 export function studentList(params) {
     return request({
-        url: 'nationSchoolPK/student/getStudentsPage',
+        url: 'nationSchoolPK/student/getStudentInfo',
         method: 'get',
         params
     })

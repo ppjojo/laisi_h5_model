@@ -68,14 +68,16 @@
             font-size: .28rem;
             color: #A47928;
             top: 1.51rem;
-            left: 2.5rem;
+            left: 2.6rem;
             position: absolute;
+            max-width: 3.6rem;
         }
         
         .evlope {
             width: 6.9rem;
             margin: .5rem auto;
             display: block;
+            height: 5.14rem;
         }
         
         .joinIn {
@@ -109,7 +111,7 @@
         <div class="invitebox">
             <img class="evlope" v-if="getQueryString('isJoin')==1" src="img/view.png">
             <img class="evlope" v-else src="img/join.png">
-            <div class="nickname">{{nickName}}</div>
+            <div class="nickname van-ellipsis">{{nickName}}</div>
         </div>
         <div class="joinIn ub ub-ac ub-ad" @click="goApp">
             立即加入

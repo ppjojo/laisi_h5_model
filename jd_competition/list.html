@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
-    <title>京东云运动杯跳绳大赛-75派</title>
+    <title>京东云运动智能跳绳大赛-75派</title>
     <link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
     <link rel="stylesheet" href="font/iconfont.css">
     <link rel="stylesheet" href="css/index.css">
@@ -13,7 +13,7 @@
 <body class="listHtml">
     <div id="app" v-cloak>
         <div class="header">
-            <van-nav-bar @click-left="onclickLeft" title="京东云运动杯跳绳大赛-75派" left-arrow safe-area-inset-top fixed>
+            <van-nav-bar @click-left="onclickLeft" title="京东云运动智能跳绳大赛-75派" left-arrow safe-area-inset-top fixed>
                 <template #left>
                     <span class="iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
                 </template>
@@ -79,7 +79,7 @@
                         <van-field v-model="form.name" placeholder="请输入您的姓名" />
                     </div>
                     <div class="formItemBox">
-                        <van-field v-model="form.sex" readonly @click="showPicker=true" placeholder="请选择性别" />
+                        <van-field v-model="form.sex" right-icon="arrow-down" readonly @click="showPicker=true" placeholder="请选择性别" />
                     </div>
                     <div class="formItemBox">
                         <van-field v-model="form.identityId" v-model="digit" maxlength="18" placeholder="请输入正确的身份证号码" />
@@ -104,11 +104,11 @@
             el: '#app',
             data() {
                 return {
-                    tabSelected: 1,
+                    tabSelected: getQueryString('tabActive') || 1,
                     idcardShow: false,
                     form: {
                         name: "",
-                        sex: '男',
+                        sex: '',
                         identityId: ""
                     },
                     sex: [
@@ -163,7 +163,7 @@
                                     this.idcardShow = true;
                                     this.form = {
                                         name: "",
-                                        sex: '男',
+                                        sex: '',
                                         identityId: ""
                                     }
                                     this.canNext = false
@@ -198,7 +198,10 @@
                         data: this.form
                     }).then((res) => {
                         if (res.code == 0) {
+                            this.idcardShow = false
                             window.location.href = `detail.html?id=${res.data}`
+                        } else {
+                            this.$toast(res.msg)
                         }
                     });
 

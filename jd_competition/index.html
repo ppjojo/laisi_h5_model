@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
-    <title>京东云运动杯跳绳大赛-75派</title>
+    <title>京东云运动智能跳绳大赛-75派</title>
     <link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
     <link rel="stylesheet" href="font/iconfont.css">
     <link rel="stylesheet" href="css/index.css">
@@ -16,8 +16,8 @@
 
 <body class="indexHtml">
     <div id="app" v-cloak>
-        <div class="header">
-            <van-nav-bar @click-left="onclickLeft" title="京东云运动杯跳绳大赛-75派" @click-right="onclickRight" left-arrow safe-area-inset-top fixed>
+        <div class="header" v-if="!isShare">
+            <van-nav-bar @click-left="onclickLeft" title="京东云运动智能跳绳大赛-75派" @click-right="onclickRight" left-arrow safe-area-inset-top fixed>
                 <template #left>
                     <span class="iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
                 </template>
@@ -29,7 +29,7 @@
         <div class="contain">
             <!-- 未报名 -->
             <div v-if="status==1">
-                <img class="joinBtn" @click="goList()" src="./img/joinBtn.png" alt="">
+                <img class="joinBtn" @click="getPower()" src="./img/joinBtn.png" alt="">
             </div>
             <!-- 报名 未开始 -->
             <div class="btnBox" v-if="status==2">
@@ -47,9 +47,13 @@
                 <div class="btn" @click="goNext">赛况直播</div>
             </div>
 
+            <div class="btnBox" v-if="isShare">
+                <div class="btn" @click="goApp">立即报名参加</div>
+            </div>
+
             <img class="topBgImg" src="./img/indexBg.png" alt="">
             <div class="infoList">
-
+                <!-- 比赛项目 -->
                 <div class="infoBox">
                     <div class="infoTitle">比赛项目</div>
                     <div class="infoItem">
@@ -63,7 +67,7 @@
                         <div class="desc">1、<span>不分男女：倒计数800个</span></div>
                     </div>
                 </div>
-
+                <!-- 比赛信息 -->
                 <div class="infoBox">
                     <div class="infoTitle">比赛信息</div>
                     <div class="infoItem">
@@ -85,7 +89,7 @@
                         <img src="./img/girl.png" alt="">
                     </div>
                 </div>
-
+                <!-- 比赛奖品 -->
                 <div class="infoAward">
                     <div class="infoTitle">比赛奖品</div>
                     <div class="infoItem">
@@ -141,7 +145,7 @@
                     </div>
 
                 </div>
-
+                <!-- 参赛办法 -->
                 <div class="infoBox">
                     <div class="infoTitle">参赛办法</div>
                     <div class="infoItem">
@@ -151,16 +155,38 @@
                             75派全系列智能跳绳；野小兽：SR5S；
                             Raynigel：T20、T30
                        </span></div>
-                        <div class="desc">3、<span>注册报名：<br>
-                            派健康app报名：下载派健康app—通过派健康app活动页按照流程进行报名—准备参赛设备—参赛—排名赛结束进行排名；打卡赛完成获得奖品；
-                        </span></div>
+                        <div class="desc">3、
+                            <div>注册报名：<br>
+                                <span style="color:#0D478B;font-size:0.26rem;">派健康app报名：</span> 下载派健康app—通过派健康app活动页按照流程进行报名—准备参赛设备—参赛—排名赛结束进行排名；打卡赛完成获得奖品；
+                                <br>
+                                <span style="color:#0D478B;font-size:0.26rem;"> 京东运动报名：</span>扫码付费报名(将会获得京东云运动智能跳绳大赛奖牌)，报名结束后下载派健康app进行参赛(奖牌将于赛事结束后的7个工作日内寄出)，<a style="color:red;text-decoration: underline;" href="https://item.m.jd.com/product/200151419382.html#main">点击报名</a>
+                                <div class="howtoJoin_qr">
+                                    <div class="imgBox">
+                                        <img src="./img/award1.png" alt="" srcset="">
+                                        <div class="imgInfo">
+                                            付费报名二维码
+                                        </div>
+                                    </div>
+                                    <div class="imgBox">
+                                        <img src="./img/award1.png" alt="" srcset="">
+                                        <div class="imgInfo">
+                                            京东云运动奖牌
+                                        </div>
+                                    </div>
+                                </div>
+                                <span>
+                                    注意：<br>
+若用户在两个平台（派健康/京东运动）重复报名，最终以京东的报名信息为准。
+                                </span>
+                            </div>
+                        </div>
                         <div class="desc">4、<span>集赞：<br>
                                 报名成功后分享活动页面至微信朋友圈且集赞满100个（分享后的24小时内发私信截图发送给派小俊进行
                                 审核）将获得环形夹腿器一个。
                         </span></div>
                     </div>
                 </div>
-
+                <!-- 竞赛规则 -->
                 <div class="infoBox">
                     <div class="infoTitle">竞赛规则</div>
                     <div class="infoItem">
@@ -190,14 +216,14 @@
 
         <van-popup v-model="listShow" round position="bottom">
             <div class="competitionListBox">
-                <div class="itemBox" @click="goDetail(pmItem)" v-if="pmItem.signUpState==1||(pmItem.signUpState==0&&pmItem.competitionState==2)">
+                <div class="itemBox" @click="goDetail(pmItem,1)" v-if="pmItem.signUpState==1||(pmItem.signUpState==0&&pmItem.competitionState==2)">
                     <div class="name van-ellipsis">倒计时1min-排名赛</div>
                     <div class="status">
                         {{pmItem.signUpState? (pmItem.competitionState==0?'排名详情':pmItem.competitionState==1?'比赛详情':pmItem.competitionState==2?'报名详情':""):'去报名'}}
                         <span class="iconfont icon-tongyong-gengduo" />
                     </div>
                 </div>
-                <div class="itemBox" @click="goDetail(dkItem)" v-if="dkItem.signUpState==1||(dkItem.signUpState==0&&dkItem.competitionState==2)">
+                <div class="itemBox" @click="goDetail(dkItem,2)" v-if="dkItem.signUpState==1||(dkItem.signUpState==0&&dkItem.competitionState==2)">
                     <div class="name van-ellipsis">倒计数800个-打卡赛</div>
                     <div class="status">
                         {{dkItem.signUpState? (dkItem.competitionState==0?'排名详情':dkItem.competitionState==1?'比赛详情':dkItem.competitionState==2?'报名详情':""):'去报名'}}
@@ -209,7 +235,7 @@
         </van-popup>
 
 
-        <van-dialog v-model="unbindShow" width="280px" cancel-button-color="#222" confirm-button-color="#222" title="请先绑定跳绳设备" @confirm="confirm" show-cancel-button>
+        <van-dialog v-model="unbindShow" width="280px" cancel-button-color="#222" confirm-button-color="#222" confirm-button-text="去绑定" title="请先绑定跳绳设备" @confirm="confirm" show-cancel-button>
             <div style="padding:0.24rem 0.5rem;text-align:center;line-height:0.5rem;">
                 若无跳绳设备，可<a style="color:red;" href="https://item.m.jd.com/product/69776979349.html?&utm_source=iosapp&utm_medium=appshare&utm_campaign=t_335139774&utm_term=CopyURL&ad_od=share&gx=RnFgljULbWXZn9TAFyyv7MAebIlyIik">前往购买</a>智能跳绳哦
             </div>
@@ -248,7 +274,9 @@
             },
             created() {
                 vm = this
-                this.init()
+                if (!this.isShare) {
+                    this.init()
+                }
 
             },
             methods: {
@@ -284,8 +312,8 @@
                 //分享
                 onclickRight() {
                     Interaction.sharePage({
-                        title: "jd",
-                        description: "jd",
+                        title: "我正在参加京东云运动智能跳绳大赛，你也快来加入吧；",
+                        description: "派健康-爱自己、爱生活",
                         url: host + "h5/h5V3/jd_competition/index.html?isShare=1&userId=" + JSON.parse(localStorage.getItem('appInfo')).userId,
                     })
                 },
@@ -323,6 +351,29 @@
                         }
                     });
                 },
+                //判断是否有权限去
+                getPower() {
+                    if (!JSON.parse(localStorage.getItem("appInfo")).phoneNumber) {
+                        this.$dialog
+                            .confirm({
+                                message: "使用本功能，请先绑定手机号",
+                                confirmButtonText: "确定",
+                                width: "300",
+                            })
+                            .then(() => {
+                                if (isIOS) {
+                                    window.webkit.messageHandlers.lstNative.postMessage({
+                                        method: "bindPhoneNumber",
+                                    });
+                                } else if (isAndroid) {
+                                    window.android.bindPhoneNumber();
+                                }
+                            })
+                            .catch(() => {});
+                    } else {
+                        this.goList();
+                    }
+                },
                 goList() {
                     ajax({
                         url: "device/get/bound/device",
@@ -340,6 +391,10 @@
                             if (unbind) {
                                 this.unbindShow = true
                             }
+                        } else if (res.code == 1000) {
+                            this.unbindShow = true
+                        } else {
+                            this.$toast(res.msg)
                         }
                     });
                 },
@@ -381,18 +436,18 @@
 
                     //都没报名 比赛开始了
                     if (this.dkItem.competitionState == 1 || this.pmItem.competitionState == 1) {
-                        this.$toast("你没有报名比赛哦")
+                        this.$toast("您没有报名此场比赛哦！")
                         return
                     }
 
                 },
-                goDetail(item) {
+                goDetail(item, tabActive) {
                     this.listShow = false
                     if (item.signUpState == 1) {
                         window.location.href = `detail.html?id=${item.id}`
                     } else {
                         if (item.competitionState == 2) {
-                            window.location.href = `list.html`
+                            window.location.href = `list.html?tabActive=${tabActive}`
                         } else {
                             this.$toast("比赛已经开始")
                         }

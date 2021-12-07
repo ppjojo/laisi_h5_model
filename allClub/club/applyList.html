@@ -626,6 +626,7 @@
                     },
                     success: function(res) {
                         if (res.code == 0) {
+                            _self.$toast("已拒绝!");
                             _self.applyList();
                         } else {
                             _self.$toast(res.msg);

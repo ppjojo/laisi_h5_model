@@ -29,6 +29,10 @@
             height: 0.08rem;
             border-radius: 50%;
         }
+        
+        .reqBox .van-cell__value {
+            background-color: var(--borderColor)!important;
+        }
     </style>
 </head>
 
@@ -400,7 +404,7 @@
 
             </div>
         </div>
-        <van-dialog v-model="reqShow" confirm-button-text="加入" confirm-button-color="var(--textColor)" title="申请加入" show-cancel-button @confirm="joinClubReq(3)">
+        <van-dialog class="reqBox" v-model="reqShow" confirm-button-text="加入" confirm-button-color="var(--textColor)" title="申请加入" show-cancel-button @confirm="joinClubReq(3)">
             <van-field v-model="reqNum" placeholder="请输入邀请码" style="margin:
                         0.2rem 0;"></van-field>
         </van-dialog>

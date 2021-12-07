@@ -60,15 +60,26 @@
 
     <el-dialog title="学生管理" :visible.sync="studentVisible" width="50%">
       <el-table :data="student_list" element-loading-text="Loading" border fit highlight-current-row size="small ">
-        <el-table-column align="center" prop="id" label="ID" width="65"></el-table-column>
+        <el-table-column align="center" prop="studentId" label="ID" width="65"></el-table-column>
         <el-table-column align="center" prop="userId" label="userId">
         </el-table-column>
+        <el-table-column align="center" prop="studentCardId" label="学号">
+        </el-table-column>
         <el-table-column align="center" prop="name" label="名字">
+        </el-table-column>
+        <el-table-column align="center" prop="sex" label="性别">
+        </el-table-column>
+        <el-table-column align="center" prop="grade" label="年级">
         </el-table-column>
         <el-table-column align="center" prop="identityId" label="身份证">
         </el-table-column>
         <el-table-column align="center" prop="phoneNumber" label="手机号">
         </el-table-column>
+        <el-table-column align="center" prop="competitionId" label="赛事ID">
+        </el-table-column>
+        <el-table-column align="center" prop="competitionName" label="赛事名">
+        </el-table-column>
+
         <el-table-column align="center" prop="createTime" label="注册时间">
         </el-table-column>
       </el-table>
@@ -173,7 +184,7 @@ export default {
       studentList({
         schoolId: this.schoolForm.id,
       }).then((res) => {
-        this.student_list = res.data.studentInfoList;
+        this.student_list = res.data;
       });
     },
   },

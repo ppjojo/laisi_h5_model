@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
-    <title>京东云运动杯跳绳大赛-75派</title>
+    <title>京东云运动智能跳绳大赛-75派</title>
     <link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
     <link rel="stylesheet" href="font/iconfont.css">
     <link rel="stylesheet" href="css/index.css">
@@ -50,7 +50,7 @@
                 <div class="infoItem">
                     <div>录取名次：</div>
                     <span v-if="competitionItem.mode==2">一等奖红色筋膜枪（*1）<br>二等奖体脂秤（*2）<br>三等奖 按摩四件套（*5）</span>
-                    <span v-else>累积打卡满20天运动修护套装*1(内含按摩摩膏+面膜)</span>
+                    <span v-else>累积打卡满20天<br>运动修护套装*1(内含按摩摩膏+面膜)</span>
                 </div>
             </div>
 
@@ -127,8 +127,8 @@
                 <div class="btn" @click="play" v-else-if="competitionItem.competitionState==1">
                     去跳绳
                 </div>
-                <div class="btn btnccc" @click="play" v-else-if="competitionItem.competitionState==2">
-                    已报名
+                <div class="btn btnccc" v-else-if="competitionItem.competitionState==2">
+                    已报名 <span v-if="djs">({{djs}})</span>
                 </div>
             </div>
         </div>
@@ -160,6 +160,8 @@
                     loading: false,
                     finished: true,
                     refreshing: false,
+                    djs: "",
+                    interval: ""
                 }
             },
             mounted() {
@@ -216,6 +218,18 @@
                             this.competitionItem = res.data
                             if (this.competitionItem.competitionState != 2) {
                                 this.init()
+                            } else {
+                                this.interval = setInterval(() => {
+                                    var s = parseInt((this.competitionItem.startTime - new Date().getTime()) / 1000)
+                                    if (s <= 0) {
+                                        this.initDetail()
+                                        clearInterval(this.interval)
+                                    }
+                                    var hour = Math.floor(s / 3600) + "";
+                                    var minute = Math.floor((s - hour * 3600) / 60) + "";
+                                    var second = s - hour * 3600 - minute * 60 + "";
+                                    this.djs = hour.padStart(2, "0") + ":" + minute.padStart(2, "0") + ":" + second.padStart(2, "0");
+                                }, 1000);
                             }
 
                         }
