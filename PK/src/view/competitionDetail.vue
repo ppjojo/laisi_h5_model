@@ -643,9 +643,7 @@ export default {
     window.scrollTo(0, 0);
     vm = this;
     this.initData();
-    if (this.isShare != 1) {
-      this.joinStatusAndTimesRemain();
-    }
+
     var theme = "";
     if (localStorage.getItem("appInfo")) {
       var appInfo = JSON.parse(localStorage.getItem("appInfo"));
@@ -733,6 +731,9 @@ export default {
     },
     //初始化比赛详情
     initData() {
+      if (this.isShare != 1) {
+        this.joinStatusAndTimesRemain();
+      }
       competitionDetail({
         id: this.competitionId,
       }).then((res) => {
