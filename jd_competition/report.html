@@ -40,11 +40,14 @@
                         <input type="text" v-model="form.address2" placeholder="请填写详细地址">
                     </div>
                 </div>
-                <div class="formBtn formBtnSuccess" v-if="!isSubmit" @click="submit">
+                <div class="formBtn formBtnSuccess" v-if="addressCode==0" @click="submit">
                     提交地址
                 </div>
-                <div class="formBtn" v-else>
+                <div class="formBtn" v-else-if="addressCode==1">
                     地址已提交
+                </div>
+                <div class="formBtn" v-else-if="addressCode==2">
+                    无中奖信息
                 </div>
 
             </div>
@@ -97,7 +100,7 @@
                     address: "",
                     receiver: ""
                 },
-                isSubmit: 0,
+                addressCode: 0,
                 address1: "",
                 list: [],
                 listName: [
@@ -168,11 +171,7 @@
                         mode: this.mode
                     }
                 }).then(res => {
-                    if (res.code == 0) {
-                        this.isSubmit = res.data;
-                    } else {
-                        this.$toast(res.msg)
-                    }
+                    this.addressCode = res.code;
                 })
             },
             submit() {
@@ -201,6 +200,7 @@
                     }).then(res => {
                         if (res.code == 0) {
                             this.$toast("收货地址提交成功！")
+                            this.status()
                         } else {
                             this.$toast(res.msg)
                         }

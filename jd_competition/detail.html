@@ -107,8 +107,9 @@
                             </div>
                             <div class="time" v-if="competitionItem.mode==2">{{sjc2time('ymd', item.bestValueTime) }}</div>
                             <div class="score" v-if="competitionItem.mode==2"><span>{{item.bestValue||"--"}}</span>个</div>
-                            <div class="time" v-if="competitionItem.mode==3">{{item.bestValueDay||0}}</div>
-                            <div class="score" v-if="competitionItem.mode==3"><span>{{parseInt(item.bestValue/60)}}</span>m<span>{{item.bestValue%60}}</span>s</div>
+                            <div class="time" v-if="competitionItem.mode==3">{{item.bestValueDay||"--"}}</div>
+                            <div class="score" v-if="competitionItem.mode==3&&item.bestValue"><span>{{parseInt(item.bestValue/60)}}</span>m<span>{{item.bestValue%60}}</span>s</div>
+                            <div class="score" v-else><span>--</span>m<span>--</span>s</div>
                         </div>
                     </van-list>
                     <div class="noDataBox" v-else-if="finished">

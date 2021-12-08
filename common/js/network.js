@@ -1,5 +1,5 @@
 //version 20211029
-var host = "https://lstest3.laisitech.com/";
+var host = "https://lsprod3.laisitech.com/";
 
 //Android终端
 var isAndroid =
@@ -22,11 +22,11 @@ themeChange();
 var theme = "black"
 
 function themeChange() {
-    if (localStorage.getItem("appInfo")) {
+    if (getQueryString("theme")) {
+        theme = getQueryString("theme")
+    } else if (localStorage.getItem("appInfo")) {
         var appInfo = JSON.parse(localStorage.getItem("appInfo"));
         theme = appInfo.theme || "black"
-    } else if (getQueryString("theme")) {
-        theme = getQueryString("theme")
     }
     if (theme == 'white') {
         if (document.getElementById("themeCssLink")) {
