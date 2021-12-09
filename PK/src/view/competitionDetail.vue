@@ -1076,10 +1076,20 @@ export default {
       }).then((res) => {
         this.isSign = res.data;
         if (this.isSign) {
-          this.settingActions.push({
-            name: "退出比赛",
-            type: 3,
-          });
+          this.settingActions = [
+            {
+              name: "邀请好友",
+              type: 1,
+            },
+            {
+              name: "比赛规则",
+              type: 2,
+            },
+            {
+              name: "退出比赛",
+              type: 3,
+            },
+          ];
         }
       });
       userTimesRemain({

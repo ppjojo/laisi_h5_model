@@ -1,0 +1,340 @@
+@font-face {
+	font-family: 'SourceHanSansCN';
+	src: url('../font/SourceHanSansCN-Regular.otf') ;
+	font-weight: normal;
+	font-style: normal;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	font-family: SourceHanSansCN;
+	-webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+	position: relative;
+	height: 100%;
+	-webkit-tap-highlight-color: transparent;
+}
+
+.headerImg {
+	text-align: right;
+	height: 0.7rem;
+}
+
+.headerImg img {
+	width: 0.4rem;
+	height: 0.4rem;
+	position: absolute;
+	top: 0.3rem;
+	right: 0.3rem
+}
+
+.headerImg img:nth-child(2) {
+	width: 0.4rem;
+	height: 0.4rem;
+	position: absolute;
+	top: 0.3rem;
+	right: 0.9rem
+}
+
+.swiper-container {
+	width: 100%;
+	height: 100%;
+}
+
+.swiper-slide {
+	position: relative;
+	background-image: url(../img/bg1.png);
+	background-size: 100% 100%;
+}
+
+.swiper-slide:nth-child(3) {
+	position: relative;
+	background-image: url(../img/bg2.png);
+	background-size: 100% 100%;
+}
+
+/* 跳动的下拉按钮 */
+.scrollDiv {
+	text-align: center;
+	position: absolute;
+	width: 100%;
+	bottom: 0;
+}
+
+.scrollDiv img {
+	width: 0.54rem;
+	height: 0.52rem;
+	animation: scrollImg 1.5s infinite;
+}
+
+@keyframes scrollImg {
+	0% {
+		transform: translate(0px, 0px);
+	}
+
+	50% {
+		transform: translate(0px, -0.2rem);
+	}
+
+	100% {
+		transform: translate(0px, 0px);
+	}
+}
+
+.userDiv {
+	position: absolute;
+	top: -0.35rem;
+	right: 0rem;
+}
+
+#userName {
+	font-size: 0.56rem;
+	background-image: linear-gradient(#4FACFE, #00F2FE);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	font-weight: bold;
+	text-align: right;
+}
+
+#joinData {
+	font-size: 0.36rem;
+	background-image: linear-gradient(#4FACFE, #00F2FE);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	text-align: right;
+}
+
+.jumpImgDiv {
+	position: relative;
+	text-align: center;
+	width: 5rem;
+	margin: 1rem auto 0;
+}
+
+.jumpImgDiv img {
+	width: 5rem;
+	height: 4rem;
+}
+
+#jumpDataNum {
+	font-size: 0.4rem;
+	background-image: linear-gradient(#4FACFE, #00F2FE);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	text-align: left;
+	margin-bottom: 0.6rem;
+	margin-top: 0.4rem;
+	padding: 0 0.3rem;
+	line-height: 0.6rem;
+}
+#jumpDataNumYear{
+	background-image: linear-gradient(#4FACFE, #00F2FE);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+#jumpDataNumSpan{
+	font-size: 0.8rem;
+	background-image: linear-gradient(#4FACFE, #00F2FE);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+#jumpTimeTotal,
+#jumpKLLTotal {
+	margin-bottom: 0.5rem;
+	font-size: 0.4rem;
+	color: #fff;
+	text-align: left;
+	padding: 0 0.3rem;
+	line-height: 0.6rem;
+}
+
+
+/* 第二张页面 */
+.onedayNumDiv {
+	position: relative;
+	width: 100%;
+	height: 2rem;
+	margin-bottom: 0.8rem;
+}
+
+.onedayNum {
+	font-size: 1.2rem;
+	background-image: linear-gradient(#4FACFE, #00F2FE);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	font-weight: bold;
+	position: absolute;
+	width: 100%;
+	z-index: 2;
+	padding-left: 0.3rem;
+}
+
+.onedayNumbg {
+	position: absolute;
+	width: 3.8rem;
+	height: 0.54rem;
+	bottom: 0.5rem;
+	left: 0;
+	background-color: #363FE0;
+}
+
+.likeAnimal {
+	position: absolute;
+	width: 100%;
+	text-align: center;
+	bottom: 0.1rem;
+}
+
+.likeAnimal img.eagle {
+	width: 6.56rem;
+	height: 3.82rem;
+}
+
+.likeAnimal img.wolf {
+	width: 5.1rem;
+	height: 5.14rem;
+}
+
+.likeAnimal img.leopard {
+	width: 6.16rem;
+	height: 2.78rem;
+}
+
+.likeAnimal img.sheep {
+	width: 5.04rem;
+	height: 6.02rem;
+}
+
+.onedayDescrip {
+	font-size: 0.4rem;
+	line-height: 0.65rem;
+	margin-bottom: 0.4rem;
+	color: #FFFFFF;
+	padding: 0 0.3rem;
+	font-weight: normal;
+}
+
+.onedayDescripBig {
+	font-size: 0.52rem;
+}
+
+
+/* 第三张页面 */
+
+.yearRankDiv {
+	position: relative;
+	width: 100%;
+	height: 2rem;
+}
+
+.yearRankNum {
+	font-size: 1.2rem;
+	background-image: linear-gradient(#4FACFE, #00F2FE);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	font-weight: bold;
+	position: absolute;
+	width: 100%;
+	z-index: 2;
+	padding-left: 0.3rem;
+}
+
+.yearRankNumbg {
+	position: absolute;
+	width: 3.8rem;
+	height: 0.54rem;
+	bottom: 0.5rem;
+	left: 0;
+	background-color: #363FE0;
+}
+
+.guinness {
+	position: absolute;
+	width: 100%;
+	text-align: center;
+	bottom: 0rem;
+}
+
+.guinness img {
+	width: 100%;
+	height: 8.24rem;
+}
+
+.yearRankDescrip {
+	font-size: 0.4rem;
+	line-height: 0.65rem;
+	margin-bottom: 0.4rem;
+	color: #FFFFFF;
+	padding: 0 0.3rem;
+	font-weight: normal;
+	position: relative;
+	z-index: 999;
+}
+
+.yearRankDescripBig {
+	font-size: 0.52rem;
+}
+
+/* 第四张页面 */
+
+.thanksDiv {
+	position: relative;
+	width: 100%;
+	height: 2rem;
+}
+
+.thanks {
+	font-size: 1.2rem;
+	background-image: linear-gradient(#4FACFE, #00F2FE);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	font-weight: bold;
+	position: absolute;
+	width: 100%;
+	z-index: 2;
+	padding-left: 0.3rem;
+}
+
+.thanksbg {
+	position: absolute;
+	width: 3.8rem;
+	height: 0.54rem;
+	bottom: 0.3rem;
+	left: 0;
+	background-color: #363FE0;
+}
+
+.qrcode {
+	position: absolute;
+	width: 100%;
+	text-align: center;
+	bottom: 0.5rem;
+}
+
+.qrcode img {
+	width: 2.68rem;
+	height: 2.68rem;
+}
+
+.qrcode p {
+	font-size: 0.32rem;
+	color: #fff;
+	text-align: center;
+}
+
+.thanksDescrip {
+	font-size: 0.4rem;
+	line-height: 0.65rem;
+	margin-bottom: 0.4rem;
+	color: #FFFFFF;
+	padding: 0 0.3rem;
+	font-weight: normal;
+}
+
+.thanksDescripBig {
+	font-size: 0.52rem;
+}

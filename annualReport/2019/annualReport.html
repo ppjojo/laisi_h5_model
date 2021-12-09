@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+		<title>年度报告</title>
+		<link rel="stylesheet" href="css/swiper.min.css">
+		<link rel="stylesheet" href="css/annualReport.css">
+		<script src="js/annualPeport.js"></script>
+		<script type="text/javascript">
+			document.documentElement.style.fontSize = document.documentElement.clientWidth / 8 + 'px';
+		</script>
+	</head>
+	<body>
+		<div class="swiper-container">
+			<div class="swiper-wrapper">
+				<div class="swiper-slide">
+					<div class="headerImg">
+						<img src="img/share.png" onclick="sharePage()">
+					</div>
+					<div>
+						<div class="jumpImgDiv">
+							<div class="userDiv">
+								<p id="userName">--</p>
+								<p id="joinData">您于--年--月--日<br>加入派健康</p>
+							</div>
+							<img src="img/jumppeople.png">
+						</div>
+					</div>
+					<div id="jumpDataNum">
+						<p id="jumpDataNumYear"></p>
+						<p >您使用75派T20智能跳绳<a id="jumpDataNumSpan"></a>天</p>
+					</div>
+					<div id="jumpTimeTotal">
+						<p id="jumpTimeTotalp">累计跳绳锻炼--小时--分--秒</p>
+						<p>完成跳绳<span id="jumpNumTotal">--</span>个</p>
+					</div>
+					<div id="jumpKLLTotal">
+						<p id="jumpKLLTotalNum">消耗卡路里--千卡</p>
+						<p id="jumpKLLTotalZF">减脂--g</p>
+					</div>
+					<div class="scrollDiv">
+						<img src="img/scroll.png">
+					</div>
+				</div>
+				<div class="swiper-slide">
+					<div class="headerImg">
+						<img src="img/share.png" onclick="sharePage()">
+					</div>
+					<div id="secondPage">
+						<div class="onedayNumDiv">
+							<p class="onedayNum">--</p>
+							<p class="onedayNumbg"></p>
+						</div>
+						<div class="onedayDescrip">
+							<p>--年--月--日</p>
+							<p>您单日跳绳--小时--分--秒</p>
+							<p>完成跳绳--个</p>
+						</div>
+						<div class="onedayDescrip">
+							<p class="onedayDescripBig">耐力堪比“蓝天的军舰鸟”</p>
+							<p>消耗卡路里--千卡</p>
+							<p>相当于--包薯条的热量</p>
+						</div>
+						<div class="likeAnimal">
+							<img src="img/eagle.png" alt="">
+						</div>
+					</div>
+					<div class="scrollDiv">
+						<img src="img/scroll.png">
+					</div>
+				</div>
+				<div class="swiper-slide" id="thirdPage">
+					<div class="headerImg">
+						<img src="img/share.png" onclick="sharePage()">
+					</div>
+					<div class="yearRankDiv">
+						<p class="yearRankNum">--</p>
+						<p class="yearRankNumbg"></p>
+					</div>
+					<div class="yearRankDescrip">
+						<p class="bestBPMDate">--年--月--日</p>
+						<p>您的跳绳BPM取得历史性突破</p>
+						<p>达到<span class="bestBPMnumber"></span>次/分</p>
+					</div>
+					<div class="yearRankDescrip">
+						<p class="yearRankDescripBig">相当于吉尼斯世界纪录的<span class="likejns"></span>%</p>
+						<p>在派健康大家庭里</p>
+						<p>您的年度排名是第<span class="yearRankShow">--</span>位</p>
+					</div>
+					<div class="guinness">
+						<img src="img/guinness.png" alt="">
+					</div>
+					<div class="scrollDiv">
+						<img src="img/scroll.png">
+					</div>
+				</div>
+				<div class="swiper-slide">
+					<div class="headerImg">
+						<img src="img/share.png" onclick="sharePage()">
+						<img src="img/close.png" onclick="closePage()">
+					</div>
+					<div class="thanksDiv">
+						<p class="thanks">感谢</p>
+						<p class="thanksbg"></p>
+					</div>
+					<div class="thanksDescrip">
+						<p>感谢您2019年的陪伴</p>
+					</div>
+					<div class="thanksDescrip" style="margin-top: 1.5rem;">
+						<p class="thanksDescripBig">在2020年，希望您再接再厉</p>
+						<p>跳出健康</p>
+						<p>跳出自信</p>
+						<p>跳走脂肪</p>
+					</div>
+					<div class="qrcode">
+						<img src="img/qrcode.png" alt="">
+						<p>扫码查看年度报告</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="js/swiper.min.js"></script>
+	<script src="../common/js/network.js"></script>
+	<script type="text/javascript">
+		
+	</script>
+</html>

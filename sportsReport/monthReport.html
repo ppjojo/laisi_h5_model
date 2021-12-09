@@ -472,11 +472,11 @@
         created() {
             this.initData()
             var theme = "black";
-            if (localStorage.getItem("appInfo")) {
+            if (getQueryString("theme")) {
+                theme = getQueryString("theme");
+            } else if (localStorage.getItem("appInfo")) {
                 var appInfo = JSON.parse(localStorage.getItem("appInfo"));
                 theme = appInfo.theme || "black"
-            } else if (getQueryString("theme")) {
-                theme = getQueryString("theme");
             }
             if (theme == 'black') {
                 this.badDataColor = "#71717f"

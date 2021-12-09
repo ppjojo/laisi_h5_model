@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+	<title>2020年度报告</title>
+	<!-- 引入样式文件 -->
+	<link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
+	<link rel="stylesheet" href="./css/index.css">
+	<link href="https://cdn.bootcdn.net/ajax/libs/animate.css/4.1.1/animate.compat.css" rel="stylesheet">
+	
+	<style>
+		@keyframes pulse {
+			0% {
+				-webkit-transform: scale(0.2);
+				transform: scale(0.2)
+			}
+
+			50% {
+				-webkit-transform: scale3d(1.05, 1.05, 1.05);
+				transform: scale3d(1.05, 1.05, 1.05)
+			}
+
+			to {
+				-webkit-transform: scaleX(1);
+				transform: scaleX(1)
+			}
+		}
+	</style>
+	<!-- <script src="https://cdn.bootcss.com/vConsole/3.3.4/vconsole.min.js"></script>
+		<script>
+			// init vConsole
+		        var vConsole = new VConsole();
+		        console.log('Hello world');
+		    </script> -->
+</head>
+
+
+<body>
+	<div id="app" v-cloak>
+		<van-swipe vertical :show-indicators="false" @change="changePage" :loop="false">
+			<van-swipe-item>
+				<div class="rightTitle fadeInDown" v-if="currentIndex==0" :class="currentIndex==0?'animated':''">
+					百万跳绳爱好者的选择</div>
+				<div class="totalDataBox pulse" v-if="currentIndex==0" :class="currentIndex==0?'animated':''">
+					<div class="titleBg">派健康2020年度跳绳报告</div>
+					<div class="totalDataDiv">
+						<ul>
+							<li>
+								<p class="pDetail pDetail2" style="line-height: 1.2rem;font-size: 0.36rem;">累计跳绳</p>
+								<p class="pDetail">{{toThousands(totalReportObject.totalNumber)}}个</p>
+								<p class="pDetail pDetail2">
+									相当于绕地球{{parseInt(totalReportObject.totalNumber/10000/40000)}}圈<br>
+									<span style="font-size: 0.24rem;">(按每次腾空10cm算)</span>
+								</p>
+							</li>
+							<li>
+								<!-- <p class="pTitle">累计跳绳时长(小时)</p> -->
+								<p class="pDetail">
+									{{toThousands(Math.floor(totalReportObject.totalTime/3600/1000))}}小时
+								</p>
+								<p class="pDetail pDetail2">
+									相当持续跳绳{{parseInt(totalReportObject.totalTime/3600/1000/24/365)}}年
+								</p>
+							</li>
+							<li>
+								<!-- <p class="pTitle">累计计消耗(千卡)</p> -->
+								<p class="pDetail">
+									{{toThousands(Math.floor(totalReportObject.totalBurn/1000))}}千卡
+								</p>
+								<p class="pDetail pDetail2">
+									相当于减掉了{{parseInt(totalReportObject.totalBurn/1000/7700/8000)}}只成年大象
+								</p>
+							</li>
+							<li>
+								<p class="pExplain">·····※以上数据为派健康全体用户总数据·····</p>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<img class="bottomPic " src="img/overview2020.png" alt="">
+				<img src="img/btn1.png" class="btn btn1 tada" v-if="currentIndex==0"
+					:class="currentIndex==0?'animated':''">
+			</van-swipe-item>
+			<van-swipe-item>
+				<div class="rightTitle fadeInDown" v-if="currentIndex==1" :class="currentIndex==1?'animated':''">
+					2020年度关键词</div>
+				<div style="text-align: right;" class=" fadeInRight" v-if="currentIndex==1"
+					:class="currentIndex==1?'animated':''">
+					<!-- number 0 timer 1 bpm 2 section 3 other 4 7-->
+					<img class="wordPic" src="img/word_kuai.png" alt="" v-if="wordObject.rank==2">
+					<img class="wordPic" src="img/word_qin.png" alt="" v-else-if="wordObject.rank==1">
+					<img class="wordPic" src="img/word_lang.png" alt="" v-else-if="wordObject.rank==4">
+					<img class="wordPic" src="img/word_wen.png" alt="" v-else-if="wordObject.rank==3">
+					<img class="wordPic" src="img/word_niu.png" alt="" v-else-if="wordObject.rank==0">
+				</div>
+				<div class="keywordBox pulse" v-if="currentIndex==1" :class="currentIndex==1?'animated':''">
+					<span v-if="wordObject.rank==2">平均跳绳BPM：{{wordObject.itemInfo.avgBpm}}次/分，再快就没人追得上你啦！</span>
+					<span
+						v-else-if="wordObject.rank==1">总跳绳{{sjc2Longtime(wordObject.itemInfo.totalTime)}}，你可以一直跳下去!</span>
+					<span v-else-if="wordObject.rank==4">革命尚未成功，跳绳还需努力！</span>
+					<span v-else-if="wordObject.rank==3">平均绊绳率{{wordObject.itemInfo.avgSection*100}}%,稳得一批！</span>
+					<span
+						v-else-if="wordObject.rank==0">总跳绳{{toThousands(wordObject.itemInfo.totalNumber)}}个，还能跳更多个吗？</span>
+				</div>
+				<div>
+					<img class="bottomPic" src="img/word_kuai_pic.png" alt="" v-if="wordObject.rank==2">
+					<img class="bottomPic" src="img/word_qin_pic.png" alt="" v-else-if="wordObject.rank==1">
+					<img class="bottomPic" src="img/word_lang_pic.png" alt="" v-else-if="wordObject.rank==4">
+					<img class="bottomPic" src="img/word_wen_pic.png" alt="" v-else-if="wordObject.rank==3">
+					<img class="bottomPic" src="img/word_niu_pic.png" alt="" v-else-if="wordObject.rank==0">
+				</div>
+
+
+				<img src="img/btn2.png" class="btn btn2 rubberBand" v-if="currentIndex==1&&isShare!=1"
+					:class="currentIndex==1?'animated':''">
+				<img src="img/btn3.png" class="btn btn2 rubberBand" v-if="currentIndex==1&&isShare==1"
+					:class="currentIndex==1?'animated':''">
+			</van-swipe-item>
+			<van-swipe-item>
+				<div class="rightTitle rightTitle2 fadeInDown" v-if="currentIndex==2"
+					:class="currentIndex==2?'animated':''">跳绳概况</div>
+				<div style="height: 6rem;">
+					<div class="ballPicBox ballPicBox1 fadeInLeftBig" ref='ballRef1' v-if="currentIndex==2"
+						:class="currentIndex==2?'animated':''">
+						<p class="ballDetail">{{toThousands(personalObject.freedomNumber)}}</p>
+						<p class="ballTitle">自由跳(个)</p>
+					</div>
+					<div class="ballPicBox ballPicBox2 fadeInUpBig" ref='ballRef2' v-if="currentIndex==2"
+						:class="currentIndex==2?'animated':''">
+						<p class="ballDetail">{{toThousands(personalObject.timeDownNumber)}}</p>
+						<p class="ballTitle">倒计时(个)</p>
+					</div>
+					<div class="ballPicBox ballPicBox3 fadeInRightBig" ref='ballRef3' v-if="currentIndex==2"
+						:class="currentIndex==2?'animated':''">
+						<p class="ballDetail">{{toThousands(personalObject.numberDownNumber)}}</p>
+						<p class="ballTitle">倒计数(个)</p>
+					</div>
+					<img class="smallBall1" src="img/smallBall1.png" alt="">
+					<img class="smallBall2" src="img/smallBall2.png" alt="">
+
+				</div>
+
+				<div class="keywordBox pulse" v-if="currentIndex==2" :class="currentIndex==2?'animated':''">
+					<span>您在2020年度累计跳绳{{sjc2Longtime(personalObject.totalTime)}}，{{toThousands(personalObject.totalNumber)}}个，
+						消耗了{{toThousands(Math.floor(personalObject.totalBurn/1000))}}Kcal！</span>
+				</div>
+				<div>
+					<img class="bottomPic" src="img/ball_pic.png" alt="">
+				</div>
+				<img src="img/btn2.png" class="btn btn2 rubberBand" v-if="currentIndex==2&&isShare!=1"
+					:class="currentIndex==2?'animated':''">
+				<img src="img/btn3.png" class="btn btn2 rubberBand" v-if="currentIndex==2&&isShare==1"
+					:class="currentIndex==2?'animated':''">
+			</van-swipe-item>
+			<van-swipe-item>
+				<div class="rightTitle rightTitle2 fadeInDown " v-show="currentIndex==3"
+					:class="currentIndex==3?'animated':''">个人成绩</div>
+				<div class="personalDataBox  pulse" v-show="currentIndex==3" :class="currentIndex==3?'animated':''">
+					<div class="titleBg">SHOW TIME</div>
+					<div class="personalDataDiv">
+						<div class="personalDataDivBorder">
+							<p class="title">{{sjc2time(scoreObject.skipRecord.startTime,"yyyyMMdd")}}是您跳绳总数最多的一天～</p>
+							<van-row>
+								<van-col span="8">
+									<p class="pNum">{{(scoreObject.skipRecord.takeMs/1000/3600).toFixed(2)}}</p>
+									<p class="pDetail">总时长(小时)</p>
+								</van-col>
+								<van-col span="8">
+									<p class="pNum">{{toThousands(scoreObject.skipRecord.number)}}</p>
+									<p class="pDetail">总个数(个)</p>
+								</van-col>
+								<van-col span="8">
+									<p class="pNum">{{toThousands(Math.floor(scoreObject.skipRecord.burn/1000))}}</p>
+									<p class="pDetail">总消耗(千卡)</p>
+								</van-col>
+							</van-row>
+						</div>
+						<div class="personalDataDivBorder">
+							<p class="title">年度进榜小笔记</p>
+							<van-row>
+								<van-col span="8">
+									<p class="pNum">{{scoreObject.totalChampion||0}}</p>
+									<p class="pDetail">PK赛(夺冠)</p>
+								</van-col>
+								<van-col span="8">
+									<p class="pNum">{{scoreObject.dailyCount||0}}</p>
+									<p class="pDetail">日榜(进榜)</p>
+								</van-col>
+								<van-col span="8">
+									<p class="pNum">{{scoreObject.weekCount||0}}</p>
+									<p class="pDetail">周榜(进榜)</p>
+								</van-col>
+							</van-row>
+						</div>
+						<div>
+							<p class="title">个人日榜排名曲线</p>
+							<div id="echartDiv"></div>
+						</div>
+					</div>
+				</div>
+				<div>
+					<img class="bottomPic" src="img/personal_pic.png" alt="">
+				</div>
+				<img src="img/btn2.png" class="btn btn2 rubberBand" v-if="currentIndex==3&&isShare!=1"
+					:class="currentIndex==3?'animated':''">
+				<img src="img/btn3.png" class="btn btn2 rubberBand" v-if="currentIndex==3&&isShare==1"
+					:class="currentIndex==3?'animated':''">
+			</van-swipe-item>
+			<van-swipe-item>
+				<div class="rightTitle rightTitle2 fadeInDown" v-if="currentIndex==4"
+					:class="currentIndex==4?'animated':''">跳绳奇闻</div>
+				<div class=" newsBox fadeInUp" v-for="(item,index) in bestObject"
+					v-show="bestObject.length>0&&currentIndex==4" :class="currentIndex==4?'animated':''">
+					<div class="userPicDiv" v-if="item.data">
+						<div class="userPic" :style="{'background-image': 'url('+item.data.headerPicUrl+')'}"></div>
+						<div class="userName">{{item.data.nickName}}</div>
+					</div>
+					<!-- 时长 -->
+					<div v-if="item.type=='personTimeBurn'">
+						<div class="nickName">“头号达人”</div>
+						<p>跳绳{{toThousands(Math.floor(item.bestValue/3600/1000))}}小时，跳并快乐着</p>
+						<div class="btn_like" ref='personTimeBurn' @click="changeBtn('personTimeBurn')">为TA点赞</div>
+					</div>
+					<!-- 消耗 -->
+					<div v-else-if="item.type=='personBestBurn'">
+						<div class="nickName">“爆汗第一人”</div>
+						<p>消耗{{toThousands(Math.floor(item.bestValue/1000))}}Kcal，汗流成河</p>
+						<div class="btn_like" ref='personBestBurn' @click="changeBtn('personBestBurn')">为TA点赞</div>
+					</div>
+					<!-- 绊绳率 -->
+					<div v-else-if="item.type=='personSection'">
+						<div class="nickName">“节奏大师”</div>
+						<p>平均绊绳率仅{{item.bestValue*100}}%，节奏无敌</p>
+						<div class="btn_like" ref='personSection' @click="changeBtn('personSection')">为TA点赞</div>
+					</div>
+					<!-- 数量 -->
+					<div v-else-if="item.type=='personBestNumber'">
+						<div class="nickName">“跳神”</div>
+						<p>跳绳{{toThousands(item.bestValue)}}个，生命不息跳绳不止</p>
+						<div class="btn_like" ref='personBestNumber' @click="changeBtn('personBestNumber')">为TA点赞</div>
+					</div>
+
+				</div>
+
+
+
+				<div>
+					<img class="bottomPic" src="img/news.png" alt="">
+				</div>
+				<img src="img/btn2.png" class="btn btn2 rubberBand" v-if="currentIndex==4&&isShare!=1"
+					:class="currentIndex==4?'animated':''">
+				<img src="img/btn3.png" class="btn btn2 rubberBand" v-if="currentIndex==4&&isShare==1"
+					:class="currentIndex==4?'animated':''">
+			</van-swipe-item>
+
+			<van-swipe-item>
+				<div id="redPacketCanvas" v-show="redPacketType==1"></div>
+				<div @click="Interaction.closePage()" v-if="redPacketType==2||redPacketType==3||redPacketType==5"
+					class="closeIcon">
+					<img src="img/close.svg" alt="">
+				</div>
+				<div class="rightTitle rightTitle2 fadeInDown" v-if="currentIndex==5&&redPacketType!=4"
+					:class="currentIndex==5?'animated':''">惊喜红包</div>
+				<div class="staticRedPacket0 fadeInDownBig" v-if="redPacketType==0&&currentIndex==5"
+					:class="currentIndex==5?'animated':''">
+					<p class="redWord">10,000份现金红包等你开启～手慢无！</p>
+					<div class="redPacketBtn" @click="initnormal()"></div>
+				</div>
+				<div class="staticRedPacket0 staticRedPacket2" v-if="redPacketType==2">
+					<div class="brandDiv">
+						<img :src="redPacketObject.brand.logo" alt="">
+						<!-- <span>{{redPacketObject.brand.name}}</span> -->
+					</div>
+					<div class="brandDetail">
+						{{redPacketObject.brand.instruction}}
+					</div>
+					<div class="money">
+						{{redPacketObject.redPacket.amount/100}}元
+					</div>
+					<div>
+						<img class="shareBtn" src="img/noShare.png" @click="sharePage()" alt="">
+					</div>
+					<div class="shareTxt">
+						·····分享至朋友圈后自动存入您的钱包账户·····
+					</div>
+				</div>
+
+				<div class="staticRedPacket0 staticRedPacket2" v-if="redPacketType==3">
+					<div class="brandDiv">
+						<img :src="redPacketObject.brand.logo" alt="">
+						<!-- <span>{{redPacketObject.brand.name}}</span> -->
+					</div>
+					<div class="brandDetail">
+						{{redPacketObject.brand.instruction}}
+					</div>
+					<div class="money">
+						{{redPacketObject.redPacket.amount/100}}元
+					</div>
+					<div>
+						<img class="shareBtn" src="img/nomoney.png" @click="sharePage()" alt="">
+					</div>
+					<div class="shareTxt">
+						<span>·····红包金额已存入 “我”-“我的钱包”内·····</span>
+					</div>
+				</div>
+
+				<div class="shareBox" v-if="redPacketType==4">
+					<van-row style="padding: 0 5%;">
+						<van-col span="11" >
+							<img class="img1" src="img/shareLogo.png" alt="">
+						</van-col>
+						<van-col span="1" >
+							<span class="line"></span>
+						</van-col>
+						<van-col span="11">
+							<img class="img1" src="img/brand2.png" v-if="redPacketObject.brand.brandCode=='R00'">
+							<img class="img1" src="img/brand3.png" v-else-if="redPacketObject.brand.brandCode=='A00'">
+							<img class="img1" src="img/brand4.png" v-else-if="redPacketObject.brand.brandCode=='LC00'">
+							<img class="img1" src="img/brand1.png" v-else>
+							
+						</van-col>
+					</van-row>
+					<!-- <P>
+						<a class="buttonA" :href="linkUrl">立即下载</a>
+					</P> -->
+					<p class="ptxt">···派健康 {{redPacketObject.brand.name}}联合呈现···</p>
+					<P>
+						<img  class="skipImg" src="img/skip2.png" v-if="redPacketObject.brand.brandCode=='R00'">
+						<img  class="skipImg" src="img/skip3.png"  v-else-if="redPacketObject.brand.brandCode=='A00'">
+						<img  class="skipImg" src="img/skip1.png" v-else>
+					</P>
+					<img class="img2" src="img/qrcode.png" alt="">
+					<!-- <img class="bottomPic" src="img/redPacket.png" alt=""> -->
+					<p class="txt2">·····扫码下载安装派健康APP·····</p>
+				</div>
+
+
+				<div class="staticRedPacket0 staticRedPacket2" v-if="redPacketType==5">
+					<div class="brandDiv">
+						<img src="img/shareLogo.png" alt="">
+						<!-- <span>75派</span> -->
+					</div>
+					<div class="brandDetail">
+						小派祝你新年快乐
+					</div>
+					<div style="color: #B8614B;font-size: 0.55rem;">
+						红包已领完~
+					</div>
+					<div>
+						<img class="shareBtn" src="img/nomoney.png" @click="sharePage()" alt="">
+					</div>
+					<!-- <div class="shareTxt">
+						·····分享至朋友圈后自动存入您的钱包账户·····
+					</div> -->
+				</div>
+				<img class="bottomPic" v-if="isShare!=1" style="bottom: 0;" src="img/redPacket.png" alt="">
+			</van-swipe-item>
+		</van-swipe>
+	</div>
+</body>
+<script src="https://oss.laisitech.com/0bb12bf1-cb87-4d2c-a724-8a7c25b7ae04.js "></script>
+<script src="https://oss.laisitech.com/6172e6c1-f460-40ac-97ba-31c8526f2e16.js"></script>
+<script src="../../common/js/network.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/svgaplayerweb@2.3.1/build/svga.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.0.0/dist/echarts.min.js"></script>
+<script>
+	function toThousands(num) {
+		return (num || 0).toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,');
+	}
+	//传入时间戳获取日期
+	function sjc2time(sjc, id) {
+		var datetime = new Date(sjc);
+		var year = datetime.getFullYear();
+		var month = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() + 1;
+		var date = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();
+		var hour = datetime.getHours() < 10 ? "0" + datetime.getHours() : datetime.getHours();
+		var minute = datetime.getMinutes() < 10 ? "0" + datetime.getMinutes() : datetime.getMinutes();
+		var second = datetime.getSeconds() < 10 ? "0" + datetime.getSeconds() : datetime.getSeconds();
+		if (id == "yyyyMMdd") {
+			return year + "年" + month + "月" + date + "日";
+		}
+	}
+	//传入时间(毫秒)返回多少小时多少分钟多少秒
+	function sjc2Longtime(sjc) {
+		var time1 = parseInt(sjc / 1000)
+		var hour = parseInt(time1 / 3600);
+		var minute = parseInt((time1 - 3600 * hour) / 60)
+		var second = time1 - 3600 * hour - minute * 60
+		return hour + "小时" + minute + "分钟" + second + "秒"
+	}
+
+	new Vue({
+		el: '#app',
+		data() {
+			return {
+				isShare: getQueryString("isShare") || 0,
+				linkUrl: "",
+				currentIndex: 0,
+				redPacketType: 0,//0未开 1正在开 2已开待领取 3已开已领取 4 分享状态 5没钱的状态
+				totalReportObject: {
+					"totalNumber": 0,
+					"totalTime": 0,
+					"totalBurn": 0
+				},
+				//关键字对象
+				wordObject: {
+					rank: 4,
+					itemInfo: {}
+				},
+				//跳绳概述
+				personalObject: {},
+				//个人成绩对象
+				scoreObject: {
+					dailyCont: 0,
+					weekCount: 0,
+					skipRecord: {
+						burn: 0,
+						detail: [],
+						endTime: null,
+						number: 0,
+						startTime: null,
+						takeMs: 0,
+						used: 0,
+					}
+				},
+				//跳绳奇闻对象
+				bestObject: [
+
+				],
+				//红包对象
+				redPacketObject: {
+					redPacket: {},
+					brand: {}
+				},
+			}
+		},
+		filters: {},
+		mounted() {
+			window.shareSuccessCallback = this.shareSuccessCallback
+			//this.initnormal();
+			this.getTotalReport()
+			this.getWord()
+			this.getPersonItem()
+			this.getPersonScore()
+			this.getPersonBest()
+			if (this.isShare == 1) {
+				this.redPacketType = 4
+				this.shareRedPacket()
+				document.documentElement.style.fontSize = document.documentElement.clientWidth / 8 + 'px';
+			}
+		},
+		created() {
+			if (navigator.userAgent.toLowerCase().indexOf('micromessenger') !== -1) { //微信
+				this.linkUrl = "https://a.app.qq.com/o/simple.jsp?pkgname=com.lstech.rehealth"
+			} else if (navigator.userAgent.toLowerCase().indexOf('qq') !== -1) { //qq
+				this.linkUrl = "https://a.app.qq.com/o/simple.jsp?pkgname=com.lstech.rehealth"
+			} else { //浏览器打开
+				if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) { //判断iPhone|iPad|iPod|iOS
+					this.linkUrl = "lsthealth://annualReport"
+				} else if (/(Android)/i.test(navigator.userAgent)) { //判断Android
+					this.linkUrl = "rehealth:annualReport"
+				}
+			}
+
+			if (this.isShare == 1) {
+				document.documentElement.style.fontSize = document.documentElement.clientWidth / 8 + 'px';
+			}
+
+
+		},
+		methods: {
+			getTotalReport() {
+				var _self = this;
+				ajax({
+					type: "get",
+					url: "share/ropeSkipping/all",
+					success: function (res) {
+						if (res.code == 0) {
+							_self.totalReportObject = res.data
+						} else {
+							_self.$toast(res.msg);
+						}
+					},
+					error: function () {
+						console.log("error")
+					}
+				})
+			},
+			getWord() {
+				var _self = this;
+				ajax({
+					type: "get",
+					url: "share/ropeSkipping/person/info",
+					success: function (res) {
+						if (res.code == 0) {
+							_self.wordObject = res.data
+
+						} else {
+							_self.$toast(res.msg);
+						}
+					},
+					error: function () {
+						console.log("error")
+					}
+				})
+			},
+			getPersonItem() {
+				var _self = this;
+				ajax({
+					type: "get",
+					url: "share/ropeSkipping/person/item",
+					success: function (res) {
+						if (res.code == 0) {
+							if (res.data) { _self.personalObject = res.data }
+							else {
+								_self.personalObject = {
+									freedomNumber: 0,
+									numberDownNumber: 0,
+									timeDownNumber: 0,
+									totalBurn: 0,
+									totalNumber: 0,
+									totalTime: 0
+								}
+							}
+						} else {
+							_self.$toast(res.msg);
+						}
+					},
+					error: function () {
+						console.log("error")
+					}
+				})
+			},
+			getPersonScore() {
+				var _self = this;
+				ajax({
+					type: "get",
+					url: "share/ropeSkipping/person/score",
+					success: function (res) {
+						if (res.code == 0) {
+							_self.scoreObject = Object.assign(_self.scoreObject, res.data)
+							_self.echart(res.data.dailyDiagram)
+						} else {
+							_self.$toast(res.msg);
+						}
+					},
+					error: function () {
+						console.log("error")
+					}
+				})
+			},
+			getPersonBest() {
+				var _self = this;
+				ajax({
+					type: "get",
+					url: "share/ropeSkipping/person/best",
+					success: function (res) {
+						if (res.code == 0) {
+
+							var getRandomArrayElements = (arr, count) => {
+								var shuffled = arr.slice(0), i = arr.length, min = i - count, temp, index;
+								while (i-- > min) {
+									index = Math.floor((i + 1) * Math.random());
+									temp = shuffled[index];
+									shuffled[index] = shuffled[i];
+									shuffled[i] = temp;
+								}
+								return shuffled.slice(min);
+							}
+							_self.bestObject = getRandomArrayElements(res.data, 2)
+
+						} else {
+							_self.$toast(res.msg);
+						}
+					},
+					error: function () {
+						console.log("error")
+					}
+				})
+			},
+			changeBtn(val) {
+				this.$refs[val][0].innerText = "干得漂亮"
+			},
+			changePage(index) {
+				this.currentIndex = index;
+				if (index == 2) {
+
+					setTimeout(() => {
+						this.$refs.ballRef1.classList.remove("fadeInLeftBig");
+						this.$refs.ballRef2.classList.remove("fadeInUpBig");
+						this.$refs.ballRef3.classList.remove("fadeInRightBig");
+						this.$refs.ballRef1.classList.remove("animated");
+						this.$refs.ballRef2.classList.remove("animated");
+						this.$refs.ballRef3.classList.remove("animated");
+					}, 1000)
+				}
+			},
+			initnormal() {
+				var _self = this;
+				var player = new SVGA.Player('#redPacketCanvas');
+				var parser = new SVGA.Parser('#redPacketCanvas'); // Must Provide same selector eg:#demoCanvas IF support IE6+
+				parser.load('css/jxhb.svga', function (videoItem) {
+					player.setVideoItem(videoItem);
+					player.startAnimation();
+					if (_self.isShare == 1) {
+						//_self.shareRedPacket()
+					} else {
+						_self.getRedPacket()
+					}
+					setTimeout(() => {
+						_self.redPacketType = 1;
+					}, 300)
+				})
+
+			},
+			//捕获红包
+			getRedPacket() {
+				var _self = this;
+				ajax({
+					type: "post",
+					url: "activity/reportRedPacket/getRedPacket",
+					success: function (res) {
+						if (res.code == 0) {
+							_self.redPacketObject = res.data
+							if (_self.redPacketObject) {
+								//红包已经领取的话显示红包 3 的状态
+								if (_self.redPacketObject.redPacket.status == 2) {
+									setTimeout(() => {
+										_self.redPacketType = 3;
+									}, 2040)
+								} else {
+									setTimeout(() => {
+										_self.redPacketType = 2;
+									}, 2040)
+								}
+							} else {
+								setTimeout(() => {
+									_self.redPacketType = 5;
+								}, 2040)
+							}
+
+
+						} else {
+							_self.$toast(res.msg);
+							//如果接口有问题的话 回到未开启状态 重新请求一下
+							setTimeout(() => {
+								_self.redPacketType = 0;
+							}, 500)
+
+						}
+					},
+					error: function () {
+						console.log("error")
+					}
+				})
+			},
+			shareRedPacket() {
+				var _self = this;
+				ajax({
+					type: "post",
+					url: "activityShare/reportRedPacket/shareRedPacket",
+					success: function (res) {
+						if (res.code == 0) {
+							_self.redPacketObject = res.data
+							//红包已经领取的话显示红包 3 的状态
+							// if (_self.redPacketObject.redPacket.status == 2) {
+							// 	setTimeout(() => {
+							// 		_self.redPacketType = 3;
+							// 	}, 2040)
+							// } else {
+							// 	setTimeout(() => {
+							// 		_self.redPacketType = 2;
+							// 	}, 2040)
+							// }
+
+						} else {
+							_self.$toast(res.msg);
+							//如果接口有问题的话 回到未开启状态 重新请求一下
+							setTimeout(() => {
+								_self.redPacketType = 0;
+							}, 500)
+
+						}
+					},
+					error: function () {
+						console.log("error")
+					}
+				})
+			},
+			//领取红包
+			lockRedPacket() {
+				var _self = this;
+				if (_self.redPacketType == 5) return
+				ajax({
+					type: "post",
+					url: "activity/reportRedPacket/lockRedPacket",
+					success: function (res) {
+						if (res.code == 0) {
+							_self.redPacketType = 3;
+						} else {
+							_self.$toast(res.msg);
+						}
+					},
+					error: function () {
+						console.log("error")
+					}
+				})
+			},
+			echart(ropeData2) {
+				var ropeData=[]
+				ropeData2.forEach(element => {
+					if(element!=0)ropeData.push(element)
+				});
+				var myChart = echarts.init(document.getElementById('echartDiv'));
+				var option = {
+
+					grid: {
+						left: '6%',
+						right: '6%',
+						bottom: '6%',
+						// width: "100%",
+						// height: "100%"
+					},
+					xAxis: [
+						{
+							type: 'category',
+							boundaryGap: false,
+							show: false,
+							data: ropeData
+						}
+					],
+					yAxis: [
+						{
+							show: false,
+							inverse: true,
+						}
+					],
+					series: [
+
+						{
+
+							type: 'line',
+							smooth: true,
+							showSymbol: false,
+							areaStyle: {
+								color: {
+									type: 'linear',
+									x: 0,
+									y: 0,
+									x2: 0,
+									y2: 1,
+									colorStops: [{
+										offset: 0, color: 'rgba(255,88,99,0.6)'
+									}, {
+										offset: 1, color: 'rgba(255,88,99,0.1)'
+									}],
+
+								},
+								origin: "end"
+							},
+							lineStyle: {
+								color: 'red'
+							},
+							data: ropeData,
+							markPoint: {
+								symbol: "pin",
+
+								data: [{
+									type: "min"
+								}],
+								itemStyle: {
+									color: "rgba(232, 15, 15, 1)"
+								}
+							}
+						},
+
+					]
+				};
+				myChart.setOption(option);
+			},
+			sharePage() {
+				var appInfo = JSON.parse(localStorage.getItem("appInfo"));
+				var version = appInfo.appVersion;
+				version = version.split(".");
+				if (isIOS) {
+
+					if (parseInt(version[version.length - 1]) < 1150) {
+						this.$toast("请先升级到最新版本后再领取");
+						return
+					}
+				} else if (isAndroid) {
+					if (parseInt(version[version.length - 1]) < 1130) {
+						this.$toast("请先升级到最新版本后再领取");
+						return
+					}
+				}
+				try {
+					if (isIOS) {
+						window.webkit.messageHandlers.lstNative.postMessage({
+							"method": "LSTH5APP_shareToWechatMoments",
+							"title": "我的跳绳年度报告",
+							"description": "2020年，我的跳绳数据全纪录尽在派健康APP，快来看看吧！",
+							"url": host + "h5/h5V2/annualReport/2020/index.html?isShare=1&userId=" + JSON.parse(localStorage.getItem("appInfo")).userId
+						});
+					} else if (isAndroid) {
+						var androidJson = {
+							"title": "我的跳绳年度报告",
+							"description": "2020年，我的跳绳数据全纪录尽在派健康APP，快来看看吧！",
+							"url": host + "h5/h5V2/annualReport/2020/index.html?isShare=1&userId=" + JSON.parse(localStorage.getItem("appInfo")).userId
+						}
+						window.android.LSTH5APP_shareToWechatMoments(JSON.stringify(androidJson));
+					}
+				} catch (e) {
+					console.log(e)
+				}
+
+			},
+			shareSuccessCallback() {
+				this.lockRedPacket()
+			}
+
+
+		}
+	})
+</script>
+
+</html>

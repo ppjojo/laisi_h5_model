@@ -162,13 +162,13 @@
                                 <span style="color:#0D478B;font-size:0.26rem;"> 京东运动报名：</span>扫码付费报名(将会获得京东云运动智能跳绳大赛奖牌)，报名结束后下载派健康app进行参赛(奖牌将于赛事结束后的7个工作日内寄出)，<a style="color:red;text-decoration: underline;" href="https://item.m.jd.com/product/200151419382.html#main">点击报名</a>
                                 <div class="howtoJoin_qr">
                                     <div class="imgBox">
-                                        <img src="./img/award1.png" alt="" srcset="">
+                                        <img src="./img/jdcode.png" alt="" srcset="">
                                         <div class="imgInfo">
                                             付费报名二维码
                                         </div>
                                     </div>
                                     <div class="imgBox">
-                                        <img src="./img/award1.png" alt="" srcset="">
+                                        <img src="./img/jdaward.png" alt="" srcset="">
                                         <div class="imgInfo">
                                             京东云运动奖牌
                                         </div>
@@ -353,7 +353,7 @@
                 },
                 //判断是否有权限去
                 getPower() {
-                    if (!JSON.parse(localStorage.getItem("appInfo")).phoneNumber) {
+                    if (localStorage.getItem("appInfo") && !JSON.parse(localStorage.getItem("appInfo")).phoneNumber) {
                         this.$dialog
                             .confirm({
                                 message: "使用本功能，请先绑定手机号",
@@ -361,6 +361,7 @@
                                 width: "300",
                             })
                             .then(() => {
+                                localStorage.removeItem("appInfo")
                                 if (isIOS) {
                                     window.webkit.messageHandlers.lstNative.postMessage({
                                         method: "bindPhoneNumber",
