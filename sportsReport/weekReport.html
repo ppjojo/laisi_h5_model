@@ -21,27 +21,28 @@
 					<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
 				</template>
                 <template #right>
-					<span class="icon iconfont icon-fenxianganniu" @click="sharePage"
+					<span class=" iconfont icon-fenxianganniu" @click="sharePage"
 						style="font-size: 0.5rem;margin-right: 0.25rem;"></span>
-					<span class="icon iconfont icon-tongyong-rili" @click="gohistory"
+					<span class=" iconfont icon-tongyong-rili" @click="gohistory"
 						style="font-size: 0.45rem;"></span>
-
 				</template>
             </van-nav-bar>
         </div>
         <!-- 周报 -->
-        <div class="weekBox" v-if="reportData.takeMs||reportData.burn||reportData.reportRecordDto.length>0">
-            <div class="topPic">
+
+        <div class="weekBox" v-if="hasData">
+            <div class="topPic" v-if="finished">
                 <img class="bg" src="./img/week_topPic.png" alt="">
                 <img class="black" :src="'./img/'+theme+'.png'" alt="">
-            </div>
-            <div class="infoBox" v-if="reportData.headPictureUrl">
-                <img class="headerpic" :src="reportData.headPictureUrl" alt="">
-                <div>
-                    <p class="name">{{reportData.nickName}}</p>
-                    <p class="date">{{sjc2time("ymd",startTime)+"-"+sjc2time("md",endTime)}}</p>
+                <div class="infoBox" v-if="reportData.headPictureUrl">
+                    <img class="headerpic" :src="reportData.headPictureUrl" alt="">
+                    <div>
+                        <p class="name">{{reportData.nickName}}</p>
+                        <p class="date">{{sjc2time("ymd",startTime)+"-"+sjc2time("md",endTime)}}</p>
+                    </div>
                 </div>
             </div>
+
             <div class="contain">
                 <!-- 本周运动 -->
                 <div class="dataBox" v-show="reportData.takeMs||reportData.burn">
@@ -316,7 +317,7 @@
 
         </div>
         <van-loading class="loadingBox" v-else-if="!finished"></van-loading>
-        <div class="noDataBox" v-else-if="finished">
+        <div class="noDataBox" v-else="finished">
             <div class="noDataImg"></div>
             <p class="noDataInfo">暂无运动周报</p>
         </div>
@@ -330,6 +331,7 @@
     var isPageHide = false;
     window.addEventListener('pageshow', function() {
         if (isPageHide) {
+            window.scrollTo(0, 0)
             window.location.reload();
         }
     });
@@ -349,6 +351,7 @@
                 badDataColor: "#71717f",
                 lineColor: "#71717f",
                 theme: "black",
+                hasData: true,
                 reportData: {
                     headPictureUrl: "",
                     nickName: "",
@@ -622,6 +625,11 @@
                         if (!this.isShare && (this.reportData.takeMs || this.reportData.burn || this.reportData.reportRecordDto.length > 0)) {
                             window.addEventListener('scroll', this.scrollFn);
                         }
+                        if (this.reportData.takeMs || this.reportData.burn || this.reportData.reportRecordDto.length > 0) {
+                            this.hasData = true
+                        } else {
+                            this.hasData = false
+                        }
 
                         setTimeout(() => {
                             this.getTotalTimeEchart(res.data.countTakeMs)
@@ -642,6 +650,7 @@
             getTotalTimeEchart(list) {
                 if (!list) return
                 var myChart = echarts.init(document.getElementById("totalTimeEchart"));
+
 
                 var option = {
                     grid: {

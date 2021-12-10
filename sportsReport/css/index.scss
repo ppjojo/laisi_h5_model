@@ -24,6 +24,7 @@ $borderColor:var(--borderColor);
 body {
     background-color: var(--specialBgColor);
     color: $textColor2;
+    min-height: 100vh;
 }
 
 .specialHeader .header {
@@ -115,215 +116,212 @@ body {
     }
 }
 
-.topPic {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
-    .bg {
-        width: 100%;
-        display: block;
-    }
-    .black {
-        width: 100%;
-        position: absolute;
-        bottom: 0;
-        left: 0;
-    }
-}
-
-.infoBox {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 0 0.24rem;
-    margin-top: 1.2rem;
-    margin-top: calc(1.2rem + constant(safe-area-inset-top));
-    margin-top: calc(1.2rem + env(safe-area-inset-top));
-    .headerpic {
-        width: 0.64rem;
-        height: 0.64rem;
-        margin-right: 0.24rem;
-        border-radius: 50%;
-        -webkit-border-radius: 50%;
-        -moz-border-radius: 50%;
-        -ms-border-radius: 50%;
-        -o-border-radius: 50%;
-    }
-    .name {
-        color: #4F81E6;
-        font-size: 0.24rem;
-        line-height: 0.3rem;
-    }
-    .date {
-        color: #4F81E6;
-        font-size: 0.2rem;
-        line-height: 0.3rem;
-    }
-}
-
-.contain {
-    position: absolute;
-    top: 8.5rem;
-    width: 100%;
-    left: 0;
-    z-index: 2;
-    .dataBox {
-        background-color: var(--specialBorderColor);
-        margin: 0 0.24rem;
-        padding: 0.4rem;
-        margin-bottom: 0.24rem;
-        border-radius: 0.24rem;
-        -webkit-border-radius: 0.24rem;
-        -moz-border-radius: 0.24rem;
-        -ms-border-radius: 0.24rem;
-        -o-border-radius: 0.24rem;
+.weekBox {
+    .topPic {
         position: relative;
-        .boxTitle {
-            color: var(--textColor);
-            font-weight: bold;
-            font-size: 0.32rem;
-            line-height: 0.48rem;
-            height: 0.48rem;
-            background-image: linear-gradient(to right, rgba(255, 78, 62, 0.2), rgba(255, 170, 136, 0));
-            max-width: 2rem;
-            margin-bottom: 0.4rem;
-            position: relative;
-            .skiplevel {
-                position: absolute;
-                color: #FF4F3F;
-                font-size: 0.28rem;
-                top: 0.02rem;
-                right: -1.6rem;
-                .status {
-                    margin-left: 0.05rem;
-                    width: 0.25rem;
-                }
+        .bg {
+            width: 100%;
+            display: block;
+        }
+        .black {
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+        .infoBox {
+            position: absolute;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 0 0.24rem;
+            top: 1.2rem;
+            top: calc(1.2rem + constant(safe-area-inset-top));
+            top: calc(1.2rem + env(safe-area-inset-top));
+            .headerpic {
+                width: 0.64rem;
+                height: 0.64rem;
+                margin-right: 0.24rem;
+                border-radius: 50%;
+                -webkit-border-radius: 50%;
+                -moz-border-radius: 50%;
+                -ms-border-radius: 50%;
+                -o-border-radius: 50%;
+            }
+            .name {
+                color: #4F81E6;
+                font-size: 0.24rem;
+                line-height: 0.3rem;
+            }
+            .date {
+                color: #4F81E6;
+                font-size: 0.2rem;
+                line-height: 0.3rem;
             }
         }
-        .modulePic_left {
-            position: absolute;
-            left: 0.4rem;
-            top: 0.4rem;
-        }
-        .modulePic_right {
-            position: absolute;
-            right: 0.4rem;
-            top: 0.4rem;
-        }
-        .text_data {
-            font-size: 0.56rem;
-            color: $textColor;
-            font-family: "BebasNeue";
-            line-height: 0.6rem;
-            .status {
-                width: 0.25rem;
+    }
+    .contain {
+        position: relative;
+        top: -2.6rem;
+        width: 100%;
+        left: 0;
+        z-index: 2;
+        .dataBox {
+            background-color: var(--specialBorderColor);
+            margin: 0 0.24rem;
+            padding: 0.4rem;
+            margin-bottom: 0.24rem;
+            border-radius: 0.24rem;
+            -webkit-border-radius: 0.24rem;
+            -moz-border-radius: 0.24rem;
+            -ms-border-radius: 0.24rem;
+            -o-border-radius: 0.24rem;
+            position: relative;
+            .boxTitle {
+                color: var(--textColor);
+                font-weight: bold;
+                font-size: 0.32rem;
+                line-height: 0.48rem;
+                height: 0.48rem;
+                background-image: linear-gradient(to right, rgba(255, 78, 62, 0.2), rgba(255, 170, 136, 0));
+                max-width: 2rem;
+                margin-bottom: 0.4rem;
+                position: relative;
+                .skiplevel {
+                    position: absolute;
+                    color: #FF4F3F;
+                    font-size: 0.28rem;
+                    top: 0.02rem;
+                    right: -1.6rem;
+                    .status {
+                        margin-left: 0.05rem;
+                        width: 0.25rem;
+                    }
+                }
+            }
+            .modulePic_left {
+                position: absolute;
+                left: 0.4rem;
+                top: 0.4rem;
+            }
+            .modulePic_right {
+                position: absolute;
+                right: 0.4rem;
+                top: 0.4rem;
+            }
+            .text_data {
+                font-size: 0.56rem;
+                color: $textColor;
+                font-family: "BebasNeue";
+                line-height: 0.6rem;
+                .status {
+                    width: 0.25rem;
+                    margin-bottom: 0.15rem;
+                }
+            }
+            .text_data_small {
+                font-size: 0.24rem;
+                color: $textColor;
+                line-height: 0.35rem;
+            }
+            .text_descript {
+                font-size: 0.24rem;
+                color: $textColor2;
+                line-height: 0.3rem;
                 margin-bottom: 0.15rem;
             }
-        }
-        .text_data_small {
-            font-size: 0.24rem;
-            color: $textColor;
-            line-height: 0.35rem;
-        }
-        .text_descript {
-            font-size: 0.24rem;
-            color: $textColor2;
-            line-height: 0.3rem;
-            margin-bottom: 0.15rem;
-        }
-        .align_right {
-            text-align: right;
-        }
-        .align_left {
-            text-align: left;
-        }
-        .totalCalBox {
-            display: flex;
-            margin-top: 0.4rem;
-            justify-content: space-around;
-            align-items: center;
-        }
-        .consumeBox {
-            .smallTitle {
-                color: $textColor2;
-                font-size: 0.28rem;
-                line-height: 0.5rem;
+            .align_right {
+                text-align: right;
+            }
+            .align_left {
+                text-align: left;
+            }
+            .totalCalBox {
+                display: flex;
                 margin-top: 0.4rem;
-            }
-            .consumeDetail {
-                display: flex;
+                justify-content: space-around;
                 align-items: center;
-                justify-content: flex-start;
-                padding: 0.4rem 0;
-                .consumeDetailItem {
-                    width: 10%;
-                    height: 4px;
-                    margin-right: 2px;
-                    box-sizing: border-box;
-                    background-color: #3AD266;
-                    &:first-child {
-                        border-top-left-radius: 2px;
-                        border-bottom-left-radius: 2px;
-                    }
-                    &:last-child {
-                        border-top-right-radius: 2px;
-                        border-bottom-right-radius: 2px;
-                    }
+            }
+            .consumeBox {
+                .smallTitle {
+                    color: $textColor2;
+                    font-size: 0.28rem;
+                    line-height: 0.5rem;
+                    margin-top: 0.4rem;
                 }
-            }
-            .itemInfoBox {
-                display: flex;
-                align-items: center;
-                justify-content: flex-start;
-                flex-wrap: wrap;
-                .itemInfo {
-                    width: 33.33%;
+                .consumeDetail {
                     display: flex;
                     align-items: center;
                     justify-content: flex-start;
-                    .colorBox {
-                        width: 0.08rem;
-                        height: 0.08rem;
-                        border-radius: 50%;
-                        -webkit-border-radius: 50%;
-                        -moz-border-radius: 50%;
-                        -ms-border-radius: 50%;
-                        -o-border-radius: 50%;
-                        margin-right: 0.1rem;
+                    padding: 0.4rem 0;
+                    .consumeDetailItem {
+                        width: 10%;
+                        height: 4px;
+                        margin-right: 2px;
+                        box-sizing: border-box;
+                        background-color: #3AD266;
+                        &:first-child {
+                            border-top-left-radius: 2px;
+                            border-bottom-left-radius: 2px;
+                        }
+                        &:last-child {
+                            border-top-right-radius: 2px;
+                            border-bottom-right-radius: 2px;
+                        }
                     }
-                    .color_text {
-                        color: $textColor2;
-                        font-size: 0.2rem;
-                        line-height: 0.5rem;
+                }
+                .itemInfoBox {
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-start;
+                    flex-wrap: wrap;
+                    .itemInfo {
+                        width: 33.33%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-start;
+                        .colorBox {
+                            width: 0.08rem;
+                            height: 0.08rem;
+                            border-radius: 50%;
+                            -webkit-border-radius: 50%;
+                            -moz-border-radius: 50%;
+                            -ms-border-radius: 50%;
+                            -o-border-radius: 50%;
+                            margin-right: 0.1rem;
+                        }
+                        .color_text {
+                            color: $textColor2;
+                            font-size: 0.2rem;
+                            line-height: 0.5rem;
+                        }
                     }
                 }
             }
         }
-    }
-    .bottom {
-        font-size: 0.24rem;
-        color: $textColor2;
-        margin: 0.5rem 0.24rem;
-        text-align: center;
-    }
-    .shareBox {
-        padding: 0.5rem 0.24rem;
-        img {
-            width: 100%;
-        }
-        .button {
-            color: #fff;
-            width: 6.7rem;
-            height: 0.88rem;
-            font-size: 0.4rem;
-            line-height: 0.88rem;
-            background-image: linear-gradient(to left, #FFAA88, #FF4E3E);
-            border-radius: 0.44rem;
+        .bottom {
+            font-size: 0.24rem;
+            color: $textColor2;
+            margin: 0.5rem 0.24rem;
             text-align: center;
-            margin: 0 auto;
+        }
+        .shareBox {
+            padding: 0.5rem 0.24rem;
+            img {
+                width: 100%;
+            }
+            .button {
+                color: #fff;
+                width: 6.7rem;
+                height: 0.88rem;
+                font-size: 0.4rem;
+                line-height: 0.88rem;
+                background-image: linear-gradient(to left, #FFAA88, #FF4E3E);
+                border-radius: 0.44rem;
+                text-align: center;
+                margin: 0 auto;
+            }
         }
     }
 }

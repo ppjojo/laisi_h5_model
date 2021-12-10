@@ -17,6 +17,7 @@
 body {
   background-color: var(--specialBgColor);
   color: var(--textColor2);
+  min-height: 100vh;
 }
 
 .specialHeader .header {
@@ -110,27 +111,24 @@ body {
   background-image: url(../img/monthList.png);
 }
 
-.topPic {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1;
+.weekBox .topPic {
+  position: relative;
 }
 
-.topPic .bg {
+.weekBox .topPic .bg {
   width: 100%;
   display: block;
 }
 
-.topPic .black {
+.weekBox .topPic .black {
   width: 100%;
   position: absolute;
   bottom: 0;
   left: 0;
 }
 
-.infoBox {
-  position: relative;
+.weekBox .topPic .infoBox {
+  position: absolute;
   z-index: 2;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -142,12 +140,12 @@ body {
       -ms-flex-pack: start;
           justify-content: flex-start;
   padding: 0 0.24rem;
-  margin-top: 1.2rem;
-  margin-top: calc(1.2rem + constant(safe-area-inset-top));
-  margin-top: calc(1.2rem + env(safe-area-inset-top));
+  top: 1.2rem;
+  top: calc(1.2rem + constant(safe-area-inset-top));
+  top: calc(1.2rem + env(safe-area-inset-top));
 }
 
-.infoBox .headerpic {
+.weekBox .topPic .infoBox .headerpic {
   width: 0.64rem;
   height: 0.64rem;
   margin-right: 0.24rem;
@@ -158,27 +156,27 @@ body {
   -o-border-radius: 50%;
 }
 
-.infoBox .name {
+.weekBox .topPic .infoBox .name {
   color: #4F81E6;
   font-size: 0.24rem;
   line-height: 0.3rem;
 }
 
-.infoBox .date {
+.weekBox .topPic .infoBox .date {
   color: #4F81E6;
   font-size: 0.2rem;
   line-height: 0.3rem;
 }
 
-.contain {
-  position: absolute;
-  top: 8.5rem;
+.weekBox .contain {
+  position: relative;
+  top: -2.6rem;
   width: 100%;
   left: 0;
   z-index: 2;
 }
 
-.contain .dataBox {
+.weekBox .contain .dataBox {
   background-color: var(--specialBorderColor);
   margin: 0 0.24rem;
   padding: 0.4rem;
@@ -191,7 +189,7 @@ body {
   position: relative;
 }
 
-.contain .dataBox .boxTitle {
+.weekBox .contain .dataBox .boxTitle {
   color: var(--textColor);
   font-weight: bold;
   font-size: 0.32rem;
@@ -204,7 +202,7 @@ body {
   position: relative;
 }
 
-.contain .dataBox .boxTitle .skiplevel {
+.weekBox .contain .dataBox .boxTitle .skiplevel {
   position: absolute;
   color: #FF4F3F;
   font-size: 0.28rem;
@@ -212,57 +210,57 @@ body {
   right: -1.6rem;
 }
 
-.contain .dataBox .boxTitle .skiplevel .status {
+.weekBox .contain .dataBox .boxTitle .skiplevel .status {
   margin-left: 0.05rem;
   width: 0.25rem;
 }
 
-.contain .dataBox .modulePic_left {
+.weekBox .contain .dataBox .modulePic_left {
   position: absolute;
   left: 0.4rem;
   top: 0.4rem;
 }
 
-.contain .dataBox .modulePic_right {
+.weekBox .contain .dataBox .modulePic_right {
   position: absolute;
   right: 0.4rem;
   top: 0.4rem;
 }
 
-.contain .dataBox .text_data {
+.weekBox .contain .dataBox .text_data {
   font-size: 0.56rem;
   color: var(--textColor);
   font-family: "BebasNeue";
   line-height: 0.6rem;
 }
 
-.contain .dataBox .text_data .status {
+.weekBox .contain .dataBox .text_data .status {
   width: 0.25rem;
   margin-bottom: 0.15rem;
 }
 
-.contain .dataBox .text_data_small {
+.weekBox .contain .dataBox .text_data_small {
   font-size: 0.24rem;
   color: var(--textColor);
   line-height: 0.35rem;
 }
 
-.contain .dataBox .text_descript {
+.weekBox .contain .dataBox .text_descript {
   font-size: 0.24rem;
   color: var(--textColor2);
   line-height: 0.3rem;
   margin-bottom: 0.15rem;
 }
 
-.contain .dataBox .align_right {
+.weekBox .contain .dataBox .align_right {
   text-align: right;
 }
 
-.contain .dataBox .align_left {
+.weekBox .contain .dataBox .align_left {
   text-align: left;
 }
 
-.contain .dataBox .totalCalBox {
+.weekBox .contain .dataBox .totalCalBox {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -274,14 +272,14 @@ body {
           align-items: center;
 }
 
-.contain .dataBox .consumeBox .smallTitle {
+.weekBox .contain .dataBox .consumeBox .smallTitle {
   color: var(--textColor2);
   font-size: 0.28rem;
   line-height: 0.5rem;
   margin-top: 0.4rem;
 }
 
-.contain .dataBox .consumeBox .consumeDetail {
+.weekBox .contain .dataBox .consumeBox .consumeDetail {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -294,7 +292,7 @@ body {
   padding: 0.4rem 0;
 }
 
-.contain .dataBox .consumeBox .consumeDetail .consumeDetailItem {
+.weekBox .contain .dataBox .consumeBox .consumeDetail .consumeDetailItem {
   width: 10%;
   height: 4px;
   margin-right: 2px;
@@ -303,17 +301,17 @@ body {
   background-color: #3AD266;
 }
 
-.contain .dataBox .consumeBox .consumeDetail .consumeDetailItem:first-child {
+.weekBox .contain .dataBox .consumeBox .consumeDetail .consumeDetailItem:first-child {
   border-top-left-radius: 2px;
   border-bottom-left-radius: 2px;
 }
 
-.contain .dataBox .consumeBox .consumeDetail .consumeDetailItem:last-child {
+.weekBox .contain .dataBox .consumeBox .consumeDetail .consumeDetailItem:last-child {
   border-top-right-radius: 2px;
   border-bottom-right-radius: 2px;
 }
 
-.contain .dataBox .consumeBox .itemInfoBox {
+.weekBox .contain .dataBox .consumeBox .itemInfoBox {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -327,7 +325,7 @@ body {
       flex-wrap: wrap;
 }
 
-.contain .dataBox .consumeBox .itemInfoBox .itemInfo {
+.weekBox .contain .dataBox .consumeBox .itemInfoBox .itemInfo {
   width: 33.33%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -340,7 +338,7 @@ body {
           justify-content: flex-start;
 }
 
-.contain .dataBox .consumeBox .itemInfoBox .itemInfo .colorBox {
+.weekBox .contain .dataBox .consumeBox .itemInfoBox .itemInfo .colorBox {
   width: 0.08rem;
   height: 0.08rem;
   border-radius: 50%;
@@ -351,28 +349,28 @@ body {
   margin-right: 0.1rem;
 }
 
-.contain .dataBox .consumeBox .itemInfoBox .itemInfo .color_text {
+.weekBox .contain .dataBox .consumeBox .itemInfoBox .itemInfo .color_text {
   color: var(--textColor2);
   font-size: 0.2rem;
   line-height: 0.5rem;
 }
 
-.contain .bottom {
+.weekBox .contain .bottom {
   font-size: 0.24rem;
   color: var(--textColor2);
   margin: 0.5rem 0.24rem;
   text-align: center;
 }
 
-.contain .shareBox {
+.weekBox .contain .shareBox {
   padding: 0.5rem 0.24rem;
 }
 
-.contain .shareBox img {
+.weekBox .contain .shareBox img {
   width: 100%;
 }
 
-.contain .shareBox .button {
+.weekBox .contain .shareBox .button {
   color: #fff;
   width: 6.7rem;
   height: 0.88rem;

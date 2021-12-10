@@ -29,18 +29,19 @@
             </van-nav-bar>
         </div>
         <!-- y月报 -->
-        <div class="weekBox" v-if="reportData.takeMs||reportData.burn||reportData.reportRecordDto.length>0">
-            <div class="topPic">
+        <div class="weekBox" v-if="hasData">
+            <div class="topPic" v-if="finished">
                 <img class="bg" src="./img/month_topPic.png" alt="">
                 <img class="black" :src="'./img/'+theme+'.png'" alt="">
-            </div>
-            <div class="infoBox" v-if="reportData.headPictureUrl">
-                <img class="headerpic" :src="reportData.headPictureUrl" alt="">
-                <div>
-                    <p class="name">{{reportData.nickName}}</p>
-                    <p class="date">{{sjc2time("ymd",startTime)+"-"+sjc2time("md",endTime) }}</p>
+                <div class="infoBox" v-if="reportData.headPictureUrl">
+                    <img class="headerpic" :src="reportData.headPictureUrl" alt="">
+                    <div>
+                        <p class="name">{{reportData.nickName}}</p>
+                        <p class="date">{{sjc2time("ymd",startTime)+"-"+sjc2time("md",endTime) }}</p>
+                    </div>
                 </div>
             </div>
+
             <div class="contain">
                 <!-- 本月运动 -->
                 <div class="dataBox" v-show="reportData.takeMs||reportData.burn">
@@ -331,6 +332,7 @@
     var isPageHide = false;
     window.addEventListener('pageshow', function() {
         if (isPageHide) {
+            window.scrollTo(0, 0)
             window.location.reload();
         }
     });
@@ -347,6 +349,7 @@
                 isApp: getQueryString("isApp"),
                 sheetImageStatus: false,
                 finished: false,
+                hasData: true,
                 badDataColor: "#71717f",
                 lineColor: "#71717f",
                 theme: "black",
@@ -623,10 +626,15 @@
                         if (!this.isShare && (this.reportData.takeMs || this.reportData.burn || this.reportData.reportRecordDto.length > 0)) {
                             window.addEventListener('scroll', this.scrollFn);
                         }
+                        if (this.reportData.takeMs || this.reportData.burn || this.reportData.reportRecordDto.length > 0) {
+                            this.hasData = true
+                        } else {
+                            this.hasData = false
+                        }
                         setTimeout(() => {
                             this.getTotalTimeEchart(res.data.countTakeMs)
                             this.getTotalCalEchart(res.data.countBurn)
-                        }, 400)
+                        }, 300)
                         this.reportData.reportRecordDto.forEach(item => {
                             if (item.type == "steps") {
                                 setTimeout(() => {
