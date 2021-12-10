@@ -259,6 +259,7 @@
                         break;
                     case "09":
                         actionType = "LSTH5APP_GoMyDeviceVC";
+                        if (actionNum == '0903' && isIOS) actionType = "LSTH5APP_ShareDeviceData";
                         break;
                     case "10":
                         actionType = "LSTH5APP_GoMyDeviceVC";
@@ -280,7 +281,6 @@
                         actionType = false;
                         break;
                 }
-                console.log(deviceType)
                 if (!actionType) return;
                 try {
                     //LSTH5APP_BrowseVideoAction

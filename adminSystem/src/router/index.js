@@ -10,7 +10,6 @@ import { device } from './components/device' //设备管理
 import { factory } from './components/factory' //工厂
 import { community } from './components/community' //社区
 import { dataSearch } from './components/dataSearch' //数据查询
-import { pointLottery } from './components/pointLottery' //逗币相关
 import { operate } from './components/operate' //运维相关
 import { dataReport } from './components/dataReport' //数据报表
 import { firmware } from './components/firmware' //固件升级
@@ -200,7 +199,6 @@ const constantRoutes = [{
         ]
     },
     device,
-    pointLottery,
     factory,
     community,
     dataSearch,
