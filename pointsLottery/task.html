@@ -181,20 +181,6 @@
                 var _self = this;
                 if (isAndroid) {
                     this.initData();
-                    // console.log(param || 'null');
-                    // ajax({
-                    // 	type: "post",
-                    // 	url: "integral/add/integral",
-                    // 	data: {
-                    // 		actionType: "5001"
-                    // 	},
-                    // 	success: function(res) {
-                    // 		_self.initData();
-                    // 	},
-                    // 	error: function() {
-
-                    // 	}
-                    // })
                 } else {
                     this.initData();
                 }
@@ -203,15 +189,7 @@
 
             },
             onLoad() {
-                // if (this.isLoading) {
-                // 	this.dataList = [];
-                // 	this.isLoading = false;
-                // 	this.pageNum = 1;
-                // } else {
-                // 	this.pageNum++;
-                // }
-                // //this.getCommentList()
-                // this.loading = false;
+
             },
             OnclickLeft() {
                 history.go(-1);
@@ -234,7 +212,6 @@
                 var deviceType = "skipping";
                 switch (type) {
                     case "02":
-                        // _self.Community();
                         actionType = "LSH5APP_BrowseCommunity";
                         break;
                     case "03":
@@ -283,7 +260,6 @@
                 }
                 if (!actionType) return;
                 try {
-                    //LSTH5APP_BrowseVideoAction
                     if (isIOS) {
                         localStorage.setItem('coinchange', 1);
                         window.webkit.messageHandlers.lstNative.postMessage({
@@ -308,21 +284,7 @@
                 }
 
             },
-            Community() {
-                ajax({
-                    type: "post",
-                    url: "integral/add/integral",
-                    data: {
-                        actionType: "0200"
-                    },
-                    success: function(res) {
 
-                    },
-                    error: function() {
-
-                    }
-                })
-            }
 
 
 

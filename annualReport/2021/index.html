@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
-    <title>2020年度报告</title>
+    <title>2021年度报告</title>
     <!-- 引入样式文件 -->
     <link rel="stylesheet" href="https://oss.laisitech.com/04bb3a7d-8774-4441-9004-e77b0ae7e0aa.css">
     <link rel="stylesheet" href="./css/index.css">
@@ -40,7 +40,7 @@
                     <div class="totalDataDiv">
                         <ul>
                             <li>
-                                <p class="pDetail pDetail2" style="line-height: 1.2rem;font-size: 0.36rem;">累计跳绳</p>
+                                <p class="pDetail pDetail2" style="line-height: 1.2rem;font-size: 0.36rem;color:#000;">累计跳绳</p>
                                 <p class="pDetail">{{toThousands(totalReportObject.totalNumber)}}个</p>
                                 <p class="pDetail pDetail2">
                                     相当于绕地球{{parseInt(totalReportObject.totalNumber/10000/40000)}}圈<br>
@@ -76,7 +76,7 @@
             </van-swipe-item>
             <van-swipe-item>
                 <div class="rightTitle fadeInDown" v-if="currentIndex==1" :class="currentIndex==1?'animated':''">
-                    2020年度关键词</div>
+                    2021年度关键词</div>
                 <div style="text-align: right;" class=" fadeInRight" v-if="currentIndex==1" :class="currentIndex==1?'animated':''">
                     <!-- number 0 timer 1 bpm 2 section 3 other 4 7-->
                     <img class="wordPic" src="img/word_kuai.png" alt="" v-if="wordObject.rank==2">
@@ -125,7 +125,7 @@
                 </div>
 
                 <div class="keywordBox pulse" v-if="currentIndex==2" :class="currentIndex==2?'animated':''">
-                    <span>您在2020年度累计跳绳{{sjc2Longtime(personalObject.totalTime)}}，{{toThousands(personalObject.totalNumber)}}个，
+                    <span>您在2021年度累计跳绳{{sjc2Longtime(personalObject.totalTime)}}，{{toThousands(personalObject.totalNumber)}}个，
 						消耗了{{toThousands(Math.floor(personalObject.totalBurn/1000))}}Kcal！</span>
                 </div>
                 <div>
@@ -773,14 +773,14 @@
                         window.webkit.messageHandlers.lstNative.postMessage({
                             "method": "LSTH5APP_shareToWechatMoments",
                             "title": "我的跳绳年度报告",
-                            "description": "2020年，我的跳绳数据全纪录尽在派健康APP，快来看看吧！",
-                            "url": host + "h5/h5V2/annualReport/2020/index.html?isShare=1&userId=" + JSON.parse(localStorage.getItem("appInfo")).userId
+                            "description": "2021年，我的跳绳数据全纪录尽在派健康APP，快来看看吧！",
+                            "url": host + "h5/h5V3/annualReport/2021/index.html?isShare=1&userId=" + JSON.parse(localStorage.getItem("appInfo")).userId
                         });
                     } else if (isAndroid) {
                         var androidJson = {
                             "title": "我的跳绳年度报告",
-                            "description": "2020年，我的跳绳数据全纪录尽在派健康APP，快来看看吧！",
-                            "url": host + "h5/h5V2/annualReport/2020/index.html?isShare=1&userId=" + JSON.parse(localStorage.getItem("appInfo")).userId
+                            "description": "2021年，我的跳绳数据全纪录尽在派健康APP，快来看看吧！",
+                            "url": host + "h5/h5V3/annualReport/2021/index.html?isShare=1&userId=" + JSON.parse(localStorage.getItem("appInfo")).userId
                         }
                         window.android.LSTH5APP_shareToWechatMoments(JSON.stringify(androidJson));
                     }
