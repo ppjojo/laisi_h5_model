@@ -8,10 +8,10 @@
     <link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
     <link rel="stylesheet" href="font/iconfont.css">
     <link rel="stylesheet" href="css/index.css">
-    <script src="https://cdn.bootcdn.net/ajax/libs/vConsole/3.8.1/vconsole.min.js"></script>
+    <!-- <script src="https://cdn.bootcdn.net/ajax/libs/vConsole/3.8.1/vconsole.min.js"></script>
     <script>
         var vConsole = new VConsole();
-    </script>
+    </script> -->
 </head>
 
 <body class="indexHtml">
@@ -216,7 +216,7 @@
 
         <van-popup v-model="listShow" round position="bottom">
             <div class="competitionListBox">
-                <div class="itemBox" @click="goDetail(pmItem,1)" v-if="pmItem.signUpState==1||(pmItem.signUpState==0&&pmItem.competitionState==2)">
+                <div class="itemBox" @click="goDetail(pmItem,1)" v-if="pmItem.signUpState==1||dkItem.competitionState==2">
                     <div class="name van-ellipsis">倒计时1min-排名赛</div>
                     <div class="status">
                         {{pmItem.signUpState? (pmItem.competitionState==0?'排名详情':pmItem.competitionState==1?'比赛详情':pmItem.competitionState==2?'报名详情':""):'去报名'}}
@@ -235,7 +235,7 @@
         </van-popup>
 
 
-        <van-dialog v-model="unbindShow" width="280px" cancel-button-color="#222" confirm-button-color="#222" confirm-button-text="去绑定" title="请先绑定跳绳设备" @confirm="confirm" show-cancel-button>
+        <van-dialog v-model="unbindShow" width="280px" cancel-button-color="#222" confirm-button-color="#222" confirm-button-text="确定" title="请先绑定跳绳设备" @confirm="confirm" show-cancel-button>
             <div style="padding:0.24rem 0.5rem;text-align:center;line-height:0.5rem;">
                 若无跳绳设备，可<a style="color:red;" href="https://item.m.jd.com/product/69776979349.html?&utm_source=iosapp&utm_medium=appshare&utm_campaign=t_335139774&utm_term=CopyURL&ad_od=share&gx=RnFgljULbWXZn9TAFyyv7MAebIlyIik">前往购买</a>智能跳绳哦
             </div>
@@ -404,11 +404,15 @@
                         window.webkit.messageHandlers.lstNative.postMessage({
                             method: "LSH5APP_Push_Action",
                             actionType: "LSTH5APP_GoMyDeviceVC",
+                            actionNum: "0900",
+                            isEffective: 0,
                         });
 
                     } else if (isAndroid) {
                         window.android.LSH5APP_Push_Action(JSON.stringify({
                             actionType: "LSTH5APP_GoMyDeviceVC",
+                            actionNum: "0900",
+                            isEffective: 0,
                         }))
                     }
                 },
@@ -447,7 +451,7 @@
                     if (item.signUpState == 1) {
                         window.location.href = `detail.html?id=${item.id}`
                     } else {
-                        if (item.competitionState == 2) {
+                        if (this.dkItem.competitionState == 2) {
                             window.location.href = `list.html?tabActive=${tabActive}`
                         } else {
                             this.$toast("比赛已经开始")

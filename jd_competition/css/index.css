@@ -63,15 +63,6 @@ body {
 }
 
 .indexHtml .contain .btnBox {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
   position: fixed;
   bottom: 0;
   left: 0;
@@ -95,6 +86,7 @@ body {
   background-image: linear-gradient(to right, #FF4E3E, #FFAA88);
   color: #fff;
   text-align: center;
+  margin: 0 auto;
 }
 
 .indexHtml .contain .btnBox .btnccc {

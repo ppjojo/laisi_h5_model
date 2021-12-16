@@ -53,9 +53,9 @@ body {
             z-index: 2;
         }
         .btnBox {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
+            // display: flex;
+            // align-items: flex-start;
+            // justify-content: space-between;
             position: fixed;
             bottom: 0;
             left: 0;
@@ -74,7 +74,8 @@ body {
                 line-height: 0.88rem;
                 background-image: linear-gradient(to right, #FF4E3E, #FFAA88);
                 color: #fff;
-                text-align: center
+                text-align: center;
+                margin: 0 auto;
             }
             .btnccc {
                 @extend .btn;
