@@ -631,7 +631,7 @@
     bottom: 1rem;
     z-index: 1;
     left: calc(50% - 0.65rem);
-    opacity: 0.6;
+    opacity: 0.8;
 }
 
 .shareBox .skipImg {

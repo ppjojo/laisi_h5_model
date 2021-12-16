@@ -422,18 +422,6 @@
             }
         },
         created() {
-            if (navigator.userAgent.toLowerCase().indexOf('micromessenger') !== -1) { //微信
-                this.linkUrl = "https://a.app.qq.com/o/simple.jsp?pkgname=com.lstech.rehealth"
-            } else if (navigator.userAgent.toLowerCase().indexOf('qq') !== -1) { //qq
-                this.linkUrl = "https://a.app.qq.com/o/simple.jsp?pkgname=com.lstech.rehealth"
-            } else { //浏览器打开
-                if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) { //判断iPhone|iPad|iPod|iOS
-                    this.linkUrl = "lsthealth://annualReport"
-                } else if (/(Android)/i.test(navigator.userAgent)) { //判断Android
-                    this.linkUrl = "rehealth:annualReport"
-                }
-            }
-
             if (this.isShare == 1) {
                 document.documentElement.style.fontSize = document.documentElement.clientWidth / 8 + 'px';
             }
@@ -441,6 +429,32 @@
 
         },
         methods: {
+            goApp() {
+                var openApp = function(linkUrl) {
+                    var a = document.createElement("a");
+                    a.setAttribute("href", linkUrl);
+                    a.setAttribute("id", "js_a");
+                    //防止反复添加
+                    if (document.getElementById("js_a")) {
+                        document.body.removeChild(document.getElementById("js_a"));
+                    }
+                    document.body.appendChild(a);
+                    a.click();
+                };
+                let linkUrl = "";
+                if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+                    linkUrl = `https://lstemp.laisitech.com/?actionType=goToAppHomeTabBar`;
+
+                    openApp(linkUrl);
+                } else if (/(Android)/i.test(navigator.userAgent)) {
+                    linkUrl = `app://rehealth/mainPage`;
+                    if (openApp(linkUrl)) {} else {
+                        linkUrl =
+                            "https://a.app.qq.com/o/simple.jsp?pkgname=com.lstech.rehealth";
+                        openApp(linkUrl);
+                    }
+                }
+            },
             getTotalReport() {
                 var _self = this;
                 ajax({
