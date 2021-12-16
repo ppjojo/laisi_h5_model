@@ -38,6 +38,13 @@
       <el-form-item label="蓝牙扫描名" prop="deviceScanName">
         <el-input v-model="form.deviceScanName"></el-input>
       </el-form-item>
+      <el-form-item label="发光跳绳" prop="lightType">
+        <el-radio-group v-model="form.lightType">
+          <el-radio class="radio" :label="1">是</el-radio>
+          <el-radio class="radio" :label="0">否</el-radio>
+
+        </el-radio-group>
+      </el-form-item>
       <el-form-item label="设备供应商Logo_black" prop="deviceVendorLogo">
         <el-input v-model="form.deviceVendorLogo" style="margin-bottom:10px;"></el-input>
         <el-upload ref='upload' action="" :http-request="requestFile_logo" :show-file-list="false" class="avatar-uploader">
