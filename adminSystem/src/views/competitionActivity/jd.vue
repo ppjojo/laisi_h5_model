@@ -56,7 +56,7 @@
           <el-input v-model="form.modeValue" placeholder="秒或个"> </el-input>
         </el-form-item>
         <el-form-item label="组别" prop="genderMode">
-          <el-select v-model="form.mode" placeholder="请选择组别">
+          <el-select v-model="form.genderMode" placeholder="请选择组别">
             <el-option label="女子组" :value="0">
             </el-option>
             <el-option label="男子组" :value="1">
