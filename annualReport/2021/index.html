@@ -32,6 +32,7 @@
 <body>
     <div id="app" v-cloak>
         <van-swipe vertical :show-indicators="false" @change="changePage" :loop="false">
+            <!-- //0 -->
             <van-swipe-item>
                 <div class="rightTitle fadeInDown" v-if="currentIndex==0" :class="currentIndex==0?'animated':''">
                     百万跳绳爱好者的选择</div>
@@ -74,10 +75,56 @@
                 <img class="bottomPic " src="img/overview2021.png" alt="">
                 <img src="img/btn1.png" class="btn btn1 tada" v-if="currentIndex==0" :class="currentIndex==0?'animated':''">
             </van-swipe-item>
+            <!-- 1 -->
             <van-swipe-item>
                 <div class="rightTitle fadeInDown" v-if="currentIndex==1" :class="currentIndex==1?'animated':''">
+                    个人成绩总概况</div>
+                <div class="totalDataBox pulse" v-if="currentIndex==1" :class="currentIndex==1?'animated':''">
+                    <div class="titleBg">
+                        <span class="titleBg_nickName van-ellipsis"></span>2021年度跳绳报告
+                    </div>
+                    <div class="totalDataDiv">
+                        <ul>
+                            <li>
+                                <p class="pDetail pDetail2" style="line-height: 1.2rem;font-size: 0.36rem;color:#000;">累计跳绳</p>
+                                <p class="pDetail">{{toThousands(personalObject.totalNumber)}}个</p>
+                                <p class="pDetail pDetail2">
+                                    相当于登顶{{parseInt(personalObject.totalNumber/10/468)}}次东方明珠塔<br>
+                                    <span style="font-size: 0.24rem;">(按每次腾空10cm算)</span>
+                                </p>
+                            </li>
+                            <li>
+                                <!-- <p class="pTitle">累计跳绳时长(小时)</p> -->
+                                <p class="pDetail">
+                                    {{toThousands(Math.floor(personalObject.totalTime/3600/1000))}}小时
+                                </p>
+                                <p class="pDetail pDetail2">
+                                    相当持续跳绳{{(personalObject.totalTime/3600/1000/24).toFixed(1)}}天
+                                </p>
+                            </li>
+                            <li>
+                                <!-- <p class="pTitle">累计计消耗(千卡)</p> -->
+                                <p class="pDetail">
+                                    {{toThousands(Math.floor(personalObject.totalBurn/1000))}}千卡
+                                </p>
+                                <p class="pDetail pDetail2">
+                                    相当于减掉了{{(personalObject.totalBurn/1000/7700).toFixed(1)}}kg脂肪
+                                </p>
+                            </li>
+                            <li>
+                                <p class="pExplain">·····※{{JSON.parse(localStorage.getItem('appInfo')).nickname}}年度跳绳总数据·····</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <img class="bottomPic " src="img/personalOverview.png" alt="">
+                <img src="img/btn1.png" class="btn btn1 tada" v-if="currentIndex==1" :class="currentIndex==1?'animated':''">
+            </van-swipe-item>
+
+            <van-swipe-item>
+                <div class="rightTitle fadeInDown" v-if="currentIndex==2" :class="currentIndex==2?'animated':''">
                     2021年度关键词</div>
-                <div style="text-align: right;" class=" fadeInRight" v-if="currentIndex==1" :class="currentIndex==1?'animated':''">
+                <div style="text-align: right;" class=" fadeInRight" v-if="currentIndex==2" :class="currentIndex==2?'animated':''">
                     <!-- number 0 timer 1 bpm 2 section 3 other 4 7-->
                     <img class="wordPic" src="img/word_kuai.png" alt="" v-if="wordObject.rank==2">
                     <img class="wordPic" src="img/word_qin.png" alt="" v-else-if="wordObject.rank==1">
@@ -85,7 +132,7 @@
                     <img class="wordPic" src="img/word_wen.png" alt="" v-else-if="wordObject.rank==3">
                     <img class="wordPic" src="img/word_niu.png" alt="" v-else-if="wordObject.rank==0">
                 </div>
-                <div class="keywordBox pulse" v-if="currentIndex==1" :class="currentIndex==1?'animated':''">
+                <div class="keywordBox pulse" v-if="currentIndex==2" :class="currentIndex==2?'animated':''">
                     <span v-if="wordObject.rank==2">平均跳绳BPM：{{wordObject.itemInfo.avgBpm}}次/分，再快就没人追得上你啦！</span>
                     <span v-else-if="wordObject.rank==1">总跳绳{{sjc2Longtime(wordObject.itemInfo.totalTime)}}，你可以一直跳下去!</span>
                     <span v-else-if="wordObject.rank==4">革命尚未成功，跳绳还需努力！</span>
@@ -101,21 +148,21 @@
                 </div>
 
 
-                <img src="img/btn2.png" class="btn btn2 rubberBand" v-if="currentIndex==1&&isShare!=1" :class="currentIndex==1?'animated':''">
-                <img src="img/btn3.png" class="btn btn2 rubberBand" v-if="currentIndex==1&&isShare==1" :class="currentIndex==1?'animated':''">
+                <img src="img/btn2.png" class="btn btn2 rubberBand" v-if="currentIndex==2&&isShare!=1" :class="currentIndex==2?'animated':''">
+                <img src="img/btn3.png" class="btn btn2 rubberBand" v-if="currentIndex==2&&isShare==1" :class="currentIndex==2?'animated':''">
             </van-swipe-item>
             <van-swipe-item>
-                <div class="rightTitle rightTitle2 fadeInDown" v-if="currentIndex==2" :class="currentIndex==2?'animated':''">跳绳概况</div>
+                <div class="rightTitle rightTitle2 fadeInDown" v-if="currentIndex==3" :class="currentIndex==3?'animated':''">跳绳概况</div>
                 <div style="height: 6rem;">
-                    <div class="ballPicBox ballPicBox1 fadeInLeftBig" ref='ballRef1' v-if="currentIndex==2" :class="currentIndex==2?'animated':''">
+                    <div class="ballPicBox ballPicBox1 fadeInLeftBig" ref='ballRef1' v-if="currentIndex==3" :class="currentIndex==3?'animated':''">
                         <p class="ballDetail">{{toThousands(personalObject.freedomNumber)}}</p>
                         <p class="ballTitle">自由跳(个)</p>
                     </div>
-                    <div class="ballPicBox ballPicBox2 fadeInUpBig" ref='ballRef2' v-if="currentIndex==2" :class="currentIndex==2?'animated':''">
+                    <div class="ballPicBox ballPicBox2 fadeInUpBig" ref='ballRef2' v-if="currentIndex==3" :class="currentIndex==3?'animated':''">
                         <p class="ballDetail">{{toThousands(personalObject.timeDownNumber)}}</p>
                         <p class="ballTitle">倒计时(个)</p>
                     </div>
-                    <div class="ballPicBox ballPicBox3 fadeInRightBig" ref='ballRef3' v-if="currentIndex==2" :class="currentIndex==2?'animated':''">
+                    <div class="ballPicBox ballPicBox3 fadeInRightBig" ref='ballRef3' v-if="currentIndex==3" :class="currentIndex==3?'animated':''">
                         <p class="ballDetail">{{toThousands(personalObject.numberDownNumber)}}</p>
                         <p class="ballTitle">倒计数(个)</p>
                     </div>
@@ -124,19 +171,19 @@
 
                 </div>
 
-                <div class="keywordBox pulse" v-if="currentIndex==2" :class="currentIndex==2?'animated':''">
+                <div class="keywordBox pulse" v-if="currentIndex==3" :class="currentIndex==3?'animated':''">
                     <span>您在2021年度累计跳绳{{sjc2Longtime(personalObject.totalTime)}}，{{toThousands(personalObject.totalNumber)}}个，
 						消耗了{{toThousands(Math.floor(personalObject.totalBurn/1000))}}Kcal！</span>
                 </div>
                 <div>
                     <img class="bottomPic" src="img/ball_pic.png" alt="">
                 </div>
-                <img src="img/btn2.png" class="btn btn2 rubberBand" v-if="currentIndex==2&&isShare!=1" :class="currentIndex==2?'animated':''">
-                <img src="img/btn3.png" class="btn btn2 rubberBand" v-if="currentIndex==2&&isShare==1" :class="currentIndex==2?'animated':''">
+                <img src="img/btn2.png" class="btn btn2 rubberBand" v-if="currentIndex==3&&isShare!=1" :class="currentIndex==3?'animated':''">
+                <img src="img/btn3.png" class="btn btn2 rubberBand" v-if="currentIndex==3&&isShare==1" :class="currentIndex==3?'animated':''">
             </van-swipe-item>
             <van-swipe-item>
-                <div class="rightTitle rightTitle2 fadeInDown " v-show="currentIndex==3" :class="currentIndex==3?'animated':''">个人成绩</div>
-                <div class="personalDataBox  pulse" v-show="currentIndex==3" :class="currentIndex==3?'animated':''">
+                <div class="rightTitle rightTitle2 fadeInDown " v-show="currentIndex==4" :class="currentIndex==4?'animated':''">个人成绩</div>
+                <div class="personalDataBox  pulse" v-show="currentIndex==4" :class="currentIndex==4?'animated':''">
                     <div class="titleBg">SHOW TIME</div>
                     <div class="personalDataDiv">
                         <div class="personalDataDivBorder">
@@ -182,12 +229,12 @@
                 <div>
                     <img class="bottomPic" src="img/personal_pic.png" alt="">
                 </div>
-                <img src="img/btn2.png" class="btn btn2 rubberBand" v-if="currentIndex==3&&isShare!=1" :class="currentIndex==3?'animated':''">
-                <img src="img/btn3.png" class="btn btn2 rubberBand" v-if="currentIndex==3&&isShare==1" :class="currentIndex==3?'animated':''">
+                <img src="img/btn2.png" class="btn btn2 rubberBand" v-if="currentIndex==4&&isShare!=1" :class="currentIndex==4?'animated':''">
+                <img src="img/btn3.png" class="btn btn2 rubberBand" v-if="currentIndex==4&&isShare==1" :class="currentIndex==4?'animated':''">
             </van-swipe-item>
             <van-swipe-item>
-                <div class="rightTitle rightTitle2 fadeInDown" v-if="currentIndex==4" :class="currentIndex==4?'animated':''">跳绳奇闻</div>
-                <div class=" newsBox fadeInUp" v-for="(item,index) in bestObject" v-show="bestObject.length>0&&currentIndex==4" :class="currentIndex==4?'animated':''">
+                <div class="rightTitle rightTitle2 fadeInDown" v-if="currentIndex==5" :class="currentIndex==5?'animated':''">跳绳奇闻</div>
+                <div class=" newsBox fadeInUp" v-for="(item,index) in bestObject" v-show="bestObject.length>0&&currentIndex==5" :class="currentIndex==5?'animated':''">
                     <div class="userPicDiv" v-if="item.data">
                         <div class="userPic" :style="{'background-image': 'url('+item.data.headerPicUrl+')'}"></div>
                         <div class="userName">{{item.data.nickName}}</div>
@@ -224,8 +271,8 @@
                 <div>
                     <img class="bottomPic" src="img/news.png" alt="">
                 </div>
-                <img src="img/btn2.png" class="btn btn2 rubberBand" v-if="currentIndex==4&&isShare!=1" :class="currentIndex==4?'animated':''">
-                <img src="img/btn3.png" class="btn btn2 rubberBand" v-if="currentIndex==4&&isShare==1" :class="currentIndex==4?'animated':''">
+                <img src="img/btn2.png" class="btn btn2 rubberBand" v-if="currentIndex==5&&isShare!=1" :class="currentIndex==5?'animated':''">
+                <img src="img/btn3.png" class="btn btn2 rubberBand" v-if="currentIndex==5&&isShare==1" :class="currentIndex==5?'animated':''">
             </van-swipe-item>
 
             <van-swipe-item>
@@ -233,8 +280,8 @@
                 <div @click="Interaction.closePage()" v-if="redPacketType==2||redPacketType==3||redPacketType==5" class="closeIcon">
                     <img src="img/close.svg" alt="">
                 </div>
-                <div class="rightTitle rightTitle2 fadeInDown" v-if="currentIndex==5&&redPacketType!=4" :class="currentIndex==5?'animated':''">惊喜红包</div>
-                <div class="staticRedPacket0 fadeInDownBig" v-if="redPacketType==0&&currentIndex==5" :class="currentIndex==5?'animated':''">
+                <div class="rightTitle rightTitle2 fadeInDown" v-if="currentIndex==6&&redPacketType!=4" :class="currentIndex==6?'animated':''">惊喜红包</div>
+                <div class="staticRedPacket0 fadeInDownBig" v-if="redPacketType==0&&currentIndex==6" :class="currentIndex==6?'animated':''">
                     <p class="redWord">10,000份现金红包等你开启～手慢无！</p>
                     <div class="redPacketBtn" @click="initnormal()"></div>
                 </div>
@@ -573,8 +620,7 @@
             },
             changePage(index) {
                 this.currentIndex = index;
-                if (index == 2) {
-
+                if (index == 3) {
                     setTimeout(() => {
                         this.$refs.ballRef1.classList.remove("fadeInLeftBig");
                         this.$refs.ballRef2.classList.remove("fadeInUpBig");
@@ -715,7 +761,7 @@
                         type: 'category',
                         boundaryGap: false,
                         show: false,
-                        data: ropeData
+                        data: ropeData,
                     }],
                     yAxis: [{
                         show: false,

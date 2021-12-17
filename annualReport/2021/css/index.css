@@ -133,6 +133,13 @@
     line-height: 1rem;
     text-shadow: 1px 1px #6C63FF;
     font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.titleBg .titleBg_nickName {
+    max-width: 2rem;
 }
 
 .totalDataBox .totalDataDiv {
