@@ -12,6 +12,7 @@
     <link rel="stylesheet" id="themeCssLink" href="../common/css/theme_black.css">
     <link rel="stylesheet" href="css/index.css">
 
+
 </head>
 
 <body>
@@ -299,7 +300,7 @@
         el: '#app',
         data() {
             return {
-                scienceTrain: 0 || getQueryString("scienceTrain"), //0正常课程 1跳前热身 2跳后拉伸
+                scienceTrain: getQueryString("scienceTrain") || 0, //0正常课程 1跳前热身 2跳后拉伸
                 isShare: getQueryString("isShare"),
                 id: getQueryString("id"), //大课程id
                 headPictureUrl: "",
@@ -864,6 +865,7 @@
                             bigClass: this.classDetail,
                             scienceTrain: this.scienceTrain
                         }
+                        console.log(methodItem)
                         try {
                             if (isIOS) {
                                 window.webkit.messageHandlers.lstNative.postMessage(methodItem);

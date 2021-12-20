@@ -12,6 +12,7 @@
     <link rel="stylesheet" id="themeCssLink" href="../common/css/theme_black.css">
     <link rel="stylesheet" href="css/index.css">
 
+
     <style>
         #app {
             overflow-x: hidden;
@@ -84,13 +85,13 @@
                 </van-grid>
 
                 <!-- 科学跳绳 -->
-                <div class="recentBox" v-if="scienceTrain">
+                <div class="recentBox" v-if="scienceTrain&&scienceTrainList.length>0">
                     <div class="courseBox">
                         <div class="title2">
                             <div class="txt">{{scienceTrain==1?"跳前热身":"跳后拉伸"}}</div>
                         </div>
                         <ul>
-                            <li class="courseDiv" v-for="(item ,index) in recentList" v-if="index<3" @click="courseList(item)">
+                            <li class="courseDiv" v-for="(item ,index) in scienceTrainList" @click="courseList(item)">
                                 <img v-if="item.classLableList.length>0" :src="'./img/'+item.classLableList[0].classLabel+'.png'" class="iconlabel" alt="">
                                 <div class="cover" :style="{'backgroundImage':'url('+item.classCover+')'}">
                                 </div>
@@ -102,7 +103,7 @@
                                         </p>
                                     </div>
                                     <div class="progress">
-                                        已锻炼{{item.pageFinish||0}}%
+                                        {{item.sumExercise}}人练过
                                     </div>
                                 </div>
                                 <div class="btn_train">继续锻炼</div>
@@ -205,11 +206,12 @@
         el: '#app',
         data() {
             return {
-                scienceTrain: 0 || getQueryString("scienceTrain"), //0正常课程 1跳前热身 2跳后拉伸
+                scienceTrain: getQueryString("scienceTrain") || 0, //0正常课程 1跳前热身 2跳后拉伸
                 isLoading: false,
                 bannerList: [],
                 classification: [],
                 recentList: [],
+                scienceTrainList: [],
                 hotClassList: [],
                 recommendList: [],
                 hotloading: false,
@@ -233,6 +235,8 @@
                 this.getBanner() //获取banner
                 this.getClassify() //获取分类
                 this.getRecentList() //最近在练
+            } else {
+                this.getScienceTrainList()
             }
             this.getRecommend() //为你推荐
             this.getHotClass() //热门
@@ -246,6 +250,8 @@
                 if (!this.scienceTrain) {
                     this.getBanner() //获取banner
                     this.getRecentList() //最近在练
+                } else {
+                    this.getScienceTrainList()
                 }
                 this.getRecommend() //为你推荐
                 this.getHotClass() //热门
@@ -339,6 +345,20 @@
                     console.log(e)
                 })
             },
+            //科学训练的
+            getScienceTrainList() {
+                ajax({
+                    url: "community/threeBigClassAttribute/warm/and/tensile/by/sport",
+                    data: {
+                        classType: this.scienceTrain == 1 ? "2" : "3"
+                    }
+                }).then(res => {
+                    this.scienceTrainList = res.data;
+                }).catch((err) => {
+                    console.log(e)
+                })
+            },
+
             //为你推荐
             getRecommend() {
                 ajax({
@@ -420,13 +440,7 @@
                         console.log(err)
                 }
 
-
             },
-
-
-
-
-
         }
     })
 </script>

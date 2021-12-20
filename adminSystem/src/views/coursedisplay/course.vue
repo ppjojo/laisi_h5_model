@@ -35,10 +35,9 @@
       </el-form>
     </div>
     <div class="container-edit">
-    	<el-button type="primary" size="mini" @click="btn_add()" >添加课程</el-button>
+      <el-button type="primary" size="mini" @click="btn_add()">添加课程</el-button>
     </div>
-    <el-table v-loading="loading" :data="list" element-loading-text="Loading" border fit highlight-current-row
-      size="small ">
+    <el-table v-loading="loading" :data="list" element-loading-text="Loading" border fit highlight-current-row size="small ">
       <el-table-column align="center" prop="bigClassId" label="课程id"></el-table-column>
       <el-table-column align="center" prop="className" label="课程名称">
       </el-table-column>
@@ -102,8 +101,16 @@
           </el-upload>
 
         </el-form-item>
-         <el-form-item label="课程性别" prop="classSex">
-          <el-radio-group v-model="form.classSex" >
+
+        <el-form-item label="课程类型" prop="classType">
+          <el-radio-group v-model="form.classType">
+            <el-radio class="radio" :label="null">普通</el-radio>
+            <el-radio class="radio" :label="2">跳前热身</el-radio>
+            <el-radio class="radio" :label="3">跳后拉伸</el-radio>
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item label="课程性别" prop="classSex">
+          <el-radio-group v-model="form.classSex">
             <el-radio class="radio" :label="0">女性</el-radio>
             <el-radio class="radio" :label="1">男性</el-radio>
             <el-radio class="radio" :label="2">通用</el-radio>
@@ -135,11 +142,11 @@
         </el-form-item>
         <el-form-item label="标签">
           <el-select v-model="form.classLabel2" placeholder="" multiple clearable>
-            <el-option  label="1个热度" :value="10"></el-option>
-            <el-option  label="2个热度" :value="20"></el-option>
-            <el-option  label="3个热度" :value="30"></el-option>
-            <el-option  label="最新" :value="40"></el-option>
-            <el-option  label="官方推荐" :value="50"></el-option>
+            <el-option label="1个热度" :value="10"></el-option>
+            <el-option label="2个热度" :value="20"></el-option>
+            <el-option label="3个热度" :value="30"></el-option>
+            <el-option label="最新" :value="40"></el-option>
+            <el-option label="官方推荐" :value="50"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="课程简介" prop="classDes">
@@ -155,279 +162,290 @@
 </template>
 
 <script>
-  import {
-    allCourse,
-    allGAttribute,
-    addCourse,
-    updateCourse
-  } from '@/api/coursedisplay/coursedisplay'
-  import {
-    checkPermission
-  } from '@/api/checkPermission'
-  import {
-    formatDate
-  } from '@/utils/date'
-  import { fileUpload } from '@/utils/fileUpload'
-  export default {
-    filters: {
-      formatDate(time) {
-        time = time
-        let date = new Date(time)
-        return formatDate(date, 'yyyy-MM-dd hh:mm')
-      }
+import {
+  allCourse,
+  allGAttribute,
+  addCourse,
+  updateCourse,
+} from "@/api/coursedisplay/coursedisplay";
+import { checkPermission } from "@/api/checkPermission";
+import { formatDate } from "@/utils/date";
+import { fileUpload } from "@/utils/fileUpload";
+export default {
+  filters: {
+    formatDate(time) {
+      time = time;
+      let date = new Date(time);
+      return formatDate(date, "yyyy-MM-dd hh:mm");
+    },
+  },
+  computed: {
+    checkPer() {
+      return function (btn) {
+        return checkPermission(this.$route.path + "/" + btn);
+      };
+    },
+  },
+  data() {
+    return {
+      list: [],
+      loading: false,
+      dialogVisible: false,
+      attribute: {},
+      searchForm: {
+        className: "",
+        classTargetAttributes: [],
+        classTargetAttributes2: [],
+        classLevel: null,
+        classKitAttributes: [],
+        classKitAttributes2: [],
+        classPart: [],
+        classPart2: [],
+      },
+      dialogTitle: "",
+      form: {},
+      rules: {
+        classCover: [
+          {
+            required: true,
+            message: "请上传图片",
+            trigger: "blur,change",
+          },
+        ],
+        classDes: [
+          {
+            required: true,
+            message: "请输入课程简介",
+            trigger: "blur,change",
+          },
+        ],
+        className: [
+          {
+            required: true,
+            message: "请输入课程名称",
+            trigger: "blur,change",
+          },
+        ],
+        name: [
+          {
+            required: true,
+            message: "请填写奖品名称",
+            trigger: "blur,change",
+          },
+        ],
+      },
+    };
+  },
+  watch: {
+    "form.classLabel2"(val, old) {
+      this.form.classLabel = [];
+      val.forEach((d) => {
+        this.form.classLabel.push({ classLabel: d });
+      });
+    },
+    "form.classPart2"(val, old) {
+      this.form.classPart = [];
+      val.forEach((d) => {
+        this.form.classPart.push({ classPart: d });
+      });
+    },
+    "form.classTarget2"(val, old) {
+      this.form.classTargetAttributes = [];
+      val.forEach((d) => {
+        this.form.classTargetAttributes.push({ classTarget: d });
+      });
+    },
+    "form.classKit2"(val, old) {
+      this.form.classKitAttributes = [];
+      val.forEach((d) => {
+        this.form.classKitAttributes.push({ classKit: d });
+      });
+    },
 
+    "searchForm.classPart2"(val, old) {
+      this.searchForm.classPart = [];
+      val.forEach((d) => {
+        this.searchForm.classPart.push({ classPart: d });
+      });
     },
-    computed: {
-      checkPer() {
-        return function(btn) {
-          return (checkPermission(this.$route.path + '/' + btn))
+    "searchForm.classTargetAttributes2"(val, old) {
+      this.searchForm.classTargetAttributes = [];
+      val.forEach((d) => {
+        this.searchForm.classTargetAttributes.push({ classTarget: d });
+      });
+    },
+    "searchForm.classKitAttributes2"(val, old) {
+      this.searchForm.classKitAttributes = [];
+      val.forEach((d) => {
+        this.searchForm.classKitAttributes.push({ classKit: d });
+      });
+    },
+  },
+  mounted() {
+    this.getList();
+    this.getAttribute();
+  },
+  methods: {
+    getList() {
+      allCourse(this.searchForm).then((res) => {
+        this.list = res.data;
+        this.loading = false;
+      });
+    },
+    getAttribute() {
+      allGAttribute({}).then((res) => {
+        this.attribute = res.data;
+      });
+    },
+    returnClassPart(arr, flag) {
+      //返回课程部位
+      let str = [];
+      arr.forEach((d) => {
+        if (flag == 1) {
+          str.push(d.classPartName);
+        } else if (flag == 2) {
+          str.push(d.classTargetName);
+        } else if (flag == 3) {
+          str.push(d.classKitName);
+        } else {
+          str.push(d.classLabelName);
         }
-      }
+      });
+      return str.toString();
     },
-    data() {
-      return {
-        list: [],
-        loading: false,
-        dialogVisible: false,
-        attribute: {
-        },
-        searchForm: {
-          className: "",
-          classTargetAttributes: [],
-          classTargetAttributes2: [],
-          classLevel: null,
-          classKitAttributes: [],
-          classKitAttributes2: [],
-          classPart: [],
-          classPart2: []
-        },
-        dialogTitle:"",
-        form: {},
-        rules: {
-          classCover: [{
-            required: true,
-            message: '请上传图片',
-            trigger: 'blur,change'
-          }, ],
-          classDes: [{
-            required: true,
-            message: '请输入课程简介',
-            trigger: 'blur,change'
-          }, ],
-          className: [{
-            required: true,
-            message: '请输入课程名称',
-            trigger: 'blur,change'
-          }, ],
-          name: [{
-            required: true,
-            message: '请填写奖品名称',
-            trigger: 'blur,change'
-          }, ],
-        },
-      }
-    },
-    watch:{
-      'form.classLabel2'(val,old){
-        this.form.classLabel=[];
-        val.forEach(d=>{
-          this.form.classLabel.push({classLabel:d})
-        })
-      },
-      'form.classPart2'(val,old){
-        this.form.classPart=[];
-        val.forEach(d=>{
-          this.form.classPart.push({classPart:d})
-        })
-      },
-      'form.classTarget2'(val,old){
-        this.form.classTargetAttributes=[];
-        val.forEach(d=>{
-          this.form.classTargetAttributes.push({classTarget:d})
-        })
-      },
-      'form.classKit2'(val,old){
-        this.form.classKitAttributes=[];
-        val.forEach(d=>{
-          this.form.classKitAttributes.push({classKit:d})
-        })
-      },
-
-      'searchForm.classPart2'(val,old){
-        this.searchForm.classPart=[];
-        val.forEach(d=>{
-          this.searchForm.classPart.push({classPart:d})
-        })
-      },
-      'searchForm.classTargetAttributes2'(val,old){
-        this.searchForm.classTargetAttributes=[];
-        val.forEach(d=>{
-          this.searchForm.classTargetAttributes.push({classTarget:d})
-        })
-      },
-      'searchForm.classKitAttributes2'(val,old){
-        this.searchForm.classKitAttributes=[];
-        val.forEach(d=>{
-          this.searchForm.classKitAttributes.push({classKit:d})
-        })
-      },
-    },
-    mounted() {
-      this.getList()
-      this.getAttribute()
-    },
-    methods: {
-      getList() {
-        allCourse(this.searchForm).then(res => {
-          this.list = res.data;
-          this.loading = false
-        })
-      },
-      getAttribute() {
-        allGAttribute({}).then(res => {
-          this.attribute = res.data;
-        })
-      },
-      returnClassPart(arr, flag) { //返回课程部位
-        let str = [];
-        arr.forEach(d => {
-          if (flag == 1){
-            str.push(d.classPartName)
-          }else if(flag==2){
-            str.push(d.classTargetName)
-          }else if(flag==3){
-            str.push(d.classKitName)
-          }else{
-            str.push(d.classLabelName)
-          }
-        });
-        return str.toString();
-      },
-      //保存
-      submitForm(formName) {
-      	this.$refs[formName].validate((valid) => {
-      		if (valid) {
-      			this.dialogVisible = false
-      			if (this.dialogTitle == "新增") {
-      				addCourse(this.form).then(response => {
-      					this.getList()
-      					this.$notify({
-      						type: 'success',
-      						message: '成功新增'
-      					});
-      				})
-      			} else {
-      				updateCourse(this.form).then(response => {
-      					this.getList()
-      					this.$notify({
-      						type: 'success',
-      						message: '成功修改'
-      					});
-      				})
-      			}
-      		} else {
-      			console.log('error submit!!');
-      			return false;
-      		}
-      	});
-      },
-      btn_add() {
-        this.dialogVisible = true;
-        this.dialogTitle = "新增";
-        this.form = {
-          className: "",
-          classCover: null,
-          classSex: null, //图片url
-          classDes: "",
-          classTarget: null,
-          classKit: null,
-          classLevel: null,
-          classPart: [],
-          classLabel: [],
-          classTargetAttributes:[],
-          classKitAttributes:[],
-          status:1
-        }
-      },
-      btn_edit(row) {
-        row.classPart2=[];
-        row.classLabel2 = [];
-        row.classTarget2=[];
-        row.classKit2 = [];
-        row.classPart.forEach(d=>{
-          row.classPart2.push(d.classPart)
-        })
-        row.classLabel.forEach(d=>{
-          row.classLabel2.push(d.classLabel)
-        })
-        row.classTargetAttributes.forEach(d=>{
-          row.classTarget2.push(d.classTarget)
-        })
-        row.classKitAttributes.forEach(d=>{
-          row.classKit2.push(d.classKit)
-        })
-        this.dialogVisible = true;
-        this.dialogTitle = "编辑"
-        this.form = Object.assign({}, row)
-      },
-      btn_on(row){
-        this.$confirm('是否要'+(row.status==1?'下架':'上架')+'该课程?', '提示', {
-            confirmButtonText: '确定',
-            cancelButtonText: '取消',
-            type: 'warning'
-        }).then(() => {
-          row.status = row.status==1?0:1;
-          updateCourse(row).then(response => {
-          	this.getList()
-          	this.$notify({
-          		type: 'success',
-          		message: '成功修改'
-          	});
-          })
-        }).catch(() => {
-            this.$notify({
-                message: '已取消',
-                type: 'info'
+    //保存
+    submitForm(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.dialogVisible = false;
+          if (this.dialogTitle == "新增") {
+            addCourse(this.form).then((response) => {
+              this.getList();
+              this.$notify({
+                type: "success",
+                message: "成功新增",
+              });
             });
-        });
-      },
-      requestFile(param) { //
-        var fileForm = new FormData()
-        fileForm.append('file', param.file)
-        fileUpload(fileForm).then(res => {
-          if (res.code == 0) {
-            this.form.classCover = res.data.url;
+          } else {
+            updateCourse(this.form).then((response) => {
+              this.getList();
+              this.$notify({
+                type: "success",
+                message: "成功修改",
+              });
+            });
           }
+        } else {
+          console.log("error submit!!");
+          return false;
+        }
+      });
+    },
+    btn_add() {
+      this.dialogVisible = true;
+      this.dialogTitle = "新增";
+      this.form = {
+        className: "",
+        classCover: null,
+        classSex: null, //图片url
+        classDes: "",
+        classTarget: null,
+        classKit: null,
+        classLevel: null,
+        classPart: [],
+        classLabel: [],
+        classTargetAttributes: [],
+        classKitAttributes: [],
+        status: 1,
+        classType: null,
+      };
+    },
+    btn_edit(row) {
+      row.classPart2 = [];
+      row.classLabel2 = [];
+      row.classTarget2 = [];
+      row.classKit2 = [];
+      row.classPart.forEach((d) => {
+        row.classPart2.push(d.classPart);
+      });
+      row.classLabel.forEach((d) => {
+        row.classLabel2.push(d.classLabel);
+      });
+      row.classTargetAttributes.forEach((d) => {
+        row.classTarget2.push(d.classTarget);
+      });
+      row.classKitAttributes.forEach((d) => {
+        row.classKit2.push(d.classKit);
+      });
+      this.dialogVisible = true;
+      this.dialogTitle = "编辑";
+      this.form = Object.assign({}, row);
+    },
+    btn_on(row) {
+      this.$confirm(
+        "是否要" + (row.status == 1 ? "下架" : "上架") + "该课程?",
+        "提示",
+        {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning",
+        }
+      )
+        .then(() => {
+          row.status = row.status == 1 ? 0 : 1;
+          updateCourse(row).then((response) => {
+            this.getList();
+            this.$notify({
+              type: "success",
+              message: "成功修改",
+            });
+          });
         })
-      },
-    }
-  }
+        .catch(() => {
+          this.$notify({
+            message: "已取消",
+            type: "info",
+          });
+        });
+    },
+    requestFile(param) {
+      //
+      var fileForm = new FormData();
+      fileForm.append("file", param.file);
+      fileUpload(fileForm).then((res) => {
+        if (res.code == 0) {
+          this.form.classCover = res.data.url;
+        }
+      });
+    },
+  },
+};
 </script>
 <style type="text/css">
-  .avatar-uploader .el-upload {
-  	border: 1px dashed #d9d9d9;
-  	border-radius: 6px;
-  	cursor: pointer;
-  	position: relative;
-  	overflow: hidden;
-  }
+.avatar-uploader .el-upload {
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
 
-  .avatar-uploader .el-upload:hover {
-  	border-color: #409EFF;
-  }
+.avatar-uploader .el-upload:hover {
+  border-color: #409eff;
+}
 
-  .avatar-uploader-icon {
-  	font-size: 28px;
-  	color: #8c939d;
-  	width: 80px;
-  	height: 80px;
-  	line-height: 80px;
-  	text-align: center;
-  }
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 80px;
+  height: 80px;
+  line-height: 80px;
+  text-align: center;
+}
 
-  .avatar {
-  	width: 80px;
-  	height: 80px;
-  	display: block;
-  }
+.avatar {
+  width: 80px;
+  height: 80px;
+  display: block;
+}
 </style>
