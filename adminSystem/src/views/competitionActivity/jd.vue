@@ -17,6 +17,8 @@
       </el-table-column>
       <el-table-column align="center" prop="modeValue" label="模式值">
       </el-table-column>
+      <el-table-column align="center" prop="attendCount" label="报名人数">
+      </el-table-column>
 
       <el-table-column label="开始时间">
         <template scope="scope">
