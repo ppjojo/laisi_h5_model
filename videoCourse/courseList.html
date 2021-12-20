@@ -299,6 +299,7 @@
         el: '#app',
         data() {
             return {
+                scienceTrain: 0 || getQueryString("scienceTrain"), //0正常课程 1跳前热身 2跳后拉伸
                 isShare: getQueryString("isShare"),
                 id: getQueryString("id"), //大课程id
                 headPictureUrl: "",
@@ -860,7 +861,8 @@
                             currentIndex: index,
                             videoList: this.classDetail.smallClassList,
                             bigClassId: this.classDetail.bigClassId,
-                            bigClass: this.classDetail
+                            bigClass: this.classDetail,
+                            scienceTrain: this.scienceTrain
                         }
                         try {
                             if (isIOS) {

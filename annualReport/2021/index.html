@@ -236,7 +236,7 @@
                 <div class="rightTitle rightTitle2 fadeInDown" v-if="currentIndex==5" :class="currentIndex==5?'animated':''">跳绳奇闻</div>
                 <div class=" newsBox fadeInUp" v-for="(item,index) in bestObject" v-show="bestObject.length>0&&currentIndex==5" :class="currentIndex==5?'animated':''">
                     <div class="userPicDiv" v-if="item.data">
-                        <div class="userPic" :style="{'background-image': 'url('+item.data.headerPicUrl+')'}"></div>
+                        <div class="userPic" :style="{'background-image': 'url('+item.data.headPictureUrl+')'}"></div>
                         <div class="userName">{{item.data.nickName}}</div>
                     </div>
                     <!-- 时长 -->

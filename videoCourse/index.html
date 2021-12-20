@@ -28,7 +28,15 @@
 
 <body>
     <div id="app" v-cloak class="normalHeader" style="padding-bottom: 1rem;">
-        <div class="header">
+        <div class="header" v-if="scienceTrain">
+            <van-nav-bar @click-left="onclickLeft" title="科学跳绳" left-arrow safe-area-inset-top fixed>
+                <template #left>
+                    <span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" />
+                </template>
+
+            </van-nav-bar>
+        </div>
+        <div class="header" v-else>
             <van-nav-bar left-arrow @click-right="onClickRight" safe-area-inset-top fixed>
                 <template #left>
 					<div style="font-size: 0.4rem;font-weight:bold;">课程</div>
@@ -62,20 +70,48 @@
 			</template>
             <div class="contain">
 
-                <van-swipe class="course-swipe" :show-indicators="false" :autoplay="3000" @change="onChange" v-if="bannerList.length>0">
+                <van-swipe v-if="!scienceTrain" class="course-swipe" :show-indicators="false" :autoplay="3000" @change="onChange" v-if="bannerList.length>0">
                     <van-swipe-item v-for="item in bannerList"><img :src="item.adUrl" @click="bannerClick(item)">
                     </van-swipe-item>
                 </van-swipe>
 
-                <van-grid class="nav_grid" :column-num="classification.length" :border=false>
+                <van-grid v-if="!scienceTrain" class="nav_grid" :column-num="classification.length" :border=false>
                     <van-grid-item @click="allCourse(index,item)" v-for="(item,index) in classification" :text="item.name">
                         <template #icon>
 							<van-image :src="item.image" />
 						</template>
                     </van-grid-item>
                 </van-grid>
+
+                <!-- 科学跳绳 -->
+                <div class="recentBox" v-if="scienceTrain">
+                    <div class="courseBox">
+                        <div class="title2">
+                            <div class="txt">{{scienceTrain==1?"跳前热身":"跳后拉伸"}}</div>
+                        </div>
+                        <ul>
+                            <li class="courseDiv" v-for="(item ,index) in recentList" v-if="index<3" @click="courseList(item)">
+                                <img v-if="item.classLableList.length>0" :src="'./img/'+item.classLableList[0].classLabel+'.png'" class="iconlabel" alt="">
+                                <div class="cover" :style="{'backgroundImage':'url('+item.classCover+')'}">
+                                </div>
+                                <div class="content">
+                                    <div>
+                                        <p class="stitle">{{item.className}}</p>
+                                        <p class="detail">
+                                            {{Math.round(item.classDuration/60)}}分钟 · {{item.calory}}千卡 · {{item.classLevelName}}
+                                        </p>
+                                    </div>
+                                    <div class="progress">
+                                        已锻炼{{item.pageFinish||0}}%
+                                    </div>
+                                </div>
+                                <div class="btn_train">继续锻炼</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
                 <!-- 最近再练 -->
-                <div class="recentBox" v-if="recentList.length>0">
+                <div class="recentBox" v-if="recentList.length>0&&!scienceTrain">
                     <div class="courseBox">
 
                         <div class="title2">
@@ -104,7 +140,6 @@
                             </li>
                         </ul>
                     </div>
-
                 </div>
                 <!-- 推荐 -->
                 <div class="recommendBox" v-if="recommendList.length>0">
@@ -170,6 +205,7 @@
         el: '#app',
         data() {
             return {
+                scienceTrain: 0 || getQueryString("scienceTrain"), //0正常课程 1跳前热身 2跳后拉伸
                 isLoading: false,
                 bannerList: [],
                 classification: [],
@@ -192,18 +228,25 @@
             window.refreshList = this.initIndexData;
         },
         created() {
-            this.addIntegral()
-            this.getBanner() //获取banner
-            this.getClassify() //获取分类
-            this.getRecentList() //最近在练
+            if (!this.scienceTrain) {
+                this.addIntegral()
+                this.getBanner() //获取banner
+                this.getClassify() //获取分类
+                this.getRecentList() //最近在练
+            }
             this.getRecommend() //为你推荐
             this.getHotClass() //热门
         },
         methods: {
+            onclickLeft() {
+                Interaction.closePage();
+            },
             //原生调用h5的方法局部刷新课程主页
             initIndexData() {
-                this.getBanner() //获取banner
-                this.getRecentList() //最近在练
+                if (!this.scienceTrain) {
+                    this.getBanner() //获取banner
+                    this.getRecentList() //最近在练
+                }
                 this.getRecommend() //为你推荐
                 this.getHotClass() //热门
 
@@ -235,7 +278,6 @@
                     }
                 }).then(res => {
                     this.bannerList = res.data;
-                    this.isLoading = false;
                     if (res.data.length > 0)
                         Interaction.umengStatistics("course_banner_show", this.bannerList[0].id)
                 }).catch((err) => {
@@ -303,6 +345,7 @@
                     url: "community/threeUserCollect/get/recommend/to/you",
                 }).then(res => {
                     this.recommendList = res.data;
+                    this.isLoading = false;
                 }).catch((err) => {
                     console.log(e)
                 })
@@ -338,7 +381,7 @@
             //跳转课程详情
             courseList(item) {
                 try {
-                    Interaction.pushToNextVC(host + `h5/h5V3/videoCourse/courseList.html?id=${item.bigClassId}&hideTitle=1`)
+                    Interaction.pushToNextVC(host + `h5/h5V3/videoCourse/courseList.html?id=${item.bigClassId}&hideTitle=1&scienceTrain=${this.scienceTrain}`)
                 } catch (e) {
                     console.log(e)
                 }
