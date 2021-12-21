@@ -384,11 +384,11 @@
                 };
                 let linkUrl = "";
                 if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
-                    linkUrl = `https://lstemp.laisitech.com?actionType=goCourseHomePage&id=${this.id}`;
+                    linkUrl = `https://lstemp.laisitech.com?actionType=goCourseHomePage&id=${this.id}&scienceTrain=${this.scienceTrain}`;
 
                     openApp(linkUrl);
                 } else if (/(Android)/i.test(navigator.userAgent)) {
-                    linkUrl = `app://rehealth/mainPage?redirectUrl=videoCourse/courseList.html?hideTitle=1&id=${this.id}`;
+                    linkUrl = `app://rehealth/mainPage?redirectUrl=videoCourse/courseList.html?hideTitle=1&id=${this.id}&scienceTrain=${this.scienceTrain}`;
                     if (openApp(linkUrl)) {} else {
                         linkUrl =
                             "https://a.app.qq.com/o/simple.jsp?pkgname=com.lstech.rehealth";
@@ -542,7 +542,7 @@
                     actionType: 1,
                     title: this.classDetail.className,
                     description: (this.classDetail.sumExercise || 0) + "人在派健康练习这节课程，你也快来试试吧！",
-                    url: host + "h5/h5V3/videoCourse/courseList.html?isShare=1&id=" + this.classDetail.bigClassId + "&userId=" + JSON.parse(localStorage.getItem('appInfo')).userId,
+                    url: host + `h5/h5V3/videoCourse/courseList.html?isShare=1&scienceTrain=${this.scienceTrain}&id=${this.classDetail.bigClassId}&userId=${JSON.parse(localStorage.getItem('appInfo')).userId}`,
                 })
             },
             //@别人
