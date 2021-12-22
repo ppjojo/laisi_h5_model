@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div class="container-edit">
-      <el-button type="primary" size="mini" @click="btn_add()" v-if="checkPer('add')">添加</el-button>
+      <el-button type="primary" size="mini" @click="btn_add()">添加</el-button>
     </div>
     <el-table v-loading="loading" :data="list" element-loading-text="Loading" border fit highlight-current-row size="small ">
       <el-table-column align="center" prop="id" label="ID" width="65"></el-table-column>
@@ -18,11 +18,11 @@
       </el-table-column>
       <el-table-column align="center" label="操作" width="180">
         <template scope="scope">
-          <el-button @click="btn_edit(scope.row)" type="text" size="mini" v-if="checkPer('edit')">编辑
+          <el-button @click="btn_edit(scope.row)" type="text" size="mini">编辑
           </el-button>
-          <el-button @click="btn_addRed(scope.row)" type="text" size="mini" style="color:#67c23a" v-if="checkPer('addRedpacket')">添加红包
+          <el-button @click="btn_addRed(scope.row)" type="text" size="mini" style="color:#67c23a">添加红包
           </el-button>
-          <el-button @click="btn_redStatus(scope.row)" type="text" size="mini" style="color:#67c23a" v-if="checkPer('addRedpacket')">红包状态
+          <el-button @click="btn_redStatus(scope.row)" type="text" size="mini" style="color:#67c23a">红包状态
           </el-button>
         </template>
       </el-table-column>
@@ -222,7 +222,7 @@ export default {
   methods: {
     getList() {
       listItem({
-        year: 2020,
+        year: 2021,
       }).then((res) => {
         this.list = res.data;
         this.loading = false;
@@ -302,7 +302,7 @@ export default {
         {
           pageNum: this.page,
           pageSize: this.limit,
-          year: 2020,
+          year: 2021,
         },
         {
           // "amount": 0,
@@ -312,6 +312,7 @@ export default {
           // "tradeTime": "",
           // "userId": 0
           brandId: this.form.id,
+          year: 2021,
         }
       ).then((res) => {
         this.detailDialogVisible = true;
@@ -337,7 +338,7 @@ export default {
           para.maxAmount = para.maxAmount * 100;
           para.minAmount = para.minAmount * 100;
           para.totalAmount = para.totalAmount * 100;
-          para.year = 2020;
+          para.year = 2021;
           if (this.dialogTitle == "新增") {
             addRedItem(para).then((response) => {
               this.getList();

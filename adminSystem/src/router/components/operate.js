@@ -290,16 +290,28 @@ var operate = {
                 icon: 'menu_annualReport'
             },
             children: [{
-                path: '2020',
-                permission: 'operate:annualReport:2020',
-                hidden: true,
-                component: () =>
-                    import ('@/views/operate/annualReport/2020'),
-                meta: {
-                    title: '2020年度报告',
-                    icon: 'menu_annualReport'
+                    path: '2020',
+                    permission: 'operate:annualReport:2020',
+                    hidden: true,
+                    component: () =>
+                        import ('@/views/operate/annualReport/2020'),
+                    meta: {
+                        title: '2020年度报告',
+                        icon: 'menu_annualReport'
+                    }
+                },
+                {
+                    path: '2021',
+                    permission: 'operate:annualReport:2021',
+                    hidden: true,
+                    component: () =>
+                        import ('@/views/operate/annualReport/2021'),
+                    meta: {
+                        title: '2021年度报告',
+                        icon: 'menu_annualReport'
+                    }
                 }
-            }]
+            ]
         },
 
 

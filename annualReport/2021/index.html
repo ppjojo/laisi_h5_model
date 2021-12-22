@@ -112,7 +112,8 @@
                                 </p>
                             </li>
                             <li>
-                                <p class="pExplain">·····※{{JSON.parse(localStorage.getItem('appInfo')).nickname}}年度跳绳总数据·····</p>
+                                <p class="pExplain" v-if="isShare">·····※2021年度跳绳总数据·····</p>
+                                <p class="pExplain" v-if="!isShare">·····※{{JSON.parse(localStorage.getItem('appInfo')).nickname}}年度跳绳总数据·····</p>
                             </li>
                         </ul>
                     </div>
@@ -655,6 +656,9 @@
                 ajax({
                     type: "post",
                     url: "activity/reportRedPacket/getRedPacket",
+                    data: {
+                        year: 2021
+                    },
                     success: function(res) {
                         if (res.code == 0) {
                             _self.redPacketObject = res.data
@@ -695,6 +699,9 @@
                 ajax({
                     type: "post",
                     url: "activityShare/reportRedPacket/shareRedPacket",
+                    data: {
+                        year: 2021
+                    },
                     success: function(res) {
                         if (res.code == 0) {
                             _self.redPacketObject = res.data
@@ -730,6 +737,9 @@
                 ajax({
                     type: "post",
                     url: "activity/reportRedPacket/lockRedPacket",
+                    data: {
+                        year: 2021
+                    },
                     success: function(res) {
                         if (res.code == 0) {
                             _self.redPacketType = 3;
@@ -813,21 +823,21 @@
                 myChart.setOption(option);
             },
             sharePage() {
-                var appInfo = JSON.parse(localStorage.getItem("appInfo"));
-                var version = appInfo.appVersion;
-                version = version.split(".");
-                if (isIOS) {
+                // var appInfo = JSON.parse(localStorage.getItem("appInfo"));
+                // var version = appInfo.appVersion;
+                // version = version.split(".");
+                // if (isIOS) {
 
-                    if (parseInt(version[version.length - 1]) < 1150) {
-                        this.$toast("请先升级到最新版本后再领取");
-                        return
-                    }
-                } else if (isAndroid) {
-                    if (parseInt(version[version.length - 1]) < 1130) {
-                        this.$toast("请先升级到最新版本后再领取");
-                        return
-                    }
-                }
+                //     if (parseInt(version[version.length - 1]) < 1150) {
+                //         this.$toast("请先升级到最新版本后再领取");
+                //         return
+                //     }
+                // } else if (isAndroid) {
+                //     if (parseInt(version[version.length - 1]) < 1130) {
+                //         this.$toast("请先升级到最新版本后再领取");
+                //         return
+                //     }
+                // }
                 try {
                     if (isIOS) {
                         window.webkit.messageHandlers.lstNative.postMessage({
