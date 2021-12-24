@@ -15,6 +15,21 @@ export function addItem(data) {
         data
     })
 }
+
+export function updateItem(data) {
+    return request({
+        url: '/factory/updateTestStationConfig',
+        method: 'post',
+        data
+    })
+}
+export function deleteItem(data) {
+    return request({
+        url: '/factory/removeTestStationConfig',
+        method: 'post',
+        data
+    })
+}
 //根据工厂id查询所有测试项配置
 export function queryTestItemConfigListById(params) {
     return request({

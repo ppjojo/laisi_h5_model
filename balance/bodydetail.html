@@ -521,7 +521,12 @@
 
             gotoDetail(urlType) {
                 if (this.isShare) return
-                window.location.href = "detail_" + urlType + `.html?memberId=${this.memberId}&measureId=${this.measureId}&deviceType=${this.deviceType}&weight=${this.bodyData.weight}`;
+                let linkUrl = `detail_${urlType}.html?memberId=${this.memberId}&measureId=${this.measureId}&deviceType=${this.deviceType}&weight=${this.bodyData.weight}`;
+                if (isIOS) {
+                    window.location.href = linkUrl
+                } else {
+                    Interaction.pushToNextVC(host + "h5/h5V3/balance/" + linkUrl)
+                }
             }
         }
     })
