@@ -91,7 +91,7 @@
                             <div class="txt">{{scienceTrain==1?"跳前热身":"跳后拉伸"}}</div>
                         </div>
                         <ul>
-                            <li class="courseDiv" v-for="(item ,index) in scienceTrainList" @click="courseList(item)">
+                            <li class="courseDiv" v-for="(item ,index) in scienceTrainList" @click="courseList(item,1)">
                                 <img v-if="item.classLableList.length>0" :src="'./img/'+item.classLableList[0].classLabel+'.png'" class="iconlabel" alt="">
                                 <div class="cover" :style="{'backgroundImage':'url('+item.classCover+')'}">
                                 </div>
@@ -399,11 +399,12 @@
             },
 
             //跳转课程详情
-            courseList(item) {
-                try {
+            courseList(item, flag) {
+                if (flag) {
                     Interaction.pushToNextVC(host + `h5/h5V3/videoCourse/courseList.html?id=${item.bigClassId}&hideTitle=1&scienceTrain=${this.scienceTrain}`)
-                } catch (e) {
-                    console.log(e)
+                    return
+                } else {
+                    Interaction.pushToNextVC(host + `h5/h5V3/videoCourse/courseList.html?id=${item.bigClassId}&hideTitle=1`)
                 }
             },
             onClickRight() {

@@ -343,6 +343,7 @@ body {
   position: absolute;
   bottom: 1.5rem;
   z-index: 3;
+  width: 100%;
 }
 
 .courseList .topBox .infoBox .title {
