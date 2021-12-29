@@ -247,7 +247,7 @@
     height: 2.4rem;
     position: absolute;
     left: 1.12rem;
-    top: 2rem;
+    top: 0rem;
     animation: ballShaking 2s infinite;
     -webkit-animation: ballShaking 2s infinite;
     z-index: 1;
@@ -262,7 +262,7 @@
     height: 2rem;
     position: absolute;
     left: 2.62rem;
-    top: 5rem;
+    top: 3rem;
     animation: ballShaking 3s infinite;
     -webkit-animation: ballShaking 3s infinite;
     z-index: 1;
@@ -277,7 +277,7 @@
     height: 1.76rem;
     position: absolute;
     right: 1.04rem;
-    top: 3rem;
+    top: 1rem;
     animation: ballShaking 4s infinite;
     -webkit-animation: ballShaking 4s infinite;
     z-index: 1;
@@ -286,7 +286,7 @@
 .smallBall1 {
     position: absolute;
     left: 1.04rem;
-    top: 4rem;
+    top: 2rem;
     animation: smallBallShaking 3s infinite;
     -webkit-animation: smallBallShaking 3s infinite;
     width: 0.5rem;
@@ -295,7 +295,7 @@
 .smallBall2 {
     position: absolute;
     right: 2.8rem;
-    top: 6.5rem;
+    top: 4.5rem;
     animation: smallBallShaking 3s infinite;
     -webkit-animation: smallBallShaking 3s infinite;
     width: 0.3rem;
@@ -450,7 +450,7 @@
 }
 
 .newsBox .userPicDiv .userName {
-    color: #ffffff;
+    color: #1f1f1f;
     margin-left: 0.2rem;
     font-size: 0.32rem;
 }

@@ -154,7 +154,7 @@
             </van-swipe-item>
             <van-swipe-item>
                 <div class="rightTitle rightTitle2 fadeInDown" v-if="currentIndex==3" :class="currentIndex==3?'animated':''">跳绳概况</div>
-                <div style="height: 6rem;">
+                <div style="height: 6rem;position: relative;">
                     <div class="ballPicBox ballPicBox1 fadeInLeftBig" ref='ballRef1' v-if="currentIndex==3" :class="currentIndex==3?'animated':''">
                         <p class="ballDetail">{{toThousands(personalObject.freedomNumber)}}</p>
                         <p class="ballTitle">自由跳(个)</p>
