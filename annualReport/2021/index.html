@@ -343,7 +343,7 @@
                     <!-- <P>
 						<a class="buttonA" :href="linkUrl">立即下载</a>
 					</P> -->
-                    <p class="ptxt">···派健康 {{redPacketObject.brand.name}}联合呈现···</p>
+                    <p class="ptxt">···派健康 {{redPacketObject.brand.name||'75派 '}}联合呈现···</p>
                     <P>
                         <img class="skipImg" src="img/skip2.png" v-if="redPacketObject.brand.brandCode=='R00'">
                         <img class="skipImg" src="img/skip3.png" v-else-if="redPacketObject.brand.brandCode=='A00'">
@@ -389,6 +389,7 @@
     }
     //传入时间戳获取日期
     function sjc2time(sjc, id) {
+        if (!sjc) sjc = 1640966400000
         var datetime = new Date(sjc);
         var year = datetime.getFullYear();
         var month = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() + 1;
@@ -704,7 +705,10 @@
                     },
                     success: function(res) {
                         if (res.code == 0) {
-                            _self.redPacketObject = res.data
+                            _self.redPacketObject = Object.assign({
+                                    redPacket: {},
+                                    brand: {}
+                                }, {})
                                 //红包已经领取的话显示红包 3 的状态
                                 // if (_self.redPacketObject.redPacket.status == 2) {
                                 // 	setTimeout(() => {

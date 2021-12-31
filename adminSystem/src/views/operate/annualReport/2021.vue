@@ -86,12 +86,10 @@
     <el-dialog :title="this.form.name+'的红包详情'" :visible.sync="detailDialogVisible" width="60%">
       <el-form :model="redForm" label-width="120px" :rules="rules" ref="redForm">
         <el-form-item label="红包总个数">
-          <el-input v-model="redForm.totalSize" :disabled="true"></el-input>
+          {{redForm.totalSize}}个
         </el-form-item>
         <el-form-item label="红包总金额">
-          <el-input v-model="redForm.totalAmount" :disabled="true">
-            <template slot="append">元</template>
-          </el-input>
+          {{redForm.totalAmount/100}}元
         </el-form-item>
         <el-form-item label="已领取红包个数:" v-if="redForm.opened">
           {{redForm.opened.totalSize}}个
