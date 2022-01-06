@@ -117,6 +117,7 @@
 </template>
 
 <script>
+import { listItem } from "@/api/device/productCategory";
 import { addItem } from "@/api/device/productList";
 import { fileUpload } from "@/utils/fileUpload";
 
@@ -143,6 +144,7 @@ export default {
     return {
       dialogVisible: false,
       form: {},
+      groupList: [],
       rules: {
         languageType: [
           {
@@ -345,8 +347,18 @@ export default {
   },
   mounted() {
     this.form = this.formItem;
+    this.getList();
   },
   methods: {
+    getList() {
+      listItem({
+        platform: "ios",
+        appVersion: "v2.0.9999",
+      }).then((res) => {
+        this.groupList = res.data;
+        this.loading = false;
+      });
+    },
     //保存
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {

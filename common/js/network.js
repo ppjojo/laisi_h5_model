@@ -1,5 +1,5 @@
 //version 20211029
-var host = "https://lstest3.laisitech.com/";
+var host = "https://lsprod3.laisitech.com/";
 
 //Android终端
 var isAndroid =
