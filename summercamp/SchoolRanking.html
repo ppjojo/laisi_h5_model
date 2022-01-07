@@ -16,18 +16,23 @@
 <body>
     <div id="app" class="page" v-cloak>
         <div class="header">
-            <van-nav-bar title="标题" z-index=999>
-                <div v-if="!isShare" slot="left" @click="onClickLeft()" class="van-nav-bar__left"><i class="van-icon van-icon-arrow-left van-nav-bar__arrow"></i></div>
+            <van-nav-bar title="标题" z-index=999 safe-area-inset-top fixed @click-left="onClickLeft">
+                <template #left v-if="!isShare">
+                    <span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" ></span>
+                </template>
                 <template slot="title">
                     <div class="title" @click="show = !show">
                        {{active==1?"校园大PK-人气榜":"校园大PK-实力榜"}} 
                         <van-icon name="arrow-down" color="#FA9C12" size="16" />
                     </div>
                 </template>
-                <div class="ub ub-ac" slot="right">
-                    <img v-if="active==2" @click="window.location.href='rule.html'" src="img/ruleicon.png" style="width: .4rem;margin-right: .2rem;" alt="">
-                    <img v-if="!isShare" @click="share()" src="img/shareicon.png" style="width: .4rem;" />
-                </div>
+
+                <template #right> 
+                    <div class="ub ub-ac" slot="right">
+                        <img v-if="active==2" @click="window.location.href='rule.html'" src="img/ruleicon.png" style="width: .5rem;margin-right: .2rem;" alt="">
+                        <span v-if="!isShare" class="icon iconfont icon-fenxianganniu"  style="font-size: 0.5rem;"></span>
+                    </div>
+                </template>
 
             </van-nav-bar>
             <van-overlay :show="show" z-index=998 @click="show = false">

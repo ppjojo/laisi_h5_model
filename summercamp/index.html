@@ -23,22 +23,24 @@
 <body>
     <div id="app" class="page" v-cloak>
         <div class="header">
-            <van-nav-bar title="“绳”彩争霸" @click-left="closeH5()" left-arrow safe-area-inset-top fixed>
+            <van-nav-bar title="“绳”彩争霸" @click-left="closeH5()" @click-right="share" left-arrow safe-area-inset-top fixed>
                 <template #left>
 						<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" ></span>
 					</template>
                 <template #right>
-						<span class="icon iconfont icon-fenxianganniu" @click="share"style="font-size: 0.5rem;"></span>
+						<span class="icon iconfont icon-fenxianganniu"  style="font-size: 0.5rem;"></span>
 					</template>
             </van-nav-bar>
         </div>
         <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
-            <div style="height: 29rem;">
-                <div class="page2">
+            <div>
+                <div class="pageBgBox">
                     <img class="ruleicon" src="img/ruleindex.png" @click="window.location.href='rule.html'" alt="">
                     <img src="img/PKicon.png" style="position: fixed;right: .64rem;bottom: 1.3rem;z-index: 9;
 				width: 1.4rem;height: 1.4rem;" @click="gotoSchool" alt="">
                     <div v-if="!isShare" class="gojump" @click="gotoSkip()">去跳绳</div>
+                </div>
+                <div class="contain">
                     <div id="infobox" class="">
                         <div class="card marb12 card-person">
                             <div class="ub ub-ac ub-pj ">
@@ -132,7 +134,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </van-pull-refresh>

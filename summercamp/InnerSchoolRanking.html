@@ -17,14 +17,18 @@
 <body>
     <div id="app" class="page" v-cloak>
         <div class="header">
-            <van-nav-bar title="标题" z-index=999 @click-left="onClickLeft">
-                <div v-if="!isShare" slot="left" class="van-nav-bar__left"><i class="van-icon van-icon-arrow-left van-nav-bar__arrow"></i></div>
+            <van-nav-bar title="标题" z-index=999 @click-left="onClickLeft" @click-right="share" safe-area-inset-top fixed>
+                <template #left v-if="!isShare">
+                    <span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" ></span>
+                </template>
                 <template slot="title">
 						<div class="title" @click="show = true">
 							{{schoolname}}
 						</div>
 					</template>
-                <img v-if="!isShare" @click="share()" src="img/shareicon.png" slot="right" style="width: .4rem;" />
+                <template #right v-if="!isShare"> 
+						<span class="icon iconfont icon-fenxianganniu" style="font-size: 0.5rem;"></span>
+					</template>
             </van-nav-bar>
 
         </div>
