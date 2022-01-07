@@ -482,7 +482,6 @@ Page({
     formSubmit(e) {
         console.log('form发生了submit事件，携带数据为：', e.detail.value)
         var requestCommand =  e.detail.value
-        console.log(requestCommand)
         this.setData({
             requestCommand: requestCommand
         })
