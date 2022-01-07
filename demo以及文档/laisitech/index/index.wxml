@@ -1,23 +1,70 @@
-
- <view  class='infoView' >
-     {{info}}
- </view>
- <view class="buttonView">
- <button type="primary" class="button" bindtap="lanyatest1">1初始化蓝牙</button>
- <button type="primary" class="button" bindtap="lanyatest4">4获取所有设备</button>
- <block wx:for="{{devices}}" wx:key="test">
-   <button type="primary" class="button" id="{{item.deviceId}}" style='background-color:red' bindtap="lanyaconnect">5连接{{item.name}}</button>
- </block>
- <button type="primary" class="button" bindtap="lanyatest8_1">8.1 开启设置及读取跳绳的指令</button>
- <button type="primary" class="button" bindtap="lanyatest10">10鉴权 </button>
- <button type="primary" class="button" bindtap="lanyatest8_2">8.2 接收实时跳绳数据</button>
-<button type="primary" class="button" >
-    <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange"  range-key="name" value="{{multiIndex}}" range="{{multiArray}}">
-    <view class="picker">
-      指令选择
-      command:{{multiArray[0][multiIndex[0]].id}}，key:{{multiArray[1][multiIndex[1]].id}}
-    </view>
-  </picker>
+<view class='infoView'>
+  {{info}}
+</view>
+<view class="buttonView">
+  <button type="primary" class="button" bindtap="lanyatest1">1初始化蓝牙</button>
+  <button type="primary" class="button" bindtap="lanyatest4">4获取所有设备</button>
+  <block wx:for="{{devices}}" wx:key="test">
+    <button type="primary" class="button" id="{{item.deviceId}}" style='background-color:red' bindtap="lanyaconnect">5连接{{item.name}}</button>
+  </block>
+  <button type="primary" class="button" bindtap="lanyatest8_1">8.1 开启设置及读取跳绳的指令</button>
+  <button type="primary" class="button" bindtap="lanyatest10">10鉴权 </button>
+  <button type="primary" class="button" bindtap="lanyatest8_2">8.2 接收实时跳绳数据</button>
+  <button type="primary" class="button">
+    <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" range-key="name" value="{{multiIndex}}" range="{{multiArray}}">
+      <view class="picker">
+        指令选择
+        command:{{multiArray[0][multiIndex[0]].id}}，key:{{multiArray[1][multiIndex[1]].id}}
+      </view>
+    </picker>
   </button>
 </view>
 
+<view class="formView">
+  <form  catchsubmit="formSubmit" catchreset="formReset">
+    <view>
+      <view>mac</view>
+      <input class="weui-input" name="mac" value="BC:97:40:51:90:A3" placeholder="BC:97:40:51:90:A3" />
+    </view>
+    <view>
+      <view>sn</view>
+      <input class="weui-input" name="sn" value="LTA302053C00395" placeholder="LTA302053C00395" />
+    </view>
+
+    <view>
+      <view>timestamps</view>
+      <input class="weui-input" name="timestamps" value="1641518375275" placeholder="1641518375275" />
+    </view>
+    <view>
+      <view>mode</view>
+      <input class="weui-input" name="mode" value="2" placeholder="2" />
+    </view>
+    <view>
+      <view>modeValue</view>
+      <input class="weui-input" name="modeValue" value="99" placeholder="99" />
+    </view>
+    <view>
+      <view>tripleJumpSwitch</view>
+      <input class="weui-input" name="tripleJumpSwitch" value="1" placeholder="1" />
+    </view>
+    <view>
+      <view>lightMode</view>
+      <input class="weui-input" name="lightMode" value="1" placeholder="1" />
+    </view>
+    <view>
+      <view>brightness</view>
+      <input class="weui-input" name="brightness" value="1" placeholder="1" />
+    </view>
+    <view>
+      <view>rate</view>
+      <input class="weui-input" name="rate" value="1" placeholder="1" />
+    </view>
+    <view>
+      <view>colorList</view>
+      <input class="weui-input" name="colorList" value="[255, 255, 0]" placeholder="[255, 255, 0]" />
+    </view>
+    <view class="btn-area">
+      <button style="margin: 30rpx 0" type="primary" formType="submit">Submit</button>
+    </view>
+  </form>
+</view>

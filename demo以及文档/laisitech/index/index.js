@@ -59,6 +59,23 @@ Page({
         info: "未初始化蓝牙适配器",
         connectedDeviceId: "",
         deviceId: "",
+
+        requestCommand: {
+            mac: 'BC:97:40:51:90:A3', //当前连接的设备的蓝牙地址
+            sn: 'LTA302053C00395', //当前连接的设备的sn
+            
+            timestamps: new Date().getTime(),
+
+            mode: 2,
+            modeValue: 199,
+
+            tripleJumpSwitch: 1,
+
+            lightMode: 1,
+            brightness: 1,
+            rate: 1,
+            colorList: [255, 255, 0]
+        },
         //接收实时跳绳数据
         SKIPROPE_BLE_NOTIFY_SERVICE: "0000FFE0-0000-1000-8000-00805F9B34FB",
         SKIPROPE_BLE_NOTIFY_CHARACTERISTIC: "0000FFE4-0000-1000-8000-00805F9B34FB",
@@ -67,8 +84,7 @@ Page({
         SKIPROPE_BLE_TRANSMISSION_NOTIFY: "0000FFF1-0000-1000-8000-00805F9B34FB",
         SKIPROPE_BLE_TRANSMISSION_WRITE: "0000FFF2-0000-1000-8000-00805F9B34FB"
     },
-    onLoad() {
-    },
+    onLoad() {},
     //初始化蓝牙
     lanyatest1(event) {
         var that = this;
@@ -281,14 +297,14 @@ Page({
                 that.setData({
                     info: JSON.stringify(res2.data),
                 })
-            }).catch(err=>{
+            }).catch(err => {
                 console.log(err)
             })
 
 
         })
     },
-    
+
     //鉴权第一步获取设备端的验证码
     lanyatest10() {
         let buffer = bp.commandAssemble({
@@ -296,31 +312,31 @@ Page({
             key: "08",
         }).then(res => {
             this.sendCommand(res.data)
-        }).catch(err=>{
+        }).catch(err => {
             console.log(err)
         })
 
     },
     //监听到设备的0208后 拿到设备的验证码后请求接口 拿到随机数 进行0301鉴权
     lanyatest11(obj) {
-        console.log(obj)
+        var that=this;
         bp.getAuth({
-            mac: 'BC:97:40:51:90:A3', //当前连接的设备的蓝牙地址
-            sn: 'LTA302053C00395', //当前连接的设备的sn
+            mac: that.data.requestCommand.mac, //当前连接的设备的蓝牙地址
+            sn: that.data.requestCommand.sn, //当前连接的设备的sn
             random: obj.responseCommand.random
         }).then(res => {
             bp.commandAssemble({
                 command: "03",
                 key: "01",
-                requestCommand:{
-                    random:res.data
+                requestCommand: {
+                    random: res.data
                 }
             }).then(res2 => {
                 this.sendCommand(res2.data)
-            }).catch(err=>{
+            }).catch(err => {
                 console.log(err)
             })
-        }).catch(err=>{
+        }).catch(err => {
             console.log(err)
         })
 
@@ -334,23 +350,10 @@ Page({
         bp.commandAssemble({
             command: that.data.multiArray[0][that.data.multiIndex[0]].id,
             key: that.data.multiArray[1][that.data.multiIndex[1]].id,
-            requestCommand: {
-                timestamps: new Date().getTime(),
-
-                mode: 2,
-                modeValue: 199,
-
-                tripleJumpSwitch: 1,
-
-                lightMode: 1,
-                brightness: 1,
-                rate: 1,
-                colorList: [255, 255, 0]
-
-            }
+            requestCommand: that.data.requestCommand
         }).then(res => {
             this.sendCommand(res.data)
-        }).catch(err=>{
+        }).catch(err => {
             console.log(err)
         })
 
@@ -476,12 +479,12 @@ Page({
         })
     },
 
-
-
-
-
-
-
-
-
+    formSubmit(e) {
+        console.log('form发生了submit事件，携带数据为：', e.detail.value)
+        var requestCommand =  e.detail.value
+        console.log(requestCommand)
+        this.setData({
+            requestCommand: requestCommand
+        })
+    },
 })

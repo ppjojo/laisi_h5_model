@@ -16,3 +16,15 @@ button {
 .buttonView{
   margin-top: 400rpx;
 }
+
+
+.formView{
+  width: 80%;
+  margin: 0 auto;
+}
+.weui-input{
+  border:1px solid #eee;
+  line-height: 80rpx;
+  height: 80rpx;
+  margin-bottom: 40rpx;
+}

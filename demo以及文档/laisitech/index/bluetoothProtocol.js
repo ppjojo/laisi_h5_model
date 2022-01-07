@@ -490,7 +490,7 @@ var bp = {
                                     data: "",
                                     msg: "跳绳模式（mode）或者模式值（modeValue）为空！"
                                 });
-                                obj.value = tool.numToHex(mode) + modeValue.toString(16).padStart(4, "0000").slice(-4) + tool.numToHex(dataType) + skipId.toString(16).padStart(8, "00000000").slice(-8);
+                                obj.value = tool.numToHex(mode) + Number(modeValue).toString(16).padStart(4, "0000").slice(-4) + tool.numToHex(dataType) + Number(skipId).toString(16).padStart(8, "00000000").slice(-8);
                             } else {
                                 reject({
                                     code: -1,
@@ -534,7 +534,7 @@ var bp = {
                                 colorList.forEach((item, index) => {
                                     colorStr += tool.numToHex(item)
                                 })
-                                obj.value = tool.numToHex(lightMode) + brightness.toString(16) + rate.toString(16) + colorStr
+                                obj.value = tool.numToHex(lightMode) + Number(brightness).toString(16) + Number(rate).toString(16) + colorStr
                             } else {
                                 reject({
                                     code: -1,
@@ -582,7 +582,7 @@ var bp = {
             let Errorflag = "01"; //2
             let sequenceID = tool.numToHex(utils.sequenceIDcofig++); //5
             let commandID = obj.command; //6
-            let key = obj.key.toString(16).padStart(4, "0000").slice(-4);
+            let key = Number(obj.key).toString(16).padStart(4, "0000").slice(-4);
             let valueLength = Number((obj.value || "").length / 2).toString(16).padStart(4, "0000").slice(-4); //9
             let val = obj.value || ""; //10
             let payload = commandID + key + valueLength + val;
