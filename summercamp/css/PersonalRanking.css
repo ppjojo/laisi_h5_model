@@ -1,0 +1,210 @@
+.header {
+	height: 0.92rem;
+	position: fixed;
+	width: 100%;
+	top: 0;
+	left: 0;
+	background-color: #ffffff;
+	z-index: 102;
+}
+
+.header .title {
+	color: #333;
+	font-size: 0.32rem;
+	text-align: center;
+}
+
+.page2 .ruleicon {
+	position: absolute;
+	right: 0;
+	top: .13rem;
+	width: 1.2rem;
+	z-index: 19;
+}
+
+.header .title .van-icon {
+	position: relative;
+	top: 0.05rem;
+}
+
+.header .van-hairline--bottom::after {
+	border: none;
+}
+
+.header .van-overlay {
+	background-color: rgba(0, 0, 0, 0.3);
+}
+
+.header .van-overlay .optionBox {
+	margin-top: 0.92rem;
+	background-color: white;
+}
+
+.header .van-overlay .optionBox .optionItem {
+	height: 1rem;
+	color: #333;
+	font-size: 0.32rem;
+	text-align: center;
+	line-height: 1rem;
+	border-bottom: 1px solid #d8d8d8;
+}
+
+.header .van-overlay .optionBox .optionItem.active {
+	background-image: url(../img/optionActive.png);
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+	color: #fa9c12;
+	font-weight: bold;
+	font-size: .35rem;
+}
+
+.rankBox .van_row_title_box {
+	height: 0.96rem;
+	position: fixed;
+	width: 100%;
+	top: 0.92rem;
+	left: 0;
+	z-index: 99;
+}
+
+.rankBox .van_row_title {
+	padding: 0 0.2rem;
+	height: 0.96rem;
+	background-color: #ffffff;
+}
+
+.rankBox .van_row_title .van-col {
+	font-size: 0.28rem;
+	line-height: 0.96rem;
+	color: #666;
+	text-align: center;
+}
+
+.rankBox .van_row_title .van-col:last-child {
+	color: #d54a00;
+	text-align: right;
+}
+
+.rankBox .rankList {
+	padding: 0 0.2rem;
+	border-top: 1px solid #f3f3f3;
+	height: 1.28rem;
+	font-size: 0.28rem;
+	color: #7e7e7e;
+	line-height: 1.28rem;
+	text-align: center;
+}
+
+.rankBox .rankList .van-col .self {
+	background-color: #f8f0e4;
+}
+
+.rankBox .rankList .van-col .sortPic {
+	width: 0.44rem;
+	height: 0.44rem;
+	position: relative;
+	top: 0.1rem;
+}
+
+.rankBox .rankList .ranking {
+	color: #d54a00;
+}
+
+.rankBox .rankList .van-col .detail_headpic {
+	width: 0.6rem;
+	height: 0.6rem;
+	background-size: cover;
+	position: relative;
+	top: 0.3rem;
+	right: -0.2rem;
+	border-radius: 50%;
+}
+
+.rankBox .rankList .van-col:last-child {
+	color: #d54a00;
+	font-size: 0.32rem;
+	text-align: right;
+}
+
+.rankBox .rankList .van-col .skipImg {
+	width: 0.32rem;
+	position: relative;
+	top: 0.02rem;
+}
+
+.rankBox .specialTitle {
+	color: #d54a00 !important;
+	font-size: 0.32rem;
+	text-align: right!important;
+}
+
+.rankBox .align_left {
+	text-align: left !important;
+}
+
+.rankBox .van-pull-refresh {
+	min-height: 10rem;
+	margin-top: 1.88rem;
+}
+
+.noData-box {
+	text-align: center;
+	padding-top: 2.5rem;
+}
+
+.noData-box .noData-img {
+	width: 4rem;
+	/* height: 2.7rem; */
+}
+
+.noData-box .noData-p {
+	color: #b3b8bb;
+	font-size: 0.28rem;
+}
+
+.gotoPersonal {
+	width: 1.4rem;
+	position: fixed;
+	right: 0.3rem;
+	bottom: 2rem;
+}
+
+/*# sourceMappingURL=PersonalRanking.css.map */
+
+@supports ((height: constant(safe-area-inset-top)) or (height: env(safe-area-inset-top))) and (-webkit-overflow-scrolling: touch) {
+	.page {
+		padding-top: 20;
+		padding-top: constant(safe-area-inset-top);
+		padding-top: env(safe-area-inset-top);
+	}
+
+	.header {
+		padding-top: 20;
+		padding-top: constant(safe-area-inset-top);
+		padding-top: env(safe-area-inset-top);
+	}
+
+	.header .van-overlay {
+		top: 0;
+		top: constant(safe-area-inset-top);
+		top: env(safe-area-inset-top);
+	}
+
+	.rankBox .van_row_title_box {
+		top: 0.92rem;
+		top: calc(0.92rem + constant(safe-area-inset-top));
+		top: calc(0.92rem + env(safe-area-inset-top));
+	}
+
+	.header .ruleicon {
+		top: 0.13rem;
+		top: calc(.13rem + constant(safe-area-inset-top));
+		top: calc(.13rem + env(safe-area-inset-top));
+	}
+}
+
+/* vue */
+[v-cloak] {
+	display: none !important;
+}

@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+    <link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
+    <link rel="stylesheet" href="font/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="css/PersonalRanking.css?t=" />
+    <link rel="stylesheet" type="text/css" href="css/common.css" />
+    <link rel="stylesheet" type="text/css" href="css/index.css?t=2" />
+    <link rel="stylesheet" href="font/iconfont.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vant@2.12.2/lib/vant.min.js"></script>
+    <script src="../common/js/network.js"></script>
+    <title></title>
+    <style type="text/css">
+
+    </style>
+
+</head>
+
+<body>
+    <div id="app" class="page" v-cloak>
+        <div class="header">
+            <van-nav-bar title="“绳”彩争霸" @click-left="closeH5()" left-arrow safe-area-inset-top fixed>
+                <template #left>
+						<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" ></span>
+					</template>
+                <template #right>
+						<span class="icon iconfont icon-fenxianganniu" @click="share"style="font-size: 0.5rem;"></span>
+					</template>
+            </van-nav-bar>
+        </div>
+        <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
+            <div style="height: 29rem;">
+                <div class="page2">
+                    <img class="ruleicon" src="img/ruleindex.png" @click="window.location.href='rule.html'" alt="">
+                    <img src="img/PKicon.png" style="position: fixed;right: .64rem;bottom: 1.3rem;z-index: 9;
+				width: 1.4rem;height: 1.4rem;" @click="gotoSchool" alt="">
+                    <div v-if="!isShare" class="gojump" @click="gotoSkip()">去跳绳</div>
+                    <div id="infobox" class="">
+                        <div class="card marb12 card-person">
+                            <div class="ub ub-ac ub-pj ">
+                                <div>{{person.homePageStudentInfo.schoolName}}</div>
+                                <div class="font10 cf7">
+                                    总用时：{{getDuration(person.homePageStudentInfo.totalTime/1000)}}
+                                </div>
+                            </div>
+                            <div class="font20 marb8">
+                                {{person.homePageStudentInfo.name}}
+                            </div>
+                            <div class="font10 cf7 marb4">
+                                累计跳绳数量
+                            </div>
+                            <div class="font30">
+                                {{person.homePageStudentInfo.totalCount}}
+                            </div>
+                        </div>
+                        <div class="ub ub-pj ub-ac">
+                            <div class="card ub-f1 card-camp" @click="gonext('PersonalRanking.html')" style="margin-right: .18rem;">
+                                <div class="c555 font12" style="margin-top: .1rem;">
+                                    冬令营排名
+                                </div>
+                                <div class="font30 cF6C021">
+                                    {{person.homePageStudentRanking + 1}}
+                                </div>
+                                <div class="circle">
+                                    <img src="img/circlecamp.png">
+                                </div>
+                            </div>
+                            <div class="card ub-f1 card-school" @click="gonext('InnerSchoolRanking.html')" style="padding-left: .3rem;">
+                                <div class="c555 font12" style="margin-top: .1rem;">
+                                    学校排名
+                                </div>
+                                <div class="font30 c1082FF">
+                                    {{person.homePageScoolRanking + 1}}
+                                </div>
+                                <div class="circle">
+                                    <img src="img/circleschool.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 排名 -->
+                    <div id="rank">
+                        <div id="ranklist" class="">
+                            <div class="ub ub-ac ub-pj marb8">
+                                <div class="font14" style="padding-left: .2rem;">今日跳绳</div>
+                                <div class="ub ub-ac" @click="dateshow = true">
+                                    <div class="font14">{{currentDatestr}}</div>
+                                    <van-icon style="display: block;" name="arrow-down" size=".2rem" color="#F6C021" />
+                                </div>
+                            </div>
+                            <van-popup v-model="dateshow" position="bottom" style="z-index: 9999;">
+                                <van-datetime-picker v-model="currentDate" type="month-day" title="" :min-date="minDate" :max-date="maxDate" :formatter="formatter" swipe-duration=100 @confirm="dateConfirm" @cancel="dateshow = false" />
+                            </van-popup>
+                            <div class="rankBox">
+                                <van-row class="rankList tx-c" style="height: .96rem;line-height: .96rem;">
+                                    <van-col span="9" style="text-align: left;">
+                                        <div class="font14 ">学生姓名</div>
+                                    </van-col>
+                                    <van-col span="8">
+                                        <div class="font14 cD54A00">用时</div>
+                                    </van-col>
+                                    <van-col span="7">
+                                        <div class="font14 cD54A00 ">个数</div>
+                                    </van-col>
+                                </van-row>
+                                <div v-if="list.length>0">
+                                    <van-row v-for="(item,index) in list" class="rankList tx-c">
+                                        <van-col span="9">
+                                            <div class="ub ub-ac">
+                                                <img class="headImg" :src="item.icon" alt="">
+                                                <div class="cf7 font14">{{item.name||""}}</div>
+                                            </div>
+                                        </van-col>
+                                        <van-col span="8" class="font14 cD54A00">
+                                            {{getDuration2(item.useTime/1000)||'--'}}
+                                        </van-col>
+                                        <van-col span="7" class="">{{item.skipCount||'--'}}
+                                            <img src="./img/skip.png" class="skipImg" alt="">
+                                            <!-- <img src="./img/unlike.png"  class="skipImg" alt="" v-if="active==1"> -->
+                                        </van-col>
+                                    </van-row>
+                                </div>
+
+                                <div class="noData-box" style="padding-top: 0;" v-else>
+                                    <img class="noData-img" src="./img/noData.png" />
+                                    <p class="noData-p">今天还没有人跳绳哦！快去跳绳吧！</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </van-pull-refresh>
+
+        <van-action-sheet v-model="macShow" :round=false description="请选择您的跳绳设备" cancel-text="取消">
+            <div class="button_box">
+                <button class="van-action-sheet__item van-hairline--top" v-for="item in macItem" @click="macSelect(item)">
+						<span class="van-action-sheet__name active" v-if="item.bind">{{item.macName}} <img class="blueboothPic" src="./img/bluebooth.png" /></span>
+						<span class="van-action-sheet__name" v-else>{{item.macName}}</span>
+					</button>
+            </div>
+        </van-action-sheet>
+
+    </div>
+</body>
+<script>
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                dateshow: false,
+                rankdate: '',
+                minDate: new Date(2021, 00, 15),
+                maxDate: new Date(),
+                currentDate: new Date(),
+                refreshing: false,
+                currentDatestr: '',
+                isShare: getQueryString('isShare'),
+                person: {
+                    "homePageStudentInfo": {
+                        "totalTime": 0,
+                        "name": "",
+                        "schoolName": "",
+                        "totalCount": 0
+                    },
+                    "homePageStudentRanking": 0,
+                    "homePageScoolRanking": 0,
+                    homePageSchoolId: 15
+                },
+                list: [],
+                macShow: false,
+                macItem: [
+
+                ],
+            };
+        },
+        watch: {},
+        filters: {},
+        mounted() {
+            //将Vue方法传到全局对象window中
+            window.getMac = this.getMac;
+            window.appWebviewOpen = this.appWebviewOpen;
+            window.appWebviewClose = this.appWebviewClose;
+
+        },
+        beforeCreate() {
+            //this.getChangeFlag();
+        },
+        created() {
+            var that = this;
+            if (this.isShare) {
+                localStorage.setItem('appInfo', JSON.stringify({
+                    userId: getQueryString('userId')
+                }));
+            }
+            if (isWechat) { //说明是分享的页面
+                console.log(1)
+                if (getCookie('SUMMERCAMP_OPENID')) {
+                    console.log(2)
+                    that.openId = getCookie('SUMMERCAMP_OPENID');
+                } else {
+                    if (getCode()) {
+                        //页面中带有code调用接口获取openId
+                        getOpenid(getCode(), function(openid) {
+                            if (!openid) return;
+                            that.openId = openid;
+                        })
+                    } else { //重定向
+                        console.log(4)
+                        var local = location.href;
+                        window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + APPID + '&redirect_uri=' +
+                            encodeURIComponent(local) + '&response_type=code&scope=snsapi_base&state=#wechat_redirect'
+                    }
+                }
+            }
+            console.log(3)
+            var month = new Date().getMonth() + 1,
+                dates = new Date().getDate();
+            month = month > 9 ? month : "0" + month;
+            dates = dates > 9 ? dates : "0" + dates;
+            this.currentDatestr = '2021-' + month + '-' + dates;
+            this.getPersonInfo();
+            this.getSchoolrank();
+        },
+        methods: {
+            appWebviewOpen() {
+                this.getPersonInfo();
+                this.getSchoolrank();
+                console.log("appWebviewOpen")
+            },
+            appWebviewClose() {
+                this.getPersonInfo();
+                this.getSchoolrank();
+                console.log("appWebviewClose")
+            },
+            formatter(type, val) {
+                if (type === 'month') {
+                    return `${val}月`;
+                } else if (type === 'day') {
+                    return `${val}日`;
+                }
+                return val;
+            },
+            onRefresh() {
+                // 清空列表数据
+                // 重新加载数据
+                // 将 loading 设置为 true，表示处于加载状态
+                this.getPersonInfo();
+                this.getSchoolrank();
+                this.refreshing = false;
+            },
+            // 确定时间回调
+            dateConfirm(val) {
+                var month = new Date(val).getMonth() + 1,
+                    dates = new Date(val).getDate();
+                month = month > 9 ? month : "0" + month;
+                dates = dates > 9 ? dates : "0" + dates;
+                this.currentDatestr = '2021-' + month + '-' + dates;
+                this.getSchoolrank();
+                this.dateshow = false;
+            },
+            getPersonInfo() { //获取个人信息
+                console.log(8)
+                var that = this;
+                ajax({
+                    type: "get",
+                    url: "/rope-skipping-summer-camp/summerCamp/myHomePage",
+                    data: {
+
+                    },
+                    success: function(res) {
+                        if (res.code == 0) {
+                            if (JSON.stringify(res.data) == "{}") {} else {
+                                if (!res.data.homePageStudentInfo) {
+                                    res.data.homePageStudentInfo = {
+                                        "totalTime": 0,
+                                        "name": "",
+                                        "schoolName": "",
+                                        "totalCount": 0
+                                    }
+                                }
+                                that.person = res.data;
+                            }
+                        } else {
+                            that.$toast(res.msg)
+                        }
+
+                    },
+                    error: function(err) {
+                        console.log("error")
+                    }
+                })
+            },
+            getSchoolrank() { //获取校内跳绳排名
+                var that = this;
+                ajax({
+                    type: "get",
+                    url: "/rope-skipping-summer-camp/summerCamp/dayRankList",
+                    data: {
+                        currentDay: that.currentDatestr
+                    },
+                    success: function(res) {
+                        if (res.code == 0) {
+                            that.list = res.data;
+                        } else {
+                            that.$toast(res.msg)
+                        }
+
+                    },
+                    error: function(err) {
+                        console.log("error")
+                    }
+                })
+            },
+            gotoSchool() {
+                var url = "SchoolRanking.html?campId=" + getQueryString("campId")
+                if (this.isShare) {
+                    url += "&isShare=1"
+                }
+                window.location.href = url
+            },
+            getDuration(second) {
+                var hours = Math.floor((second % 86400) / 3600);
+                var minutes = Math.floor(((second % 86400) % 3600) / 60);
+                var seconds = Math.floor(((second % 86400) % 3600) % 60);
+                hours = hours > 9 ? hours : "0" + hours;
+                minutes = minutes > 9 ? minutes : "0" + minutes;
+                seconds = seconds > 9 ? seconds : "0" + seconds;
+                var duration = hours + "小时" + minutes + "分" + seconds + "秒";
+                return duration;
+            },
+            getDuration2(second) {
+                var hours = Math.floor((second % 86400) / 3600);
+                var minutes = Math.floor(((second % 86400) % 3600) / 60);
+                var seconds = Math.floor(((second % 86400) % 3600) % 60);
+                hours = hours > 9 ? hours : "0" + hours;
+                minutes = minutes > 9 ? minutes : "0" + minutes;
+                seconds = seconds > 9 ? seconds : "0" + seconds;
+                var duration = hours + ":" + minutes + ":" + seconds;
+                return duration;
+            },
+            closeH5() {
+                Interaction.closePage()
+            },
+
+            gotoSkip() {
+                var that = this;
+                var skipItem = {
+                    "method": "LSTH5APP_JingAnSchoolChallenge", //H5调起原生选择设备，需要过滤掉rs-s3，Hilink，发光跳绳，并跳转到专门的vlog页面，
+                    "isChild": 1, // 1是学生，0是家长 int
+                    "competitionId": "1", // 比赛ID string
+                    "roundTimes": 1, // 跳了多少次 int
+                    "skipTime": 60, //倒计时长， 秒 int
+                }
+                if (isIOS) {
+                    window.webkit.messageHandlers.lstNative.postMessage(skipItem)
+                } else { //判断Android
+                    window.android.LSTH5APP_JingAnSchoolChallenge(JSON.stringify(skipItem));
+                }
+            },
+            gonext(url) {
+                var surl = url;
+                if (this.isShare) {
+                    url += "?isShare=1";
+                    if (surl == 'InnerSchoolRanking.html') url = url + '&schoolName=' + this.person.homePageStudentInfo.schoolName +
+                        '&schoolId=' + this.person.homePageSchoolId + "&campId=" + getQueryString("campId")
+                } else {
+                    if (surl == 'InnerSchoolRanking.html') {
+                        url = url + '?schoolName=' + this.person.homePageStudentInfo.schoolName +
+                            '&schoolId=' + this.person.homePageSchoolId + "&campId=" + getQueryString("campId")
+                    } else {
+                        url = url + "?campId=" + getQueryString("campId")
+                    }
+                }
+                window.location.href = url
+            },
+            share() {
+                var appInfo = JSON.parse(localStorage.getItem("appInfo"));
+                var version = appInfo.appVersion;
+                version = version.split(".");
+                if (isIOS) {
+                    console.log(parseInt(version[version.length - 1]))
+                    if (parseInt(version[version.length - 1]) < 1120) {
+                        this.$toast("请先升级到最新版本后再分享");
+                        return
+                    }
+                } else if (isAndroid) {
+                    if (parseInt(version[version.length - 1]) < 1099) {
+                        this.$toast("请先升级到最新版本后再分享");
+                        return
+                    }
+                }
+                sharePage({
+                    "title": "点开就能知道我跳绳有多厉害！赶紧为我点赞加油吧！",
+                    "description": "我正在参加“绳”彩争霸 静安区小学生寒假跳绳挑战赛！快来为我加油打气吧！",
+                    "url": host + "/h5/h5V2/summercamp/index.html?isShare=1&userId=" + JSON.parse(localStorage.getItem("appInfo")).userId + "&campId=" + getQueryString("campId")
+                })
+            }
+        },
+    });
+</script>
+
+</html>

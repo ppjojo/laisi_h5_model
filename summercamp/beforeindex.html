@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<script src="../common/js/md5.js"></script>
+	<script src="js/network.js"></script>
+	<title></title>
+	<script type="text/javascript">
+		document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';
+	</script>
+</head>
+
+<body>
+</body>
+<script>
+	window.onload = function () {
+		localStorage.removeItem("appInfo");
+		isStudent(function (flag) {
+			if (!flag) window.location.replace('SchoolRanking.html?isStudent=1&campId='+getQueryString("campId"))
+			else window.location.href = 'index.html?campId='+getQueryString("campId")
+		})
+
+	}
+</script>
+
+</html>

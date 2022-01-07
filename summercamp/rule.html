@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+    <link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
+    <link rel="stylesheet" href="font/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="css/PersonalRanking.css" />
+    <link rel="stylesheet" type="text/css" href="css/common.css" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vant@2.12.2/lib/vant.min.js"></script>
+    <script src="../common/js/network.js"></script>
+    <title></title>
+</head>
+
+<body>
+    <div id="app" class="page" v-cloak>
+        <div class="header">
+            <van-nav-bar title="标题" left-arrow z-index=999 @click-left="onClickLeft">
+                <template slot="title">
+					<div class="title">
+						活动规则
+					</div>
+				</template>
+            </van-nav-bar>
+        </div>
+        <p class="font14 " style="padding: .3rem; padding-top: 1rem;line-height: .45rem;text-indent: .2rem;">
+            <span class="font20 tx-c">“绳”彩争霸 静安区小学生寒假跳绳挑战赛（线上）
+				竞赛规程</span></br>
+            </br>
+            <span class="font16">1、参赛队伍：</span></br>
+            &nbsp;&nbsp;&nbsp;&nbsp;静安区教育局下辖50所已报名小学，每所学校十名参赛学生。</br>
+
+            <span class="font16">2、参赛说明：</span></br>
+            &nbsp;&nbsp;&nbsp;&nbsp;已报名学生使用75派智能跳绳，配合派健康APP同步的所有非作弊跳绳数据均可录入榜单，参与排名。</br>
+            <span class="font16">3、挑战赛时间：</span></br>
+            &nbsp;&nbsp;&nbsp;&nbsp;2022年1月27日00:00:00-2021年2月10日23：59：59（2月10日封榜，2月10日当天跳绳完毕，请务必与APP同步数据。若2月10日跳绳完毕，忘记同步，于2月11日同步，则该条数据不计入榜单）</br>
+            <span class="font16">4、奖励设置：</span></br>
+            &nbsp;&nbsp;&nbsp;&nbsp;个人优胜奖（前八名）——每天上线的基础上，计算累计跳绳总数。</br>
+            &nbsp;&nbsp;&nbsp;&nbsp;学校团体奖（前八名）——学校每个学生每天上线的基础上，计算累计跳绳总数。</br>
+            &nbsp;&nbsp;&nbsp;&nbsp;人气个人奖（冠亚季）——每天上线的基础上，累计跳绳数前20名学生即可参与线上活动页面“点赞”，产生冬令营人气榜前3名，按参赛个人累计人气值计算。<span style="color: #FF0000;">（为确保投票公平性，点赞投票仅限派健康APP和微信平台，每人每天最多可为三名不同的参赛学生点赞一次）。</span></br>
+            &nbsp;&nbsp;&nbsp;&nbsp;人气校园奖 团体（冠亚季）——每个学生每天上线的基础上，累计跳绳数前20名的学校即可参与线上活动页面“点赞”，产生校园大PK人气榜前3名，按参赛学校累计累计人气值计算。
+            <span style="color: #FF0000;">（为确保投票公平性，点赞投票仅限派健康APP微信平台，每人每天最多可为一所学校点赞一次）。</span></br>
+
+            <span class="font16">5、奖品设置：</span></br>
+            &nbsp;&nbsp;&nbsp;&nbsp;静安区教育局颁发纪念奖杯。</br>
+        </p>
+    </div>
+</body>
+<script>
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+
+            };
+        },
+        watch: {},
+        filters: {},
+        mounted() {},
+        beforeCreate() {
+            //this.getChangeFlag();
+        },
+        created() {
+
+        },
+        methods: {
+            onClickLeft() {
+                window.history.back(-1)
+            },
+        },
+
+    });
+</script>
+
+</html>
