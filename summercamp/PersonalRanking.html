@@ -6,107 +6,72 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
     <link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
     <link rel="stylesheet" href="font/iconfont.css">
-    <link rel="stylesheet" type="text/css" href="css/PersonalRanking.css" />
+    <link rel="stylesheet" type="text/css" href="css/personalRanking.css" />
     <link rel="stylesheet" type="text/css" href="css/common.css" />
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vant@2.12.2/lib/vant.min.js"></script>
     <script src="../common/js/network.js"></script>
-    <!-- <title>我的主页</title> -->
-    <style type="text/css">
-        .header .van-overlay .optionBox .optionItem.active {
-            background-image: url(img/optionActive2.png);
-        }
-    </style>
+    <title>1分钟倒计时亲子双人跳</title>
+
 
 </head>
 
 <body>
     <div id="app" class="page" v-cloak>
         <div class="header">
-            <van-nav-bar title="标题" z-index=999 @click-left="onClickLeft" @click-right="share" safe-area-inset-top fixed>
+            <van-nav-bar title="1分钟倒计时亲子双人跳" z-index=999 @click-left="onClickLeft" @click-right="share" safe-area-inset-top fixed>
                 <template #left v-if="!isShare">
                     <span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" ></span>
                 </template>
-                <template slot="title">
-					<div class="title" @click="show = !show">
-						{{active==1?'“绳”彩争霸挑战赛-人气榜':'“绳”彩争霸挑战赛-实力榜'}}
-						<van-icon name="arrow-down" color="#FA9C12" size="16" />
-					</div>
-				</template>
                 <template #right v-if="!isShare"> 
                     <span class="icon iconfont icon-fenxianganniu"  style="font-size: 0.5rem;"></span>
                 </template>
             </van-nav-bar>
-            <van-overlay :show="show" z-index=998 @click="show = false">
-                <div class="optionBox" @click.stop>
-                    <div class="optionItem" :class="active==1?'active':''" @click="changeRank(1)">
-                        “绳”彩争霸挑战赛-人气榜
-                    </div>
-                    <div class="optionItem" :class="active==2?'active':''" @click="changeRank(2)">“绳”彩争霸挑战赛-实力榜</div>
-                </div>
-            </van-overlay>
         </div>
         <div class="rankBox">
             <div class="van_row_title_box">
-                <van-row class="van_row_title" v-if="active==1">
+                <van-row class="van_row_title">
                     <van-col span="2">
                         排名
                     </van-col>
-                    <van-col span="3"></van-col>
-                    <van-col span="4" class="align_left">
+                    <van-col span="8">
                         姓名
                     </van-col>
-                    <van-col span="8">
-                        学校
+                    <van-col span="5">
+                        今日最佳<br> (个数)
                     </van-col>
-                    <van-col span="7">
-                        人气值
+                    <van-col span="5">
+                        最佳汇总<br> (个数)
                     </van-col>
-                </van-row>
-                <van-row class="van_row_title" v-else>
-                    <van-col span="2">
-                        排名
-                    </van-col>
-                    <van-col span="3">
-
-                    </van-col>
-                    <van-col span="4" class="align_left">
-                        姓名
-                    </van-col>
-                    <van-col span="8">
-                        学校
-                    </van-col>
-                    <van-col span="6">
-                        个数
+                    <van-col span="4">
+                        查看视频
                     </van-col>
                 </van-row>
             </div>
             <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
                 <van-list v-model="loading" :finished="finished" @load="onLoad" finished-text="已经到底啦~" v-if="list.length>0">
                     <van-row v-for="(item,index) in list" class="rankList">
-                        <van-col span="2" class="ranking" v-if="item.rank==0">
+                        <van-col span="2" class="ranking" v-if="item.rank==1">
                             <img class="sortPic" src="./img/no1.png" />
                         </van-col>
-                        <van-col span="2" class="ranking" v-else-if="item.rank==1">
+                        <van-col span="2" class="ranking" v-else-if="item.rank==2">
                             <img class="sortPic" src="./img/no2.png" />
                         </van-col>
-                        <van-col span="2" class="ranking" v-else-if="item.rank==2">
+                        <van-col span="2" class="ranking" v-else-if="item.rank==3">
                             <img class="sortPic" src="./img/no3.png" />
                         </van-col>
                         <van-col span="2" class="ranking" v-else>
-                            {{item.rank + 1}}
+                            {{item.rank||"--"}}
                         </van-col>
-                        <van-col span="3" class="">
-                            <div class="detail_headpic" v-if="item.icon" :style="{'background-image': 'url(' + item.icon + ')'}"></div>
-                            <div class="detail_headpic" v-else style="background-image: url(./img/boyImg.png)"></div>
-                        </van-col>
-                        <van-col span="4" class="align_left">{{ item.name | ellipsis }}</van-col>
-                        <van-col span="8">{{item.schoolName}}</van-col>
-                        <van-col span="7">{{active==1?item.popularity:item.skipCount||'--'}}
-                            <img src="./img/like.png" class="skipImg" alt="" v-if="active==1&&item.isLiked">
-                            <img src="./img/unlike.png" @click="studentAddPopularity(item.id,index)" class="skipImg" alt="" v-else-if="active==1&&!item.isLiked">
-                            <img src="./img/skip.png" class="skipImg" alt="" v-else>
 
+                        <van-col span="8" class="studentBox">
+                            <div class="name" class="van-ellipsis name">{{ item.name }}</div>
+                            <div class="time">累计打卡：{{item.sportDay||"--"}}天</div>
+                        </van-col>
+                        <van-col span="5" class="skipCount"> {{item.bestDailyValue||'--'}}</van-col>
+                        <van-col span="5" class="skipCount"> {{item.bestValue||'--'}}</van-col>
+                        <van-col span="4" class="playBox">
+                            <img src="./img/play.png" class="playImg" @click="play(item.childVideoId)" alt="">
                         </van-col>
 
                     </van-row>
@@ -117,10 +82,6 @@
                 </div>
             </van-pull-refresh>
         </div>
-        <van-popup v-model="couponshow" round :style="{width:'70%'}">
-            <img style="width: 100%;height: auto;display: block;" @click="window.open('https://shop43117428.youzan.com/v2/ump/promocard/fetch?alias=qqcamvcg')" src="img/coupon.png" alt="">
-        </van-popup>
-
     </div>
 </body>
 <script>
@@ -128,9 +89,8 @@
         el: '#app',
         data() {
             return {
-                show: false,
-                active: 2,
-                apiUrl: "/rope-skipping-summer-camp/summerCamp/summerCampRanking",
+                campId: getQueryString('campId') || "jingan20220124",
+                competitionId: getQueryString('competitionId'),
                 isShare: getQueryString('isShare'),
                 pageNum: 0,
                 pageSize: 999,
@@ -140,7 +100,6 @@
                 loading: false,
                 list: [],
                 openId: "",
-                couponshow: false,
                 liketimes: 0
             };
         },
@@ -154,18 +113,12 @@
                 return value;
             }
         },
-        mounted() {},
-        beforeCreate() {
-
-        },
         created() {
             var that = this;
             if (!this.isShare) {
                 that.openId = JSON.parse(localStorage.getItem("appInfo")).userId;
-            } else {
-                that.active = 1;
-                that.apiUrl = "/rope-skipping-summer-camp/summerCamp/summerPopularRanking"
             }
+
             if (isWechat) { //说明是分享的页面
                 if (getCookie('SUMMERCAMP_OPENID')) {
                     that.openId = getCookie('SUMMERCAMP_OPENID');
@@ -188,17 +141,12 @@
             }
         },
         methods: {
-            //改变排行榜
-            changeRank(value) {
-                this.active = value;
-                if (value == 1) {
-                    this.apiUrl = "/rope-skipping-summer-camp/summerCamp/summerPopularRanking";
+            onClickLeft() {
+                if (getQueryString("fromH5") == 1) {
+                    window.history.back(-1)
                 } else {
-                    this.apiUrl = "/rope-skipping-summer-camp/summerCamp/summerCampRanking";
+                    Interaction.closePage();
                 }
-                this.show = false;
-                this.pageNum = 0;
-                this.getRankData();
             },
             //获取排行榜数据
             getRankData() {
@@ -206,19 +154,16 @@
                 var nowPageNum = that.pageNum;
                 ajax({
                     type: "get",
-                    url: that.apiUrl,
+                    url: "summerVlogSkippingPk/competitorDailyStastic/getOneMinRanking",
                     data: {
-                        offset: that.pageNum,
-                        limit: that.pageSize,
-                        openId: that.openId
+                        openId: that.openId,
+                        campId: this.campId,
+                        competitionId: this.competitionId,
                     },
                     success: function(res) {
                         if (res.code == 0) {
-                            // that.total = res.data.count;
                             that.finished = true;
-
-                            that.list = that.active == 2 ? res.data.summerCampRanking : res.data.summerPopularRanking
-
+                            that.list = res.data
                             that.loading = false;
                         } else {
                             that.finished = true;
@@ -250,65 +195,23 @@
                 }
                 this.getRankData()
             },
-            onClickLeft() {
-                window.history.back(-1)
-            },
-            //点赞学生
-            studentAddPopularity(studentId, index) {
-                var that = this;
-                if (that.liketimes == 0 && that.isShare) {
-                    setTimeout(function() {
-                        that.couponshow = true;
-                    }, 500);
-                    that.liketimes++;
+            play(id) {
+                var item = {
+                    method: "LSTH5APP_PlayChallengeVlogVideo", //H5跳绳原生简易播放页面，专门用来播放挑战的vlog视频
+                    video: id
                 }
-                if (!that.openId) {
-                    that.$toast("只能在微信浏览器中点赞");
-                    return;
-                }
-
-                ajax({
-                    type: "get",
-                    url: "/rope-skipping-summer-camp/summerCamp/studentAddPopularity",
-                    data: {
-                        likedUserId: studentId,
-                        openId: that.openId
-                    },
-                    success: function(res) {
-                        if (res.code == 0) {
-                            that.$toast("点赞成功");
-                            that.list[index].isLiked = true;
-                            that.list[index].popularity += 10;
-                        } else {
-                            that.$toast(res.msg)
-                        }
-
-                    },
-                    error: function(err) {
-                        console.log("error")
-                    }
-                })
-            },
-            share() {
-                var appInfo = JSON.parse(localStorage.getItem("appInfo"));
-                var version = appInfo.appVersion;
-                version = version.split(".");
                 if (isIOS) {
-                    console.log(parseInt(version[version.length - 1]))
-                    if (parseInt(version[version.length - 1]) < 1120) {
-                        this.$toast("请先升级到最新版本后再分享");
-                        return
-                    }
-                } else if (isAndroid) {
-                    if (parseInt(version[version.length - 1]) < 1099) {
-                        this.$toast("请先升级到最新版本后再分享");
-                        return
-                    }
+                    window.webkit.messageHandlers.lstNative.postMessage(item)
+                } else { //判断Android
+                    window.android.LSTH5APP_JingAnSchoolChallenge(JSON.stringify(item));
                 }
-                sharePage({
+            },
+
+            share() {
+                Interaction.sharePage({
                     "title": "点赞！这个冬天最会跳绳的宝贝都在这里",
                     "description": "我正在参加《“绳”彩争霸 静安区小学生寒假跳绳挑战赛》 快来为我加油打气吧！",
-                    "url": host + "/h5/h5V2/summercamp/PersonalRanking.html?isShare=1" + "&campId=" + getQueryString("campId")
+                    "url": host + "/h5/h5V3/summercamp/personalRanking.html?isShare=1"
                 })
             }
 

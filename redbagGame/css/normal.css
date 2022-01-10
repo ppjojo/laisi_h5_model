@@ -293,7 +293,7 @@ body {
 }
 
 
-/*# sourceMappingURL=PersonalRanking.css.map */
+/*# sourceMappingURL=personalRanking.css.map */
 
 @supports ((height: constant(safe-area-inset-top)) or (height: env(safe-area-inset-top))) and (-webkit-overflow-scrolling: touch) {
     #myinfo {

@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+    <link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
+    <link rel="stylesheet" href="font/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="css/personalRanking.css" />
+    <link rel="stylesheet" type="text/css" href="css/common.css" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vant@2.12.2/lib/vant.min.js"></script>
+    <script src="../common/js/network.js"></script>
+    <title>3+3分钟总个数排名</title>
+    <style type="text/css">
+        .gojump {
+            width: 6.7rem;
+            height: 0.88rem;
+            position: fixed;
+            left: 50%;
+            margin-left: -3.35rem;
+            bottom: 1rem;
+            font-size: .4rem;
+            text-align: center;
+            color: #fff;
+            line-height: 0.88rem;
+            z-index: 9;
+            border-radius: 0.44rem;
+            background: linear-gradient(to right, #FF4E3E, #FFAA88);
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="app" class="page" v-cloak>
+        <div class="header">
+            <van-nav-bar title="3+3分钟总个数排名" z-index=999 @click-left="onClickLeft" @click-right="share" safe-area-inset-top fixed>
+                <template #left v-if="!isShare">
+                    <span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" ></span>
+                </template>
+                <template #right v-if="!isShare"> 
+                    <span class="icon iconfont icon-fenxianganniu"  style="font-size: 0.5rem;"></span>
+                </template>
+            </van-nav-bar>
+        </div>
+        <div class="rankBox">
+            <div class="van_row_title_box">
+                <van-row class="van_row_title">
+                    <van-col span="2">
+                        排名
+                    </van-col>
+                    <van-col span="4">
+                        姓名
+                    </van-col>
+                    <van-col span="5">
+                        今日最佳<br>(个数)
+                    </van-col>
+                    <van-col span="4">
+                        比赛次数
+                    </van-col>
+                    <van-col span="5">
+                        最佳汇总<br>(个数)
+                    </van-col>
+                    <van-col span="4">
+                        查看<br>视频
+                    </van-col>
+                </van-row>
+            </div>
+            <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
+                <van-list v-model="loading" :finished="finished" @load="onLoad" finished-text="已经到底啦~" v-if="list.length>0">
+                    <van-row v-for="(item,index) in list" class="rankList">
+                        <van-col span="2" class="ranking" v-if="item.rank==0">
+                            <img class="sortPic" src="./img/no1.png" />
+                        </van-col>
+                        <van-col span="2" class="ranking" v-else-if="item.rank==1">
+                            <img class="sortPic" src="./img/no2.png" />
+                        </van-col>
+                        <van-col span="2" class="ranking" v-else-if="item.rank==2">
+                            <img class="sortPic" src="./img/no3.png" />
+                        </van-col>
+                        <van-col span="2" class="ranking" v-else>
+                            {{item.rank||4}}
+                        </van-col>
+
+                        <van-col span="4" class="van-ellipsis">{{ item.name }}</van-col>
+                        <van-col span="5" class="c666">{{item.bestDailyCount||"--"}}</van-col>
+                        <van-col span="4" class="c666">{{item.frequency||"--"}}</van-col>
+                        <van-col span="5" class="skipCount"> {{item.bestTotalCount||'--'}}</van-col>
+                        <van-col span="4" class="playBox">
+                            <img src="./img/play.png" class="playImg" @click="videoBoxActive(item)" alt="">
+                        </van-col>
+
+                    </van-row>
+                </van-list>
+                <div class="noData-box" v-else-if="finished">
+                    <img class="noData-img" src="./img/noData.png" />
+                    <p class="noData-p">暂无排行数据</p>
+                </div>
+            </van-pull-refresh>
+        </div>
+        <div class="gojump" v-if="skipItem.parentStoryTime>0" @click="gotoSkip(skipItem)">
+            继续完成跳绳<span v-if="djs">({{djs}})</span>
+        </div>
+
+
+        <van-popup v-model="videoShow" style="background:transparent;" round>
+            <div class="videoContain">
+                <div class="videoBox">
+                    <div class="title">选择你要查看的视频</div>
+                    <div class="boxItem" @click="play(parentVideoId)">
+                        <img src="./img/video_parent.png" alt="">
+                        <div class="text">家长的跳绳vlog</div>
+                        <span class="iconfont icon-tongyong-gengduo" />
+                    </div>
+                    <div class="boxItem" @click="play(childVideoId)">
+                        <img src="./img/video_student.png" alt="">
+                        <div class="text">学生的跳绳vlog</div>
+                        <span class="iconfont icon-tongyong-gengduo" />
+                    </div>
+                </div>
+                <div class="closeIcon">
+                    <van-icon name="close" @click="videoShow=false" size="0.5rem" color="#fff" />
+                </div>
+            </div>
+
+
+        </van-popup>
+
+    </div>
+</body>
+<script>
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                campId: getQueryString('campId') || "jingan20220124",
+                isShare: getQueryString('isShare'),
+                competitionId: getQueryString('competitionId'),
+                skipItem: {},
+                pageNum: 0,
+                pageSize: 999,
+                total: 0,
+                refreshing: false,
+                finished: false,
+                loading: false,
+                list: [{}],
+                openId: "",
+                videoShow: false,
+                djs: "",
+                interval: ""
+            };
+        },
+        watch: {},
+        filters: {
+            ellipsis(value) {
+                if (!value) return '';
+                if (value.length > 6) {
+                    return value.slice(0, 6) + '...';
+                }
+                return value;
+            }
+        },
+        created() {
+            var that = this;
+            if (!this.isShare) {
+                that.openId = JSON.parse(localStorage.getItem("appInfo")).userId;
+            }
+            if (isWechat) { //说明是分享的页面
+                if (getCookie('SUMMERCAMP_OPENID')) {
+                    that.openId = getCookie('SUMMERCAMP_OPENID');
+                    that.getRankData();
+                } else {
+                    if (getCode()) {
+                        //页面中带有code调用接口获取openId
+                        getOpenid(getCode(), function(openid) {
+                            if (!openid) return;
+                            that.openId = openid;
+                            that.getRankData();
+                        })
+                    } else { //重定向
+                        var local = location.href;
+                        window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + APPID + '&redirect_uri=' + encodeURIComponent(local) + '&response_type=code&scope=snsapi_base&state=#wechat_redirect'
+                    }
+                }
+            }
+            that.getRankData();
+            this.getDJS()
+
+        },
+        methods: {
+            startDjs(time) {
+                var time2 = time;
+                this.interval = setInterval(() => {
+                    var s = time2 / 1000;
+                    time2 -= 1000
+                    if (s <= 0) {
+                        this.getRankData();
+                        this.getDJS()
+                        clearInterval(this.interval)
+                    }
+                    var hour = Math.floor(s / 3600) + "";
+                    var minute = Math.floor((s - hour * 3600) / 60) + "";
+                    var second = s - hour * 3600 - minute * 60 + "";
+                    this.djs = hour.padStart(2, "0") + ":" + minute.padStart(2, "0") + ":" + second.padStart(2, "0");
+                }, 1000);
+            },
+            //获取排行榜数据
+            getRankData() {
+                ajax({
+                    url: "summerVlogSkippingPk/competitorDailyStastic/getThreeMinRanking",
+                    data: {
+                        openId: this.openId,
+                        campId: this.campId,
+                        competitionId: this.competitionId,
+                        type: 2
+                    }
+                }).then(res => {
+                    if (res.code == 0) {
+                        this.finished = true;
+                        this.list = res.data
+                        this.loading = false;
+                    } else {
+                        this.finished = true;
+                        this.loading = false;
+                        this.$toast(res.msg)
+                    }
+
+                })
+
+            },
+            getDJS(competitionId) {
+                ajax({
+                    url: "summerVlogSkippingPk/vlogStory/get/now/round/times",
+                    data: {
+                        campId: this.campId,
+                        competitionId: this.competitionId,
+                    }
+                }).then((res) => {
+                    if (res.code == 0) {
+                        if (res.data.parentStoryTime > 0) {
+                            this.skipItem = res.data
+                            this.startDjs(res.data.parentStoryTime)
+                        }
+                    } else {
+                        this.$toast(res.msg)
+                    }
+                });
+            },
+            gotoSkip3(obj) {
+                var skipItem = {
+                    method: "LSTH5APP_JingAnSchoolChallenge", //H5调起原生选择设备，需要过滤掉rs-s3，Hilink，发光跳绳，并跳转到专门的vlog页面，
+                    isChild: obj.isChild, // 1是学生，0是家长 int
+                    competitionId: obj.competitionId + "", // 比赛ID string
+                    roundTimes: obj.roundTimes, // 跳了多少次 int
+                    skipTime: obj.skipTime, //倒计时长， 秒 int
+                    campId: this.campId
+                }
+                if (isIOS) {
+                    window.webkit.messageHandlers.lstNative.postMessage(skipItem)
+                } else { //判断Android
+                    window.android.LSTH5APP_JingAnSchoolChallenge(JSON.stringify(skipItem));
+                }
+            },
+            skipItem(obj) {
+                var skipItem = {
+                    method: "LSTH5APP_JingAnSchoolChallenge", //H5调起原生选择设备，需要过滤掉rs-s3，Hilink，发光跳绳，并跳转到专门的vlog页面，
+                    isChild: obj.isChild, // 1是学生，0是家长 int
+                    competitionId: obj.competitionId + "", // 比赛ID string
+                    roundTimes: obj.roundTimes, // 跳了多少次 int
+                    skipTime: obj.skipTime, //倒计时长， 秒 int
+                    campId: this.campId
+                }
+                if (isIOS) {
+                    window.webkit.messageHandlers.lstNative.postMessage(skipItem)
+                } else { //判断Android
+                    window.android.LSTH5APP_JingAnSchoolChallenge(JSON.stringify(skipItem));
+                }
+            },
+            onRefresh() {
+                // 清空列表数据
+                this.finished = false;
+                // 重新加载数据
+                // 将 loading 设置为 true，表示处于加载状态
+                this.loading = true;
+                this.onLoad();
+            },
+            onLoad() {
+                if (this.refreshing) {
+                    this.refreshing = false;
+                    this.pageNum = 0;
+                } else {
+                    this.pageNum++;
+                }
+                this.getRankData()
+            },
+            onClickLeft() {
+                if (getQueryString("fromH5") == 1) {
+                    window.history.back(-1)
+                } else {
+                    Interaction.closePage();
+                }
+            },
+            //点赞学生
+            studentAddPopularity(studentId, index) {
+                var that = this;
+                if (!that.openId) {
+                    that.$toast("只能在微信浏览器中点赞");
+                    return;
+                }
+
+                ajax({
+                    type: "get",
+                    url: "/rope-skipping-summer-camp/summerCamp/studentAddPopularity",
+                    data: {
+                        likedUserId: studentId,
+                        openId: that.openId
+                    },
+                    success: function(res) {
+                        if (res.code == 0) {
+                            that.$toast("点赞成功");
+                            that.list[index].isLiked = true;
+                            that.list[index].popularity += 10;
+                        } else {
+                            that.$toast(res.msg)
+                        }
+
+                    },
+                    error: function(err) {
+                        console.log("error")
+                    }
+                })
+            },
+            videoBoxActive(item) {
+                this.parentVideoId = item.parentVideoId;
+                this.childVideoId = item.childVideoId
+                this.videoShow = true
+            },
+            share() {
+                Interaction.sharePage({
+                    "title": "点赞！这个冬天最会跳绳的宝贝都在这里",
+                    "description": "我正在参加《“绳”彩争霸 静安区小学生寒假跳绳挑战赛》 快来为我加油打气吧！",
+                    "url": host + `/h5/h5V3/summercamp/PersonalRanking.html?isShare=1&campId=${this.campId}`
+                })
+            },
+            play(id) {
+                this.videoShow = false
+                var item = {
+                    method: "LSTH5APP_PlayChallengeVlogVideo", //H5跳绳原生简易播放页面，专门用来播放挑战的vlog视频
+                    video: id
+                }
+                if (isIOS) {
+                    window.webkit.messageHandlers.lstNative.postMessage(item)
+                } else { //判断Android
+                    window.android.LSTH5APP_JingAnSchoolChallenge(JSON.stringify(item));
+                }
+            },
+
+        },
+
+    });
+</script>
+
+</html>

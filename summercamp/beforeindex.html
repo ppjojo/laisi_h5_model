@@ -2,26 +2,33 @@
 <html>
 
 <head>
-	<meta charset="utf-8">
-	<script src="../common/js/md5.js"></script>
-	<script src="js/network.js"></script>
-	<title></title>
-	<script type="text/javascript">
-		document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';
-	</script>
+    <meta charset="utf-8">
+    <script src="../common/js/network.js"></script>
+    <title></title>
+    <script type="text/javascript">
+        document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';
+    </script>
 </head>
 
 <body>
 </body>
 <script>
-	window.onload = function () {
-		localStorage.removeItem("appInfo");
-		isStudent(function (flag) {
-			if (!flag) window.location.replace('SchoolRanking.html?isStudent=1&campId='+getQueryString("campId"))
-			else window.location.href = 'index.html?campId='+getQueryString("campId")
-		})
+    window.onload = function() {
+        //localStorage.removeItem("appInfo");
+        ajax({
+            url: "summerVlogSkippingPk/summerCamp/isSummerStudent",
+            data: {
+                campId: getQueryString("campId") || "jingan20220124"
+            }
+        }).then(res => {
+            if (res.data) {
+                window.location.href = 'index.html?campId=' + getQueryString("campId")
+            } else {
+                window.location.replace('schoolRanking.html?campId=' + getQueryString("campId"))
+            }
+        })
 
-	}
+    }
 </script>
 
 </html>

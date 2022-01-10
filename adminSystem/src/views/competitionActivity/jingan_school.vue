@@ -6,7 +6,6 @@
         <el-button type="primary" size="mini">导入学校信息</el-button>
       </el-upload>
     </div>
-
     <div class="container-search">
       <el-form :inline="true" :model="searchForm">
         <el-form-item label="UserId">
@@ -33,8 +32,8 @@
           </el-image>
         </template>
       </el-table-column>
-      <el-table-column align="center" prop="leaderName" label="领队"></el-table-column>
-      <el-table-column align="center" prop="leaderPhoneNumber" label="领队号码"></el-table-column>
+      <!-- <el-table-column align="center" prop="leaderName" label="领队"></el-table-column>
+      <el-table-column align="center" prop="leaderPhoneNumber" label="领队号码"></el-table-column> -->
       <el-table-column align="center" prop="popularity" label="人气值"></el-table-column>
       <el-table-column align="center" label="操作" width="200">
         <template scope="scope">
@@ -64,12 +63,12 @@
           </el-upload>
         </el-form-item>
 
-        <el-form-item label="领队名字" prop="leaderName">
+        <!-- <el-form-item label="领队名字" prop="leaderName">
           <el-input v-model="form.leaderName"></el-input>
         </el-form-item>
         <el-form-item label="领队号码" prop="leaderPhoneNumber">
           <el-input v-model="form.leaderPhoneNumber"></el-input>
-        </el-form-item>
+        </el-form-item> -->
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button size="mini" @click="dialogVisible = false">取 消</el-button>
@@ -80,16 +79,16 @@
     <el-dialog title='学生详情' :visible.sync="DetailVisible" width="70%" append-to-body>
       <el-table :data="detailList" highlight-current-row style="width: 100%;">
         <el-table-column prop="userId" label="用户ID"></el-table-column>
-        <el-table-column prop="userName" label="姓名"></el-table-column>
-        <el-table-column prop="headPic" label="头像">
+        <el-table-column prop="name" label="姓名"></el-table-column>
+        <!-- <el-table-column prop="headPic" label="头像">
           <template scope="scope">
             <el-image style="width: 100px; height: 100px" :src=" scope.row.headPic" fit="fit">
             </el-image>
           </template>
-        </el-table-column>
+        </el-table-column> -->
         <el-table-column prop="phoneNumber" label="手机号"></el-table-column>
-        <el-table-column prop="nickName" label="昵称"></el-table-column>
-        <el-table-column prop="schoolName" label="学校"></el-table-column>
+        <!-- <el-table-column prop="nickName" label="昵称"></el-table-column>
+        <el-table-column prop="schoolName" label="学校"></el-table-column> -->
         <el-table-column align="center" label="操作" width="120">
           <template scope="scope">
             <el-button @click="btn_editStu(scope.row)" type="text" size="mini">编辑学生
@@ -166,19 +165,19 @@
 
     <el-dialog title='学生详情编辑' :visible.sync="stuVisible" width="70%" append-to-body>
       <el-form :model="stuForm" label-width="100px" :rules="rules" ref="stuForm">
-        <el-form-item label="姓名" prop="userName">
-          <el-input v-model="stuForm.userName"></el-input>
+        <el-form-item label="姓名" prop="name">
+          <el-input v-model="stuForm.name"></el-input>
         </el-form-item>
         <el-form-item label="手机号" prop="phoneNumber">
           <el-input v-model="stuForm.phoneNumber"></el-input>
         </el-form-item>
-        <el-form-item label="头像">
+        <!-- <el-form-item label="头像">
           <el-image style="width: 100px; height: 100px" :src=" stuForm.headPic" fit="fit">
           </el-image>
-        </el-form-item>
-        <el-form-item label="昵称" prop="nickName">
+        </el-form-item> -->
+        <!-- <el-form-item label="昵称" prop="nickName">
           <el-input v-model="stuForm.nickName" :disabled="true"></el-input>
-        </el-form-item>
+        </el-form-item> -->
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="stuVisible = false">取消
@@ -207,7 +206,6 @@ import { checkPermission } from "@/api/checkPermission";
 import { fileUpload } from "@/utils/fileUpload";
 
 export default {
-  name: "静安区冬令营2022",
   props: {
     campId: String,
   },
@@ -269,6 +267,7 @@ export default {
     };
   },
   mounted() {
+    console.log(this.campId);
     this.getList();
   },
   methods: {

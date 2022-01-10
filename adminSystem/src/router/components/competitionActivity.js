@@ -19,11 +19,11 @@ var competitionActivity = {
                 title: '京东赛事相关',
             }
         }, {
-            path: 'jingan_school',
-            permission: 'competitionActivity:jingan_school',
+            path: 'jingan_camp',
+            permission: 'competitionActivity:jingan_camp',
             hidden: true,
             component: () =>
-                import ('@/views/competitionActivity/jingan_school'),
+                import ('@/views/competitionActivity/jingan_camp'),
             meta: {
                 title: '静安区冬令营',
             }
