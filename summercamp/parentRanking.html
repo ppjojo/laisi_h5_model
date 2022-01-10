@@ -10,6 +10,10 @@
     <link rel="stylesheet" type="text/css" href="css/common.css" />
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vant@2.12.2/lib/vant.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vConsole/3.8.1/vconsole.min.js"></script>
+    <script>
+        var vConsole = new VConsole();
+    </script>
     <script src="../common/js/network.js"></script>
     <title>3+3分钟总个数排名</title>
     <style type="text/css">
@@ -161,6 +165,9 @@
                 return value;
             }
         },
+        mounted() {
+            window.initCompetitionDetail = this.initCompetitionDetail;
+        },
         created() {
             var that = this;
             if (!this.isShare) {
@@ -184,11 +191,15 @@
                     }
                 }
             }
-            that.getRankData();
+            this.getRankData();
             this.getDJS()
 
         },
         methods: {
+            initCompetitionDetail() {
+                this.getRankData();
+                this.getDJS()
+            },
             startDjs(time) {
                 var time2 = time;
                 this.interval = setInterval(() => {
@@ -269,7 +280,8 @@
                     competitionId: obj.competitionId + "", // 比赛ID string
                     roundTimes: obj.roundTimes, // 跳了多少次 int
                     skipTime: obj.skipTime, //倒计时长， 秒 int
-                    campId: this.campId
+                    campId: this.campId,
+                    isFromRank: 1
                 }
                 if (isIOS) {
                     window.webkit.messageHandlers.lstNative.postMessage(skipItem)
@@ -347,7 +359,7 @@
                 this.videoShow = false
                 var item = {
                     method: "LSTH5APP_PlayChallengeVlogVideo", //H5跳绳原生简易播放页面，专门用来播放挑战的vlog视频
-                    video: id
+                    videoId: id
                 }
                 if (isIOS) {
                     window.webkit.messageHandlers.lstNative.postMessage(item)

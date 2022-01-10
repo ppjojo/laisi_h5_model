@@ -113,6 +113,9 @@
                 return value;
             }
         },
+        mounted() {
+            window.initCompetitionDetail = this.initCompetitionDetail;
+        },
         created() {
             var that = this;
             if (!this.isShare) {
@@ -141,6 +144,9 @@
             }
         },
         methods: {
+            initCompetitionDetail() {
+                this.getRankData();
+            },
             onClickLeft() {
                 if (getQueryString("fromH5") == 1) {
                     window.history.back(-1)
@@ -198,7 +204,7 @@
             play(id) {
                 var item = {
                     method: "LSTH5APP_PlayChallengeVlogVideo", //H5跳绳原生简易播放页面，专门用来播放挑战的vlog视频
-                    video: id
+                    videoId: id
                 }
                 if (isIOS) {
                     window.webkit.messageHandlers.lstNative.postMessage(item)

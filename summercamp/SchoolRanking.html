@@ -152,9 +152,8 @@
                 return value;
             }
         },
-        mounted() {},
-        beforeCreate() {
-
+        mounted() {
+            window.initCompetitionDetail = this.initCompetitionDetail;
         },
         created() {
             var that = this;
@@ -186,6 +185,9 @@
             }
         },
         methods: {
+            initCompetitionDetail() {
+                this.getRankData();
+            },
             //改变排行榜
             changeRank(value) {
                 this.active = value;

@@ -151,8 +151,7 @@
         watch: {},
         filters: {},
         mounted() {
-            window.appWebviewOpen = this.appWebviewOpen;
-            window.appWebviewClose = this.appWebviewClose;
+            window.initCompetitionDetail = this.initCompetitionDetail;
         },
         created() {
             var that = this;
@@ -245,7 +244,7 @@
             },
             gotoSkip3(obj) {
                 if (obj.roundTimes <= 0) {
-                    this.$toast("今天该比赛的跳绳次数已用完！")
+                    this.$toast("您今天的跳绳次数已经用完，请明天继续！")
                     return
                 }
                 var skipItem = {
