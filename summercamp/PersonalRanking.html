@@ -50,7 +50,7 @@
             </div>
             <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
                 <van-list v-model="loading" :finished="finished" @load="onLoad" finished-text="已经到底啦~" v-if="list.length>0">
-                    <van-row v-for="(item,index) in list" class="rankList" :class="item.userId==currentUserId?'self':''">>
+                    <van-row v-for="(item,index) in list" class="rankList" :class="item.userId==currentUserId?'self':''">
                         <van-col span="2" class="ranking" v-if="item.rank==1">
                             <img class="sortPic" src="./img/no1.png" />
                         </van-col>
