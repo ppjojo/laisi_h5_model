@@ -16,7 +16,7 @@
         var vConsole = new VConsole();
     </script>
     <script src="../common/js/network.js"></script>
-    <title>3+3分钟总个数排名</title>
+    <title>绳彩争霸迎冬奥</title>
     <style type="text/css">
         .gojump {
             width: 6.7rem;
@@ -207,18 +207,22 @@
                 this.getDJS()
             },
             startDjs(time) {
-                this.interval = setInterval(() => {
-                    var s = parseInt((time + 240000 - new Date().getTime()) / 1000)
-                    if (s <= 0) {
-                        this.getRankData();
-                        this.getDJS()
-                        clearInterval(this.interval)
-                    }
-                    var hour = Math.floor(s / 3600) + "";
-                    var minute = Math.floor((s - hour * 3600) / 60) + "";
-                    var second = s - hour * 3600 - minute * 60 + "";
-                    this.djs = hour.padStart(2, "0") + ":" + minute.padStart(2, "0") + ":" + second.padStart(2, "0");
-                }, 1000);
+                if ((time + 240000 - new Date().getTime()) > 0) {
+                    this.interval = setInterval(() => {
+                        var s = parseInt((time + 240000 - new Date().getTime()) / 1000)
+                        if (s <= 0) {
+                            this.getRankData();
+                            this.getDJS()
+                            clearInterval(this.interval)
+                        }
+                        var hour = Math.floor(s / 3600) + "";
+                        var minute = Math.floor((s - hour * 3600) / 60) + "";
+                        var second = s - hour * 3600 - minute * 60 + "";
+                        this.djs = hour.padStart(2, "0") + ":" + minute.padStart(2, "0") + ":" + second.padStart(2, "0");
+                    }, 1000);
+                } else {
+                    this.djs = ""
+                }
             },
             //获取排行榜数据
             getRankData() {

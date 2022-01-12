@@ -1026,6 +1026,14 @@ var bp = {
     }
 }
 
+bp.commandAssemble({
+    command: "03",
+    key: "01",
+    requestCommand: {
+        random: 151008471
+    }
+})
+
 export {
     bp
 };

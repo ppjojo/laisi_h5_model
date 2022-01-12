@@ -13,7 +13,7 @@
     <script src="https://lsprod3.laisitech.com/h5/h5V3/common/js/vant.js"></script>
     <script src="../common/js/network.js"></script>
     <script src="js/openId.js"></script>
-    <title>静安区亲子跳绳挑战赛</title>
+    <title>绳彩争霸迎冬奥</title>
     <style type="text/css">
         body,
         .page {
@@ -210,6 +210,8 @@
                                 var second = s - hour * 3600 - minute * 60 + "";
                                 this.djs = hour.padStart(2, "0") + ":" + minute.padStart(2, "0") + ":" + second.padStart(2, "0");
                             }, 1000);
+                        } else {
+                            this.djs = "";
                         }
 
                     } else {
