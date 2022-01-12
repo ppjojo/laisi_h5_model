@@ -1,6 +1,6 @@
 /*!
- * bluetoothProtocol.js v0.1
- * 20220105 zhouhao
+ * bluetoothProtocol.js v0.2
+ * 202201 zhouhao
  * 
  */
 var utils = {
@@ -406,10 +406,12 @@ var bp = {
                 header: headers,
                 data: obj,
                 success(res) {
+                    console.log("从服务端获取随机码"+JSON.stringify(res.data))
                     resolve(res.data)
                 },
                 fail(err) {
-                    reject(res.data)
+                    console.log("从服务端获取随机码失败")
+                    reject(err)
                 }
 
             })
@@ -596,7 +598,7 @@ var bp = {
                 sequenceID
             ]
             var sendCode = header.join("") + payload
-            //console.log("命令组装的结果，即发送的包：" + sendCode.toUpperCase())
+            console.log("发送的指令：" + sendCode.toUpperCase())
             resolve({
                 code: 0,
                 data: tool.hexStringToArrayBuffer(sendCode.toUpperCase()),
@@ -660,7 +662,7 @@ var bp = {
                         other: utils.fullCommand.substr(22 + parseInt(utils.fullCommand.substr(18, 4), 16) * 2, utils.fullCommand.length - 1),
                     }
                     commandObj.desc = utils.commandList[commandObj.command][commandObj.key]
-                    //console.log("设置及读取跳绳的指令解析" + commandObj)
+                    console.log("接收的指令"+"--" + commandObj.desc+"--" + commandObj.initialInstruction)
                     bp.commandEscape(commandObj).then(res => {
                         resolve({
                             code: 0,
@@ -961,7 +963,7 @@ var bp = {
                         })
                 }
             } else if (obj.Errorflag == "C1") {
-                //console.log("返回的指令不对，需要重新鉴权")
+                console.log("返回的指令不对，需要重新鉴权")
                 reject({
                     code: -1,
                     data: "",
@@ -977,7 +979,6 @@ var bp = {
      * @param {*} obj 
      */
     realTimeDataAnalysis: (buffer) => {
-
         return new Promise(function (resolve, reject) {
             if (!buffer) {
                 reject({
@@ -991,6 +992,7 @@ var bp = {
              *  v1 01开头 当前跳绳模式0.5 跳绳当前状态0.5(1-就绪状态 2-正在跳绳状态 5-跳绳结束状态) 当前跳绳模式设置的值2 当前跳绳次数2 当前有效跳绳时长2 当前时间显示2 当前双摇次数2 当前三摇次数2
              * */
             var str = tool.arrayBufferToHex(buffer).toUpperCase();
+            console.log("接收的实时数据指令"+str)
             var prefix = str.substr(0, 2); //如果接收的命令头部是AA，说明是V0;否则V1
             var obj = {};
             if (prefix == "AA") {
@@ -1014,6 +1016,7 @@ var bp = {
                     tripleJump: parseInt(str.substr(24, 4), 16),
                 }
             }
+            console.log("接收的实时数据指令处理之后的数据："+JSON.stringify(obj))
             resolve({
                 code: 0,
                 data: obj,

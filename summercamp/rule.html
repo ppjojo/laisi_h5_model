@@ -9,10 +9,44 @@
     <link rel="stylesheet" type="text/css" href="css/personalRanking.css" />
     <link rel="stylesheet" type="text/css" href="css/common.css" />
     <link rel="stylesheet" href="font/iconfont.css">
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vant@2.12.2/lib/vant.min.js"></script>
+    <script src="https://lsprod3.laisitech.com/h5/h5V3/common/js/vue.js"></script>
+    <script src="https://lsprod3.laisitech.com/h5/h5V3/common/js/vant.js"></script>
+    <script src="js/openId.js"></script>
     <script src="../common/js/network.js"></script>
-    <title></title>
+    <title>规则</title>
+    <style>
+        .ruleContain {
+            padding: 0.24rem;
+            font-size: 0.3rem;
+            line-height: 0.5rem;
+        }
+        
+        h3,
+        h4 {
+            text-align: center;
+            line-height: 0.8rem;
+        }
+        
+        .part {
+            margin-bottom: 0.5rem;
+        }
+        
+        .title {
+            font-size: 0.3rem;
+            line-height: 0.6rem;
+        }
+        
+        .awardTitle {
+            font-size: 0.4rem;
+            line-height: 0.8rem;
+            font-weight: bold;
+            margin-top: 0.3rem;
+        }
+        
+        .red {
+            color: red;
+        }
+    </style>
 </head>
 
 <body>
@@ -23,6 +57,104 @@
                     <span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" ></span>
                 </template>
             </van-nav-bar>
+        </div>
+        <div class="ruleContain">
+            <h2>“绳”彩争霸 静安区小学生迎冬奥</h2>
+            <h3>寒假亲子家庭跳绳挑战赛（线上）</h3>
+            <div class="part">
+                <p class="title">1、参赛队伍：</p>
+                <p>静安区教育局下辖80所已报名小学，每所学校参赛学生。</p>
+            </div>
+            <div class="part">
+                <p class="title">2、参赛说明：</p>
+                <p> 已报名参赛学生，使用75派智能跳绳，配合派健康APP进行，比赛只允许使用正常有绳跳绳进行比赛，有效数据均可录入榜单，参与排名，利用无绳球跳绳的不计入成绩。</p>
+            </div>
+            <div class="part">
+                <p class="title">3、挑战赛时间：</p>
+                <p>2022年1月24日00:00:00——2022年2月13日23：59：59（2月14日0点封榜，2月13日当天跳绳完毕，请务必与APP同步数据。若2月13日跳绳完毕，忘记同步，于2月14日同步，则该条数据不计入榜单）</p>
+            </div>
+            <div class="part">
+                <p class="title"> 4、参赛组别</p>
+                <p>小学1-3年级；小学4-5年级；初中6-7年级；初中8-9年级（不分男女）</p>
+            </div>
+            <div class="part">
+                <p class="title">5、挑战项目：</p>
+                <div style="padding-left:0.3rem;">
+                    <p>5.1、一分钟倒计时亲子双人跳</p>
+                    <p>亲子两人同时跳一根绳（两人位置不限、由谁摇绳不限，过程需要一名家长协助拍摄）。</p><br>
+                    <p>5.2、三加三分钟倒计时亲子合作单人跳</p>
+                    <p>规定时间内，父（母）<span class="red">先且必须</span> 先完成3分钟跳绳且上传成功后，间隔4分钟（这段时间交换场地及学生试跳），学生再完成3分钟跳绳且上传成功；过程需要一名家长协助拍摄。 需注意：</p><br>
+
+                    <p>
+                        （1）家长跳完且上传成功，学生没在规定4分钟内开始录制跳绳视频，则本次成绩无效且浪费本日上传成绩的一次机会<br> （2）家长跳完且上传成功，会跳转排名页面及倒计时4min（可提前开始），若用户进行返回操或其他，学生在4min内可在活动主页进入跳绳页面才算有效数据
+                        <br> （3）家长跳完且上传成功，学生进入拍摄页面且语音播报提示开始跳绳321go后，在10s内未开始跳绳，则会自动开始拍摄
+                        <br> （4）参赛人员必须与报名表登记一致，参赛过程中，家长可轮流参赛
+                        <br> （5）参赛人员默认参加一分钟和三加三两个比赛项目
+                        <br>
+                    </p>
+                </div>
+
+            </div>
+            <div class="part">
+                <p class="title">6、排名规则</p>
+                <p class="awardTitle">个人优胜奖</p>
+                <p>
+                    6.1、一分钟倒计时亲子双人跳区排名：<br> 在比赛期间内<span class="red">每天</span>都可发布<span class="red">两次</span>vlog视频，系统自动录取每日较好，<span class="red">按照比赛期间内每日最好成绩之和来排名</span>，个数从多至少排名，个数相同那么按照打卡天数排名，由多至少；天数也相同，则并列。 【打卡天数大于等于16天才可参与最终排名】
+                </p>
+                <p>
+                    6.2、三加三分钟倒计时亲子合作单人跳区排名：<br> 在比赛期间内每天可上传两次vlog视频，系统每日自动记录较好一次成绩（在家长和学生数据都≥1的前提下，两人总数较多一次），<span class="red">最终结算按照比赛期间内每日最好成绩之和来排名</span>；个数从多至少排名，个数相同，则看打卡天数，由多至少，天数也相同，并列； 【打卡天数大于等于16天才可参与最终排名】
+                </p>
+                <p class="awardTitle">学校团体奖</p>
+                <p>
+
+                    6.3、学校团体奖:<br>（一分钟倒计时亲子双人跳比赛期间每日最佳成绩累计之和）+（三加三分钟倒计时亲子合作单人跳比赛期间每日最佳成绩累计个数之和），若个数相同，则看打卡天数，由多至少，天数也相同，并列； 【1分钟和3+3分钟两个模式都需大于等于16天才可参与最终排名，缺一不可】
+                </p>
+                <p class="awardTitle"> 人气校园奖</p>
+                <p>
+                    人气校园奖，每个用户每天最多可对一个学校点赞一次；一次点赞=10个人气值以各学校人气值由高至低排名，人气值相同，排名并列【人气值不需考虑学校团体赛排名，就算无名次，也可参与排名】
+                </p>
+            </div>
+            <div class="part">
+                <p class="title">7、奖励设置</p>
+                <p>
+
+                    7.1、一分钟倒计时亲子双人跳（前八）——计算比赛期间每日最好成绩之和<br> 7.2、三加三分钟倒计时亲子合作单人跳（前八）——计算比赛期间每日最好成绩之和
+                    <br> 7.3、校园团体奖（前八）——一分钟倒计时亲子双人跳比赛期间每日最好成绩之和）加（加三分钟倒计时亲子合作单人跳比赛期间每日最佳成绩累计个数之和）
+                    <br> 7.4人气校园奖（前三）——按参赛学校累计累计人气值计算，（为确保投票公平性，点赞投票仅限派健康APP微信平台，每人每天最多可为一所学校点赞一次）【人气值不需考虑学校团体赛值排名，就算无名次，也可参与排名】
+                    <br>
+                </p>
+            </div>
+            <!-- <div class="part">
+                <p class="title">8、奖品设置</p>
+                <p>
+                    8.1、一分钟倒计时亲子双人跳（前八）——计算比赛期间每日最好成绩之和<br> 第一：奖章+M10耳机 <br> 第二：奖章+瑜伽垫
+                    <br> 第三：奖章+按摩瑜伽轮
+                    <br> 第四：奖章+狼牙棒
+                    <br> 第五：奖章+运动腰包
+                    <br> 第六/七/八：奖章+运动头巾
+                    <br>
+                </p>
+                <p>
+                    8.2、三加三分钟倒计时亲子合作单人跳（前八）——计算比赛期间每日最好成绩之和 第一：奖章+M10耳机 <br> 第二：奖章+瑜伽垫
+                    <br> 第三：奖章+按摩瑜伽轮
+                    <br> 第四：奖章+狼牙棒
+                    <br> 第五：奖章+运动腰包
+                    <br> 第六/七/八：奖章+运动头巾
+                    <br>
+                </p>
+                <p>
+                    8.3、校园团体奖（前八）——一分钟倒计时亲子双人跳比赛期间每日最好成绩之和）加（加三分钟倒计时亲子合作单人跳比赛期间每日最佳成绩累计个数之和） 第一：奖章+M10耳机 <br> 第二：奖章+瑜伽垫
+                    <br> 第三：奖章+按摩瑜伽轮
+                    <br> 第四：奖章+狼牙棒
+                    <br> 第五：奖章+运动腰包
+                    <br> 第六/七/八：奖章+运动头巾
+                    <br>
+                </p>
+                <p>
+                    8.4人气校园奖（前三）——按参赛学校累计累计人气值计算，（为确保投票公平性，点赞投票仅限派健康APP微信平台，每人每天最多可为一所学校点赞一次）【人气值不需考虑学校团体赛值排名，就算无名次，也可参与排名】 第一: 奖章+瑜伽轮<br> 第二：奖章+ 按摩狼牙棒<br> 第三：奖章+运动腰包
+                    <br>
+                </p>
+            </div> -->
         </div>
     </div>
 </body>

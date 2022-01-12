@@ -4,7 +4,7 @@ import qs from 'qs'
 //导入学校
 export function registerSchool(data) {
     return request({
-        url: "summerVlogSkippingPk/school/registerSchool",
+        url: "summerVlogSkippingPk/summerCamp/registerSchool",
         headers: {
             "Content-Type": "multipart/form-data",
         },
@@ -52,6 +52,7 @@ export function importStudent(data) {
         data
     })
 }
+
 export function updateStuItem(data) {
     return request({
         url: '/summerVlogSkippingPk/summerCamp/updateStudentInfo',
@@ -60,11 +61,11 @@ export function updateStuItem(data) {
     })
 }
 
-export function searchStudent(data) {
+export function searchStudent(params) {
     return request({
         url: '/summerVlogSkippingPk/summerCamp/searchStudent',
-        method: 'post',
-        data,
+        method: 'get',
+        params,
     })
 }
 
@@ -82,5 +83,13 @@ export function dataRevert(data) {
         url: '/summerVlogSkippingPk/summerCamp/studentDailyRevert',
         method: 'post',
         data,
+    })
+}
+
+export function deleteTestData(params) {
+    return request({
+        url: '/summerVlogSkippingPk/vlogStory/delete/some/date',
+        method: 'get',
+        params,
     })
 }

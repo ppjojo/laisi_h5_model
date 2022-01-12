@@ -7,11 +7,12 @@
     <link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
     <link rel="stylesheet" href="font/iconfont.css">
     <link rel="stylesheet" type="text/css" href="css/common.css" />
-    <link rel="stylesheet" type="text/css" href="css/index.css?t=2" />
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
     <link rel="stylesheet" href="font/iconfont.css">
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vant@2.12.2/lib/vant.min.js"></script>
+    <script src="https://lsprod3.laisitech.com/h5/h5V3/common/js/vue.js"></script>
+    <script src="https://lsprod3.laisitech.com/h5/h5V3/common/js/vant.js"></script>
     <script src="../common/js/network.js"></script>
+    <script src="js/openId.js"></script>
     <title>静安区亲子跳绳挑战赛</title>
     <style type="text/css">
         body,
@@ -25,11 +26,11 @@
 <body>
     <div id="app" class="page" v-cloak>
         <div class="header">
-            <van-nav-bar title="静安区亲子跳绳挑战赛" @click-left="closeH5()" @click-right="share" left-arrow safe-area-inset-top fixed>
-                <template #left>
+            <van-nav-bar title="静安区亲子跳绳挑战赛" @click-left="closeH5()" @click-right="share" safe-area-inset-top fixed>
+                <template #left v-if="!isShare">
 						<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" ></span>
 					</template>
-                <template #right>
+                <template #right v-if="!isShare">
 						<span class="icon iconfont icon-fenxianganniu"  style="font-size: 0.5rem;"></span>
 					</template>
             </van-nav-bar>
@@ -39,7 +40,8 @@
                 <div class="pageBgBox">
                     <img class="ruleicon" src="img/ruleindex.png" @click="window.location.href='rule.html'" alt="">
                     <!-- <img src="img/PKicon.png" class="gotoSchoolBtn" @click="gotoSchool" alt=""> -->
-                    <div v-if="!isShare" class="gojump" @click="gotoSkip()">去跳绳</div>
+                    <div v-if="!isShare&&!djs" class="gojump" @click="listShow = true">去跳绳 <span v-if="djs">{{djs}} </span></div>
+                    <div v-if="!isShare&&djs" class="gojump" v-if="djs">去跳绳 <span v-if="djs">{{djs}} </span></div>
                 </div>
                 <div class="contain">
                     <div id="infobox" class="">
@@ -112,7 +114,7 @@
         </van-popup>
 
 
-        <van-dialog v-model="unbindShow" width="280px" cancel-button-color="#222" confirm-button-color="#222" confirm-button-text="确定" title="请先绑定跳绳设备" @confirm="confirm" show-cancel-button>
+        <van-dialog v-model="unbindShow" width="280px" cancel-button-color="#222" confirm-button-color="#222" confirm-button-text="去绑定" title="请先绑定跳绳设备" @confirm="confirm" show-cancel-button>
         </van-dialog>
     </div>
 </body>
@@ -146,6 +148,8 @@
                 },
                 listShow: false,
                 unbindShow: false,
+                interval: "",
+                djs: ""
             };
         },
         watch: {},
@@ -193,6 +197,21 @@
                             grade: "",
                             studentCardId: ""
                         }, res.data);
+
+                        if ((res.data.startTime - new Date().getTime()) > 0) {
+                            this.interval = setInterval(() => {
+                                var s = parseInt((res.data.startTime - new Date().getTime()) / 1000)
+                                if (s <= 0) {
+                                    clearInterval(this.interval)
+                                    this.initCompetitionDetail()
+                                }
+                                var hour = Math.floor(s / 3600) + "";
+                                var minute = Math.floor((s - hour * 3600) / 60) + "";
+                                var second = s - hour * 3600 - minute * 60 + "";
+                                this.djs = hour.padStart(2, "0") + ":" + minute.padStart(2, "0") + ":" + second.padStart(2, "0");
+                            }, 1000);
+                        }
+
                     } else {
                         this.$toast(res.msg)
                     }
@@ -202,30 +221,30 @@
             closeH5() {
                 Interaction.closePage()
             },
-            gotoSkip() {
-                ajax({
-                    url: "device/get/bound/device",
-                }).then((res) => {
-                    let unbind = true;
-                    if (res.code == 0) {
-                        res.data.forEach((item) => {
-                            if (item.deviceType == "skipping") {
-                                this.listShow = true;
-                                this.unbindShow = false;
-                                unbind = false
-                                return;
-                            }
-                        });
-                        if (unbind) {
-                            this.unbindShow = true
-                        }
-                    } else if (res.code == 1000) {
-                        this.unbindShow = true
-                    } else {
-                        this.$toast(res.msg)
-                    }
-                });
-            },
+            // gotoSkip() {
+            //     ajax({
+            //         url: "device/get/bound/device",
+            //     }).then((res) => {
+            //         let unbind = true;
+            //         if (res.code == 0) {
+            //             res.data.forEach((item) => {
+            //                 if (item.deviceType == "skipping") {
+            //                     this.listShow = true;
+            //                     this.unbindShow = false;
+            //                     unbind = false
+            //                     return;
+            //                 }
+            //             });
+            //             if (unbind) {
+            //                 this.unbindShow = true
+            //             }
+            //         } else if (res.code == 1000) {
+            //             this.unbindShow = true
+            //         } else {
+            //             this.$toast(res.msg)
+            //         }
+            //     });
+            // },
             gotoSkip2(competitionId) {
                 ajax({
                     url: "summerVlogSkippingPk/vlogStory/get/now/round/times",
@@ -266,16 +285,16 @@
                 if (type == 1) {
                     this.person.competitonInfos.forEach(item => {
                         if (item.modeValue == 60) {
-                            url = `personalRanking.html?competitionId=${item.competitionId}&fromH5=1`
+                            url = `personalRanking.html?competitionId=${item.competitionId}&fromH5=1&shareName=${this.person.studentSchoolInfo.name}`
                         }
                     });
                 } else if (type == 2) {
-                    url = `schoolRanking.html?fromH5=1`
+                    url = `schoolRanking.html?fromH5=1&shareName=${this.person.studentSchoolInfo.schoolName}`
 
                 } else if (type == 3) {
                     this.person.competitonInfos.forEach(item => {
                         if (item.modeValue == 180) {
-                            url = `parentRanking.html?competitionId=${item.competitionId}&fromH5=1`
+                            url = `parentRanking.html?competitionId=${item.competitionId}&fromH5=1&shareName=${this.person.studentSchoolInfo.name}`
                         }
                     });
                 }
@@ -288,9 +307,9 @@
             },
             share() {
                 Interaction.sharePage({
-                    "title": "点开就能知道我跳绳有多厉害！赶紧为我点赞加油吧！",
-                    "description": "我正在参加“绳”彩争霸 静安区小学生寒假跳绳挑战赛！快来为我加油打气吧！",
-                    "url": host + `/h5/h5V3/summercamp/index.html?isShare=1&userId=${JSON.parse(localStorage.getItem("appInfo")).userId}&campId=${this.campId}`
+                    "title": `${this.person.studentSchoolInfo.schoolName}在参加静安区跳绳争霸赛`,
+                    "description": "来给我投票呀!",
+                    "url": host + `h5/h5V3/summercamp/index.html?isShare=1&userId=${JSON.parse(localStorage.getItem("appInfo")).userId}&campId=${this.campId}`
                 })
             },
             confirm() {

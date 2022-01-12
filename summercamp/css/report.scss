@@ -1,0 +1,183 @@
+* {
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+body {
+    background-color: #E5F2FB;
+    font-size: 0.32rem;
+}
+
+.header {
+    .van-nav-bar {
+        background-color: transparent;
+        z-index: 99;
+        .van-nav-bar__title {
+            color: #fff;
+            opacity: 0;
+        }
+        .van-icon {
+            color: #fff;
+        }
+    }
+    .van-hairline--bottom::after {
+        border: none;
+    }
+}
+
+.contain {
+    .topBgImg {
+        width: 100%;
+    }
+}
+
+.listBoxContain {
+    margin-top: -0.7rem;
+    .listBox {
+        width: 6.7rem;
+        position: relative;
+        border-radius: 10px;
+        background-color: #fff;
+        margin: 0 auto;
+        margin-bottom: 0.8rem;
+        box-sizing: border-box;
+        font-size: 0.28rem;
+        min-height: 3rem;
+        .infoTitle {
+            position: absolute;
+            text-align: center;
+            background-image: linear-gradient(to right, #7DBBFF, #2B7AEC);
+            color: #fff;
+            font-size: 0.36rem;
+            line-height: 0.52rem;
+            top: -0.26rem;
+            border-radius: 0.26rem;
+            // width: 3.2rem;
+            // left: calc(50% - 1.6rem);
+            width: 4rem;
+            left: calc(50% - 2rem);
+        }
+        .smallTitle {
+            text-align: center;
+            position: absolute;
+            top: 0.4rem;
+            width: 100%;
+            color: #2E7CED;
+            font-size: 0.24rem;
+        }
+        .title {
+            padding: 0.3rem 0.2rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: #999;
+            background-color: #F3F9FF;
+            text-align: center;
+            height: 1.4rem;
+            line-height: 0.4rem;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            .rank {
+                width: 20%;
+                font-size: 0.24rem;
+            }
+            .schoolName {}
+            .desc {
+                width: 40%;
+                font-size: 0.24rem;
+            }
+            .count {
+                width: 40%;
+                font-size: 0.24rem;
+            }
+        }
+        .item {
+            padding: 0 0.2rem;
+            @extend .title;
+            border-radius: 0;
+            color: #222;
+            height: 0.7rem;
+            &:nth-child(2n) {
+                background-color: #F3F9FF;
+            }
+            &:nth-child(2n+1) {
+                background-color: #FAFDFF;
+            }
+            &:last-child {
+                border-bottom-left-radius: 10px;
+                border-bottom-right-radius: 10px;
+            }
+            .schoolName {
+                text-align: left;
+                img {
+                    position: relative;
+                    top: 0.05rem;
+                    width: 0.32rem;
+                    height: 0.32rem;
+                    border-radius: 100%;
+                    margin-right: 0.1rem;
+                }
+            }
+            .rank,
+            .desc,
+            .count {
+                font-size: 0.28rem;
+            }
+        }
+    }
+    .schoolTeam {
+        .title {
+            .rank {
+                width: 15%;
+            }
+            .schoolName {
+                width: 35%;
+            }
+            .desc {
+                width: 25%;
+            }
+            .count {
+                width: 25%;
+            }
+        }
+        .item {
+            @extend .title;
+        }
+    }
+    .schoolPop {
+        .title {
+            .rank {
+                width: 20%;
+            }
+            .schoolName {
+                width: 40%;
+            }
+            .count {
+                width: 40%;
+            }
+        }
+        .item {
+            @extend .title;
+        }
+    }
+    .personList {
+        .title {
+            padding: 0.5rem 0.2rem 0;
+            .rank {
+                width: 20%;
+            }
+            .schoolName {
+                width: 40%;
+            }
+            .desc {}
+            .count {
+                width: 40%;
+            }
+        }
+        .item {
+            padding: 0 0.2rem;
+            @extend .title;
+        }
+    }
+}

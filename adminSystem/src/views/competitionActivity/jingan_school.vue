@@ -89,12 +89,14 @@
         <el-table-column prop="phoneNumber" label="手机号"></el-table-column>
         <!-- <el-table-column prop="nickName" label="昵称"></el-table-column>
         <el-table-column prop="schoolName" label="学校"></el-table-column> -->
-        <el-table-column align="center" label="操作" width="120">
+        <el-table-column align="center" label="操作" width="200">
           <template scope="scope">
             <el-button @click="btn_editStu(scope.row)" type="text" size="mini">编辑学生
             </el-button>
-            <el-button @click="btn_searchStuDaily(scope.row)" type="text" size="mini">学生的数据详情
+            <el-button @click="btn_deleteTestData(scope.row)" type="text" size="mini">删除测试环境的数据
             </el-button>
+            <!-- <el-button @click="btn_searchStuDaily(scope.row)" type="text" size="mini">学生的数据详情
+            </el-button> -->
           </template>
         </el-table-column>
       </el-table>
@@ -201,6 +203,7 @@ import {
   searchStudent,
   studentDaily,
   dataRevert,
+  deleteTestData,
 } from "@/api/competitionActivity/jingan_school";
 import { checkPermission } from "@/api/checkPermission";
 import { fileUpload } from "@/utils/fileUpload";
@@ -273,6 +276,7 @@ export default {
   methods: {
     submitSchool(param) {
       var fileForm = new FormData();
+      fileForm.append("campId", this.campId);
       fileForm.append("multipartFile", param.file);
       registerSchool(fileForm).then((res) => {
         if (res.code == 0) {
@@ -418,10 +422,8 @@ export default {
           });
         });
     },
-    btn_import() {
-      this.schoolId = row.id;
-    },
     btn_view(row) {
+      this.schoolId = row.id;
       this.DetailVisible = true;
       studentListItem({
         schoolId: row.id,
@@ -444,7 +446,7 @@ export default {
       let form = new FormData();
       form.append("schoolId", this.schoolId);
       form.append("campId", this.campId);
-      form.append("file", param.file);
+      form.append("multipartFile", param.file);
       importStudent(form).then((res) => {
         if (res.code == 0) {
           this.getList();
@@ -458,6 +460,18 @@ export default {
             type: "info",
           });
         }
+      });
+    },
+    btn_deleteTestData(item) {
+      deleteTestData({
+        schoolId: this.schoolId,
+        campId: this.campId,
+        deleteUid: item.userId,
+      }).then((res) => {
+        this.$notify({
+          type: "success",
+          message: "成功所选学生数据!",
+        });
       });
     },
   },

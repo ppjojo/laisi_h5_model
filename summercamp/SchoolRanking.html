@@ -8,22 +8,24 @@
     <link rel="stylesheet" href="font/iconfont.css">
     <link rel="stylesheet" type="text/css" href="css/personalRanking.css" />
     <link rel="stylesheet" type="text/css" href="css/common.css" />
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vant@2.12.2/lib/vant.min.js"></script>
+    <script src="https://lsprod3.laisitech.com/h5/h5V3/common/js/vue.js"></script>
+    <script src="https://lsprod3.laisitech.com/h5/h5V3/common/js/vant.js"></script>
+    <script src="js/openId.js"></script>
     <script src="../common/js/network.js"></script>
+    <title>校园大PK</title>
 </head>
 
 <body>
     <div id="app" class="page" v-cloak>
         <div class="header">
-            <van-nav-bar title="标题" z-index=999 safe-area-inset-top fixed @click-left="onClickLeft">
+            <van-nav-bar title="标题" z-index=999 safe-area-inset-top fixed @click-right="share" @click-left="onClickLeft">
                 <template #left v-if="!isShare">
                     <span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" ></span>
                 </template>
                 <template slot="title">
                     <div class="title" @click="show = !show">
                        {{active==1?"校园大PK-人气榜":"校园大PK-实力榜"}} 
-                        <van-icon name="arrow-down" color="#FFAA88" size="16" />
+                        <van-icon name="arrow-down" color="#333" size="16" />
                     </div>
                 </template>
 
@@ -49,10 +51,10 @@
                         排名
                     </van-col>
                     <van-col span="3"></van-col>
-                    <van-col span="12">
+                    <van-col span="13">
                         学校
                     </van-col>
-                    <van-col span="6">
+                    <van-col span="5">
                         人气值
                     </van-col>
                 </van-row>
@@ -63,14 +65,14 @@
                     <van-col span="3">
 
                     </van-col>
-                    <van-col span="6">
+                    <van-col span="8">
                         学校
                     </van-col>
-                    <van-col span="6">
+                    <van-col span="5">
                         累计跳天数<br> 3+3/1分钟
                     </van-col>
 
-                    <van-col span="6">
+                    <van-col span="5">
                         个数
                     </van-col>
                 </van-row>
@@ -88,19 +90,19 @@
                             <img class="sortPic" src="./img/no3.png" />
                         </van-col>
                         <van-col span="3" class="ranking" v-else>
-                            {{item.rank}}
+                            {{item.rank||'--'}}
                         </van-col>
                         <van-col span="3">
                             <div class="detail_headpic" :style="{'background-image': 'url(' + item.icon + ')'}"></div>
                         </van-col>
-                        <van-col span="12" v-if="active==1">
+                        <van-col span="13" v-if="active==1">
                             <div class="van-ellipsis">{{item.schoolName }}</div>
                         </van-col>
-                        <van-col span="6" v-if="active==2">
+                        <van-col span="8" v-if="active==2">
                             <div class="van-ellipsis">{{item.schoolName }}</div>
                         </van-col>
                         <van-col span="5" v-if="active==2" class="c666">{{(item.threeMinSportDay||'--')+'/'+(item.oneMSportDay||"--")}}</van-col>
-                        <van-col span="6">
+                        <van-col span="5">
                             {{active==1?item.popularity:item.skipCount||'--'}}
                             <img src="./img/like.png" class="skipImg" alt="" v-if="active==1&&item.isLikeStatus">
                             <img src="./img/unlike.png" @click="schoolAddPopularity(item.id,index)" class="skipImg" alt="" v-else-if="active==1&&!item.isLikeStatus">
@@ -158,10 +160,11 @@
         created() {
             var that = this;
             if (!this.isShare) {
-                that.openId = JSON.parse(localStorage.getItem("appInfo")).userId;
+                this.openId = JSON.parse(localStorage.getItem("appInfo")).userId;
             } else {
-                that.active = 1;
-                that.apiUrl = "summerVlogSkippingPk/summerCamp/schoolPopularityRanking"
+                this.openId = getQueryString("userId") || "10000"
+                this.active = 1;
+                this.apiUrl = "summerVlogSkippingPk/summerCamp/schoolPopularityRanking"
             }
             if (isWechat) { //说明是分享的页面
                 if (getCookie('SUMMERCAMP_OPENID')) {
@@ -285,9 +288,9 @@
             },
             share() {
                 Interaction.sharePage({
-                    "title": "点赞！现在小学生跳绳怎么能这么厉害？！",
-                    "description": "我校正在参加《“绳”彩争霸 静安区小学生寒假跳绳挑战赛》 快来为我们加油打气吧！",
-                    "url": host + "/h5/h5V2/summercamp/schoolRanking.html?isShare=1" + "&campId=" + getQueryString("campId")
+                    "title": `${getQueryString("shareName")||"学校"}在参加静安区跳绳争霸赛`,
+                    "description": "爱生活爱健康",
+                    "url": host + `h5/h5V3/summercamp/schoolRanking.html?isShare=1&userId=${JSON.parse(localStorage.getItem("appInfo")).userId}&campId=${this.campId}`
                 })
             }
 

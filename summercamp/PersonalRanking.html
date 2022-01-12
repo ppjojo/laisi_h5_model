@@ -8,8 +8,9 @@
     <link rel="stylesheet" href="font/iconfont.css">
     <link rel="stylesheet" type="text/css" href="css/personalRanking.css" />
     <link rel="stylesheet" type="text/css" href="css/common.css" />
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vant@2.12.2/lib/vant.min.js"></script>
+    <script src="https://lsprod3.laisitech.com/h5/h5V3/common/js/vue.js"></script>
+    <script src="https://lsprod3.laisitech.com/h5/h5V3/common/js/vant.js"></script>
+    <script src="js/openId.js"></script>
     <script src="../common/js/network.js"></script>
     <title>1分钟倒计时亲子双人跳</title>
 
@@ -71,7 +72,7 @@
                         <van-col span="5" class="skipCount"> {{item.bestDailyValue||'--'}}</van-col>
                         <van-col span="5" class="skipCount"> {{item.bestValue||'--'}}</van-col>
                         <van-col span="4" class="playBox">
-                            <img src="./img/play.png" class="playImg" @click="play(item.childVideoId)" alt="">
+                            <img src="./img/play.png" class="playImg" @click="videoBoxActive(item)" alt="">
                         </van-col>
 
                     </van-row>
@@ -92,7 +93,7 @@
                 campId: getQueryString('campId') || "jingan20220124",
                 competitionId: getQueryString('competitionId'),
                 isShare: getQueryString('isShare'),
-                currentUserId: JSON.parse(localStorage.getItem("appInfo")).userId,
+                currentUserId: localStorage.getItem("appInfo") ? JSON.parse(localStorage.getItem("appInfo")).userId : getQueryString('userId'),
                 pageNum: 0,
                 pageSize: 999,
                 total: 0,
@@ -120,7 +121,9 @@
         created() {
             var that = this;
             if (!this.isShare) {
-                that.openId = JSON.parse(localStorage.getItem("appInfo")).userId;
+                this.openId = JSON.parse(localStorage.getItem("appInfo")).userId;
+            } else {
+                this.openId = getQueryString("userId")
             }
 
             if (isWechat) { //说明是分享的页面
@@ -202,7 +205,29 @@
                 }
                 this.getRankData()
             },
+            videoBoxActive(item) {
+                ajax({
+                    url: "summerVlogSkippingPk/competitorDailyStastic/getOneMinVideoId",
+                    data: {
+                        campId: this.campId,
+                        competitionId: this.competitionId,
+                        videoUserId: item.userId
+                    }
+                }).then((res) => {
+                    if (res.code == 0) {
+                        this.play(item.childVideoId)
+                    } else {
+                        this.$toast(res.msg)
+                    }
+                });
+
+            },
             play(id) {
+                if (this.isShare) return
+                if (!id) {
+                    this.$toast("暂没有相应的视频！")
+                    return
+                }
                 var item = {
                     method: "LSTH5APP_PlayChallengeVlogVideo", //H5跳绳原生简易播放页面，专门用来播放挑战的vlog视频
                     videoId: id
@@ -210,15 +235,15 @@
                 if (isIOS) {
                     window.webkit.messageHandlers.lstNative.postMessage(item)
                 } else { //判断Android
-                    window.android.LSTH5APP_JingAnSchoolChallenge(JSON.stringify(item));
+                    window.android.LSTH5APP_PlayChallengeVlogVideo(JSON.stringify(item));
                 }
             },
 
             share() {
                 Interaction.sharePage({
-                    "title": "点赞！这个冬天最会跳绳的宝贝都在这里",
-                    "description": "我正在参加《“绳”彩争霸 静安区小学生寒假跳绳挑战赛》 快来为我加油打气吧！",
-                    "url": host + "/h5/h5V3/summercamp/personalRanking.html?isShare=1"
+                    "title": `${getQueryString("shareName")}同学在参加静安区跳绳争霸赛`,
+                    "description": "亲子赛倒计时1min排名",
+                    "url": host + `h5/h5V3/summercamp/personalRanking.html?isShare=1&userId=${JSON.parse(localStorage.getItem("appInfo")).userId}&campId=${this.campId}&competitionId=${this.competitionId}`
                 })
             }
 

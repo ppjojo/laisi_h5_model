@@ -61,8 +61,8 @@ Page({
         deviceId: "",
 
         requestCommand: {
-            mac: 'BC:97:40:51:90:A3', //当前连接的设备的蓝牙地址
-            sn: 'LTA302053C00395', //当前连接的设备的sn
+            mac: 'E4:B4:22:46:2C:98', //当前连接的设备的蓝牙地址
+            sn: 'LTAM0529CC79869', //当前连接的设备的sn
             
             timestamps: new Date().getTime(),
 
@@ -84,7 +84,12 @@ Page({
         SKIPROPE_BLE_TRANSMISSION_NOTIFY: "0000FFF1-0000-1000-8000-00805F9B34FB",
         SKIPROPE_BLE_TRANSMISSION_WRITE: "0000FFF2-0000-1000-8000-00805F9B34FB"
     },
-    onLoad() {},
+    onLoad() {
+        // bp.getAuth({
+        //     mac: 'E4:B4:22:46:2C:98', //当前连接的设备的蓝牙地址
+        //     sn: 'LTAM0529CC79869', //当前连接的设备的sn
+        // })
+    },
     //初始化蓝牙
     lanyatest1(event) {
         var that = this;

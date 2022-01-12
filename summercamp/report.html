@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
+    <title>获奖名单</title>
+    <!-- 引入样式文件 -->
+    <link rel="stylesheet" href="https://oss.laisitech.com/ccd1029d-8dd1-442a-94a7-5205ee2ff9f5.css">
+    <link rel="stylesheet" href="./css/report.css">
+    <link rel="stylesheet" href="./font/iconfont.css">
+</head>
+
+<body>
+    <div id="app" v-cloak>
+        <div class="header">
+            <van-nav-bar @click-left="onclickLeft" title="获奖名单" @click-right="share" left-arrow safe-area-inset-top fixed>
+                <template #left v-if="!isShare">
+                    <span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;color:#fff;" ></span>
+                </template>
+                <template #right v-if="!isShare"> 
+                    <span class="icon iconfont icon-fenxianganniu"  style="font-size: 0.5rem;color:#fff;"></span>
+                </template>
+            </van-nav-bar>
+        </div>
+        <div class="contain">
+            <img class="topBgImg" src="./img/reportTopBg.png" alt="">
+
+            <div class="listBoxContain">
+                <div class="listBox schoolTeam">
+                    <div class="infoTitle">学校团体奖</div>
+                    <div class="listDiv ">
+                        <div class="title ">
+                            <div class="rank">排名</div>
+                            <div class="schoolName">学校</div>
+                            <div class="desc">累计跳天数<br> (3+3/1分钟)</div>
+                            <div class="count">总个数</div>
+                        </div>
+                        <div>
+                            <div class="item" v-for="item in list.schoolStrength">
+                                <div class="rank">{{item.rank||'--'}}</div>
+                                <div class="schoolName van-ellipsis"><img :src="item.icon">{{item.name||'--'}}</div>
+                                <div class="desc">{{item.threeMinSportDay||'--'}}/{{item.oneMinSportDay||'--'}}</div>
+                                <div class="count">{{item.totalCount||'--'}}</div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="listBox schoolPop">
+                    <div class="infoTitle">人气校园奖</div>
+                    <div class="listDiv ">
+                        <div class="title ">
+                            <div class="rank">排名</div>
+                            <div class="schoolName">学校</div>
+                            <div class="count">人气值</div>
+                        </div>
+                        <div>
+                            <div class="item" v-for="item in list.schoolPopularity">
+                                <div class="rank">{{item.rank||'--'}}</div>
+                                <div class="schoolName van-ellipsis"><img :src="item.icon">{{item.name||'--'}}</div>
+                                <div class="count">{{item.totalCount||'--'}}</div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- 1minute -->
+                <div class="listBox personList">
+                    <div class="infoTitle">个人优胜奖
+                    </div>
+                    <div class="listDiv ">
+                        <div class="smallTitle">（1分钟倒计时亲子双人跳）（1-3年级）</div>
+                        <div class="title ">
+                            <div class="rank">排名</div>
+                            <div class="schoolName">姓名</div>
+                            <div class="desc">累计跳绳天数</div>
+                            <div class="count">最佳汇总<br>(个数)</div>
+                        </div>
+                        <div>
+                            <div class="item" v-for="item in list.oneMinOneGradeRank">
+                                <div class="rank">{{item.rank||'--'}}</div>
+                                <div class="schoolName van-ellipsis">{{item.name||'--'}}</div>
+                                <div class="desc">{{item.oneMinSportDay||'--'}}</div>
+                                <div class="count">{{item.totalCount||'--'}}</div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="listBox personList">
+                    <div class="infoTitle">个人优胜奖
+                    </div>
+                    <div class="listDiv ">
+                        <div class="smallTitle">（1分钟倒计时亲子双人跳）（4-5年级）</div>
+                        <div class="title ">
+                            <div class="rank">排名</div>
+                            <div class="schoolName">姓名</div>
+                            <div class="desc">累计跳绳天数</div>
+                            <div class="count">最佳汇总<br>(个数)</div>
+                        </div>
+                        <div>
+                            <div class="item" v-for="item in list.oneMinFourGradeRank">
+                                <div class="rank">{{item.rank||'--'}}</div>
+                                <div class="schoolName van-ellipsis">{{item.name||'--'}}</div>
+                                <div class="desc">{{item.oneMinSportDay||'--'}}</div>
+                                <div class="count">{{item.totalCount||'--'}}</div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="listBox personList">
+                    <div class="infoTitle">个人优胜奖
+                    </div>
+                    <div class="listDiv ">
+                        <div class="smallTitle">（1分钟倒计时亲子双人跳）（6-7年级）</div>
+                        <div class="title ">
+                            <div class="rank">排名</div>
+                            <div class="schoolName">姓名</div>
+                            <div class="desc">累计跳绳天数</div>
+                            <div class="count">最佳汇总<br>(个数)</div>
+                        </div>
+                        <div>
+                            <div class="item" v-for="item in list.oneMinSixGradeRank">
+                                <div class="rank">{{item.rank||'--'}}</div>
+                                <div class="schoolName van-ellipsis">{{item.name||'--'}}</div>
+                                <div class="desc">{{item.oneMinSportDay||'--'}}</div>
+                                <div class="count">{{item.totalCount||'--'}}</div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="listBox personList">
+                    <div class="infoTitle">个人优胜奖
+                    </div>
+                    <div class="listDiv ">
+                        <div class="smallTitle">（1分钟倒计时亲子双人跳）（8-9年级）</div>
+                        <div class="title ">
+                            <div class="rank">排名</div>
+                            <div class="schoolName">姓名</div>
+                            <div class="desc">累计跳绳天数</div>
+                            <div class="count">最佳汇总<br>(个数)</div>
+                        </div>
+                        <div>
+                            <div class="item" v-for="item in list.oneMinEightGradeRank">
+                                <div class="rank">{{item.rank||'--'}}</div>
+                                <div class="schoolName van-ellipsis">{{item.name||'--'}}</div>
+                                <div class="desc">{{item.oneMinSportDay||'--'}}</div>
+                                <div class="count">{{item.totalCount||'--'}}</div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3minute -->
+                <div class="listBox personList">
+                    <div class="infoTitle">个人优胜奖
+                    </div>
+                    <div class="listDiv ">
+                        <div class="smallTitle">（3+3分钟倒计时亲子合作单人跳））（1-3年级）</div>
+                        <div class="title ">
+                            <div class="rank">排名</div>
+                            <div class="schoolName">姓名</div>
+                            <div class="desc">累计跳绳天数</div>
+                            <div class="count">最佳汇总<br>(个数)</div>
+                        </div>
+                        <div>
+                            <div class="item" v-for="item in list.threeMinOneGradeRank">
+                                <div class="rank">{{item.rank||'--'}}</div>
+                                <div class="schoolName van-ellipsis">{{item.name||'--'}}</div>
+                                <div class="desc">{{item.threeMinSportDay||'--'}}</div>
+                                <div class="count">{{item.totalCount||'--'}}</div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="listBox personList">
+                    <div class="infoTitle">个人优胜奖
+                    </div>
+                    <div class="listDiv ">
+                        <div class="smallTitle">（3+3分钟倒计时亲子合作单人跳））（4-5年级）</div>
+                        <div class="title ">
+                            <div class="rank">排名</div>
+                            <div class="schoolName">姓名</div>
+                            <div class="desc">累计跳绳天数</div>
+                            <div class="count">最佳汇总<br>(个数)</div>
+                        </div>
+                        <div>
+                            <div class="item" v-for="item in list.threeMinFourGradeRank">
+                                <div class="rank">{{item.rank||'--'}}</div>
+                                <div class="schoolName van-ellipsis">{{item.name||'--'}}</div>
+                                <div class="desc">{{item.threeMinSportDay||'--'}}</div>
+                                <div class="count">{{item.totalCount||'--'}}</div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="listBox personList">
+                    <div class="infoTitle">个人优胜奖
+                    </div>
+                    <div class="listDiv ">
+                        <div class="smallTitle">（3+3分钟倒计时亲子合作单人跳））（6-7年级）</div>
+                        <div class="title ">
+                            <div class="rank">排名</div>
+                            <div class="schoolName">姓名</div>
+                            <div class="desc">累计跳绳天数</div>
+                            <div class="count">最佳汇总<br>(个数)</div>
+                        </div>
+                        <div>
+                            <div class="item" v-for="item in list.threeMinSixGradeRank">
+                                <div class="rank">{{item.rank||'--'}}</div>
+                                <div class="schoolName van-ellipsis">{{item.name||'--'}}</div>
+                                <div class="desc">{{item.threeMinSportDay||'--'}}</div>
+                                <div class="count">{{item.totalCount||'--'}}</div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="listBox personList">
+                    <div class="infoTitle">个人优胜奖
+                    </div>
+                    <div class="listDiv ">
+                        <div class="smallTitle">（3+3分钟倒计时亲子合作单人跳））（8-9年级）</div>
+                        <div class="title ">
+                            <div class="rank">排名</div>
+                            <div class="schoolName">姓名</div>
+                            <div class="desc">累计跳绳天数</div>
+                            <div class="count">最佳汇总<br>(个数)</div>
+                        </div>
+                        <div>
+                            <div class="item" v-for="item in list.threeMinEightGradeRank">
+                                <div class="rank">{{item.rank||'--'}}</div>
+                                <div class="schoolName van-ellipsis">{{item.name||'--'}}</div>
+                                <div class="desc">{{item.threeMinSportDay||'--'}}</div>
+                                <div class="count">{{item.totalCount||'--'}}</div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+</body>
+<script src="https://lsprod3.laisitech.com/h5/h5V3/common/js/vue.js"></script>
+<script src="https://lsprod3.laisitech.com/h5/h5V3/common/js/vant.js"></script>
+<script src="../common/js/network.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                campId: getQueryString('campId') || "jingan20220124",
+                isShare: getQueryString('isShare'),
+                list: {
+                    schoolStrength: [],
+                    schoolPopularity: [],
+
+                    oneMinOneGradeRank: [],
+                    oneMinFourGradeRank: [],
+                    oneMinSixGradeRank: [],
+                    oneMinEightGradeRank: [],
+
+                    threeMinOneGradeRank: [],
+                    threeMinFourGradeRank: [],
+                    threeMinSixGradeRank: [],
+                    threeMinEightGradeRank: [],
+
+                },
+            };
+        },
+
+        created() {
+            this.init()
+
+        },
+        mounted() {
+            window.addEventListener('scroll', this.scrollFn);
+
+        },
+        methods: {
+            scrollFn() {
+                var t = document.documentElement.scrollTop || document.body.scrollTop;
+                var rate = t / 100
+                if (rate > 1) {
+                    rate = 1
+                }
+                var colorValue = `rgba(124, 187, 255,${rate})`
+                document.getElementsByClassName("van-nav-bar")[0].style.background = colorValue
+                document.getElementsByClassName("van-nav-bar__title")[0].style.opacity = rate;
+            },
+            destroyed() {
+                window.removeEventListener('scroll', this.scrollFn); // 销毁监听
+            },
+            onclickLeft() {
+                Interaction.closePage();
+            },
+            init() {
+                ajax({
+                    url: "summerVlogSkippingPk/competitionWinner/getCompetitionWinner",
+                    data: {
+                        campId: this.campId
+                    }
+                }).then(res => {
+                    if (res.code == 0) {
+                        this.list = Object.assign(this.list, res.data)
+                    } else {
+                        this.list = []
+                    }
+                })
+            },
+            share() {
+                Interaction.sharePage({
+                    "title": `静安区跳绳争霸赛获奖名单`,
+                    "description": "静安区跳绳争霸赛获奖名单",
+                    "url": host + `h5/h5V3/summercamp/report.html?isShare=1&userId=${JSON.parse(localStorage.getItem("appInfo")).userId}&campId=${this.campId}`
+                })
+            },
+
+        }
+    })
+</script>
+
+</html>

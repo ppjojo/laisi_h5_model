@@ -122,7 +122,8 @@ body {
 
 .contain #infobox .card-person .ranking, .contain #infobox .card-camp .ranking, .contain #infobox .card-school .ranking, .contain #infobox .card-parent .ranking {
   font-size: 0.6rem;
-  height: 0.6rem;
+  height: 0.7rem;
+  line-height: 0.7rem;
   font-family: "BebasNeue";
 }
 
@@ -136,6 +137,8 @@ body {
 
 .contain #infobox .card-camp .ranking {
   font-size: 0.6rem;
+  height: 0.7rem;
+  line-height: 0.7rem;
   color: #F6C021;
 }
 
@@ -148,6 +151,8 @@ body {
 
 .contain #infobox .card-school .ranking {
   font-size: 0.6rem;
+  height: 0.7rem;
+  line-height: 0.7rem;
   color: #1082ff;
 }
 
@@ -159,6 +164,8 @@ body {
 
 .contain #infobox .card-parent .ranking {
   font-size: 0.6rem;
+  height: 0.7rem;
+  line-height: 0.7rem;
   color: #FFAA88;
 }
 
