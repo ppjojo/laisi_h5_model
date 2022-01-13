@@ -13,8 +13,6 @@
     <script src="js/openId.js"></script>
     <script src="../common/js/network.js"></script>
     <title>绳彩争霸迎冬奥</title>
-
-
 </head>
 
 <body>
@@ -215,7 +213,7 @@
                     }
                 }).then((res) => {
                     if (res.code == 0) {
-                        this.play(item.childVideoId)
+                        this.play(res.data.childVideoId)
                     } else {
                         this.$toast(res.msg)
                     }
@@ -223,7 +221,10 @@
 
             },
             play(id) {
-                if (this.isShare) return
+                if (this.isShare) {
+                    this.$toast('可去"派健康"APP查看跳绳视频')
+                    return
+                }
                 if (!id) {
                     this.$toast("暂没有相应的视频！")
                     return
@@ -242,7 +243,7 @@
             share() {
                 Interaction.sharePage({
                     "title": `${getQueryString("shareName")}同学在参加静安区跳绳争霸赛`,
-                    "description": "亲子赛倒计时1min排名",
+                    "description": "一分钟倒计时亲子双人跳排名",
                     "url": host + `h5/h5V3/summercamp/personalRanking.html?isShare=1&userId=${JSON.parse(localStorage.getItem("appInfo")).userId}&campId=${this.campId}&competitionId=${this.competitionId}`
                 })
             }

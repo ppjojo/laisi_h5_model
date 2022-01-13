@@ -38,10 +38,12 @@
         <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
             <div>
                 <div class="pageBgBox">
-                    <img class="ruleicon" src="img/ruleindex.png" @click="window.location.href='rule.html'" alt="">
-                    <!-- <img src="img/PKicon.png" class="gotoSchoolBtn" @click="gotoSchool" alt=""> -->
-                    <div v-if="!isShare&&!djs" class="gojump" @click="listShow = true">去跳绳 <span v-if="djs">{{djs}} </span></div>
-                    <div v-if="!isShare&&djs" class="gojump" v-if="djs">去跳绳 <span v-if="djs">{{djs}} </span></div>
+                    <div class="ruleicon" @click="window.location.href='rule.html'">
+                        活动规则
+                    </div>
+                    <div v-if="!isShare&&!startDjs" class="gojump" @click="listShow = true">去跳绳 </span>
+                    </div>
+                    <div v-if="!isShare&&startDjs" class="gojump notStart" v-if="startDjs">去跳绳 <span v-if="startDjs">{{startDjs}} </span></div>
                 </div>
                 <div class="contain">
                     <div id="infobox" class="">
@@ -95,8 +97,12 @@
                             </div>
                         </div>
                     </div>
-
+                    <div v-if="!startDjs&&endDjs">
+                        <div class="desc">*此成绩不作为最终成绩</div>
+                        <div class="desc">(距比赛结束还剩{{endDjs}})</div>
+                    </div>
                 </div>
+
             </div>
         </van-pull-refresh>
 
@@ -106,7 +112,7 @@
                 <div v-for="item in person.competitonInfos" class="itemBox" @click="gotoSkip2(item.competitionId)">
                     <div class="name van-ellipsis">{{item.competitionName}}</div>
                     <div class="status">
-                        <!-- sdfsdfsdfds -->
+                        去跳绳
                         <span class="iconfont icon-tongyong-gengduo" />
                     </div>
                 </div>
@@ -149,7 +155,9 @@
                 listShow: false,
                 unbindShow: false,
                 interval: "",
-                djs: ""
+                startDjs: "",
+                interval2: "",
+                endDjs: ""
             };
         },
         watch: {},
@@ -208,10 +216,27 @@
                                 var hour = Math.floor(s / 3600) + "";
                                 var minute = Math.floor((s - hour * 3600) / 60) + "";
                                 var second = s - hour * 3600 - minute * 60 + "";
-                                this.djs = hour.padStart(2, "0") + ":" + minute.padStart(2, "0") + ":" + second.padStart(2, "0");
+                                this.startDjs = hour.padStart(2, "0") + ":" + minute.padStart(2, "0") + ":" + second.padStart(2, "0");
                             }, 1000);
                         } else {
-                            this.djs = "";
+                            this.startDjs = "";
+                        }
+
+                        if ((res.data.endTime - new Date().getTime()) > 0) {
+                            this.interval2 = setInterval(() => {
+                                var s = parseInt((res.data.endTime - new Date().getTime()) / 1000)
+                                if (s <= 0) {
+                                    clearInterval(this.interval2)
+                                    this.initCompetitionDetail()
+                                }
+                                var day = Math.floor(s / 3600 / 24)
+                                var hour = Math.floor((s - day * 3600 * 24) / 3600) + "";
+                                var minute = Math.floor((s - hour * 3600 - day * 3600 * 24) / 60) + "";
+                                var second = s - day * 3600 * 24 - hour * 3600 - minute * 60 + "";
+                                this.endDjs = day + "天" + hour.padStart(2, "0") + "小时" + minute.padStart(2, "0") + "分钟" + second.padStart(2, "0") + "秒";
+                            }, 1000);
+                        } else {
+                            this.endDjs = "";
                         }
 
                     } else {
@@ -264,7 +289,7 @@
                 });
             },
             gotoSkip3(obj) {
-                if (obj.roundTimes <= 0) {
+                if (obj.roundTimes == 0) {
                     this.$toast("您今天的跳绳次数已经用完，请明天继续！")
                     return
                 }
@@ -310,7 +335,7 @@
             share() {
                 Interaction.sharePage({
                     "title": `${this.person.studentSchoolInfo.schoolName}在参加静安区跳绳争霸赛`,
-                    "description": "来给我投票呀!",
+                    "description": "爱生活爱健康",
                     "url": host + `h5/h5V3/summercamp/index.html?isShare=1&userId=${JSON.parse(localStorage.getItem("appInfo")).userId}&campId=${this.campId}`
                 })
             },

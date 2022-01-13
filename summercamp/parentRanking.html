@@ -10,8 +10,8 @@
     <link rel="stylesheet" type="text/css" href="css/common.css" />
     <script src="https://lsprod3.laisitech.com/h5/h5V3/common/js/vue.js"></script>
     <script src="https://lsprod3.laisitech.com/h5/h5V3/common/js/vant.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/vConsole/3.8.1/vconsole.min.js"></script>
     <script src="js/openId.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vConsole/3.8.1/vconsole.min.js"></script>
     <script>
         var vConsole = new VConsole();
     </script>
@@ -267,6 +267,7 @@
                 });
             },
             gotoSkip(obj) {
+
                 var skipItem = {
                     method: "LSTH5APP_JingAnSchoolChallenge", //H5调起原生选择设备，需要过滤掉rs-s3，Hilink，发光跳绳，并跳转到专门的vlog页面，
                     isChild: obj.isChild, // 1是学生，0是家长 int
@@ -334,12 +335,15 @@
             share() {
                 Interaction.sharePage({
                     "title": `${getQueryString("shareName")}同学在参加静安区跳绳争霸赛`,
-                    "description": "亲子赛倒计时3+3模式排名",
+                    "description": "3+3分钟倒计时亲子合作单人跳排名",
                     "url": host + `h5/h5V3/summercamp/parentRanking.html?isShare=1&userId=${JSON.parse(localStorage.getItem("appInfo")).userId}&campId=${this.campId}&competitionId=${this.competitionId}`
                 })
             },
             play(id) {
-                if (this.isShare) return
+                if (this.isShare) {
+                    this.$toast('可去"派健康"APP查看跳绳视频')
+                    return
+                }
                 if (!id) {
                     this.$toast("暂没有相应的视频！")
                     return
