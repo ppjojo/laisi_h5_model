@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div class="container-edit">
-      <!-- <el-button type="primary" size="mini" @click="btn_add()">添加学校</el-button> -->
+      <el-button type="primary" size="mini" @click="btn_add()">添加学校</el-button>
       <el-upload ref='upload' action="" :http-request="submitSchool" :show-file-list="false" class="avatar-uploader">
         <el-button type="primary" size="mini">导入学校信息</el-button>
       </el-upload>
@@ -32,8 +32,9 @@
           </el-image>
         </template>
       </el-table-column>
-      <!-- <el-table-column align="center" prop="leaderName" label="领队"></el-table-column>
-      <el-table-column align="center" prop="leaderPhoneNumber" label="领队号码"></el-table-column> -->
+      <el-table-column align="center" prop="leaderName" label="领队"></el-table-column>
+      <el-table-column align="center" prop="leaderPhoneNumber" label="领队号码"></el-table-column>
+      <el-table-column align="center" prop="schoolAddress" label="地址"></el-table-column>
       <el-table-column align="center" prop="popularity" label="人气值"></el-table-column>
       <el-table-column align="center" label="操作" width="200">
         <template scope="scope">
@@ -63,12 +64,15 @@
           </el-upload>
         </el-form-item>
 
-        <!-- <el-form-item label="领队名字" prop="leaderName">
+        <el-form-item label="领队名字" prop="leaderName">
           <el-input v-model="form.leaderName"></el-input>
         </el-form-item>
         <el-form-item label="领队号码" prop="leaderPhoneNumber">
           <el-input v-model="form.leaderPhoneNumber"></el-input>
-        </el-form-item> -->
+        </el-form-item>
+        <el-form-item label="地址" prop="schoolAddress">
+          <el-input v-model="form.schoolAddress"></el-input>
+        </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button size="mini" @click="dialogVisible = false">取 消</el-button>
@@ -204,13 +208,19 @@ import {
   studentDaily,
   dataRevert,
   deleteTestData,
-} from "@/api/competitionActivity/jingan_school";
+} from "@/api/competitionActivity/jingan/jingan_school";
 import { checkPermission } from "@/api/checkPermission";
 import { fileUpload } from "@/utils/fileUpload";
 
 export default {
   props: {
     campId: String,
+  },
+  watch: {
+    campId(oldValue, newValue) {
+      this.campId = this.campId;
+      this.getList();
+    },
   },
   filters: {
     statusFilter(status) {
@@ -305,7 +315,10 @@ export default {
     },
     //c查询学生
     searchStudent(row) {
-      searchStudent(this.searchForm).then((res) => {
+      searchStudent({
+        campId: this.campId,
+        ...this.searchForm,
+      }).then((res) => {
         this.searchVisible = true;
         this.searchList = res.data;
       });
@@ -313,6 +326,7 @@ export default {
     btn_searchStuDaily(row) {
       studentDaily({
         studentId: row.userId,
+        campId: this.campId,
       }).then((res) => {
         this.searchStuListVisible = true;
         this.searchStuDailyList = res.data;
@@ -323,7 +337,7 @@ export default {
       dataRevert({
         studentId: row.studentId,
         day: row.day,
-        campId: row.campId,
+        campId: this.campId,
       }).then((res) => {
         row.userId = row.studentId;
         this.btn_searchStuDaily(row);

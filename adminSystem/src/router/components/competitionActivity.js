@@ -14,7 +14,7 @@ var competitionActivity = {
             permission: 'competitionActivity:jd',
             hidden: true,
             component: () =>
-                import ('@/views/competitionActivity/jd'),
+                import ('@/views/competitionActivity/jd/jd'),
             meta: {
                 title: '京东赛事相关',
             }
@@ -23,7 +23,7 @@ var competitionActivity = {
             permission: 'competitionActivity:jingan_camp',
             hidden: true,
             component: () =>
-                import ('@/views/competitionActivity/jingan_camp'),
+                import ('@/views/competitionActivity/jingan/jingan_camp'),
             meta: {
                 title: '静安区冬令营',
             }

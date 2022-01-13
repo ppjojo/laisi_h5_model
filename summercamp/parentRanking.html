@@ -104,8 +104,8 @@
                 </div>
             </van-pull-refresh>
         </div>
-        <div class="gojump" v-if="skipItem.parentStoryTime>0" @click="gotoSkip(skipItem)">
-            继续完成跳绳<span v-if="djs">({{djs}})</span>
+        <div class="gojump" v-if="djs" @click="gotoSkip(skipItem)">
+            继续完成跳绳<span>({{djs}})</span>
         </div>
 
 
@@ -206,24 +206,6 @@
                 this.getRankData();
                 this.getDJS()
             },
-            startDjs(time) {
-                if ((time + 240000 - new Date().getTime()) > 0) {
-                    this.interval = setInterval(() => {
-                        var s = parseInt((time + 240000 - new Date().getTime()) / 1000)
-                        if (s <= 0) {
-                            this.getRankData();
-                            this.getDJS()
-                            clearInterval(this.interval)
-                        }
-                        var hour = Math.floor(s / 3600) + "";
-                        var minute = Math.floor((s - hour * 3600) / 60) + "";
-                        var second = s - hour * 3600 - minute * 60 + "";
-                        this.djs = hour.padStart(2, "0") + ":" + minute.padStart(2, "0") + ":" + second.padStart(2, "0");
-                    }, 1000);
-                } else {
-                    this.djs = ""
-                }
-            },
             //获取排行榜数据
             getRankData() {
                 ajax({
@@ -257,9 +239,24 @@
                     }
                 }).then((res) => {
                     if (res.code == 0) {
+                        this.skipItem = res.data
                         if (res.data.parentStoryTime > 0) {
-                            this.skipItem = res.data
-                            this.startDjs(res.data.parentStoryTime)
+                            this.interval = setInterval(() => {
+                                var s = parseInt((res.data.parentStoryTime + 240000 - new Date().getTime()) / 1000)
+                                if (s <= 0) {
+                                    this.djs = "";
+                                    this.getRankData();
+                                    this.getDJS()
+                                    clearInterval(this.interval)
+                                }
+                                var hour = Math.floor(s / 3600) + "";
+                                var minute = Math.floor((s - hour * 3600) / 60) + "";
+                                var second = s - hour * 3600 - minute * 60 + "";
+                                this.djs = hour.padStart(2, "0") + ":" + minute.padStart(2, "0") + ":" + second.padStart(2, "0");
+                            }, 1000);
+                        } else {
+
+                            this.djs = ""
                         }
                     } else {
                         this.$toast(res.msg)
@@ -273,9 +270,15 @@
                     isChild: obj.isChild, // 1是学生，0是家长 int
                     competitionId: obj.competitionId + "", // 比赛ID string
                     roundTimes: obj.roundTimes, // 跳了多少次 int
-                    skipTime: obj.skipTime, //倒计时长， 秒 int
+                    skipTime: obj.modeValue, //modeValue
+                    modeValue: obj.modeValue, //modeValue
                     campId: this.campId,
-                    isFromRank: 1
+                    isFromRank: 1, //是否来自于排行页
+                    mode: obj.mode, //模式值 1自由 2倒计时 3倒计数
+                    isMustVlog: obj.isMustVlog, //是否需要Vlog
+                    maxBpmLimit: obj.maxBpmLimit, //bpm的限制
+                    category: 9,
+                    isAward: obj.isAward, //成绩上传之后是否有奖励
                 }
                 if (isIOS) {
                     window.webkit.messageHandlers.lstNative.postMessage(skipItem)

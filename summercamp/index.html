@@ -298,9 +298,16 @@
                     isChild: obj.isChild, // 1是学生，0是家长 int
                     competitionId: obj.competitionId + "", // 比赛ID string
                     roundTimes: obj.roundTimes, // 跳了多少次 int
-                    skipTime: obj.skipTime, //倒计时长， 秒 int
-                    campId: this.campId
+                    skipTime: obj.modeValue, //modeValue
+                    modeValue: obj.modeValue, //modeValue
+                    campId: this.campId,
+                    mode: obj.mode, //模式值 1自由 2倒计时 3倒计数
+                    isMustVlog: obj.isMustVlog, //是否需要Vlog
+                    maxBpmLimit: obj.maxBpmLimit, //bpm的限制
+                    category: 9,
+                    isAward: obj.isAward, //成绩上传之后是否有奖励
                 }
+                console.log(skipItem)
                 if (isIOS) {
                     window.webkit.messageHandlers.lstNative.postMessage(skipItem)
                 } else { //判断Android

@@ -26,7 +26,7 @@
           {{scope.row.endTime | formatDate}}
         </template>
       </el-table-column>
-      <el-table-column align="center" label="操作" width="180">
+      <el-table-column align="center" label="操作" width="220">
         <template scope="scope">
           <el-button @click="btn_edit(scope.row)" type="text" size="mini">编辑
           </el-button>
@@ -34,6 +34,9 @@
           </el-button>
           <el-button @click="btn_view(scope.row)" type="text" size="mini" style="color:#67c23a;">查看学校
           </el-button>
+          <el-button @click="btn_view_competition(scope.row)" type="text" size="mini" style="color:#67c23a;">比赛
+          </el-button>
+
         </template>
       </el-table-column>
     </el-table>
@@ -76,7 +79,11 @@
     </el-dialog>
 
     <el-dialog :title="dialogTitle" :visible.sync="schoolListdialogVisible" width="80%">
-      <schoolList v-if="schoolListdialogVisible" :campId="campId"></schoolList>
+      <schoolList :campId="campId"></schoolList>
+    </el-dialog>
+
+    <el-dialog :title="dialogTitle" :visible.sync="competitonListdialogVisible" width="80%">
+      <Competition :campId="campId"></Competition>
     </el-dialog>
 
   </div>
@@ -88,15 +95,17 @@ import {
   addItem,
   updateItem,
   deleteItem,
-} from "@/api/competitionActivity/jingan_camp";
+} from "@/api/competitionActivity/jingan/jingan_camp";
 import { checkPermission } from "@/api/checkPermission";
 import { fileUpload } from "@/utils/fileUpload";
 import SchoolList from "./jingan_school.vue";
+import Competition from "./jingan_competition.vue";
 import { formatDate } from "@/utils/date";
 
 export default {
   components: {
     SchoolList,
+    Competition,
   },
   computed: {
     checkPer() {
@@ -159,6 +168,7 @@ export default {
       },
       schoolListdialogVisible: false,
       campId: "",
+      competitonListdialogVisible: false,
     };
   },
   mounted() {
@@ -245,6 +255,11 @@ export default {
     btn_view(row) {
       this.dialogTitle = row.name;
       this.schoolListdialogVisible = true;
+      this.campId = row.id;
+    },
+    btn_view_competition(row) {
+      this.dialogTitle = row.name;
+      this.competitonListdialogVisible = true;
       this.campId = row.id;
     },
     requestFile(param) {
