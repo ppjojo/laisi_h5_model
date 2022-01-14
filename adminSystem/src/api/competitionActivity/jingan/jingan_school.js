@@ -35,6 +35,13 @@ export function addItem(data) {
         data,
     })
 }
+export function updateItem(data) {
+    return request({
+        url: '/summerVlogSkippingPk/summerCamp/updateSchool',
+        method: 'post',
+        data,
+    })
+}
 export function deleteItem(params) {
     return request({
         url: '/summerVlogSkippingPk/summerCamp/deleteSchool',

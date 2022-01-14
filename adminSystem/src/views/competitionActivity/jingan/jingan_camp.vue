@@ -32,7 +32,7 @@
           </el-button>
           <el-button @click=" btn_delete(scope.row)" type="text" style="color:#f78989;" size="mini">删除
           </el-button>
-          <el-button @click="btn_view(scope.row)" type="text" size="mini" style="color:#67c23a;">查看学校
+          <el-button @click="btn_view(scope.row)" type="text" size="mini" style="color:#67c23a;">查看组织
           </el-button>
           <el-button @click="btn_view_competition(scope.row)" type="text" size="mini" style="color:#67c23a;">比赛
           </el-button>

@@ -26,7 +26,7 @@
 <body>
     <div id="app" class="page" v-cloak>
         <div class="header">
-            <van-nav-bar title="静安区亲子跳绳挑战赛" @click-left="closeH5()" @click-right="share" safe-area-inset-top fixed>
+            <van-nav-bar title="浦发银行" @click-left="closeH5()" @click-right="share" safe-area-inset-top fixed>
                 <template #left v-if="!isShare">
 						<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" ></span>
 					</template>
@@ -139,7 +139,7 @@
         el: '#app',
         data() {
             return {
-                campId: getQueryString('campId') || "jingan20220124",
+                campId: getQueryString('campId') || "pufa20220124",
                 refreshing: false,
                 isShare: getQueryString('isShare'),
                 person: {

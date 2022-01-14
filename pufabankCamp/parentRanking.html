@@ -139,7 +139,7 @@
         el: '#app',
         data() {
             return {
-                campId: getQueryString('campId') || "jingan20220124",
+                campId: getQueryString('campId') || "pufa20220124",
                 isShare: getQueryString('isShare'),
                 competitionId: getQueryString('competitionId'),
                 currentUserId: localStorage.getItem("appInfo") ? JSON.parse(localStorage.getItem("appInfo")).userId : getQueryString('userId'),
@@ -241,7 +241,6 @@
                     if (res.code == 0) {
                         this.skipItem = res.data
                         if (parseInt((res.data.parentStoryTime + 240000 - new Date().getTime()) / 1000) > 0) {
-                            this.$toast("请在规定时间内完成学生跳绳视频录制哦")
                             this.interval = setInterval(() => {
                                 var s = parseInt((res.data.parentStoryTime + 240000 - new Date().getTime()) / 1000)
                                 if (s <= 0) {

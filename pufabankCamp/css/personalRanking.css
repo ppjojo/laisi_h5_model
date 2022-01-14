@@ -1,0 +1,273 @@
+@font-face {
+  font-family: "BebasNeue";
+  src: url("../../common/font/BebasNeue/BebasNeue.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.header {
+  position: relative;
+  z-index: 100;
+  height: calc(0.92rem + constant(safe-area-inset-top));
+  height: calc(0.92rem + env(safe-area-inset-top));
+  background-color: #ffffff;
+  z-index: 102;
+}
+
+.header .title {
+  color: #333;
+  font-size: 0.32rem;
+  text-align: center;
+}
+
+.header .van-hairline--bottom::after {
+  border: none;
+}
+
+.header .van-overlay {
+  background-color: rgba(0, 0, 0, 0.3);
+  top: constant(safe-area-inset-top);
+  top: env(safe-area-inset-top);
+}
+
+.header .van-overlay .optionBox {
+  margin-top: 0.92rem;
+  background-color: white;
+}
+
+.header .van-overlay .optionBox .optionItem {
+  height: 1rem;
+  color: #333;
+  font-size: 0.32rem;
+  text-align: center;
+  line-height: 1rem;
+  border-bottom: 1px solid #d8d8d8;
+}
+
+.header .van-overlay .optionBox .optionItem.active {
+  background-image: url(../img/optionActive.png);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #FFAA88;
+  font-weight: bold;
+  font-size: .35rem;
+}
+
+.rankBox .van-pull-refresh {
+  min-height: 10rem;
+  margin-top: 1.28rem;
+}
+
+.rankBox .align_left {
+  text-align: left !important;
+}
+
+.rankBox .van_row_title_box {
+  height: 1.28rem;
+  position: fixed;
+  width: 100%;
+  top: 0.92rem;
+  left: 0;
+  z-index: 99;
+  top: calc(0.92rem + constant(safe-area-inset-top));
+  top: calc(0.92rem + env(safe-area-inset-top));
+}
+
+.rankBox .van_row_title {
+  padding: 0 0.2rem;
+  height: 1.28rem;
+  background-color: #ffffff;
+}
+
+.rankBox .van_row_title .van-col {
+  font-size: 0.24rem;
+  color: #666;
+  text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  line-height: 0.3rem;
+  height: 100%;
+}
+
+.rankBox .van_row_title .van-col:last-child {
+  text-align: right;
+}
+
+.rankBox .self {
+  background: -webkit-gradient(linear, left top, right top, from(#FFF5F4), to(#ffffff));
+  background: linear-gradient(to right, #FFF5F4, #ffffff);
+}
+
+.rankBox .rankList {
+  padding: 0 0.2rem;
+  height: 1.28rem;
+  font-size: 0.28rem;
+  color: #7e7e7e;
+  line-height: 1.28rem;
+  text-align: center;
+}
+
+.rankBox .rankList .studentBox {
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.rankBox .rankList .studentBox .name {
+  font-size: 0.28rem;
+  line-height: 0.6rem;
+  color: #222;
+}
+
+.rankBox .rankList .studentBox .time {
+  font-size: 0.24rem;
+  color: #999;
+  line-height: 0.4rem;
+}
+
+.rankBox .rankList .van-col .self {
+  background-color: #f8f0e4;
+}
+
+.rankBox .rankList .van-col .sortPic {
+  width: 0.44rem;
+  height: 0.44rem;
+  position: relative;
+  top: 0.1rem;
+}
+
+.rankBox .rankList .van-col .detail_headpic {
+  width: 0.6rem;
+  height: 0.6rem;
+  background-size: cover;
+  position: relative;
+  top: 0.3rem;
+  right: -0.2rem;
+  border-radius: 50%;
+}
+
+.rankBox .rankList .van-col .skipImg {
+  width: 0.32rem;
+  position: relative;
+  top: 0.02rem;
+}
+
+.rankBox .rankList .van-col:last-child {
+  color: #d54a00;
+  font-size: 0.32rem;
+  text-align: right;
+}
+
+.rankBox .rankList .skipCount {
+  color: #FFAA88;
+  font-size: 0.48rem;
+  font-family: "BebasNeue";
+}
+
+.rankBox .rankList .ranking {
+  color: #B4998F;
+  font-size: 0.48rem;
+  font-family: "BebasNeue";
+}
+
+.rankBox .rankList .c666 {
+  color: #666;
+  font-size: 0.48rem;
+  font-family: "BebasNeue";
+}
+
+.rankBox .rankList .playBox .playImg {
+  width: 0.32rem;
+  margin-right: 0.2rem;
+}
+
+.noData-box {
+  text-align: center;
+  padding-top: 2.5rem;
+}
+
+.noData-box .noData-img {
+  width: 4rem;
+}
+
+.noData-box .noData-p {
+  color: #b3b8bb;
+  font-size: 0.28rem;
+}
+
+.gotoPersonal {
+  width: 1.4rem;
+  position: fixed;
+  right: 0.3rem;
+  bottom: 2rem;
+}
+
+.videoContain .videoBox {
+  width: 5.5rem;
+  height: 5.6rem;
+  background-color: #fff;
+  padding: 0.24rem;
+  border-radius: 0.32rem;
+}
+
+.videoContain .videoBox .title {
+  color: #222;
+  font-size: 0.32rem;
+  line-height: 1.2rem;
+  text-align: center;
+}
+
+.videoContain .videoBox .boxItem {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  background-color: #F5F5F5;
+  height: 1.76rem;
+  border-radius: 8px;
+  margin-bottom: 0.32rem;
+}
+
+.videoContain .videoBox .boxItem img {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+.videoContain .videoBox .boxItem .text {
+  color: #222;
+  font-size: 0.32rem;
+}
+
+.videoContain .closeIcon {
+  text-align: center;
+}
+
+/* vue */
+[v-cloak] {
+  display: none !important;
+}
+/*# sourceMappingURL=personalRanking.css.map */

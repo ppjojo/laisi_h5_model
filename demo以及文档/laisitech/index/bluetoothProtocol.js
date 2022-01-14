@@ -4,7 +4,7 @@
  * 
  */
 var utils = {
-    host: "https://lstest3.laisitech.com/",
+    host: "https://lsprod3.laisitech.com/",
     appId: "129836372101",
     appSecret: "Tp64DuQ6CQqHeTSHfzbJKusHu4K0Piab",
     sequenceIDcofig: "00",
@@ -1032,6 +1032,12 @@ bp.commandAssemble({
     requestCommand: {
         random: 151008471
     }
+})
+
+bp.getAuth({
+    mac: 'E4:B4:22:46:2C:98', //当前连接的设备的蓝牙地址
+    sn: 'LTAM0529CC79869', //当前连接的设备的sn
+    random:"123456"
 })
 
 export {

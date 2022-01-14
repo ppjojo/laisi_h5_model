@@ -1,9 +1,9 @@
 <template>
   <div class="app-container">
     <div class="container-edit">
-      <el-button type="primary" size="mini" @click="btn_add()">添加学校</el-button>
+      <el-button type="primary" size="mini" @click="btn_add()">添加组织</el-button>
       <el-upload ref='upload' action="" :http-request="submitSchool" :show-file-list="false" class="avatar-uploader">
-        <el-button type="primary" size="mini">导入学校信息</el-button>
+        <el-button type="primary" size="mini">导入组织信息</el-button>
       </el-upload>
     </div>
     <div class="container-search">
@@ -14,8 +14,8 @@
         <el-form-item label="手机号">
           <el-input v-model="searchForm.phoneNumber" placeholder="手机号"></el-input>
         </el-form-item>
-        <el-form-item label="学生名">
-          <el-input v-model="searchForm.name" placeholder="学生名"></el-input>
+        <el-form-item label="人员名">
+          <el-input v-model="searchForm.name" placeholder="人员名"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="success" size="mini" @click="searchStudent">查询</el-button>
@@ -24,9 +24,9 @@
     </div>
     <el-table v-loading="loading" :data="list" element-loading-text="Loading" border fit highlight-current-row size="small ">
       <el-table-column align="center" prop="id" label="ID" width="65"></el-table-column>
-      <el-table-column align="center" prop="name" label="学校名称">
+      <el-table-column align="center" prop="name" label="组织名称">
       </el-table-column>
-      <el-table-column align="center" prop="icon" label="校徽">
+      <el-table-column align="center" prop="icon" label="组织logo">
         <template scope="scope">
           <el-image style="width: 60px; height: 60px;" :src=" scope.row.icon" fit="fit">
           </el-image>
@@ -38,12 +38,12 @@
       <el-table-column align="center" prop="popularity" label="人气值"></el-table-column>
       <el-table-column align="center" label="操作" width="200">
         <template scope="scope">
-          <el-button @click="btn_view(scope.row)" type="text" size="mini">查看学生
+          <el-button @click="btn_view(scope.row)" type="text" size="mini">查看人员
           </el-button>
-          <el-button @click=" btn_delete(scope.row.id)" type="text" style="color:#f78989;" size="mini">删除
+          <el-button @click="form=scope.row;dialogTitle='编辑';dialogVisible=true;" type="text" style="color:#f78989;" size="mini">编辑
           </el-button>
           <el-upload ref='upload' action="" accept=".xls, .xlsx" :http-request="requestlistExcelFile" style="display: inline-block;margin:0 10px;" :show-file-list="false">
-            <el-button type="text" style="color:#67C23A;" size="mini" @click="schoolId=scope.row.id">导入学生
+            <el-button type="text" style="color:#67C23A;" size="mini" @click="schoolId=scope.row.id">导入人员
             </el-button>
           </el-upload>
 
@@ -52,9 +52,9 @@
     </el-table>
 
     <!--新增和编辑界面-->
-    <el-dialog :title="dialogTitle+'学校'" :visible.sync="dialogVisible" width="50%" append-to-body>
+    <el-dialog :title="dialogTitle+'组织'" :visible.sync="dialogVisible" width="50%" append-to-body>
       <el-form :model="form" label-width="100px" :rules="rules" ref="form">
-        <el-form-item label="学校名称" prop="name">
+        <el-form-item label="组织名称" prop="name">
           <el-input v-model="form.name"></el-input>
         </el-form-item>
         <el-form-item label="校徽" prop="icon">
@@ -80,7 +80,7 @@
       </div>
     </el-dialog>
 
-    <el-dialog title='学生详情' :visible.sync="DetailVisible" width="70%" append-to-body>
+    <el-dialog title='人员详情' :visible.sync="DetailVisible" width="70%" append-to-body>
       <el-table :data="detailList" highlight-current-row style="width: 100%;">
         <el-table-column prop="userId" label="用户ID"></el-table-column>
         <el-table-column prop="name" label="姓名"></el-table-column>
@@ -95,12 +95,24 @@
         <el-table-column prop="schoolName" label="学校"></el-table-column> -->
         <el-table-column align="center" label="操作" width="200">
           <template scope="scope">
-            <el-button @click="btn_editStu(scope.row)" type="text" size="mini">编辑学生
+            <el-button @click="btn_editStu(scope.row)" type="text" size="mini">编辑人员
             </el-button>
             <el-button @click="btn_deleteTestData(scope.row)" type="text" size="mini">删除测试环境的数据
             </el-button>
-            <!-- <el-button @click="btn_searchStuDaily(scope.row)" type="text" size="mini">学生的数据详情
-            </el-button> -->
+            <el-popover placement="right" width="400" trigger="click">
+              <el-table :data="competitionList">
+                <el-table-column property="competitionId" label="ID"></el-table-column>
+                <el-table-column property="name" label="比赛名"></el-table-column>
+                <el-table-column align="center" label="操作">
+                  <template scope="scope2">
+                    <el-button @click="btn_searchStuDaily(scope2.row)" type="text" size="mini">该比赛数据详情
+                    </el-button>
+                  </template>
+                </el-table-column>
+              </el-table>
+              <el-button slot="reference" @click="studentId=scope.row.userId;getCompetitionList()" type="text" size="mini">人员的数据详情
+              </el-button>
+            </el-popover>
           </template>
         </el-table-column>
       </el-table>
@@ -111,13 +123,13 @@
     </el-dialog>
 
     <!-- 查询的列表结果 -->
-    <el-dialog title='学生详情' :visible.sync="searchVisible" width="70%" append-to-body>
+    <el-dialog title='人员详情' :visible.sync="searchVisible" width="70%" append-to-body>
       <el-table :data="searchList" highlight-current-row style="width: 100%;">
         <el-table-column prop="userId" label="用户ID"></el-table-column>
         <el-table-column prop="name" label="姓名"></el-table-column>
         <el-table-column prop="phoneNumber" label="手机号"></el-table-column>
         <el-table-column prop="nickname" label="昵称"></el-table-column>
-        <el-table-column prop="schoolName" label="学校"></el-table-column>
+        <el-table-column prop="schoolName" label="组织"></el-table-column>
         <el-table-column prop="totalCount" label="总个数"></el-table-column>
         <el-table-column prop="totalTime" label="总时长（秒）">
           <template scope="scope">
@@ -126,8 +138,20 @@
         </el-table-column>
         <el-table-column align="center" label="操作" width="120">
           <template scope="scope">
-            <el-button @click="btn_searchStuDaily(scope.row)" type="text" size="mini">学生的数据详情
-            </el-button>
+            <el-popover placement="right" width="400" trigger="click">
+              <el-table :data="competitionList">
+                <el-table-column property="competitionId" label="ID"></el-table-column>
+                <el-table-column property="name" label="比赛名"></el-table-column>
+                <el-table-column align="center" label="操作">
+                  <template scope="scope2">
+                    <el-button @click="btn_searchStuDaily(scope2.row)" type="text" size="mini">该比赛数据详情
+                    </el-button>
+                  </template>
+                </el-table-column>
+              </el-table>
+              <el-button slot="reference" @click="studentId=scope.row.userId;getCompetitionList()" type="text" size="mini">人员的数据详情
+              </el-button>
+            </el-popover>
           </template>
         </el-table-column>
       </el-table>
@@ -136,17 +160,25 @@
         </el-button>
       </div>
     </el-dialog>
-    <el-dialog title='学生跳绳数据详情' :visible.sync="searchStuListVisible" width="70%" append-to-body>
+    <el-dialog title='人员跳绳数据详情' :visible.sync="searchStuListVisible" width="70%" append-to-body>
       <el-table :data="searchStuDailyList" highlight-current-row style="width: 100%;">
-        <el-table-column prop="day" label="日期"></el-table-column>
-        <el-table-column prop="studentId" label="用户ID"></el-table-column>
-        <el-table-column prop="totalNumber" label="总个数"></el-table-column>
-        <el-table-column prop="totalTime" label="总时长（秒）">
+        <el-table-column label="上传日期">
           <template scope="scope">
-            {{scope.row.totalTime/1000}}
+            {{scope.row.dataTime | formatDate}}
           </template>
         </el-table-column>
-        <el-table-column prop="totalBurn" label="总消耗"></el-table-column>
+        <el-table-column prop="day" label="上传日期">
+          <template scope="scope">
+            {{scope.row.timestamp | formatDate}}
+          </template>
+        </el-table-column>
+        <el-table-column prop="id" label="数据ID"></el-table-column>
+        <el-table-column prop="userId" label="用户ID"></el-table-column>
+        <el-table-column prop="number" label="总个数"></el-table-column>
+        <el-table-column prop="avgNumber" label="平均数">
+
+        </el-table-column>
+        <el-table-column prop="roundTimes" label="跳绳的次数"></el-table-column>
 
         <el-table-column prop="state" label="状态">
           <template scope="scope">
@@ -169,7 +201,7 @@
       </div>
     </el-dialog>
 
-    <el-dialog title='学生详情编辑' :visible.sync="stuVisible" width="70%" append-to-body>
+    <el-dialog title='人员详情编辑' :visible.sync="stuVisible" width="70%" append-to-body>
       <el-form :model="stuForm" label-width="100px" :rules="rules" ref="stuForm">
         <el-form-item label="姓名" prop="name">
           <el-input v-model="stuForm.name"></el-input>
@@ -200,6 +232,7 @@ import {
   registerSchool,
   listItem,
   addItem,
+  updateItem,
   importStudent,
   deleteItem,
   studentListItem,
@@ -209,6 +242,8 @@ import {
   dataRevert,
   deleteTestData,
 } from "@/api/competitionActivity/jingan/jingan_school";
+
+import { queryByUserIdAndCampId as competitionListApi } from "@/api/competitionActivity/jingan/jingan_competition";
 import { checkPermission } from "@/api/checkPermission";
 import { fileUpload } from "@/utils/fileUpload";
 
@@ -225,10 +260,16 @@ export default {
   filters: {
     statusFilter(status) {
       const statusMap = {
-        0: "success",
-        1: "danger",
+        1: "success",
+        // 1: 'gray',
+        0: "danger",
       };
       return statusMap[status];
+    },
+    formatDate(time) {
+      time = time;
+      let date = new Date(time);
+      return formatDate(date, "yyyy-MM-dd hh:mm");
     },
   },
   computed: {
@@ -240,6 +281,9 @@ export default {
   },
   data() {
     return {
+      studentId: "",
+      competitionId: "",
+
       list: [],
       loading: false,
       page: 1,
@@ -277,6 +321,7 @@ export default {
       searchList: [],
       searchStuListVisible: false,
       searchStuDailyList: [],
+      competitionList: [],
     };
   },
   mounted() {
@@ -284,6 +329,14 @@ export default {
     this.getList();
   },
   methods: {
+    getCompetitionList() {
+      competitionListApi({
+        campId: this.campId,
+        studentId: this.studentId,
+      }).then((res) => {
+        this.competitionList = res.data;
+      });
+    },
     submitSchool(param) {
       var fileForm = new FormData();
       fileForm.append("campId", this.campId);
@@ -324,8 +377,10 @@ export default {
       });
     },
     btn_searchStuDaily(row) {
+      console.log(row);
       studentDaily({
-        studentId: row.userId,
+        competitionId: row.competitionId,
+        studentId: this.studentId,
         campId: this.campId,
       }).then((res) => {
         this.searchStuListVisible = true;

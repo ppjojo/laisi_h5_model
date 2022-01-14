@@ -8,6 +8,14 @@ export function listItem(params) {
         params
     })
 }
+export function queryByUserIdAndCampId(params) {
+    return request({
+        url: '/summerVlogSkippingPk/competitor/queryByUserIdAndCampId',
+        method: 'get',
+        params
+    })
+}
+
 //新增
 export function addItem(data) {
     return request({
