@@ -26,6 +26,38 @@ body {
     }
 }
 
+.van-tabs {
+    border-radius: 10px;
+    padding: 0.3rem 0 0;
+    color: #999;
+    text-align: center;
+    .van-tab {
+        color: #999;
+    }
+    .van-tabs__nav {
+        border-radius: 10px;
+    }
+    .van-tab--active {
+        color: #333;
+        font-weight: normal;
+        &::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translate(-50%, -50%);
+            width: 0.4rem;
+            height: 0.14rem;
+            background-position: 100% 100%;
+            background: url(../img/tabselect.png) no-repeat;
+            background-size: 100%;
+        }
+    }
+    .van-tabs__line {
+        display: none;
+    }
+}
+
 .pageBgBox {
     height: 9.6rem;
     background-image: url('../img/indexbg.png');
@@ -79,12 +111,16 @@ body {
     position: relative;
     top: -0.2rem;
     margin-bottom: 2rem;
-    #infobox {
+    .infobox {
         padding: 0 .32rem;
         .card {
             font-size: .28rem;
             padding: 0.1rem .32rem;
             border-radius: .32rem;
+            box-sizing: border-box;
+            .schoolName {
+                line-height: 0.8rem;
+            }
             .studentName {
                 font-size: 0.4rem;
                 height: 0.8rem;
@@ -158,6 +194,81 @@ body {
                 height: 0.7rem;
                 line-height: 0.7rem;
                 color: #FFAA88;
+            }
+        }
+    }
+    .rankBox {
+        border-radius: 12px;
+        margin: 0 .32rem;
+        padding: 0.32rem;
+        background-color: #fff;
+        margin-bottom: 0.32rem;
+        .rankTitle {
+            color: #333333;
+            font-size: 0.28rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            .dateBox {
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+            }
+        }
+        .listDiv {
+            .title {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                color: #999;
+                text-align: center;
+                height: 1.24rem;
+                line-height: 0.4rem;
+                border-top-left-radius: 10px;
+                border-top-right-radius: 10px;
+                .rank {
+                    width: 20%;
+                    font-size: 0.24rem;
+                    .sortPic {
+                        width: 0.44rem;
+                        height: 0.44rem;
+                        position: relative;
+                        top: 0.1rem;
+                    }
+                }
+                .schoolName {
+                    width: 35%;
+                    font-size: 0.24rem;
+                }
+                .count {
+                    width: 30%;
+                    font-size: 0.24rem;
+                }
+            }
+            .item {
+                @extend .title;
+                border-radius: 0;
+                color: #222;
+                height: 1.28rem;
+                .schoolName {
+                    font-size: 0.28rem;
+                }
+                .count {
+                    color: #FFAA88;
+                    font-size: 0.48rem;
+                    font-family: "BebasNeue";
+                }
+            }
+        }
+        .noData-box {
+            text-align: center;
+            padding-top: 2.5rem;
+            .noData-img {
+                width: 3rem;
+            }
+            .noData-p {
+                color: #b3b8bb;
+                font-size: 0.28rem;
             }
         }
     }

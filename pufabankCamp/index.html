@@ -13,11 +13,11 @@
     <script src="https://lsprod3.laisitech.com/h5/h5V3/common/js/vant.js"></script>
     <script src="../common/js/network.js"></script>
     <script src="js/openId.js"></script>
-    <title>绳彩争霸迎冬奥</title>
+    <title>浦发银行湖南省分行云端跳绳比赛</title>
     <style type="text/css">
         body,
         .page {
-            background-color: #E5F2FB;
+            background-color: #FCC9BD;
         }
     </style>
 
@@ -26,7 +26,7 @@
 <body>
     <div id="app" class="page" v-cloak>
         <div class="header">
-            <van-nav-bar title="浦发银行" @click-left="closeH5()" @click-right="share" safe-area-inset-top fixed>
+            <van-nav-bar title="浦发银行湖南省分行云端跳绳比赛" @click-left="closeH5()" @click-right="share" safe-area-inset-top fixed>
                 <template #left v-if="!isShare">
 						<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" ></span>
 					</template>
@@ -46,25 +46,25 @@
                     <div v-if="!isShare&&startDjs" class="gojump notStart" v-if="startDjs">去跳绳 <span v-if="startDjs">{{startDjs}} </span></div>
                 </div>
                 <div class="contain">
-                    <div id="infobox" class="">
-                        <div class="card card-person" style="min-height:2.2rem;">
+                    <div class="infobox">
+                        <div class="card card-person" style="height:1.96rem;">
                             <div class="schoolName">
                                 <div>{{person.studentSchoolInfo.schoolName}}</div>
                             </div>
                             <div class="studentName">
                                 {{person.studentSchoolInfo.name}}
                             </div>
-                            <div class="studentInfoBox">
+                            <!-- <div class="studentInfoBox">
                                 学籍号：{{person.studentSchoolInfo.studentCardId}}
                             </div>
                             <div class="studentInfoBox">
                                 年 &nbsp 级：{{person.studentSchoolInfo.grade}}
-                            </div>
+                            </div> -->
                         </div>
                         <div class="ub ub-pj ub-ac">
                             <div class="card ub-f1 card-camp" @click="gonext(1)" style="margin-right: .18rem;">
                                 <div class="cardTitle">
-                                    倒计时1min区排名
+                                    3分钟倒计时跳个人排名
                                 </div>
                                 <div class="ranking">
                                     {{person.oneRank||"--"}}
@@ -75,7 +75,7 @@
                             </div>
                             <div class="card ub-f1 card-school" @click="gonext(2)" style="padding-left: .3rem;">
                                 <div class="cardTitle">
-                                    学校区排名
+                                    支行排名
                                 </div>
                                 <div class="ranking">
                                     {{person.schoolRank||"--"}}
@@ -87,7 +87,7 @@
                         </div>
                         <div class="card card-parent" @click="gonext(3)">
                             <div class="cardTitle">
-                                倒计时3+3分钟区排名（家长+学生）
+                                1分钟倒计时亲子双人跳排名
                             </div>
                             <div class="ranking">
                                 {{person.threeRank||"--"}}
@@ -97,15 +97,78 @@
                             </div>
                         </div>
                     </div>
+                    <div class="rankBox">
+                        <div class="rankTitle">
+                            <div>每日优胜奖</div>
+                            <div class="dateBox" @click="dateshow = true">
+                                <div>{{currentDatestr}}</div>
+                                <van-icon name="arrow-down" size=".3rem" color="#333333" />
+                            </div>
+                        </div>
+                        <div>
+                            <van-tabs v-model="active" @click="tabsClick">
+                                <van-tab title="3分钟倒计时个人跳">
+                                    <div class="listDiv " v-if="list.length>0">
+                                        <div class="title">
+                                            <div class="rank">排名</div>
+                                            <div class="schoolName">姓名</div>
+                                            <div class="count">个数</div>
+                                        </div>
+                                        <div class="item" v-for="item in list">
+                                            <div class="rank">
+                                                <img class="sortPic" v-if="item.rank==1" src="./img/no1.png" />
+                                                <img class="sortPic" v-if="item.rank==2" src="./img/no2.png" />
+                                                <img class="sortPic" v-if="item.rank==3" src="./img/no3.png" />
+                                            </div>
+                                            <div class="schoolName">{{item.name||'--'}}</div>
+                                            <div class="count">{{item.skipCount||'--'}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="noData-box" style="padding-top: 0.5rem;" v-else>
+                                        <img class="noData-img" src="./img/noData.png" />
+                                        <p class="noData-p">今天还没有人跳绳哦！快去跳绳吧！</p>
+                                    </div>
+
+                                </van-tab>
+                                <van-tab title="1分钟倒计时亲子双人跳">
+                                    <div class="listDiv " v-if="list.length>0">
+                                        <div class="title">
+                                            <div class="rank">排名</div>
+                                            <div class="schoolName">姓名</div>
+                                            <div class="count">个数</div>
+                                        </div>
+                                        <div class="item" v-for="item in list">
+                                            <div class="rank">
+                                                <img class="sortPic" v-if="item.rank==1" src="./img/no1.png" />
+                                                <img class="sortPic" v-if="item.rank==2" src="./img/no2.png" />
+                                                <img class="sortPic" v-if="item.rank==3" src="./img/no3.png" />
+                                            </div>
+                                            <div class="schoolName">{{item.name||'--'}}</div>
+                                            <div class="count">{{item.skipCount||'--'}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="noData-box" style="padding-top: 0.5rem;" v-else>
+                                        <img class="noData-img" src="./img/noData.png" />
+                                        <p class="noData-p">今天还没有人跳绳哦！快去跳绳吧！</p>
+                                    </div>
+                                </van-tab>
+                            </van-tabs>
+
+                        </div>
+                    </div>
                     <div v-if="!startDjs&&endDjs">
                         <div class="desc">*此成绩不作为最终成绩</div>
                         <div class="desc">(距比赛结束还剩{{endDjs}})</div>
                     </div>
                 </div>
 
+
             </div>
         </van-pull-refresh>
 
+        <van-popup v-model="dateshow" position="bottom" style="z-index: 9999;">
+            <van-datetime-picker v-model="currentDate" type="month-day" title="" :min-date="minDate" :max-date="maxDate" :formatter="formatter" swipe-duration=100 @confirm="dateConfirm" @cancel="dateshow = false" />
+        </van-popup>
 
         <van-popup v-model="listShow" round position="bottom">
             <div class="competitionListBox">
@@ -139,6 +202,14 @@
         el: '#app',
         data() {
             return {
+                dateshow: false,
+                rankdate: '',
+                minDate: new Date(2022, 00, 15),
+                maxDate: new Date(),
+                currentDate: new Date(),
+                list: [],
+                active: 0,
+
                 campId: getQueryString('campId') || "pufa20220124",
                 refreshing: false,
                 isShare: getQueryString('isShare'),
@@ -152,7 +223,9 @@
                 interval: "",
                 startDjs: "",
                 interval2: "",
-                endDjs: ""
+                endDjs: "",
+                threeComId: "",
+                oneComId: ""
             };
         },
         watch: {},
@@ -179,9 +252,56 @@
                     }
                 }
             }
+            var month = new Date().getMonth() + 1,
+                dates = new Date().getDate();
+            month = month > 9 ? month : "0" + month;
+            dates = dates > 9 ? dates : "0" + dates;
+            this.currentDatestr = '2022-' + month + '-' + dates;
             this.initCompetitionDetail();
         },
         methods: {
+            tabsClick(name) {
+                if (name == 0) {
+                    this.competitionId = this.threeComId
+                } else {
+                    this.competitionId = this.oneComId
+                }
+                this.getSchoolrank()
+            },
+            formatter(type, val) {
+                if (type === 'month') {
+                    return `${val}月`;
+                } else if (type === 'day') {
+                    return `${val}日`;
+                }
+                return val;
+            },
+            // 确定时间回调
+            dateConfirm(val) {
+                var month = new Date(val).getMonth() + 1,
+                    dates = new Date(val).getDate();
+                month = month > 9 ? month : "0" + month;
+                dates = dates > 9 ? dates : "0" + dates;
+                this.currentDatestr = '2021-' + month + '-' + dates;
+                this.getSchoolrank();
+                this.dateshow = false;
+            },
+            getSchoolrank() { //获取校内跳绳排名
+                ajax({
+                    url: "summerVlogSkippingPk/homePage/getDailyTopThree",
+                    data: {
+                        currentTime: new Date(this.currentDatestr + " 00:00:00").getTime(),
+                        competitionId: this.competitionId,
+                        campId: this.campId
+                    }
+                }).then(res => {
+                    if (res.code == 0) {
+                        this.list = res.data;
+                    } else {
+                        this.$toast(res.msg)
+                    }
+                })
+            },
             onRefresh() {
                 this.initCompetitionDetail();
                 this.refreshing = false;
@@ -201,6 +321,18 @@
                             studentCardId: ""
                         }, res.data);
 
+                        this.person.competitonInfos.forEach(item => {
+                            if (item.modeValue == 60) {
+                                this.oneComId = item.competitionId
+                            } else if (item.modeValue == 180) {
+                                this.threeComId = item.competitionId
+                                this.competitionId = item.competitionId
+                            }
+                        });
+                        this.getSchoolrank()
+
+
+
                         if ((res.data.startTime - new Date().getTime()) > 0) {
                             this.interval = setInterval(() => {
                                 var s = parseInt((res.data.startTime - new Date().getTime()) / 1000)
@@ -214,6 +346,7 @@
                                 this.startDjs = hour.padStart(2, "0") + ":" + minute.padStart(2, "0") + ":" + second.padStart(2, "0");
                             }, 1000);
                         } else {
+                            clearInterval(this.interval)
                             this.startDjs = "";
                         }
 
@@ -231,6 +364,7 @@
                                 this.endDjs = day + "天" + hour.padStart(2, "0") + "小时" + minute.padStart(2, "0") + "分钟" + second.padStart(2, "0") + "秒";
                             }, 1000);
                         } else {
+                            clearInterval(this.interval2)
                             this.endDjs = "";
                         }
 
@@ -243,30 +377,6 @@
             closeH5() {
                 Interaction.closePage()
             },
-            // gotoSkip() {
-            //     ajax({
-            //         url: "device/get/bound/device",
-            //     }).then((res) => {
-            //         let unbind = true;
-            //         if (res.code == 0) {
-            //             res.data.forEach((item) => {
-            //                 if (item.deviceType == "skipping") {
-            //                     this.listShow = true;
-            //                     this.unbindShow = false;
-            //                     unbind = false
-            //                     return;
-            //                 }
-            //             });
-            //             if (unbind) {
-            //                 this.unbindShow = true
-            //             }
-            //         } else if (res.code == 1000) {
-            //             this.unbindShow = true
-            //         } else {
-            //             this.$toast(res.msg)
-            //         }
-            //     });
-            // },
             gotoSkip2(competitionId) {
                 ajax({
                     url: "summerVlogSkippingPk/vlogStory/get/now/round/times",
@@ -301,6 +411,7 @@
                     maxBpmLimit: obj.maxBpmLimit, //bpm的限制
                     category: 9,
                     isAward: obj.isAward, //成绩上传之后是否有奖励
+                    htmlUrl: obj.modeValue == 60 ? 'summercamp/personalRanking.html' : 'summercamp/parentRanking.html',
                 }
                 console.log(skipItem)
                 if (isIOS) {
@@ -313,16 +424,20 @@
                 var url = ""
                 if (type == 1) {
                     this.person.competitonInfos.forEach(item => {
-                        if (item.modeValue == 60) {
-                            url = `personalRanking.html?competitionId=${item.competitionId}&fromH5=1&shareName=${this.person.studentSchoolInfo.name}`
+                        if (item.modeValue == 180) {
+                            url = `personalRanking.html?competitionId=${item.competitionId}&fromH5=1&shareName=${this.person.studentSchoolInfo.name}&active=3`
                         }
                     });
                 } else if (type == 2) {
-                    url = `schoolRanking.html?fromH5=1&shareName=${this.person.studentSchoolInfo.schoolName}`
+                    this.person.competitonInfos.forEach(item => {
+                        if (item.modeValue == 180) {
+                            url = `personalRanking.html?competitionId=${item.competitionId}&fromH5=1&shareName=${this.person.studentSchoolInfo.name}&active=2`
+                        }
+                    });
 
                 } else if (type == 3) {
                     this.person.competitonInfos.forEach(item => {
-                        if (item.modeValue == 180) {
+                        if (item.modeValue == 60) {
                             url = `parentRanking.html?competitionId=${item.competitionId}&fromH5=1&shareName=${this.person.studentSchoolInfo.name}`
                         }
                     });
@@ -336,7 +451,7 @@
             },
             share() {
                 Interaction.sharePage({
-                    "title": `${this.person.studentSchoolInfo.schoolName}在参加静安区跳绳争霸赛`,
+                    "title": `${this.person.studentSchoolInfo.schoolName}在参加浦发银行湖南省分行云端跳绳比赛`,
                     "description": "爱生活爱健康",
                     "url": host + `h5/h5V3/summercamp/index.html?isShare=1&userId=${JSON.parse(localStorage.getItem("appInfo")).userId}&campId=${this.campId}`
                 })

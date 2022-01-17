@@ -214,6 +214,7 @@
                                 this.startDjs = hour.padStart(2, "0") + ":" + minute.padStart(2, "0") + ":" + second.padStart(2, "0");
                             }, 1000);
                         } else {
+                            clearInterval(this.interval)
                             this.startDjs = "";
                         }
 
@@ -231,6 +232,7 @@
                                 this.endDjs = day + "天" + hour.padStart(2, "0") + "小时" + minute.padStart(2, "0") + "分钟" + second.padStart(2, "0") + "秒";
                             }, 1000);
                         } else {
+                            clearInterval(this.interval2)
                             this.endDjs = "";
                         }
 
@@ -301,6 +303,7 @@
                     maxBpmLimit: obj.maxBpmLimit, //bpm的限制
                     category: 9,
                     isAward: obj.isAward, //成绩上传之后是否有奖励
+                    htmlUrl: obj.modeValue == 60 ? 'summercamp/personalRanking.html' : 'summercamp/parentRanking.html',
                 }
                 console.log(skipItem)
                 if (isIOS) {

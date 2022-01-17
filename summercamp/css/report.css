@@ -31,11 +31,60 @@ body {
   width: 100%;
 }
 
+.van-tabs {
+  border-radius: 10px;
+  padding: 0.3rem 0 0;
+  background-color: #F3F9FF;
+  color: #999;
+  text-align: center;
+}
+
+.van-tabs .van-tab {
+  color: #999;
+}
+
+.van-tabs .van-tabs__wrap {
+  height: 1.3rem;
+}
+
+.van-tabs .van-tabs__nav {
+  border-radius: 10px;
+  background-color: #F3F9FF;
+}
+
+.van-tabs .van-tabs__nav .van-tab__text--ellipsis {
+  display: block;
+}
+
+.van-tabs .van-tab--active {
+  color: #333;
+  font-weight: normal;
+}
+
+.van-tabs .van-tab--active::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 0.4rem;
+  height: 0.14rem;
+  background-position: 100% 100%;
+  background: url(../img/tabselect.png) no-repeat;
+  background-size: 100%;
+}
+
+.van-tabs .van-tabs__line {
+  display: none;
+}
+
 .listBoxContain {
   margin-top: -0.7rem;
 }
 
 .listBoxContain .listBox {
+  position: relative;
   width: 6.7rem;
   position: relative;
   border-radius: 10px;
@@ -45,7 +94,7 @@ body {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   font-size: 0.28rem;
-  min-height: 3rem;
+  min-height: 4rem;
 }
 
 .listBoxContain .listBox .infoTitle {
@@ -58,6 +107,7 @@ body {
   line-height: 0.52rem;
   top: -0.26rem;
   border-radius: 0.26rem;
+  z-index: 9;
   width: 4rem;
   left: calc(50% - 2rem);
 }
@@ -145,6 +195,19 @@ body {
   font-size: 0.28rem;
 }
 
+.listBoxContain .hasTab .title, .listBoxContain .hasTab .listBox .item, .listBoxContain .listBox .hasTab .item, .listBoxContain .hasTab .schoolTeam .item, .listBoxContain .schoolTeam .hasTab .item, .listBoxContain .hasTab .schoolPop .item, .listBoxContain .schoolPop .hasTab .item, .listBoxContain .hasTab .personList .item, .listBoxContain .personList .hasTab .item {
+  padding: 0rem 0.2rem 0;
+  background-color: #FAFDFF;
+}
+
+.listBoxContain .hasTab .item:nth-child(2n) {
+  background-color: #FAFDFF;
+}
+
+.listBoxContain .hasTab .item:nth-child(2n+1) {
+  background-color: #F3F9FF;
+}
+
 .listBoxContain .schoolTeam .title .rank, .listBoxContain .schoolTeam .item .rank {
   width: 15%;
 }
@@ -173,8 +236,12 @@ body {
   width: 40%;
 }
 
+.listBoxContain .personList .van-tabs {
+  padding-top: 0.7rem;
+}
+
 .listBoxContain .personList .title, .listBoxContain .personList .item {
-  padding: 0.5rem 0.2rem 0;
+  padding: 0rem 0.2rem 0;
 }
 
 .listBoxContain .personList .title .rank, .listBoxContain .personList .item .rank {

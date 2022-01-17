@@ -73,7 +73,7 @@
                 </van-row>
             </div>
             <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
-                <van-list v-model="loading" :finished="finished" @load="onLoad" finished-text="已经到底啦~" v-if="list.length>0">
+                <van-list v-model="loading" :finished="finished" @load="onLoad" finished-text="已经到底啦~" v-if="list.length>0" :immediate-check=false>
                     <van-row v-for="(item,index) in list" class="rankList" :class="item.userId==currentUserId?'self':''">
                         <van-col span="2" class="ranking" v-if="item.rank==1">
                             <img class="sortPic" src="./img/no1.png" />
@@ -230,7 +230,7 @@
                 })
 
             },
-            getDJS(competitionId) {
+            getDJS() {
                 ajax({
                     url: "summerVlogSkippingPk/vlogStory/get/now/round/times",
                     data: {
@@ -240,6 +240,7 @@
                 }).then((res) => {
                     if (res.code == 0) {
                         this.skipItem = res.data
+                            // res.data.parentStoryTime = 1642385100771
                         if (parseInt((res.data.parentStoryTime + 240000 - new Date().getTime()) / 1000) > 0) {
                             this.$toast("请在规定时间内完成学生跳绳视频录制哦")
                             this.interval = setInterval(() => {
@@ -256,8 +257,9 @@
                                 this.djs = hour.padStart(2, "0") + ":" + minute.padStart(2, "0") + ":" + second.padStart(2, "0");
                             }, 1000);
                         } else {
-
+                            clearInterval(this.interval)
                             this.djs = ""
+
                         }
                     } else {
                         this.$toast(res.msg)
@@ -265,7 +267,7 @@
                 });
             },
             gotoSkip(obj) {
-
+                clearInterval(this.interval)
                 var skipItem = {
                     method: "LSTH5APP_JingAnSchoolChallenge", //H5调起原生选择设备，需要过滤掉rs-s3，Hilink，发光跳绳，并跳转到专门的vlog页面，
                     isChild: obj.isChild, // 1是学生，0是家长 int
@@ -280,6 +282,7 @@
                     maxBpmLimit: obj.maxBpmLimit, //bpm的限制
                     category: 9,
                     isAward: obj.isAward, //成绩上传之后是否有奖励
+                    htmlUrl: obj.modeValue == 60 ? 'summercamp/personalRanking.html' : 'summercamp/parentRanking.html',
                 }
                 if (isIOS) {
                     window.webkit.messageHandlers.lstNative.postMessage(skipItem)

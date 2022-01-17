@@ -18,7 +18,7 @@ body {
   z-index: 102;
 }
 
-.header .title {
+.header .title, .header .contain .rankBox .listDiv .item, .contain .rankBox .listDiv .header .item {
   color: #333;
   font-size: 0.32rem;
   text-align: center;
@@ -26,6 +26,44 @@ body {
 
 .header .van-hairline--bottom::after {
   border: none;
+}
+
+.van-tabs {
+  border-radius: 10px;
+  padding: 0.3rem 0 0;
+  color: #999;
+  text-align: center;
+}
+
+.van-tabs .van-tab {
+  color: #999;
+}
+
+.van-tabs .van-tabs__nav {
+  border-radius: 10px;
+}
+
+.van-tabs .van-tab--active {
+  color: #333;
+  font-weight: normal;
+}
+
+.van-tabs .van-tab--active::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 0.4rem;
+  height: 0.14rem;
+  background-position: 100% 100%;
+  background: url(../img/tabselect.png) no-repeat;
+  background-size: 100%;
+}
+
+.van-tabs .van-tabs__line {
+  display: none;
 }
 
 .pageBgBox {
@@ -90,41 +128,47 @@ body {
   margin-bottom: 2rem;
 }
 
-.contain #infobox {
+.contain .infobox {
   padding: 0 .32rem;
 }
 
-.contain #infobox .card {
+.contain .infobox .card {
   font-size: .28rem;
   padding: 0.1rem .32rem;
   border-radius: .32rem;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
-.contain #infobox .card .studentName {
+.contain .infobox .card .schoolName {
+  line-height: 0.8rem;
+}
+
+.contain .infobox .card .studentName {
   font-size: 0.4rem;
   height: 0.8rem;
   line-height: 0.8rem;
 }
 
-.contain #infobox .card .studentInfoBox {
+.contain .infobox .card .studentInfoBox {
   font-size: 0.24rem;
   color: #666;
   height: 0.4rem;
   line-height: 0.4rem;
 }
 
-.contain #infobox .card .circle img {
+.contain .infobox .card .circle img {
   width: .32rem;
   height: .32rem;
 }
 
-.contain #infobox .card .cardTitle {
+.contain .infobox .card .cardTitle {
   color: #555555;
   font-size: 0.24rem;
   margin-top: .1rem;
 }
 
-.contain #infobox .card-person, .contain #infobox .card-camp, .contain #infobox .card-school, .contain #infobox .card-parent {
+.contain .infobox .card-person, .contain .infobox .card-camp, .contain .infobox .card-school, .contain .infobox .card-parent {
   background-image: url("../img/card-person.png");
   background-repeat: no-repeat;
   background-position: center;
@@ -132,14 +176,14 @@ body {
   margin-bottom: 0.32rem;
 }
 
-.contain #infobox .card-person .ranking, .contain #infobox .card-camp .ranking, .contain #infobox .card-school .ranking, .contain #infobox .card-parent .ranking {
+.contain .infobox .card-person .ranking, .contain .infobox .card-camp .ranking, .contain .infobox .card-school .ranking, .contain .infobox .card-parent .ranking {
   font-size: 0.6rem;
   height: 0.7rem;
   line-height: 0.7rem;
   font-family: "BebasNeue";
 }
 
-.contain #infobox .card-camp {
+.contain .infobox .card-camp {
   background-image: url("../img/card-camp.png");
   margin-bottom: 0;
   margin-right: 0.32rem;
@@ -147,38 +191,142 @@ body {
   height: 1.8rem;
 }
 
-.contain #infobox .card-camp .ranking {
+.contain .infobox .card-camp .ranking {
   font-size: 0.6rem;
   height: 0.7rem;
   line-height: 0.7rem;
   color: #F6C021;
 }
 
-.contain #infobox .card-school {
+.contain .infobox .card-school {
   background-image: url("../img/card-school.png");
   margin-bottom: 0;
   width: 100%;
   height: 1.8rem;
 }
 
-.contain #infobox .card-school .ranking {
+.contain .infobox .card-school .ranking {
   font-size: 0.6rem;
   height: 0.7rem;
   line-height: 0.7rem;
   color: #1082ff;
 }
 
-.contain #infobox .card-parent {
+.contain .infobox .card-parent {
   background-image: url("../img/card-parent.png");
   margin-top: 0.32rem;
   height: 1.8rem;
 }
 
-.contain #infobox .card-parent .ranking {
+.contain .infobox .card-parent .ranking {
   font-size: 0.6rem;
   height: 0.7rem;
   line-height: 0.7rem;
   color: #FFAA88;
+}
+
+.contain .rankBox {
+  border-radius: 12px;
+  margin: 0 .32rem;
+  padding: 0.32rem;
+  background-color: #fff;
+  margin-bottom: 0.32rem;
+}
+
+.contain .rankBox .rankTitle {
+  color: #333333;
+  font-size: 0.28rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.contain .rankBox .rankTitle .dateBox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.contain .rankBox .listDiv .title, .contain .rankBox .listDiv .item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  color: #999;
+  text-align: center;
+  height: 1.24rem;
+  line-height: 0.4rem;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.contain .rankBox .listDiv .title .rank, .contain .rankBox .listDiv .item .rank {
+  width: 20%;
+  font-size: 0.24rem;
+}
+
+.contain .rankBox .listDiv .title .rank .sortPic, .contain .rankBox .listDiv .item .rank .sortPic {
+  width: 0.44rem;
+  height: 0.44rem;
+  position: relative;
+  top: 0.1rem;
+}
+
+.contain .rankBox .listDiv .title .schoolName, .contain .rankBox .listDiv .item .schoolName {
+  width: 35%;
+  font-size: 0.24rem;
+}
+
+.contain .rankBox .listDiv .title .count, .contain .rankBox .listDiv .item .count {
+  width: 30%;
+  font-size: 0.24rem;
+}
+
+.contain .rankBox .listDiv .item {
+  border-radius: 0;
+  color: #222;
+  height: 1.28rem;
+}
+
+.contain .rankBox .listDiv .item .schoolName {
+  font-size: 0.28rem;
+}
+
+.contain .rankBox .listDiv .item .count {
+  color: #FFAA88;
+  font-size: 0.48rem;
+  font-family: "BebasNeue";
+}
+
+.contain .rankBox .noData-box {
+  text-align: center;
+  padding-top: 2.5rem;
+}
+
+.contain .rankBox .noData-box .noData-img {
+  width: 3rem;
+}
+
+.contain .rankBox .noData-box .noData-p {
+  color: #b3b8bb;
+  font-size: 0.28rem;
 }
 
 .contain .desc {

@@ -255,12 +255,13 @@
                 })
             },
             OnclickLeft() {
-                if (getQueryString('type') == 'both') {
-                    Interaction.closePage()
-                } else {
-                    window.history.back(-1);
-                    if (isAndroid) Interaction.closePage()
-                }
+                Interaction.closePage()
+                    // if (getQueryString('type') == 'both') {
+                    //     Interaction.closePage()
+                    // } else {
+                    //     window.history.back(-1);
+                    //     if (isAndroid) Interaction.closePage()
+                    // }
             },
             onClickRight() { //余额明细
                 // window.location.href = './balancedetail.html'

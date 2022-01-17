@@ -46,6 +46,57 @@ export function deleteItem(params) {
 }
 
 
+//导入俱乐部
+export function adminCreateClub(data) {
+    return request({
+        url: "club/custom/saveClub",
+        headers: {
+            "Content-Type": "multipart/form-data",
+        },
+        method: 'post',
+        data
+    })
+}
 
+export function adminCreateClubGroup(data) {
+    return request({
+        url: "club/custom/saveClubGroup",
+        headers: {
+            "Content-Type": "multipart/form-data",
+        },
+        method: 'post',
+        data
+    })
+}
 
-
+export function adminCreateClubGroupMember(data) {
+    return request({
+        url: "club/custom/joinClub",
+        headers: {
+            "Content-Type": "multipart/form-data",
+        },
+        method: 'post',
+        data
+    })
+}
+// export function getGroupList(data) {
+//     return request({
+//         url: '/club/memberManage',
+//         method: 'post',
+//         data,
+//     })
+// }
+export function getGroupList(params) {
+    return request({
+        url: '/club/queryClubGroup',
+        method: 'get',
+        params,
+    })
+}
+export function clubGroupInfo(params) {
+    return request({
+        url: '/club/clubGroupInfo',
+        method: 'get',
+        params,
+    })
+}

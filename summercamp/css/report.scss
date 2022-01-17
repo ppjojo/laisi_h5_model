@@ -32,9 +32,50 @@ body {
     }
 }
 
+.van-tabs {
+    border-radius: 10px;
+    padding: 0.3rem 0 0;
+    background-color: #F3F9FF;
+    color: #999;
+    text-align: center;
+    .van-tab {
+        color: #999;
+    }
+    .van-tabs__wrap {
+        height: 1.3rem;
+    }
+    .van-tabs__nav {
+        border-radius: 10px;
+        background-color: #F3F9FF;
+        .van-tab__text--ellipsis {
+            display: block;
+        }
+    }
+    .van-tab--active {
+        color: #333;
+        font-weight: normal;
+        &::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translate(-50%, -50%);
+            width: 0.4rem;
+            height: 0.14rem;
+            background-position: 100% 100%;
+            background: url(../img/tabselect.png) no-repeat;
+            background-size: 100%;
+        }
+    }
+    .van-tabs__line {
+        display: none;
+    }
+}
+
 .listBoxContain {
     margin-top: -0.7rem;
     .listBox {
+        position: relative;
         width: 6.7rem;
         position: relative;
         border-radius: 10px;
@@ -43,7 +84,7 @@ body {
         margin-bottom: 0.8rem;
         box-sizing: border-box;
         font-size: 0.28rem;
-        min-height: 3rem;
+        min-height: 4rem;
         .infoTitle {
             position: absolute;
             text-align: center;
@@ -55,6 +96,7 @@ body {
             border-radius: 0.26rem;
             // width: 3.2rem;
             // left: calc(50% - 1.6rem);
+            z-index: 9;
             width: 4rem;
             left: calc(50% - 2rem);
         }
@@ -126,6 +168,20 @@ body {
             }
         }
     }
+    .hasTab {
+        .title {
+            padding: 0rem 0.2rem 0;
+            background-color: #FAFDFF;
+        }
+        .item {
+            &:nth-child(2n) {
+                background-color: #FAFDFF;
+            }
+            &:nth-child(2n+1) {
+                background-color: #F3F9FF;
+            }
+        }
+    }
     .schoolTeam {
         .title {
             .rank {
@@ -162,8 +218,11 @@ body {
         }
     }
     .personList {
+        .van-tabs {
+            padding-top: 0.7rem;
+        }
         .title {
-            padding: 0.5rem 0.2rem 0;
+            padding: 0rem 0.2rem 0;
             .rank {
                 width: 20%;
             }

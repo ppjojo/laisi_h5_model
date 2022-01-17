@@ -173,9 +173,10 @@
 }
 
 .rankBox .rankList .van-col:last-child {
-  color: #d54a00;
-  font-size: 0.32rem;
+  color: #FFAA88;
+  font-size: 0.48rem;
   text-align: right;
+  font-family: "BebasNeue";
 }
 
 .rankBox .rankList .skipCount {
