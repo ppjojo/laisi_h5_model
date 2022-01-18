@@ -23,11 +23,15 @@
                     <span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" ></span>
                 </template>
                 <template slot="title">
-                    <div class="title" @click="show = !show">
+                    <div class="title" v-if="visitor">
+                        校园大PK-人气榜
+                     </div>
+                    <div class="title" v-else @click="show = !show">
                        {{active==1?"校园大PK-人气榜":"校园大PK-实力榜"}} 
                         <van-icon name="arrow-down" color="#333" size="16" />
                     </div>
                 </template>
+
 
                 <template #right v-if="!isShare"> 
                     <div class="ub ub-ac" slot="right">
@@ -51,10 +55,10 @@
                         排名
                     </van-col>
                     <van-col span="3"></van-col>
-                    <van-col span="13">
+                    <van-col span="10" style="text-align:left;padding-left:0.3rem;">
                         学校
                     </van-col>
-                    <van-col span="5">
+                    <van-col span="8">
                         人气值
                     </van-col>
                 </van-row>
@@ -65,14 +69,14 @@
                     <van-col span="3">
 
                     </van-col>
-                    <van-col span="8">
+                    <van-col span="10" style="text-align:left;padding-left:0.3rem;">
                         学校
                     </van-col>
-                    <van-col span="5">
+                    <!-- <van-col span="5">
                         累计跳天数<br> 3+3/1分钟
-                    </van-col>
+                    </van-col> -->
 
-                    <van-col span="5">
+                    <van-col span="8">
                         个数
                     </van-col>
                 </van-row>
@@ -93,16 +97,14 @@
                             {{item.rank||'--'}}
                         </van-col>
                         <van-col span="3">
+
+                        </van-col>
+                        <van-col span="10" style="display:flex;align-items:center;">
                             <div class="detail_headpic" :style="{'background-image': 'url(' + item.icon + ')'}"></div>
-                        </van-col>
-                        <van-col span="13" v-if="active==1">
                             <div class="van-ellipsis">{{item.schoolName }}</div>
                         </van-col>
-                        <van-col span="8" v-if="active==2">
-                            <div class="van-ellipsis">{{item.schoolName }}</div>
-                        </van-col>
-                        <van-col span="5" v-if="active==2" class="c666">{{(item.threeMinSportDay||'--')+'/'+(item.oneMSportDay||"--")}}</van-col>
-                        <van-col span="5">
+                        <!-- <van-col span="5" v-if="active==2" class="c666">{{(item.threeMinSportDay||'--')+'/'+(item.oneMSportDay||"--")}}</van-col> -->
+                        <van-col span="8">
                             {{active==1?item.popularity:item.skipCount||'--'}}
                             <img src="./img/like.png" class="skipImg" alt="" v-if="active==1&&item.isLikeStatus">
                             <img src="./img/unlike.png" @click="schoolAddPopularity(item.id,index)" class="skipImg" alt="" v-else-if="active==1&&!item.isLikeStatus">
@@ -127,10 +129,11 @@
         el: '#app',
         data() {
             return {
+                visitor: getQueryString('visitor') || 0,
                 campId: getQueryString('campId') || "jingan20220124",
                 show: false,
                 active: 2,
-                apiUrl: "summerVlogSkippingPk/summerCamp/schoolStrengthRanking",
+                apiUrl: "",
                 isShare: getQueryString('isShare'),
                 pageNum: 1,
                 pageSize: 10,
@@ -164,7 +167,9 @@
             } else {
                 this.openId = getQueryString("userId") || "10000"
                 this.active = 1;
-                this.apiUrl = "summerVlogSkippingPk/summerCamp/schoolPopularityRanking"
+            }
+            if (this.visitor) {
+                this.active = 1;
             }
             if (isWechat) { //说明是分享的页面
                 if (getCookie('SUMMERCAMP_OPENID')) {
@@ -194,11 +199,6 @@
             //改变排行榜
             changeRank(value) {
                 this.active = value;
-                if (value == 1) {
-                    this.apiUrl = "summerVlogSkippingPk/summerCamp/schoolPopularityRanking";
-                } else {
-                    this.apiUrl = "summerVlogSkippingPk/summerCamp/schoolStrengthRanking";
-                }
                 this.show = false;
                 this.pageNum = 0;
                 this.getRankData();
@@ -214,6 +214,11 @@
             getRankData() {
                 var that = this;
                 var nowPageNum = that.pageNum;
+                if (this.active == 1) {
+                    this.apiUrl = "summerVlogSkippingPk/summerCamp/schoolPopularityRanking";
+                } else {
+                    this.apiUrl = "summerVlogSkippingPk/summerCamp/schoolStrengthRanking";
+                }
                 ajax({
                     type: "get",
                     url: that.apiUrl,

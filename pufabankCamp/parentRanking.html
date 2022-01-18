@@ -16,7 +16,7 @@
         var vConsole = new VConsole();
     </script>
     <script src="../common/js/network.js"></script>
-    <title>浦发银行湖南省分行云端跳绳比赛</title>
+    <title>浦发银行长沙分行云端跳绳比赛</title>
     <style type="text/css">
         .gojump {
             width: 6.7rem;
@@ -284,6 +284,7 @@
                     }
                 }).then((res) => {
                     if (res.code == 0) {
+                        clearInterval(this.interval)
                         this.skipItem = res.data
                         if (parseInt((res.data.parentStoryTime + 240000 - new Date().getTime()) / 1000) > 0) {
                             this.interval = setInterval(() => {
@@ -324,7 +325,7 @@
                     maxBpmLimit: obj.maxBpmLimit, //bpm的限制
                     category: 9,
                     isAward: obj.isAward, //成绩上传之后是否有奖励
-                    htmlUrl: obj.modeValue == 60 ? 'summercamp/personalRanking.html' : 'summercamp/parentRanking.html',
+                    htmlUrl: obj.modeValue == 180 ? 'pufabankCamp/personalRanking.html' : 'pufabankCamp/parentRanking.html',
                 }
                 if (isIOS) {
                     window.webkit.messageHandlers.lstNative.postMessage(skipItem)
@@ -426,9 +427,9 @@
             },
             share() {
                 Interaction.sharePage({
-                    "title": `${getQueryString("shareName")}同学在参加静安区跳绳争霸赛`,
-                    "description": "3+3分钟倒计时亲子合作单人跳排名",
-                    "url": host + `h5/h5V3/summercamp/parentRanking.html?isShare=1&userId=${JSON.parse(localStorage.getItem("appInfo")).userId}&campId=${this.campId}&competitionId=${this.competitionId}`
+                    "title": `${getQueryString("shareName")||localStorage.getItem("shareName")}在参加浦发银行长沙分行云端跳绳比赛`,
+                    "description": "3分钟倒计时跳个人排名",
+                    "url": host + `h5/h5V3/pufabankCamp/parentRanking.html?isShare=1&userId=${JSON.parse(localStorage.getItem("appInfo")).userId}&campId=${this.campId}&competitionId=${this.competitionId}`
                 })
             },
             play(id) {

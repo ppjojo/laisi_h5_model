@@ -240,6 +240,7 @@
                 }).then((res) => {
                     if (res.code == 0) {
                         this.skipItem = res.data
+                        clearInterval(this.interval)
                             // res.data.parentStoryTime = 1642385100771
                         if (parseInt((res.data.parentStoryTime + 240000 - new Date().getTime()) / 1000) > 0) {
                             this.$toast("请在规定时间内完成学生跳绳视频录制哦")
@@ -267,7 +268,7 @@
                 });
             },
             gotoSkip(obj) {
-                clearInterval(this.interval)
+
                 var skipItem = {
                     method: "LSTH5APP_JingAnSchoolChallenge", //H5调起原生选择设备，需要过滤掉rs-s3，Hilink，发光跳绳，并跳转到专门的vlog页面，
                     isChild: obj.isChild, // 1是学生，0是家长 int
@@ -341,7 +342,7 @@
             },
             share() {
                 Interaction.sharePage({
-                    "title": `${getQueryString("shareName")}同学在参加静安区跳绳争霸赛`,
+                    "title": `${getQueryString("shareName")||localStorage.getItem("shareName")}同学在参加静安区跳绳争霸赛`,
                     "description": "3+3分钟倒计时亲子合作单人跳排名",
                     "url": host + `h5/h5V3/summercamp/parentRanking.html?isShare=1&userId=${JSON.parse(localStorage.getItem("appInfo")).userId}&campId=${this.campId}&competitionId=${this.competitionId}`
                 })

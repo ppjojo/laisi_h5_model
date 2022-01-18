@@ -242,7 +242,7 @@
 
             share() {
                 Interaction.sharePage({
-                    "title": `${getQueryString("shareName")}同学在参加静安区跳绳争霸赛`,
+                    "title": `${getQueryString("shareName")||localStorage.getItem("shareName")}同学在参加静安区跳绳争霸赛`,
                     "description": "一分钟倒计时亲子双人跳排名",
                     "url": host + `h5/h5V3/summercamp/personalRanking.html?isShare=1&userId=${JSON.parse(localStorage.getItem("appInfo")).userId}&campId=${this.campId}&competitionId=${this.competitionId}`
                 })

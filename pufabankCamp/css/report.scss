@@ -5,7 +5,7 @@
 }
 
 body {
-    background-color: #E5F2FB;
+    background-color: #FFE4D8;
     font-size: 0.32rem;
 }
 
@@ -33,20 +33,17 @@ body {
 }
 
 .van-tabs {
+    margin-top: -0.7rem;
     border-radius: 10px;
-    padding: 0.3rem 0 0;
-    background-color: #F3F9FF;
+    background-color: #FFE4D8;
     color: #999;
     text-align: center;
     .van-tab {
         color: #999;
     }
-    .van-tabs__wrap {
-        height: 1.3rem;
-    }
     .van-tabs__nav {
         border-radius: 10px;
-        background-color: #F3F9FF;
+        background-color: #FFE4D8;
         .van-tab__text--ellipsis {
             display: block;
         }
@@ -73,7 +70,7 @@ body {
 }
 
 .listBoxContain {
-    margin-top: -0.7rem;
+    margin-top: 0.5rem;
     .listBox {
         position: relative;
         width: 6.7rem;
@@ -88,7 +85,7 @@ body {
         .infoTitle {
             position: absolute;
             text-align: center;
-            background-image: linear-gradient(to right, #7DBBFF, #2B7AEC);
+            background-image: linear-gradient(to right, #FF4E3E, #FFAA88);
             color: #fff;
             font-size: 0.36rem;
             line-height: 0.52rem;
@@ -108,15 +105,21 @@ body {
             color: #2E7CED;
             font-size: 0.24rem;
         }
+        .flowBox {
+            height: 7rem;
+            overflow-y: auto;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
         .title {
             padding: 0.3rem 0.2rem 0;
             display: flex;
             align-items: center;
             justify-content: space-between;
             color: #999;
-            background-color: #F3F9FF;
+            background-color: #FFF3F3;
             text-align: center;
-            height: 1.4rem;
+            height: 1.3rem;
             line-height: 0.4rem;
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
@@ -141,17 +144,17 @@ body {
             color: #222;
             height: 0.7rem;
             &:nth-child(2n) {
-                background-color: #F3F9FF;
+                background-color: #FFF3F3;
             }
             &:nth-child(2n+1) {
-                background-color: #FAFDFF;
+                background-color: #FFFAFA;
             }
             &:last-child {
                 border-bottom-left-radius: 10px;
                 border-bottom-right-radius: 10px;
             }
             .schoolName {
-                text-align: left;
+                text-align: center;
                 img {
                     position: relative;
                     top: 0.05rem;

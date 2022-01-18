@@ -5,7 +5,7 @@
 }
 
 body {
-  background-color: #E5F2FB;
+  background-color: #FFE4D8;
   font-size: 0.32rem;
 }
 
@@ -32,9 +32,9 @@ body {
 }
 
 .van-tabs {
+  margin-top: -0.7rem;
   border-radius: 10px;
-  padding: 0.3rem 0 0;
-  background-color: #F3F9FF;
+  background-color: #FFE4D8;
   color: #999;
   text-align: center;
 }
@@ -43,13 +43,9 @@ body {
   color: #999;
 }
 
-.van-tabs .van-tabs__wrap {
-  height: 1.3rem;
-}
-
 .van-tabs .van-tabs__nav {
   border-radius: 10px;
-  background-color: #F3F9FF;
+  background-color: #FFE4D8;
 }
 
 .van-tabs .van-tabs__nav .van-tab__text--ellipsis {
@@ -80,7 +76,7 @@ body {
 }
 
 .listBoxContain {
-  margin-top: -0.7rem;
+  margin-top: 0.5rem;
 }
 
 .listBoxContain .listBox {
@@ -100,8 +96,8 @@ body {
 .listBoxContain .listBox .infoTitle {
   position: absolute;
   text-align: center;
-  background-image: -webkit-gradient(linear, left top, right top, from(#7DBBFF), to(#2B7AEC));
-  background-image: linear-gradient(to right, #7DBBFF, #2B7AEC);
+  background-image: -webkit-gradient(linear, left top, right top, from(#FF4E3E), to(#FFAA88));
+  background-image: linear-gradient(to right, #FF4E3E, #FFAA88);
   color: #fff;
   font-size: 0.36rem;
   line-height: 0.52rem;
@@ -121,6 +117,13 @@ body {
   font-size: 0.24rem;
 }
 
+.listBoxContain .listBox .flowBox {
+  height: 7rem;
+  overflow-y: auto;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
 .listBoxContain .listBox .title, .listBoxContain .listBox .item {
   padding: 0.3rem 0.2rem 0;
   display: -webkit-box;
@@ -133,9 +136,9 @@ body {
       -ms-flex-pack: justify;
           justify-content: space-between;
   color: #999;
-  background-color: #F3F9FF;
+  background-color: #FFF3F3;
   text-align: center;
-  height: 1.4rem;
+  height: 1.3rem;
   line-height: 0.4rem;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
@@ -164,11 +167,11 @@ body {
 }
 
 .listBoxContain .listBox .item:nth-child(2n) {
-  background-color: #F3F9FF;
+  background-color: #FFF3F3;
 }
 
 .listBoxContain .listBox .item:nth-child(2n+1) {
-  background-color: #FAFDFF;
+  background-color: #FFFAFA;
 }
 
 .listBoxContain .listBox .item:last-child {
@@ -177,7 +180,7 @@ body {
 }
 
 .listBoxContain .listBox .item .schoolName {
-  text-align: left;
+  text-align: center;
 }
 
 .listBoxContain .listBox .item .schoolName img {

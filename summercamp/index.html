@@ -17,7 +17,7 @@
     <style type="text/css">
         body,
         .page {
-            background-color: #E5F2FB;
+            background-color: #E5F2FB!important;
         }
     </style>
 
@@ -43,7 +43,7 @@
                     </div>
                     <div v-if="!isShare&&!startDjs" class="gojump" @click="listShow = true">去跳绳 </span>
                     </div>
-                    <div v-if="!isShare&&startDjs" class="gojump notStart" v-if="startDjs">去跳绳 <span v-if="startDjs">{{startDjs}} </span></div>
+                    <div v-if="!isShare&&startDjs" class="gojump notStart">去跳绳 <span>{{startDjs}} </span></div>
                 </div>
                 <div class="contain">
                     <div id="infobox" class="">
@@ -200,6 +200,8 @@
                             grade: "",
                             studentCardId: ""
                         }, res.data);
+                        clearInterval(this.interval)
+                        clearInterval(this.interval2)
 
                         if ((res.data.startTime - new Date().getTime()) > 0) {
                             this.interval = setInterval(() => {
@@ -245,30 +247,6 @@
             closeH5() {
                 Interaction.closePage()
             },
-            // gotoSkip() {
-            //     ajax({
-            //         url: "device/get/bound/device",
-            //     }).then((res) => {
-            //         let unbind = true;
-            //         if (res.code == 0) {
-            //             res.data.forEach((item) => {
-            //                 if (item.deviceType == "skipping") {
-            //                     this.listShow = true;
-            //                     this.unbindShow = false;
-            //                     unbind = false
-            //                     return;
-            //                 }
-            //             });
-            //             if (unbind) {
-            //                 this.unbindShow = true
-            //             }
-            //         } else if (res.code == 1000) {
-            //             this.unbindShow = true
-            //         } else {
-            //             this.$toast(res.msg)
-            //         }
-            //     });
-            // },
             gotoSkip2(competitionId) {
                 ajax({
                     url: "summerVlogSkippingPk/vlogStory/get/now/round/times",
@@ -305,7 +283,7 @@
                     isAward: obj.isAward, //成绩上传之后是否有奖励
                     htmlUrl: obj.modeValue == 60 ? 'summercamp/personalRanking.html' : 'summercamp/parentRanking.html',
                 }
-                console.log(skipItem)
+                localStorage.setItem("shareName", this.person.studentSchoolInfo.name);
                 if (isIOS) {
                     window.webkit.messageHandlers.lstNative.postMessage(skipItem)
                 } else { //判断Android
@@ -320,15 +298,17 @@
                             url = `personalRanking.html?competitionId=${item.competitionId}&fromH5=1&shareName=${this.person.studentSchoolInfo.name}`
                         }
                     });
+                    localStorage.setItem("shareName", this.person.studentSchoolInfo.name);
                 } else if (type == 2) {
                     url = `schoolRanking.html?fromH5=1&shareName=${this.person.studentSchoolInfo.schoolName}`
-
+                    localStorage.setItem("shareName", this.person.studentSchoolInfo.schoolName);
                 } else if (type == 3) {
                     this.person.competitonInfos.forEach(item => {
                         if (item.modeValue == 180) {
                             url = `parentRanking.html?competitionId=${item.competitionId}&fromH5=1&shareName=${this.person.studentSchoolInfo.name}`
                         }
                     });
+                    localStorage.setItem("shareName", this.person.studentSchoolInfo.name);
                 }
                 if (this.isShare) {
                     url += `&isShare=1&campId=${this.campId}`
@@ -339,7 +319,7 @@
             },
             share() {
                 Interaction.sharePage({
-                    "title": `${this.person.studentSchoolInfo.schoolName}在参加静安区跳绳争霸赛`,
+                    "title": `${this.person.studentSchoolInfo.name}同学在参加静安区跳绳争霸赛`,
                     "description": "爱生活爱健康",
                     "url": host + `h5/h5V3/summercamp/index.html?isShare=1&userId=${JSON.parse(localStorage.getItem("appInfo")).userId}&campId=${this.campId}`
                 })

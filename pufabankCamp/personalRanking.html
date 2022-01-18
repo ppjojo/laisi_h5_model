@@ -12,7 +12,7 @@
     <script src="https://lsprod3.laisitech.com/h5/h5V3/common/js/vant.js"></script>
     <script src="js/openId.js"></script>
     <script src="../common/js/network.js"></script>
-    <title>浦发银行湖南省分行云端跳绳比赛</title>
+    <title>浦发银行长沙分行云端跳绳比赛</title>
 </head>
 
 <body>
@@ -36,7 +36,7 @@
                 <div class="optionBox" @click.stop>
                     <div class="optionItem " :class="active==1?'active':''" @click="changeRank(1)">3分钟倒计时跳部门人气榜</div>
                     <div class="optionItem" :class="active==2?'active':''" @click="changeRank(2)">3分钟倒计时跳部门实力榜</div>
-                    <div class="optionItem" :class="active==3?'active':''" @click="changeRank(3)">3分钟倒计时跳个人实力榜</div>
+                    <div class="optionItem" v-if="!visitor" :class="active==3?'active':''" @click="changeRank(3)">3分钟倒计时跳个人实力榜</div>
                 </div>
             </van-overlay>
         </div>
@@ -134,6 +134,7 @@
         el: '#app',
         data() {
             return {
+                visitor: getQueryString('visitor') || 0,
                 show: false,
                 active: getQueryString('active') || "2",
                 campId: getQueryString('campId') || "pufa20220124",
@@ -172,6 +173,10 @@
             } else {
                 this.active = 1;
                 this.openId = getQueryString("userId")
+            }
+
+            if (this.visitor) {
+                this.active = 1;
             }
 
             if (isWechat) { //说明是分享的页面
@@ -336,9 +341,9 @@
 
             share() {
                 Interaction.sharePage({
-                    "title": `${getQueryString("shareName")}同学在参加静安区跳绳争霸赛`,
-                    "description": "一分钟倒计时亲子双人跳排名",
-                    "url": host + `h5/h5V3/summercamp/personalRanking.html?isShare=1&userId=${JSON.parse(localStorage.getItem("appInfo")).userId}&campId=${this.campId}&competitionId=${this.competitionId}&active=${this.active}`
+                    "title": `${getQueryString("shareName")||localStorage.getItem("shareName")}在参加浦发银行长沙分行云端跳绳比赛`,
+                    "description": "1分钟倒计时亲子双人跳排名",
+                    "url": host + `h5/h5V3/pufabankCamp/personalRanking.html?isShare=1&userId=${JSON.parse(localStorage.getItem("appInfo")).userId}&campId=${this.campId}&competitionId=${this.competitionId}&active=${this.active}`
                 })
             }
 
