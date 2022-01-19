@@ -32,3 +32,23 @@ export function deleteItem(data) {
         data
     })
 }
+
+//新增红包
+export function addRedItem(data) {
+    return request({
+        url: '/summerVlogSkippingPk/redPacketType/addRedPacketType',
+        method: 'post',
+        data
+    })
+}
+
+
+//红包状态
+export function redPacketStatus(params, data) {
+    return request({
+        url: '/summerVlogSkippingPk/redPacketType/seeAllPacketStatus',
+        method: 'get',
+        data,
+        params
+    })
+}

@@ -36,6 +36,10 @@
           </el-button>
           <el-button @click="btn_view_competition(scope.row)" type="text" size="mini" style="color:#67c23a;">比赛
           </el-button>
+          <el-button @click="btn_addRed(scope.row)" type="text" size="mini" style="color:#67c23a">添加红包
+          </el-button>
+          <el-button @click="btn_redStatus(scope.row)" type="text" size="mini" style="color:#67c23a">红包状态
+          </el-button>
 
         </template>
       </el-table-column>
@@ -86,6 +90,91 @@
       <Competition :campId="campId"></Competition>
     </el-dialog>
 
+    <!--新增和编辑界面-->
+    <el-dialog :title="this.form.name+'的红包'" :visible.sync="redDialogVisible" width="50%">
+      <el-form :model="redForm" label-width="100px" :rules="rules" ref="redForm">
+        <el-form-item label="红包最大值" prop="maxAmount">
+          <el-input v-model="redForm.maxAmount">
+            <template slot="append">元</template>
+          </el-input>
+        </el-form-item>
+        <el-form-item label="红包最小值" prop="minAmount">
+          <el-input v-model="redForm.minAmount">
+            <template slot="append">元</template>
+          </el-input>
+        </el-form-item>
+        <el-form-item label="红包总个数" prop="totalSize">
+          <el-input v-model="redForm.totalSize"></el-input>
+        </el-form-item>
+        <el-form-item label="红包总金额" prop="totalAmount">
+          <el-input v-model="redForm.totalAmount">
+            <template slot="append">元</template>
+          </el-input>
+        </el-form-item>
+        <el-form-item label="有效时间" prop="dateTime">
+          <el-date-picker v-model="redForm.dateTime" type="date" value-format="timestamp" placeholder="选择有效时间">
+          </el-date-picker>
+        </el-form-item>
+
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button size="mini" @click="redDialogVisible = false">取 消</el-button>
+        <el-button type="primary" size="mini" @click="redSubmitForm('redForm')">确 定</el-button>
+      </div>
+    </el-dialog>
+
+    <!--红包详情-->
+    <el-dialog :title="this.form.name+'的红包详情'" :visible.sync="detailDialogVisible" width="60%">
+      <el-form :model="redForm" label-width="120px" :rules="rules" ref="redForm">
+        <el-form-item label="红包总个数">
+          {{redForm.totalSize}}个
+        </el-form-item>
+        <el-form-item label="红包总金额">
+          {{redForm.totalAmount/100}}元
+        </el-form-item>
+        <el-form-item label="已领取红包个数:" v-if="redForm.opened">
+          {{redForm.opened.totalSize}}个
+        </el-form-item>
+        <el-form-item label="已领取红包金额:" v-if="redForm.opened">
+          {{redForm.opened.totalAmount/100}}元
+        </el-form-item>
+      </el-form>
+
+      <el-table v-loading="loading" :data="packetList" element-loading-text="Loading" border fit highlight-current-row size="small ">
+        <el-table-column align="center" prop="id" label="ID" width="65">
+        </el-table-column>
+        <el-table-column align="center" prop="amount" label="金额（元）">
+          <template slot-scope="scope">
+            {{scope.row.amount/100}}
+          </template>
+        </el-table-column>
+        <el-table-column align="center" prop="userId" label="领取用户ID">
+        </el-table-column>
+        <el-table-column align="center" prop="userId" label="红包生效时间">
+          <template scope="scope">
+            {{scope.row.dateTime | formatDate}}
+          </template>
+        </el-table-column>
+        <el-table-column align="center" label="状态" width="110">
+          <template slot-scope="scope" v-if="scope.row.status">
+            <el-tag :type="scope.row.status | statusFilter" size="mini">{{ scope.row.status==2?"已领取":scope.row.status==1?"未领取":"" }}
+            </el-tag>
+          </template>
+        </el-table-column>
+        <!-- <el-table-column align="center" label="领取时间" width="110">
+                    <template slot-scope="scope">
+                        {{scope.row.tradeTime? (scope.row.tradeTime| formatDate):""}}
+                    </template>
+                </el-table-column> -->
+      </el-table>
+      <pagination :pageTotal="total" @handleCurrentChange="handleCurrentChange" @handleSizeChange="handleSizeChange">
+      </pagination>
+
+      <div slot="footer" class="dialog-footer">
+        <el-button size="mini" @click="detailDialogVisible = false">取 消</el-button>
+      </div>
+    </el-dialog>
+
   </div>
 </template>
 
@@ -95,6 +184,8 @@ import {
   addItem,
   updateItem,
   deleteItem,
+  addRedItem,
+  redPacketStatus,
 } from "@/api/competitionActivity/jingan/jingan_camp";
 import { checkPermission } from "@/api/checkPermission";
 import { fileUpload } from "@/utils/fileUpload";
@@ -165,7 +256,34 @@ export default {
             trigger: "blur",
           },
         ],
+        maxAmount: [
+          { required: true, message: "请输入红包最大值", trigger: "change" },
+        ],
+        minAmount: [
+          { required: true, message: "请输入红包最小值", trigger: "change" },
+        ],
+        totalAmount: [
+          { required: true, message: "请输入红包总金额", trigger: "change" },
+        ],
+        totalSize: [
+          { required: true, message: "请输入红包总数量", trigger: "change" },
+        ],
       },
+
+      redDialogVisible: false,
+      redForm: {
+        opened: {
+          totalSize: 0,
+          totalAmount: 0,
+        },
+      },
+
+      page: 0,
+      limit: 10,
+      total: 0,
+      detailDialogVisible: false,
+      packetList: [],
+
       schoolListdialogVisible: false,
       campId: "",
       competitonListdialogVisible: false,
@@ -268,6 +386,91 @@ export default {
       fileUpload(fileForm).then((res) => {
         if (res.code == 0) {
           this.form.logo = res.data.url;
+        }
+      });
+    },
+
+    btn_addRed(row) {
+      this.dialogTitle = "新增";
+      this.form = Object.assign({}, row);
+      this.redDialogVisible = true;
+      this.redForm = {
+        campId: row.id,
+        maxAmount: null,
+        minAmount: null,
+        totalAmount: null,
+        totalSize: null,
+      };
+    },
+    btn_redStatus(row) {
+      this.dialogTitle = "新增";
+      this.form = Object.assign({}, row);
+      this.getRedPacketStatus(row);
+    },
+    getRedPacketStatus(row) {
+      redPacketStatus(
+        {
+          pageNum: this.page,
+          pageSize: this.limit,
+          campId: row.id,
+        },
+        {
+          // "amount": 0,
+          // "lockTime": "",
+          // "status": 0,
+          // "tradeId": 0,
+          // "tradeTime": "",
+          // "userId": 0
+          brandId: this.form.id,
+          year: 2021,
+        }
+      ).then((res) => {
+        this.detailDialogVisible = true;
+        this.packetList = res.data.packets;
+        this.total = res.data.totalSize;
+        this.redForm = Object.assign({}, res.data);
+      });
+    },
+    // 上下分页
+    handleCurrentChange(val) {
+      this.page = val - 1;
+      this.getRedPacketStatus();
+    },
+    // 每页显示多少条
+    handleSizeChange(val) {
+      this.limit = val;
+      this.getRedPacketStatus();
+    },
+    redSubmitForm(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          let para = Object.assign({}, this.redForm);
+          para.maxAmount = para.maxAmount * 100;
+          para.minAmount = para.minAmount * 100;
+          para.totalAmount = para.totalAmount * 100;
+          // para.year = 2022;
+          if (this.dialogTitle == "新增") {
+            addRedItem(para).then((response) => {
+              this.getList();
+              this.$notify({
+                type: "success",
+                message: "成功新增" + this.form.name + "的红包",
+              });
+              this.redDialogVisible = false;
+            });
+          } else {
+            updateItem(para).then((response) => {
+              this.getList();
+              this.$notify({
+                type: "success",
+                message: "成功修改" + this.form.name + "的红包",
+              });
+              this.redDialogVisible = false;
+            });
+          }
+        } else {
+          console.log("error submit!!");
+          return false;
         }
       });
     },

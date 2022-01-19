@@ -288,7 +288,7 @@
             },
             getSchoolrank() { //获取校内跳绳排名
                 ajax({
-                    url: "summerVlogSkippingPk/homePage/getDailyTopThree",
+                    url: "summerVlogSkippingPk/homePage/getDailySuperior",
                     data: {
                         currentTime: new Date(this.currentDatestr + " 00:00:00").getTime(),
                         competitionId: this.competitionId,
@@ -427,7 +427,7 @@
                 if (type == 1) {
                     this.person.competitonInfos.forEach(item => {
                         if (item.modeValue == 180) {
-                            url = `personalRanking.html?competitionId=${item.competitionId}&fromH5=1&shareName=${this.person.studentSchoolInfo.name}&active=3`
+                            url = `personalRanking.html?competitionId=${item.competitionId}&fromH5=1&shareName=${this.person.studentSchoolInfo.name}&active=${this.person.studentSchoolInfo.sex=='boy'?3:4}`
                         }
                     });
                     localStorage.setItem("shareName", this.person.studentSchoolInfo.name);

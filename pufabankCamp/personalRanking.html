@@ -23,10 +23,10 @@
                     <span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" ></span>
                 </template>
                 <template slot="title">
-                    <div class="title" @click="show = !show">
-                       {{active==1?"3分钟倒计时跳部门人气榜":active==2?"3分钟倒计时跳部门实力榜":"3分钟倒计时跳个人实力榜"}} 
+                    <span class="title" @click="show = !show">
+                       {{active==1?"3分钟倒计时跳部门人气榜":active==2?"3分钟倒计时跳部门实力榜":active==3?"个人实力榜(男)":"个人实力榜(女)"}} 
                         <van-icon name="arrow-down" color="#333" size="16" />
-                    </div>
+                    </span>
                 </template>
                 <template #right v-if="!isShare"> 
                     <span class="icon iconfont icon-fenxianganniu"  style="font-size: 0.5rem;"></span>
@@ -36,7 +36,8 @@
                 <div class="optionBox" @click.stop>
                     <div class="optionItem " :class="active==1?'active':''" @click="changeRank(1)">3分钟倒计时跳部门人气榜</div>
                     <div class="optionItem" :class="active==2?'active':''" @click="changeRank(2)">3分钟倒计时跳部门实力榜</div>
-                    <div class="optionItem" v-if="!visitor" :class="active==3?'active':''" @click="changeRank(3)">3分钟倒计时跳个人实力榜</div>
+                    <div class="optionItem" v-if="!visitor" :class="active==3?'active':''" @click="changeRank(3)">3分钟倒计时跳个人实力榜(男)</div>
+                    <div class="optionItem" v-if="!visitor" :class="active==4?'active':''" @click="changeRank(4)">3分钟倒计时跳个人实力榜(女)</div>
                 </div>
             </van-overlay>
         </div>
@@ -64,7 +65,7 @@
                         日平均个数<br> (每日0点更新)
                     </van-col>
                 </van-row>
-                <van-row class="van_row_title" v-if="active==3">
+                <van-row class="van_row_title" v-if="active==3||active==4">
                     <van-col span="2">
                         排名
                     </van-col>
@@ -100,20 +101,20 @@
                             {{item.rank||"--"}}
                         </van-col>
 
-                        <van-col span="8" class="studentBox" v-if="active==3">
+                        <van-col span="8" class="studentBox" v-if="active==3||active==4">
                             <div class="name" class="van-ellipsis name">{{ item.name }}</div>
                         </van-col>
-                        <van-col span="5" class="c666" v-if="active==3"> {{item.bestDailyValue||'--'}}</van-col>
-                        <van-col span="4" class="c666" v-if="active==3">
-                            {{item.sportDay||'--'}}
+                        <van-col span="5" class="c666" v-if="active==3||active==4"> {{item.bestDailyValue||'--'}}</van-col>
+                        <van-col span="4" class="c666" v-if="active==3||active==4">
+                            {{item.frequency||'--'}}
                         </van-col>
-                        <van-col span="5" class="skipCount" v-if="active==3"> {{item.bestValue||'--'}}</van-col>
+                        <van-col span="5" class="skipCount" v-if="active==3||active==4"> {{item.bestTotalCount||'--'}}</van-col>
 
 
-                        <van-col span="14" v-if="active!=3">
+                        <van-col span="14" v-if="active==1||active==2">
                             <div class="van-ellipsis">{{item.schoolName }}</div>
                         </van-col>
-                        <van-col span="8" v-if="active!=3">
+                        <van-col span="8" v-if="active==1||active==2">
                             {{active==1?item.popularity:active==2?item.skipCount:'--'}}
                             <img src="./img/like.png" class="skipImg" alt="" v-if="active==1&&item.isLikeStatus">
                             <img src="./img/unlike.png" @click="schoolAddPopularity(item.id,index)" class="skipImg" alt="" v-else-if="active==1&&!item.isLikeStatus">
@@ -225,7 +226,9 @@
                 } else if (this.active == 2) {
                     this.apiUrl = "summerVlogSkippingPk/summerCamp/schoolStrengthRanking";
                 } else if (this.active == 3) {
-                    this.apiUrl = "summerVlogSkippingPk/competitorDailyStastic/getOneMinRanking";
+                    this.apiUrl = "summerVlogSkippingPk/competitorDailyStastic/getTwinRanking";
+                } else if (this.active == 4) {
+                    this.apiUrl = "summerVlogSkippingPk/competitorDailyStastic/getTwinRanking";
                 }
                 var that = this;
                 var nowPageNum = that.pageNum;
@@ -236,11 +239,17 @@
                         openId: that.openId,
                         campId: this.campId,
                         competitionId: this.competitionId,
+                        type: 2
                     },
                     success: function(res) {
                         if (res.code == 0) {
                             that.finished = true;
                             that.list = res.data
+                            if (that.active == 3) {
+                                that.list = res.data.boy
+                            } else if (that.active == 4) {
+                                that.list = res.data.girl
+                            }
                             that.loading = false;
                         } else {
                             that.finished = true;

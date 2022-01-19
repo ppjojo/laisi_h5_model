@@ -40,7 +40,7 @@
         <template scope="scope">
           <el-button @click="btn_view(scope.row)" type="text" size="mini">查看人员
           </el-button>
-          <el-button @click="form=scope.row;dialogTitle='编辑';dialogVisible=true;" type="text" style="color:#f78989;" size="mini">编辑
+          <el-button @click="form=scope.row;dialogTitle='编辑';dialogVisible=true;" type="text" size="mini">编辑
           </el-button>
           <el-upload ref='upload' action="" accept=".xls, .xlsx" :http-request="requestlistExcelFile" style="display: inline-block;margin:0 10px;" :show-file-list="false">
             <el-button type="text" style="color:#67C23A;" size="mini" @click="schoolId=scope.row.id">导入人员
@@ -97,7 +97,7 @@
           <template scope="scope">
             <el-button @click="btn_editStu(scope.row)" type="text" size="mini">编辑人员
             </el-button>
-            <el-button @click="btn_deleteTestData(scope.row)" type="text" size="mini">删除测试环境的数据
+            <el-button @click="btn_deleteTestData(scope.row)" type="text" size="mini" style="color:#f78989;">删除测试环境的数据
             </el-button>
             <el-popover placement="right" width="400" trigger="click">
               <el-table :data="competitionList">
@@ -110,7 +110,7 @@
                   </template>
                 </el-table-column>
               </el-table>
-              <el-button slot="reference" @click="studentId=scope.row.userId;getCompetitionList()" type="text" size="mini">人员的数据详情
+              <el-button slot="reference" @click="studentId=scope.row.userId;getCompetitionList()" style="color:#67C23A;" type="text" size="mini">人员的数据详情
               </el-button>
             </el-popover>
           </template>
@@ -164,10 +164,10 @@
       <el-table :data="searchStuDailyList" highlight-current-row style="width: 100%;">
         <el-table-column label="上传日期">
           <template scope="scope">
-            {{scope.row.dataTime | formatDate}}
+            {{scope.row.dateTime | formatDate}}
           </template>
         </el-table-column>
-        <el-table-column prop="day" label="上传日期">
+        <el-table-column prop="day" label="数据日期">
           <template scope="scope">
             {{scope.row.timestamp | formatDate}}
           </template>
@@ -179,20 +179,22 @@
 
         </el-table-column>
         <el-table-column prop="roundTimes" label="跳绳的次数"></el-table-column>
+        <el-table-column prop="isChild" label="isChild"></el-table-column>
+        <el-table-column prop="isStoryOk" label="isStoryOk"></el-table-column>
 
-        <el-table-column prop="state" label="状态">
+        <!-- <el-table-column prop="state" label="状态">
           <template scope="scope">
             <el-tag :type="scope.row.state | statusFilter" size="mini">
               {{ scope.row.state==0?"正常":"作弊" }}
             </el-tag>
           </template>
-        </el-table-column>
-        <el-table-column align="center" label="操作" width="120">
+        </el-table-column> -->
+        <!-- <el-table-column align="center" label="操作" width="120">
           <template scope="scope">
             <el-button @click="dataRevert(scope.row)" type="text" size="mini">数据找回
             </el-button>
           </template>
-        </el-table-column>
+        </el-table-column> -->
 
       </el-table>
       <div slot="footer" class="dialog-footer">
@@ -246,6 +248,7 @@ import {
 import { queryByUserIdAndCampId as competitionListApi } from "@/api/competitionActivity/jingan/jingan_competition";
 import { checkPermission } from "@/api/checkPermission";
 import { fileUpload } from "@/utils/fileUpload";
+import { formatDate } from "@/utils/date";
 
 export default {
   props: {

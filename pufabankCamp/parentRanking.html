@@ -122,8 +122,8 @@
                         </van-col>
 
 
-                        <van-col span="7" class="c666" v-if="active==2">{{item.bestDailyCount||"--"}}</van-col>
-                        <van-col span="7" class="skipCount" v-if="active==2"> {{item.bestTotalCount||'--'}}</van-col>
+                        <van-col span="7" class="c666" v-if="active==2">{{item.bestDailyValue||"--"}}</van-col>
+                        <van-col span="7" class="skipCount" v-if="active==2"> {{item.bestValue||'--'}}</van-col>
                         <van-col span="4" class="playBox" v-if="active==2">
                             <img src="./img/play.png" class="playImg" @click="videoBoxActive(item)" alt="">
                         </van-col>
@@ -251,7 +251,7 @@
                 if (this.active == 1) {
                     this.apiUrl = "summerVlogSkippingPk/summerCamp/studentPopularityRanking";
                 } else {
-                    this.apiUrl = "summerVlogSkippingPk/competitorDailyStastic/getThreeMinRanking";
+                    this.apiUrl = "summerVlogSkippingPk/competitorDailyStastic/getSingleRanking";
                 }
                 ajax({
                     url: this.apiUrl,

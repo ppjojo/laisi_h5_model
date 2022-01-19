@@ -162,11 +162,12 @@
                 var nowPageNum = that.pageNum;
                 ajax({
                     type: "get",
-                    url: "summerVlogSkippingPk/competitorDailyStastic/getOneMinRanking",
+                    url: "summerVlogSkippingPk/competitorDailyStastic/getTwinRanking",
                     data: {
                         openId: that.openId,
                         campId: this.campId,
                         competitionId: this.competitionId,
+                        type: 2
                     },
                     success: function(res) {
                         if (res.code == 0) {
