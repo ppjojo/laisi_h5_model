@@ -11,10 +11,10 @@
     <script src="https://lsprod3.laisitech.com/h5/h5V3/common/js/vue.js"></script>
     <script src="https://lsprod3.laisitech.com/h5/h5V3/common/js/vant.js"></script>
     <script src="js/openId.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/vConsole/3.8.1/vconsole.min.js"></script>
+    <!-- <script src="https://cdn.bootcdn.net/ajax/libs/vConsole/3.8.1/vconsole.min.js"></script>
     <script>
         var vConsole = new VConsole();
-    </script>
+    </script> -->
     <script src="../common/js/network.js"></script>
     <title>绳彩争霸迎冬奥</title>
     <style type="text/css">
@@ -139,7 +139,7 @@
         el: '#app',
         data() {
             return {
-                campId: getQueryString('campId') || "jingan20220124",
+                campId: getQueryString('campId') || "jinganWinter20220124",
                 isShare: getQueryString('isShare'),
                 competitionId: getQueryString('competitionId'),
                 currentUserId: localStorage.getItem("appInfo") ? JSON.parse(localStorage.getItem("appInfo")).userId : getQueryString('userId'),
@@ -154,7 +154,8 @@
                 openId: "",
                 videoShow: false,
                 djs: "",
-                interval: ""
+                interval: "",
+                isClick: false,
             };
         },
         watch: {},
@@ -268,7 +269,11 @@
                 });
             },
             gotoSkip(obj) {
-
+                if (this.isClick) return;
+                this.isClick = true;
+                setTimeout(() => {
+                    this.isClick = false
+                }, 1000);
                 var skipItem = {
                     method: "LSTH5APP_JingAnSchoolChallenge", //H5调起原生选择设备，需要过滤掉rs-s3，Hilink，发光跳绳，并跳转到专门的vlog页面，
                     isChild: obj.isChild, // 1是学生，0是家长 int

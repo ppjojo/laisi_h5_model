@@ -88,7 +88,7 @@
         el: '#app',
         data() {
             return {
-                campId: getQueryString('campId') || "jingan20220124",
+                campId: getQueryString('campId') || "jinganWinter20220124",
                 competitionId: getQueryString('competitionId'),
                 isShare: getQueryString('isShare'),
                 currentUserId: localStorage.getItem("appInfo") ? JSON.parse(localStorage.getItem("appInfo")).userId : getQueryString('userId'),
@@ -162,7 +162,7 @@
                 var nowPageNum = that.pageNum;
                 ajax({
                     type: "get",
-                    url: "summerVlogSkippingPk/competitorDailyStastic/getTwinRanking",
+                    url: "summerVlogSkippingPk/competitorDailyStastic/getSingleRanking",
                     data: {
                         openId: that.openId,
                         campId: this.campId,

@@ -39,11 +39,51 @@
                                         <div class="count">个数</div>
                                     </div>
                                     <div class="flowBox">
-                                        <div class="item" v-for="item in list.schoolPopularity">
+                                        <div class="item" v-for="item in list.twinStrength">
                                             <div class="rank">{{item.rank||'--'}}</div>
                                             <div class="desc van-ellipsis">{{item.name||'--'}}</div>
-                                            <div class="schoolName van-ellipsis">{{item.name||'--'}}</div>
+                                            <div class="schoolName van-ellipsis">{{item.schoolName||'--'}}</div>
                                             <div class="count">{{item.totalCount||'--'}}</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="listBox schoolTeam">
+                                <div class="infoTitle">亲子全勤榜</div>
+                                <div class="listDiv ">
+                                    <div class="title ">
+                                        <div class="rank">排名</div>
+                                        <div class="desc">昵称</div>
+                                        <div class="schoolName">支行</div>
+                                        <div class="count">打卡天数</div>
+                                    </div>
+                                    <div class="flowBox">
+                                        <div class="item" v-for="item in list.fullReward">
+                                            <div class="rank">{{item.rank||'--'}}</div>
+                                            <div class="desc van-ellipsis">{{item.name||'--'}}</div>
+                                            <div class="schoolName van-ellipsis">{{item.schoolName||'--'}}</div>
+                                            <div class="count">{{item.threeMinSportDay||'--'}}</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="listBox schoolTeam">
+                                <div class="infoTitle">亲子勤奋榜</div>
+                                <div class="listDiv ">
+                                    <div class="title ">
+                                        <div class="rank">排名</div>
+                                        <div class="desc">昵称</div>
+                                        <div class="schoolName">支行</div>
+                                        <div class="count">打卡天数</div>
+                                    </div>
+                                    <div class="flowBox">
+                                        <div class="item" v-for="item in list.diligenceReward">
+                                            <div class="rank">{{item.rank||'--'}}</div>
+                                            <div class="desc van-ellipsis">{{item.name||'--'}}</div>
+                                            <div class="schoolName van-ellipsis">{{item.schoolName||'--'}}</div>
+                                            <div class="count">{{item.threeMinSportDay||'--'}}</div>
                                         </div>
 
                                     </div>
@@ -52,11 +92,87 @@
                         </div>
                     </van-tab>
                     <van-tab title="个人榜单">
+                        <div class="listBoxContain ">
+                            <div class="listBox">
+                                <div class="infoTitle">个人实力榜(男)</div>
+                                <div class="listDiv ">
+                                    <div class="title ">
+                                        <div class="rank">排名</div>
+                                        <div class="desc">昵称</div>
+                                        <div class="count">支行</div>
+                                    </div>
+                                    <div class="flowBox">
+                                        <div class="item" v-for="item in list.singleManStrengthMap">
+                                            <div class="rank">{{item.rank||'--'}}</div>
+                                            <div class="desc van-ellipsis">{{item.name||'--'}}</div>
+                                            <div class="count van-ellipsis">{{item.schoolName||'--'}}</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="listBox">
+                                <div class="infoTitle">个人实力榜(女)</div>
+                                <div class="listDiv ">
+                                    <div class="title ">
+                                        <div class="rank">排名</div>
+                                        <div class="desc">昵称</div>
+                                        <div class="count">支行</div>
+                                    </div>
+                                    <div class="flowBox">
+                                        <div class="item" v-for="item in list.singleWoManStrengthMap">
+                                            <div class="rank">{{item.rank||'--'}}</div>
+                                            <div class="desc van-ellipsis">{{item.name||'--'}}</div>
+                                            <div class="count van-ellipsis">{{item.schoolName||'--'}}</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </van-tab>
                     <van-tab title="团队榜单">
+                        <div class="listBoxContain ">
+                            <div class="listBox">
+                                <div class="infoTitle">团队实力榜</div>
+                                <div class="listDiv ">
+                                    <div class="title ">
+                                        <div class="rank">排名</div>
+                                        <div class="desc">支行</div>
+                                        <div class="count">平均个数</div>
+                                    </div>
+                                    <div class="flowBox">
+                                        <div class="item" v-for="item in list.departmentStrength">
+                                            <div class="rank">{{item.rank||'--'}}</div>
+                                            <div class="desc van-ellipsis">{{item.schoolName||'--'}}</div>
+                                            <div class="count van-ellipsis">{{item.totalCount||'--'}}</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="listBox">
+                                <div class="infoTitle">团队人气榜</div>
+                                <div class="listDiv ">
+                                    <div class="title ">
+                                        <div class="rank">排名</div>
+                                        <div class="desc">支行</div>
+                                        <div class="count">人气值</div>
+                                    </div>
+                                    <div class="flowBox">
+                                        <div class="item" v-for="item in list.departmentPopularity">
+                                            <div class="rank">{{item.rank||'--'}}</div>
+                                            <div class="desc van-ellipsis">{{item.schoolName||'--'}}</div>
+                                            <div class="count van-ellipsis">{{item.totalCount||'--'}}</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </van-tab>
-                    <van-tab title="纪念榜单">
-                    </van-tab>
+                    <!-- <van-tab title="纪念榜单">
+                    </van-tab> -->
                 </van-tabs>
             </div>
 
@@ -72,11 +188,20 @@
         el: '#app',
         data() {
             return {
-                campId: getQueryString('campId') || "pufa20220124",
+                campId: getQueryString('campId') || "pufa20220128",
                 isShare: getQueryString('isShare'),
                 list: {
-                    schoolStrength: [],
-                    schoolPopularity: [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
+                    twinStrength: [], //亲子双人跳
+                    fullReward: [], //全勤奖
+                    diligenceReward: [], //勤奋奖
+
+                    singleWoManStrengthMap: [], //个人实力女
+                    singleManStrengthMap: [], //个人实力男
+
+                    departmentStrength: [], //部门实力榜
+                    departmentPopularity: [], //部门人气
+
+
                 },
                 active: 0,
             };
@@ -115,7 +240,7 @@
                     }
                 }).then(res => {
                     if (res.code == 0) {
-                        //this.list = Object.assign(this.list, res.data)
+                        this.list = Object.assign(this.list, res.data)
                     } else {
                         this.list = []
                     }

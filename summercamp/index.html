@@ -139,7 +139,7 @@
         el: '#app',
         data() {
             return {
-                campId: getQueryString('campId') || "jingan20220124",
+                campId: getQueryString('campId') || "jinganWinter20220124",
                 refreshing: false,
                 isShare: getQueryString('isShare'),
                 person: {
@@ -152,7 +152,8 @@
                 interval: "",
                 startDjs: "",
                 interval2: "",
-                endDjs: ""
+                endDjs: "",
+                isClick: false,
             };
         },
         watch: {},
@@ -268,6 +269,12 @@
                     this.$toast("您今天的跳绳次数已经用完，请明天继续！")
                     return
                 }
+                if (this.isClick) return;
+                this.isClick = true;
+                setTimeout(() => {
+                    this.isClick = false
+                }, 1000);
+
                 var skipItem = {
                     method: "LSTH5APP_JingAnSchoolChallenge", //H5调起原生选择设备，需要过滤掉rs-s3，Hilink，发光跳绳，并跳转到专门的vlog页面，
                     isChild: obj.isChild, // 1是学生，0是家长 int

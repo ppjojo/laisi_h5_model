@@ -11,10 +11,10 @@
     <script src="https://lsprod3.laisitech.com/h5/h5V3/common/js/vue.js"></script>
     <script src="https://lsprod3.laisitech.com/h5/h5V3/common/js/vant.js"></script>
     <script src="js/openId.js"></script>
-    <script src="https://cdn.bootcdn.net/ajax/libs/vConsole/3.8.1/vconsole.min.js"></script>
+    <!-- <script src="https://cdn.bootcdn.net/ajax/libs/vConsole/3.8.1/vconsole.min.js"></script>
     <script>
         var vConsole = new VConsole();
-    </script>
+    </script> -->
     <script src="../common/js/network.js"></script>
     <title>浦发银行长沙分行云端跳绳比赛</title>
     <style type="text/css">
@@ -44,10 +44,15 @@
                 <template #left v-if="!isShare">
                     <span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" ></span>
                 </template>
-                <template slot="title">
+                <!-- <template slot="title">
                     <div class="title" @click="show = !show">
                        {{active==1?"1分钟倒计时跳亲子人气榜":"1分钟倒计时跳亲子实力榜"}} 
                         <van-icon name="arrow-down" color="#333" size="16" />
+                    </div>
+                </template> -->
+                <template slot="title">
+                    <div class="title" >
+                       1分钟倒计时跳亲子实力榜
                     </div>
                 </template>
                 <template #right v-if="!isShare"> 
@@ -169,7 +174,7 @@
         el: '#app',
         data() {
             return {
-                campId: getQueryString('campId') || "pufa20220124",
+                campId: getQueryString('campId') || "pufa20220128",
                 isShare: getQueryString('isShare'),
                 competitionId: getQueryString('competitionId'),
                 show: false,

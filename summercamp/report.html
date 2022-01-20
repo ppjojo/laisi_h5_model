@@ -44,7 +44,7 @@
                                 <div>
                                     <div class="item" v-for="item in list.oneGradeschoolStrength">
                                         <div class="rank">{{item.rank||'--'}}</div>
-                                        <div class="schoolName van-ellipsis"><img :src="item.icon">{{item.name||'--'}}</div>
+                                        <div class="schoolName van-ellipsis"><img :src="item.icon">{{item.schoolName||'--'}}</div>
                                         <div class="desc">{{item.threeMinSportDay||'--'}}/{{item.oneMinSportDay||'--'}}</div>
                                         <div class="count">{{item.totalCount||'--'}}</div>
                                     </div>
@@ -65,7 +65,7 @@
                                 <div>
                                     <div class="item" v-for="item in list.fourGradeschoolStrength">
                                         <div class="rank">{{item.rank||'--'}}</div>
-                                        <div class="schoolName van-ellipsis"><img :src="item.icon">{{item.name||'--'}}</div>
+                                        <div class="schoolName van-ellipsis"><img :src="item.icon">{{item.schoolName||'--'}}</div>
                                         <div class="desc">{{item.threeMinSportDay||'--'}}/{{item.oneMinSportDay||'--'}}</div>
                                         <div class="count">{{item.totalCount||'--'}}</div>
                                     </div>
@@ -86,7 +86,7 @@
                                 <div>
                                     <div class="item" v-for="item in list.sixGradeschoolStrength">
                                         <div class="rank">{{item.rank||'--'}}</div>
-                                        <div class="schoolName van-ellipsis"><img :src="item.icon">{{item.name||'--'}}</div>
+                                        <div class="schoolName van-ellipsis"><img :src="item.icon">{{item.schoolName||'--'}}</div>
                                         <div class="desc">{{item.threeMinSportDay||'--'}}/{{item.oneMinSportDay||'--'}}</div>
                                         <div class="count">{{item.totalCount||'--'}}</div>
                                     </div>
@@ -107,7 +107,7 @@
                                 <div>
                                     <div class="item" v-for="item in list.eightGradeschoolStrength">
                                         <div class="rank">{{item.rank||'--'}}</div>
-                                        <div class="schoolName van-ellipsis"><img :src="item.icon">{{item.name||'--'}}</div>
+                                        <div class="schoolName van-ellipsis"><img :src="item.icon">{{item.schoolName||'--'}}</div>
                                         <div class="desc">{{item.threeMinSportDay||'--'}}/{{item.oneMinSportDay||'--'}}</div>
                                         <div class="count">{{item.totalCount||'--'}}</div>
                                     </div>
@@ -129,7 +129,7 @@
                         <div>
                             <div class="item" v-for="item in list.schoolPopularity">
                                 <div class="rank">{{item.rank||'--'}}</div>
-                                <div class="schoolName van-ellipsis"><img :src="item.icon">{{item.name||'--'}}</div>
+                                <div class="schoolName van-ellipsis"><img :src="item.icon">{{item.schoolName||'--'}}</div>
                                 <div class="count">{{item.totalCount||'--'}}</div>
                             </div>
 
@@ -348,7 +348,7 @@
         el: '#app',
         data() {
             return {
-                campId: getQueryString('campId') || "jingan20220124",
+                campId: getQueryString('campId') || "jinganWinter20220124",
                 isShare: getQueryString('isShare'),
                 list: {
                     oneGradeschoolStrength: [],

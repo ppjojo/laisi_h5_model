@@ -13,6 +13,10 @@
     <script src="https://lsprod3.laisitech.com/h5/h5V3/common/js/vant.js"></script>
     <script src="../common/js/network.js"></script>
     <script src="js/openId.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vConsole/3.8.1/vconsole.min.js"></script>
+    <script>
+        var vConsole = new VConsole();
+    </script>
     <title>浦发银行长沙分行云端跳绳比赛</title>
     <style type="text/css">
         body,
@@ -67,7 +71,7 @@
                                     3分钟倒计时跳个人排名
                                 </div>
                                 <div class="ranking">
-                                    {{person.oneRank||"--"}}
+                                    {{person.threeRank||"--"}}
                                 </div>
                                 <div class="circle">
                                     <img src="img/circlecamp.png">
@@ -90,7 +94,7 @@
                                 1分钟倒计时亲子双人跳排名
                             </div>
                             <div class="ranking">
-                                {{person.threeRank||"--"}}
+                                {{person.oneRank||"--"}}
                             </div>
                             <div class="circle">
                                 <img src="img/circleparent.png">
@@ -117,8 +121,9 @@
                                         <div class="item" v-for="item in list">
                                             <div class="rank">
                                                 <img class="sortPic" v-if="item.rank==1" src="./img/no1.png" />
-                                                <img class="sortPic" v-if="item.rank==2" src="./img/no2.png" />
-                                                <img class="sortPic" v-if="item.rank==3" src="./img/no3.png" />
+                                                <img class="sortPic" v-else-if="item.rank==2" src="./img/no2.png" />
+                                                <img class="sortPic" v-else-if="item.rank==3" src="./img/no3.png" />
+                                                <span v-else>{{item.rank}}</span>
                                             </div>
                                             <div class="schoolName">{{item.name||'--'}}</div>
                                             <div class="count">{{item.skipCount||'--'}}</div>
@@ -140,8 +145,9 @@
                                         <div class="item" v-for="item in list">
                                             <div class="rank">
                                                 <img class="sortPic" v-if="item.rank==1" src="./img/no1.png" />
-                                                <img class="sortPic" v-if="item.rank==2" src="./img/no2.png" />
-                                                <img class="sortPic" v-if="item.rank==3" src="./img/no3.png" />
+                                                <img class="sortPic" v-else-if="item.rank==2" src="./img/no2.png" />
+                                                <img class="sortPic" v-else-if="item.rank==3" src="./img/no3.png" />
+                                                <span v-else>{{item.rank}}</span>
                                             </div>
                                             <div class="schoolName">{{item.name||'--'}}</div>
                                             <div class="count">{{item.skipCount||'--'}}</div>
@@ -176,7 +182,7 @@
                     <div class="name van-ellipsis">{{item.competitionName}}</div>
                     <div class="status">
                         去跳绳
-                        <span class="iconfont icon-tongyong-gengduo" />
+                        <span class="iconfont icon-tongyong-gengduo"></span>
                     </div>
                 </div>
             </div>
@@ -210,7 +216,7 @@
                 list: [],
                 active: 0,
 
-                campId: getQueryString('campId') || "pufa20220124",
+                campId: getQueryString('campId') || "pufa20220128",
                 refreshing: false,
                 isShare: getQueryString('isShare'),
                 person: {
@@ -225,7 +231,8 @@
                 interval2: "",
                 endDjs: "",
                 threeComId: "",
-                oneComId: ""
+                oneComId: "",
+                isClick: "",
             };
         },
         watch: {},
@@ -260,6 +267,9 @@
             this.initCompetitionDetail();
         },
         methods: {
+            initCompetitionDetail() {
+                this.getInfo();
+            },
             tabsClick(name) {
                 if (name == 0) {
                     this.competitionId = this.threeComId
@@ -287,10 +297,22 @@
                 this.dateshow = false;
             },
             getSchoolrank() { //获取校内跳绳排名
+                function getTime(time) {
+                    var myDate = new Date(time);
+                    var u = navigator.userAgent;
+                    var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+                    var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+                    if (isiOS) {
+                        var t = new Date(time.replace(/-/g, '/')).getTime();
+                    } else {
+                        var t = myDate.getTime();
+                    }
+                    return t;
+                }
                 ajax({
                     url: "summerVlogSkippingPk/homePage/getDailySuperior",
                     data: {
-                        currentTime: new Date(this.currentDatestr + " 00:00:00").getTime(),
+                        currentTime: getTime(this.currentDatestr + " 00:00:00"),
                         competitionId: this.competitionId,
                         campId: this.campId
                     }
@@ -306,7 +328,7 @@
                 this.initCompetitionDetail();
                 this.refreshing = false;
             },
-            initCompetitionDetail() { //获取个人信息
+            getInfo() { //获取个人信息
                 ajax({
                     url: "summerVlogSkippingPk/homePage/myHomePage",
                     data: {
@@ -400,6 +422,11 @@
                     this.$toast("您今天的跳绳次数已经用完，请明天继续！")
                     return
                 }
+                if (this.isClick) return;
+                this.isClick = true;
+                setTimeout(() => {
+                    this.isClick = false
+                }, 1000);
                 var skipItem = {
                     method: "LSTH5APP_JingAnSchoolChallenge", //H5调起原生选择设备，需要过滤掉rs-s3，Hilink，发光跳绳，并跳转到专门的vlog页面，
                     isChild: obj.isChild, // 1是学生，0是家长 int

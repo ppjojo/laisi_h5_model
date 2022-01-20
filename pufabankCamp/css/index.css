@@ -279,7 +279,7 @@ body {
 
 .contain .rankBox .listDiv .title .rank, .contain .rankBox .listDiv .item .rank {
   width: 20%;
-  font-size: 0.24rem;
+  font-size: 0.28rem;
 }
 
 .contain .rankBox .listDiv .title .rank .sortPic, .contain .rankBox .listDiv .item .rank .sortPic {

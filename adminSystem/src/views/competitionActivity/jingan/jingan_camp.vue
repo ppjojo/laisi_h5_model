@@ -5,8 +5,8 @@
     </div>
     <el-table v-loading="loading" :data="list" element-loading-text="Loading" border fit highlight-current-row size="small ">
       <el-table-column align="center" prop="id" label="ID" width="120"></el-table-column>
-      <el-table-column align="center" prop="name" label="组名">
-      </el-table-column>
+      <!-- <el-table-column align="center" prop="name" label="组名">
+      </el-table-column> -->
       <el-table-column align="center" label="赛事logo">
         <template slot-scope="scope">
           <img :src="scope.row.logo" alt="" width="120px">

@@ -80,10 +80,12 @@
       </div>
     </el-dialog>
 
-    <el-dialog title='人员详情' :visible.sync="DetailVisible" width="70%" append-to-body>
+    <el-dialog :title='"人员详情("+detailList.length+"人)"' :visible.sync="DetailVisible" width="70%" append-to-body>
       <el-table :data="detailList" highlight-current-row style="width: 100%;">
+        <el-table-column prop="id" label="ID"></el-table-column>
         <el-table-column prop="userId" label="用户ID"></el-table-column>
         <el-table-column prop="name" label="姓名"></el-table-column>
+        <el-table-column prop="studentCardId" label="学号"></el-table-column>
         <!-- <el-table-column prop="headPic" label="头像">
           <template scope="scope">
             <el-image style="width: 100px; height: 100px" :src=" scope.row.headPic" fit="fit">
@@ -91,8 +93,10 @@
           </template>
         </el-table-column> -->
         <el-table-column prop="phoneNumber" label="手机号"></el-table-column>
-        <!-- <el-table-column prop="nickName" label="昵称"></el-table-column>
-        <el-table-column prop="schoolName" label="学校"></el-table-column> -->
+
+        <el-table-column prop="schoolName" label="学校"></el-table-column>
+        <el-table-column prop="sex" label="性别"></el-table-column>
+        <el-table-column prop="competitorFlag" label="是否参与比赛排名"></el-table-column>
         <el-table-column align="center" label="操作" width="200">
           <template scope="scope">
             <el-button @click="btn_editStu(scope.row)" type="text" size="mini">编辑人员
