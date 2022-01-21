@@ -100,3 +100,11 @@ export function deleteTestData(params) {
         params,
     })
 }
+
+export function statistics(params) {
+    return request({
+        url: '/summerVlogSkippingPk/vlogStory/delete/some/date',
+        method: 'get',
+        params,
+    })
+}

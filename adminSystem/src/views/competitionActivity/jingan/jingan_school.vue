@@ -111,6 +111,8 @@
                   <template scope="scope2">
                     <el-button @click="btn_searchStuDaily(scope2.row)" type="text" size="mini">该比赛数据详情
                     </el-button>
+                    <el-button @click="btn_statistics(scope2.row)" type="text" size="mini">重新统计该比赛数据
+                    </el-button>
                   </template>
                 </el-table-column>
               </el-table>
@@ -247,6 +249,7 @@ import {
   studentDaily,
   dataRevert,
   deleteTestData,
+  statistics,
 } from "@/api/competitionActivity/jingan/jingan_school";
 
 import { queryByUserIdAndCampId as competitionListApi } from "@/api/competitionActivity/jingan/jingan_competition";
@@ -384,7 +387,6 @@ export default {
       });
     },
     btn_searchStuDaily(row) {
-      console.log(row);
       studentDaily({
         competitionId: row.competitionId,
         studentId: this.studentId,
@@ -392,6 +394,18 @@ export default {
       }).then((res) => {
         this.searchStuListVisible = true;
         this.searchStuDailyList = res.data;
+      });
+    },
+    btn_statistics(row) {
+      statistics({
+        competitionId: row.competitionId,
+        studentId: this.studentId,
+        campId: this.campId,
+      }).then((res) => {
+        this.$notify({
+          type: "success",
+          message: "重新统计",
+        });
       });
     },
     //学生的数据找回
