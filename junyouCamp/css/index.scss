@@ -1,0 +1,309 @@
+body {
+    color: #333;
+}
+
+@font-face {
+    font-family: "BebasNeue";
+    src: url("../../common/font/BebasNeue/BebasNeue.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+.header {
+    position: relative;
+    z-index: 100;
+    height: calc(0.92rem + constant(safe-area-inset-top));
+    height: calc(0.92rem + env(safe-area-inset-top));
+    background-color: #ffffff;
+    z-index: 102;
+    .title {
+        color: #333;
+        font-size: 0.32rem;
+        text-align: center;
+    }
+    .van-hairline--bottom::after {
+        border: none;
+    }
+}
+
+.van-tabs {
+    border-radius: 10px;
+    padding: 0.3rem 0 0;
+    color: #999;
+    text-align: center;
+    .van-tab {
+        color: #999;
+    }
+    .van-tabs__nav {
+        border-radius: 10px;
+    }
+    .van-tab--active {
+        color: #333;
+        font-weight: normal;
+        &::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translate(-50%, -50%);
+            width: 0.4rem;
+            height: 0.14rem;
+            background-position: 100% 100%;
+            background: url(../img/tabselect.png) no-repeat;
+            background-size: 100%;
+        }
+    }
+    .van-tabs__line {
+        display: none;
+    }
+}
+
+.pageBgBox {
+    height: 9.6rem;
+    background-image: url('../img/indexbg.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+    box-sizing: border-box;
+    .ruleicon {
+        position: absolute;
+        right: 0;
+        top: .15rem;
+        width: 1.34rem;
+        z-index: 19;
+        line-height: 0.44rem;
+        font-size: .24rem;
+        color: #fff;
+        text-align: center;
+        border-radius: 0.22rem 0 0 0.22rem;
+        background: linear-gradient(to right, #FF4E3E, #FFAA88);
+    }
+    .gotoSchoolBtn {
+        position: fixed;
+        right: .64rem;
+        bottom: 3.3rem;
+        z-index: 9;
+        width: 1.4rem;
+        height: 1.4rem;
+    }
+    .gojump {
+        width: 6.7rem;
+        height: 0.88rem;
+        position: fixed;
+        left: 50%;
+        margin-left: -3.35rem;
+        bottom: 1rem;
+        font-size: .4rem;
+        text-align: center;
+        color: #fff;
+        line-height: 0.88rem;
+        z-index: 9;
+        border-radius: 0.44rem;
+        background: linear-gradient(to right, #FF4E3E, #FFAA88);
+    }
+    .notStart {
+        background-color: #ddd;
+        background-image: none;
+    }
+}
+
+.contain {
+    position: relative;
+    top: -0.2rem;
+    margin-bottom: 2rem;
+    .infobox {
+        padding: 0 .32rem;
+        .card {
+            font-size: .28rem;
+            padding: 0.1rem .32rem;
+            border-radius: .32rem;
+            box-sizing: border-box;
+            .schoolName {
+                line-height: 0.8rem;
+            }
+            .studentName {
+                font-size: 0.4rem;
+                height: 0.8rem;
+                line-height: 0.8rem;
+            }
+            .studentInfoBox {
+                font-size: 0.24rem;
+                color: #666;
+                height: 0.4rem;
+                line-height: 0.4rem;
+            }
+            .circle {
+                img {
+                    width: .32rem;
+                    height: .32rem;
+                }
+            }
+            .cardTitle {
+                color: #555555;
+                font-size: 0.24rem;
+                margin-top: .1rem;
+            }
+        }
+        .card-person {
+            background-image: url('../img/card-person.png');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 100% 100%;
+            margin-bottom: 0.32rem;
+            .ranking {
+                font-size: 0.6rem;
+                height: 0.7rem;
+                line-height: 0.7rem;
+                font-family: "BebasNeue";
+            }
+        }
+        .card-camp {
+            @extend .card-person;
+            background-image: url('../img/card-camp.png');
+            margin-bottom: 0.32rem;
+            margin-right: 0.32rem;
+            width: 100%;
+            height: 1.8rem;
+            .ranking {
+                font-size: 0.6rem;
+                height: 0.7rem;
+                line-height: 0.7rem;
+                color: #F6C021;
+            }
+        }
+        .card-school {
+            @extend .card-person;
+            background-image: url('../img/card-school.png');
+            margin-bottom: 0.32rem;
+            width: 100%;
+            height: 1.8rem;
+            .ranking {
+                font-size: 0.6rem;
+                height: 0.7rem;
+                line-height: 0.7rem;
+                color: #1082ff;
+            }
+        }
+        .card-parent {
+            @extend .card-person;
+            background-image: url('../img/card-parent.png');
+            // margin-top: 0.32rem;
+            height: 1.8rem;
+            .ranking {
+                font-size: 0.6rem;
+                height: 0.7rem;
+                line-height: 0.7rem;
+                color: #FFAA88;
+            }
+        }
+    }
+    .rankBox {
+        border-radius: 12px;
+        margin: 0 .32rem;
+        padding: 0.32rem;
+        background-color: #fff;
+        margin-bottom: 0.32rem;
+        .rankTitle {
+            color: #333333;
+            font-size: 0.28rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            .dateBox {
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+            }
+        }
+        .listDiv {
+            .title {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                color: #999;
+                text-align: center;
+                height: 1.24rem;
+                line-height: 0.4rem;
+                border-top-left-radius: 10px;
+                border-top-right-radius: 10px;
+                .rank {
+                    width: 20%;
+                    font-size: 0.28rem;
+                    .sortPic {
+                        width: 0.44rem;
+                        height: 0.44rem;
+                        position: relative;
+                        top: 0.1rem;
+                    }
+                }
+                .schoolName {
+                    width: 35%;
+                    font-size: 0.24rem;
+                }
+                .count {
+                    width: 30%;
+                    font-size: 0.24rem;
+                }
+            }
+            .item {
+                @extend .title;
+                border-radius: 0;
+                color: #222;
+                height: 1.28rem;
+                .schoolName {
+                    font-size: 0.28rem;
+                }
+                .count {
+                    color: #FFAA88;
+                    font-size: 0.48rem;
+                    font-family: "BebasNeue";
+                }
+            }
+        }
+        .noData-box {
+            text-align: center;
+            padding-top: 2.5rem;
+            .noData-img {
+                width: 3rem;
+            }
+            .noData-p {
+                color: #b3b8bb;
+                font-size: 0.28rem;
+            }
+        }
+    }
+    .desc {
+        font-size: 0.24rem;
+        color: #999;
+        text-align: center;
+        line-height: 0.4rem;
+    }
+}
+
+.competitionListBox {
+    padding-bottom: calc(0.1rem + constant(safe-area-inset-bottom));
+    padding-bottom: calc(0.1rem + env(safe-area-inset-bottom));
+    .itemBox {
+        height: 1.44rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 0.48rem;
+        border-bottom: 1px solid #f5f5f5;
+        &:last-child {
+            border-bottom: none;
+        }
+        .name {
+            color: #222;
+            font-size: 0.32rem;
+            max-width: 70%;
+        }
+        .status {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 0.28rem;
+        }
+    }
+}

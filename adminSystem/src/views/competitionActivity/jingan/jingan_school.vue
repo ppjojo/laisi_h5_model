@@ -46,6 +46,8 @@
             <el-button type="text" style="color:#67C23A;" size="mini" @click="schoolId=scope.row.id">导入人员
             </el-button>
           </el-upload>
+          <el-button @click="getGroupList(scope.row)" type="text" size="mini">查看分组
+          </el-button>
 
         </template>
       </el-table-column>
@@ -232,6 +234,52 @@
       </div>
     </el-dialog>
 
+    <el-dialog title='组别列表' :visible.sync="groupVisible" width="70%" append-to-body>
+      <el-table :data="groupList" highlight-current-row style="width: 100%;">
+        <el-table-column prop="name" label="比赛组名"></el-table-column>
+        <el-table-column prop="id" label="比赛ID"></el-table-column>
+        <el-table-column align="center" label="操作">
+          <template scope="scope">
+            <el-button @click="getGroupDetail(scope.row)" type="text" size="mini">查看分组数据
+            </el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click.native="groupVisible = false">取消
+        </el-button>
+      </div>
+    </el-dialog>
+
+    <el-dialog title='组别详情' :visible.sync="groupDetailVisible" width="70%" append-to-body>
+      <el-table :data="groupListDetail" highlight-current-row style="width: 100%;">
+        <el-table-column prop="rank" label="排名"></el-table-column>
+        <el-table-column prop="userId" label="userId"></el-table-column>
+        <el-table-column prop="name" label="姓名"></el-table-column>
+
+        <el-table-column prop="sportDay" label="运动天数">
+          <template scope="scope">
+            {{scope.row.sportDay ||scope.row.frequency}}
+          </template>
+        </el-table-column>
+        <el-table-column prop="bestDailyValue" label="今日最佳">
+          <template scope="scope">
+            {{scope.row.bestDailyValue ||scope.row.bestDailyCount}}
+          </template>
+        </el-table-column>
+        <el-table-column prop="bestValue" label="最佳">
+          <template scope="scope">
+            {{scope.row.bestValue ||scope.row.bestTotalCount}}
+          </template>
+        </el-table-column>
+
+      </el-table>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click.native="groupDetailVisible = false">取消
+        </el-button>
+      </div>
+    </el-dialog>
+
   </div>
 </template>
 
@@ -250,6 +298,9 @@ import {
   dataRevert,
   deleteTestData,
   statistics,
+  groupList,
+  singleRankData,
+  twinRankData,
 } from "@/api/competitionActivity/jingan/jingan_school";
 
 import { queryByUserIdAndCampId as competitionListApi } from "@/api/competitionActivity/jingan/jingan_competition";
@@ -333,6 +384,9 @@ export default {
       searchStuDailyList: [],
       competitionList: [],
       dev: "",
+      groupList: [],
+      groupVisible: false,
+      groupDetailVisible: false,
     };
   },
   mounted() {
@@ -564,6 +618,40 @@ export default {
           message: "成功所选学生数据!",
         });
       });
+    },
+
+    //获取分组详情
+    getGroupList(row) {
+      groupList({
+        campId: this.campId,
+        schoolId: row.id,
+        uderId: 10000,
+      }).then((res) => {
+        this.groupList = res.data;
+        this.groupVisible = true;
+      });
+    },
+
+    getGroupDetail(row) {
+      if (row.mode_value == 60) {
+        singleRankData({
+          openId: 10000,
+          campId: this.campId,
+          competitionId: row.id,
+        }).then((res) => {
+          this.groupListDetail = res.data;
+          this.groupDetailVisible = true;
+        });
+      } else {
+        twinRankData({
+          openId: 10000,
+          campId: this.campId,
+          competitionId: row.id,
+        }).then((res) => {
+          this.groupListDetail = res.data;
+          this.groupDetailVisible = true;
+        });
+      }
     },
   },
 };

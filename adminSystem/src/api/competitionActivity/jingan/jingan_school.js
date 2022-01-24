@@ -108,3 +108,27 @@ export function statistics(params) {
         params,
     })
 }
+
+export function groupList(params) {
+    return request({
+        url: '/summerVlogSkippingPk/summerCamp/school/competion/rank',
+        method: 'get',
+        params,
+    })
+}
+
+export function singleRankData(params) {
+    return request({
+        url: '/summerVlogSkippingPk/competitorDailyStastic/getSingleRankData',
+        method: 'get',
+        params,
+    })
+}
+
+export function twinRankData(params) {
+    return request({
+        url: '/summerVlogSkippingPk/competitorDailyStastic/getTwinRankData',
+        method: 'get',
+        params,
+    })
+}

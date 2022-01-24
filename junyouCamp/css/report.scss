@@ -1,0 +1,245 @@
+* {
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+body {
+    background-color: #FFE4D8;
+    font-size: 0.32rem;
+}
+
+.header {
+    .van-nav-bar {
+        background-color: transparent;
+        z-index: 99;
+        .van-nav-bar__title {
+            color: #fff;
+            opacity: 0;
+        }
+        .van-icon {
+            color: #fff;
+        }
+    }
+    .van-hairline--bottom::after {
+        border: none;
+    }
+}
+
+.contain {
+    .topBgImg {
+        width: 100%;
+    }
+}
+
+.van-tabs {
+    margin-top: -0.7rem;
+    border-radius: 10px;
+    background-color: #FFE4D8;
+    color: #999;
+    text-align: center;
+    .van-tab {
+        color: #999;
+    }
+    .van-tabs__nav {
+        border-radius: 10px;
+        background-color: #FFE4D8;
+        .van-tab__text--ellipsis {
+            display: block;
+        }
+    }
+    .van-tab--active {
+        color: #333;
+        font-weight: normal;
+        &::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translate(-50%, -50%);
+            width: 0.4rem;
+            height: 0.14rem;
+            background-position: 100% 100%;
+            background: url(../img/tabselect.png) no-repeat;
+            background-size: 100%;
+        }
+    }
+    .van-tabs__line {
+        display: none;
+    }
+}
+
+.listBoxContain {
+    margin-top: 0.5rem;
+    .listBox {
+        position: relative;
+        width: 6.7rem;
+        position: relative;
+        border-radius: 10px;
+        background-color: #fff;
+        margin: 0 auto;
+        margin-bottom: 0.8rem;
+        box-sizing: border-box;
+        font-size: 0.28rem;
+        min-height: 4rem;
+        .infoTitle {
+            position: absolute;
+            text-align: center;
+            background-image: linear-gradient(to right, #FF4E3E, #FFAA88);
+            color: #fff;
+            font-size: 0.36rem;
+            line-height: 0.52rem;
+            top: -0.26rem;
+            border-radius: 0.26rem;
+            // width: 3.2rem;
+            // left: calc(50% - 1.6rem);
+            z-index: 9;
+            width: 4rem;
+            left: calc(50% - 2rem);
+        }
+        .smallTitle {
+            text-align: center;
+            position: absolute;
+            top: 0.4rem;
+            width: 100%;
+            color: #2E7CED;
+            font-size: 0.24rem;
+        }
+        .flowBox {
+            height: 7rem;
+            overflow-y: auto;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+        .title {
+            padding: 0.3rem 0.2rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: #999;
+            background-color: #FFF3F3;
+            text-align: center;
+            height: 1.3rem;
+            line-height: 0.4rem;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            .rank {
+                width: 20%;
+                font-size: 0.24rem;
+            }
+            .schoolName {}
+            .desc {
+                width: 40%;
+                font-size: 0.24rem;
+            }
+            .count {
+                width: 40%;
+                font-size: 0.24rem;
+            }
+        }
+        .item {
+            padding: 0 0.2rem;
+            @extend .title;
+            border-radius: 0;
+            color: #222;
+            height: 0.7rem;
+            &:nth-child(2n) {
+                background-color: #FFF3F3;
+            }
+            &:nth-child(2n+1) {
+                background-color: #FFFAFA;
+            }
+            &:last-child {
+                border-bottom-left-radius: 10px;
+                border-bottom-right-radius: 10px;
+            }
+            .schoolName {
+                text-align: center;
+                img {
+                    position: relative;
+                    top: 0.05rem;
+                    width: 0.32rem;
+                    height: 0.32rem;
+                    border-radius: 100%;
+                    margin-right: 0.1rem;
+                }
+            }
+            .rank,
+            .desc,
+            .count {
+                font-size: 0.28rem;
+            }
+        }
+    }
+    .hasTab {
+        .title {
+            padding: 0rem 0.2rem 0;
+            background-color: #FAFDFF;
+        }
+        .item {
+            &:nth-child(2n) {
+                background-color: #FAFDFF;
+            }
+            &:nth-child(2n+1) {
+                background-color: #F3F9FF;
+            }
+        }
+    }
+    .schoolTeam {
+        .title {
+            .rank {
+                width: 15%;
+            }
+            .schoolName {
+                width: 40%;
+            }
+            .desc {
+                width: 25%;
+            }
+            .count {
+                width: 20%;
+            }
+        }
+        .item {
+            @extend .title;
+        }
+    }
+    .schoolPop {
+        .title {
+            .rank {
+                width: 20%;
+            }
+            .schoolName {
+                width: 40%;
+            }
+            .count {
+                width: 40%;
+            }
+        }
+        .item {
+            @extend .title;
+        }
+    }
+    .personList {
+        .van-tabs {
+            padding-top: 0.7rem;
+        }
+        .title {
+            padding: 0rem 0.2rem 0;
+            .rank {
+                width: 20%;
+            }
+            .schoolName {
+                width: 40%;
+            }
+            .desc {}
+            .count {
+                width: 40%;
+            }
+        }
+        .item {
+            padding: 0 0.2rem;
+            @extend .title;
+        }
+    }
+}

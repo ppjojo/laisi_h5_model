@@ -1,0 +1,265 @@
+* {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+body {
+  background-color: #FFE4D8;
+  font-size: 0.32rem;
+}
+
+.header .van-nav-bar {
+  background-color: transparent;
+  z-index: 99;
+}
+
+.header .van-nav-bar .van-nav-bar__title {
+  color: #fff;
+  opacity: 0;
+}
+
+.header .van-nav-bar .van-icon {
+  color: #fff;
+}
+
+.header .van-hairline--bottom::after {
+  border: none;
+}
+
+.contain .topBgImg {
+  width: 100%;
+}
+
+.van-tabs {
+  margin-top: -0.7rem;
+  border-radius: 10px;
+  background-color: #FFE4D8;
+  color: #999;
+  text-align: center;
+}
+
+.van-tabs .van-tab {
+  color: #999;
+}
+
+.van-tabs .van-tabs__nav {
+  border-radius: 10px;
+  background-color: #FFE4D8;
+}
+
+.van-tabs .van-tabs__nav .van-tab__text--ellipsis {
+  display: block;
+}
+
+.van-tabs .van-tab--active {
+  color: #333;
+  font-weight: normal;
+}
+
+.van-tabs .van-tab--active::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 0.4rem;
+  height: 0.14rem;
+  background-position: 100% 100%;
+  background: url(../img/tabselect.png) no-repeat;
+  background-size: 100%;
+}
+
+.van-tabs .van-tabs__line {
+  display: none;
+}
+
+.listBoxContain {
+  margin-top: 0.5rem;
+}
+
+.listBoxContain .listBox {
+  position: relative;
+  width: 6.7rem;
+  position: relative;
+  border-radius: 10px;
+  background-color: #fff;
+  margin: 0 auto;
+  margin-bottom: 0.8rem;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-size: 0.28rem;
+  min-height: 4rem;
+}
+
+.listBoxContain .listBox .infoTitle {
+  position: absolute;
+  text-align: center;
+  background-image: -webkit-gradient(linear, left top, right top, from(#FF4E3E), to(#FFAA88));
+  background-image: linear-gradient(to right, #FF4E3E, #FFAA88);
+  color: #fff;
+  font-size: 0.36rem;
+  line-height: 0.52rem;
+  top: -0.26rem;
+  border-radius: 0.26rem;
+  z-index: 9;
+  width: 4rem;
+  left: calc(50% - 2rem);
+}
+
+.listBoxContain .listBox .smallTitle {
+  text-align: center;
+  position: absolute;
+  top: 0.4rem;
+  width: 100%;
+  color: #2E7CED;
+  font-size: 0.24rem;
+}
+
+.listBoxContain .listBox .flowBox {
+  height: 7rem;
+  overflow-y: auto;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.listBoxContain .listBox .title, .listBoxContain .listBox .item {
+  padding: 0.3rem 0.2rem 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  color: #999;
+  background-color: #FFF3F3;
+  text-align: center;
+  height: 1.3rem;
+  line-height: 0.4rem;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.listBoxContain .listBox .title .rank, .listBoxContain .listBox .item .rank {
+  width: 20%;
+  font-size: 0.24rem;
+}
+
+.listBoxContain .listBox .title .desc, .listBoxContain .listBox .item .desc {
+  width: 40%;
+  font-size: 0.24rem;
+}
+
+.listBoxContain .listBox .title .count, .listBoxContain .listBox .item .count {
+  width: 40%;
+  font-size: 0.24rem;
+}
+
+.listBoxContain .listBox .item {
+  padding: 0 0.2rem;
+  border-radius: 0;
+  color: #222;
+  height: 0.7rem;
+}
+
+.listBoxContain .listBox .item:nth-child(2n) {
+  background-color: #FFF3F3;
+}
+
+.listBoxContain .listBox .item:nth-child(2n+1) {
+  background-color: #FFFAFA;
+}
+
+.listBoxContain .listBox .item:last-child {
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.listBoxContain .listBox .item .schoolName {
+  text-align: center;
+}
+
+.listBoxContain .listBox .item .schoolName img {
+  position: relative;
+  top: 0.05rem;
+  width: 0.32rem;
+  height: 0.32rem;
+  border-radius: 100%;
+  margin-right: 0.1rem;
+}
+
+.listBoxContain .listBox .item .rank,
+.listBoxContain .listBox .item .desc,
+.listBoxContain .listBox .item .count {
+  font-size: 0.28rem;
+}
+
+.listBoxContain .hasTab .title, .listBoxContain .hasTab .listBox .item, .listBoxContain .listBox .hasTab .item, .listBoxContain .hasTab .schoolTeam .item, .listBoxContain .schoolTeam .hasTab .item, .listBoxContain .hasTab .schoolPop .item, .listBoxContain .schoolPop .hasTab .item, .listBoxContain .hasTab .personList .item, .listBoxContain .personList .hasTab .item {
+  padding: 0rem 0.2rem 0;
+  background-color: #FAFDFF;
+}
+
+.listBoxContain .hasTab .item:nth-child(2n) {
+  background-color: #FAFDFF;
+}
+
+.listBoxContain .hasTab .item:nth-child(2n+1) {
+  background-color: #F3F9FF;
+}
+
+.listBoxContain .schoolTeam .title .rank, .listBoxContain .schoolTeam .item .rank {
+  width: 15%;
+}
+
+.listBoxContain .schoolTeam .title .schoolName, .listBoxContain .schoolTeam .item .schoolName {
+  width: 40%;
+}
+
+.listBoxContain .schoolTeam .title .desc, .listBoxContain .schoolTeam .item .desc {
+  width: 25%;
+}
+
+.listBoxContain .schoolTeam .title .count, .listBoxContain .schoolTeam .item .count {
+  width: 20%;
+}
+
+.listBoxContain .schoolPop .title .rank, .listBoxContain .schoolPop .item .rank {
+  width: 20%;
+}
+
+.listBoxContain .schoolPop .title .schoolName, .listBoxContain .schoolPop .item .schoolName {
+  width: 40%;
+}
+
+.listBoxContain .schoolPop .title .count, .listBoxContain .schoolPop .item .count {
+  width: 40%;
+}
+
+.listBoxContain .personList .van-tabs {
+  padding-top: 0.7rem;
+}
+
+.listBoxContain .personList .title, .listBoxContain .personList .item {
+  padding: 0rem 0.2rem 0;
+}
+
+.listBoxContain .personList .title .rank, .listBoxContain .personList .item .rank {
+  width: 20%;
+}
+
+.listBoxContain .personList .title .schoolName, .listBoxContain .personList .item .schoolName {
+  width: 40%;
+}
+
+.listBoxContain .personList .title .count, .listBoxContain .personList .item .count {
+  width: 40%;
+}
+
+.listBoxContain .personList .item {
+  padding: 0 0.2rem;
+}
+/*# sourceMappingURL=report.css.map */

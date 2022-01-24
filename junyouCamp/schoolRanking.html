@@ -18,104 +18,92 @@
 <body>
     <div id="app" class="page" v-cloak>
         <div class="header">
-            <van-nav-bar title="1分钟倒计时亲子双人跳" z-index=999 @click-left="onClickLeft" @click-right="share" safe-area-inset-top fixed>
+            <van-nav-bar title="标题" z-index=999 safe-area-inset-top fixed @click-right="share" @click-left="onClickLeft">
                 <template #left v-if="!isShare">
                     <span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" ></span>
                 </template>
                 <template slot="title">
-                    <span class="title" @click="show = !show">
-                       {{active==1?"3分钟倒计时跳部门人气榜":active==2?"3分钟倒计时跳部门实力榜":active==3?"个人实力榜(男)":"个人实力榜(女)"}} 
+                    <div class="title" @click="show = !show">
+                       {{active==1?"校园大PK-人气榜":"校园大PK-实力榜"}} 
                         <van-icon name="arrow-down" color="#333" size="16" />
-                    </span>
+                    </div>
                 </template>
+
                 <template #right v-if="!isShare"> 
-                    <span class="icon iconfont icon-fenxianganniu"  style="font-size: 0.5rem;"></span>
+                    <div class="ub ub-ac" slot="right">
+                        <!-- <img v-if="active==2" @click="window.location.href='rule.html'" src="img/ruleicon.png" style="width: .5rem;margin-right: .2rem;" alt=""> -->
+                        <span  class="icon iconfont icon-fenxianganniu"  style="font-size: 0.5rem;"></span>
+                    </div>
                 </template>
+
             </van-nav-bar>
             <van-overlay :show="show" z-index=998 @click="show = false">
                 <div class="optionBox" @click.stop>
-                    <div class="optionItem " :class="active==1?'active':''" @click="changeRank(1)">3分钟倒计时跳部门人气榜</div>
-                    <div class="optionItem" :class="active==2?'active':''" @click="changeRank(2)">3分钟倒计时跳部门实力榜</div>
-                    <div class="optionItem" v-if="!visitor" :class="active==3?'active':''" @click="changeRank(3)">3分钟倒计时跳个人实力榜(男)</div>
-                    <div class="optionItem" v-if="!visitor" :class="active==4?'active':''" @click="changeRank(4)">3分钟倒计时跳个人实力榜(女)</div>
+                    <div class="optionItem " :class="active==1?'active':''" @click="changeRank(1)">校园大PK-人气榜</div>
+                    <div class="optionItem" :class="active==2?'active':''" @click="changeRank(2)">校园大PK-实力榜</div>
                 </div>
             </van-overlay>
         </div>
         <div class="rankBox">
             <div class="van_row_title_box">
                 <van-row class="van_row_title" v-if="active==1">
-                    <van-col span="2">
+                    <van-col span="3">
                         排名
                     </van-col>
-                    <van-col span="14">
-                        支行
+                    <van-col span="3"></van-col>
+                    <van-col span="13">
+                        学校
                     </van-col>
-                    <van-col span="8">
+                    <van-col span="5">
                         人气值
                     </van-col>
                 </van-row>
-                <van-row class="van_row_title" v-if="active==2">
-                    <van-col span="2">
+                <van-row class="van_row_title" v-else>
+                    <van-col span="3">
                         排名
                     </van-col>
-                    <van-col span="14">
-                        支行
+                    <van-col span="3">
+
                     </van-col>
                     <van-col span="8">
-                        日平均个数<br> (每日0点更新)
-                    </van-col>
-                </van-row>
-                <van-row class="van_row_title" v-if="active==3||active==4">
-                    <van-col span="2">
-                        排名
-                    </van-col>
-                    <van-col span="8">
-                        姓名
+                        学校
                     </van-col>
                     <van-col span="5">
-                        今日最佳<br> (个数)
+                        累计跳天数<br> 3+3/1分钟
                     </van-col>
-                    <van-col span="4">
-                        累计跳绳<br>天数
-                    </van-col>
+
                     <van-col span="5">
-                        最佳汇总<br> (个数)
+                        个数
                     </van-col>
-
                 </van-row>
-
             </div>
             <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
-                <van-list v-model="loading" :finished="finished" @load="onLoad" finished-text="已经到底啦~" v-if="list.length>0">
-                    <van-row v-for="(item,index) in list" class="rankList" :class="item.userId==currentUserId?'self':''">
-                        <van-col span="2" class="ranking" v-if="item.rank==1">
+                <van-list v-model="loading" :finished="finished" finished-text="已经到底啦~" v-if="list.length>0">
+                    <van-row v-for="(item,index) in list" class="rankList">
+                        <van-col span="3" class="ranking" v-if="item.rank==1">
                             <img class="sortPic" src="./img/no1.png" />
                         </van-col>
-                        <van-col span="2" class="ranking" v-else-if="item.rank==2">
+                        <van-col span="3" class="ranking" v-else-if="item.rank==2">
                             <img class="sortPic" src="./img/no2.png" />
                         </van-col>
-                        <van-col span="2" class="ranking" v-else-if="item.rank==3">
+                        <van-col span="3" class="ranking" v-else-if="item.rank==3">
                             <img class="sortPic" src="./img/no3.png" />
                         </van-col>
-                        <van-col span="2" class="ranking" v-else>
-                            {{item.rank||"--"}}
+                        <van-col span="3" class="ranking" v-else>
+                            {{item.rank||'--'}}
                         </van-col>
-
-                        <van-col span="8" class="studentBox" v-if="active==3||active==4">
-                            <div class="name" class="van-ellipsis name">{{ item.name }}</div>
+                        <van-col span="3">
+                            <div class="detail_headpic" :style="{'background-image': 'url(' + item.icon + ')'}"></div>
                         </van-col>
-                        <van-col span="5" class="c666" v-if="active==3||active==4"> {{item.bestDailyCount||'--'}}</van-col>
-                        <van-col span="4" class="c666" v-if="active==3||active==4">
-                            {{item.frequency||'--'}}
-                        </van-col>
-                        <van-col span="5" class="skipCount" v-if="active==3||active==4"> {{item.bestTotalCount||'--'}}</van-col>
-
-
-                        <van-col span="14" v-if="active==1||active==2">
+                        <van-col span="13" v-if="active==1">
                             <div class="van-ellipsis">{{item.schoolName }}</div>
                         </van-col>
-                        <van-col span="8" v-if="active==1||active==2">
-                            {{active==1?item.popularity:active==2?item.skipCount:'--'}}
+                        <van-col span="8" v-if="active==2">
+                            <div class="van-ellipsis">{{item.schoolName }}</div>
+                        </van-col>
+                        <van-col span="5" v-if="active==2" class="c666">{{(item.threeMinSportDay||'--')+'/'+(item.oneMSportDay||"--")}}</van-col>
+                        <van-col span="5">
+                            {{active==1?item.popularity:item.skipCount||'--'}}
                             <img src="./img/like.png" class="skipImg" alt="" v-if="active==1&&item.isLikeStatus">
                             <img src="./img/unlike.png" @click="schoolAddPopularity(item.id,index)" class="skipImg" alt="" v-else-if="active==1&&!item.isLikeStatus">
                         </van-col>
@@ -128,6 +116,10 @@
                 </div>
             </van-pull-refresh>
         </div>
+        <van-popup v-model="couponshow" round :style="{width:'70%'}">
+            <img style="width: 100%;height: auto;display: block;" @click="window.location.href='https://shop43117428.youzan.com/v2/ump/promocard/fetch?alias=qqcamvcg'" src="img/coupon.png" alt="">
+        </van-popup>
+
     </div>
 </body>
 <script>
@@ -135,23 +127,21 @@
         el: '#app',
         data() {
             return {
-                visitor: getQueryString('visitor') || 0,
+                campId: getQueryString('campId') || "junyou20220128",
                 show: false,
-                active: getQueryString('active') || "2",
-                campId: getQueryString('campId') || "pufa20220128",
-                competitionId: getQueryString('competitionId'),
+                active: 2,
+                apiUrl: "summerVlogSkippingPk/summerCamp/schoolStrengthRanking",
                 isShare: getQueryString('isShare'),
-                currentUserId: localStorage.getItem("appInfo") ? JSON.parse(localStorage.getItem("appInfo")).userId : getQueryString('userId'),
-                pageNum: 0,
-                pageSize: 999,
+                pageNum: 1,
+                pageSize: 10,
                 total: 0,
                 refreshing: false,
                 finished: false,
                 loading: false,
                 list: [],
                 openId: "",
-                liketimes: 0,
-                apiUrl: ""
+                couponshow: false,
+                liketimes: 0
             };
         },
         watch: {},
@@ -172,14 +162,10 @@
             if (!this.isShare) {
                 this.openId = JSON.parse(localStorage.getItem("appInfo")).userId;
             } else {
+                this.openId = getQueryString("userId") || "10000"
                 this.active = 1;
-                this.openId = getQueryString("userId")
+                this.apiUrl = "summerVlogSkippingPk/summerCamp/schoolPopularityRanking"
             }
-
-            if (this.visitor) {
-                this.active = 1;
-            }
-
             if (isWechat) { //说明是分享的页面
                 if (getCookie('SUMMERCAMP_OPENID')) {
                     that.openId = getCookie('SUMMERCAMP_OPENID');
@@ -208,6 +194,11 @@
             //改变排行榜
             changeRank(value) {
                 this.active = value;
+                if (value == 1) {
+                    this.apiUrl = "summerVlogSkippingPk/summerCamp/schoolPopularityRanking";
+                } else {
+                    this.apiUrl = "summerVlogSkippingPk/summerCamp/schoolStrengthRanking";
+                }
                 this.show = false;
                 this.pageNum = 0;
                 this.getRankData();
@@ -221,36 +212,20 @@
             },
             //获取排行榜数据
             getRankData() {
-                if (this.active == 1) {
-                    this.apiUrl = "summerVlogSkippingPk/summerCamp/schoolPopularityRanking";
-                } else if (this.active == 2) {
-                    this.apiUrl = "summerVlogSkippingPk/summerCamp/schoolStrengthRanking";
-                } else if (this.active == 3) {
-                    this.apiUrl = "summerVlogSkippingPk/competitorDailyStastic/getTwinRanking";
-                } else if (this.active == 4) {
-                    this.apiUrl = "summerVlogSkippingPk/competitorDailyStastic/getTwinRanking";
-                }
                 var that = this;
                 var nowPageNum = that.pageNum;
                 ajax({
                     type: "get",
-                    url: this.apiUrl,
+                    url: that.apiUrl,
                     data: {
-                        openId: that.openId,
-                        campId: this.campId,
-                        competitionId: this.competitionId,
-                        type: 2
+                        openId: this.openId,
+                        campId: this.campId
                     },
                     success: function(res) {
                         if (res.code == 0) {
-                            that.finished = true;
                             that.list = res.data
-                            if (that.active == 3) {
-                                that.list = res.data.boy
-                            } else if (that.active == 4) {
-                                that.list = res.data.girl
-                            }
                             that.loading = false;
+                            that.finished = true;
                         } else {
                             that.finished = true;
                             that.loading = false;
@@ -275,47 +250,11 @@
             onLoad() {
                 if (this.refreshing) {
                     this.refreshing = false;
-                    this.pageNum = 0;
+                    this.pageNum = 1;
                 } else {
                     this.pageNum++;
                 }
                 this.getRankData()
-            },
-            videoBoxActive(item) {
-                ajax({
-                    url: "summerVlogSkippingPk/competitorDailyStastic/getOneMinVideoId",
-                    data: {
-                        campId: this.campId,
-                        competitionId: this.competitionId,
-                        videoUserId: item.userId
-                    }
-                }).then((res) => {
-                    if (res.code == 0) {
-                        this.play(res.data.childVideoId)
-                    } else {
-                        this.$toast(res.msg)
-                    }
-                });
-
-            },
-            play(id) {
-                if (this.isShare) {
-                    this.$toast('可去"派健康"APP查看跳绳视频')
-                    return
-                }
-                if (!id) {
-                    this.$toast("暂没有相应的视频！")
-                    return
-                }
-                var item = {
-                    method: "LSTH5APP_PlayChallengeVlogVideo", //H5跳绳原生简易播放页面，专门用来播放挑战的vlog视频
-                    videoId: id
-                }
-                if (isIOS) {
-                    window.webkit.messageHandlers.lstNative.postMessage(item)
-                } else { //判断Android
-                    window.android.LSTH5APP_PlayChallengeVlogVideo(JSON.stringify(item));
-                }
             },
             //点赞学校
             schoolAddPopularity(schoolId, index) {
@@ -347,12 +286,11 @@
                     }
                 })
             },
-
             share() {
                 Interaction.sharePage({
-                    "title": `${getQueryString("shareName")||localStorage.getItem("shareName")}在参加浦发银行长沙分行2022年春节云端跳绳比赛`,
-                    "description": "一分钟倒计时亲子双人跳排名",
-                    "url": host + `h5/h5V3/pufabankCamp/personalRanking.html?isShare=1&userId=${JSON.parse(localStorage.getItem("appInfo")).userId}&campId=${this.campId}&competitionId=${this.competitionId}&active=${this.active}`
+                    "title": `${getQueryString("shareName")||"学校"}在参加静安区跳绳争霸赛`,
+                    "description": "爱生活爱健康",
+                    "url": host + `h5/h5V3/pufabankCamp/schoolRanking.html?isShare=1&userId=${JSON.parse(localStorage.getItem("appInfo")).userId}&campId=${this.campId}`
                 })
             }
 

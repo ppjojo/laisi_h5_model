@@ -89,7 +89,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card card-parent" @click="gonext(3)">
+                        <!-- <div class="card card-parent" @click="gonext(3)">
                             <div class="cardTitle">
                                 1分钟倒计时亲子双人跳排名
                             </div>
@@ -99,7 +99,7 @@
                             <div class="circle">
                                 <img src="img/circleparent.png">
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="rankBox">
                         <div class="rankTitle">
@@ -135,7 +135,7 @@
                                     </div>
 
                                 </van-tab>
-                                <van-tab title="1分钟倒计时亲子双人跳">
+                                <!-- <van-tab title="1分钟倒计时亲子双人跳">
                                     <div class="listDiv " v-if="list.length>0">
                                         <div class="title">
                                             <div class="rank">排名</div>
@@ -157,7 +157,7 @@
                                         <img class="noData-img" src="./img/noData.png" />
                                         <p class="noData-p">今天还没有人跳绳哦！快去跳绳吧！</p>
                                     </div>
-                                </van-tab>
+                                </van-tab> -->
                             </van-tabs>
 
                         </div>
@@ -216,7 +216,7 @@
                 list: [],
                 active: 0,
 
-                campId: getQueryString('campId') || "pufa20220128",
+                campId: getQueryString('campId') || "junyou20220128",
                 refreshing: false,
                 isShare: getQueryString('isShare'),
                 person: {
