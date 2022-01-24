@@ -101,7 +101,7 @@
           <template scope="scope">
             <el-button @click="btn_editStu(scope.row)" type="text" size="mini">编辑人员
             </el-button>
-            <el-button @click="btn_deleteTestData(scope.row)" type="text" size="mini" style="color:#f78989;">删除测试环境的数据
+            <el-button @click="btn_deleteTestData(scope.row)" type="text" v-if="dev=='test'" size="mini" style="color:#f78989;">删除测试环境的数据
             </el-button>
             <el-popover placement="right" width="400" trigger="click">
               <el-table :data="competitionList">
@@ -332,10 +332,11 @@ export default {
       searchStuListVisible: false,
       searchStuDailyList: [],
       competitionList: [],
+      dev: "",
     };
   },
   mounted() {
-    console.log(this.campId);
+    this.dev = process.env.VUE_APP_INTERFACEADDRESS;
     this.getList();
   },
   methods: {

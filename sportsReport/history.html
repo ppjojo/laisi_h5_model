@@ -54,8 +54,8 @@
 
         </div>
 </body>
-<script src="https://lsprod3.laisitech.com/h5/h5V3/common/js/vue.js"></script>
-<script src="https://lsprod3.laisitech.com/h5/h5V3/common/js/vant.js"></script>
+<script src="https://oss.laisitech.com/4749d39a-e8e9-46e4-b75a-8dcdb248c9c9.js?name=vue"></script>
+<script src="https://oss.laisitech.com/50c1bcb1-6c6d-4389-bee5-7778b6613ed9.js?name=vant"></script>
 <script src="../common/js/network.js"></script>
 <script>
     new Vue({
@@ -215,20 +215,22 @@
 
                     let yDate = new Date(year, month, 0)
 
-                    startDateTime = year + '年' + month + '月' //上个月第一天
-                    endDateTime = year + '年' + month + '月' + yDate.getDate() //上个月最后一天
+                    let startDateTime = year + '年' + month + '月' //上个月第一天
+                    let endDateTime = year + '年' + month + '月' + yDate.getDate() //上个月最后一天
+                        //  let endTime = new Date(new Date(value - 7 * 24 * 3600 * 1000).setDate(time + 6))
+                    let endDateTime2 = year + "-" + month + '-' + yDate.getDate()
+
 
                     monthItem.startDateTime = startDateTime;
                     monthItem.endDateTime = endDateTime;
                     monthItem.year = year;
 
-                    monthItem.startTime = new Date(year + '-' + month + '-' + "01").getTime(),
-                        monthItem.endTime = new Date(year + '-' + month + '-' + yDate.getDate().toString().padStart(2, "00")).getTime(),
+                    monthItem.startTime = new Date(year + '-' + month + '-' + "01").getTime();
+                    monthItem.endTime = new Date(year + '-' + month + '-' + yDate.getDate().toString().padStart(2, "00")).getTime();
+                    monthList.push(monthItem);
 
-                        monthList.push(monthItem);
-
-                    if (new Date(endDateTime).getTime() > minDateTime) {
-                        lastMonth(new Date(endDateTime).getTime())
+                    if (new Date(endDateTime2).getTime() > minDateTime) {
+                        lastMonth(new Date(endDateTime2).getTime())
                     }
                 }
                 this.monthList = this.groupByType(monthList, "year")
