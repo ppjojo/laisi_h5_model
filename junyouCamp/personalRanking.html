@@ -12,7 +12,7 @@
     <script src="https://oss.laisitech.com/50c1bcb1-6c6d-4389-bee5-7778b6613ed9.js?name=vant"></script>
     <script src="js/openId.js"></script>
     <script src="../common/js/network.js"></script>
-    <title>浦发银行长沙分行云端跳绳比赛</title>
+    <title>郡优2022春节云端跳绳比赛</title>
 </head>
 
 <body>
@@ -24,7 +24,7 @@
                 </template>
                 <template slot="title">
                     <span class="title" @click="show = !show">
-                       {{active==1?"3分钟倒计时跳部门人气榜":active==2?"3分钟倒计时跳部门实力榜":active==3?"个人实力榜(男)":"个人实力榜(女)"}} 
+                       {{active==1?"3分钟倒计时跳部门人气榜":active==2?"3分钟倒计时跳部门实力榜":active==3?"个人实力榜":"个人实力榜"}} 
                         <van-icon name="arrow-down" color="#333" size="16" />
                     </span>
                 </template>
@@ -34,10 +34,10 @@
             </van-nav-bar>
             <van-overlay :show="show" z-index=998 @click="show = false">
                 <div class="optionBox" @click.stop>
-                    <div class="optionItem " :class="active==1?'active':''" @click="changeRank(1)">3分钟倒计时跳部门人气榜</div>
+                    <!-- <div class="optionItem " :class="active==1?'active':''" @click="changeRank(1)">3分钟倒计时跳部门人气榜</div> -->
                     <div class="optionItem" :class="active==2?'active':''" @click="changeRank(2)">3分钟倒计时跳部门实力榜</div>
-                    <div class="optionItem" v-if="!visitor" :class="active==3?'active':''" @click="changeRank(3)">3分钟倒计时跳个人实力榜(男)</div>
-                    <div class="optionItem" v-if="!visitor" :class="active==4?'active':''" @click="changeRank(4)">3分钟倒计时跳个人实力榜(女)</div>
+                    <div class="optionItem" v-if="!visitor" :class="active==3?'active':''" @click="changeRank(3)">3分钟倒计时跳个人实力榜</div>
+                    <!-- <div class="optionItem" v-if="!visitor" :class="active==4?'active':''" @click="changeRank(4)">3分钟倒计时跳个人实力榜(女)</div> -->
                 </div>
             </van-overlay>
         </div>
@@ -172,12 +172,12 @@
             if (!this.isShare) {
                 this.openId = JSON.parse(localStorage.getItem("appInfo")).userId;
             } else {
-                this.active = 1;
+                this.active = 2;
                 this.openId = getQueryString("userId")
             }
 
             if (this.visitor) {
-                this.active = 1;
+                this.active = 2;
             }
 
             if (isWechat) { //说明是分享的页面
@@ -245,11 +245,6 @@
                         if (res.code == 0) {
                             that.finished = true;
                             that.list = res.data
-                            if (that.active == 3) {
-                                that.list = res.data.boy
-                            } else if (that.active == 4) {
-                                that.list = res.data.girl
-                            }
                             that.loading = false;
                         } else {
                             that.finished = true;
@@ -350,9 +345,9 @@
 
             share() {
                 Interaction.sharePage({
-                    "title": `${getQueryString("shareName")||localStorage.getItem("shareName")}在参加浦发银行长沙分行2022年春节云端跳绳比赛`,
-                    "description": "一分钟倒计时亲子双人跳排名",
-                    "url": host + `h5/h5V3/pufabankCamp/personalRanking.html?isShare=1&userId=${JSON.parse(localStorage.getItem("appInfo")).userId}&campId=${this.campId}&competitionId=${this.competitionId}&active=${this.active}`
+                    "title": `${getQueryString("shareName")||localStorage.getItem("shareName")}在参加郡优2022春节云端跳绳比赛`,
+                    "description": "爱生活爱健康",
+                    "url": host + `h5/h5V3/junyouCamp/personalRanking.html?isShare=1&userId=${JSON.parse(localStorage.getItem("appInfo")).userId}&campId=${this.campId}&competitionId=${this.competitionId}&active=${this.active}`
                 })
             }
 

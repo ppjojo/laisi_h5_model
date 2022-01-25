@@ -83,6 +83,8 @@
     </el-dialog>
 
     <el-dialog :title='"人员详情("+detailList.length+"人)"' :visible.sync="DetailVisible" width="70%" append-to-body>
+      <el-button type="primary" size="mini" @click.native="btn_addStu">新增人员
+      </el-button>
       <el-table :data="detailList" highlight-current-row style="width: 100%;">
         <el-table-column prop="id" label="ID"></el-table-column>
         <el-table-column prop="userId" label="用户ID"></el-table-column>
@@ -105,7 +107,7 @@
             </el-button>
             <el-button @click="btn_deleteTestData(scope.row)" type="text" v-if="dev=='test'" size="mini" style="color:#f78989;">删除测试环境的数据
             </el-button>
-            <el-popover placement="right" width="400" trigger="click">
+            <el-popover placement="right" width="500" trigger="click">
               <el-table :data="competitionList">
                 <el-table-column property="competitionId" label="ID"></el-table-column>
                 <el-table-column property="name" label="比赛名"></el-table-column>
@@ -113,7 +115,7 @@
                   <template scope="scope2">
                     <el-button @click="btn_searchStuDaily(scope2.row)" type="text" size="mini">该比赛数据详情
                     </el-button>
-                    <el-button @click="btn_statistics(scope2.row)" type="text" size="mini">重新统计该比赛数据
+                    <el-button @click="btn_statistics(scope2.row)" type="text" style="color:red" size="mini">重新统计该比赛数据
                     </el-button>
                   </template>
                 </el-table-column>
@@ -197,12 +199,12 @@
             </el-tag>
           </template>
         </el-table-column> -->
-        <!-- <el-table-column align="center" label="操作" width="120">
+        <el-table-column align="center" label="操作" width="120">
           <template scope="scope">
-            <el-button @click="dataRevert(scope.row)" type="text" size="mini">数据找回
+            <el-button @click="deleteSkipData(scope.row)" type="text" style="color:red;" size="mini">删除
             </el-button>
           </template>
-        </el-table-column> -->
+        </el-table-column>
 
       </el-table>
       <div slot="footer" class="dialog-footer">
@@ -216,21 +218,34 @@
         <el-form-item label="姓名" prop="name">
           <el-input v-model="stuForm.name"></el-input>
         </el-form-item>
+        <div>修改手机号后需要点击下方的‘修改手机号’按钮</div>
         <el-form-item label="手机号" prop="phoneNumber">
-          <el-input v-model="stuForm.phoneNumber"></el-input>
+          <el-input v-model="stuForm.phoneNumber" maxLength=11></el-input>
         </el-form-item>
-        <!-- <el-form-item label="头像">
-          <el-image style="width: 100px; height: 100px" :src=" stuForm.headPic" fit="fit">
-          </el-image>
-        </el-form-item> -->
-        <!-- <el-form-item label="昵称" prop="nickName">
-          <el-input v-model="stuForm.nickName" :disabled="true"></el-input>
-        </el-form-item> -->
+        <el-form-item label="学生号">
+          <el-input v-model="stuForm.studentCardId"></el-input>
+        </el-form-item>
+        <el-form-item label="年级">
+          <el-input v-model="stuForm.grade" placeholder="1年级"></el-input>
+        </el-form-item>
+        <el-form-item label="性别" prop="sex">
+          <el-radio-group v-model="stuForm.sex">
+            <el-radio class="radio" label="boy">男</el-radio>
+            <el-radio class="radio" label="girl">女</el-radio>
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item label="是否代表学校排名">
+          <el-radio-group v-model="stuForm.competitorFlag">
+            <el-radio class="radio" :label="0">不代表</el-radio>
+            <el-radio class="radio" :label="1">代表</el-radio>
+          </el-radio-group>
+        </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="stuVisible = false">取消
         </el-button>
         <el-button type="primary" size="mini" @click="submitStuForm('stuForm')">确 定</el-button>
+        <el-button type="primary" size="mini" v-if="stuflag=='edit'" @click="updatePhoneNumber('stuForm')">修改手机号码</el-button>
       </div>
     </el-dialog>
 
@@ -293,6 +308,7 @@ import {
   deleteItem,
   studentListItem,
   updateStuItem,
+  insertStuItem,
   searchStudent,
   studentDaily,
   dataRevert,
@@ -301,6 +317,8 @@ import {
   groupList,
   singleRankData,
   twinRankData,
+  goDeleteSkipData,
+  goUpdatePhoneNumber,
 } from "@/api/competitionActivity/jingan/jingan_school";
 
 import { queryByUserIdAndCampId as competitionListApi } from "@/api/competitionActivity/jingan/jingan_competition";
@@ -387,6 +405,7 @@ export default {
       groupList: [],
       groupVisible: false,
       groupDetailVisible: false,
+      stuflag: "",
     };
   },
   mounted() {
@@ -520,25 +539,69 @@ export default {
     },
     btn_editStu(row) {
       this.stuVisible = true;
+      this.stuflag = "edit";
       this.stuForm = Object.assign({}, row);
       this.stuForm.campId = this.campId;
+    },
+    btn_addStu(row) {
+      this.stuVisible = true;
+      this.stuflag = "add";
+      this.stuForm = {
+        campId: this.campId,
+        name: "",
+        phoneNumber: "",
+        schoolId: this.schoolId,
+        sex: "",
+      };
     },
     submitStuForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          updateStuItem(this.stuForm).then((response) => {
-            this.stuForm.id = this.stuForm.schoolId;
-            this.btn_view(this.stuForm);
-            this.$notify({
-              type: "success",
-              message: "成功修改" + this.stuForm.userName,
+          if (this.stuflag == "edit") {
+            updateStuItem(this.stuForm).then((response) => {
+              this.stuForm.id = this.stuForm.schoolId;
+              this.btn_view(this.stuForm);
+              this.$notify({
+                type: "success",
+                message: "成功修改" + this.stuForm.userName,
+              });
+              this.stuVisible = false;
             });
-            this.stuVisible = false;
-          });
+          } else {
+            if (this.stuForm.sex == "boy") {
+              this.stuForm.sex = "男";
+            } else {
+              this.stuForm.sex = "女";
+            }
+            insertStuItem(this.stuForm).then((response) => {
+              this.stuForm.id = this.stuForm.schoolId;
+              this.btn_view(this.stuForm);
+              this.$notify({
+                type: "success",
+                message: "成功新增",
+              });
+              this.stuVisible = false;
+            });
+          }
         } else {
           console.log("error submit!!");
           return false;
         }
+      });
+    },
+    updatePhoneNumber() {
+      goUpdatePhoneNumber({
+        phoneNumber: this.stuForm.phoneNumber,
+        target: this.stuForm.userId,
+        campId: this.campId,
+      }).then((response) => {
+        this.stuForm.id = this.stuForm.schoolId;
+        this.btn_view(this.stuForm);
+        this.$notify({
+          type: "success",
+          message: "成功修改",
+        });
+        this.stuVisible = false;
       });
     },
     //删除
@@ -652,6 +715,13 @@ export default {
           this.groupDetailVisible = true;
         });
       }
+    },
+    deleteSkipData(row) {
+      goDeleteSkipData({
+        skippingDateId: row.id,
+      }).then((res) => {
+        this.searchStuListVisible = false;
+      });
     },
   },
 };

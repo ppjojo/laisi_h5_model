@@ -16,7 +16,7 @@
         var vConsole = new VConsole();
     </script> -->
     <script src="../common/js/network.js"></script>
-    <title>浦发银行长沙分行云端跳绳比赛</title>
+    <title>郡优2022春节云端跳绳比赛</title>
     <style type="text/css">
         .gojump {
             width: 6.7rem;
@@ -330,7 +330,7 @@
                     maxBpmLimit: obj.maxBpmLimit, //bpm的限制
                     category: 9,
                     isAward: obj.isAward, //成绩上传之后是否有奖励
-                    htmlUrl: obj.modeValue == 180 ? 'pufabankCamp/personalRanking.html' : 'pufabankCamp/parentRanking.html',
+                    htmlUrl: obj.modeValue == 180 ? 'junyouCamp/personalRanking.html' : 'junyouCamp/parentRanking.html',
                 }
                 if (isIOS) {
                     window.webkit.messageHandlers.lstNative.postMessage(skipItem)
@@ -432,9 +432,9 @@
             },
             share() {
                 Interaction.sharePage({
-                    "title": `${getQueryString("shareName")||localStorage.getItem("shareName")}在参加浦发银行长沙分行2022年春节云端跳绳比赛`,
-                    "description": "快来给我投票啊",
-                    "url": host + `h5/h5V3/pufabankCamp/parentRanking.html?isShare=1&userId=${JSON.parse(localStorage.getItem("appInfo")).userId}&campId=${this.campId}&competitionId=${this.competitionId}`
+                    "title": `${getQueryString("shareName")||localStorage.getItem("shareName")}在参加郡优2022春节云端跳绳比赛`,
+                    "description": "爱生活爱健康",
+                    "url": host + `h5/h5V3/junyouCamp/parentRanking.html?isShare=1&userId=${JSON.parse(localStorage.getItem("appInfo")).userId}&campId=${this.campId}&competitionId=${this.competitionId}`
                 })
             },
             play(id) {

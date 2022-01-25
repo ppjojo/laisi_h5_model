@@ -68,6 +68,15 @@ export function updateStuItem(data) {
     })
 }
 
+export function insertStuItem(data) {
+    return request({
+        url: '/summerVlogSkippingPk/summerCamp/insertStudent',
+        method: 'post',
+        data,
+    })
+}
+
+
 export function searchStudent(params) {
     return request({
         url: '/summerVlogSkippingPk/summerCamp/searchStudent',
@@ -130,5 +139,21 @@ export function twinRankData(params) {
         url: '/summerVlogSkippingPk/competitorDailyStastic/getTwinRankData',
         method: 'get',
         params,
+    })
+}
+
+export function goDeleteSkipData(params) {
+    return request({
+        url: '/summerVlogSkippingPk/vlogSkippingDate/deleteOneUserDate',
+        method: 'get',
+        params,
+    })
+}
+
+export function goUpdatePhoneNumber(data) {
+    return request({
+        url: '/summerVlogSkippingPk/summerCamp/updatePhoneNumber',
+        method: 'post',
+        data,
     })
 }

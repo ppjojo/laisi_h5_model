@@ -17,11 +17,11 @@
     <script>
         var vConsole = new VConsole();
     </script> -->
-    <title>浦发银行长沙分行云端跳绳比赛</title>
+    <title>郡优2022春节云端跳绳比赛</title>
     <style type="text/css">
         body,
         .page {
-            background-color: #FCC9BD!important;
+            background-color: #5F8CFF!important;
         }
     </style>
 
@@ -30,7 +30,7 @@
 <body>
     <div id="app" class="page" v-cloak>
         <div class="header">
-            <van-nav-bar title="浦发银行湖南省分行云端跳绳比赛" @click-left="closeH5()" @click-right="share" safe-area-inset-top fixed>
+            <van-nav-bar title="郡优2022春节云端跳绳比赛" @click-left="closeH5()" @click-right="share" safe-area-inset-top fixed>
                 <template #left v-if="!isShare">
 						<span class="icon iconfont icon-fanhuianniu" style="font-size: 0.5rem;" ></span>
 					</template>
@@ -79,7 +79,7 @@
                             </div>
                             <div class="card ub-f1 card-school" @click="gonext(2)" style="padding-left: .3rem;">
                                 <div class="cardTitle">
-                                    支行排名
+                                    部门排名
                                 </div>
                                 <div class="ranking">
                                     {{person.schoolRank||"--"}}
@@ -440,7 +440,7 @@
                     maxBpmLimit: obj.maxBpmLimit, //bpm的限制
                     category: 9,
                     isAward: obj.isAward, //成绩上传之后是否有奖励
-                    htmlUrl: obj.modeValue == 180 ? 'pufabankCamp/personalRanking.html' : 'pufabankCamp/parentRanking.html',
+                    htmlUrl: obj.modeValue == 180 ? 'junyouCamp/personalRanking.html' : 'junyouCamp/parentRanking.html',
                 }
                 localStorage.setItem("shareName", this.person.studentSchoolInfo.name);
                 if (isIOS) {
@@ -454,7 +454,7 @@
                 if (type == 1) {
                     this.person.competitonInfos.forEach(item => {
                         if (item.modeValue == 180) {
-                            url = `personalRanking.html?competitionId=${item.competitionId}&fromH5=1&shareName=${this.person.studentSchoolInfo.name}&active=${this.person.studentSchoolInfo.sex=='boy'?3:4}`
+                            url = `personalRanking.html?competitionId=${item.competitionId}&fromH5=1&shareName=${this.person.studentSchoolInfo.name}&active=3}`
                         }
                     });
                     localStorage.setItem("shareName", this.person.studentSchoolInfo.name);
@@ -483,9 +483,9 @@
             },
             share() {
                 Interaction.sharePage({
-                    "title": `${this.person.studentSchoolInfo.schoolName}在参加浦发银行长沙分行2022年春节云端跳绳比赛`,
+                    "title": `${this.person.studentSchoolInfo.schoolName}在参加郡优2022春节云端跳绳比赛`,
                     "description": "爱生活爱健康",
-                    "url": host + `h5/h5V3/pufabankCamp/index.html?isShare=1&userId=${JSON.parse(localStorage.getItem("appInfo")).userId}&campId=${this.campId}`
+                    "url": host + `h5/h5V3/junyouCamp/index.html?isShare=1&userId=${JSON.parse(localStorage.getItem("appInfo")).userId}&campId=${this.campId}`
                 })
             },
             confirm() {
