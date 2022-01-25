@@ -41,7 +41,7 @@
                     <div class="ruleicon" @click="window.location.href='rule.html'">
                         活动规则
                     </div>
-                    <div v-if="!isShare&&!startDjs" class="gojump" @click="listShow = true">去跳绳 </span>
+                    <div v-if="!isShare&&!startDjs&&endDjs" class="gojump" @click="listShow = true">去跳绳 </span>
                     </div>
                     <div v-if="!isShare&&startDjs" class="gojump notStart">去跳绳 <span>{{startDjs}} </span></div>
                 </div>
@@ -97,9 +97,9 @@
                             </div>
                         </div>
                     </div>
-                    <div v-if="!startDjs&&endDjs">
+                    <div>
                         <div class="desc">*此成绩不作为最终成绩</div>
-                        <div class="desc">(距比赛结束还剩{{endDjs}})</div>
+                        <div class="desc" v-if="!startDjs&&endDjs">(距比赛结束还剩{{endDjs}})</div>
                     </div>
                 </div>
 

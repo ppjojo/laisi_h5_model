@@ -45,9 +45,9 @@
                     <div class="ruleicon" @click="window.location.href='rule.html'">
                         活动规则
                     </div>
-                    <div v-if="!isShare&&!startDjs" class="gojump" @click="listShow = true">去跳绳 </span>
+                    <div v-if="!isShare&&!startDjs&&endDjs" class="gojump" @click="listShow = true">去跳绳 </span>
                     </div>
-                    <div v-if="!isShare&&startDjs" class="gojump notStart" v-if="startDjs">去跳绳 <span v-if="startDjs">{{startDjs}} </span></div>
+                    <div v-if="!isShare&&startDjs" class="gojump notStart">去跳绳 <span>{{startDjs}} </span></div>
                 </div>
                 <div class="contain">
                     <div class="infobox">
@@ -162,9 +162,9 @@
 
                         </div>
                     </div>
-                    <div v-if="!startDjs&&endDjs">
+                    <div>
                         <div class="desc">*此成绩不作为最终成绩</div>
-                        <div class="desc">(距比赛结束还剩{{endDjs}})</div>
+                        <div class="desc" v-if="!startDjs&&endDjs">(距比赛结束还剩{{endDjs}})</div>
                     </div>
                 </div>
 
@@ -351,6 +351,8 @@
                                 this.competitionId = item.competitionId
                             }
                         });
+                        this.competitionId = this.threeComId
+                        this.active = 0
                         this.getSchoolrank()
 
 

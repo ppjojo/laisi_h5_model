@@ -5,7 +5,7 @@
 }
 
 body {
-  background-color: #FFE4D8;
+  background-color: #5F8CFF;
   font-size: 0.32rem;
 }
 
@@ -34,18 +34,18 @@ body {
 .van-tabs {
   margin-top: -0.7rem;
   border-radius: 10px;
-  background-color: #FFE4D8;
+  background-color: #5F8CFF;
   color: #999;
   text-align: center;
 }
 
 .van-tabs .van-tab {
-  color: #999;
+  color: #ddd;
 }
 
 .van-tabs .van-tabs__nav {
   border-radius: 10px;
-  background-color: #FFE4D8;
+  background-color: #5F8CFF;
 }
 
 .van-tabs .van-tabs__nav .van-tab__text--ellipsis {
@@ -53,7 +53,7 @@ body {
 }
 
 .van-tabs .van-tab--active {
-  color: #333;
+  color: #fff;
   font-weight: normal;
 }
 
@@ -118,8 +118,6 @@ body {
 }
 
 .listBoxContain .listBox .flowBox {
-  height: 7rem;
-  overflow-y: auto;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
 }
@@ -136,7 +134,7 @@ body {
       -ms-flex-pack: justify;
           justify-content: space-between;
   color: #999;
-  background-color: #FFF3F3;
+  background-color: #E5F2FB;
   text-align: center;
   height: 1.3rem;
   line-height: 0.4rem;
@@ -146,6 +144,10 @@ body {
 
 .listBoxContain .listBox .title .rank, .listBoxContain .listBox .item .rank {
   width: 20%;
+  font-size: 0.24rem;
+}
+
+.listBoxContain .listBox .title .schoolName, .listBoxContain .listBox .item .schoolName {
   font-size: 0.24rem;
 }
 
@@ -167,11 +169,11 @@ body {
 }
 
 .listBoxContain .listBox .item:nth-child(2n) {
-  background-color: #FFF3F3;
+  background-color: #E5F2FB;
 }
 
 .listBoxContain .listBox .item:nth-child(2n+1) {
-  background-color: #FFFAFA;
+  background-color: #fff;
 }
 
 .listBoxContain .listBox .item:last-child {
@@ -194,6 +196,7 @@ body {
 
 .listBoxContain .listBox .item .rank,
 .listBoxContain .listBox .item .desc,
+.listBoxContain .listBox .item .schoolName,
 .listBoxContain .listBox .item .count {
   font-size: 0.28rem;
 }

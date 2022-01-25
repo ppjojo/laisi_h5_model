@@ -150,10 +150,10 @@ export function goDeleteSkipData(params) {
     })
 }
 
-export function goUpdatePhoneNumber(data) {
+export function goUpdatePhoneNumber(params) {
     return request({
         url: '/summerVlogSkippingPk/summerCamp/updatePhoneNumber',
         method: 'post',
-        data,
+        params,
     })
 }
