@@ -246,9 +246,9 @@
                             that.finished = true;
                             that.list = res.data
                             if (that.active == 3) {
-                                that.list = res.data.boy
+                                that.list = res.data.boy || []
                             } else if (that.active == 4) {
-                                that.list = res.data.girl
+                                that.list = res.data.girl || []
                             }
                             that.loading = false;
                         } else {
