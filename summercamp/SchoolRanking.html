@@ -253,12 +253,13 @@
                 this.onLoad();
             },
             onLoad() {
-                // if (this.refreshing) {
-                //     this.refreshing = false;
-                //     this.pageNum = 1;
-                // } else {
-                //     this.pageNum++;
-                // }
+                if (this.refreshing) {
+                    this.refreshing = false;
+                    this.pageNum = 0;
+                    this.getRankData()
+                } else {
+                    this.pageNum++;
+                }
                 // this.getRankData()
             },
             //点赞学校

@@ -250,11 +250,12 @@
             onLoad() {
                 if (this.refreshing) {
                     this.refreshing = false;
-                    this.pageNum = 1;
+                    this.pageNum = 0;
+                    this.getRankData()
                 } else {
                     this.pageNum++;
                 }
-                this.getRankData()
+                // this.getRankData()
             },
             //点赞学校
             schoolAddPopularity(schoolId, index) {
