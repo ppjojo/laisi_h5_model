@@ -179,6 +179,7 @@
 </template>
 
 <script>
+import Pagination from "@/components/pagination";
 import {
   listItem,
   addItem,
@@ -197,6 +198,7 @@ export default {
   components: {
     SchoolList,
     Competition,
+    Pagination,
   },
   computed: {
     checkPer() {
@@ -405,14 +407,14 @@ export default {
     btn_redStatus(row) {
       this.dialogTitle = "新增";
       this.form = Object.assign({}, row);
-      this.getRedPacketStatus(row);
+      this.getRedPacketStatus();
     },
     getRedPacketStatus(row) {
       redPacketStatus(
         {
           pageNum: this.page,
           pageSize: this.limit,
-          campId: row.id,
+          campId: this.form.id,
         },
         {
           // "amount": 0,
