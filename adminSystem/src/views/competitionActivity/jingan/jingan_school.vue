@@ -184,11 +184,11 @@
         </el-table-column>
         <el-table-column prop="id" label="数据ID"></el-table-column>
         <el-table-column prop="userId" label="用户ID"></el-table-column>
-        <el-table-column prop="number" label="总个数"></el-table-column>
-        <el-table-column prop="avgNumber" label="平均数">
+        <el-table-column prop="number" label="总个数" sortable></el-table-column>
+        <el-table-column prop="avgNumber" label="平均数" sortable>
 
         </el-table-column>
-        <el-table-column prop="roundTimes" label="跳绳的次数"></el-table-column>
+        <el-table-column prop="roundTimes" label="跳绳的次数" sortable></el-table-column>
         <el-table-column prop="isChild" label="isChild"></el-table-column>
         <el-table-column prop="isStoryOk" label="isStoryOk"></el-table-column>
 
