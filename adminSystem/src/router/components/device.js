@@ -55,6 +55,17 @@ var device = {
             }
         },
         {
+            path: 'deviceAudio',
+            permission: 'device:deviceAudio',
+            hidden: true,
+            component: () =>
+                import ('@/views/device/deviceAudio'),
+            meta: {
+                title: '设备语音',
+                icon: 'device_productCategory'
+            }
+        },
+        {
             path: 'deviceSupportAppVersion',
             permission: 'device:deviceSupportAppVersion',
             hidden: true,
