@@ -113,7 +113,7 @@
                 <el-table-column property="name" label="比赛名"></el-table-column>
                 <el-table-column align="center" label="操作">
                   <template scope="scope2">
-                    <el-button @click="btn_searchStuDaily(scope2.row)" type="text" size="mini">该比赛数据详情
+                    <el-button @click="btn_searchStuDaily(scope2.row.competitionId)" type="text" size="mini">该比赛数据详情
                     </el-button>
                     <el-button @click="btn_statistics(scope2.row)" type="text" style="color:red" size="mini">重新统计该比赛数据
                     </el-button>
@@ -154,7 +154,7 @@
                 <el-table-column property="name" label="比赛名"></el-table-column>
                 <el-table-column align="center" label="操作">
                   <template scope="scope2">
-                    <el-button @click="btn_searchStuDaily(scope2.row)" type="text" size="mini">该比赛数据详情
+                    <el-button @click="btn_searchStuDaily(scope2.row.competitionId)" type="text" size="mini">该比赛数据详情
                     </el-button>
                   </template>
                 </el-table-column>
@@ -170,7 +170,11 @@
         </el-button>
       </div>
     </el-dialog>
+
     <el-dialog title='人员跳绳数据详情' :visible.sync="searchStuListVisible" width="70%" append-to-body>
+
+      <el-button type="primary" size="mini" @click="btn_add_loseData">添加丢失数据</el-button>
+
       <el-table :data="searchStuDailyList" highlight-current-row style="width: 100%;">
         <el-table-column label="上传日期">
           <template scope="scope">
@@ -186,19 +190,10 @@
         <el-table-column prop="userId" label="用户ID"></el-table-column>
         <el-table-column prop="number" label="总个数" sortable></el-table-column>
         <el-table-column prop="avgNumber" label="平均数" sortable>
-
         </el-table-column>
         <el-table-column prop="roundTimes" label="跳绳的次数" sortable></el-table-column>
         <el-table-column prop="isChild" label="isChild"></el-table-column>
         <el-table-column prop="isStoryOk" label="isStoryOk"></el-table-column>
-
-        <!-- <el-table-column prop="state" label="状态">
-          <template scope="scope">
-            <el-tag :type="scope.row.state | statusFilter" size="mini">
-              {{ scope.row.state==0?"正常":"作弊" }}
-            </el-tag>
-          </template>
-        </el-table-column> -->
         <el-table-column align="center" label="操作" width="120">
           <template scope="scope">
             <el-button @click="deleteSkipData(scope.row)" type="text" style="color:red;" size="mini">删除
@@ -295,6 +290,45 @@
       </div>
     </el-dialog>
 
+    <el-dialog title='添加丢失的数据' :visible.sync="addLoseDataVisible" width="70%" append-to-body>
+      <el-form :model="loseDataForm" label-width="100px" :rules="rules" ref="stuForm">
+        <el-form-item label="组织ID">
+          <el-input v-model="loseDataForm.campId"></el-input>
+        </el-form-item>
+        <el-form-item label="比赛ID">
+          <el-input v-model="loseDataForm.competitionId"></el-input>
+        </el-form-item>
+        <el-form-item label="userId">
+          <el-input v-model="loseDataForm.userId"></el-input>
+        </el-form-item>
+        <el-form-item label="跳绳个数">
+          <el-input v-model="loseDataForm.number"></el-input>
+        </el-form-item>
+        <el-form-item label="跳绳平均数">
+          <el-input v-model="loseDataForm.avgNumber"></el-input>
+        </el-form-item>
+        <el-form-item label="跳绳次数">
+          <el-input v-model="loseDataForm.roundTimes"></el-input>
+        </el-form-item>
+        <el-form-item label="isChild">
+          <el-input v-model="loseDataForm.isChild"></el-input>
+        </el-form-item>
+        <el-form-item label="数据日期">
+          <el-date-picker v-model="loseDataForm.timestamp" type="datetime" value-format="timestamp" placeholder="选择有效时间">
+          </el-date-picker>
+        </el-form-item>
+        <el-form-item label="上传日期">
+          <el-date-picker v-model="loseDataForm.dateTime" type="datetime" value-format="timestamp" placeholder="选择有效时间">
+          </el-date-picker>
+        </el-form-item>
+
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button type="primary" size="mini" @click="submitLoseData('loseDataForm')">确 定</el-button>
+        <el-button size="mini" @click="addLoseDataVisible=false">取消</el-button>
+      </div>
+    </el-dialog>
+
   </div>
 </template>
 
@@ -319,6 +353,7 @@ import {
   twinRankData,
   goDeleteSkipData,
   goUpdatePhoneNumber,
+  insertLoseData,
 } from "@/api/competitionActivity/jingan/jingan_school";
 
 import { queryByUserIdAndCampId as competitionListApi } from "@/api/competitionActivity/jingan/jingan_competition";
@@ -400,6 +435,9 @@ export default {
       searchList: [],
       searchStuListVisible: false,
       searchStuDailyList: [],
+      loseDataForm: {},
+      addLoseDataVisible: false,
+
       competitionList: [],
       dev: "",
       groupList: [],
@@ -460,9 +498,10 @@ export default {
         this.searchList = res.data;
       });
     },
-    btn_searchStuDaily(row) {
+    btn_searchStuDaily(competitionId) {
+      this.competitionId = competitionId;
       studentDaily({
-        competitionId: row.competitionId,
+        competitionId: competitionId,
         studentId: this.studentId,
         campId: this.campId,
       }).then((res) => {
@@ -470,6 +509,21 @@ export default {
         this.searchStuDailyList = res.data;
       });
     },
+    btn_add_loseData() {
+      this.loseDataForm = {
+        userId: this.studentId,
+        number: "",
+        avgNumber: "",
+        timestamp: "",
+        competitionId: this.competitionId,
+        roundTimes: "",
+        dateTime: "",
+        isChild: "",
+        campId: this.campId,
+      };
+      this.addLoseDataVisible = true;
+    },
+
     btn_statistics(row) {
       statistics({
         competitionId: row.competitionId,
@@ -602,6 +656,16 @@ export default {
           message: "成功修改",
         });
         this.stuVisible = false;
+      });
+    },
+    submitLoseData() {
+      insertLoseData(this.loseDataForm).then((response) => {
+        this.$notify({
+          type: "success",
+          message: "成功新增",
+        });
+        this.btn_searchStuDaily(this.loseDataForm.competitionId);
+        this.addLoseDataVisible = false;
       });
     },
     //删除

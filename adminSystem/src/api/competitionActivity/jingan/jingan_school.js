@@ -157,3 +157,12 @@ export function goUpdatePhoneNumber(params) {
         params,
     })
 }
+
+
+export function insertLoseData(data) {
+    return request({
+        url: '/summerVlogSkippingPk/summerCamp/insert/lost/skip/data',
+        method: 'post',
+        data,
+    })
+}
