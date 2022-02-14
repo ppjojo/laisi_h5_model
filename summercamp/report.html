@@ -10,6 +10,11 @@
     <link rel="stylesheet" href="./css/report.css">
     <link rel="stylesheet" href="./font/iconfont.css">
 </head>
+<style>
+    .personList .item .schoolName {
+        text-align: center!important;
+    }
+</style>
 
 <body>
     <div id="app" v-cloak>
@@ -252,7 +257,7 @@
                                     <div class="count">最佳汇总<br>(个数)</div>
                                 </div>
                                 <div>
-                                    <div class="item" v-for="item in list.threeMinFourGradeRank">
+                                    <div class="item" v-for="item in list.threeMinOneGradeRank">
                                         <div class="rank">{{item.rank||'--'}}</div>
                                         <div class="schoolName van-ellipsis">{{item.name||'--'}}</div>
                                         <div class="desc">{{item.threeMinSportDay||'--'}}</div>
