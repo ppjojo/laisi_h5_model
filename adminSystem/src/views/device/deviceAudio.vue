@@ -48,13 +48,13 @@
           <el-input v-model="form.audioName"></el-input>
         </el-form-item>
         <el-form-item label="预览语音" prop="devicePreviewAudio">
-          <el-input v-model.trim="form.devicePreviewAudio" :readonly=true></el-input>
+          <el-input v-model.trim="form.devicePreviewAudio"></el-input>
           <el-upload ref='upload' action="" :http-request="requestFile" :show-file-list="false">
             <el-button size="small" type="primary">点击上传</el-button>
           </el-upload>
         </el-form-item>
         <el-form-item label="完整语音" prop="deviceCompleteAudio">
-          <el-input v-model.trim="form.deviceCompleteAudio" :readonly=true></el-input>
+          <el-input v-model.trim="form.deviceCompleteAudio"></el-input>
           <el-upload ref='upload' action="" :http-request="requestFile2" :show-file-list="false">
             <el-button size="small" type="primary">点击上传</el-button>
           </el-upload>
