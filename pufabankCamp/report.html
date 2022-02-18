@@ -49,46 +49,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="listBox schoolTeam">
-                                <div class="infoTitle">亲子全勤榜</div>
-                                <div class="listDiv ">
-                                    <div class="title ">
-                                        <div class="rank">排名</div>
-                                        <div class="desc">昵称</div>
-                                        <div class="schoolName">支行</div>
-                                        <div class="count">打卡天数</div>
-                                    </div>
-                                    <div class="flowBox">
-                                        <div class="item" v-for="item in list.fullReward">
-                                            <div class="rank">{{item.rank||'--'}}</div>
-                                            <div class="desc van-ellipsis">{{item.name||'--'}}</div>
-                                            <div class="schoolName van-ellipsis">{{item.schoolName||'--'}}</div>
-                                            <div class="count">{{item.threeMinSportDay||'--'}}</div>
-                                        </div>
 
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="listBox schoolTeam">
-                                <div class="infoTitle">亲子勤奋榜</div>
-                                <div class="listDiv ">
-                                    <div class="title ">
-                                        <div class="rank">排名</div>
-                                        <div class="desc">昵称</div>
-                                        <div class="schoolName">支行</div>
-                                        <div class="count">打卡天数</div>
-                                    </div>
-                                    <div class="flowBox">
-                                        <div class="item" v-for="item in list.diligenceReward">
-                                            <div class="rank">{{item.rank||'--'}}</div>
-                                            <div class="desc van-ellipsis">{{item.name||'--'}}</div>
-                                            <div class="schoolName van-ellipsis">{{item.schoolName||'--'}}</div>
-                                            <div class="count">{{item.threeMinSportDay||'--'}}</div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </van-tab>
                     <van-tab title="个人榜单">
@@ -129,6 +90,46 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="listBox schoolTeam">
+                                <div class="infoTitle">个人全勤榜</div>
+                                <div class="listDiv ">
+                                    <div class="title ">
+                                        <div class="rank">排名</div>
+                                        <div class="desc">昵称</div>
+                                        <div class="schoolName">支行</div>
+                                        <div class="count">打卡天数</div>
+                                    </div>
+                                    <div class="flowBox">
+                                        <div class="item" v-for="item in list.fullReward">
+                                            <div class="rank">{{item.rank||'--'}}</div>
+                                            <div class="desc van-ellipsis">{{item.name||'--'}}</div>
+                                            <div class="schoolName van-ellipsis">{{item.schoolName||'--'}}</div>
+                                            <div class="count">{{item.threeMinSportDay||'--'}}</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="listBox schoolTeam">
+                                <div class="infoTitle">个人勤奋榜</div>
+                                <div class="listDiv ">
+                                    <div class="title ">
+                                        <div class="rank">排名</div>
+                                        <div class="desc">昵称</div>
+                                        <div class="schoolName">支行</div>
+                                        <div class="count">打卡天数</div>
+                                    </div>
+                                    <div class="flowBox">
+                                        <div class="item" v-for="item in list.diligenceReward">
+                                            <div class="rank">{{item.rank||'--'}}</div>
+                                            <div class="desc van-ellipsis">{{item.name||'--'}}</div>
+                                            <div class="schoolName van-ellipsis">{{item.schoolName||'--'}}</div>
+                                            <div class="count">{{item.threeMinSportDay||'--'}}</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </van-tab>
                     <van-tab title="团队榜单">
@@ -141,7 +142,7 @@
                                         <div class="desc">支行</div>
                                         <div class="count">平均个数</div>
                                     </div>
-                                    <div class="flowBox">
+                                    <div class="flowBox" style="height:3.5rem">
                                         <div class="item" v-for="item in list.departmentStrength">
                                             <div class="rank">{{item.rank||'--'}}</div>
                                             <div class="desc van-ellipsis">{{item.schoolName||'--'}}</div>
@@ -152,18 +153,18 @@
                                 </div>
                             </div>
                             <div class="listBox">
-                                <div class="infoTitle">团队人气榜</div>
+                                <div class="infoTitle">团队平均打卡天数榜</div>
                                 <div class="listDiv ">
                                     <div class="title ">
                                         <div class="rank">排名</div>
                                         <div class="desc">支行</div>
-                                        <div class="count">人气值</div>
+                                        <div class="count">平均打卡天数</div>
                                     </div>
-                                    <div class="flowBox">
+                                    <div class="flowBox" style="height:3.5rem">
                                         <div class="item" v-for="item in list.departmentPopularity">
                                             <div class="rank">{{item.rank||'--'}}</div>
                                             <div class="desc van-ellipsis">{{item.schoolName||'--'}}</div>
-                                            <div class="count van-ellipsis">{{item.totalCount||'--'}}</div>
+                                            <div class="count van-ellipsis">{{item.totalCount/100||'--'}}</div>
                                         </div>
 
                                     </div>

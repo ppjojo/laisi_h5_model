@@ -194,9 +194,11 @@
         <el-table-column prop="roundTimes" label="跳绳的次数" sortable></el-table-column>
         <el-table-column prop="isChild" label="isChild"></el-table-column>
         <el-table-column prop="isStoryOk" label="isStoryOk"></el-table-column>
-        <el-table-column align="center" label="操作" width="120">
+        <el-table-column align="center" label="操作" width="200">
           <template scope="scope">
-            <el-button @click="deleteSkipData(scope.row)" type="text" style="color:red;" size="mini">删除
+            <el-button @click="deleteSkipData(scope.row,1)" type="text" style="color:red;" size="mini">删除并且不统计打卡天数
+            </el-button>
+            <el-button @click="deleteSkipData(scope.row,2)" type="text" style="color:blue;" size="mini">删除数据不影响打卡天数
             </el-button>
           </template>
         </el-table-column>
@@ -780,9 +782,10 @@ export default {
         });
       }
     },
-    deleteSkipData(row) {
+    deleteSkipData(row, status) {
       goDeleteSkipData({
         skippingDateId: row.id,
+        deleteStatus: status,
       }).then((res) => {
         this.searchStuListVisible = false;
       });
